@@ -1,0 +1,31 @@
+[ui]
+username = Sean Farley <sean@mcs.anl.gov>
+ssh = ssh -C
+
+[diff]
+git = True
+
+[extensions]
+hgext.graphlog = 
+hgext.extdiff =
+hgext.bookmarks =
+hgext.mq =
+hgext.rebase =
+hgext.convert =
+hgext.hgk =
+#svn = /Users/sean/projects/sandbox/hgsubversion/hgsubversion
+hggit = 
+hgshelve = 
+
+[extdiff]
+cmd.vdiff =  fmdiff
+
+[merge-patterns]
+** = filemerge
+
+[merge-tools]
+filemerge.executable = fmdiff3
+filemerge.args = -m $local $base $other > $output
+filemerge.checkconflicts = true
+filemerge.checkchanged = true
+filemerge.gui = true
