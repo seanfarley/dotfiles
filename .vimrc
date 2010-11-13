@@ -1,6 +1,8 @@
 syntax on
-set tabstop=2
 set expandtab
+set shiftwidth=2
+set softtabstop=2
+set smartindent
 
 " NERDTree filters
 let NERDTreeIgnore=['\.vim$', '\~$', 'tags', 'CTAGS', 'ETAGS', 'TAGS', '\.d', '\.o']
@@ -89,3 +91,4 @@ inoremap <s-tab> <c-r>=CompleteTab("backward")<cr>
 
 " Custom commands to open projects
 :command BOUT cd ~/projects/bout/bout++-dev
+:command PETSC cd ~/projects/petsc/petsc-dev

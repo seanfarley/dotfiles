@@ -49,3 +49,4 @@ known_hosts
 .sqlite_history
 .syncdocs
 .viminfo
+.Trash
