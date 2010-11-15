@@ -3,6 +3,7 @@ set expandtab
 set shiftwidth=2
 set softtabstop=2
 set smartindent
+set foldmethod=syntax
 
 " NERDTree filters
 let NERDTreeIgnore=['\.vim$', '\~$', 'tags', 'CTAGS', 'ETAGS', 'TAGS', '\.d', '\.o']
@@ -10,6 +11,7 @@ let g:fuf_file_exclude = '\v\~$|\.(o|d|exe|dll|bak|swp)$|(^|[/\\])\.(hg|git|bzr)
 
 " build tags of your own project with Ctrl-F12
 map <leader>b :<C-u>!ctags -R --sort=yes --c++-kinds=+plx --fields=+iaS --extra=+q .<CR><CR>
+map z<Space> za
 
 " OmniCppComplete
 let OmniCpp_NamespaceSearch = 2
@@ -43,6 +45,7 @@ set ignorecase
 filetype plugin on
 
 let NERDCommentWholeLinesInVMode=1
+let NERDSpaceDelims=1
 
 map <leader>f :<C-u>FufFile **/<CR>
 map <leader>t :<C-u>FufTag<CR>

@@ -50,3 +50,4 @@ known_hosts
 .syncdocs
 .viminfo
 .Trash
+.serverauth*
