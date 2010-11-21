@@ -1,12 +1,22 @@
 export EDITOR=vi
+export PROJECTS=$HOME/projects
+export FACETS=$PROJECTS/facets
+export RESEARCH=$PROJECTS/research
+
+##
+# PETSc commands
+##
+
+alias pd="echo \$PETSC_DIR"
+alias pdset="export PETSC_DIR=\$PWD"
+alias pa="echo \$PETSC_ARCH"
+
+export PETSC_DIR=$PROJECTS/petsc/petsc-3.1
+export PETSC_ARCH=darwin10.5.0-cxx-debug
 
 ##
 # Directory shortcuts
 ##
-
-export PROJECTS=$HOME/projects
-export FACETS=$PROJECTS/facets
-export RESEARCH=$PROJECTS/research
 
 alias semester="cd ~/Documents/Class/2009\ Spring"
 alias projects="cd \$PROJECTS"
@@ -21,6 +31,9 @@ alias gonzo="cd \$PROJECTS/gonzo"
 alias proposals="cd \$PROJECTS/proposals"
 alias hpc="cd /opt/hpc"
 alias petsc="cd \$PROJECTS/petsc"
+alias petsc-3.1="export PETSC_DIR=\$PROJECTS/petsc/petsc-3.1;export PETSC_ARCH=$PETSC_ARCH"
+alias petsc-dev="export PETSC_DIR=\$PROJECTS/petsc/petsc-dev;export PETSC_ARCH=$PETSC_ARCH"
+alias petsc-port="export PETSC_DIR=/opt/local;export PETSC_ARCH="
 alias facets="cd \$FACETS"
 alias research="cd \$RESEARCH"
 alias mp="cd /opt/local/var/macports-local"
@@ -49,15 +62,3 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 if [ -f /opt/local/etc/bash_completion ]; then
         . /opt/local/etc/bash_completion
 fi
-
-##
-# PETSc commands
-##
-
-alias pd="echo \$PETSC_DIR"
-alias pdset="export PETSC_DIR=\$PWD"
-alias pa="echo \$PETSC_ARCH"
-
-#export PETSC_DIR=$PROJECTS/petsc/petsc-dev
-export PETSC_DIR=/opt/local
-#export PETSC_ARCH=darwin10.3.0-cxx

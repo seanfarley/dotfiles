@@ -4,10 +4,11 @@ set shiftwidth=2
 set softtabstop=2
 set smartindent
 set foldmethod=syntax
+"set ignorecase
 
 " NERDTree filters
 let NERDTreeIgnore=['\.vim$', '\~$', 'tags', 'CTAGS', 'ETAGS', 'TAGS', '\.d', '\.o']
-let g:fuf_file_exclude = '\v\~$|\.(o|d|exe|dll|bak|swp)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
+let g:fuf_file_exclude = '\v\~$|tags|[C|E]TAGS|\.(o|d|exe|dll|bak|swp)$|.*\.dSYM($|[/\\])|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
 
 " build tags of your own project with Ctrl-F12
 map <leader>b :<C-u>!ctags -R --sort=yes --c++-kinds=+plx --fields=+iaS --extra=+q .<CR><CR>
@@ -34,8 +35,7 @@ set completeopt=menuone,menu,longest,preview
 " configure tags - add additional tags here or comment out not-used ones
 set tags+=~/.vim/tags/cpp
 "set tags+=$HOME/projects/petsc/petsc-dev/CTAGS
-set tags+=$HOME/projects/petsc/petsc-dev/tags
-set ignorecase
+set tags+=$HOME/projects/petsc/petsc-3.1/tags
 
 " Auto-save when focus is lost
 :au FocusLost * :wa
