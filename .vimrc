@@ -7,33 +7,16 @@ set foldmethod=syntax
 "set ignorecase
 
 " NERDTree filters
-let NERDTreeIgnore=['\.vim$', '\~$', 'tags', 'CTAGS', 'ETAGS', 'TAGS', '\.d', '\.o']
-let g:fuf_file_exclude = '\v\~$|tags|[C|E]TAGS|\.(o|d|exe|dll|bak|swp)$|.*\.dSYM($|[/\\])|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
+let NERDTreeIgnore=['\.vim$', '\~$', 'tags', 'CTAGS', 'ETAGS', 'TAGS', '\.d', '\.o', '\.gz', '\.out', '\.eps', '\.pdf', '\.vrb', '\.nav', '\.snm', '\.gnuplot', '\.toc', '\.table', '\.aux', '\.pdfsync']
+let g:fuf_file_exclude = '\v\~$|tags|[C|E]TAGS|\.(o|d|exe|dll|bak|swp|table|toc|gnuplot|snm|nav|vrb|pdf|eps|out|gz|jpg|png|svg|aux|pdfsync)$|.*\.dSYM($|[/\\])|(^|[/\\])\.(hg|git|bzr|builds)($|[/\\])'
 
-" build tags of your own project with Ctrl-F12
-map <leader>b :<C-u>!ctags -R --sort=yes --c++-kinds=+plx --fields=+iaS --extra=+q .<CR><CR>
 map z<Space> za
-
-" OmniCppComplete
-let OmniCpp_NamespaceSearch = 2
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-let OmniCpp_SelectFirstItem = 2 " select first item (but don't insert)
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-
-" Make gccsense use the omni complete
-" let g:gccsenseUseOmniFunc = 1
 
 " automatically open and close the popup menu / preview window
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest,preview
 
 " configure tags - add additional tags here or comment out not-used ones
-set tags+=~/.vim/tags/cpp
 "set tags+=$HOME/projects/petsc/petsc-dev/CTAGS
 set tags+=$HOME/projects/petsc/petsc-3.1/tags
 
@@ -49,49 +32,21 @@ let NERDSpaceDelims=1
 
 map <leader>f :<C-u>FufFile **/<CR>
 map <leader>t :<C-u>FufTag<CR>
+map <leader>b :<C-u>FufBufferTag<CR>
+map <leader>B :<C-u>FufBuffer<CR>
+map <leader>q :<C-u>FufQuickfix<CR>
 
 " LaTeX support for ctags
 let tlist_tex_settings = 'latex;l:labels;s:sections;t:subsections;u:subsubsections'
 
 if has('macunix')
-	let Tex_DefaultTargetFormat = 'pdf'
-	let Tex_ViewRuleComplete_pdf = 'open $*.pdf'	
-	let TreatMacViewerAsUNIX = 1
+        let g:Tex_ViewRule_pdf = 'Skim'
+        let g:Tex_CompileRule_pdf = 'pdflatex -shell-escape -synctex=1 --interaction=nonstopmode $*'
 endif
 
-" Smart VS-type <tab-completion>
-function! CompleteTab(direction)
-  let prec = strpart( getline('.'), 0, col('.')-1 )
-  if prec =~ '^\s*$'
-    if "backward" == a:direction
-      return "\<bs>"
-    else
-      return "\<tab>"
-    endif
-  endif
-
-  if exists('&omnifunc') && &omnifunc == 'omni#cpp#complete#Main' && prec =~ '[\.>]\s*[~]\?[a-zA-Z_]*[(]\?$'
-    " Class completion... use normal direction
-    " Use this with omniCompletion
-    if "backward" == a:direction
-      return "\<c-p>"
-    else
-      return "\<c-n>"
-    endif
-  endif
-
-  " else use generic completion: last-seen / reverse-order
-  if "backward" == a:direction
-    return "\<c-n>"
-  else
-    return "\<c-p>"
-  endif
-endfunction
-
 set nocp " non vi compatible mode
-inoremap <tab> <c-r>=CompleteTab("forward")<cr>
-inoremap <s-tab> <c-r>=CompleteTab("backward")<cr>
 
 " Custom commands to open projects
 :command BOUT cd ~/projects/bout/bout++-dev
 :command PETSC cd ~/projects/petsc/petsc-dev
+:command TALKS cd ~/projects/talks

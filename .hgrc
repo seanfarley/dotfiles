@@ -18,7 +18,8 @@ hggit =
 hgshelve = 
 
 [extdiff]
-cmd.vdiff =  fmdiff
+cmd.vdiff = fmdiff
+#cmd.kdiff3 = kdiff3
 
 [merge-patterns]
 ** = filemerge
@@ -29,3 +30,10 @@ filemerge.args = -m $local $base $other > $output
 filemerge.checkconflicts = true
 filemerge.checkchanged = true
 filemerge.gui = true
+#kdiff3.args = $base $local $other -o $output
+#p4.priority = 60
+#p4.premerge = True
+#p4.executable = /Applications/p4merge.app/Contents/MacOS/p4merge
+#p4.gui = True
+#p4.args = $base $local $other $output
+#p4.binary = False
