@@ -104,8 +104,10 @@ map z<Space> za
 " --------------------
 "  Nice colorscheme
 " --------------------
-colorscheme jellybeans
-colors jellybeans
+" colorscheme jellybeans
+" colors jellybeans
+colorscheme xoria256
+colors xoria256
 
 " --------------------
 " LaTeX support for ctags
