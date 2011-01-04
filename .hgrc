@@ -37,3 +37,5 @@ filemerge.gui = true
 #p4.gui = True
 #p4.args = $base $local $other $output
 #p4.binary = False
+
+# %include .hgrc.local

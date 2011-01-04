@@ -1,5 +1,6 @@
 syntax:glob
 
+local
 projects
 Library
 Pictures
@@ -51,3 +52,14 @@ known_hosts
 .viminfo
 .Trash
 .serverauth*
+backup*
+.mozilla
+.soft*
+.history
+.gconf*
+.elink*
+.hgrc.local
+.cache*
+.dbus*
+.esd*
+.vim_mru_files

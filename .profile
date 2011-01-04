@@ -2,6 +2,7 @@ export EDITOR=vi
 export PROJECTS=$HOME/projects
 export FACETS=$PROJECTS/facets
 export RESEARCH=$PROJECTS/research
+export PYTHONPATH=$HOME/local/lib/python2.6
 
 ##
 # PETSc commands
@@ -57,7 +58,7 @@ alias ssh-siam="ssh -p 10721 siam-local"
 #export PATH=$PROJECTS/sandbox/pdt-bin/apple/bin:$PROJECTS/sandbox/tau-bin/apple/bin:$PATH
 
 # MacPorts Installer addition on 2009-09-12_at_17:33:52: adding an appropriate PATH variable for use with MacPorts.
-export PATH=$HOME/bin:/opt/local/bin:/opt/local/sbin:$PATH
+export PATH=$HOME/local/bin:/opt/local/bin:/opt/local/sbin:$PATH
 
 if [ -f /opt/local/etc/bash_completion ]; then
         . /opt/local/etc/bash_completion
