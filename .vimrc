@@ -114,6 +114,7 @@ colors xoria256
 " --------------------
 let tlist_tex_settings = 'latex;l:labels;s:sections;t:subsections;u:subsubsections'
 let g:tex_flavor = 'latex'
+let g:Tex_MultipleCompileFormats='pdf'
 set grepprg=grep\ -nH\ $*
 map <C-k> <Plug>IMAP_JumpBack
 imap <C-k> <Plug>IMAP_JumpBack
