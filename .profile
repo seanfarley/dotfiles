@@ -48,7 +48,7 @@ alias ssh-lsu="ssh -q -C -N -D 9999 julia.math.lsu.edu"
 alias ssh-iit="ssh -q -C -N -D 9999 laplace.math.iit.edu -L10723:karlin.math.iit.edu:22"
 alias ssh-petsc="ssh -p 10722 petsc-local"
 alias ssh-karlin="ssh -p 10723 karlin-local"
-alias ssh-siam="ssh -p 10721 siam-local"
+alias ssh-ubuntu="ssh -p 10724 ubuntu-local"
 
 
 ##
