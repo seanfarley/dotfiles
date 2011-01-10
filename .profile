@@ -63,3 +63,6 @@ export PATH=$HOME/local/bin:/opt/local/bin:/opt/local/sbin:$PATH
 if [ -f /opt/local/etc/bash_completion ]; then
         . /opt/local/etc/bash_completion
 fi
+if [ -f $HOME/local/etc/bash_completion ]; then
+        . $HOME/local/etc/bash_completion
+fi
