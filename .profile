@@ -37,6 +37,8 @@ alias petsc-port="export PETSC_DIR=/opt/local;export PETSC_ARCH="
 alias facets="cd \$FACETS"
 alias research="cd \$RESEARCH"
 alias facets-env="export PETSC_DIR=; export PETSC_ARCH=; source \$PROJECTS/facets/contrib/facetspkgs.sh; source \$PROJECTS/facets/internal/facetsall.sh"
+alias facets-activate="sudo port activate gfortran @4.5.0_0; sudo port activate mpich2 @1.3.1_0+hydra; sudo port deactivate py26-netcdf netcdf hdf5-18 py26-matplotlib py26-tables py26-scientific py26-scipy py26-numpy fftw fftw-3"
+alias facets-deactivate="sudo port activate hdf5-18 @1.8.5-patch1_0+cxx+mpich2; sudo port activate netcdf @4.1.1_0+mpich2+netcdf4; sudo port activate fftw @2.1.5_2+gfortran; sudo port activate fftw-3 @3.2.2_0+i386; sudo port activate py26-numpy @1.5.1_1; sudo port activate py26-scipy @0.8.0_0+no_atlas; sudo port activate py26-scientific @2.8_2; sudo port activate py26-matplotlib @1.0.0_0+gtk2+qt4; sudo port activate py26-tables @2.2.1_0; sudo port activate py26-netcdf @0.9.3_0"
 
 ##
 # SSH tunnels

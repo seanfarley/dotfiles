@@ -27,6 +27,8 @@ source ~/.vim/vimrc/vimrc_miscellaneous
 " This source imports all of my plugin settings and bindings.
 source ~/.vim/vimrc/vimrc_mapping_and_plugins
 
+set noswapfile
+
 "---------------------------------------------------------------------
 "				spell checking
 "---------------------------------------------------------------------
