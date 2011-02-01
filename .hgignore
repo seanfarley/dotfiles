@@ -17,7 +17,7 @@ Movies
 .wireshark*
 .subversion
 .macports
-.texlive2009
+.texlive*
 .gem
 .font*
 .dropbox
@@ -63,3 +63,5 @@ backup*
 .dbus*
 .esd*
 .vim_mru_files
+.matlab
+.mplayer

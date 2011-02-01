@@ -31,8 +31,8 @@ alias gonzo="cd \$PROJECTS/gonzo"
 alias proposals="cd \$PROJECTS/proposals"
 alias hpc="cd /opt/hpc"
 alias petsc="cd \$PROJECTS/petsc"
-alias petsc-3.1="export PETSC_DIR=\$PROJECTS/petsc/petsc-3.1;export PETSC_ARCH=\$PETSC_ARCH"
-alias petsc-dev="export PETSC_DIR=\$PROJECTS/petsc/petsc-dev;export PETSC_ARCH=\$PETSC_ARCH"
+alias petsc-3.1="export PETSC_DIR=\$PROJECTS/petsc/petsc-3.1;export PETSC_ARCH=darwin10.5.0-cxx-debug"
+alias petsc-dev="export PETSC_DIR=\$PROJECTS/petsc/petsc-dev;export PETSC_ARCH=darwin10.5.0-cxx-debug"
 alias petsc-port="export PETSC_DIR=/opt/local;export PETSC_ARCH="
 alias facets="cd \$FACETS"
 alias research="cd \$RESEARCH"
@@ -50,6 +50,7 @@ alias ssh-iit="ssh -q -C -N -D 9999 laplace.math.iit.edu -L10723:karlin.math.iit
 alias ssh-petsc="ssh -p 10722 petsc-local"
 alias ssh-karlin="ssh -p 10723 karlin-local"
 alias ssh-ubuntu="ssh -p 10724 ubuntu-local"
+alias ssh-snowleopard="ssh -p 10725 snowleopard-local"
 
 
 ##
