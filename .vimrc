@@ -49,18 +49,6 @@ set noswapfile
 " wget http://ftp.vim.org/pub/vim/runtime/spell/fr.utf-8.spl
 " which you may move into ~/.vim/spell
 "-------------------------------------
-function s:spell_fr()
-    if !exists("s:spell_check") || s:spell_check == 0
-        echo "Spell checking activated (french)"
-        let s:spell_check = 1
-        setlocal spell spelllang=fr
-    else
-        echo "Spell checking canceled"
-        let s:spell_check = 0
-        setlocal spell spelllang=
-    endif
-endfunction
-" for English
 function s:spell_en()
     if !exists("s:spell_check") || s:spell_check == 0
         echo "Spell checking activated (english)"
@@ -84,6 +72,13 @@ vnoremap <F12>  :call <SID>spell_en()<CR>
 " uncomment if you want to use it, type ",C" if you want to enable it,
 " and replace aspell by any other dictionary you use (ispell, hunspell)
 " map ,C :w<CR>:!aspell -c %<CR>:e %<CR>"
+
+",v brings up my .vimrc
+",V reloads it -- making all changes active (have to save first)
+
+map <leader>v :sp ~/.vimrc<CR><C-W>_
+map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+
 
 " --------------------------
 " Set the tab width and softtabstop
@@ -112,7 +107,7 @@ colorscheme xoria256
 colors xoria256
 
 " --------------------
-" LaTeX support for ctags
+" LaTeX settings
 " --------------------
 let tlist_tex_settings = 'latex;l:labels;s:sections;t:subsections;u:subsubsections'
 let g:tex_flavor = 'latex'
@@ -128,10 +123,11 @@ map <C-l> <F5>
 imap <C-l> <F5>
 map ]s :/\\\(sub\)\{,2}section\s*{ :noh
 map [s  \\\(sub\)\{,2}section\s*{ :noh
+let g:Tex_FoldedEnvironments = 'solution,subproblem,problem'
 
 if has('macunix')
         let g:Tex_ViewRule_pdf = 'Skim'
-        let g:Tex_CompileRule_pdf = 'xelatex -shell-escape -synctex=1 --interaction=nonstopmode $*'
+        let g:Tex_CompileRule_pdf = 'xelatex -shell-escape --synctex=1 --interaction=nonstopmode $*'
 endif
 
 " --------------------

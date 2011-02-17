@@ -11,9 +11,11 @@ export PYTHONPATH=$HOME/local/lib/python2.6/site-packages:$HOME/local/lib/python
 alias pd="echo \$PETSC_DIR"
 alias pdset="export PETSC_DIR=\$PWD"
 alias pa="echo \$PETSC_ARCH"
+alias pa-sieve="export PETSC_ARCH=darwin10.6.0-sieve-debug"
+alias pa-cxx="export PETSC_ARCH=darwin10.6.0-cxx-debug"
 
 export PETSC_DIR=$PROJECTS/petsc/petsc-3.1
-export PETSC_ARCH=darwin10.5.0-cxx-debug
+export PETSC_ARCH=darwin10.6.0-cxx-debug
 
 ##
 # Directory shortcuts
@@ -31,8 +33,8 @@ alias gonzo="cd \$PROJECTS/gonzo"
 alias proposals="cd \$PROJECTS/proposals"
 alias hpc="cd /opt/hpc"
 alias petsc="cd \$PROJECTS/petsc"
-alias petsc-3.1="export PETSC_DIR=\$PROJECTS/petsc/petsc-3.1;export PETSC_ARCH=darwin10.5.0-cxx-debug"
-alias petsc-dev="export PETSC_DIR=\$PROJECTS/petsc/petsc-dev;export PETSC_ARCH=darwin10.5.0-cxx-debug"
+alias petsc-3.1="export PETSC_DIR=\$PROJECTS/petsc/petsc-3.1;export PETSC_ARCH=darwin10.6.0-cxx-debug"
+alias petsc-dev="export PETSC_DIR=\$PROJECTS/petsc/petsc-dev;export PETSC_ARCH=darwin10.6.0-cxx-debug"
 alias petsc-port="export PETSC_DIR=/opt/local;export PETSC_ARCH="
 alias facets="cd \$FACETS"
 alias research="cd \$RESEARCH"
