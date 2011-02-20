@@ -13,7 +13,7 @@ hgext.mq =
 hgext.rebase =
 hgext.convert =
 hgext.hgk =
-#svn = /Users/sean/projects/sandbox/hgsubversion/hgsubversion
+hgsubversion = 
 hggit = 
 hgshelve = 
 
