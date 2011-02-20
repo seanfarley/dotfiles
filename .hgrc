@@ -13,9 +13,9 @@ hgext.mq =
 hgext.rebase =
 hgext.convert =
 hgext.hgk =
-hgsubversion = 
 hggit = 
 hgshelve = 
+hgsubversion = 
 
 [extdiff]
 cmd.vdiff = fmdiff
