@@ -73,12 +73,20 @@ vnoremap <F12>  :call <SID>spell_en()<CR>
 " and replace aspell by any other dictionary you use (ispell, hunspell)
 " map ,C :w<CR>:!aspell -c %<CR>:e %<CR>"
 
+"--------------------------
+" A sweet shortcut for editting vimrc
+"--------------------------
 ",v brings up my .vimrc
 ",V reloads it -- making all changes active (have to save first)
 
 map <leader>v :sp ~/.vimrc<CR><C-W>_
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
+" --------------------------
+"  Mercurial Settings
+" --------------------------
+let HGCommandAnnotateParent=1
+map <leader>hgfm :<C-u>!hg vdiff
 
 " --------------------------
 " Set the tab width and softtabstop
