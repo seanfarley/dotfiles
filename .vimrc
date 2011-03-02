@@ -85,8 +85,30 @@ map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimr
 " --------------------------
 "  Mercurial Settings
 " --------------------------
-let HGCommandAnnotateParent=1
-map <leader>hgfm :<C-u>!hg vdiff
+nmap <Leader>hga <Plug>VCSAdd
+nmap <Leader>hgn <Plug>VCSAnnotate
+nmap <Leader>hgN <Plug>VCSAnnotate!
+nmap <Leader>hgc <Plug>VCSCommit
+nmap <Leader>hgD <Plug>VCSDelete
+" nmap <Leader>hgd <Plug>VCSDiff
+nmap <Leader>hgg <Plug>VCSGotoOriginal
+nmap <Leader>hgG <Plug>VCSGotoOriginal!
+nmap <Leader>hgi <Plug>VCSInfo
+nmap <Leader>hgl <Plug>VCSLog
+nmap <Leader>hgL <Plug>VCSLock
+nmap <Leader>hgr <Plug>VCSReview
+nmap <Leader>hgs <Plug>VCSStatus
+nmap <Leader>hgu <Plug>VCSUpdate
+nmap <Leader>hgU <Plug>VCSUnlock
+" nmap <Leader>hgv <Plug>VCSVimDiff
+nmap <Leader>hgd <Plug>VCSVimDiff
+nmap <Leader>hgv :<C-u>!hg vdiff
+
+
+" --------------------------
+"  Clang settings
+" --------------------------
+let g:clang_exec="/opt/local/bin/clang"
 
 " --------------------------
 " Set the tab width and softtabstop

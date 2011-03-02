@@ -65,3 +65,4 @@ backup*
 .vim_mru_files
 .matlab
 .mplayer
+.slocdata
