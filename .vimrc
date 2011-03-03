@@ -102,7 +102,7 @@ nmap <Leader>hgu <Plug>VCSUpdate
 nmap <Leader>hgU <Plug>VCSUnlock
 " nmap <Leader>hgv <Plug>VCSVimDiff
 nmap <Leader>hgd <Plug>VCSVimDiff
-nmap <Leader>hgv :<C-u>!hg vdiff
+nmap <Leader>hgv :<C-u>!hg vdiff<CR>
 
 
 " --------------------------
