@@ -108,7 +108,7 @@ nmap <Leader>hgv :<C-u>!hg vdiff<CR>
 " --------------------------
 "  Clang settings
 " --------------------------
-let g:clang_exec="/opt/local/bin/clang"
+" let g:clang_exec="/opt/local/bin/clang"
 
 " --------------------------
 " Set the tab width and softtabstop
@@ -165,8 +165,8 @@ endif
 " Note: to get ctags highlighting to work, must edit
 " ctags_highlighting.vim
 " --------------------
-"set tags+=$HOME/projects/petsc/petsc-dev/CTAGS
-set tags+=$HOME/projects/petsc/petsc-3.1/tags
+set tags+=$HOME/projects/petsc/petsc-dev/CTAGS
+" set tags+=$HOME/projects/petsc/petsc-3.1/tags
 
 " --------------------
 " Auto-save when focus is lost
@@ -200,3 +200,4 @@ set nocp " non vi compatible mode
 :command BOUT cd ~/projects/bout/bout++-dev
 :command PETSC cd ~/projects/petsc/petsc-dev
 :command TALKS cd ~/projects/talks
+:command SP cd ~/projects/scienceports

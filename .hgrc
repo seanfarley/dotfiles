@@ -5,6 +5,10 @@ ssh = ssh -C
 [diff]
 git = True
 
+[defaults]
+# update working directory after adding changesets
+pull = -u
+
 [extensions]
 hgext.graphlog = 
 hgext.extdiff =

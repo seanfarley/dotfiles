@@ -5,14 +5,14 @@ set findmergefiles 0
 set gaudydiff 0
 set maxgraphpct 50
 set maxwidth 16
-set geometry(width) 802
-set geometry(height) 592
-set geometry(canv1) 392
-set geometry(canv2) 272
-set geometry(canv3) 107
-set geometry(canvh) 286
-set geometry(ctextw) 152
-set geometry(cflistw) -2
+set geometry(width) 1231
+set geometry(height) 746
+set geometry(canv1) 617
+set geometry(canv2) 389
+set geometry(canv3) 194
+set geometry(canvh) 298
+set geometry(ctextw) 197
+set geometry(cflistw) 23
 #
 # authorcolors format:
 #
