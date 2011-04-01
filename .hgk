@@ -7,10 +7,10 @@ set maxgraphpct 50
 set maxwidth 16
 set geometry(width) 1231
 set geometry(height) 746
-set geometry(canv1) 617
-set geometry(canv2) 389
-set geometry(canv3) 194
-set geometry(canvh) 298
+set geometry(canv1) 625
+set geometry(canv2) 397
+set geometry(canv3) 178
+set geometry(canvh) 306
 set geometry(ctextw) 197
 set geometry(cflistw) 23
 #
