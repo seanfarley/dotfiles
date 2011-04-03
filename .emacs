@@ -49,11 +49,15 @@
 ; Load auto-complete-clang
 (add-to-list 'load-path "~/.emacs.d/plugins/auto-complete-clang-dc923a379b76d8089b26")
 (require 'auto-complete-clang)
-(setq clang-completion-suppress-error 't)
+; (setq clang-completion-suppress-error 't)
+(setq compilation-environment process-environment)
+(add-to-list 'clang-completion-flags "-I/opt/local/include")
+(add-to-list 'clang-completion-flags (concat "-I" (getenv "PETSC_DIR") "/include"))
+(add-to-list 'clang-completion-flags (concat "-I" (getenv "PETSC_DIR") "/" (getenv "PETSC_ARCH") "/include"))
 
 (defun my-c-mode-common-hook()
-  (setq ac-auto-start nil)
-  (setq ac-expand-on-auto-complete nil)
+  ; (setq ac-auto-start nil)
+  ; (setq ac-expand-on-auto-complete nil)
   (setq ac-quick-help-delay 0.3)
   (define-key c-mode-base-map (kbd "M-/") 'ac-complete-clang)
 )
