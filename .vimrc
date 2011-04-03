@@ -109,7 +109,9 @@ nmap <Leader>hgv :<C-u>!hg vdiff<CR>
 "  Clang settings
 " --------------------------
 " let g:clang_exec="/opt/local/bin/clang"
-" let g:clang_use_library=1
+let g:clang_use_library=1
+let g:clang_library_path='/Developer/usr/clang-ide/lib'
+let g:clang_snippets=1
 let g:clang_user_options = '-I/opt/local/include -I$PETSC_DIR/include -I$PETSC_DIR/$PETSC_ARCH/include'
 
 " --------------------------
