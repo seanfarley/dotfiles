@@ -5,6 +5,10 @@
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/themes")
 (add-to-list 'load-path "~/.emacs.d/plugins")
+(add-to-list 'load-path "~/.emacs.d/auto-install")
+
+; Load auto-install
+(require 'auto-install)
 
 ; Set whitespace on
 (require 'whitespace)
@@ -63,3 +67,6 @@
 )
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+
+; Load icicles
+(require 'icicles)
