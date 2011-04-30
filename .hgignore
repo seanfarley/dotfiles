@@ -66,3 +66,4 @@ backup*
 .matlab
 .mplayer
 .slocdata
+.lldb-history

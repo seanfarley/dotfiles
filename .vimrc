@@ -18,6 +18,9 @@
 "      REVISION:   2010年 10月  9日 土曜日 01:35:48 CEST
 "=======================================================================
 
+" Use pathogen to easily modify the runtime path to include all
+" plugins under the ~/.vim/bundle directory
+
 " This source imports all of my general settings. Indent, hilight, etc.
 source ~/.vim/vimrc/vimrc_general
 
@@ -27,29 +30,34 @@ source ~/.vim/vimrc/vimrc_miscellaneous
 " This source imports all of my plugin settings and bindings.
 source ~/.vim/vimrc/vimrc_mapping_and_plugins
 
+" My own personal settings
+call pathogen#helptags()
+call pathogen#runtime_append_all_bundles()
+
+set nobackup
 set noswapfile
 
-"---------------------------------------------------------------------
-"				spell checking
-"---------------------------------------------------------------------
-"to enable spell checking by default, uncomment the following line,
-"set spell
-" automatic spell checking in your language for .txt et .tex. Replace "fr" by your default
-" language, "en" if english :
+nnoremap ; :
+nnoremap j gj
+nnoremap k gk
 
-"augroup filetypedetect
-  "au BufNewFile,BufRead *.txt setlocal spell spelllang=fr
-  "au BufNewFile,BufRead *.tex setlocal spell spelllang=fr
-"augroup END
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
 
-"------------------------------------
-" painless spell checking
-" for French, you'll need
-" wget http://ftp.vim.org/pub/vim/runtime/spell/fr.utf-8.sug
-" wget http://ftp.vim.org/pub/vim/runtime/spell/fr.utf-8.spl
-" which you may move into ~/.vim/spell
-"-------------------------------------
-function s:spell_en()
+" Clears the search highlight
+nmap <silent> <leader>/ :nohlsearch<CR>
+
+" Use Q for formatting the current paragraph (or selection)
+vmap Q gq
+nmap Q gqap
+
+"---------------------------------------------------------------------
+"                        spell checking
+"---------------------------------------------------------------------
+function! s:spell_en()
     if !exists("s:spell_check") || s:spell_check == 0
         echo "Spell checking activated (english)"
         let s:spell_check = 1
@@ -67,20 +75,6 @@ endfunction
 noremap  <F12>  :call <SID>spell_en()<CR>
 inoremap <F12>  :call <SID>spell_en()<CR>
 vnoremap <F12>  :call <SID>spell_en()<CR>
-
-"--------Another trick for spell checking is the following line :
-" uncomment if you want to use it, type ",C" if you want to enable it,
-" and replace aspell by any other dictionary you use (ispell, hunspell)
-" map ,C :w<CR>:!aspell -c %<CR>:e %<CR>"
-
-"--------------------------
-" A sweet shortcut for editting vimrc
-"--------------------------
-",v brings up my .vimrc
-",V reloads it -- making all changes active (have to save first)
-
-map <leader>v :sp ~/.vimrc<CR><C-W>_
-map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
 " --------------------------
 "  Mercurial Settings
@@ -201,7 +195,7 @@ set nocp " non vi compatible mode
 " --------------------
 " Custom commands to open projects
 " --------------------
-:command BOUT cd ~/projects/bout/bout++-dev
-:command PETSC cd ~/projects/petsc/petsc-dev
-:command TALKS cd ~/projects/talks
-:command SP cd ~/projects/scienceports
+silent! :command BOUT cd ~/projects/bout/bout++-dev
+silent! :command PETSC cd ~/projects/petsc/petsc-dev
+silent! :command TALKS cd ~/projects/talks
+silent! :command SP cd ~/projects/scienceports

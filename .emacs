@@ -7,6 +7,10 @@
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/auto-install")
 
+; Add modifier keys for M-x
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key "\C-c\C-m" 'execute-extended-command)
+
 ; Load auto-install
 (require 'auto-install)
 
@@ -70,3 +74,5 @@
 
 ; Load icicles
 (require 'icicles)
+(require 'fuzzy-match)
+(require 'el-swank-fuzzy)
