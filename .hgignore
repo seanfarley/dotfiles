@@ -67,3 +67,6 @@ backup*
 .mplayer
 .slocdata
 .lldb-history
+.pip*
+.netrwh*
+.network_*
