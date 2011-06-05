@@ -70,3 +70,5 @@ backup*
 .pip*
 .netrwh*
 .network_*
+*.dmg
+*.xsession*
