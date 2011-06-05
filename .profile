@@ -3,6 +3,7 @@ export PROJECTS=$HOME/projects
 export FACETS=$PROJECTS/facets
 export RESEARCH=$PROJECTS/research
 export PYTHONPATH=$HOME/local/lib/python2.6/site-packages:$HOME/local/lib/python2.6
+export HGRCPATH=$HOME/.hgrc
 
 ##
 # PETSc commands
