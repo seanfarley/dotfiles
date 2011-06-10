@@ -12,11 +12,14 @@ export HGRCPATH=$HOME/.hgrc
 alias pd="echo \$PETSC_DIR"
 alias pdset="export PETSC_DIR=\$PWD"
 alias pa="echo \$PETSC_ARCH"
-alias pa-sieve="export PETSC_ARCH=darwin10.7.0-sieve-debug"
-alias pa-cxx="export PETSC_ARCH=darwin10.7.0-cxx-debug"
+alias pa-sieve="export PETSC_ARCH=arch-sieve"
+alias pa-cxx="export PETSC_ARCH=arch-cxx"
+alias pa-c="export PETSC_ARCH=arch-c"
+alias pa-fast-c="export PETSC_ARCH=arch-fast-c"
+alias pa-matlab="export PETSC_ARCH=arch-matlab"
 
 export PETSC_DIR=$PROJECTS/petsc/petsc-dev
-export PETSC_ARCH=darwin10.7.0-cxx-debug
+export PETSC_ARCH=arch-c
 
 ##
 # Directory shortcuts
