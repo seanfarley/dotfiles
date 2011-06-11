@@ -18,6 +18,9 @@ alias pa-c="export PETSC_ARCH=arch-c"
 alias pa-fast-c="export PETSC_ARCH=arch-fast-c"
 alias pa-matlab="export PETSC_ARCH=arch-matlab"
 
+# Needed for arch-matlab
+export DYLD_FALLBACK_LIBRARY_PATH=/Applications/MATLAB_R2011a.app/bin/maci64:/Applications/MATLAB_R2011a.app/sys/os/maci64
+
 export PETSC_DIR=$PROJECTS/petsc/petsc-dev
 export PETSC_ARCH=arch-c
 
