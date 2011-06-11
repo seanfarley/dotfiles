@@ -59,6 +59,7 @@ backup*
 .gconf*
 .elink*
 .hgrc.local
+.hgk
 .cache*
 .dbus*
 .esd*
