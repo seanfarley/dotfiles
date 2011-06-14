@@ -17,9 +17,10 @@ hgext.mq =
 hgext.rebase =
 hgext.convert =
 hgext.hgk =
+hgext.record = 
 hggit = 
-hgshelve = 
 hgsubversion = 
+hgattic = 
 
 [extdiff]
 cmd.vdiff = fmdiff
