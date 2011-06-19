@@ -64,7 +64,6 @@ alias ipython="ipython-2.6 -noconfirm_exit -nobanner"
 #export TAU_MAKEFILE=$PROJECTS/sandbox/tau-bin/apple/lib/Makefile.tau-mpi-pdt
 #export PATH=$PROJECTS/sandbox/pdt-bin/apple/bin:$PROJECTS/sandbox/tau-bin/apple/bin:$PATH
 
-# MacPorts Installer addition on 2009-09-12_at_17:33:52: adding an appropriate PATH variable for use with MacPorts.
 export PATH=$HOME/local/bin:/opt/local/bin:/opt/local/sbin:$PATH
 
 if [ -f /opt/local/etc/bash_completion ]; then
