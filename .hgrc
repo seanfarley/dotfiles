@@ -19,7 +19,6 @@ hgext.convert =
 hgext.hgk =
 hgext.record = 
 hggit = 
-hgsubversion = 
 hgattic = 
 
 [extdiff]
