@@ -195,7 +195,7 @@ set nocp " non vi compatible mode
 " --------------------
 " Custom commands to open projects
 " --------------------
-silent! :command BOUT cd ~/projects/bout/bout++-dev
+silent! :command BOUT cd ~/projects/bout/bout-dev
 silent! :command PETSC cd ~/projects/petsc/petsc-dev
 silent! :command TALKS cd ~/projects/talks
 silent! :command SP cd ~/projects/scienceports
