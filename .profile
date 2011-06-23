@@ -15,6 +15,7 @@ alias pa="echo \$PETSC_ARCH"
 alias pa-sieve="export PETSC_ARCH=arch-sieve"
 alias pa-cxx="export PETSC_ARCH=arch-cxx"
 alias pa-c="export PETSC_ARCH=arch-c"
+alias pa-complex="export PETSC_ARCH=arch-c-complex"
 alias pa-fast-c="export PETSC_ARCH=arch-fast-c"
 alias pa-matlab="export PETSC_ARCH=arch-matlab"
 
