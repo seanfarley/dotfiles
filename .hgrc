@@ -25,8 +25,5 @@ hgattic =
 cmd.vdiff = fmdiff
 cmd.kdiff3 = kdiff3
 
-[merge-patterns]
-** = filemerge
-
 [merge-tools]
 kdiff3.args = $base $local $other -o $output
