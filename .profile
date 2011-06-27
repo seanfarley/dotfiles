@@ -56,7 +56,7 @@ alias facets-deactivate="sudo port activate hdf5-18 @1.8.6_0+cxx+mpich2; sudo po
 
 alias ssh-anl="ssh -q -C -N -D 9999 login.mcs.anl.gov -L10722:petsc.mcs.anl.gov:22 -L3389:kronosts.it.anl.gov:3389" 
 alias ssh-iit="ssh -q -C -N -D 9999 laplace.math.iit.edu -L10723:karlin.math.iit.edu:22"
-alias ipython="ipython-2.6 -noconfirm_exit -nobanner"
+alias ipython="ipython-2.7 -noconfirm_exit -nobanner"
 
 
 ##
