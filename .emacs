@@ -76,3 +76,7 @@
 (require 'icicles)
 (require 'fuzzy-match)
 (require 'el-swank-fuzzy)
+
+; Load gtags
+(add-to-list 'load-path "/opt/local/share/gtags/")
+(require 'gtags)
