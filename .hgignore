@@ -74,3 +74,5 @@ backup*
 *.dmg
 *.xsession*
 .kdiff3rc
+.bash_xfile
+.gdl
