@@ -18,6 +18,11 @@ alias pa-c="export PETSC_ARCH=arch-c"
 alias pa-complex="export PETSC_ARCH=arch-c-complex"
 alias pa-fast-c="export PETSC_ARCH=arch-fast-c"
 alias pa-matlab="export PETSC_ARCH=arch-matlab"
+alias pa-cuda="export PETSC_ARCH=arch-cuda"
+alias ts="cd \$PETSC_DIR/src/ts/examples/tutorials"
+alias snes="cd \$PETSC_DIR/src/snes/examples/tutorials"
+alias ksp="cd \$PETSC_DIR/src/ksp/ksp/examples/tutorials"
+alias vec="cd \$PETSC_DIR/src/vec/vec/examples/tutorials"
 
 # Needed for arch-matlab
 export DYLD_FALLBACK_LIBRARY_PATH=/Applications/MATLAB_R2011a.app/bin/maci64:/Applications/MATLAB_R2011a.app/sys/os/maci64
