@@ -10,15 +10,15 @@ git = True
 pull = -u
 
 [extensions]
-hgext.graphlog = 
-hgext.extdiff =
-hgext.bookmarks =
-hgext.mq =
-hgext.rebase =
-hgext.convert =
-hgext.hgk =
-hgext.record = 
-hggit = 
+graphlog =
+extdiff =
+bookmarks =
+mq =
+rebase =
+convert =
+hgk =
+record =
+hggit =
 
 [extdiff]
 cmd.vdiff = fmdiff
