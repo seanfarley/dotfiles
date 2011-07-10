@@ -76,3 +76,4 @@ backup*
 .kdiff3rc
 .bash_xfile
 .gdl
+.instant
