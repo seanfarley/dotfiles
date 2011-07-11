@@ -6,6 +6,15 @@ export PYTHONPATH=$HOME/local/lib/python2.6/site-packages:$HOME/local/lib/python
 export HGRCPATH=$HOME/.hgrc
 
 ##
+# Helpful shortcuts
+##
+
+shopt -s globstar
+alias gdr="gdb -ex r --args"
+alias g="grep"
+alias e="echo"
+
+##
 # PETSc commands
 ##
 
