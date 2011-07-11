@@ -42,10 +42,10 @@ nnoremap j gj
 nnoremap k gk
 
 " Easy window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+" map <C-h> <C-w>h
+" map <C-j> <C-w>j
+" map <C-k> <C-w>k
+" map <C-l> <C-w>l
 
 " Clears the search highlight
 nmap <silent> <leader>/ :nohlsearch<CR>
@@ -99,21 +99,42 @@ nmap <Leader>hgd <Plug>VCSVimDiff
 nmap <Leader>hgv :<C-u>!hg vdiff<CR>
 
 
-" --------------------------
+" ---------------------
 "  Clang settings
-" --------------------------
+" ---------------------
 " let g:clang_exec="/opt/local/bin/clang"
 let g:clang_use_library=1
 let g:clang_library_path='/Developer/usr/clang-ide/lib'
 let g:clang_snippets=1
 let g:clang_user_options = '-I/opt/local/include -I$PETSC_DIR/include -I$PETSC_DIR/$PETSC_ARCH/include'
 
-" --------------------------
+" ---------------------
 " Set the tab width and softtabstop
-" --------------------------
+" ---------------------
 set expandtab
 set shiftwidth=2
 set softtabstop=2
+
+" --------------------
+" Keyboard shortcuts for buffers
+" ---------------------
+map <C-h> :<C-u>bp<CR>
+map <C-l> :<C-u>bn<CR>
+map <C-j> :<C-u>cclose<CR>
+map <C-k> :<C-u>copen<CR>
+
+map <C-n> :<C-u>cn<CR>
+map <C-p> :<C-u>cp<CR>
+
+" --------------------
+" Keyboard shortcuts for Gtags
+" ---------------------
+map <C-]> :GtagsCursor<CR>
+
+" Open the Gtags output window.  Set this variable to zero, to not open
+" the Gtags output window by default.  You can open it manually by using
+" the :cwindow command.
+let Gtags_OpenQuickfixWindow = 0
 
 " ---------------------
 " Ignore file filters
@@ -141,14 +162,15 @@ let tlist_tex_settings = 'latex;l:labels;s:sections;t:subsections;u:subsubsectio
 let g:tex_flavor = 'latex'
 let g:Tex_MultipleCompileFormats='pdf'
 set grepprg=grep\ -nH\ $*
-map <C-k> <Plug>IMAP_JumpBack
-imap <C-k> <Plug>IMAP_JumpBack
-map <C-L> <Plug>Tex_LeftRight
-imap <C-L> <Plug>Tex_LeftRight
-map <C-i> <Plug>Tex_InsertItemOnThisLine.
-imap <C-i> <Plug>Tex_InsertItemOnThisLine.
-map <C-l> <F5>
-imap <C-l> <F5>
+" Commenting these out because I can't get them to work right
+" map <C-k> <Plug>IMAP_JumpBack
+" imap <C-k> <Plug>IMAP_JumpBack
+" map <C-L> <Plug>Tex_LeftRight
+" imap <C-L> <Plug>Tex_LeftRight
+" map <C-i> <Plug>Tex_InsertItemOnThisLine.
+" imap <C-i> <Plug>Tex_InsertItemOnThisLine.
+" map <C-l> <F5>
+" imap <C-l> <F5>
 map ]s :/\\\(sub\)\{,2}section\s*{ :noh
 map [s  \\\(sub\)\{,2}section\s*{ :noh
 let g:Tex_FoldedEnvironments = 'solution,subproblem,problem'
