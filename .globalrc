@@ -1,2 +1,2 @@
 default:\
-	:skip=sandbox/,petsc-3.1/,lsmsa/,class/:
+	:skip=sandbox/,petsc-3.1/,lsmsa/,class/,aperture/:
