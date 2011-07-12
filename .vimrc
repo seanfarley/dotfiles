@@ -122,6 +122,7 @@ map <C-h> :<C-u>bp<CR>
 map <C-l> :<C-u>bn<CR>
 map <C-j> :<C-u>cclose<CR>
 map <C-k> :<C-u>copen<CR>
+map <leader>d :<C-u>bd<CR>
 
 map <C-n> :<C-u>cn<CR>
 map <C-p> :<C-u>cp<CR>
