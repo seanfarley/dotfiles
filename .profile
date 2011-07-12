@@ -87,3 +87,6 @@ fi
 if [ -f $HOME/local/etc/bash_completion ]; then
         . $HOME/local/etc/bash_completion
 fi
+if [ -d /usr/local/cuda ]; then
+        export PATH=/usr/local/cuda/bin:$PATH
+fi
