@@ -10,7 +10,8 @@ export HGRCPATH=$HOME/.hgrc
 ##
 
 shopt -s globstar
-alias gdr="gdb -ex r --args"
+alias gda="gdb --args"
+alias make_db="make RM=echo"
 alias g="grep"
 alias e="echo"
 
