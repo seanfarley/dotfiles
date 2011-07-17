@@ -131,6 +131,9 @@ map <C-p> :<C-u>cp<CR>
 " Keyboard shortcuts for Gtags
 " ---------------------
 map <C-]> :GtagsCursor<CR>
+map <leader>g :Gtags 
+map <leader>gf :Gtags -P 
+map <leader>\ :Gtags -r 
 
 " Open the Gtags output window.  Set this variable to zero, to not open
 " the Gtags output window by default.  You can open it manually by using
