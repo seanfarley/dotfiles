@@ -19,6 +19,10 @@ convert =
 hgk =
 record =
 hggit =
+hgattic =
+
+[hgattic]
+trymerge = false
 
 [extdiff]
 cmd.vdiff = fmdiff
