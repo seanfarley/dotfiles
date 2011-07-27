@@ -12,6 +12,7 @@ export HGRCPATH=$HOME/.hgrc
 shopt -s globstar
 alias gda="gdb --args"
 alias make_db="make RM=echo"
+alias make_petsc="make -j4 -C \$PETSC_DIR/\$PETSC_ARCH"
 alias g="grep"
 alias e="echo"
 
