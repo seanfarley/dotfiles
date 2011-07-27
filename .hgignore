@@ -77,3 +77,8 @@ backup*
 .bash_xfile
 .gdl
 .instant
+.idl
+.flex*
+.mpd*
+nohup.out
+.kde
