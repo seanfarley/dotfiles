@@ -132,7 +132,7 @@ map <C-p> :<C-u>cp<CR>
 " ---------------------
 map <C-]> :GtagsCursor<CR>
 map <leader>g :Gtags 
-map <leader>gf :Gtags -P 
+map <leader>p :Gtags -P 
 map <leader>\ :Gtags -r 
 
 " Open the Gtags output window.  Set this variable to zero, to not open
