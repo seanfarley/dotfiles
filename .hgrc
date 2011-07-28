@@ -9,6 +9,9 @@ git = True
 # update working directory after adding changesets
 pull = -u
 
+[pager]
+pager = LESS='FSRX' less
+
 [extensions]
 graphlog =
 extdiff =
@@ -18,6 +21,7 @@ rebase =
 convert =
 hgk =
 record =
+pager =
 hggit =
 hgattic =
 
