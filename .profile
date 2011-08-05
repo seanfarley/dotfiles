@@ -35,6 +35,10 @@ alias pa-matlab="export PETSC_ARCH=arch-matlab"
 alias pa-cuda="export PETSC_ARCH=arch-cuda"
 alias pa-intel="export PETSC_ARCH=arch-intel"
 alias pa-pgi="export PETSC_ARCH=arch-pgi"
+alias pa-opt="export PETSC_ARCH=arch-linux2-c-gcc-opt"
+alias pa-debug="export PETSC_ARCH=arch-linux2-c-gcc-debug"
+alias pa-opt-intel="export PETSC_ARCH=arch-linux2-c-intel-opt"
+alias pa-debug-intel="export PETSC_ARCH=arch-linux2-c-intel-debug"
 alias ts="cd \$PETSC_DIR/src/ts/examples/tutorials"
 alias snes="cd \$PETSC_DIR/src/snes/examples/tutorials"
 alias ksp="cd \$PETSC_DIR/src/ksp/ksp/examples/tutorials"
@@ -101,4 +105,8 @@ if [ -f $HOME/.bashrc ]; then
 fi
 if [ -d /usr/local/cuda ]; then
         export PATH=/usr/local/cuda/bin:$PATH
+fi
+if [ -d /share/apps/petsc-dev ]; then
+        export PETSC_DIR=/share/apps/petsc-dev
+        export PETSC_ARCH=arch-linux2-c-gcc-debug
 fi
