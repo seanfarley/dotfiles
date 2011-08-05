@@ -83,3 +83,11 @@ backup*
 nohup.out
 .kde
 .gstreamer*
+.felix
+.mpi-selector
+.smpd
+.loghist
+.bashrc
+.bash_logout
+.forward
+data
