@@ -9,7 +9,10 @@ export HGRCPATH=$HOME/.hgrc
 # Helpful shortcuts
 ##
 
-shopt -s globstar
+if [[ BASH_VERSINFO -ge 4 ]]; then
+  shopt -s globstar
+fi
+
 alias gda="gdb --args"
 alias make_db="make RM=echo"
 alias make_petsc="make -j4 -C \$PETSC_DIR/\$PETSC_ARCH"
@@ -92,6 +95,9 @@ if [ -f /opt/local/etc/bash_completion ]; then
 fi
 if [ -f $HOME/local/etc/bash_completion ]; then
         . $HOME/local/etc/bash_completion
+fi
+if [ -f $HOME/.bashrc ]; then
+        . $HOME/.bashrc
 fi
 if [ -d /usr/local/cuda ]; then
         export PATH=/usr/local/cuda/bin:$PATH
