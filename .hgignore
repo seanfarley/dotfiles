@@ -27,7 +27,7 @@ Movies
 .matplot*
 .mysql*
 .config
-id_rsa
+id_rsa*
 known_hosts
 .DS_Store
 .CFUserTextEncoding
