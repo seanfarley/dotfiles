@@ -91,3 +91,4 @@ nohup.out
 .bash_logout
 .forward
 data
+.cmake
