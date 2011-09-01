@@ -181,7 +181,7 @@ let g:Tex_FoldedEnvironments = 'solution,subproblem,problem'
 
 if has('macunix')
         let g:Tex_ViewRule_pdf = 'Skim'
-        let g:Tex_CompileRule_pdf = 'xelatex -shell-escape --synctex=1 --interaction=nonstopmode $*'
+        let g:Tex_CompileRule_pdf = 'pdflatex -shell-escape -synctex=1 --interaction=nonstopmode $*'
 endif
 
 " --------------------
