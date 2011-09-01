@@ -74,6 +74,7 @@ alias petsc-dev="export PETSC_DIR=\$PROJECTS/petsc/petsc-dev;export PETSC_ARCH=d
 alias petsc-port="export PETSC_DIR=/opt/local;export PETSC_ARCH="
 alias facets="cd \$FACETS"
 alias research="cd \$RESEARCH"
+alias dg="cd \$RESEARCH/localdg"
 alias facets-env="export PETSC_DIR=; export PETSC_ARCH=; source \$FACETS/software/facetsall.sh"
 alias facets-activate="sudo port activate gfortran @4.5.0_0; sudo port activate mpich2 @1.3.2p1_0+hydra; sudo port deactivate netcdf hdf5-18 fftw fftw-3"
 alias facets-deactivate="sudo port activate hdf5-18 @1.8.6_0+cxx+mpich2; sudo port activate netcdf @4.1.1_0+mpich2+netcdf4; sudo port activate fftw @2.1.5_2+gfortran; sudo port activate fftw-3 @3.2.2_0+i386"
