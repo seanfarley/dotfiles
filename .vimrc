@@ -144,7 +144,7 @@ let Gtags_OpenQuickfixWindow = 0
 " Ignore file filters
 " --------------------
 let NERDTreeIgnore=['\.vim$', '\~$', 'tags', 'CTAGS', 'ETAGS', 'TAGS', '\.d', '\.o', '\.gz', '\.out', '\.eps', '\.pdf', '\.vrb', '\.nav', '\.snm', '\.gnuplot', '\.toc', '\.table', '\.aux', '\.pdfsync']
-let g:fuf_file_exclude = '\v\~$|tags|[C|E]TAGS|TAGS|\.(o|d|exe|dll|bak|swp|table|toc|gnuplot|snm|nav|vrb|pdf|eps|out|gz|jpg|png|svg|aux|pdfsync)$|.*\.dSYM($|[/\\])|(^|[/\\])\.(hg|git|bzr|builds)($|[/\\])|arch-.*$|RDict\..*$'
+let g:fuf_file_exclude = '\v\~$|tags|[C|E]TAGS|ex[1-9]+$|TAGS|\.(o|d|exe|dll|bak|swp|table|toc|gnuplot|snm|nav|vrb|pdf|eps|out|gz|jpg|png|svg|aux|pdfsync)$|.*\.dSYM($|[/\\])|(^|[/\\])\.(hg|git|bzr|builds)($|[/\\])|arch-.*$|RDict\..*$'
 
 " --------------------
 " Map z+<Space> to toggle a fold
