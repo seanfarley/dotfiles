@@ -2,7 +2,6 @@ export EDITOR=vi
 export PROJECTS=$HOME/projects
 export FACETS=$PROJECTS/facets
 export RESEARCH=$PROJECTS/research
-export PYTHONPATH=$HOME/local/lib/python2.6/site-packages:$HOME/local/lib/python2.6
 export HGRCPATH=$HOME/.hgrc
 
 ##
@@ -111,4 +110,10 @@ fi
 if [ -d /share/apps/petsc-dev ]; then
         export PETSC_DIR=/share/apps/petsc-dev
         export PETSC_ARCH=arch-linux2-c-gcc-debug
+fi
+if [ -d $HOME/local/lib/python2.6 ]; then
+  export PYTHONPATH=$HOME/local/lib/python2.6/site-packages:$HOME/local/lib/python2.6
+fi
+if [ -d $HOME/local/lib/python2.7 ]; then
+  export PYTHONPATH=$HOME/local/lib/python2.7/site-packages:$HOME/local/lib/python2.7
 fi
