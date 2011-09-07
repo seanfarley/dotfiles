@@ -80,3 +80,4 @@
 ; Load gtags
 (add-to-list 'load-path "/opt/local/share/gtags/")
 (require 'gtags)
+(require 'tex-site)
