@@ -92,3 +92,9 @@ nohup.out
 .forward
 data
 .cmake
+*.karlin.math.iit.edu
+*.bz2
+*.gz
+*.xv
+hosts
+arch-*
