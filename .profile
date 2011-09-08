@@ -3,6 +3,7 @@ export PROJECTS=$HOME/projects
 export FACETS=$PROJECTS/facets
 export RESEARCH=$PROJECTS/research
 export HGRCPATH=$HOME/.hgrc
+export PS1="\u@\h:\W$ "
 
 ##
 # Helpful shortcuts
