@@ -128,3 +128,23 @@ fi
 if [ -d $HOME/local/lib/python2.7 ]; then
   export PYTHONPATH=$HOME/local/lib/python2.7/site-packages:$HOME/local/lib/python2.7
 fi
+
+##
+# colored highlighting is awesome
+##
+
+if [ "$TERM" != "dumb" ];then
+  if [ -x /opt/local/bin/gdircolors ]; then
+    eval "`gdircolors -b ~/.dir_colors`"
+  elif [ -x `which dircolors` ]; then
+    eval "`dircolors -b ~/.dir_colors`"
+  fi
+
+  alias ls='ls --color=auto'
+  alias dir='ls --color=auto --format=vertical'
+  alias vdir='ls --color=auto --format=long'
+
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
+fi
