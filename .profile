@@ -47,8 +47,6 @@ alias mat="cd \$PETSC_DIR/src/mat/examples/tutorials"
 alias sys="cd \$PETSC_DIR/src/sys/examples/tutorials"
 alias dm="cd \$PETSC_DIR/src/dm/examples/tutorials"
 
-# Needed for arch-matlab
-export DYLD_FALLBACK_LIBRARY_PATH=/Applications/MATLAB_R2011a.app/bin/maci64:/Applications/MATLAB_R2011a.app/sys/os/maci64
 
 export PETSC_DIR=$PROJECTS/petsc/petsc-dev
 export PETSC_ARCH=arch-c
@@ -89,32 +87,45 @@ alias ipython="ipython-2.7 -noconfirm_exit -nobanner"
 
 
 ##
-# TAU commands
+# Paths, environment variables
 ##
-#export TAU_MAKEFILE=$PROJECTS/sandbox/tau-bin/apple/lib/Makefile.tau-mpi-pdt
-#export PATH=$PROJECTS/sandbox/pdt-bin/apple/bin:$PROJECTS/sandbox/tau-bin/apple/bin:$PATH
 
-export PATH=$HOME/local/bin:/opt/local/bin:/opt/local/sbin:$PATH
+if [ -d /Applications/MATLAB_R2011a.app/bin/maci64 ]; then
+  # Needed for arch-matlab
+  export DYLD_FALLBACK_LIBRARY_PATH=/Applications/MATLAB_R2011a.app/bin/maci64:/Applications/MATLAB_R2011a.app/sys/os/maci64
+fi
+
+if [ -d /opt/local ]; then
+  export PATH=/opt/local/bin:/opt/local/sbin:/opt/local/libexec/gnubin:$PATH
+fi
+
+export PATH=$HOME/local/bin:$PATH
 
 if [ -f /opt/local/etc/bash_completion ]; then
         . /opt/local/etc/bash_completion
 fi
+
 if [ -f $HOME/local/etc/bash_completion ]; then
         . $HOME/local/etc/bash_completion
 fi
+
 if [ -f $HOME/.bashrc ]; then
         . $HOME/.bashrc
 fi
+
 if [ -d /usr/local/cuda ]; then
         export PATH=/usr/local/cuda/bin:$PATH
 fi
+
 if [ -d /share/apps/petsc-dev ]; then
         export PETSC_DIR=/share/apps/petsc-dev
         export PETSC_ARCH=arch-linux2-c-gcc-debug
 fi
+
 if [ -d $HOME/local/lib/python2.6 ]; then
   export PYTHONPATH=$HOME/local/lib/python2.6/site-packages:$HOME/local/lib/python2.6
 fi
+
 if [ -d $HOME/local/lib/python2.7 ]; then
   export PYTHONPATH=$HOME/local/lib/python2.7/site-packages:$HOME/local/lib/python2.7
 fi
