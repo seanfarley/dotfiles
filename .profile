@@ -85,7 +85,6 @@ alias ssh-anl="ssh -q -C -N -D 9999 login.mcs.anl.gov -L10722:petsc.mcs.anl.gov:
 alias ssh-iit="ssh -q -C -N -D 9999 laplace.math.iit.edu -L10723:karlin.math.iit.edu:22"
 alias ipython="ipython-2.7 -noconfirm_exit -nobanner"
 
-
 ##
 # Paths, environment variables
 ##
