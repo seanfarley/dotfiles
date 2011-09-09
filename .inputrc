@@ -1,1 +1,11 @@
+# Make Opt+Delete kill a word
 "\eg": backward-kill-word
+
+# Make Tab autocomplete regardless of filename case
+set completion-ignore-case on
+
+# Append a slash when autocompleting symbolic links to directories
+set mark-symlinked-directories on
+
+# List all matches in case multiple possible completions are possible
+set show-all-if-ambiguous on
