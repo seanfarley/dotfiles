@@ -156,8 +156,9 @@ map z<Space> za
 " --------------------
 " colorscheme jellybeans
 " colors jellybeans
-colorscheme xoria256
-colors xoria256
+" colorscheme xoria256
+" colors xoria256
+colorscheme mustang
 
 " --------------------
 " LaTeX settings
