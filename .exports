@@ -1,0 +1,48 @@
+# Make vim the default editor
+export EDITOR="vim"
+# Don’t clear the screen after quitting a manual page
+export MANPAGER="less -X"
+
+# Larger bash history (allow 32³ entries; default is 500)
+export HISTSIZE=32768
+export HISTFILESIZE=$HISTSIZE
+
+export PROJECTS=$HOME/projects
+export FACETS=$PROJECTS/facets
+export RESEARCH=$PROJECTS/research
+
+export PETSC_DIR=$PROJECTS/petsc/petsc-dev
+export PETSC_ARCH=arch-c
+##
+# Paths, environment variables
+##
+
+if [ -d /Applications/MATLAB_R2011a.app/bin/maci64 ]; then
+  # Needed for arch-matlab
+  export DYLD_FALLBACK_LIBRARY_PATH=/Applications/MATLAB_R2011a.app/bin/maci64:/Applications/MATLAB_R2011a.app/sys/os/maci64
+fi
+
+if [ -d /opt/local ]; then
+  export PATH=/opt/local/bin:/opt/local/sbin:/opt/local/libexec/gnubin:$PATH
+fi
+
+export PATH=$HOME/local/bin:$PATH
+
+
+if [ -d /usr/local/cuda ]; then
+        export PATH=/usr/local/cuda/bin:$PATH
+fi
+
+if [ -d /share/apps/petsc-dev ]; then
+        export PETSC_DIR=/share/apps/petsc-dev
+        export PETSC_ARCH=arch-linux2-c-gcc-debug
+fi
+
+if [ -d $HOME/local/lib/python2.6 ]; then
+  export PYTHONPATH=$HOME/local/lib/python2.6/site-packages:$HOME/local/lib/python2.6
+fi
+
+if [ -d $HOME/local/lib/python2.7 ]; then
+  export PYTHONPATH=$HOME/local/lib/python2.7/site-packages:$HOME/local/lib/python2.7
+fi
+
