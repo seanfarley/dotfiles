@@ -38,8 +38,11 @@ parse_git_dirty () {
 parse_git_branch () {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
 }
+hg_ps1() {
+      hg prompt "{bookmark}{status}" 2> /dev/null
+}
 
-PS1="\[${BOLD}${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\n\$ \[$RESET\]"
+PS1="\[${BOLD}${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\$([[ -n \$(hg book 2> /dev/null | grep -v \"no bookmarks set\") ]] && echo \" on \")\[$PURPLE\]\$(hg_ps1)\[$WHITE\]\n\$ \[$RESET\]"
 
 ##
 # colored highlighting is awesome
