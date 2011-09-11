@@ -24,6 +24,7 @@ record =
 pager =
 hggit =
 hgattic =
+prompt =
 
 [hgattic]
 trymerge = false
