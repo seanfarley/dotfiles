@@ -99,3 +99,4 @@ data
 hosts
 arch-*
 *.un~
+.vim-cache
