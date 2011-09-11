@@ -98,4 +98,4 @@ data
 *.xv
 hosts
 arch-*
-*~
+*.un~
