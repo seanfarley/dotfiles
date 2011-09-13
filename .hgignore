@@ -100,3 +100,4 @@ hosts
 arch-*
 *.un~
 .vim-cache
+.vim/tmp
