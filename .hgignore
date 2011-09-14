@@ -101,3 +101,5 @@ arch-*
 *.un~
 .vim-cache
 .vim/tmp
+.zshrc
+.news
