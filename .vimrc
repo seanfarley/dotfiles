@@ -15,6 +15,7 @@
   source ~/.vim/vimrc/general
   source ~/.vim/vimrc/mappings
   source ~/.vim/vimrc/plugins
+  source ~/.vim/vimrc/filetypes
   source ~/.vim/vimrc/macvim
 
 " }}}
