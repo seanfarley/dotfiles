@@ -122,3 +122,5 @@ arch-*
 *.ilg
 *.idx
 *.ind
+tags
+tags-*
