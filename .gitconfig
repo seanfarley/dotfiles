@@ -1,0 +1,47 @@
+[user]
+name = Sean Farley
+email = sean@mcs.anl.gov
+
+[core]
+editor = vim
+excludesfile = ~/.gitignore
+
+[alias]
+gl  = log -10 --color=always --all --graph --topo-order --pretty='format: %Cgreen%h%Creset %s%Cred%d%Creset%n'
+gll = log     --color=always --all --graph --topo-order --pretty='format: %Cgreen%h%Creset %s%Cred%d%Creset%n'
+
+pull = pull --ff-only
+
+ci = commit
+cm = commit -m
+ca = commit -a
+
+co = checkout
+
+stat = status
+st = status
+
+unstage = reset HEAD
+uns = reset HEAD
+
+[color]
+branch = auto
+diff = auto
+interactive = auto
+status = auto
+
+[difftool "fmdiff"]
+cmd = fmdiff \"$LOCAL\" \"$REMOTE\"
+
+[difftool]
+prompt = false
+
+[diff]
+tool = fmdiff
+
+[merge]
+tool = threesome
+
+[mergetool "threesome"]
+cmd = "mvim -f $BASE $LOCAL $REMOTE $MERGED -c 'ThreesomeInit'"
+trustExitCode = true
