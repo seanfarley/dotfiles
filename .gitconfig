@@ -1,47 +1,48 @@
 [user]
-name = Sean Farley
-email = sean@mcs.anl.gov
+  name = Sean Farley
+  email = sean@mcs.anl.gov
 
 [core]
-editor = vim
-excludesfile = ~/.gitignore
+  editor = vim
+  excludesfile = ~/.gitignore
+  quotepath = false
 
 [alias]
-gl  = log -10 --color=always --all --graph --topo-order --pretty='format: %Cgreen%h%Creset %s%Cred%d%Creset%n'
-gll = log     --color=always --all --graph --topo-order --pretty='format: %Cgreen%h%Creset %s%Cred%d%Creset%n'
+  gl  = log -10 --color=always --all --graph --topo-order --pretty='format: %Cgreen%h%Creset %s%Cred%d%Creset%n'
+  gll = log     --color=always --all --graph --topo-order --pretty='format: %Cgreen%h%Creset %s%Cred%d%Creset%n'
 
-pull = pull --ff-only
+  pull = pull --ff-only
 
-ci = commit
-cm = commit -m
-ca = commit -a
+  ci = commit
+  cm = commit -m
+  ca = commit -a
 
-co = checkout
+  co = checkout
 
-stat = status
-st = status
+  stat = status
+  st = status
 
-unstage = reset HEAD
-uns = reset HEAD
+  unstage = reset HEAD
+  uns = reset HEAD
 
 [color]
-branch = auto
-diff = auto
-interactive = auto
-status = auto
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
 
 [difftool "fmdiff"]
-cmd = fmdiff \"$LOCAL\" \"$REMOTE\"
+  cmd = fmdiff \"$LOCAL\" \"$REMOTE\"
 
 [difftool]
-prompt = false
+  prompt = false
 
 [diff]
-tool = fmdiff
+  tool = fmdiff
 
 [merge]
-tool = threesome
+  tool = threesome
 
 [mergetool "threesome"]
-cmd = "mvim -f $BASE $LOCAL $REMOTE $MERGED -c 'ThreesomeInit'"
-trustExitCode = true
+  cmd = "mvim -f $BASE $LOCAL $REMOTE $MERGED -c 'ThreesomeInit'"
+  trustExitCode = true
