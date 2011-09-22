@@ -109,7 +109,7 @@ alias petsc="cd \$PETSC_DIR"
 alias facets="cd \$FACETS"
 alias research="cd \$RESEARCH"
 alias dg="cd \$RESEARCH/localdg"
-alias facets-env="export PETSC_DIR=; export PETSC_ARCH=; source \$FACETS/software/facetsall.sh"
+alias mc="cd \$PROJECTS/mercurial"
 
 ##
 # SSH tunnels
