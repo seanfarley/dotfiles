@@ -142,3 +142,11 @@ tags-*
 .dmrc
 id_proxy*
 .extra
+.modules*
+*.ext
+.cshrc
+.zshenv
+.zprofile
+.kshrc
+.login
+.tcshrc
