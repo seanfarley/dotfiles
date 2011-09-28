@@ -1,5 +1,5 @@
 # Create a new directory and enter it
-unalias md
+unalias md 2>/dev/null
 md() {
   mkdir -p "$@" && cd "$@"
 }
