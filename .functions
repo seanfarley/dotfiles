@@ -1,4 +1,5 @@
 # Create a new directory and enter it
+unalias md
 md() {
   mkdir -p "$@" && cd "$@"
 }
