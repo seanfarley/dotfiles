@@ -27,5 +27,6 @@
   silent! :command TALKS cd ~/projects/talks
   silent! :command SP cd ~/projects/scienceports
   silent! :command RESEARCH cd ~/projects/research
+  silent! :command HW cd ~/projects/class/2011-fall
 
 " }}}
