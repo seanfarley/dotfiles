@@ -150,3 +150,7 @@ id_proxy*
 .kshrc
 .login
 .tcshrc
+*.taghl
+GTAGS
+GPATH
+GRTAGS
