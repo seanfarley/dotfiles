@@ -41,10 +41,10 @@ if [ -d /share/apps/petsc-dev ]; then
 fi
 
 if [ -d $HOME/local/lib/python2.6 ]; then
-  export PYTHONPATH=$HOME/local/lib/python2.6/site-packages:$HOME/local/lib/python2.6
+  export PYTHONPATH=$HOME/local/lib/python2.6/site-packages:$HOME/local/lib/python2.6:$PYTHONPATH
 fi
 
 if [ -d $HOME/local/lib/python2.7 ]; then
-  export PYTHONPATH=$HOME/local/lib/python2.7/site-packages:$HOME/local/lib/python2.7
+  export PYTHONPATH=$HOME/local/lib/python2.7/site-packages:$HOME/local/lib/python2.7:$PYTHONPATH
 fi
 
