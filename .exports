@@ -20,7 +20,7 @@ export PETSC_ARCH=arch-c
 
 if [ -d /Applications/MATLAB_R2011a.app/bin/maci64 ]; then
   # Needed for arch-matlab
-  export DYLD_FALLBACK_LIBRARY_PATH=/Applications/MATLAB_R2011a.app/bin/maci64:/Applications/MATLAB_R2011a.app/sys/os/maci64
+  export DYLD_FALLBACK_LIBRARY_PATH=/Applications/MATLAB_R2011a.app/bin/maci64:/Applications/MATLAB_R2011a.app/sys/os/maci64:$DYLD_FALLBACK_LIBRARY_PATH
 fi
 
 if [ -d /opt/local ]; then
