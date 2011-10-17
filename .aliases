@@ -115,7 +115,7 @@ alias mc="cd \$PROJECTS/mercurial"
 # SSH tunnels
 ##
 
-alias proxy-anl="ssh -q -C -N -D 9999 login.mcs.anl.gov -L3389:kronosts.it.anl.gov:3389" 
+alias proxy-anl="ssh -q -C -N -D 9999 login.mcs.anl.gov -L3389:kronosts.it.anl.gov:3389"
 alias proxy-iit="ssh -q -C -N -D 9999 laplace.math.iit.edu"
 alias ipython="ipython --no-confirm-exit --no-banner"
 
