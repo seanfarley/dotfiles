@@ -154,3 +154,7 @@ id_proxy*
 GTAGS
 GPATH
 GRTAGS
+*.pyc
+*~
+*.o
+*.bin
