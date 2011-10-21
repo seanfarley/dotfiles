@@ -35,10 +35,6 @@ petsc = ssh://petsc@petsc.cs.iit.edu//hg/petsc/
 git = True
 unified = 5
 
-[defaults]
-# update working directory after adding changesets
-pull = -u
-
 [pager]
 pager = LESS='FSRX' less
 
@@ -98,6 +94,7 @@ diff.trailingwhitespace = white_background
 [defaults]
 rebase = --keepbranches
 addremove = --similarity 100
+pull = -u
 
 
 [alias]
