@@ -107,6 +107,7 @@ nudge = push --branch .
 # Some useful little aliases.
 st = status -SC
 ? = summary
+df = diff
 
 # Push the qparent revision (mnemonic: q push parent).
 qpp = push -r qparent
