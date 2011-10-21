@@ -20,7 +20,7 @@ a() {
 }
 
 mpcategory() {
-  port info $@ 2>/dev/null | head -n 1 | sed -n 's#.*(\(.\{1,\}\)).*#/\1#p'
+  port info $@ 2>/dev/null | head -n 1 | sed -n 's#.*(\(.\{1,\}\)).*#\1#p'
 }
 
 mpc() {
