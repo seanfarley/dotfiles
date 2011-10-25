@@ -39,6 +39,7 @@ alias v="vim"
 alias gda="gdb --args"
 alias make_db="make RM=echo"
 alias make_petsc="make -j4 -C \$PETSC_DIR/\$PETSC_ARCH"
+alias s="perl -pi -e"
 
 # File size
 alias fs="stat -f \"%z bytes\""
