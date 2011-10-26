@@ -109,8 +109,9 @@ alias hpc="cd /opt/hpc"
 alias petsc="cd \$PETSC_DIR"
 alias facets="cd \$FACETS"
 alias research="cd \$RESEARCH"
-alias dg="cd \$RESEARCH/localdg"
+alias dg="cd \$RESEARCH/dg/localdg"
 alias mc="cd \$PROJECTS/mercurial"
+alias bim="cd \$RESEARCH/bim-dynamic"
 
 ##
 # SSH tunnels
