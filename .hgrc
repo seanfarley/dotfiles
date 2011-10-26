@@ -31,6 +31,9 @@ me = ssh://hg@bitbucket.org/seanfarley/
 gh = git+ssh://git@github.com/
 petsc = ssh://petsc@petsc.cs.iit.edu//hg/petsc/
 
+[git]
+intree=1
+
 [diff]
 git = True
 unified = 5
