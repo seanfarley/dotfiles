@@ -1,5 +1,10 @@
 " Preamble -------------------------------------------------------------------- {{{
 
+  " Need to set this before vim-latex gets loaded
+  imap <C-n> <Plug>IMAP_JumpForward
+  nmap <C-n> <Plug>IMAP_JumpForward
+  vmap <C-n> <Plug>IMAP_JumpForward
+
   filetype off
   call pathogen#helptags()
   call pathogen#runtime_append_all_bundles()
