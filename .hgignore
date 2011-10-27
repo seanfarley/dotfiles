@@ -1,5 +1,6 @@
 syntax:glob
 
+.hg
 local
 projects
 Library
@@ -40,8 +41,10 @@ known_hosts
 .dodsrc
 .gccrec
 .gdb_history
+.git
 .gitconfig
 .gitk
+.gitignore
 .gnuplot_history
 .hypre_license
 .lesshst
