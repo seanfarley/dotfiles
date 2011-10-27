@@ -158,3 +158,4 @@ GRTAGS
 *~
 *.o
 *.bin
+.neocon
