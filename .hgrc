@@ -167,7 +167,7 @@ mkrepo = !$HG init $1 && cd $1 && \
           echo "[paths]\n" >> .hg/hgrc
 
 # Edit the current repo's hgrc file.
-erc = !$EDITOR `$HG root`/.hg/hgrc
+rc = !$EDITOR `$HG root`/.hg/hgrc
 
 # Simple bug/todo tracking
 # Idea from Justin: http://gist.github.com/464871
