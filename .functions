@@ -36,3 +36,14 @@ mp() {
     echo "$MP/$CATEGORY/$@"
   fi
 }
+
+psgrep() {
+  ps aux | grep -v grep | grep $@
+}
+
+killgrep() {
+  PROCS=$(psgrep $@ | awk '{print $2;}')
+  for p in $PROCS; do
+    kill $p
+  done
+}
