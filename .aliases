@@ -128,3 +128,7 @@ alias vdir='ls --color=auto --format=long'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+
+if [[ ! -z $(which watchmedo-2.7) ]]; then
+  alias watchmedo='watchmedo-2.7'
+fi

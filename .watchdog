@@ -1,0 +1,13 @@
+DIRS="$HOME "
+DIRS+="$HOME/projects/research/bim-dynamic "
+DIRS+="$HOME/projects/research/dg "
+DIRS+="$HOME/projects/petsc/petsc-dev "
+DIRS+="$HOME/projects/petsc/petsc-3.2 "
+DIRS+="$HOME/projects/scienceports "
+
+for dir in $DIRS; do
+  name=$(basename $(dirname $dir))/$(basename $dir)
+  if [[ -d $dir && -z $(psgrep "$name ") ]]; then
+    hgwatch $dir &
+  fi
+done;

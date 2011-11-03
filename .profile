@@ -1,5 +1,5 @@
 
-for file in exports bash_prompt aliases functions extra; do
+for file in exports bash_prompt aliases functions extra watchdog; do
   file="$HOME/.$file"
   [ -e "$file" ] && source "$file"
 done

@@ -38,7 +38,7 @@ mp() {
 }
 
 psgrep() {
-  ps aux | grep -v grep | grep $@
+  ps aux | grep -v grep | grep "$@"
 }
 
 killgrep() {
@@ -46,4 +46,13 @@ killgrep() {
   for p in $PROCS; do
     kill $p
   done
+}
+
+hgwatch() {
+  OPTS="--recursive"
+  if [[ "$HOME" == "$@" ]]; then
+    OPTS="$(ls -d $HOME/*/ $HOME/.*/ | grep -v '\.\./' | grep -v '/\./' | grep -v Trash)"
+  fi
+
+  watchmedo shell-command $@ $OPTS --command='if [[ ! -z "$(hg status -mar --cwd '$@' 2>/dev/null)" ]]; then touch '$@'/.hg/dirty; else rm -f '$@'/.hg/dirty; fi' --ignore-pattern '*/.hg/dirty'
 }
