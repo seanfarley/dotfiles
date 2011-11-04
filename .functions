@@ -54,5 +54,5 @@ hgwatch() {
     OPTS="$(ls -d $HOME/*/ $HOME/.*/ | grep -v '\.\./' | grep -v '/\./' | grep -v Trash)"
   fi
 
-  watchmedo shell-command $@ $OPTS --command='if [[ ! -z "$(hg status -mar --cwd '$@' 2>/dev/null)" ]]; then touch '$@'/.hg/dirty; else rm -f '$@'/.hg/dirty; fi' --ignore-pattern '*/.hg/dirty'
+  watchmedo shell-command $@ $OPTS --command='if [[ ! -z "$(hg status -mar --cwd '$@' 2>/dev/null)" ]]; then touch '$@'/.hg/dirty; else rm -f '$@'/.hg/dirty; fi' --ignore-pattern '*/.hg*'
 }
