@@ -104,6 +104,8 @@ pull = -u
 commit = "$HG" dirty $@
 post-rollback = "$HG" dirty $@
 post-update = "$HG" dirty $@
+post-attic-shelve = "$HG" dirty $@
+post-attic-unshelve = "$HG" dirty $@
 
 [alias]
 # Show the url
