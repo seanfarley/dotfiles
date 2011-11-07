@@ -4,6 +4,10 @@ DIRS+="$HOME/projects/research/dg "
 DIRS+="$HOME/projects/petsc/petsc-dev "
 DIRS+="$HOME/projects/petsc/petsc-3.2 "
 DIRS+="$HOME/projects/scienceports "
+DIRS+="$HOME/projects/mercurial/hg "
+DIRS+="$HOME/projects/mercurial/hgattic "
+DIRS+="$HOME/projects/mercurial/hgshelve "
+DIRS+="$HOME/projects/mercurial/hgbb "
 
 for dir in $DIRS; do
   name=$(basename $(dirname $dir))/$(basename $dir)
