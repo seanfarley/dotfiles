@@ -54,5 +54,5 @@ hgwatch() {
     OPTS="$(ls -d $HOME/*/ $HOME/.*/ | grep -v '\.\./' | grep -v '/\./' | grep -v Trash)"
   fi
 
-  watchmedo shell-command $@ $OPTS --ignore-directories --command='$(hg dirty --cwd '$@' 2>/dev/null)' --ignore-pattern '*/.hg/*;*.o;*/*.mod;*.a;*.dylib;*.d;*a.out;*/tmp*;*/external*;*/arch*;*/CMakeFiles*;*/RDict*;*/config*.log;*/conftestval*;*/ftn-auto*'
+  watchmedo shell-command $@ $OPTS --ignore-directories --command='$(hg dirty --cwd '$@' 2>/dev/null)' --ignore-pattern '*/.hg/*;*.o;*/*.mod;*.a;*.dylib;*.d;*a.out;*/tmp*;*/external*;*/arch*;*/CMakeFiles*;*/.cmake*;*/RDict*;*/config*.log;*/conftestval*;*/ftn-auto*'
 }
