@@ -25,6 +25,7 @@ pager =
 hggit =
 hgattic =
 histedit =
+hgsubversion =
 
 [schemes]
 bb = ssh://hg@bitbucket.org/
