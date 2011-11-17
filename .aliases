@@ -134,3 +134,7 @@ alias egrep='egrep --color=auto'
 if [[ -s $(which watchmedo-2.7) ]]; then
   alias watchmedo='watchmedo-2.7'
 fi
+
+if [[ -s $(which pss-2.7) ]]; then
+  alias pss='pss-2.7'
+fi
