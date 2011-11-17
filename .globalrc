@@ -1,2 +1,15 @@
 default:\
-	:skip=sandbox/,petsc-3.1/,petsc-3.2/,lsmsa/,class/,aperture/,Library/,Movies/,Music/,Pictures/,Public/,Documents/,Desktop/,Downloads/:
+  :skip=sandbox/, \
+  petsc-3.1/, \
+  petsc-3.2/, \
+  lsmsa/, \
+  class/, \
+  aperture/, \
+  Library/, \
+  Movies/, \
+  Music/, \
+  Pictures/, \
+  Public/, \
+  Documents/, \
+  Desktop/, \
+  Downloads/:
