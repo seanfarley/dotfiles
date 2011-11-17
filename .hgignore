@@ -162,3 +162,4 @@ GRTAGS
 *.o
 *.bin
 .neocon
+*.a
