@@ -12,4 +12,6 @@ default:\
   Public/, \
   Documents/, \
   Desktop/, \
-  Downloads/:
+  Downloads/, \
+  externalpackages/, \
+  CMakeFiles/:
