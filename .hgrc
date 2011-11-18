@@ -173,12 +173,6 @@ mkrepo = !$HG init $1 && cd $1 && \
 # Edit the current repo's hgrc file.
 rc = !$EDITOR `$HG root`/.hg/hgrc
 
-# Simple bug/todo tracking
-# Idea from Justin: http://gist.github.com/464871
-# Install t first: http://bitbucket.org/sjl/t/
-bug = !~/lib/t/t.py --task-dir="`$HG root`" --list=BUGS $@
-todo = !~/lib/t/t.py --task-dir="`$HG root`" --list=TODO $@
-
 # Easily add ignore patterns to .hgignore and commit.
 ignore = ![ -n "$@" ] && echo '$@' >> `$HG root`/.hgignore && \
           $HG commit `$HG root`/.hgignore -Am 'Add "$@" to .hgignore.'
