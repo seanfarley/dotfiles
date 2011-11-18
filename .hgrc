@@ -143,7 +143,7 @@ takelocal = !"$HG" revert --rev 'p1()' $@ && "$HG" resolve -m $@
 takeother = !"$HG" revert --rev 'p2()' $@ && "$HG" resolve -m $@
 
 # Run a colored diff and pipe it to less.
-d = !"$HG" diff -p --color=always | less -R
+d = diff -p --pager=always
 
 # Log shortcuts --------------------------------------------------------------------
 #
