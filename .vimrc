@@ -5,6 +5,9 @@
   nmap <C-n> <Plug>IMAP_JumpForward
   vmap <C-n> <Plug>IMAP_JumpForward
 
+  " Need this for gtags-cscope
+  let GtagsCscope_Auto_Load = 1
+
   filetype off
   call pathogen#helptags()
   call pathogen#runtime_append_all_bundles()
