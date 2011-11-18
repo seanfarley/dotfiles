@@ -13,5 +13,6 @@ default:\
   Documents/, \
   Desktop/, \
   Downloads/, \
+  .Trash/, \
   externalpackages/, \
   CMakeFiles/:
