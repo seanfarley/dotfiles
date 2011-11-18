@@ -148,6 +148,7 @@ d = diff -p --pager=always
 # Log shortcuts --------------------------------------------------------------------
 #
 # Each of these can be used with -v to add a bit more info.
+nlog = log --pager=always --style=$HOME/.hgtemplates/map-cmdline.nlog
 
 # hg n .     -- show a summary of rev . without diff.
 # hg show .  -- show a summary of rev . with diff.
