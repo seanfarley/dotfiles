@@ -1,12 +1,15 @@
 " Preamble -------------------------------------------------------------------- {{{
 
-  " Need to set this before vim-latex gets loaded
+  " Need all of these to be set before plugins are loaded
   imap <C-n> <Plug>IMAP_JumpForward
   nmap <C-n> <Plug>IMAP_JumpForward
   vmap <C-n> <Plug>IMAP_JumpForward
 
-  " Need this for gtags-cscope
   let GtagsCscope_Auto_Load = 1
+  let g:unite_data_directory = expand('~/.vim/tmp/unite/')
+  let g:vimshell_temporary_directory = expand('~/.vim/tmp/vimshell')
+  let g:fuf_dataDir = expand('~/.vim/tmp/fuf-data')
+  let g:vimfiler_data_directory = expand('~/.vim/tmp/vimfiler')
 
   filetype off
   call pathogen#helptags()
