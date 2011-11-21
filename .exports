@@ -9,7 +9,7 @@ export HISTSIZE=32768
 export HISTFILESIZE=$HISTSIZE
 
 export PROJECTS=$HOME/projects
-export FACETS=$PROJECTS/facets
+export SANDBOX=$PROJECTS/sandbox
 export RESEARCH=$PROJECTS/research
 
 export PETSC_DIR=$PROJECTS/petsc/petsc-dev
