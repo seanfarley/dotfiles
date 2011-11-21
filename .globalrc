@@ -15,4 +15,5 @@ default:\
   Downloads/, \
   .Trash/, \
   externalpackages/, \
-  CMakeFiles/:
+  CMakeFiles/, \
+  work/, \
