@@ -23,7 +23,6 @@ record =
 pager =
 # Third-party extensions
 hggit =
-hgattic =
 histedit =
 hgsubversion =
 
