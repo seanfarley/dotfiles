@@ -112,7 +112,6 @@ arch-*
 *.aux
 *.log
 *.pdfsync
-*.gz
 *.pdf
 *.toc
 *.bbl
@@ -163,3 +162,4 @@ GRTAGS
 *.bin
 .neocon
 *.a
+*.tar
