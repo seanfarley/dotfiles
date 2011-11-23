@@ -211,3 +211,4 @@ dirty = !if [[ ! -z "$($HG st -mardn $@)" ]]; then touch $($HG $@ root)/.hg/dirt
 # pss for non-ignored files
 pss = !$HG locate "set:not ignored()" | xargs pss $@
 grep-wdir = !$HG locate "set:not ignored()" | xargs grep $@
+egrep = !$HG locate -0 '$2' $3 $4 $5 $6 $7 $8 $9 | xargs -0 egrep -H '$1'
