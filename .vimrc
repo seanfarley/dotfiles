@@ -6,6 +6,8 @@
   vmap <C-n> <Plug>IMAP_JumpForward
 
   let GtagsCscope_Auto_Load = 1
+  let g:GtagsCscope_Ignore_InitErrors = 1
+  let g:Gtags_Ignore_InitErrors = 1
   let g:unite_data_directory = expand('~/.vim/tmp/unite/')
   let g:vimshell_temporary_directory = expand('~/.vim/tmp/vimshell')
   let g:fuf_dataDir = expand('~/.vim/tmp/fuf-data')
