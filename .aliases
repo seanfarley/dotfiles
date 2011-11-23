@@ -133,10 +133,10 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias g='grep'
 
-if [[ -s $(which watchmedo-2.7) ]]; then
+if [[ -s $(which watchmedo-2.7 2>/dev/null) ]]; then
   alias watchmedo='watchmedo-2.7'
 fi
 
-if [[ -s $(which pss-2.7) ]]; then
+if [[ -s $(which pss-2.7 2>/dev/null) ]]; then
   alias pss='pss-2.7'
 fi
