@@ -52,6 +52,8 @@ cmd.kdiff3 = kdiff3
 cmd.vdiff = mvim
 opts.vdiff = -c 'set lines=70' -c 'set columns=240' -f '+next' '+execute "DirDiff" argv(0) argv(1)'
 
+cmd.sourcetreediff=opendiff
+opts.sourcetreediff=
 [merge-tools]
 threesome.executable = mvim
 threesome.args = -f $base $local $other $output -c 'ThreesomeInit'
@@ -66,6 +68,16 @@ keepthis.executable = sh
 keepthis.args = -c 'cp "$other" "$output.incoming" && cp "$local" "$output"'
 keepthis.premerge = True
 
+sourcetreemerge.gui=False
+sourcetreebulkmerge.gui=False
+sourcetreemerge.binary=False
+sourcetreebulkmerge.executable=/Applications/SourceTree.app/Contents/Resources/hg-merge.sh
+sourcetreemerge.args=$local $other -ancestor $base -merge $output
+sourcetreemerge.checkconflicts=True
+sourcetreemerge.premerge=True
+sourcetreemerge.executable=/Applications/SourceTree.app/Contents/Resources/opendiff-w.sh
+sourcetreebulkmerge.premerge=False
+sourcetreebulkmerge.binary=True
 [hostfingerprints]
 bitbucket.org = 81:2b:08:90:dc:d3:71:ee:e0:7c:b4:75:ce:9b:6c:48:94:56:a1:fe
 
