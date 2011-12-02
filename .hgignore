@@ -162,4 +162,7 @@ GRTAGS
 *.bin
 .neocon
 *.a
+*.dylib
 *.tar
+*.mod
+.lynxrc
