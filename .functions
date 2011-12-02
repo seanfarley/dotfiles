@@ -58,3 +58,9 @@ hgwatch() {
     watchmedo shell-command $@ $OPTS --ignore-directories --command='$(hg dirty --cwd '$@' 2>/dev/null)' --ignore-pattern '*/.hg/*;*.o;*/*.mod;*.a;*.dylib;*.d;*a.out;*/tmp*;*/external*;*/arch*;*/CMakeFiles*;*/.cmake*;*/RDict*;*/config*.log;*/conftestval*;*/ftn-auto*'
   fi;
 }
+
+d() {
+  for i in $@; do
+    curl -O $i;
+  done;
+}
