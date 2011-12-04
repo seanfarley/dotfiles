@@ -78,6 +78,7 @@ sourcetreemerge.premerge=True
 sourcetreemerge.executable=/Applications/SourceTree.app/Contents/Resources/opendiff-w.sh
 sourcetreebulkmerge.premerge=False
 sourcetreebulkmerge.binary=True
+
 [hostfingerprints]
 bitbucket.org = 81:2b:08:90:dc:d3:71:ee:e0:7c:b4:75:ce:9b:6c:48:94:56:a1:fe
 
