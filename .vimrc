@@ -13,12 +13,10 @@
   let g:fuf_dataDir = expand('~/.vim/tmp/fuf-data')
   let g:vimfiler_data_directory = expand('~/.vim/tmp/vimfiler')
 
-  filetype off
-  call pathogen#helptags()
-  call pathogen#runtime_append_all_bundles()
-  filetype plugin indent on
-  set nocompatible
+  runtime bundle/pathogen/autoload/pathogen.vim
+  call pathogen#infect()
   syntax on
+  filetype plugin indent on
 
 " }}}
 
