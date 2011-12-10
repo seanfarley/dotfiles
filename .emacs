@@ -37,10 +37,10 @@
 ; YASnippet
 (require 'yasnippet) ;; not yasnippet-bundle
 (yas/initialize)
-; (yas/load-directory "~/.emacs.d/snippets")
+(yas/load-directory "~/.emacs.d/snippets")
 (yas/global-mode 1)
 
-; (require 'gtags)
+(require 'gtags)
 ; (require 'tex-site)
 
 ; Load ido
