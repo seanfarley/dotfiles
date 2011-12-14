@@ -50,3 +50,16 @@
 (require 'ace-jump-mode)
 (define-key global-map (kbd "C-c C-j") 'ace-jump-mode)
 
+(defun my-insert-tags (tag)
+  (interactive "sTag: ")
+  (if (region-active-p)
+      (let ((beg (region-beginning)))
+        (save-excursion
+          (goto-char (region-end))
+          (insert "</" (car (split-string tag)) ">")
+          (goto-char beg)
+          (insert "<" tag ">")))
+    (insert "<" tag ">")
+    (save-excursion
+      (insert "</" (car (split-string tag)) ">"))))
+
