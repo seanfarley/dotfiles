@@ -48,4 +48,5 @@
 
 ; Ace-jump (Easymotion equivalent)
 (require 'ace-jump-mode)
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+(define-key global-map (kbd "C-c C-j") 'ace-jump-mode)
+
