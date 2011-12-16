@@ -50,6 +50,7 @@
 (require 'ace-jump-mode)
 (define-key global-map (kbd "C-c C-j") 'ace-jump-mode)
 
+; Function to wrap region with a tag
 (defun my-insert-tags (tag)
   (interactive "sTag: ")
   (if (region-active-p)
@@ -62,4 +63,8 @@
     (insert "<" tag ">")
     (save-excursion
       (insert "</" (car (split-string tag)) ">"))))
+
+; edit-server.el from https://github.com/stsquad/emacs_chrome
+(require 'edit-server)
+(edit-server-start)
 
