@@ -45,6 +45,7 @@
 
 ; Load ido
 (require 'ido)
+(require 'ido-ubiquitous)
 
 ; Ace-jump (Easymotion equivalent)
 (require 'ace-jump-mode)
