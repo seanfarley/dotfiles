@@ -47,6 +47,10 @@
 (require 'ido)
 (require 'ido-ubiquitous)
 
+; Enable ido
+(ido-mode t)
+(setq ido-enable-flex-matching t) ; fuzzy matching is a must have
+
 ; Ace-jump (Easymotion equivalent)
 (require 'ace-jump-mode)
 (define-key global-map (kbd "C-c C-j") 'ace-jump-mode)
