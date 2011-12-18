@@ -165,5 +165,4 @@ GRTAGS
 *.dylib
 *.tar
 *.mod
-.lynxrc
 *.elc
