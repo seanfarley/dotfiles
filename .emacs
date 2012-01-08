@@ -154,6 +154,12 @@
 (require 'rainbow-delimiters)
 (global-rainbow-delimiters-mode)
 
+; Give each buffer a unique name
+(require 'uniquify)
+(setq
+  uniquify-buffer-name-style 'post-forward
+  uniquify-separator ":")
+
 ; -------------------------
 ; Functions
 ; -------------------------
@@ -194,7 +200,7 @@
     (overwrite-mode
       (set-cursor-color djcb-overwrite-color)
       (setq cursor-type djcb-overwrite-cursor-type))
-    (t 
+    (t
       (set-cursor-color djcb-normal-color)
       (setq cursor-type djcb-normal-cursor-type))))
 
