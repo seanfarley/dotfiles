@@ -170,7 +170,7 @@ n = nlog -vr
 show = nlog --color=always -vpr
 
 # Simple glog command that doesn't look bad and doesn't require my CLI templates.
-_gl = glog -l $1 -r ".~$1::." --template='\033[0;33m{node|short}\033[0m {desc|firstline|strip} \033[0;35m{branches}\033[0m \033[0;33m{tags}\033[0m\n\033[1;30m({date|age} by {author|person})\033[0m\n\n'
+_gl = glog --pager=always -l $1 -r ".~$1::." --template='\033[0;33m{node|short}\033[0m {desc|firstline|strip} \033[0;35m{branches}\033[0m \033[0;33m{tags}\033[0m\n\033[1;29m({date|age} by {author|person})\033[0m\n\n'
 gl = !$HG _gl $(if [[ -z "$@" ]]; then echo 10; else echo "$@"; fi)
 
 # Make a new repo with some sensible defaults.
