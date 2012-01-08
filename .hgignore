@@ -166,3 +166,4 @@ GRTAGS
 *.tar
 *.mod
 *.elc
+.ido.last
