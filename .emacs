@@ -8,6 +8,9 @@
 (set-default-font "Andale Mono")
 (set-face-attribute 'default nil :font "Andale Mono")
 
+(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+
 ; Disable startup message in echo area
 (setq inhibit-startup-echo-area-message t)
 
