@@ -42,6 +42,7 @@ alias make_db="make RM=true"
 alias make_petsc="make -j4 -C \$PETSC_DIR/\$PETSC_ARCH"
 alias s="perl -pi -e"
 alias l="lynx --lss=~/.lynx.lss"
+alias a="aquamacs"
 
 # File size
 alias fs="stat -f \"%z bytes\""
