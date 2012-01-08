@@ -148,9 +148,13 @@
 (require 'ace-jump-mode)
 (define-key global-map (kbd "\C-cj") 'ace-jump-mode)
 
+; Enable undohist for persistent undo
+(require 'undohist)
+(undohist-initialize)
+
 ; Enable undo-tree
 (require 'undo-tree)
-(undo-tree-mode t)
+(global-undo-tree-mode)
 
 ; Remove vc
 (setq vc-handled-backends ())
