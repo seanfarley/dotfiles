@@ -1,7 +1,7 @@
 [ui]
 username = Sean Farley <sean@mcs.anl.gov>
 ssh = ssh -C
-editor = vim
+editor = emacs
 ignore = ~/.hgignore
 
 [extensions]
