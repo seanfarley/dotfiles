@@ -4,6 +4,40 @@ md() {
   mkdir -p "$@" && cd "$@"
 }
 
+# Easier navigation: .., ..., etc.
+unalias .. 2>/dev/null
+..() {
+  eval cd ../\""$@"\"
+}
+
+_..() {
+  local IFS=$'\n'
+  COMPREPLY=( $(compgen -A directory -W "$(ls -p .. | grep / | sed 's,/,,')" -- ${COMP_WORDS[COMP_CWORD]}) )
+}
+complete -F _.. -o nospace ..
+
+unalias ... 2>/dev/null
+...() {
+  eval cd ../../\""$@"\"
+}
+
+_...() {
+  local IFS=$'\n'
+  COMPREPLY=( $(compgen -A directory -W "$(ls -p ../.. | grep / | sed 's,/,,')" -- ${COMP_WORDS[COMP_CWORD]}) )
+}
+complete -F _... -o nospace ...
+
+unalias .... 2>/dev/null
+....() {
+  eval cd ../../../\""$@"\"
+}
+
+_....() {
+  local IFS=$'\n'
+  COMPREPLY=( $(compgen -W "$(ls -p ../../.. | grep / | sed 's,/,,')" -- ${COMP_WORDS[COMP_CWORD]}) )
+}
+complete -F _.... -o nospace ....
+
 # Test if HTTP compression (RFC 2616 + SDCH) is enabled for a given URL.
 # Send a fake UA string for sites that sniff it instead of using the Accept-Encoding header. (Looking at you, ajax.googleapis.com!)
 httpcompression() {
