@@ -123,6 +123,10 @@ post-attic-unshelve = "$HG" dirty $@
 # Show the url
 url = showconfig paths.default
 
+he = histedit
+l = log --pager=always
+# p = pull
+
 # Nudge: just push the current branch.
 nudge = push --branch .
 
@@ -139,10 +143,9 @@ md = merge default
 
 # Commit message shortcuts.
 cm = commit -m
-cus = commit -m 'Update subrepository state.'
-cuf = commit -m 'Update fixtures.' -I '**fixtures**.json'
-cmm = commit -m 'Merge.'
-cws = commit -m 'Whitespace.'
+cus = commit -m 'Update subrepository state'
+cmm = commit -m 'Merge'
+cws = commit -m 'Fix whitespace'
 
 # Merge shortcuts.
 mergelocal = !$HG --config ui.merge=internal:local merge $@
