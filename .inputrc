@@ -1,6 +1,3 @@
-# Make Opt+Delete kill a word
-"\eg": backward-kill-word
-
 # Make Tab autocomplete regardless of filename case
 set completion-ignore-case on
 
