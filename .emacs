@@ -109,6 +109,8 @@
 ; (yas/load-directory "~/.emacs.d/snippets")
 ; (yas/global-mode 1)
 
+; CEDET
+(load-file "~/.emacs.d/cedet-1.0/common/cedet.el")
 (when (require 'gtags)
   (global-set-key "\C-cf" 'gtags-find-file)
   (global-set-key "\M-." 'gtags-find-tag)
@@ -122,9 +124,9 @@
   (define-key gtags-select-mode-map " " 'gtags-select-tag)
   (define-key gtags-select-mode-map "\C-o" 'gtags-select-tag-other-window)
   (message "Loaded gtags")
-;  (when (require 'semanticdb-global)
-;    (semanticdb-enable-gnu-global-databases 'c-mode)
-;    (semanticdb-enable-gnu-global-databases 'c++-mode))
+  (when (require 'semanticdb-global)
+    (semanticdb-enable-gnu-global-databases 'c-mode)
+    (semanticdb-enable-gnu-global-databases 'c++-mode))
 )
 (gtags-mode t)
 
