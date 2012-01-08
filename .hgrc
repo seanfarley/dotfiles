@@ -105,6 +105,7 @@ diff.deleted = red
 diff.inserted = green
 diff.changed = white
 diff.trailingwhitespace = white_background
+mq.qseries = white_background
 
 [defaults]
 rebase = --keepbranches
