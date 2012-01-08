@@ -14,4 +14,9 @@ fi
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
+
+# Don't save commands that start with a space
 HISTCONTROL=ignorespace
+
+# Get ctrl-s to work in bash searching
+stty stop undef
