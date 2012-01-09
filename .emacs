@@ -215,43 +215,66 @@
 
 ; Ctrl-Tab cycling
 ; from http://www.emacswiki.org/cgi-bin/wiki/ControlTABbufferCycling
-(defun crs-delete-these (delete-these from-this-list)
-  "Delete DELETE-THESE FROM-THIS-LIST."
+(defvar stesla-hated-buffers '("KILL" "*Apropos*" "*Completions*" "*grep*"
+                                ".newsrc-dribble" ".bbdb" "sent-mail" "*vc*"
+                               "*Compile-Log*" "*Help*" "*Messages*"))
+
+(defvar stesla-hated-buffer-regexps
+  '("^ " "*Buffer" "^\\*trace" "^\\*tramp" "^\\*"))
+
+(setq iswitchb-buffer-ignore
+  (append stesla-hated-buffer-regexps  stesla-hated-buffers))
+
+(defmacro stesla-buffer-regexp-mapcar (regexp buffers)
+  "Find BUFFERS whose name matches REGEXP"
+  `(mapcar (lambda (this-buffer)
+             (if (string-match ,regexp (buffer-name this-buffer))
+                 this-buffer))
+           ,(if (symbolp buffers) (symbol-value buffers) buffers)))
+
+(defmacro stesla-hated-buffer-from-regexps (regexps)
+  "Generate a one-dimensional list of buffers that match REGEXPS"
+  (append
+   '(append)
+   (mapcar (lambda (regexp)
+             `(delete nil (stesla-buffer-regexp-mapcar ,regexp
+                                                       (buffer-list))))
+           (if (symbolp regexps) (symbol-value regexps) regexps))))
+
+(defun stesla-delete-from-list (delete-these from-list)
+  "Delete DELETE-THESE from FROM-LIST."
   (cond
    ((car delete-these)
-    (if (member (car delete-these) from-this-list)
-        (crs-delete-these (cdr delete-these) (delete (car delete-these)
-                                                 from-this-list))
-      (crs-delete-these (cdr delete-these) from-this-list)))
-   (t from-this-list)))
-; this is the list of buffers I never want to see
-(defvar crs-hated-buffers
-  '("KILL" "*Compile-Log*" "*Messages*" "*CEDET Global*"))
-; might as well use this for both
-(setq iswitchb-buffer-ignore (append '("^ " "*Buffer") crs-hated-buffers))
-(defun crs-hated-buffers ()
-  "List of buffers I never want to see, converted from names to buffers."
+    (if (member (car delete-these) from-list)
+        (stesla-delete-from-list (cdr delete-these)
+                                (delete (car delete-these) from-list))
+      (stesla-delete-from-list (cdr delete-these) from-list)))
+   (t from-list)))
+
+(defun stesla-hated-buffers ()
+  "List of buffers I never want to see."
   (delete nil
           (append
-           (mapcar 'get-buffer crs-hated-buffers)
-           (mapcar (lambda (this-buffer)
-                     (if (string-match "^ " (buffer-name this-buffer))
-                         this-buffer))
-                   (buffer-list)))))
-; I'm sick of switching buffers only to find KILL right in front of me
-(defun crs-bury-buffer (&optional n)
+           (mapcar 'get-buffer stesla-hated-buffers)
+           (stesla-hated-buffer-from-regexps stesla-hated-buffer-regexps))))
+
+;; `stesla-rotate-buffers': Like `bury-buffer' but with the capability to
+;; exclude certain specified buffers.
+(defun stesla-rotate-buffers (&optional n)
+  "Switch to the Nth next buffer.  Negative arguments move backwards."
   (interactive)
   (unless n
     (setq n 1))
-  (let ((my-buffer-list (crs-delete-these (crs-hated-buffers)
-                                          (buffer-list (selected-frame)))))
+  (let ((my-buffer-list
+         (stesla-delete-from-list (stesla-hated-buffers)
+                                 (buffer-list (selected-frame)))))
     (switch-to-buffer
      (if (< n 0)
-         (nth (+ (length my-buffer-list) n)
-              my-buffer-list)
+       (nth (+ (length my-buffer-list) n) my-buffer-list)
        (bury-buffer)
        (nth n my-buffer-list)))))
-(global-set-key [(control tab)] 'crs-bury-buffer)
-(global-set-key [(control shift tab)] (lambda ()
-                                       (interactive)
-                                       (crs-bury-buffer -1)))
+
+(global-set-key (kbd "C-<tab>") 'stesla-rotate-buffers)
+(global-set-key (kbd "C-S-<tab>") (lambda ()
+                                    (interactive)
+                                    (stesla-rotate-buffers -1)))
