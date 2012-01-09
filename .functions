@@ -12,7 +12,7 @@ unalias .. 2>/dev/null
 
 _..() {
   local IFS=$'\n'
-  COMPREPLY=( $(compgen -A directory -W "$(ls -p .. | grep / | sed 's,/,,')" -- ${COMP_WORDS[COMP_CWORD]}) )
+  COMPREPLY=( $(compgen -W "$(ls -p .. | grep / | sed 's,/,,')" -- ${COMP_WORDS[COMP_CWORD]}) )
 }
 complete -F _.. -o nospace ..
 
@@ -23,7 +23,7 @@ unalias ... 2>/dev/null
 
 _...() {
   local IFS=$'\n'
-  COMPREPLY=( $(compgen -A directory -W "$(ls -p ../.. | grep / | sed 's,/,,')" -- ${COMP_WORDS[COMP_CWORD]}) )
+  COMPREPLY=( $(compgen -W "$(ls -p ../.. | grep / | sed 's,/,,')" -- ${COMP_WORDS[COMP_CWORD]}) )
 }
 complete -F _... -o nospace ...
 
