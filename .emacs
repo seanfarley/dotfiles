@@ -1,26 +1,24 @@
 ; -------------------------
+;
 ; Basic settings
 ; -------------------------
 
 ; Font test:
 ; ell 'l', one '1', little eye 'i', big eye 'I'
 ; zero '0', little oh 'o', big oh 'O'
-(set-default-font "Andale Mono")
-(set-face-attribute 'default nil :font "Andale Mono")
+(if window-system
+  (
+   (set-default-font "Andale Mono")
+   (set-face-attribute 'default nil :font "Andale Mono")
+   (tool-bar-mode -1) ; Turn off toolbar
+   (tabbar-mode -1) ; Turn off tabs
+))
 
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
 ; Disable startup message in echo area
 (setq inhibit-startup-echo-area-message t)
-
-; Turn off toolbar
-(if window-system
-    (tool-bar-mode -1))
-
-; Turn off tabs
-(if window-system
-    (tabbar-mode -1))
 
 ; Turn off blinking cursor
 (blink-cursor-mode (- (*) (*) (*)))
