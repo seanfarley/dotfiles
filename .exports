@@ -29,8 +29,8 @@ if [ -d /opt/local ]; then
   export MP=/opt/local/var/macports/sources/rsync.macports.org/release/tarballs/ports
 fi
 
-if [ -d $HOME/local/bin ]; then
-  export PATH=$HOME/local/bin:$PATH
+if [ -d $HOME/.local/bin ]; then
+  export PATH=$HOME/.local/bin:$PATH
 fi
 
 if [ -d /usr/local/cuda ]; then
@@ -42,11 +42,11 @@ if [ -d /share/apps/petsc-dev ]; then
   export PETSC_ARCH=arch-linux2-c-gcc-debug
 fi
 
-if [ -d $HOME/local/lib/python2.6 ]; then
-  export PYTHONPATH=$HOME/local/lib/python2.6/site-packages:$HOME/local/lib/python2.6:$PYTHONPATH
+if [ -d $HOME/.local/lib/python2.6 ]; then
+  export PYTHONPATH=$HOME/.local/lib/python2.6/site-packages:$HOME/.local/lib/python2.6:$PYTHONPATH
 fi
 
-if [ -d $HOME/local/lib/python2.7 ]; then
-  export PYTHONPATH=$HOME/local/lib/python2.7/site-packages:$HOME/local/lib/python2.7:$PYTHONPATH
+if [ -d $HOME/.local/lib/python2.7 ]; then
+  export PYTHONPATH=$HOME/.local/lib/python2.7/site-packages:$HOME/.local/lib/python2.7:$PYTHONPATH
 fi
 
