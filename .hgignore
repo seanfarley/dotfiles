@@ -169,3 +169,4 @@ GRTAGS
 .ido.last
 .gnupg
 .emacs.d/undohist
+.verify-fs
