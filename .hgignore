@@ -167,3 +167,4 @@ GRTAGS
 *.mod
 *.elc
 .ido.last
+.gnupg
