@@ -168,3 +168,4 @@ GRTAGS
 *.elc
 .ido.last
 .gnupg
+.emacs.d/undohist
