@@ -277,6 +277,6 @@
        (nth n my-buffer-list)))))
 
 (global-set-key (kbd "C-<tab>") 'stesla-rotate-buffers)
-(global-set-key (kbd "C-S-<tab>") (lambda ()
+(global-set-key (kbd "C-M-<tab>") (lambda ()
                                     (interactive)
                                     (stesla-rotate-buffers -1)))
