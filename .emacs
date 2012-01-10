@@ -90,6 +90,9 @@
 ; Packages
 ; -------------------------
 
+; Monky
+(require 'monky)
+
 ; Highlight both the row and column
 (require 'crosshairs)
 
