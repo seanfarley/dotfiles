@@ -133,6 +133,8 @@
 )
 (gtags-mode t)
 
+(require 'anything-config)
+
 ; Load ido
 (require 'ido)
 (require 'ido-ubiquitous)
