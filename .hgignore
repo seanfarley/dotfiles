@@ -170,3 +170,4 @@ GRTAGS
 .gnupg
 .emacs.d/undohist
 .verify-fs
+.semanticdb
