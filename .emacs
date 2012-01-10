@@ -75,7 +75,7 @@
 (global-set-key "\C-cc" "\C-a\C- \C-e\M-w")
 
 ; -------------------------
-; ELPA
+; Load paths
 ; -------------------------
 
 ; Emacs Load Path
