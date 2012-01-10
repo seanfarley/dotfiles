@@ -7,12 +7,14 @@
 ; ell 'l', one '1', little eye 'i', big eye 'I'
 ; zero '0', little oh 'o', big oh 'O'
 (if window-system
-  (
+  (progn
    (set-default-font "Andale Mono")
-   (set-face-attribute 'default nil :font "Andale Mono")
-   (tool-bar-mode -1) ; Turn off toolbar
-   (tabbar-mode -1) ; Turn off tabs
-))
+   (set-face-attribute 'default nil :font "Andale Mono")))
+
+; Turn off gui-type stuff
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
