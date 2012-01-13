@@ -17,6 +17,7 @@
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tabbar-mode) (tabbar-mode -1))
 
+; Backup files
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
@@ -84,8 +85,6 @@
 (let ((default-directory  "~/.emacs.d/plugins"))
         (normal-top-level-add-subdirs-to-load-path))
 
-; Don't save backup files
-(setq make-backup-files nil)
 
 ; -------------------------
 ; Packages
