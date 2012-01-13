@@ -152,7 +152,7 @@
 
 ; Ace-jump (Easymotion equivalent)
 (require 'ace-jump-mode)
-(define-key global-map (kbd "\C-cj") 'ace-jump-mode)
+(define-key global-map (kbd "\C-ca") 'ace-jump-mode)
 
 ; Enable undohist for persistent undo
 (require 'undohist)
