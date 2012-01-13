@@ -110,11 +110,11 @@
 ; (require 'color-theme-zenburn)
 ; (color-theme-zenburn)
 
-; ; YASnippet
-; (require 'yasnippet) ;; not yasnippet-bundle
-; (yas/initialize)
-; (yas/load-directory "~/.emacs.d/snippets")
-; (yas/global-mode 1)
+; YASnippet
+(require 'yasnippet) ;; not yasnippet-bundle
+(yas/initialize)
+(yas/load-directory "~/.emacs.d/snippets")
+(yas/global-mode 1)
 
 ; CEDET
 (load-file "~/.emacs.d/cedet-1.0/common/cedet.el")
