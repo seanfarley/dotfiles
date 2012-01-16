@@ -131,7 +131,6 @@ l = log --pager=always
 nudge = push --branch .
 
 # Some useful little aliases.
-st = status -SC
 ? = summary
 df = diff
 
