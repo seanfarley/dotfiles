@@ -215,6 +215,11 @@
   uniquify-buffer-name-style 'post-forward
   uniquify-separator ":")
 
+; Use zen-coding
+(require 'zencoding-mode)
+(add-hook 'sgml-mode-hook 'zencoding-mode)
+(add-hook 'html-helper-mode-hook 'zencoding-mode)
+
 ; -------------------------
 ; Functions
 ; -------------------------
