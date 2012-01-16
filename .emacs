@@ -21,6 +21,7 @@
 (if (fboundp 'tabbar-mode) (tabbar-mode -1))
 
 ; Backup files
+(setq backup-by-copying t)
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
