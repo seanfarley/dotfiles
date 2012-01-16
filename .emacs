@@ -7,6 +7,10 @@
 (setq vc-handled-backends nil)
 (cua-mode 0)
 
+; Add the system path for mac
+(add-to-list 'exec-path "/opt/local/bin")
+(add-to-list 'exec-path "/opt/local/sbin")
+
 ; Font test:
 ; ell 'l', one '1', little eye 'i', big eye 'I'
 ; zero '0', little oh 'o', big oh 'O'
