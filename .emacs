@@ -3,6 +3,10 @@
 ; Basic settings
 ; -------------------------
 
+; First disable things
+(setq vc-handled-backends nil)
+(cua-mode 0)
+
 ; Font test:
 ; ell 'l', one '1', little eye 'i', big eye 'I'
 ; zero '0', little oh 'o', big oh 'O'
@@ -178,9 +182,6 @@
 ; Enable undo-tree
 (require 'undo-tree)
 (global-undo-tree-mode)
-
-; Remove vc
-(setq vc-handled-backends ())
 
 ; Enable rainbow matching
 (require 'rainbow-delimiters)
