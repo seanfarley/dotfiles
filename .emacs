@@ -108,6 +108,11 @@
 ; Packages
 ; -------------------------
 
+; Autocomplete
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete/dict")
+(ac-config-default)
+
 ; Monky
 (require 'monky)
 (setq monky-process-type 'cmdserver)
