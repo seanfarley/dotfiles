@@ -358,6 +358,34 @@
   (interactive)
   (compile-pkg compile-command))
 
+(defun anything-semantic-construct-candidates (tags depth)
+  (apply 'append (mapcar (lambda (tag)
+    (if (listp tag)
+      (let ((type (semantic-tag-type tag))
+            (class (semantic-tag-class tag)))
+      (if (or (and (stringp type)
+                   (string= type "class"))
+              (eq class 'function)
+              (eq class 'variable))
+          (cons (cons (concat (make-string (* depth 2) ?\s)
+                              (semantic-format-tag-summarize tag nil t)) tag)
+                (anything-semantic-construct-candidates (semantic-tag-components tag) (1+ depth)))))))
+                         tags)))
+
+(defvar anything-c-source-semantic
+  '((name . "Semantic Tags")
+    (init . (lambda ()
+              (setq anything-semantic-candidates
+                    (condition-case nil
+                        (anything-semantic-construct-candidates (semantic-fetch-tags) 0)
+                      (error nil)))))
+    (candidates . (lambda ()
+                    (if anything-semantic-candidates
+                        (mapcar 'car anything-semantic-candidates))))
+    (action . (("Goto tag" . (lambda (candidate)
+                               (let ((tag (cdr (assoc candidate anything-semantic-candidates))))
+                                 (semantic-go-to-tag tag))))))))
+
 ; -------------------------
 ; Hooks
 ; -------------------------
