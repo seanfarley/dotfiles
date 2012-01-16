@@ -133,6 +133,7 @@ nudge = push --branch .
 # Some useful little aliases.
 ? = summary
 df = diff
+r = record
 
 # Push the qparent revision (mnemonic: q push parent).
 qpp = push -r qparent
