@@ -122,8 +122,9 @@
 ; Highlight both the row and column
 (require 'crosshairs)
 
-(custom-set-variables '(crosshairs-mode t))
-(global-set-key (kbd "C-|") 'crosshairs-mode)
+(global-hl-line-mode 1)
+(global-hl-line-highlight)
+(global-set-key (kbd "C-|") 'column-highlight-mode)
 
 ; color-theme
 (require 'color-theme)
