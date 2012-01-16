@@ -171,3 +171,4 @@ GRTAGS
 .emacs.d/undohist
 .verify-fs
 .semanticdb
+.emacs.d/server

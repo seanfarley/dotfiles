@@ -55,6 +55,11 @@
 ; Tame the echo-area font
 (custom-set-faces
  '(echo-area ((((type ns)) (:stipple nil :strike-through nil :underline nil :slant normal :weight normal :width normal)))))
+; -------------------------
+; emacsclient
+; -------------------------
+(setq server-use-tcp t)
+(server-start)
 
 ; -------------------------
 ; Keybindings
