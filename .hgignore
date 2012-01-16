@@ -172,3 +172,4 @@ GRTAGS
 .verify-fs
 .semanticdb
 .emacs.d/server
+*.dat
