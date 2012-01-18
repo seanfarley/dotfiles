@@ -105,7 +105,9 @@ diff.deleted = red
 diff.inserted = green
 diff.changed = white
 diff.trailingwhitespace = white_background
-mq.qseries = white_background
+qseries.applied = blue bold underline
+qseries.unapplied = cyan bold
+qseries.missing = red bold
 
 [defaults]
 rebase = --keepbranches
