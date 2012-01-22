@@ -94,7 +94,11 @@ hgwatch() {
 }
 
 d() {
+  GET="curl -O"
+  if [[ -z "$(which curl 2>/dev/null)" ]]; then
+    GET="wget -c"
+  fi
   for i in $@; do
-    curl -O $i;
+    $GET $i;
   done;
 }
