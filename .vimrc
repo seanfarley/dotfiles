@@ -13,8 +13,6 @@
   let g:fuf_dataDir = expand('~/.vim/tmp/fuf-data')
   let g:vimfiler_data_directory = expand('~/.vim/tmp/vimfiler')
 
-  runtime bundle/pathogen/autoload/pathogen.vim
-  call pathogen#infect()
   syntax on
   filetype plugin indent on
 
