@@ -95,7 +95,7 @@
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 
 ; CEDET
-(load-file "~/.emacs.d/cedet-1.0/common/cedet.el")
+(load-file "~/.emacs.d/plugins/cedet/common/cedet.el")
 ;(when (require 'gtags)
 ;  (global-set-key "\C-cf" 'gtags-find-file)
 ;  (global-set-key "\M-." 'gtags-find-tag)
