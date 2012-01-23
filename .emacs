@@ -94,6 +94,26 @@
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 
+; CEDET
+(load-file "~/.emacs.d/cedet-1.0/common/cedet.el")
+;(when (require 'gtags)
+;  (global-set-key "\C-cf" 'gtags-find-file)
+;  (global-set-key "\M-." 'gtags-find-tag)
+;  (global-set-key (kbd "C->") 'gtags-find-tag-from-here)
+;  (global-set-key "\M-*" 'gtags-pop-stack)
+;  (define-key gtags-mode-map (kbd "C-c r") 'gtags-find-rtag)
+;  (define-key gtags-select-mode-map "p" 'previous-line)
+;  (define-key gtags-select-mode-map "n" 'next-line)
+;  (define-key gtags-select-mode-map "q" 'gtags-pop-stack)
+;  (define-key gtags-select-mode-map "\C-m" 'gtags-select-tag)
+;  (define-key gtags-select-mode-map " " 'gtags-select-tag)
+;  (define-key gtags-select-mode-map "\C-o" 'gtags-select-tag-other-window)
+;  (message "Loaded gtags")
+;  (when (require 'semanticdb-global)
+;    (semanticdb-enable-gnu-global-databases 'c-mode)
+;    (semanticdb-enable-gnu-global-databases 'c++-mode))
+;)
+
 ; -------------------------
 ; Load paths
 ; -------------------------
@@ -159,26 +179,6 @@
 (yas/initialize)
 (yas/load-directory "~/.emacs.d/snippets")
 (yas/global-mode 1)
-
-; CEDET
-(load-file "~/.emacs.d/cedet-1.0/common/cedet.el")
-(when (require 'gtags)
-  (global-set-key "\C-cf" 'gtags-find-file)
-  (global-set-key "\M-." 'gtags-find-tag)
-  (global-set-key (kbd "C->") 'gtags-find-tag-from-here)
-  (global-set-key "\M-*" 'gtags-pop-stack)
-  (define-key gtags-mode-map (kbd "C-c r") 'gtags-find-rtag)
-  (define-key gtags-select-mode-map "p" 'previous-line)
-  (define-key gtags-select-mode-map "n" 'next-line)
-  (define-key gtags-select-mode-map "q" 'gtags-pop-stack)
-  (define-key gtags-select-mode-map "\C-m" 'gtags-select-tag)
-  (define-key gtags-select-mode-map " " 'gtags-select-tag)
-  (define-key gtags-select-mode-map "\C-o" 'gtags-select-tag-other-window)
-  (message "Loaded gtags")
-  (when (require 'semanticdb-global)
-    (semanticdb-enable-gnu-global-databases 'c-mode)
-    (semanticdb-enable-gnu-global-databases 'c++-mode))
-)
 
 (require 'anything-config)
 
