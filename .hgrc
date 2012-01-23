@@ -145,9 +145,8 @@ md = merge default
 
 # Commit message shortcuts.
 cm = commit -m
-cus = commit -m 'Update subrepository state'
-cmm = commit -m 'Merge'
-cws = commit -m 'Fix whitespace'
+cus = commit -m 'subrepo: update state'
+cmm = commit -m 'merge'
 
 # Merge shortcuts.
 mergelocal = !$HG --config ui.merge=internal:local merge $@
