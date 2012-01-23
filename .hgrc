@@ -51,11 +51,12 @@ opts.vdiff = -c 'set lines=70' -c 'set columns=240' -f '+next' '+execute "DirDif
 
 cmd.sourcetreediff=opendiff
 opts.sourcetreediff=
+
 [merge-tools]
-threesome.executable = mvim
-threesome.args = -f $base $local $other $output -c 'ThreesomeInit'
-threesome.premerge = keep
-threesome.priority = 1
+emacsclient.executable = emacsclient
+emacsclient.args = -f ~/.emacs.d/server/server -q --eval "(hg-mergetool-emacsclient-ediff \"$local\" \"$other\" \"$base\" \"$output\")"
+emacsclient.premerge = keep
+emacsclient.priority = 1
 
 keepthat.executable = sh
 keepthat.args = -c 'cp "$local" "$output.original" && cp "$other" "$output"'
