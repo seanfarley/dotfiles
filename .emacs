@@ -7,9 +7,9 @@
 (setq vc-handled-backends nil)
 (cua-mode 0)
 
-; Add the system path for mac
-(add-to-list 'exec-path "/opt/local/bin")
-(add-to-list 'exec-path "/opt/local/sbin")
+(if (not (getenv "TERM_PROGRAM"))
+    (setenv "PATH"
+            (shell-command-to-string "source $HOME/.exports 2>/dev/null && printf $PATH")))
 
 ; Font test:
 ; ell 'l', one '1', little eye 'i', big eye 'I'
