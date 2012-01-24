@@ -173,3 +173,11 @@ GRTAGS
 .semanticdb
 .emacs.d/server
 *.dat
+.lirc*
+.macromedia
+.mythtv
+.pulse*
+.smb
+.sudo*
+.xbmc
+.xscreen*
