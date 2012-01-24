@@ -1,7 +1,0 @@
-;; Object SRecode Map
-;; EIEIO PERSISTENT OBJECT
-(srecode-map "SRecode Map"
-  :file "srecode-map"
-  :files '(("/Users/sean/Downloads/cedet-1.0/cogre/templates/srecode-dot.srt" . graphviz-dot-mode) ("/Users/sean/Downloads/cedet-1.0/cogre/templates/cogre-default.srt" . default) ("/Users/sean/Downloads/cedet-1.0/srecode/templates/srecode-wisent.srt" . wisent-grammar-mode) ("/Users/sean/Downloads/cedet-1.0/srecode/templates/srecode-texi.srt" . texinfo-mode) ("/Users/sean/Downloads/cedet-1.0/srecode/templates/srecode-template.srt" . srecode-template-mode) ("/Users/sean/Downloads/cedet-1.0/srecode/templates/srecode-make.srt" . makefile-mode) ("/Users/sean/Downloads/cedet-1.0/srecode/templates/srecode-java.srt" . java-mode) ("/Users/sean/Downloads/cedet-1.0/srecode/templates/srecode-el.srt" . emacs-lisp-mode) ("/Users/sean/Downloads/cedet-1.0/srecode/templates/srecode-cpp.srt" . c++-mode) ("/Users/sean/Downloads/cedet-1.0/srecode/templates/default.srt" . default))
-  :apps '((getset ("/Users/sean/Downloads/cedet-1.0/srecode/templates/srecode-getset-cpp.srt" . c++-mode)) (tests ("/Users/sean/Downloads/cedet-1.0/srecode/templates/srecode-test.srt" . srecode-template-mode) ("/Users/sean/Downloads/cedet-1.0/srecode/templates/proj-test.srt" . srecode-template-mode)) (document ("/Users/sean/Downloads/cedet-1.0/srecode/templates/srecode-document-java.srt" . java-mode) ("/Users/sean/Downloads/cedet-1.0/srecode/templates/srecode-document-cpp.srt" . c++-mode) ("/Users/sean/Downloads/cedet-1.0/srecode/templates/document-default.srt" . default)))
-  )
