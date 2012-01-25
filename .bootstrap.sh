@@ -1,4 +1,4 @@
-#!/bin/bash -
+#!/usr/bin/env bash
 #===============================================================================
 #
 #          FILE:  .bootstrap.sh
@@ -20,15 +20,18 @@
 set -o nounset                              # Treat unset variables as an error
 
 # if accidentally ran from $HOME, then change directories
-[[ $PWD == $HOME ]] && cd settings
+[[ $PWD != $HOME/settings ]] && cd $HOME/settings/
 
 for file in .ssh/*; do
-  mv $file $HOME/.ssh
+  mv $file $HOME/$file
 done
 
 [[ -d .ssh ]] && rm -rf .ssh
 
 for file in .[a-zA-Z0-9]*; do
   [[ -d $HOME/$file ]] && rm -rf $HOME/$file
-  mv $file $HOME
+  mv $file $HOME/$file
 done
+
+# cleanup
+rmdir $HOME/settings
