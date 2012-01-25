@@ -58,36 +58,30 @@ mpcategory() {
 }
 
 mpc() {
-  CATEGORY=$(mpcategory $@)
-  if [ ! -z $CATEGORY ]; then
-    echo "$MP/$CATEGORY"
-  fi
+  local CATEGORY=$(mpcategory $@)
+  [[ -n $CATEGORY ]] && echo "$MP/$CATEGORY"
 }
 
 mp() {
-  CATEGORY=$(mpcategory $@)
-  if [ ! -z $CATEGORY ]; then
-    echo "$MP/$CATEGORY/$@"
-  fi
+  local CATEGORY=$(mpcategory $@)
+  [[ -n $CATEGORY ]] && echo "$MP/$CATEGORY/$@"
 }
 
 psgrep() {
   ps aux | grep -v grep | grep "$@"
 }
+d() {
+  local GET="curl -O"
+  [[ -z "$(which curl 2>/dev/null)" ]] && GET="wget -c"
 
 killgrep() {
-  PROCS=$(psgrep $@ | awk '{print $2;}')
+  local PROCS=$(psgrep $@ | awk '{print $2;}')
   for p in $PROCS; do
     kill $p
   done
 }
 
 
-d() {
-  GET="curl -O"
-  if [[ -z "$(which curl 2>/dev/null)" ]]; then
-    GET="wget -c"
-  fi
   for i in $@; do
     $GET $i;
   done;
