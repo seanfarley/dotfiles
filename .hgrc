@@ -173,7 +173,7 @@ show = nlog --color=always -vpr
 
 # Simple glog command that doesn't look bad and doesn't require my CLI templates.
 _gl = glog --pager=always -l $1 -r ".~$1::." --template='\033[0;33m{node|short}\033[0m {desc|firstline|strip} \033[0;35m{branches}\033[0m \033[0;33m{tags}\033[0m\n\033[1;29m({date|age} by {author|person})\033[0m\n\n'
-gl = !$HG _gl $(if [[ -z "$@" ]]; then echo 10; else echo "$@"; fi)
+gl = !$HG _gl $(if [ -z "$@" ]; then echo 10; else echo "$@"; fi)
 
 # Make a new repo with some sensible defaults.
 mkrepo = !$HG init $1 && cd $1 && \
@@ -223,7 +223,7 @@ psubscmd = !"$HG" debugsub | grep '^path' | cut -d' ' -f2 | parallel -j10 -I SUB
 #     M lol.py
 sub = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | grep "$1" | tr -d '\n ' | xargs -0 -I SUB $HG -R SUB $2 $3 $4 $5 $6 $7 $8 $9 $10 $11 $12 $13 $14 $15 $16 $17 $18 $19 $20
 
-dirty = !if [[ ! -z "$($HG st -mardn $@)" ]]; then touch $($HG $@ root)/.hg/dirty; else rm -f $($HG $@ root)/.hg/dirty; fi
+dirty = !if [ -n "$($HG st -mardn $@)" ]; then touch $($HG $@ root)/.hg/dirty; else rm -f $($HG $@ root)/.hg/dirty; fi
 
 # pss for non-ignored files
 pss = !$HG locate "set:not ignored()" | xargs pss $@
