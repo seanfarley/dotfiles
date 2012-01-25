@@ -70,9 +70,6 @@ mp() {
 psgrep() {
   ps aux | grep -v grep | grep "$@"
 }
-d() {
-  local GET="curl -O"
-  [[ -z "$(which curl 2>/dev/null)" ]] && GET="wget -c"
 
 killgrep() {
   local PROCS=$(psgrep $@ | awk '{print $2;}')
@@ -81,8 +78,31 @@ killgrep() {
   done
 }
 
+d() {
+  local GET="curl -O"
+  [[ -z "$(which curl 2>/dev/null)" ]] && GET="wget -c"
 
   for i in $@; do
     $GET $i;
   done;
+}
+
+ssh() {
+  # system ssh command
+  local SSH=$(which ssh)
+
+  # read from emacs server file what port it is currently listening on
+  local PORT=$(egrep  -o '127.0.0.1:([0-9]*)' ~/.emacs.d/server/server | sed 's/127.0.0.1://')
+
+  # read the server file, escaping single quotes that are in the auth string
+  local SRV=$(cat ~/.emacs.d/server/server | sed "s/'/\\\\\\'/")
+
+  # When connecting to the remote host, print the server file to the
+  # correct location and then invoke my shell.
+  local CMD="mkdir -m 700 -p ~/.emacs.d/server; echo $'$SRV' > ~/.emacs.d/server/server; bash -l"
+
+  # -t : allocate a tty so we are there.
+  # -R : the remote port forward that lets emacsclient talk back
+  # $@ : any other args this script was invoked with should be passed along.
+  $SSH -t -R $PORT:127.0.0.1:$PORT $@ "$CMD"
 }

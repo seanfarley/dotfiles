@@ -181,3 +181,5 @@ GRTAGS
 .sudo*
 .xbmc
 .xscreen*
+.sh_history
+.emacs.d/tramp

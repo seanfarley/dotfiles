@@ -1,7 +1,7 @@
 [ui]
 username = Sean Farley <sean@mcs.anl.gov>
 ssh = ssh -C
-editor = emacsclient -f ~/.emacs.d/server/server
+editor = ~/.emacs.sh
 ignore = ~/.hgignore
 
 [extensions]
@@ -53,8 +53,8 @@ cmd.sourcetreediff=opendiff
 opts.sourcetreediff=
 
 [merge-tools]
-emacsclient.executable = emacsclient
-emacsclient.args = -f ~/.emacs.d/server/server -q --eval "(hg-mergetool-emacsclient-ediff \"$local\" \"$other\" \"$base\" \"$output\")"
+emacsclient.executable = ~/.emacs.sh
+emacsclient.args = -q --eval "(hg-mergetool-emacsclient-ediff \"$local\" \"$other\" \"$base\" \"$output\")"
 emacsclient.premerge = keep
 emacsclient.priority = 1
 
