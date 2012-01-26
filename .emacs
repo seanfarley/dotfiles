@@ -38,6 +38,9 @@
 ; Tabs
 (setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
+(setq tab-stop-list (number-sequence 2 120 2))
+(setq-default sh-basic-offset 2)
+(setq-default sh-indentation 2)
 
 ; Scrolling settings from
 ; http://stackoverflow.com/questions/3631220/fix-to-get-smooth-scrolling-in-emacs
