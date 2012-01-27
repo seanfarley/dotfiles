@@ -96,12 +96,13 @@
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 
-; CEDET
-(load-file "~/.emacs.d/plugins/cedet/common/cedet.el")
 
 ; -------------------------
 ; Load paths
 ; -------------------------
+
+; CEDET
+(load-file "~/.emacs.d/plugins/cedet/common/cedet.el")
 
 ; Emacs Load Path
 (add-to-list 'load-path "~/.emacs.d")
