@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
 ED="emacs"
-FN="$1"
+FN=$(readlink -f $1)
 SF="$HOME/.emacs.d/server/server"
 PORT="1"
 HN=$(hostname)
+
+# if $FN is empty then this usually means a non-existent directory was provided
+[[ -z $FN ]] && echo "error: cannot create directories (check the file path provided)" && exit 1
 
 # if server/server file exists, then grep it for the port
 [[ -r $SF ]] && PORT=$(egrep -o '127.0.0.1:([0-9]*)' $SF | sed 's/127.0.0.1://')
@@ -15,6 +18,6 @@ HN=$(hostname)
 # build the tramp filename or local filename also, I'm assuming any
 # hostname that starts with 'seanfarley' is my local
 # (e.g. seanfarley.local, seanfarley.mcs.anl.gov)
-[[ $HN != seanfarley* ]] && FN="/$(whoami)@$HN:$1"
+[[ $HN != seanfarley* ]] && FN="/$(whoami)@$HN:$FN"
 
-$ED $FN
+$ECHO $ED $FN
