@@ -1,4 +1,4 @@
-#!/bin/bash -
+#!/usr/bin/env bash
 #===============================================================================
 #
 #          FILE:  .install.sh
@@ -41,7 +41,8 @@ function install() {
     GET="git clone"
     PACKAGE=$(basename $PACKAGE .git)
   elif [[ $PACKAGE == *\.tar* ]]; then
-    # Making this too general is crazy at this point, so just assume everything is .tar.* for tarballs
+    # Making this too general is crazy at this point, so just assume
+    # everything is .tar.* for tarballs
 
     EXT=".tar.${PACKAGE##*.}"
     PACKAGE=$(basename $PACKAGE $EXT)
