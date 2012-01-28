@@ -239,6 +239,34 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 (add-hook 'sgml-mode-hook 'zencoding-mode)
 (add-hook 'html-helper-mode-hook 'zencoding-mode)
 
+; Use auctex
+(require 'tex-site)
+(require 'preview-latex)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+
+(setq-default TeX-master nil)
+
+;; use pdflatex
+(setq TeX-PDF-mode t)
+
+(setq TeX-view-program-selection
+      '((output-dvi "DVI Viewer")
+        (output-pdf "PDF Viewer")
+        (output-html "HTML Viewer")))
+;; this section is good for OS X only
+;; TODO add sensible defaults for Linux/Windows
+(setq TeX-view-program-list
+      '(("DVI Viewer" "open %o")
+        ("PDF Viewer" "open %o")
+        ("HTML Viewer" "open %o")))
+
+(defun prelude-latex-mode-hook ()
+  (turn-on-auto-fill)
+  (abbrev-mode +1))
+
+(add-hook 'LaTeX-mode-hook 'prelude-latex-mode-hook)
+
 ; -------------------------
 ; Functions
 ; -------------------------
