@@ -184,3 +184,4 @@ GRTAGS
 .sh_history
 .emacs.d/tramp
 .tramp_history
+.srecode
