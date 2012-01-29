@@ -213,7 +213,7 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 
 ; Ace-jump (Easymotion equivalent)
 (require 'ace-jump-mode)
-(define-key global-map (kbd "\C-ca") 'ace-jump-mode)
+(define-key global-map (kbd "C-j") 'ace-jump-mode)
 
 ; Enable undohist for persistent undo
 (require 'undohist)
