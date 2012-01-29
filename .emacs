@@ -89,12 +89,6 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
  '(whitespace-indentation ((((class color) (background dark)) (:background "#073642" :foreground "white")) (((class color) (background light)) (:background "#eee8d5" :foreground "black")) (t (:inverse-video t)))))
 
 ; -------------------------
-; emacsclient
-; -------------------------
-(setq server-use-tcp t)
-(server-start)
-
-; -------------------------
 ; Keybindings
 ; -------------------------
 
@@ -123,6 +117,11 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 (let ((default-directory  "~/.emacs.d/plugins"))
         (normal-top-level-add-subdirs-to-load-path))
 
+; -------------------------
+; emacsclient
+; -------------------------
+(setq server-use-tcp t)
+(server-start)
 
 ; -------------------------
 ; Packages
