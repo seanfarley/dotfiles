@@ -128,7 +128,7 @@ if [[ $PACKAGES == *global* ]]; then
 fi
 
 if [[ $PACKAGES == bc || $PACKAGES == *bc[!-a-zA-Z]* || $PACKAGES == *bash-comp* || $PACKAGES == *bashcomp* ]]; then
-  # install gnu http://bash-completion.alioth.debian.org/files/bash-completion-1.3.tar.bz2
+  install gnu http://bash-completion.alioth.debian.org/files/bash-completion-1.3.tar.bz2
   # after bash-completion is installed, get the mercurial and git scripts
   install script http://selenic.com/hg/raw-file/7ed056f1e97d/contrib/bash_completion $LOC/etc/bash_completion.d/mercurial
   install script https://raw.github.com/gitster/git/master/contrib/completion/git-completion.bash $LOC/etc/bash_completion.d/git
