@@ -87,12 +87,9 @@ d() {
   done;
 }
 
-ssh() {
+essh() {
   # system ssh command
   local SSH=$(which ssh)
-
-  # if called from a script return default ssh
-  [[ $(echo $@ | grep -ci batch) -gt 0 ]] && $SSH $@ && return $?
 
   # read from emacs server file what port it is currently listening on
   local PORT=$(egrep  -o '127.0.0.1:([0-9]*)' ~/.emacs.d/server/server | sed 's/127.0.0.1://')
@@ -109,3 +106,5 @@ ssh() {
   # $@ : any other args this script was invoked with should be passed along.
   $SSH -t -R $PORT:127.0.0.1:$PORT $@ "$CMD"
 }
+
+complete -F _ssh essh
