@@ -39,7 +39,7 @@ FN=$(readlink -f $1)
 [[ -r $SF ]] && PORT=$(egrep -o '127.0.0.1:([0-9]*)' $SF | sed 's/127.0.0.1://')
 
 # check to see if port is open; apparently, ubuntu needs the -v flag
-[[ -n $(nc -zv 127.0.0.1 $PORT 2>&1 | grep succeeded) || $HN == seanfarley* ]] && ED="emacsclient -f $SF"
+[[ -n $(nc -zv 127.0.0.1 $PORT 2>&1 | grep 'succeeded\|open') || $HN == seanfarley* ]] && ED="emacsclient -f $SF"
 
 # build the tramp filename or local filename also, I'm assuming any
 # hostname that starts with 'seanfarley' is my local
