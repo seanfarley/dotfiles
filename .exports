@@ -43,6 +43,10 @@ if [ -d /share/apps/petsc-dev ]; then
   export PETSC_ARCH=arch-linux2-c-gcc-debug
 fi
 
+if [ -d $HOME/.local/lib/python ]; then
+  export PYTHONPATH=$HOME/.local/lib/python/site-packages:$HOME/.local/lib/python:$PYTHONPATH
+fi
+
 if [ -d $HOME/.local/lib/python2.6 ]; then
   export PYTHONPATH=$HOME/.local/lib/python2.6/site-packages:$HOME/.local/lib/python2.6:$PYTHONPATH
 fi

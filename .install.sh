@@ -95,6 +95,7 @@ function install() {
 PACKAGES="hg git histedit crecord hgsubversion hg-git global bash-completion pss emacs"
 [[ -n "$@" ]] && PACKAGES="$@"
 
+[[ -d $LOC/lib/python ]] && export PYTHONPATH=$LOC/lib/python/site-packages:$PYTHONPATH
 export PYTHONPATH=$LOC/lib/python$(python -c 'import sys; print("%i.%i" % (sys.version_info[0],sys.version_info[1]))')/site-packages:$PYTHONPATH
 export PATH=$HOME/.local:$PATH
 
