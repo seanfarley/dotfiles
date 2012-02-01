@@ -18,7 +18,7 @@
 #===============================================================================
 
 LOC=$HOME/.local
-CURL="curl -C - -L -O"
+CURL="curl -k -C - -L -O"
 if [[ -z $(which curl 2>/dev/null) ]]; then
   CURL="wget -c"
 fi
@@ -82,7 +82,7 @@ function install() {
       # sigh
       # stupid, stupid code duplication!
       # just download the script then exit
-      GET="curl -o"
+      GET="curl -k -o"
       if [[ -z $(which curl 2>/dev/null) ]]; then
         GET="wget -O"
       fi
