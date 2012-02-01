@@ -1,16 +1,19 @@
 
-for file in /opt/local/etc/bash_completion $HOME/.local/etc/profile.d/bash_completion.sh $HOME/.bashrc; do
-  [ -e "$file" ] && source "$file"
-done
-
-for file in exports bash_prompt aliases functions extra; do
+for file in exports bash_prompt aliases extra; do
   file="$HOME/.$file"
   [ -e "$file" ] && source "$file"
 done
 
-if [[ BASH_VERSINFO -ge 4 ]]; then
-  shopt -s globstar
-fi
+for file in /opt/local/etc/bash_completion; do
+  [ -e "$file" ] && source "$file"
+done
+
+for file in local/etc/profile.d/bash_completion.sh bashrc functions; do
+  file="$HOME/.$file"
+  [ -e "$file" ] && source "$file"
+done
+
+[[ BASH_VERSINFO -ge 4 ]] && shopt -s globstar
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
