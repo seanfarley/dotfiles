@@ -95,7 +95,7 @@ alias petsc-port="export PETSC_DIR=/opt/local;export PETSC_ARCH="
 # Directory shortcuts
 ##
 
-alias hw="cd ~/projects/class/2011-fall"
+alias hw="cd ~/projects/class/2012-spring"
 alias projects="cd \$PROJECTS"
 alias sb="cd \$PROJECTS/sandbox"
 alias sp="cd \$PROJECTS/scienceports"
