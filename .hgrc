@@ -172,12 +172,9 @@ d = diff -p --pager=always
 show = log --pager=always --color=always --style=$HOME/.hgnlog -vpr
 
 # Simple glog command that doesn't look bad and doesn't require my CLI templates.
-_sl = glog --pager=always -l $1 -r ".~$1::." --template='\033[0;3{phaseidx|permute}m{rev}\033[0m:\033[0;3{phaseidx|permute}m{node|short}\033[0m {desc|firstline|strip} \033[1;35m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n'
-sl = !$HG _sl $(if [ -z "$@" ]; then echo 25; else echo "$@"; fi)
-_gl = glog --pager=always -l $1 -r ".~$1::." --template='\033[0;3{phaseidx|permute}m{rev}\033[0m:\033[0;3{phaseidx|permute}m{node|short}\033[0m {desc|firstline|strip} \033[1;35m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n\033[1;29m({date|age} by {author|person})\033[0m\n\n'
-gl = !$HG _gl $(if [ -z "$@" ]; then echo 15; else echo "$@"; fi)
-_nl = glog --pager=always -l $1 -r ".~$1::." --color=always --style=$HOME/.hgnlog
-nl = !$HG _nl $(if [ -z "$@" ]; then echo 5; else echo "$@"; fi)
+sl = !$HG glog --pager=always --template="\033[0;3{phaseidx|permute}m{rev}\033[0m:\033[0;3{phaseidx|permute}m{node|short}\033[0m {desc|firstline|strip|fill76} \033[1;35m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n" $(if [ -z "$@" ]; then echo "-l 25 -r .~25::."; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-l $@ -r .~$@::."; else echo "$@"; fi)
+gl = !$HG glog --pager=always --template="\033[0;3{phaseidx|permute}m{rev}\033[0m:\033[0;3{phaseidx|permute}m{node|short}\033[0m {desc|firstline|strip|fill76} \033[1;35m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n\033[1;29m({date|age} by {author|person})\033[0m\n\n" $(if [ -z "$@" ]; then echo "-l 15 -r .~15::."; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-l $@ -r .~$@::."; else echo "$@"; fi)
+nl = glog --pager=always --color=always --style=$HOME/.hgnlog
 
 # Make a new repo with some sensible defaults.
 mkrepo = !$HG init $1 && cd $1 && \
