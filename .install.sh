@@ -144,5 +144,5 @@ if [[ $PACKAGES == *pss* ]]; then
 fi
 
 if [[ $PACKAGES == *emac* ]]; then
-  install gnu http://alpha.gnu.org/gnu/emacs/pretest/emacs-24.0.92.tar.gz "--without-x --without-jpeg --without-gif --without-sound"
+  install gnu http://alpha.gnu.org/gnu/emacs/pretest/emacs-24.0.93.tar.gz "--without-x --without-jpeg --without-gif --without-sound"
 fi
