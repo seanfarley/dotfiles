@@ -103,8 +103,8 @@ if [[ $PACKAGES == hg || $PACKAGES == *hg[!-a-zA-Z]* || $PACKAGES == *merc* ]]; 
   install python http://mercurial.selenic.com/release/mercurial-2.1.tar.gz
 fi
 
-if [[ $PACKAGES == git || $PACKAGES == *git[!-a-zA-Z]* ]]; then
-  install gnu http://git-core.googlecode.com/files/git-1.7.8.4.tar.gz
+if [[ $PACKAGES == git || $PACKAGES == *[!-a-zA-Z]git* ]]; then
+  install gnu http://git-core.googlecode.com/files/git-1.7.9.tar.gz
 fi
 
 if [[ $PACKAGES == he || $PACKAGES == *he[!-a-zA-Z]* || $PACKAGES == *histedit* ]]; then
