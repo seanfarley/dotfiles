@@ -169,7 +169,7 @@ d = diff -p --pager=always
 # Each of these can be used with -v to add a bit more info.
 
 # hg show .  -- show a summary of rev . with diff.
-show = log --pager=always --color=always --style=$HOME/.hgtemplates/map-cmdline.nlog -vpr
+show = log --pager=always --color=always --style=$HOME/.hgnlog -vpr
 
 # Simple glog command that doesn't look bad and doesn't require my CLI templates.
 _sl = glog --pager=always -l $1 -r ".~$1::." --template='\033[0;3{phaseidx|permute}m{rev}\033[0m:\033[0;3{phaseidx|permute}m{node|short}\033[0m {desc|firstline|strip} \033[1;35m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n'
