@@ -100,7 +100,7 @@ export PYTHONPATH=$LOC/lib/python$(python -c 'import sys; print("%i.%i" % (sys.v
 export PATH=$HOME/.local:$PATH
 
 if [[ $PACKAGES == hg || $PACKAGES == *hg[!-a-zA-Z]* || $PACKAGES == *merc* ]]; then
-  install python http://mercurial.selenic.com/release/mercurial-2.0.2.tar.gz
+  install python http://mercurial.selenic.com/release/mercurial-2.1.tar.gz
 fi
 
 if [[ $PACKAGES == git || $PACKAGES == *git[!-a-zA-Z]* ]]; then
