@@ -1,4 +1,4 @@
-changeset = '\033[0;3{phaseidx|permute}m{rev}\033[0m:\033[0;3{phaseidx|permute}m{node|short}\033[0m {desc|firstline|strip|fill76} \033[1;35m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n\033[1;29m({date|age} by {author|person})\033[0m\n\n{file_mods}{file_adds}{file_dels}\n'
+changeset = '\033[0;3{phaseidx|permute}m{rev}\033[0m:\033[0;3{phaseidx|permute}m{node|short}\033[0m {desc|firstline|strip|fill180} \033[1;35m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n\033[1;29m({date|age} by {author|person})\033[0m\n\n{file_mods}{file_adds}{file_dels}\n'
 
 changeset_verbose = '\033[0;3{phaseidx|permute}m{rev}\033[0m:\033[0;3{phaseidx|permute}m{node|short}\033[0m {desc} \033[1;35m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n\033[1;29m({date|age} by {author|person})\033[0m\n\n{file_mods}{file_adds}{file_dels}\n'
 
