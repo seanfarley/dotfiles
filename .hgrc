@@ -41,8 +41,8 @@ unified = 5
 [pager]
 pager = LESS="FRX" less
 
-[hgattic]
-trymerge = false
+[mq]
+secret = True
 
 [extdiff]
 cmd.fdiff = fmdiff
