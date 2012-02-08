@@ -26,6 +26,7 @@ hggit =
 histedit =
 hgsubversion =
 crecord =
+hgfilter = ~/.hgfilter.py
 
 [schemes]
 bb = ssh://hg@bitbucket.org/
@@ -109,6 +110,8 @@ diff.trailingwhitespace = white_background
 qseries.applied = blue bold underline
 qseries.unapplied = cyan bold
 qseries.missing = red bold
+bookmarks.current = magenta bold
+tags.normal = magenta
 
 [defaults]
 rebase = --keepbranches
@@ -164,16 +167,17 @@ d = diff -p --pager=always
 # Log shortcuts --------------------------------------------------------------------
 #
 # Each of these can be used with -v to add a bit more info.
-nlog = log --pager=always --style=$HOME/.hgtemplates/map-cmdline.nlog
 
-# hg n .     -- show a summary of rev . without diff.
 # hg show .  -- show a summary of rev . with diff.
-n = nlog -vr
-show = nlog --color=always -vpr
+show = log --pager=always --color=always --style=$HOME/.hgtemplates/map-cmdline.nlog -vpr
 
 # Simple glog command that doesn't look bad and doesn't require my CLI templates.
-_gl = glog --pager=always -l $1 -r ".~$1::." --template='\033[0;33m{node|short}\033[0m {desc|firstline|strip} \033[0;35m{branches}\033[0m \033[0;33m{tags}\033[0m\n\033[1;29m({date|age} by {author|person})\033[0m\n\n'
-gl = !$HG _gl $(if [ -z "$@" ]; then echo 10; else echo "$@"; fi)
+_sl = glog --pager=always -l $1 -r ".~$1::." --template='\033[0;3{phaseidx|permute}m{rev}\033[0m:\033[0;3{phaseidx|permute}m{node|short}\033[0m {desc|firstline|strip} \033[1;35m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n'
+sl = !$HG _sl $(if [ -z "$@" ]; then echo 25; else echo "$@"; fi)
+_gl = glog --pager=always -l $1 -r ".~$1::." --template='\033[0;3{phaseidx|permute}m{rev}\033[0m:\033[0;3{phaseidx|permute}m{node|short}\033[0m {desc|firstline|strip} \033[1;35m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n\033[1;29m({date|age} by {author|person})\033[0m\n\n'
+gl = !$HG _gl $(if [ -z "$@" ]; then echo 15; else echo "$@"; fi)
+_nl = glog --pager=always -l $1 -r ".~$1::." --color=always --style=$HOME/.hgnlog
+nl = !$HG _nl $(if [ -z "$@" ]; then echo 5; else echo "$@"; fi)
 
 # Make a new repo with some sensible defaults.
 mkrepo = !$HG init $1 && cd $1 && \
