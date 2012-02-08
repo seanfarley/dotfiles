@@ -39,7 +39,7 @@ git = True
 unified = 5
 
 [pager]
-pager = LESS='FSRX' less
+pager = LESS="FRX" less
 
 [hgattic]
 trymerge = false
