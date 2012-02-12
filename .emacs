@@ -284,6 +284,11 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 (setq matlab-shell-command-switches '("-nodesktop -nosplash"))
 (setq matlab-shell-command "matlab")
 
+(autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
+(setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
+(setq markdown-command "markdown-2.7")
+(setq markdown-command-needs-filename t)
+
 ; -------------------------
 ; Functions
 ; -------------------------
