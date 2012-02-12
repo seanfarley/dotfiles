@@ -109,6 +109,47 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 ; Load paths
 ; -------------------------
 
+; Use auctex
+(when (require 'tex-site nil 'noerror)
+  (require 'preview-latex)
+
+  (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
+
+  (setq-default TeX-master nil)
+
+  ;; use pdflatex
+  (setq TeX-PDF-mode t)
+
+  (setq TeX-view-program-selection
+        '((output-dvi "DVI Viewer")
+          (output-pdf "PDF Viewer")
+          (output-html "HTML Viewer")))
+
+  ;; this section is good for OS X only
+  ;; TODO add sensible defaults for Linux/Windows
+  (setq TeX-view-program-list
+        '(("DVI Viewer" "open %o")
+          ("PDF Viewer" "open %o")
+          ("HTML Viewer" "open %o")))
+
+  (defun prelude-latex-mode-hook ()
+    (turn-on-auto-fill)
+    (abbrev-mode +1)
+    (message "%s" "Adding tikz hooks")
+    (add-to-list 'font-latex-extend-region-functions 'font-latex-extend-region-backwards-tikz-env)
+    (let ((match-tikz (cons 'font-latex-match-tikz-env
+                            (list 'tikz-anchored-matcher '(tikz-pre-matcher) '(tikz-post-matcher)))))
+      (message "tikzhook is %s" (prin1-to-string match-tikz))
+      (add-to-list 'font-latex-keywords-2 match-tikz)
+      (add-to-list 'font-latex-keywords-1 match-tikz)
+      (add-to-list 'font-latex-keywords   match-tikz)))
+
+  (add-hook 'LaTeX-mode-hook 'prelude-latex-mode-hook)
+
+	(setq LaTeX-mode-hook (cdr LaTeX-mode-hook))
+)
+
 ; CEDET
 (load-file "~/.emacs.d/plugins/cedet/common/cedet.el")
 
@@ -233,36 +274,6 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 (require 'zencoding-mode)
 (add-hook 'sgml-mode-hook 'zencoding-mode)
 (add-hook 'html-helper-mode-hook 'zencoding-mode)
-
-; Use auctex
-(when (require 'tex-site nil 'noerror)
-  (require 'preview-latex)
-  (setq TeX-auto-save t)
-  (setq TeX-parse-self t)
-
-  (setq-default TeX-master nil)
-
-  ;; use pdflatex
-  (setq TeX-PDF-mode t)
-
-  (setq TeX-view-program-selection
-        '((output-dvi "DVI Viewer")
-          (output-pdf "PDF Viewer")
-          (output-html "HTML Viewer")))
-
-  ;; this section is good for OS X only
-  ;; TODO add sensible defaults for Linux/Windows
-  (setq TeX-view-program-list
-        '(("DVI Viewer" "open %o")
-          ("PDF Viewer" "open %o")
-          ("HTML Viewer" "open %o")))
-
-  (defun prelude-latex-mode-hook ()
-    (turn-on-auto-fill)
-    (abbrev-mode +1))
-
-  (add-hook 'LaTeX-mode-hook 'prelude-latex-mode-hook)
-)
 
 (load-library "matlab-load")
 (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
