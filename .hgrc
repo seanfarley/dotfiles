@@ -54,7 +54,7 @@ opts.sourcetreediff=
 
 [merge-tools]
 emacsclient.executable = ~/.emacs.sh
-emacsclient.args = -q --eval "(hg-mergetool-emacsclient-ediff \"$local\" \"$other\" \"$base\" \"$output\")"
+emacsclient.args = "-q --eval '(hg-mergetool-emacsclient-ediff \"$local\" \"$other\" \"$base\" \"$output\")'"
 emacsclient.premerge = keep
 emacsclient.priority = 1
 
