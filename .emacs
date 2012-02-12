@@ -223,10 +223,6 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 (require 'undo-tree)
 (global-undo-tree-mode)
 
-; Enable rainbow matching
-(require 'rainbow-delimiters)
-(global-rainbow-delimiters-mode)
-
 ; Give each buffer a unique name
 (require 'uniquify)
 (setq
