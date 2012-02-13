@@ -4,7 +4,7 @@ ED="emacs"
 OPTS=""
 SF="$HOME/.emacs.d/server/server"
 PORT="1"
-HN=$(hostname)
+HN=$(hostname -f)
 
 # hack: if options contain --eval then don't parse args
 
