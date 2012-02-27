@@ -12,6 +12,6 @@ default:\
   Desktop/, \
   Downloads/, \
   .Trash/, \
-  externalpackages/, \
+  petsc-dev/externalpackages/, \
   CMakeFiles/, \
   work/, \
