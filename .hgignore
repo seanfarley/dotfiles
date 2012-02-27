@@ -38,7 +38,6 @@ known_hosts
 .bash_history
 .cups
 .cvspass
-.dodsrc
 .gccrec
 .gdb_history
 .git
@@ -61,7 +60,6 @@ backup*
 .history
 .gconf*
 .elink*
-.hgrc.local
 .hgk
 .cache*
 .dbus*
@@ -76,7 +74,6 @@ backup*
 .network_*
 *.dmg
 *.xsession*
-.kdiff3rc
 .bash_xfile
 .gdl
 .instant
@@ -90,7 +87,6 @@ nohup.out
 .mpi-selector
 .smpd
 .loghist
-.bashrc
 .bash_logout
 .forward
 data
@@ -104,7 +100,6 @@ arch-*
 *.un~
 .vim-cache
 .vim/tmp
-.zshrc
 .news
 .svn
 .DS_*
@@ -141,17 +136,13 @@ tags-*
 .gtk*
 .nautilus*
 .nvidia*
-.dmrc
 id_proxy*
 .extra
 .modules*
 *.ext
-.cshrc
 .zshenv
 .zprofile
-.kshrc
 .login
-.tcshrc
 *.taghl
 GTAGS
 GPATH
@@ -185,3 +176,9 @@ GRTAGS
 .emacs.d/tramp
 .tramp_history
 .srecode
+auto/
+_region*
+.*rc
+*.m4
+config.*
+*.cache
