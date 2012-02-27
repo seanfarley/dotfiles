@@ -112,11 +112,6 @@ qseries.missing = red bold
 bookmarks.current = magenta bold
 tags.normal = magenta
 
-[defaults]
-rebase = --keepbranches
-addremove = --similarity 100
-pull = -u
-
 [hooks]
 commit = "$HG" dirty $@
 post-rollback = "$HG" dirty $@
@@ -130,7 +125,7 @@ url = showconfig paths.default
 
 he = histedit
 l = log --pager=always
-# p = pull
+p = pull -u
 
 # Nudge: just push the current branch.
 nudge = push --branch .
