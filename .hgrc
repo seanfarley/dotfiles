@@ -119,6 +119,11 @@ post-update = "$HG" dirty $@
 post-attic-shelve = "$HG" dirty $@
 post-attic-unshelve = "$HG" dirty $@
 
+[revsetalias]
+h = head()
+d($1) = sort($1, date)
+l($1) = reverse(limit(reverse(max(.~$1 or rev(0)):.), $1))
+
 [alias]
 # Show the url
 url = showconfig paths.default
@@ -165,10 +170,10 @@ d = diff -p --pager=always
 # hg show .  -- show a summary of rev . with diff.
 show = log --pager=always --color=always --style=$HOME/.hgnlog -vpr
 
-# Simple glog command that doesn't look bad and doesn't require my CLI templates.
-sl = !$HG glog --pager=always --template="\033[0;3{phaseidx|permute}m{rev}\033[0m:\033[0;3{phaseidx|permute}m{node|short}\033[0m {desc|firstline|strip|fill180} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n" $(if [ -z "$@" ]; then echo "-l 25 -r ::."; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-l $@ -r ::."; else echo "$@"; fi)
-gl = !$HG glog --pager=always --template="\033[0;3{phaseidx|permute}m{rev}\033[0m:\033[0;3{phaseidx|permute}m{node|short}\033[0m {desc|firstline|strip|fill180} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n\033[1;29m({date|age} by {author|person})\033[0m\n\n" $(if [ -z "$@" ]; then echo "-l 15 -r ::."; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-l $@ -r ::."; else echo "$@"; fi)
-nl = glog --pager=always --color=always --style=$HOME/.hgnlog
+# Simple glog command that doesn't look bad
+sl = !$HG glog $(if [ -z "$@" ]; then echo "-r l(25)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "-r $@"; fi) --pager=always --template="\033[0;3{phaseidx|permute}m{rev}\033[0m:\033[0;3{phaseidx|permute}m{node|short}\033[0m {desc|firstline|strip|fill180} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n"
+gl = !$HG glog $(if [ -z "$@" ]; then echo "-r l(15)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "-r $@"; fi) --pager=always --template="\033[0;3{phaseidx|permute}m{rev}\033[0m:\033[0;3{phaseidx|permute}m{node|short}\033[0m {desc|firstline|strip|fill180} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n\033[1;29m({date|age} by {author|person})\033[0m\n\n"
+nl = !$HG glog $(if [ -z "$@" ]; then echo "-r l(5)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "-r $@"; fi) --pager=always --color=always --style=$HOME/.hgnlog
 
 # Make a new repo with some sensible defaults.
 mkrepo = !$HG init $1 && cd $1 && \
