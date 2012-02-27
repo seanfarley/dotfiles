@@ -122,7 +122,7 @@ alias proxy-iit="ssh -q -C -N -D 9998 karlin.math.iit.edu"
 alias proxy-home="ssh -q -C -N -D 9999 home.seanfarley.org"
 alias ipython="ipython --no-confirm-exit --no-banner"
 
-alias ls='ls --color=auto'
+[ -n "$(ls --version 2>/dev/null)" ] && alias ls='ls --color=auto'
 alias dir='ls --color=auto --format=vertical'
 alias vdir='ls --color=auto --format=long'
 

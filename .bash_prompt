@@ -54,7 +54,7 @@ PS1="\[${BOLD}${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\
 if [ "$TERM" != "dumb" ];then
   if [ -x /opt/local/bin/gdircolors ]; then
     eval "`gdircolors -b ~/.dir_colors`"
-  elif [ -x `which dircolors` ]; then
-    eval "`dircolors -b ~/.dir_colors`"
+  elif [ -x "$(which dircolors 2>/dev/null)" ]; then
+    dircolors -b ~/.dir_colors
   fi
 fi

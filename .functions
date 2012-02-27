@@ -64,7 +64,17 @@ mpc() {
 
 mp() {
   local CATEGORY=$(mpcategory $@)
-  [[ -n $CATEGORY ]] && echo "$MP/$CATEGORY/$@"
+  local MPFILE=$MP/$CATEGORY/$@
+  if [ -e $MPFILE ]; then
+    echo "$MPFILE"
+  else
+    echo "file not found: $MPFILE" 1>&2
+  fi
+}
+
+mpdiff() {
+  local MPFILE=$(mp $@)/Portfile 
+  [ -e $MPFILE ] && opendiff $MPFILE $(port file $@)
 }
 
 psgrep() {
