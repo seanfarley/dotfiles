@@ -92,7 +92,7 @@ function install() {
 }
 
 # default packages to install unless a command-line option is given
-PACKAGES="hg git histedit crecord hgsubversion hg-git global bash-completion pss emacs"
+PACKAGES="hg git histedit crecord hgsubversion hg-git fast-hg-prompt global bash-completion pss emacs"
 [[ -n "$@" ]] && PACKAGES="$@"
 
 [[ -d $LOC/lib/python ]] && export PYTHONPATH=$LOC/lib/python/site-packages:$PYTHONPATH
@@ -122,6 +122,10 @@ fi
 if [[ $PACKAGES == *hg-git* ]]; then
   install python http://www.samba.org/~jelmer/dulwich/dulwich-0.8.3.tar.gz
   install python http://bitbucket.org/durin42/hg-git
+fi
+
+if [[ $PACKAGES == *fast* ]]; then
+  install gnu http://bitbucket.org/seanfarley/fast-hg-prompt
 fi
 
 if [[ $PACKAGES == *global* ]]; then
