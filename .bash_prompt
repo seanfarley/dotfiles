@@ -55,6 +55,6 @@ if [ "$TERM" != "dumb" ];then
   if [ -x /opt/local/bin/gdircolors ]; then
     eval "`gdircolors -b ~/.dir_colors`"
   elif [ -x "$(which dircolors 2>/dev/null)" ]; then
-    dircolors -b ~/.dir_colors
+    dircolors -b ~/.dir_colors 2>&1 > /dev/null
   fi
 fi
