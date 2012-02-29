@@ -11,10 +11,10 @@ unalias .. 2>/dev/null
 }
 
 _..() {
-  local IFS=$'\n'
-  COMPREPLY=( $(compgen -W "$(ls -p .. | grep / | sed 's,/,,')" -- ${COMP_WORDS[COMP_CWORD]}) )
+  [[ ${COMP_WORDS[COMP_CWORD]} == ..* ]] || COMP_WORDS[COMP_CWORD]="../${COMP_WORDS[COMP_CWORD]}"
+  COMPREPLY=( $(compgen -S '/' -d ${COMP_WORDS[COMP_CWORD]} -- ${COMP_WORDS[COMP_CWORD]} | cut -b1-3 --complement) )
 }
-complete -F _.. -o nospace ..
+complete -o nospace -F _.. ..
 
 unalias ... 2>/dev/null
 ...() {
@@ -22,10 +22,10 @@ unalias ... 2>/dev/null
 }
 
 _...() {
-  local IFS=$'\n'
-  COMPREPLY=( $(compgen -W "$(ls -p ../.. | grep / | sed 's,/,,')" -- ${COMP_WORDS[COMP_CWORD]}) )
+  [[ ${COMP_WORDS[COMP_CWORD]} == ../..* ]] || COMP_WORDS[COMP_CWORD]="../../${COMP_WORDS[COMP_CWORD]}"
+  COMPREPLY=( $(compgen -S '/' -d ${COMP_WORDS[COMP_CWORD]} -- ${COMP_WORDS[COMP_CWORD]} | cut -b1-6 --complement) )
 }
-complete -F _... -o nospace ...
+complete -o nospace -F _... ...
 
 unalias .... 2>/dev/null
 ....() {
@@ -33,10 +33,10 @@ unalias .... 2>/dev/null
 }
 
 _....() {
-  local IFS=$'\n'
-  COMPREPLY=( $(compgen -W "$(ls -p ../../.. | grep / | sed 's,/,,')" -- ${COMP_WORDS[COMP_CWORD]}) )
+  [[ ${COMP_WORDS[COMP_CWORD]} == ../../..* ]] || COMP_WORDS[COMP_CWORD]="../../../${COMP_WORDS[COMP_CWORD]}"
+  COMPREPLY=( $(compgen -S '/' -d ${COMP_WORDS[COMP_CWORD]} -- ${COMP_WORDS[COMP_CWORD]} | cut -b1-9 --complement) )
 }
-complete -F _.... -o nospace ....
+complete -o nospace -F _.... ....
 
 # Test if HTTP compression (RFC 2616 + SDCH) is enabled for a given URL.
 # Send a fake UA string for sites that sniff it instead of using the Accept-Encoding header. (Looking at you, ajax.googleapis.com!)
@@ -73,7 +73,7 @@ mp() {
 }
 
 mpdiff() {
-  local MPFILE=$(mp $@)/Portfile 
+  local MPFILE=$(mp $@)/Portfile
   [ -e $MPFILE ] && opendiff $MPFILE $(port file $@)
 }
 
@@ -116,5 +116,5 @@ essh() {
   # $@ : any other args this script was invoked with should be passed along.
   $SSH -t -R $PORT:127.0.0.1:$PORT $@ "$CMD"
 }
-
 complete -F _ssh essh
+
