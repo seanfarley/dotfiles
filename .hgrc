@@ -4,6 +4,9 @@ ssh = ssh -C
 editor = ~/.emacs.sh
 ignore = ~/.hgignore
 
+[phases]
+publish = False
+
 [extensions]
 transplant =
 purge =
