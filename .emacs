@@ -273,6 +273,9 @@
 (setq markdown-command "markdown-2.7")
 (setq markdown-command-needs-filename t)
 
+(require 'hungry-delete)
+(global-hungry-delete-mode)
+
 ; -------------------------
 ; Functions
 ; -------------------------
