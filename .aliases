@@ -8,9 +8,6 @@ alias la="ls -Gla"
 # List only directories
 alias lsd='ls -l | grep "^d"'
 
-# Undo a `git push`
-alias undopush="git push -f origin HEAD^:master"
-
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"
@@ -37,7 +34,7 @@ alias gda="gdb --args"
 alias make_db="make RM=true"
 alias s="perl -pi -e"
 alias l="less"
-alias rmlog="rm -f CMake* *.log *.log.* *TAGS"
+alias h="hg"
 
 # File size
 alias fs="stat -f \"%z bytes\""
@@ -101,15 +98,7 @@ alias sp="cd \$PROJECTS/scienceports"
 alias fb="cd \$PROJECTS/aperture/fb-aperture-dev"
 alias cv="cd \/Users/sean/projects/cvitae"
 alias talks="cd \$PROJECTS/talks"
-alias bout="cd \$PROJECTS/bout/bout-dev"
-alias gonzo="cd \$PROJECTS/gonzo"
 alias proposals="cd \$PROJECTS/proposals"
-alias hpc="cd /opt/hpc"
-alias petsc="cd \$PETSC_DIR"
-alias metis="cd \$PROJECTS/petsc/externalpackages/metis/metis"
-alias parmetis="cd \$PROJECTS/petsc/externalpackages/metis/parmetis"
-alias mumps="cd \$PROJECTS/petsc/externalpackages/mumps"
-alias facets="cd \$FACETS"
 alias research="cd \$RESEARCH"
 alias dg="cd \$RESEARCH/dg/localdg"
 alias mc="cd \$PROJECTS/mercurial/hg"
@@ -133,10 +122,6 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias g='grep'
 
-if [[ -s $(which watchmedo-2.7 2>/dev/null) ]]; then
-  alias watchmedo='watchmedo-2.7'
-fi
+[ -s $(which watchmedo-2.7 2>/dev/null) ] && alias watchmedo='watchmedo-2.7'
 
-if [[ -s $(which pss-2.7 2>/dev/null) ]]; then
-  alias pss='pss-2.7'
-fi
+[ -s $(which pss-2.7 2>/dev/null) ] && alias pss='pss-2.7'
