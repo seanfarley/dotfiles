@@ -124,3 +124,110 @@ essh() {
 }
 complete -F _ssh essh
 
+pd() {
+  local d="${@%/}"
+  if [ ! -z "$d" ]; then
+    if [ ! -d "$d" ]; then
+      for i in ${CDPATH//:/$'\n'}; do [ -d "$i/$d" ] && d="$i/$d"; done
+    fi
+    [ -d "$d" ] && export PETSC_DIR="$(readlink -f $d)" || echo "error: $d is not a directory"
+  fi
+  echo "$PETSC_DIR"
+}
+complete -o nospace -F _cd pd
+
+_reverse_list() {
+  echo $(echo $@ | awk '{for (i = NF; i > 0; i--){print $i}}')
+}
+
+# this assumes only one compile type (e.g. gcc46 XOR clang XOR gcc45)
+# it also fixes the type of variants (e.g. +debug, +longindex)
+_build_port_list() {
+  local list=""
+  local cmd="printf @ && port installed \$i | sed -n 2p | cut -d'@' -f2 | sed 's, (active),,' | sed 's,\+debug,,' | sed 's,\+longindex,,'"
+  local variants="$3"
+
+  [[ $2 == *-test* ]] && variants="" && cmd=""
+
+  for i in $1; do
+    list="$list $i$(eval $cmd)$variants"
+  done
+
+  echo $list
+}
+
+# very simple for now, only +debug and +longindex
+_activate_pa() {
+  if [ -x /opt/local/bin/port ]; then
+    local ports="hdf5-18 netcdf ml hypre blacs scalapack mumps superlu sundials suitesparse fftw-3 fftw-3-single fftw-3-long"
+    local ports64="metis parmetis superlu_dist" # which just *happens* to also be the dependencies
+    local debug=""
+    local long=""
+    local command="activate"
+    local p=""
+    local list="$ports64"
+
+    [[ $PETSC_ARCH != *-opt* ]] && debug="+debug"
+    [[ $PETSC_ARCH == *-64* ]] && long="+longindex"
+
+    local variants="$debug$long"
+
+    [[ $PETSC_ARCH == *-test* ]] && command="deactivate" && list="$(_reverse_list $ports)" && variants="$debug"
+
+    p=$(_build_port_list "$list" $PETSC_ARCH "$variants")
+
+    list="$ports"
+    variants="$debug"
+    [[ $PETSC_ARCH == *-test* ]] && list="$(_reverse_list $ports64)" && variants="$debug$long"
+
+    p=$p\ $(_build_port_list "$list" $PETSC_ARCH "$variants")
+
+    for i in $p; do sudo port $command $i; done
+  fi
+}
+
+pa() {
+  [ ! -z "$@" ] && export PETSC_ARCH="arch-${@%/}" && _activate_pa
+  echo "$PETSC_ARCH"
+}
+complete -W "c c-64 c-fast c-opt complex cuda intel intel-opt" pa
+
+rmlog() {
+  rm -f CMake* *.log *.log.* *TAGS
+  [ ! -z "$@" ] && rm -rf $@
+}
+complete -A file rmlog
+
+prm() {
+  rm -rf arch* externalpackages && rmlog $@
+}
+complete -A file petsc-clean
+
+pc() {
+  printf "Configuring for PETSC_ARCH: "
+
+  local extra=""
+  local arch=""
+  for opt in $@; do
+    [[ $opt == --* ]] && extra="$extra $opt" || arch="$opt"
+  done
+
+  pa $arch
+  arch="$PETSC_ARCH"
+  local common="netcdf,ml,hypre,metis,parmetis,blacs,scalapack,mumps,superlu,superlu_dist,sundials,umfpack,cholmod,fftw,yaml,numdiff"
+  local libs="--with-shared-libraries --with-c++-support --COPFLAGS=-O0 --CXXOPTFLAGS=-O0 --FOPTFLAGS=-O0"
+
+  if [[ $PETSC_ARCH == *-64* ]]; then
+    common="metis,parmetis,superlu_dist,numdiff"
+    libs="$libs --with-64-bit-indices"
+  fi
+
+  [[ $PETSC_ARCH != *-64* && $PETSC_ARCH != *-cuda* ]] && libs="$libs --with-matlab --with-matlab-engine"
+
+  [[ $PETSC_ARCH == *-cuda* ]] && libs="$libs --with-cusp-dir=/opt/local --with-thrust --with-cuda"
+
+  libs="--with-{$common}-dir=/opt/local $libs"
+  [[ $PETSC_ARCH == *-test* ]] && libs=""
+
+  eval ./configure $extra $libs
+}
