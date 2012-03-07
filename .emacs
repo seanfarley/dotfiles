@@ -105,6 +105,9 @@
   ;; use pdflatex
   (setq TeX-PDF-mode t)
 
+  ;; use synctex
+  (setq TeX-source-correlate-method 'synctex)
+
   (setq TeX-view-program-selection
         '((output-dvi "DVI Viewer")
           (output-pdf "PDF Viewer")
@@ -113,9 +116,15 @@
   ;; this section is good for OS X only
   ;; TODO add sensible defaults for Linux/Windows
   (setq TeX-view-program-list
-        '(("DVI Viewer" "open %o")
-          ("PDF Viewer" "open %o")
+        '(("DVI Viewer" "$HOME/.emacs.sh -n %o")
+          ("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b %n %o %b")
           ("HTML Viewer" "open %o")))
+
+  (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
+  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+  (add-hook 'LaTeX-mode-hook 'reftex-mode)
+  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+  (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
 
   (defun prelude-latex-mode-hook ()
     (turn-on-auto-fill)
@@ -129,9 +138,7 @@
       (add-to-list 'font-latex-keywords-1 match-tikz)
       (add-to-list 'font-latex-keywords   match-tikz)))
 
-  (add-hook 'LaTeX-mode-hook 'prelude-latex-mode-hook)
-
-	(setq LaTeX-mode-hook (cdr LaTeX-mode-hook))
+  (add-hook 'LaTeX-mode-hook (lambda () (run-hooks 'prelude-latex-mode-hook)))
 )
 
 ; CEDET
