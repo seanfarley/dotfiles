@@ -34,7 +34,6 @@ alias gda="gdb --args"
 alias make_db="make RM=true"
 alias s="perl -pi -e"
 alias l="less"
-alias h="hg"
 
 # File size
 alias fs="stat -f \"%z bytes\""
@@ -59,13 +58,13 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 # PETSc commands
 ##
 
-alias ts="cd \$PETSC_DIR/src/ts/examples/tutorials"
-alias snes="cd \$PETSC_DIR/src/snes/examples/tutorials"
-alias ksp="cd \$PETSC_DIR/src/ksp/ksp/examples/tutorials"
-alias vec="cd \$PETSC_DIR/src/vec/vec/examples/tutorials"
-alias mat="cd \$PETSC_DIR/src/mat/examples/tutorials"
-alias sys="cd \$PETSC_DIR/src/sys/examples/tutorials"
-alias dm="cd \$PETSC_DIR/src/dm/examples/tutorials"
+alias ts="cd \$PROJECTS/petsc-dev/src/ts/examples/tutorials"
+alias snes="cd \$PROJECTS/petsc-dev/src/snes/examples/tutorials"
+alias ksp="cd \$PROJECTS/petsc-dev/src/ksp/ksp/examples/tutorials"
+alias vec="cd \$PROJECTS/petsc-dev/src/vec/vec/examples/tutorials"
+alias mat="cd \$PROJECTS/petsc-dev/src/mat/examples/tutorials"
+alias sys="cd \$PROJECTS/petsc-dev/src/sys/examples/tutorials"
+alias dm="cd \$PROJECTS/petsc-dev/src/dm/examples/tutorials"
 alias pb="make -j4 -C \$PETSC_DIR/\$PETSC_ARCH"
 
 ##
@@ -73,17 +72,6 @@ alias pb="make -j4 -C \$PETSC_DIR/\$PETSC_ARCH"
 ##
 
 alias hw="cd ~/projects/class/2012-spring"
-alias projects="cd \$PROJECTS"
-alias sb="cd \$PROJECTS/sandbox"
-alias sp="cd \$PROJECTS/scienceports"
-alias fb="cd \$PROJECTS/aperture/fb-aperture-dev"
-alias cv="cd \/Users/sean/projects/cvitae"
-alias talks="cd \$PROJECTS/talks"
-alias proposals="cd \$PROJECTS/proposals"
-alias research="cd \$RESEARCH"
-alias dg="cd \$RESEARCH/dg/localdg"
-alias mc="cd \$PROJECTS/mercurial/hg"
-alias bim="cd \$RESEARCH/bim-dynamic"
 
 ##
 # SSH tunnels

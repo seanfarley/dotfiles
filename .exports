@@ -10,12 +10,12 @@ export HISTFILESIZE=$HISTSIZE
 
 export PROJECTS=$HOME/projects
 export SANDBOX=$PROJECTS/sandbox
-export RESEARCH=$PROJECTS/research
+export PHD=$PROJECTS/phd
 
 export PETSC_DIR=$PROJECTS/petsc/petsc-dev
 export PETSC_ARCH=arch-c
 
-export CDPATH=.:$PROJECTS/petsc:$PROJECTS/bout
+export CDPATH=.:$PROJECTS
 
 ##
 # Paths, environment variables
@@ -31,6 +31,8 @@ fi
 if [ -d /opt/local ]; then
   export PATH=/opt/local/bin:/opt/local/sbin:/opt/local/libexec/gnubin:$PATH
   export MP=/opt/mports/dports
+  export PETSC_DIR=/opt/local
+  export PETSC_ARCH=
 fi
 
 if [ -d $HOME/.local/bin ]; then
