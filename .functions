@@ -193,8 +193,7 @@ pa() {
 complete -W "c c-64 c-fast c-opt complex cuda intel intel-opt" pa
 
 rmlog() {
-  rm -f CMake* *.log *.log.* *TAGS
-  [ ! -z "$@" ] && rm -rf $@
+  rm -rf CMake* *.log *.log.* *TAGS *.cache *.status $@
 }
 complete -A file rmlog
 
