@@ -30,7 +30,7 @@ fi
 
 if [ -d /opt/local ]; then
   export PATH=/opt/local/bin:/opt/local/sbin:/opt/local/libexec/gnubin:$PATH
-  export MP=/opt/mports/dports
+  export MP=$PROJECTS/macports/dports
   export PETSC_DIR=/opt/local
   export PETSC_ARCH=
 fi
