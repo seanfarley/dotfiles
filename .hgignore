@@ -182,3 +182,5 @@ _region*
 *.m4
 config.*
 *.cache
+PortIndex*
+Doxyfile
