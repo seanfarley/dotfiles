@@ -9,10 +9,6 @@
 ; Font test:
 ; ell 'l', one '1', little eye 'i', big eye 'I'
 ; zero '0', little oh 'o', big oh 'O'
-(if window-system
-  (progn
-   (set-default-font "Andale Mono")
-   (set-face-attribute 'default nil :font "Andale Mono")))
 
 ; Turn off gui-type stuff
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
