@@ -134,6 +134,7 @@ url = showconfig paths.default
 he = histedit
 l = log --pager=always
 p = pull -u
+pr = pull --rebase
 
 # Nudge: just push the current branch.
 nudge = push --branch .
