@@ -334,7 +334,7 @@
 ; from http://www.emacswiki.org/cgi-bin/wiki/ControlTABbufferCycling
 (defvar stesla-hated-buffers '("KILL" "*Apropos*" "*Completions*" "*grep*"
                                 ".newsrc-dribble" ".bbdb" "sent-mail" "*vc*"
-                               "*Compile-Log*" "*Help*" "*Messages*"))
+                               "*Compile-Log*" "*Help*" "*Messages*" ".aux"))
 
 (defvar stesla-hated-buffer-regexps
   '("^ " "*Buffer" "^\\*trace" "^\\*tramp" "^\\*"))
