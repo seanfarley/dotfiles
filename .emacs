@@ -33,6 +33,11 @@
 (setq-default sh-basic-offset 2)
 (setq-default sh-indentation 2)
 
+; Columns
+(column-number-mode t)
+(line-number-mode t)
+(setq-default fill-column 100)
+
 ; Scrolling settings from
 ; http://stackoverflow.com/questions/3631220/fix-to-get-smooth-scrolling-in-emacs
 (setq redisplay-dont-pause t
