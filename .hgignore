@@ -184,3 +184,4 @@ config.*
 *.cache
 PortIndex*
 Doxyfile
+.csearch*
