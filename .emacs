@@ -126,6 +126,7 @@
   (add-hook 'LaTeX-mode-hook 'reftex-mode)
   (add-hook 'LaTeX-mode-hook 'flyspell-mode)
   (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
+  (add-hook 'LaTeX-mode-hook (lambda () (TeX-fold-mode 1)))
 
   (defun prelude-latex-mode-hook ()
     (turn-on-auto-fill)
