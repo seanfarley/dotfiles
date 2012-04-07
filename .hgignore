@@ -185,3 +185,4 @@ config.*
 PortIndex*
 Doxyfile
 .csearch*
+*.fmt
