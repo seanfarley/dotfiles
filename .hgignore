@@ -186,3 +186,5 @@ PortIndex*
 Doxyfile
 .csearch*
 *.fmt
+*-blx.bib
+*.run.xml
