@@ -101,6 +101,9 @@
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
 
+  ;; indent itemize
+  (setq LaTeX-item-indent 0)
+
   (setq-default TeX-master nil)
 
   ;; use pdflatex
@@ -184,6 +187,13 @@
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete/dict")
 (ac-config-default)
+;; dirty fix for having AC everywhere
+(define-globalized-minor-mode real-global-auto-complete-mode
+  auto-complete-mode (lambda ()
+                       (if (not (minibufferp (current-buffer)))
+                         (auto-complete-mode 1))
+                       ))
+(real-global-auto-complete-mode t)
 
 ; Monky
 (require 'monky)
@@ -244,6 +254,11 @@
 ; Enable ido
 (ido-mode t)
 (setq ido-enable-flex-matching t) ; fuzzy matching is a must have
+(setq completion-ignored-extensions
+  '(".o" ".elc" "~" ".bin" ".bak" ".obj" ".map" ".a" ".ln" ".mod" ".gz"
+    ".aux" ".tdo" ".fmt" ".swp" ".pdfsync" ".pdf" ".vrb" ".idx" ".ind"
+    ".bbl" ".toc" ".blg" ".snm" ".ilg" ".log" ".out" ".pyc" ".DS_Store"
+    "-blx.bib" ".run.xml"))
 
 ; Ace-jump (Easymotion equivalent)
 (require 'ace-jump-mode)
@@ -393,7 +408,7 @@
        (nth n my-buffer-list)))))
 
 (global-set-key (kbd "C-<tab>") 'stesla-rotate-buffers)
-(global-set-key (kbd "C-M-<tab>") (lambda ()
+(global-set-key (kbd "C-S-<tab>") (lambda ()
                                     (interactive)
                                     (stesla-rotate-buffers -1)))
 
