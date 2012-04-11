@@ -240,6 +240,7 @@
 (require 'yasnippet) ;; not yasnippet-bundle
 (yas/initialize)
 (yas/load-directory "~/.emacs.d/snippets")
+(yas/load-directory "~/.emacs.d/custom-snippets")
 (yas/global-mode 1)
 
 (require 'anything-config)
