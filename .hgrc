@@ -25,8 +25,9 @@ record =
 pager =
 # Third-party extensions
 hggit =
-histedit =
 hgsubversion =
+hg_histedit =
+hg_remotebranches =
 crecord =
 hgfilter = ~/.hgfilter.py
 
