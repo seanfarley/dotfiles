@@ -28,7 +28,6 @@ hggit =
 hgsubversion =
 hg_histedit =
 hg_remotebranches =
-crecord =
 hgfilter = ~/.hgfilter.py
 
 [schemes]
