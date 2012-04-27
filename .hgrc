@@ -125,7 +125,7 @@ post-attic-unshelve = "$HG" dirty $@
 [revsetalias]
 h = head()
 d($1) = sort($1, date)
-l($1) = reverse(limit(reverse(max(.~$1 or rev(0)):.), $1))
+l($1) = reverse(limit(reverse(max(.~$1 or rev(0)):. and branch(.)), $1))
 
 [alias]
 # Show the url
