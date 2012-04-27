@@ -175,9 +175,13 @@ d = diff -p --pager=always
 show = log --pager=always --color=always --style=$HOME/.hgnlog -vpr
 
 # Simple glog command that doesn't look bad
-sl = !$HG glog $(if [ -z "$@" ]; then echo "-r l(25)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "$@"; fi) --pager=always --template="\033[0;3{phaseidx|permute}m{rev}\033[0m:\033[0;3{phaseidx|permute}m{node|short}\033[0m {desc|firstline|strip|fill180} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n"
-gl = !$HG glog $(if [ -z "$@" ]; then echo "-r l(15)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "$@"; fi) --pager=always --template="\033[0;3{phaseidx|permute}m{rev}\033[0m:\033[0;3{phaseidx|permute}m{node|short}\033[0m {desc|firstline|strip|fill180} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n\033[1;29m({date|age} by {author|person})\033[0m\n\n"
-nl = !$HG glog $(if [ -z "$@" ]; then echo "-r l(5)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "$@"; fi) --pager=always --color=always --style=$HOME/.hgnlog
+gl = !$HG glog $(if [ -z "$@" ]; then echo "-r l(23)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "$@"; fi) --pager=always --template="\033[{phaseidx|phasecolor}{rev}\033[0m:\033[{phaseidx|phasecolor}{node|short}\033[0m {desc|firstline|strip|fill180} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m \033[1;32m{date|shortdate}\033[0m by \033[0;33m{author|person}\033[0m\n\n"
+
+gll = !$HG glog $@ --pager=always --template="\033[{phaseidx|phasecolor}{rev}\033[0m:\033[{phaseidx|phasecolor}{node|short}\033[0m {desc|firstline|strip|fill180} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m \033[1;32m{date|shortdate}\033[0m by \033[0;33m{author|person}\033[0m\n\n"
+
+nl = !$HG glog $(if [ -z "$@" ]; then echo "-r l(10)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "$@"; fi) --pager=always --color=always --style=$HOME/.hgnlog
+
+nll = !$HG glog $@ --pager=always --color=always --style=$HOME/.hgnlog
 
 # Make a new repo with some sensible defaults.
 mkrepo = !$HG init $1 && cd $1 && \
