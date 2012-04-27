@@ -301,7 +301,9 @@
 (setq markdown-command-needs-filename t)
 
 (require 'hungry-delete)
-(global-hungry-delete-mode)
+(global-set-key (kbd "C-c <DEL>") 'hungry-delete-backward)
+(global-set-key (kbd "C-c d") 'hungry-delete-forward)
+
 
 ; -------------------------
 ; Functions
