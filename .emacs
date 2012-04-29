@@ -96,63 +96,16 @@
 ; Load paths
 ; -------------------------
 
-; Use auctex
-(when (require 'tex-site nil 'noerror)
-  (require 'preview-latex)
+; Emacs Load Path
+(add-to-list 'load-path "~/.emacs.d")
 
-  (setq TeX-auto-save t)
-  (setq TeX-parse-self t)
-
-  ;; indent itemize
-  (setq LaTeX-item-indent 0)
-
-  (setq-default TeX-master nil)
-
-  ;; use pdflatex
-  (setq TeX-PDF-mode t)
-
-  ;; use synctex
-  (setq TeX-source-correlate-method 'synctex)
-
-  (setq TeX-view-program-selection
-        '((output-dvi "DVI Viewer")
-          (output-pdf "PDF Viewer")
-          (output-html "HTML Viewer")))
-
-  ;; this section is good for OS X only
-  ;; TODO add sensible defaults for Linux/Windows
-  (setq TeX-view-program-list
-        '(("DVI Viewer" "$HOME/.emacs.sh -n %o")
-          ("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b %n %o %b")
-          ("HTML Viewer" "open %o")))
-
-  (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
-  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-  (add-hook 'LaTeX-mode-hook 'reftex-mode)
-  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-  (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
-  (add-hook 'LaTeX-mode-hook (lambda () (TeX-fold-mode 1)))
-
-  (defun prelude-latex-mode-hook ()
-    (turn-on-auto-fill)
-    (abbrev-mode +1)
-    (message "%s" "Adding tikz hooks")
-    (add-to-list 'font-latex-extend-region-functions 'font-latex-extend-region-backwards-tikz-env)
-    (let ((match-tikz (cons 'font-latex-match-tikz-env
-                            (list 'tikz-anchored-matcher '(tikz-pre-matcher) '(tikz-post-matcher)))))
-      (message "tikzhook is %s" (prin1-to-string match-tikz))
-      (add-to-list 'font-latex-keywords-2 match-tikz)
-      (add-to-list 'font-latex-keywords-1 match-tikz)
-      (add-to-list 'font-latex-keywords   match-tikz)))
-
-  (add-hook 'LaTeX-mode-hook (lambda () (run-hooks 'prelude-latex-mode-hook)))
-)
+; AUCTeX
+(load "tex.el")
 
 ; CEDET
 (load-file "~/.emacs.d/plugins/cedet/common/cedet.el")
 
-; Emacs Load Path
-(add-to-list 'load-path "~/.emacs.d")
+; now load all the plugins
 (let ((default-directory  "~/.emacs.d/plugins"))
         (normal-top-level-add-subdirs-to-load-path))
 
