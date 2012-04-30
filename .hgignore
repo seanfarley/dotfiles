@@ -188,3 +188,21 @@ Doxyfile
 *.fmt
 *-blx.bib
 *.run.xml
+
+# due to my home directory being a repo, .emacs.d/plugins ignores need to go here globally
+
+# cedet
+cedet-1.*/
+contrib/wisent-*-wy.el
+lisp/cedet/semantic/grammar-wy.el
+lisp/cedet/semantic/bovine/*-by.el
+lisp/cedet/semantic/wisent/*-wy.el
+lisp/cedet/srecode/srt-wy.el
+lisp/cedet/cogre/wisent-dot-wy.el
+*.info
+*.elc
+loaddefs.el
+*-ps*.pt
+test-p.el
+tests/cedet/cogre/Subclass.dot
+doc/info/dir

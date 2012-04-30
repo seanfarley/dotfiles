@@ -191,15 +191,6 @@
 ;; (set-face-background 'col-highlight "#0a2832") ;dark
 (set-face-background 'col-highlight "#e9e2cb") ;light
 
-; YASnippet
-(require 'yasnippet) ;; not yasnippet-bundle
-(yas/initialize)
-(yas/load-directory "~/.emacs.d/snippets")
-(yas/load-directory "~/.emacs.d/custom-snippets")
-(yas/global-mode 1)
-
-(require 'anything-config)
-
 ; Load ido
 (require 'ido)
 (require 'ido-ubiquitous)
