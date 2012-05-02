@@ -188,6 +188,7 @@ Doxyfile
 *.fmt
 *-blx.bib
 *.run.xml
+*.rel
 
 # due to my home directory being a repo, .emacs.d/plugins ignores need to go here globally
 
@@ -206,3 +207,5 @@ loaddefs.el
 test-p.el
 tests/cedet/cogre/Subclass.dot
 doc/info/dir
+*-compile-script
+*-make-script
