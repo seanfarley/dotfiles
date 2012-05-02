@@ -110,4 +110,6 @@
 (global-set-key (kbd "C-c <DEL>") 'hungry-delete-backward)
 (global-set-key (kbd "C-c d") 'hungry-delete-forward)
 
-
+; ebib
+(autoload 'ebib "ebib" "Ebib, a BibTeX database manager." t)
+(global-set-key "\C-ce" 'ebib)
