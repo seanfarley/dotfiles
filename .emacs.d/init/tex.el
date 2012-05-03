@@ -222,7 +222,7 @@
           (TeX-command-Show)))
 
   ;;;  from wiki
-  (defcustom TeX-texify-Show t
+  (defcustom TeX-texify-Show nil
     "Start view-command at end of TeX-texify?"
     :type 'boolean
     :group 'TeX-command)
