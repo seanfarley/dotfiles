@@ -46,7 +46,7 @@
 (require 'color-theme-zenburn)
 
 ;; (color-theme-zenburn)
-(color-theme-solarized-light)
+(color-theme-solarized-dark)
 
 ;; Sets the column highlight color to match hl-line (bug?)
 ;; (set-face-background 'col-highlight "#0a2832") ;dark
