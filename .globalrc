@@ -2,7 +2,6 @@ default:\
   :skip=sandbox/, \
   lsmsa/, \
   class/, \
-  aperture/, \
   Library/, \
   Movies/, \
   Music/, \
