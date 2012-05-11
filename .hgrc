@@ -24,11 +24,11 @@ hgk =
 record =
 pager =
 # Third-party extensions
+hgfilter = ~/.hgfilter.py
 hggit =
 hgsubversion =
 hg_histedit =
 hg_remotebranches =
-hgfilter = ~/.hgfilter.py
 
 [schemes]
 bb = ssh://hg@bitbucket.org/
