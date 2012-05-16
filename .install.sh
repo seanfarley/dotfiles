@@ -92,7 +92,7 @@ function install() {
 }
 
 # default packages to install unless a command-line option is given
-PACKAGES="hg git histedit crecord hgsubversion hg-git fast-hg-prompt global bash-completion pss emacs"
+PACKAGES="hg git histedit hgsubversion hg-git fast-hg-prompt global bash-completion pss emacs"
 [[ -n "$@" ]] && PACKAGES="$@"
 
 [[ -d $LOC/lib/python ]] && export PYTHONPATH=$LOC/lib/python/site-packages:$PYTHONPATH
@@ -100,19 +100,15 @@ export PYTHONPATH=$LOC/lib/python$(python -c 'import sys; print("%i.%i" % (sys.v
 export PATH=$HOME/.local:$PATH
 
 if [[ $PACKAGES == hg || $PACKAGES == *hg[!-a-zA-Z]* || $PACKAGES == *merc* ]]; then
-  install python http://mercurial.selenic.com/release/mercurial-2.1.tar.gz
+  install python http://mercurial.selenic.com/release/mercurial-2.2.1.tar.gz
 fi
 
 if [[ $PACKAGES == git || $PACKAGES == *[!-a-zA-Z]git* ]]; then
-  install gnu http://git-core.googlecode.com/files/git-1.7.9.tar.gz
+  install gnu http://git-core.googlecode.com/files/git-1.7.10.2.tar.gz
 fi
 
 if [[ $PACKAGES == he || $PACKAGES == *he[!-a-zA-Z]* || $PACKAGES == *histedit* ]]; then
-  install python http://bitbucket.org/seanfarley/histedit
-fi
-
-if [[ $PACKAGES == *crecord* ]]; then
-  install python http://bitbucket.org/seanfarley/crecord
+  install python http://bitbucket.org/durin42/histedit
 fi
 
 if [[ $PACKAGES == *hgsub* ]]; then
@@ -120,7 +116,7 @@ if [[ $PACKAGES == *hgsub* ]]; then
 fi
 
 if [[ $PACKAGES == *hg-git* ]]; then
-  install python http://www.samba.org/~jelmer/dulwich/dulwich-0.8.3.tar.gz
+  install python http://www.samba.org/~jelmer/dulwich/dulwich-0.8.5.tar.gz
   install python http://bitbucket.org/durin42/hg-git
 fi
 
@@ -129,7 +125,7 @@ if [[ $PACKAGES == *fast* ]]; then
 fi
 
 if [[ $PACKAGES == *global* ]]; then
-  install gnu http://tamacom.com/global/global-6.1.tar.gz
+  install gnu http://tamacom.com/global/global-6.2.2.tar.gz
 fi
 
 if [[ $PACKAGES == bc || $PACKAGES == *bc[!-a-zA-Z]* || $PACKAGES == *bash-comp* || $PACKAGES == *bashcomp* ]]; then
@@ -144,9 +140,9 @@ if [[ $PACKAGES == bc || $PACKAGES == *bc[!-a-zA-Z]* || $PACKAGES == *bash-comp*
 fi
 
 if [[ $PACKAGES == *pss* ]]; then
-  install python http://pypi.python.org/packages/source/p/pss/pss-0.34.tar.gz
+  install python http://pypi.python.org/packages/source/p/pss/pss-0.35.tar.gz
 fi
 
 if [[ $PACKAGES == *emac* ]]; then
-  install gnu http://alpha.gnu.org/gnu/emacs/pretest/emacs-24.0.93.tar.gz "--without-x --without-jpeg --without-gif --without-sound"
+  install gnu http://alpha.gnu.org/gnu/emacs/pretest/emacs-24.0.96.tar.gz "--without-x --without-jpeg --without-gif --without-sound"
 fi
