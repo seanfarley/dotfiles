@@ -115,13 +115,6 @@ qseries.missing = red bold
 bookmarks.current = magenta bold
 tags.normal = magenta
 
-[hooks]
-commit = "$HG" dirty $@
-post-rollback = "$HG" dirty $@
-post-update = "$HG" dirty $@
-post-attic-shelve = "$HG" dirty $@
-post-attic-unshelve = "$HG" dirty $@
-
 [revsetalias]
 h = head()
 d($1) = sort($1, date)
@@ -230,8 +223,6 @@ psubscmd = !"$HG" debugsub | grep '^path' | cut -d' ' -f2 | parallel -j10 -I SUB
 #     $ hg sub ar status -m
 #     M lol.py
 sub = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | grep "$1" | tr -d '\n ' | xargs -0 -I SUB $HG -R SUB $2 $3 $4 $5 $6 $7 $8 $9 $10 $11 $12 $13 $14 $15 $16 $17 $18 $19 $20
-
-dirty = !if [ -n "$($HG st -mardn $@)" ]; then touch $($HG $@ root)/.hg/dirty; else rm -f $($HG $@ root)/.hg/dirty; fi
 
 # pss for non-ignored files
 pss = !$HG locate "set:not ignored()" | xargs pss $@
