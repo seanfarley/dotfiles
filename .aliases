@@ -91,6 +91,4 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias g='grep'
 
-[ -s $(which watchmedo-2.7 2>/dev/null) ] && alias watchmedo='watchmedo-2.7'
-
 [ -s $(which pss-2.7 2>/dev/null) ] && alias pss='pss-2.7'
