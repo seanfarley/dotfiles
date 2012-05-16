@@ -108,20 +108,24 @@ if [[ $PACKAGES == git || $PACKAGES == *[!-a-zA-Z]git* ]]; then
 fi
 
 if [[ $PACKAGES == he || $PACKAGES == *he[!-a-zA-Z]* || $PACKAGES == *histedit* ]]; then
-  install python http://bitbucket.org/durin42/histedit
+  install python https://bitbucket.org/durin42/histedit
 fi
 
 if [[ $PACKAGES == *hgsub* ]]; then
-  install python http://bitbucket.org/durin42/hgsubversion
+  install python https://bitbucket.org/durin42/hgsubversion
+fi
+
+if [[ $PACKAGES == *remot* ]]; then
+  install python https://bitbucket.org/durin42/hg-remotebranches
 fi
 
 if [[ $PACKAGES == *hg-git* ]]; then
   install python http://www.samba.org/~jelmer/dulwich/dulwich-0.8.5.tar.gz
-  install python http://bitbucket.org/durin42/hg-git
+  install python https://bitbucket.org/durin42/hg-git
 fi
 
 if [[ $PACKAGES == *fast* ]]; then
-  install gnu http://bitbucket.org/seanfarley/fast-hg-prompt
+  install gnu https://bitbucket.org/seanfarley/fast-hg-prompt
 fi
 
 if [[ $PACKAGES == *global* ]]; then
