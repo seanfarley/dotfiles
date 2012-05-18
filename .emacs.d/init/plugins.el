@@ -113,3 +113,6 @@
 ; ebib
 (autoload 'ebib "ebib" "Ebib, a BibTeX database manager." t)
 (global-set-key "\C-ce" 'ebib)
+
+; rust
+(require 'rust-mode)
