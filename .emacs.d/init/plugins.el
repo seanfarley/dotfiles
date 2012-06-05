@@ -72,13 +72,10 @@
 (require 'ace-jump-mode)
 (define-key global-map (kbd "C-j") 'ace-jump-mode)
 
-; Enable undohist for persistent undo
-(require 'undohist)
-(undohist-initialize)
-
 ; Enable undo-tree
 (require 'undo-tree)
 (global-undo-tree-mode)
+(setq undo-tree-auto-save-history t)
 
 ; Give each buffer a unique name
 (require 'uniquify)

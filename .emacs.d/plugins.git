@@ -12,7 +12,6 @@ git://github.com/emacsmirror/hl-line-plus.git
 git://github.com/emacsmirror/crosshairs.git
 git://github.com/nablaone/slime.git
 git://github.com/rejeep/wrap-region.git
-git://github.com/m2ym/undohist-el.git
 git://github.com/m2ym/auto-complete.git
 git://github.com/m2ym/popup-el.git
 git://github.com/m2ym/fuzzy-el.git
