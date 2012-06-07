@@ -45,7 +45,7 @@ function install() {
     # everything is .tar.* for tarballs
 
     EXT=".tar.${PACKAGE##*.}"
-    PACKAGE=$(basename $PACKAGE $EXT)
+    PACKAGE=$(basename $PACKAGE $EXT | sed 's,-rc,,')
 
     # Testing for zip type? ugh.
     EXTRACT="tar zxf"
@@ -66,7 +66,7 @@ function install() {
   fi
 
   # set the commands for downloading so they can be overloaded
-  DL="cd $SANDBOX; rm -rf $PACKAGE; $GET $2; $EXTRACT $PACKAGE$EXT; cd $PACKAGE"
+  DL="cd $SANDBOX; rm -rf $PACKAGE; $GET $2; $EXTRACT $(basename $2); cd $PACKAGE"
 
   case $1 in
     python)
@@ -148,5 +148,5 @@ if [[ $PACKAGES == *pss* ]]; then
 fi
 
 if [[ $PACKAGES == *emac* ]]; then
-  install gnu http://alpha.gnu.org/gnu/emacs/pretest/emacs-24.0.97.tar.gz "--without-x --without-jpeg --without-gif --without-sound"
+  install gnu http://alpha.gnu.org/gnu/emacs/pretest/emacs-24.1-rc.tar.gz "--without-x --without-jpeg --without-gif --without-sound"
 fi
