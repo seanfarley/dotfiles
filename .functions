@@ -88,6 +88,16 @@ mpdiff() {
   [ -e $MPFILE ] && opendiff $MPFILE $(port file $@)
 }
 
+mpcp() {
+  local MPFILE=$(mp $@)
+  if [ -d $MPFILE ]; then
+    local CATEGORY=$(mpcategory $@)
+    [ ! -d $CATEGORY ] && mkdir $CATEGORY
+    [ ! -d $CATEGORY/$@ ] && mkdir $CATEGORY/$@
+    cp -R $MPFILE/* $CATEGORY/$@
+  fi
+}
+
 psgrep() {
   ps aux | grep -v grep | grep "$@"
 }
