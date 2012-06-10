@@ -98,6 +98,14 @@ mpcp() {
   fi
 }
 
+mpls() {
+  local MPFILE=$(mp $@)
+  if [ -d $MPFILE ]; then
+    echo "Port: $MPFILE"
+    ls $MPFILE
+  fi
+}
+
 psgrep() {
   ps aux | grep -v grep | grep "$@"
 }
