@@ -34,6 +34,7 @@ alias gda="gdb --args"
 alias make_db="make RM=true"
 alias s="perl -pi -e"
 alias l="less"
+alias h="hg"
 
 # File size
 alias fs="stat -f \"%z bytes\""
