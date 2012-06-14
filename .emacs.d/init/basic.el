@@ -10,6 +10,9 @@
 ; ell 'l', one '1', little eye 'i', big eye 'I'
 ; zero '0', little oh 'o', big oh 'O'
 
+; Auto-revert
+(global-auto-revert-mode t)
+
 ; Turn off gui-type stuff
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
