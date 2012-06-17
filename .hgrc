@@ -32,6 +32,7 @@ hg_remotebranches =
 
 [schemes]
 bb = ssh://hg@bitbucket.org/
+git+bb = git+ssh://git@bitbucket.org/
 me = ssh://hg@bitbucket.org/seanfarley/
 gh = git+ssh://git@github.com/
 petsc = ssh://petsc@petsc.cs.iit.edu//hg/petsc/
