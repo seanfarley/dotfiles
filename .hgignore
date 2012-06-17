@@ -29,6 +29,7 @@ Movies
 .mysql*
 .config
 id_rsa*
+.ssh/environment
 known_hosts
 .DS_Store
 .CFUserTextEncoding
