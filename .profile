@@ -22,4 +22,4 @@ shopt -s nocaseglob
 HISTCONTROL=ignorespace
 
 # Get ctrl-s to work in bash searching
-stty stop undef
+[ -t 0 ] && stty stop undef
