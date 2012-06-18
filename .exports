@@ -12,7 +12,7 @@ export PROJECTS=$HOME/projects
 export SANDBOX=$PROJECTS/sandbox
 export PHD=$PROJECTS/phd
 
-export PETSC_DIR=$PROJECTS/petsc/petsc-dev
+export PETSC_DIR=$PROJECTS/petsc-dev
 export PETSC_ARCH=arch-c
 
 export CDPATH=.:$PROJECTS
