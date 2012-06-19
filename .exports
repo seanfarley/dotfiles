@@ -4,6 +4,9 @@ export EDITOR="emacsclient -n -f ~/.emacs.d/server/server"
 export MANPAGER="less -X"
 export HGRCPATH="$HOME/.hgrc"
 
+# Have bash ignore the .DS_Store
+export FIGNORE=DS_Store
+
 # Larger bash history (allow 32³ entries; default is 500)
 export HISTSIZE=32768
 export HISTFILESIZE=$HISTSIZE
