@@ -23,6 +23,7 @@ convert =
 hgk =
 record =
 pager =
+churn =
 # Third-party extensions
 hgfilter = ~/.hgfilter.py
 hggit =
