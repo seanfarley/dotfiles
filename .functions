@@ -242,7 +242,7 @@ pc() {
 
   pa $arch
   arch="$PETSC_ARCH"
-  local common="netcdf,ml,hypre,metis,parmetis,blacs,scalapack,mumps,superlu,superlu_dist,sundials,umfpack,cholmod,fftw,yaml,numdiff"
+  local common="netcdf,ml,hypre,metis,parmetis,blacs,scalapack,mumps,superlu,superlu_dist,sundials,umfpack,cholmod,fftw,yaml"
   local libs="--with-shared-libraries --with-c++-support --COPFLAGS=-O0 --CXXOPTFLAGS=-O0 --FOPTFLAGS=-O0"
 
   if [[ $PETSC_ARCH == *-64* ]]; then
@@ -250,7 +250,7 @@ pc() {
     libs="$libs --with-64-bit-indices"
   fi
 
-  [[ $PETSC_ARCH == *-cuda* ]] && libs="$libs --with-cusp-dir=/opt/local --with-thrust --with-cuda"
+  [[ $PETSC_ARCH == *-cuda* ]] && common="$common,cusp" && libs="$libs --with-thrust --with-cuda"
 
   libs="--with-{$common}-dir=/opt/local $libs"
   [[ $PETSC_ARCH == *-test* ]] && libs=""
