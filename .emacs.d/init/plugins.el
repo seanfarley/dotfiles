@@ -75,7 +75,6 @@
 ; Enable undo-tree
 (require 'undo-tree)
 (global-undo-tree-mode)
-(setq undo-tree-auto-save-history t)
 
 ; Give each buffer a unique name
 (require 'uniquify)
