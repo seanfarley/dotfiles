@@ -250,8 +250,6 @@ pc() {
     libs="$libs --with-64-bit-indices"
   fi
 
-  [[ $PETSC_ARCH != *-64* && $PETSC_ARCH != *-cuda* ]] && libs="$libs --with-matlab --with-matlab-engine"
-
   [[ $PETSC_ARCH == *-cuda* ]] && libs="$libs --with-cusp-dir=/opt/local --with-thrust --with-cuda"
 
   libs="--with-{$common}-dir=/opt/local $libs"
