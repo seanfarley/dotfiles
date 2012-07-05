@@ -85,6 +85,11 @@ mpe() {
 
 mpdiff() {
   local MPFILE=$(mp $@)/Portfile
+  [ -e $MPFILE ] && diff -u $MPFILE $(port file $@)
+}
+
+mpopendiff() {
+  local MPFILE=$(mp $@)/Portfile
   [ -e $MPFILE ] && opendiff $MPFILE $(port file $@)
 }
 
