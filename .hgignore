@@ -159,7 +159,7 @@ GRTAGS
 *.elc
 .ido.last
 .gnupg
-.emacs.d/undohist
+.emacs.d/undohistory
 .verify-fs
 .semanticdb
 .emacs.d/server
