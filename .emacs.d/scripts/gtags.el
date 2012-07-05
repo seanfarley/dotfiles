@@ -24,9 +24,8 @@
 
 ;; GLOBAL home page is at: http://www.gnu.org/software/global/
 ;; Author: Tama Communications Corporation
-;; Version: 3.4
+;; Version: 3.6
 ;; Keywords: tools
-;; Required version: GLOBAL 5.9.7 or later.
 
 ;; Gtags-mode is implemented as a minor mode so that it can work with any
 ;; other major modes. Gtags-select mode is implemented as a major mode.
@@ -90,6 +89,13 @@
                  (const :tag "Absolute" absolute))
   :group 'gtags)
 
+(defcustom gtags-ignore-case 'follow-case-fold-search
+  "*Controls whether or not ignore case in each search."
+  :type '(choice (const :tag "Follows case-fold-search variable" follow-case-fold-search)
+                 (const :tag "Ignore case" t)
+                 (const :tag "Distinguish case" nil))
+  :group 'gtags)
+
 (defcustom gtags-read-only nil
   "Gtags read only mode"
   :type 'boolean
@@ -129,6 +135,11 @@
   "*If non-nil, it is used for the prefix key of gtags-xxx command."
   :group 'gtags
   :type 'string)
+
+(defcustom gtags-auto-update nil
+  "*If non-nil, tag files are updated whenever a file is saved."
+  :type 'boolean
+  :group 'gtags)
 
 ;; Variables
 (defvar gtags-current-buffer nil
@@ -255,7 +266,6 @@
           (match-string 3 buffer-file-name)
           buffer-file-name)
       nil))
-
 (defun gtags-push-tramp-environment ()
     (let ((tramp-path default-directory))
       (if (string-match gtags-tramp-path-regexp tramp-path)
@@ -312,8 +322,23 @@
 ;; End of TRAMP support
 
 ;;
+;; Invoked on saving a file.
+;;
+(defun gtags-auto-update ()
+    (if (and gtags-mode gtags-auto-update buffer-file-name)
+        (progn
+          (gtags-push-tramp-environment)
+          (call-process gtags-global-command nil nil nil "-u" (concat "--single-update=" (gtags-buffer-file-name)))
+          (gtags-pop-tramp-environment))))
+;;
 ;; utility
 ;;
+;; Ignore case or not.
+(defun gtags-ignore-casep ()
+    (if (equal gtags-ignore-case 'follow-case-fold-search)
+	case-fold-search
+        gtags-ignore-case))
+
 (defun gtags-match-string (n)
   (buffer-substring (match-beginning n) (match-end n)))
 
@@ -384,7 +409,7 @@
                       (t                  "-c")))
         (complete-list (make-vector 63 0))
         (prev-buffer (current-buffer)))
-    (if case-fold-search
+    (if (gtags-ignore-casep)
         (setq option (concat option "i")))
     ; build completion list
     (set-buffer (generate-new-buffer "*Completions*"))
@@ -659,7 +684,7 @@
     (setq flag-char (string-to-char flag))
     ; Use always ctags-x format.
     (setq option "-x")
-    (if case-fold-search
+    (if (gtags-ignore-casep)
         (setq option (concat option "i")))
     (if (char-equal flag-char ?C)
         (setq context (concat "--from-here=" (number-to-string (gtags-current-lineno)) ":" (gtags-buffer-file-name)))
@@ -840,6 +865,9 @@ with no args, if that value is non-nil."
   (setq gtags-mode
       (if (null forces) (not gtags-mode)
         (> (prefix-numeric-value forces) 0)))
+  (if gtags-mode
+      (add-hook 'after-save-hook 'gtags-auto-update)
+      (remove-hook 'after-save-hook 'gtags-auto-update))
   (run-hooks 'gtags-mode-hook)
 )
 
