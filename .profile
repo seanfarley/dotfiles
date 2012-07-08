@@ -4,12 +4,7 @@ for file in exports bash_prompt aliases extra; do
   [ -e "$file" ] && source "$file"
 done
 
-for file in /opt/local/etc/bash_completion; do
-  [ -e "$file" ] && source "$file"
-done
-
-for file in local/etc/profile.d/bash_completion.sh bashrc functions; do
-  file="$HOME/.$file"
+for file in {/opt/,$HOME/.}local/etc/profile.d/bash_completion.sh $HOME/.{bashrc,functions}; do
   [ -e "$file" ] && source "$file"
 done
 
