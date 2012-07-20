@@ -4,6 +4,7 @@
 
 ; First disable things
 (setq vc-handled-backends nil)
+(setq ring-bell-function #'ignore)
 (cua-mode 0)
 
 ; Font test:
@@ -19,6 +20,7 @@
 (if (fboundp 'tabbar-mode) (tabbar-mode -1))
 
 ; Backup files
+(setq auto-save-interval 500)
 (setq backup-by-copying t)
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
@@ -40,14 +42,6 @@
 (column-number-mode t)
 (line-number-mode t)
 (setq-default fill-column 100)
-
-; Scrolling settings from
-; http://stackoverflow.com/questions/3631220/fix-to-get-smooth-scrolling-in-emacs
-(setq redisplay-dont-pause t
-      scroll-margin 1
-      scroll-step 1
-      scroll-conservatively 10000
-      scroll-preserve-screen-position 1)
 
 ; Customized variable generated
 (custom-set-variables
