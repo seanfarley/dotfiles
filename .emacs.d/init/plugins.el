@@ -121,3 +121,18 @@
 
 ; rust
 (require 'rust-mode)
+
+; notmuch
+(require 'notmuch nil 'noerror)
+
+(define-key notmuch-search-mode-map "d"
+ (lambda ()
+  "mark messages in thread as deleted"
+  (interactive)
+  (notmuch-search-tag '("+deleted" "-inbox"))))
+
+(define-key notmuch-search-mode-map "S"
+ (lambda ()
+  "mark messages in thread as spam"
+  (interactive)
+  (notmuch-search-tag '("+spam" "-inbox"))))
