@@ -136,3 +136,8 @@
   "mark messages in thread as spam"
   (interactive)
   (notmuch-search-tag '("+spam" "-inbox"))))
+
+; Mac OS Address Book integration
+(if (require 'eudcb-mab nil t)
+    (setq eudc-protocol 'mab)
+  (setq eudc-protocol 'bbdb))
