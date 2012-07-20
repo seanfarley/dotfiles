@@ -124,7 +124,7 @@ psgrep() {
 killgrep() {
   local PROCS=$(psgrep $@ | awk '{print $2;}')
   for p in $PROCS; do
-    kill $p
+    sudo kill -9 $p
   done
 }
 
