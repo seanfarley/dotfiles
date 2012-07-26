@@ -78,20 +78,35 @@ mp() {
   fi
 }
 
+_mpe() {
+  local cur prev words cword codesearch
+  _init_completion || return
+  codesearch=$(which csearch)
+
+  if [ -z "$codesearch" ]; then
+    COMPREPLY=( $( command port -q search --name --glob -- "$cur*" 2>/dev/null | uniq ) )
+  else
+    COMPREPLY=( $( command csearch -f Portfile ^name\\s+"$cur".* | awk -F':' '{print $1}' | xargs dirname | xargs -I{} basename {} ) )
+  fi
+}
+
 mpe() {
   local MPFILE=$(port file $@)
   [ -e $MPFILE ] && e $MPFILE
 }
+complete -F _mpe mpe
 
 mpdiff() {
   local MPFILE=$(mp $@)/Portfile
   [ -e $MPFILE ] && diff -u $MPFILE $(port file $@)
 }
+complete -F _mpe mpdiff
 
 mpopendiff() {
   local MPFILE=$(mp $@)/Portfile
   [ -e $MPFILE ] && opendiff $MPFILE $(port file $@)
 }
+complete -F _mpe mpopendiff
 
 mpcp() {
   local MPFILE=$(mp $@)
@@ -102,6 +117,7 @@ mpcp() {
     cp -R $MPFILE/* $CATEGORY/$@
   fi
 }
+complete -F _mpe mpcp
 
 mpls() {
   local MPFILE=$(mp $@)
@@ -110,6 +126,7 @@ mpls() {
     ls $MPFILE
   fi
 }
+complete -F _mpe mpls
 
 mpbumprev() {
   for f in $@; do
