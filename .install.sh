@@ -23,7 +23,7 @@ if [[ -z $(which curl 2>/dev/null) ]]; then
   CURL="wget -c"
 fi
 
-[[ $SANDBOX ]] || SANDBOX=$HOME/projects/sandbox
+[[ -z "$SANDBOX" ]] || SANDBOX=$HOME/sandbox
 
 [[ -d "$SANDBOX" || ! -L "$SANDBOX" ]] && mkdir -p $SANDBOX
 
