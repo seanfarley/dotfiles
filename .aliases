@@ -87,9 +87,11 @@ alias ipython="ipython --no-confirm-exit --no-banner"
 alias dir='ls --color=auto --format=vertical'
 alias vdir='ls --color=auto --format=long'
 
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+if [ "$(echo test | grep --color=auto te 2>/dev/null)" == "te" ];then
+   alias grep='grep --color=auto'
+   alias fgrep='fgrep --color=auto'
+   alias egrep='egrep --color=auto'
+fi
 alias g='grep'
 
-[ -s $(which pss-2.7 2>/dev/null) ] && alias pss='pss-2.7'
+[ -s "$(which pss-2.7 2>/dev/null)" ] && alias pss='pss-2.7'

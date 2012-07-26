@@ -12,7 +12,7 @@ unalias .. 2>/dev/null
 
 _..() {
   [[ ${COMP_WORDS[COMP_CWORD]} == ..* ]] || COMP_WORDS[COMP_CWORD]="../${COMP_WORDS[COMP_CWORD]}"
-  COMPREPLY=( $(compgen -S '/' -d ${COMP_WORDS[COMP_CWORD]} -- ${COMP_WORDS[COMP_CWORD]} | cut -b1-3 --complement) )
+  COMPREPLY=( $(compgen -S '/' -d ${COMP_WORDS[COMP_CWORD]} -- ${COMP_WORDS[COMP_CWORD]} | cut -b4- ) )
 }
 complete -o nospace -F _.. ..
 
@@ -23,7 +23,7 @@ unalias ... 2>/dev/null
 
 _...() {
   [[ ${COMP_WORDS[COMP_CWORD]} == ../..* ]] || COMP_WORDS[COMP_CWORD]="../../${COMP_WORDS[COMP_CWORD]}"
-  COMPREPLY=( $(compgen -S '/' -d ${COMP_WORDS[COMP_CWORD]} -- ${COMP_WORDS[COMP_CWORD]} | cut -b1-6 --complement) )
+  COMPREPLY=( $(compgen -S '/' -d ${COMP_WORDS[COMP_CWORD]} -- ${COMP_WORDS[COMP_CWORD]} | cut -b7- ) )
 }
 complete -o nospace -F _... ...
 
@@ -34,7 +34,7 @@ unalias .... 2>/dev/null
 
 _....() {
   [[ ${COMP_WORDS[COMP_CWORD]} == ../../..* ]] || COMP_WORDS[COMP_CWORD]="../../../${COMP_WORDS[COMP_CWORD]}"
-  COMPREPLY=( $(compgen -S '/' -d ${COMP_WORDS[COMP_CWORD]} -- ${COMP_WORDS[COMP_CWORD]} | cut -b1-9 --complement) )
+  COMPREPLY=( $(compgen -S '/' -d ${COMP_WORDS[COMP_CWORD]} -- ${COMP_WORDS[COMP_CWORD]} | cut -b9- ) )
 }
 complete -o nospace -F _.... ....
 

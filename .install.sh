@@ -19,11 +19,9 @@
 
 LOC=$HOME/.local
 CURL="curl -k -C - -L -O"
-if [[ -z $(which curl 2>/dev/null) ]]; then
-  CURL="wget -c"
-fi
+[[ -z "$(which curl 2>/dev/null)" ]] && CURL="wget -c"
 
-[[ -z "$SANDBOX" ]] || SANDBOX=$HOME/sandbox
+[[ -z "$SANDBOX" ]] && SANDBOX=$HOME/sandbox
 
 [[ -d "$SANDBOX" || ! -L "$SANDBOX" ]] && mkdir -p $SANDBOX
 
