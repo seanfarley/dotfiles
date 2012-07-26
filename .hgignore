@@ -14,6 +14,7 @@ Desktop
 Applications
 Documents
 Movies
+sandbox
 .vim-fuf-data
 .wireshark*
 .subversion
@@ -192,6 +193,7 @@ Doxyfile
 *.spl
 .offlineimap/
 .mail
+.keysnail*
 
 # due to my home directory being a repo, .emacs.d/plugins ignores need to go here globally
 
