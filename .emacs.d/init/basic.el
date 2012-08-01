@@ -30,6 +30,7 @@
 
 ; Turn off blinking cursor
 (blink-cursor-mode (- (*) (*) (*)))
+(show-paren-mode t)
 
 ; Tabs
 (setq-default tab-width 2)
