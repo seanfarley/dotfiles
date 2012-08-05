@@ -15,7 +15,6 @@ patchbomb =
 parentrevspec =
 schemes =
 progress =
-graphlog =
 extdiff =
 mq =
 rebase =
@@ -24,11 +23,11 @@ hgk =
 record =
 pager =
 churn =
+histedit =
 # Third-party extensions
 hgfilter = ~/.hgfilter.py
 hggit =
 hgsubversion =
-hg_histedit =
 hg_remotebranches =
 
 [schemes]
@@ -169,14 +168,14 @@ d = diff -p --pager=always
 # hg show .  -- show a summary of rev . with diff.
 show = log --pager=always --color=always --style=$HOME/.hgnlog -vpr
 
-# Simple glog command that doesn't look bad
-gl = !$HG glog $(if [ -z "$@" ]; then echo "-r l(23)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "$@"; fi) --pager=always --template="\033[{phaseidx|phasecolor}{rev}\033[0m:\033[{phaseidx|phasecolor}{node|short}\033[0m {desc|firstline|strip|fill180} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m \033[1;32m{date|shortdate}\033[0m by \033[0;33m{author|person}\033[0m\n\n"
+# Simple log command that doesn't look bad
+gl = !$HG log -G $(if [ -z "$@" ]; then echo "-r l(23)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "$@"; fi) --pager=always --template="\033[{phaseidx|phasecolor}{rev}\033[0m:\033[{phaseidx|phasecolor}{node|short}\033[0m {desc|firstline|strip|fill180} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m \033[1;32m{date|shortdate}\033[0m by \033[0;33m{author|person}\033[0m\n\n"
 
-gll = !$HG glog $@ --pager=always --template="\033[{phaseidx|phasecolor}{rev}\033[0m:\033[{phaseidx|phasecolor}{node|short}\033[0m {desc|firstline|strip|fill180} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m \033[1;32m{date|shortdate}\033[0m by \033[0;33m{author|person}\033[0m\n\n"
+gll = !$HG log -G $@ --pager=always --template="\033[{phaseidx|phasecolor}{rev}\033[0m:\033[{phaseidx|phasecolor}{node|short}\033[0m {desc|firstline|strip|fill180} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m \033[1;32m{date|shortdate}\033[0m by \033[0;33m{author|person}\033[0m\n\n"
 
-nl = !$HG glog $(if [ -z "$@" ]; then echo "-r l(10)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "$@"; fi) --pager=always --color=always --style=$HOME/.hgnlog
+nl = !$HG log -G $(if [ -z "$@" ]; then echo "-r l(10)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "$@"; fi) --pager=always --color=always --style=$HOME/.hgnlog
 
-nll = !$HG glog $@ --pager=always --color=always --style=$HOME/.hgnlog
+nll = !$HG log -G $@ --pager=always --color=always --style=$HOME/.hgnlog
 
 # Make a new repo with some sensible defaults.
 mkrepo = !$HG init $1 && cd $1 && \
