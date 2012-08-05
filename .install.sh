@@ -127,13 +127,9 @@ if [[ $PACKAGES == *global* ]]; then
 fi
 
 if [[ $PACKAGES == bc || $PACKAGES == *bc[!-a-zA-Z]* || $PACKAGES == *bash-comp* || $PACKAGES == *bashcomp* ]]; then
-  install gnu http://bash-completion.alioth.debian.org/files/bash-completion-1.3.tar.bz2
-  # fix stupid prefix bug
-  sed -i -e "s,BASH_COMPLETION=\/etc,BASH_COMPLETION=$LOC/etc," $LOC/etc/bash_completion
-  sed -i -e "s,BASH_COMPLETION_DIR=\/etc,BASH_COMPLETION_DIR=$LOC/etc," $LOC/etc/bash_completion
-  sed -i -e "s,BASH_COMPLETION_COMPAT_DIR=\/etc,BASH_COMPLETION_COMPAT_DIR=$LOC/etc," $LOC/etc/bash_completion
+  install gnu http://bash-completion.alioth.debian.org/files/bash-completion-2.0.tar.bz2
   # after bash-completion is installed, get the mercurial and git scripts
-  install script http://selenic.com/hg/raw-file/7ed056f1e97d/contrib/bash_completion $LOC/etc/bash_completion.d/mercurial
+  install script http://selenic.com/hg/raw-file/e15765c18ebc/contrib/bash_completion $LOC/etc/bash_completion.d/mercurial
   install script https://raw.github.com/gitster/git/master/contrib/completion/git-completion.bash $LOC/etc/bash_completion.d/git
 fi
 
