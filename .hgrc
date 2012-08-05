@@ -122,6 +122,18 @@ d($1) = sort($1, date)
 l($1) = reverse(limit(reverse(max(.~$1 or rev(0)):. and branch(.)), $1))
 
 [alias]
+### useful alias to check future amend result
+# equivalent to the qdiff command for mq
+
+# diff
+pdiff=diff --rev .^
+
+# status
+pstatus=status --rev .^
+
+# diff with the previous amend
+odiff=diff --rev 'limit(precursors(.),1)' --rev .
+
 # Show the url
 url = showconfig paths.default
 
