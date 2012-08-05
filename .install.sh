@@ -105,10 +105,6 @@ if [[ $PACKAGES == git || $PACKAGES == *[!-a-zA-Z]git* ]]; then
   install gnu http://git-core.googlecode.com/files/git-1.7.10.2.tar.gz
 fi
 
-if [[ $PACKAGES == he || $PACKAGES == *he[!-a-zA-Z]* || $PACKAGES == *histedit* ]]; then
-  install python https://bitbucket.org/durin42/histedit
-fi
-
 if [[ $PACKAGES == *hgsub* ]]; then
   install python https://bitbucket.org/durin42/hgsubversion
 fi
