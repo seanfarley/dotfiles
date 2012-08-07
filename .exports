@@ -18,7 +18,7 @@ export PHD=$PROJECTS/phd
 export PETSC_DIR=$PROJECTS/petsc-dev
 export PETSC_ARCH=arch-c
 
-export CDPATH=.:$PROJECTS
+export CDPATH=.:$PROJECTS:$HOME
 
 ##
 # Paths, environment variables
