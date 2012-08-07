@@ -76,9 +76,6 @@ alias hw="cd ~/projects/class/2012-spring"
 # SSH tunnels
 ##
 
-alias proxy-anl="ssh -q -C -N -D 9997 login.mcs.anl.gov -L3389:kronosts.it.anl.gov:3389"
-alias proxy-iit="ssh -q -C -N -D 9998 karlin.math.iit.edu"
-alias proxy-home="ssh -q -C -N -D 9999 home.seanfarley.org"
 alias ipython="ipython --no-confirm-exit --no-banner"
 
 [ -n "$(ls --version 2>/dev/null)" ] && alias ls='ls --color=auto'
