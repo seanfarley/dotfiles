@@ -141,3 +141,7 @@
 (if (require 'eudcb-mab nil t)
     (setq eudc-protocol 'mab)
   (setq eudc-protocol 'bbdb))
+
+; cua
+(setq cua-enable-cua-keys nil)
+(cua-mode)
