@@ -139,9 +139,9 @@ psgrep() {
 }
 
 killgrep() {
-  local PROCS=$(psgrep $@ | awk '{print $2;}')
+  local PROCS=$(psgrep $@ | grep $USER | awk '{print $2;}')
   for p in $PROCS; do
-    sudo kill -9 $p
+    kill -9 $p
   done
 }
 
