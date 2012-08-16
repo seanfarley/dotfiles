@@ -5,7 +5,6 @@
 ; First disable things
 (setq vc-handled-backends nil)
 (setq ring-bell-function #'ignore)
-(cua-mode 0)
 
 ; Font test:
 ; ell 'l', one '1', little eye 'i', big eye 'I'
