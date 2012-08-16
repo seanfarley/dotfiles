@@ -181,9 +181,9 @@ d = diff -p --pager=always
 show = log --pager=always --color=always --style=$HOME/.hgnlog -vpr
 
 # Simple log command that doesn't look bad
-gl = !$HG log -G $(if [ -z "$@" ]; then echo "-r l(23)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "$@"; fi) --pager=always --template="\033[{phaseidx|phasecolor}{rev}\033[0m:\033[{phaseidx|phasecolor}{node|short}\033[0m {desc|firstline|strip|fill180} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m \033[1;32m{date|shortdate}\033[0m by \033[0;33m{author|person}\033[0m\n\n"
+gl = !$HG log -G $(if [ -z "$@" ]; then echo "-r l(23)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "$@"; fi) --pager=always --template="\033[{phaseidx|phasecolor}{rev}\033[0m:\033[{phaseidx|phasecolor}{node|short}\033[0m {desc|firstline|strip|fill76} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m \033[1;32m{date|shortdate}\033[0m by \033[0;33m{author|person}\033[0m\n\n"
 
-gll = !$HG log -G $@ --pager=always --template="\033[{phaseidx|phasecolor}{rev}\033[0m:\033[{phaseidx|phasecolor}{node|short}\033[0m {desc|firstline|strip|fill180} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m \033[1;32m{date|shortdate}\033[0m by \033[0;33m{author|person}\033[0m\n\n"
+gll = !$HG log -G $@ --pager=always --template="\033[{phaseidx|phasecolor}{rev}\033[0m:\033[{phaseidx|phasecolor}{node|short}\033[0m {desc|firstline|strip|fill76} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m \033[1;32m{date|shortdate}\033[0m by \033[0;33m{author|person}\033[0m\n\n"
 
 nl = !$HG log -G $(if [ -z "$@" ]; then echo "-r l(10)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "$@"; fi) --pager=always --color=always --style=$HOME/.hgnlog
 
