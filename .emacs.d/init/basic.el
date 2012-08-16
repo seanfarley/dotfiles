@@ -41,7 +41,7 @@
 ; Columns
 (column-number-mode t)
 (line-number-mode t)
-(setq-default fill-column 100)
+(setq-default fill-column 90)
 
 ; Customized variable generated
 (custom-set-variables
