@@ -1,8 +1,6 @@
 git://github.com/ananthakumaran/monky.git
 git://github.com/byplayer/egg.git
 git://github.com/lewang/ace-jump-mode.git
-git://github.com/bbatsov/zenburn-emacs.git
-git://github.com/sellout/emacs-color-theme-solarized.git
 git://github.com/emacsmirror/undo-tree.git
 git://github.com/DarwinAwardWinner/ido-yes-or-no.git
 git://github.com/technomancy/ido-ubiquitous.git

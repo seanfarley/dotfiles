@@ -40,14 +40,6 @@
 (global-hl-line-highlight)
 (global-set-key (kbd "C-|") 'column-highlight-mode)
 
-; color-theme
-(require 'color-theme)
-(require 'color-theme-solarized)
-(require 'color-theme-zenburn)
-
-;; (color-theme-zenburn)
-(color-theme-solarized-dark)
-
 ;; Sets the column highlight color to match hl-line (bug?)
 ;; (set-face-background 'col-highlight "#0a2832") ;dark
 (set-face-background 'col-highlight "#e9e2cb") ;light

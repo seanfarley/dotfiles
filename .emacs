@@ -30,3 +30,5 @@
 (load "init/ediff.el")
 
 (load "init/plugins.el")
+
+(load "init/themes.el")
