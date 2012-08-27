@@ -90,7 +90,7 @@ function install() {
 }
 
 # default packages to install unless a command-line option is given
-PACKAGES="hg git histedit hgsubversion hg-git hg-remotebranches fast-hg-prompt global bash-completion pss emacs"
+PACKAGES="hg git histedit hgsubversion hg-git hg-remotebranches hg-keyring fast-hg-prompt global bash-completion pss emacs"
 [[ -n "$@" ]] && PACKAGES="$@"
 
 [[ -d $LOC/lib/python ]] && export PYTHONPATH=$LOC/lib/python/site-packages:$PYTHONPATH
@@ -111,6 +111,10 @@ fi
 
 if [[ $PACKAGES == *remot* ]]; then
   install python https://bitbucket.org/durin42/hg-remotebranches
+fi
+
+if [[ $PACKAGES == *key* ]]; then
+  install python https://bitbucket.org/Mekk/mercurial_keyring
 fi
 
 if [[ $PACKAGES == *hg-git* ]]; then
