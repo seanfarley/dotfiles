@@ -90,7 +90,7 @@
 
 (autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
 (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
-(setq markdown-command "markdown-2.7")
+(setq markdown-command "multimarkdown")
 (setq markdown-command-needs-filename t)
 
 ; hungry-delete
