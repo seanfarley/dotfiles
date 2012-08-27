@@ -67,15 +67,6 @@
 ; Enable undo-tree
 (require 'undo-tree)
 (global-undo-tree-mode)
-(setq undo-tree-auto-save-history t)
-(defun undo-tree-make-history-save-file-name ()
-  "Return file name to use for auto-saves of current buffer's history"
-  (if buffer-file-name
-   (progn
-       (if (not (file-exists-p "~/.emacs.d/undohistory/")) (make-directory "~/.emacs.d/undohistory" t))
-       (concat (expand-file-name "~/.emacs.d/undohistory/")
-                  (replace-regexp-in-string "/" "!" buffer-file-name)))
-    (expand-file-name (concat "#%" (buffer-name) "#"))))
 
 ; Give each buffer a unique name
 (require 'uniquify)
