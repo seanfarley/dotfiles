@@ -29,6 +29,7 @@ hgfilter = ~/.hgfilter.py
 hggit =
 hgsubversion =
 hg_remotebranches =
+mercurial_keyring =
 
 [schemes]
 bb = ssh://hg@bitbucket.org/
