@@ -132,3 +132,13 @@
 ; cua
 (setq cua-enable-cua-keys nil)
 (cua-mode)
+
+; outline-magic
+(add-hook 'outline-mode-hook
+           (lambda ()
+             (require 'outline-cycle)))
+
+ (add-hook 'outline-minor-mode-hook
+           (lambda ()
+             (require 'outline-magic)
+             (define-key outline-minor-mode-map [(f4)] 'outline-cycle)))
