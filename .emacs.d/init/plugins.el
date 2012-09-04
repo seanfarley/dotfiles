@@ -90,8 +90,12 @@
 
 (autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
 (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.mmd" . markdown-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.text" . markdown-mode) auto-mode-alist))
 (setq markdown-command "multimarkdown")
 (setq markdown-command-needs-filename t)
+(setq markdown-enable-itex t)
 
 ; hungry-delete
 (require 'hungry-delete)
