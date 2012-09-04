@@ -113,6 +113,10 @@ if [[ $PACKAGES == *remot* ]]; then
   install python https://bitbucket.org/durin42/hg-remotebranches
 fi
 
+if [[ $PACKAGES == *evolve* ]]; then
+  install python https://bitbucket.org/marmoute/mutable-history
+fi
+
 if [[ $PACKAGES == *key* ]]; then
   install python https://bitbucket.org/Mekk/mercurial_keyring
 fi
