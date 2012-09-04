@@ -142,3 +142,9 @@
            (lambda ()
              (require 'outline-magic)
              (define-key outline-minor-mode-map [(f4)] 'outline-cycle)))
+
+(require 'pandoc-mode)
+(setq pandoc-binary "pandoc")
+(add-hook 'markdown-mode-hook 'turn-on-pandoc)
+(add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
+(define-key pandoc-mode-map "\C-c/o" 'pandoc-set-output)
