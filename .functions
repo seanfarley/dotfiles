@@ -86,7 +86,7 @@ _mpe() {
   if [ -z "$codesearch" ]; then
     COMPREPLY=( $( command port -q search --name --glob -- "$cur*" 2>/dev/null | uniq ) )
   else
-    COMPREPLY=( $( command csearch -f Portfile ^name\\s+"$cur".* | awk -F':' '{print $1}' | xargs dirname | xargs -I{} basename {} ) )
+    COMPREPLY=( $( command csearch -f Portfile ^name\\s+"$cur".* | awk -F':' '{print $1}' | xargs dirname 2>/dev/null | xargs -I{} basename {} 2>/dev/null ) )
   fi
 }
 
