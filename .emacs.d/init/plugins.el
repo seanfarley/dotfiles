@@ -148,3 +148,5 @@
 (add-hook 'markdown-mode-hook 'turn-on-pandoc)
 (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
 (define-key pandoc-mode-map "\C-c/o" 'pandoc-set-output)
+
+(require 'weblogger)
