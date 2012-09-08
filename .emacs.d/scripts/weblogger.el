@@ -518,6 +518,23 @@ The order of bindings in a keymap matters when it is used as a menu."
     (define-key-after menu-bar-tools-menu [setup-weblog]
       '(menu-item "Setup your Weblog" weblogger-setup-weblog) 'start-weblog)))
 
+(defun chomp (str)
+  "Chomp leading and tailing whitespace from STR."
+  (while (string-match "\\`\n+\\|^\\s-+\\|\\s-+$\\|\n+\\'" str)
+    (setq str (replace-match "" t t str))) str)
+
+(defun get-keychain-password (service account-name)
+  "Gets `account` keychain password from OS X Keychain"
+  (chomp
+   (shell-command-to-string
+    (concatenate
+     'string
+     "security 2>&1 >/dev/null find-internet-password -gs "
+     service
+     " -a "
+     account-name
+     " | grep '^pass' | sed 's/^password: \\\"\\(.*\\)\\\"/\\1/'"))))
+
 (defun weblogger-submit-bug-report ()
  "Submit a bug report on weblogger."
  (interactive)
@@ -839,11 +856,11 @@ it"
     (setq weblogger-server-password ""))
   (if (or prompt (string= weblogger-server-password ""))
       (let ((auth-pass
-             (when (fboundp 'auth-source-user-or-password)
-               (auth-source-user-or-password
-                "password" (url-host (url-generic-parse-url
+             (when (fboundp 'get-keychain-password)
+               (get-keychain-password
+                (url-host (url-generic-parse-url
                                       weblogger-server-url))
-                "http")))
+                weblogger-server-username)))
              (get-pass (nth 2 (cdr (assoc weblogger-config-name
                                           weblogger-config-alist)))))
         (setq weblogger-server-password
