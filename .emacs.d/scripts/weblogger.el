@@ -847,8 +847,8 @@ it"
              (get-pass (nth 2 (cdr (assoc weblogger-config-name
                                           weblogger-config-alist)))))
         (setq weblogger-server-password
-	      (cond (auth-pass auth-pass)
-		    (get-pass get-pass)
+	      (cond ((> (length auth-pass) 0) auth-pass)
+		    ((> (length get-pass) 0) get-pass)
 		    (t (read-passwd "Password for weblog server: ")))))
     weblogger-server-password))
 
