@@ -51,6 +51,7 @@
 ; Load ido
 (require 'ido)
 (require 'ido-ubiquitous)
+(ido-mode t)
 (ido-ubiquitous t)
 (require 'ido-yes-or-no)
 (ido-yes-or-no-mode t)
