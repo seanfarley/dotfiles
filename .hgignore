@@ -194,6 +194,7 @@ Doxyfile
 .offlineimap/
 .mail
 .keysnail*
+.ghc
 
 # due to my home directory being a repo, .emacs.d/plugins ignores need to go here globally
 
