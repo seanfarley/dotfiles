@@ -50,11 +50,6 @@ pager = LESS="FRX" less
 secret = True
 
 [extdiff]
-cmd.fdiff = fmdiff
-cmd.kdiff3 = kdiff3
-cmd.vdiff = mvim
-opts.vdiff = -c 'set lines=70' -c 'set columns=240' -f '+next' '+execute "DirDiff" argv(0) argv(1)'
-
 cmd.sourcetreediff=opendiff
 opts.sourcetreediff=
 
@@ -210,9 +205,6 @@ rc = !$EDITOR `$HG root`/.hg/hgrc
 # Easily add ignore patterns to .hgignore and commit.
 ignore = ![ -n "$@" ] && echo '$@' >> `$HG root`/.hgignore && \
           $HG commit `$HG root`/.hgignore -Am 'Add "$@" to .hgignore.'
-
-# Show in MacVim
-vshow = !$HG show $@ | mvim -c ':AnsiEsc' -c 'setlocal buftype=nofile' -
 
 # Run hg commands on all subrepos at once.
 subs  = !"$HG" debugsub | grep '^path' | cut -d' ' -f2 | xargs    -n1  -I SUB $HG -R "`$HG root`/SUB" $@
