@@ -27,7 +27,6 @@ alias server="open http://localhost:8080/ && python -m SimpleHTTPServer 8080"
 alias c="tr -d '\n' | pbcopy"
 
 # Shortcuts
-alias p="cd ~/projects"
 alias e="$HOME/.emacs.sh -n"
 alias gda="gdb --args"
 alias s="perl -pi -e"
@@ -65,12 +64,6 @@ alias mat="cd \$PROJECTS/petsc-dev/src/mat/examples/tutorials"
 alias sys="cd \$PROJECTS/petsc-dev/src/sys/examples/tutorials"
 alias dm="cd \$PROJECTS/petsc-dev/src/dm/examples/tutorials"
 alias pb="make -j4 -C \$PETSC_DIR/\$PETSC_ARCH"
-
-##
-# Directory shortcuts
-##
-
-alias hw="cd ~/projects/class/2012-spring"
 
 ##
 # SSH tunnels
