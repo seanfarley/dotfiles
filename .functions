@@ -115,6 +115,8 @@ mpcp() {
     [ ! -d $CATEGORY ] && mkdir $CATEGORY
     [ ! -d $CATEGORY/$@ ] && mkdir $CATEGORY/$@
     cp -R $MPFILE/* $CATEGORY/$@
+    hg add $CATEGORY/$@
+    hg ci $CATEGORY/$@ -m"$@: copy from macports"
   fi
 }
 complete -F _mpe mpcp
