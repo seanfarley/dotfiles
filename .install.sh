@@ -90,7 +90,7 @@ function install() {
 }
 
 # default packages to install unless a command-line option is given
-PACKAGES="hg git histedit hgsubversion hg-git hg-remotebranches hg-keyring fast-hg-prompt global bash-completion pss emacs"
+PACKAGES="hg git histedit hgsubversion hg-git hg-remotebranches evolve hg-keyring fast-hg-prompt global bash-completion pss emacs"
 [[ -n "$@" ]] && PACKAGES="$@"
 
 [[ -d $LOC/lib/python ]] && export PYTHONPATH=$LOC/lib/python/site-packages:$PYTHONPATH
