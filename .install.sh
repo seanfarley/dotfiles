@@ -122,7 +122,7 @@ if [[ $PACKAGES == *ring* ]]; then
 fi
 
 if [[ $PACKAGES == *hg-git* ]]; then
-  install python http://www.samba.org/~jelmer/dulwich/dulwich-0.8.5.tar.gz
+  install python git://github.com/jelmer/dulwich.git
   install python https://bitbucket.org/durin42/hg-git
 fi
 
