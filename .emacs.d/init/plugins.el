@@ -158,6 +158,9 @@
 ; load websocket
 (require 'websocket)
 
+; load smartrep
+(require 'smartrep)
+
 ; Autocomplete
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete/dict")
