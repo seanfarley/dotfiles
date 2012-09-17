@@ -152,6 +152,9 @@
 ; load ropemacs
 (pymacs-load "ropemacs" "rope-")
 
+; load nXhtml
+(load "~/.emacs.d/plugins/nxhtml/autostart.el")
+
 ; Autocomplete
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete/dict")

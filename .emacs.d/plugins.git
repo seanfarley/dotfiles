@@ -21,3 +21,4 @@ git://github.com/joostkremers/ebib.git
 git://github.com/joostkremers/pandoc-mode.git
 git://github.com/haskell/haskell-mode.git
 git://github.com/fgallina/python.el
+git://github.com/emacsmirror/nxhtml.git
