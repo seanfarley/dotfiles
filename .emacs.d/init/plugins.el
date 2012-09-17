@@ -171,3 +171,6 @@
 (autoload 'pymacs-exec "pymacs" nil t)
 (autoload 'pymacs-load "pymacs" nil t)
 (autoload 'pymacs-autoload "pymacs")
+
+; load ropemacs
+(pymacs-load "ropemacs" "rope-")
