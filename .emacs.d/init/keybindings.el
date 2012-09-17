@@ -15,4 +15,4 @@
 ; this is emacs with C-0 C-k)
 (global-set-key [s-backspace] [?\C-0 ?\C-k])
 
-(global-set-key [s-return] 'ns-toggle-fullscreen)
+(global-set-key [C-s-268632070] 'ns-toggle-fullscreen)
