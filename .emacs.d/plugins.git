@@ -22,3 +22,4 @@ git://github.com/joostkremers/pandoc-mode.git
 git://github.com/haskell/haskell-mode.git
 git://github.com/fgallina/python.el
 git://github.com/emacsmirror/nxhtml.git
+git://github.com/ahyatt/emacs-websocket.git

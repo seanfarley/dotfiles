@@ -155,6 +155,9 @@
 ; load nXhtml
 (load "~/.emacs.d/plugins/nxhtml/autostart.el")
 
+; load websocket
+(require 'websocket)
+
 ; Autocomplete
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete/dict")
