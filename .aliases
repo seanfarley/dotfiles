@@ -69,8 +69,6 @@ alias pb="make -j4 -C \$PETSC_DIR/\$PETSC_ARCH"
 # SSH tunnels
 ##
 
-alias ipython="ipython --no-confirm-exit --no-banner"
-
 [ -n "$(ls --version 2>/dev/null)" ] && alias ls='ls --color=auto'
 alias dir='ls --color=auto --format=vertical'
 alias vdir='ls --color=auto --format=long'
