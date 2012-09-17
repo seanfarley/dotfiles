@@ -161,6 +161,11 @@
 ; load smartrep
 (require 'smartrep)
 
+; load ein
+(require 'ein)
+(setq ein:use-auto-complete t)
+(setq ein:use-smartrep t)
+
 ; Autocomplete
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete/dict")

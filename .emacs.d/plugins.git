@@ -24,3 +24,4 @@ git://github.com/fgallina/python.el
 git://github.com/emacsmirror/nxhtml.git
 git://github.com/ahyatt/emacs-websocket.git
 git://github.com/myuhe/smartrep.el.git
+git://github.com/tkf/emacs-ipython-notebook.git
