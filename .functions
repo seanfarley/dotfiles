@@ -271,3 +271,13 @@ pc() {
 
   eval ./configure $extra $libs
 }
+
+emacs-compile-plugins() {
+  for i in $(ls | grep -v cedet); do
+    if [ $(ls $i | grep -c elc) -eq 0 ]; then
+      cd $i
+      for j in *.el; do emacs -L . $(for i in ../*; do printf "%s" "-L $i "; done) -L ../nxhtml/util --batch --eval "(byte-compile-file \"$j\")"; done
+      cd ..
+    fi
+  done
+}
