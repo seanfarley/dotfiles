@@ -5,7 +5,7 @@
                                "*Compile-Log*" "*Help*" "*Messages*" ".aux"))
 
 (defvar stesla-hated-buffer-regexps
-  '("^ " "*Buffer" "^\\*trace" "^\\*tramp" "^\\*"))
+  '("^ " "^\\*[^s][^c][^r]"))
 
 (setq iswitchb-buffer-ignore
   (append stesla-hated-buffer-regexps  stesla-hated-buffers))
