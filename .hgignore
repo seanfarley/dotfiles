@@ -197,6 +197,7 @@ Doxyfile
 .ghc
 *.hi
 .rope*
+.filezilla
 
 # due to my home directory being a repo, .emacs.d/plugins ignores need to go here globally
 
