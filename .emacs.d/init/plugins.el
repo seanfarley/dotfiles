@@ -36,11 +36,7 @@
 ; Enable ido
 (ido-mode t)
 (setq ido-enable-flex-matching t) ; fuzzy matching is a must have
-(setq completion-ignored-extensions
-  '(".o" ".elc" "~" ".bin" ".bak" ".obj" ".map" ".a" ".ln" ".mod" ".gz"
-    ".aux" ".tdo" ".fmt" ".swp" ".pdfsync" ".pdf" ".vrb" ".idx" ".ind"
-    ".bbl" ".toc" ".blg" ".snm" ".ilg" ".log" ".out" ".pyc" ".DS_Store"
-    "-blx.bib" ".run.xml"))
+(setq ido-ignore-extensions t)
 
 ; Ace-jump (Easymotion equivalent)
 (require 'ace-jump-mode)

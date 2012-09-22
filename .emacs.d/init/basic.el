@@ -43,3 +43,9 @@
 (line-number-mode t)
 (setq-default fill-column 90)
 
+; Ignored extensions
+(setq completion-ignored-extensions
+  '(".o" ".elc" "~" ".bin" ".bak" ".obj" ".map" ".a" ".ln" ".mod" ".gz"
+    ".aux" ".tdo" ".fmt" ".swp" ".pdfsync" ".pdf" ".vrb" ".idx" ".ind"
+    ".bbl" ".toc" ".blg" ".snm" ".ilg" ".log" ".out" ".pyc" ".DS_Store"
+    "-blx.bib" ".run.xml" ".hi"))
