@@ -16,3 +16,5 @@
 (global-set-key [s-backspace] [?\C-0 ?\C-k])
 
 (global-set-key [C-s-268632070] 'ns-toggle-fullscreen)
+
+(global-set-key (kbd "s-r") 'recompile)
