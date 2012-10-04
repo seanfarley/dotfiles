@@ -201,32 +201,32 @@ _build_port_list() {
 
 # very simple for now, only +debug and +longindex
 _activate_pa() {
-  if [ -x /opt/local/bin/port ]; then
-    local ports="hdf5-18 netcdf ml hypre blacs scalapack mumps superlu sundials suitesparse fftw-3 fftw-3-single fftw-3-long"
-    local ports64="metis parmetis superlu_dist" # which just *happens* to also be the dependencies
-    local debug=""
-    local long=""
-    local command="activate"
-    local p=""
-    local list="$ports64"
+  [ ! -x /opt/local/bin/port ] && return
 
-    [[ $PETSC_ARCH != *-opt* ]] && debug="+debug"
-    [[ $PETSC_ARCH == *-64* ]] && long="+longindex"
+  local ports="hdf5-18 netcdf ml hypre blacs scalapack mumps superlu sundials suitesparse fftw-3 fftw-3-single fftw-3-long"
+  local ports64="metis parmetis superlu_dist" # which just *happens* to also be the dependencies
+  local debug=""
+  local long=""
+  local command="activate"
+  local p=""
+  local list="$ports64"
 
-    local variants="$debug$long"
+  [[ $PETSC_ARCH != *-opt* ]] && debug="+debug"
+  [[ $PETSC_ARCH == *-64* ]] && long="+longindex"
 
-    [[ $PETSC_ARCH == *-test* ]] && command="deactivate" && list="$(_reverse_list $ports)" && variants="$debug"
+  local variants="$debug$long"
 
-    p=$(_build_port_list "$list" $PETSC_ARCH "$variants")
+  [[ $PETSC_ARCH == *-test* ]] && command="deactivate" && list="$(_reverse_list $ports)" && variants="$debug"
 
-    list="$ports"
-    variants="$debug"
-    [[ $PETSC_ARCH == *-test* ]] && list="$(_reverse_list $ports64)" && variants="$debug$long"
+  p=$(_build_port_list "$list" $PETSC_ARCH "$variants")
 
-    p=$p\ $(_build_port_list "$list" $PETSC_ARCH "$variants")
+  list="$ports"
+  variants="$debug"
+  [[ $PETSC_ARCH == *-test* ]] && list="$(_reverse_list $ports64)" && variants="$debug$long"
 
-    for i in $p; do sudo port $command $i; done
-  fi
+  p=$p\ $(_build_port_list "$list" $PETSC_ARCH "$variants")
+
+  for i in $p; do sudo port $command $i; done
 }
 
 pa() {
