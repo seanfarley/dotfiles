@@ -25,7 +25,6 @@ pager =
 churn =
 histedit =
 # Third-party extensions
-hgfilter = ~/.hgfilter.py
 hggit =
 hgsubversion =
 hg_remotebranches =
@@ -172,20 +171,18 @@ takeother = !"$HG" revert --rev 'p2()' $@ && "$HG" resolve -m $@
 d = diff -p --pager=always
 
 # Log shortcuts --------------------------------------------------------------------
-#
-# Each of these can be used with -v to add a bit more info.
-
-# hg show .  -- show a summary of rev . with diff.
-show = log --stat --hidden --pager=always --color=always --style=$HOME/.hgnlog -vpr
 
 # Simple log command that doesn't look bad
-gl = !$HG log -G $(if [ -z "$@" ]; then echo "-r l(23)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "$@"; fi) --pager=always --template="\033[{phaseidx|phasecolor}{rev}\033[0m:\033[{phaseidx|phasecolor}{node|short}\033[0m {desc|firstline|strip|fill76} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m \033[1;32m{date|shortdate}\033[0m by \033[0;33m{author|person}\033[0m\n\n"
+glog = log -G --pager=always --template="\033[{ifeq(phaseidx,'0','0;34m')}{ifeq(phaseidx,'1','0;32m')}{ifeq(phaseidx,'2','1;31m')}{rev}\033[0m:\033[{ifeq(phaseidx,'0','0;34m')}{ifeq(phaseidx,'1','0;32m')}{ifeq(phaseidx,'2','1;31m')}{node|short}\033[0m {fill(desc|firstline|strip,'80')} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m \033[1;32m{date|shortdate}\033[0m by \033[0;33m{author|person}\033[0m\n\n"
 
-gll = !$HG log -G $@ --pager=always --template="\033[{phaseidx|phasecolor}{rev}\033[0m:\033[{phaseidx|phasecolor}{node|short}\033[0m {desc|firstline|strip|fill76} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m \033[1;32m{date|shortdate}\033[0m by \033[0;33m{author|person}\033[0m\n\n"
+gl = glog -l 23
 
-nl = !$HG log -G $(if [ -z "$@" ]; then echo "-r l(10)"; elif [ "$@" -gt 0 ] 2>/dev/null; then echo "-r l($@)"; else echo "$@"; fi) --pager=always --color=always --style=$HOME/.hgnlog
+nlog = log -G --pager=always --color=always --template="\033[{ifeq(phaseidx,'0','0;34m')}{ifeq(phaseidx,'1','0;32m')}{ifeq(phaseidx,'2','1;31m')}{rev}\033[0m:\033[{ifeq(phaseidx,'0','0;34m')}{ifeq(phaseidx,'1','0;32m')}{ifeq(phaseidx,'2','1;31m')}{node|short}\033[0m {desc|firstline|strip|fill76} \033[38;5;141m{bookmarks}\033[0m \033[0;35m{tags}\033[0m\n\033[1;29m({date|age} by {author|person})\033[0m\n\n{file_mods % '\033[0;36mM {file}\033[0m\n'}{file_adds % '\033[0;32mA {file}\033[0m\n'}{file_dels % '\033[0;31mR {file}\033[0m\n'}\n"
 
-nll = !$HG log -G $@ --pager=always --color=always --style=$HOME/.hgnlog
+nl = nlog -l 10
+
+# hg show .  -- show a summary of rev . with diff.
+show = nlog --stat --hidden -vpr
 
 # Make a new repo with some sensible defaults.
 mkrepo = !$HG init $1 && cd $1 && \
