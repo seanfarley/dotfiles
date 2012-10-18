@@ -1,5 +1,5 @@
 [ui]
-username = Sean Farley <sean@mcs.anl.gov>
+username = Sean Farley <sean.michael.farley@gmail.com>
 ssh = ssh -C
 editor = ~/.emacs.sh
 ignore = ~/.hgignore
@@ -83,7 +83,7 @@ bitbucket.org = 24:9c:45:8b:9c:aa:ba:55:4e:01:6d:58:ff:e4:28:7d:2a:14:ae:3b
 
 [email]
 method = smtp
-from = Sean Farley <sean@mcs.anl.gov>
+from = Sean Farley <sean.michael.farley@gmail.com>
 
 [smtp]
 host = smtp.gmail.com
