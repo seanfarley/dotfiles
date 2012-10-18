@@ -1,5 +1,5 @@
 # Make vim the default editor
-export EDITOR="emacsclient -n -f ~/.emacs.d/server/server"
+export EDITOR="emacsclient -n -f $HOME/.emacs.d/server/server"
 # Don't clear the screen after quitting a manual page
 export MANPAGER="less -X"
 export HGRCPATH="$HOME/.hgrc"
