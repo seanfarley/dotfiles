@@ -43,7 +43,7 @@ function install() {
     # everything is .tar.* for tarballs
 
     EXT=".tar.${PACKAGE##*.}"
-    PACKAGE=$(basename $PACKAGE $EXT | sed 's,-rc,,')
+    PACKAGE=$(tar -tf $SANDBOX/$PACKAGE | head -n2 | tail -n1 | xargs dirname)
 
     # Testing for zip type? ugh.
     EXTRACT="tar zxf"
