@@ -80,12 +80,6 @@ _mpe() {
   fi
 }
 
-mpe() {
-  local MPFILE=$(port file $@)
-  [ -e $MPFILE ] && e $MPFILE
-}
-complete -F _mpe mpe
-
 mpdiff() {
   local MPFILE=$(mp $@)/Portfile
   [ -e $MPFILE ] && diff -u $MPFILE $(port file $@)
