@@ -124,6 +124,65 @@ psgrep() {
   ps aux | grep -v grep | grep "$@"
 }
 
+_mp_compilers() {
+  local c=$(echo clang{,3{0..2}} gcc4{4..8} dragonegg3{0..2} system_gcc)
+  echo ${c//\ /,}
+}
+
+_mp_mpis() {
+  local m=$(echo {mpich2,openmpi}{,-devel})
+  echo ${m//\ /,}
+}
+
+mpmpi() {
+  local port
+  local variant
+
+  local compilers=$(_mp_compilers)
+  local mpis=$(_mp_mpis)
+
+  local mpi=$(echo $1 | cut -d/ -f1)
+  local c=$(echo $1 | cut -d/ -f2)
+
+  local portquery=$(port installed ${mpis//,/\ } | grep active)
+  local oldmpi=$(echo $portquery | perl -lne "print $& if /(${mpis//,/|})/")
+  local oldc=$(echo $portquery | perl -lne "print $& if /(${compilers//,/|})/")
+
+  local deps=$($HOME/.port-rdependents.py $oldmpi)
+
+  local OLD_IFS=$IFS
+  IFS=$'\n';
+
+  for i in $deps; do
+    port=$(echo $i | cut -d' ' -f1)
+    variant=$(echo $i | cut -d' ' -f2)
+
+    echo "Deactivating $port $variants"
+    sudo port deactivate $port $variant
+  done
+
+  for i in $(printf "$deps\n" | tac); do
+    port=$(echo $i | cut -d' ' -f1)
+    variant=$(echo $i | cut -d' ' -f2)
+
+    # some hacky logic; if $2 is non-empty and contains:
+    #   opt) debug -> opt
+    #   debug) opt -> debug
+    [[ "$port" == "$oldmpi" ]] && port=$mpi
+    [[ "$port*" == "openmpi*" ]] && variant="$variant+threads+valgrind"
+    [[ "$2" == "debug" ]] && variant="$variant+debug"
+    [[ "$2" == "opt" ]] && variant=$(echo $variant | perl -pe 's,\+debug,-debug,')
+
+    variant=$(echo $variant | perl -pe "s,${compilers//,/|},$c,g")
+    variant=$(echo $variant | perl -pe "s,${mpis//,/|},$mpi,g")
+    echo "Installing $port $variant"
+    sudo port install $port $variant
+  done
+
+  IFS=$OLD_IFS
+}
+complete -W "$(echo {$(_mp_mpis)}/{$(_mp_compilers)})" mpmpi
+
 killgrep() {
   local PROCS=$(psgrep $@ | grep $USER | awk '{print $2;}')
   for p in $PROCS; do
@@ -173,12 +232,7 @@ pd() {
 }
 complete -o nospace -F _cd pd
 
-_reverse_list() {
-  echo $(echo $@ | awk '{for (i = NF; i > 0; i--){print $i}}')
-}
-
-# this assumes only one compile type (e.g. gcc46 XOR clang XOR gcc45)
-# it also fixes the type of variants (e.g. +debug, +longindex)
+# this enforces only one compiler type (e.g. gcc46 XOR clang XOR gcc45)
 _build_port_list() {
   local list=""
   local cmd="printf @ && port installed \$i | sed -n 2p | cut -d'@' -f2 | sed 's, (active),,' | sed 's,\+debug,,' | sed 's,\+longindex,,'"
@@ -197,13 +251,22 @@ _build_port_list() {
 _activate_pa() {
   [ ! -x /opt/local/bin/port ] && return
 
-  local ports="hdf5-18 netcdf ml hypre blacs scalapack mumps superlu sundials suitesparse fftw-3 fftw-3-single fftw-3-long"
+  local ports="$(port -q rdependents mpich2 | s 's,^\s+,,' | tac)"
   local ports64="metis parmetis superlu_dist" # which just *happens* to also be the dependencies
   local debug=""
   local long=""
   local command="activate"
   local p=""
   local list="$ports64"
+  local compilers="$(echo clang{,3{0..2}} gcc4{4..8} dragonegg3{0..2} llvm system_gcc)"
+  local mpis="$(echo {mpich2,openmpi}{-devel,})"
+  local compiler=$(port installed $mpis | grep active | perl -lne "print $& if /(${compilers//\ /|})/")
+  local mpi=$(port installed $mpis | grep active | perl -lne "print $& if /(${mpis//\ /|})/")
+
+  echo "DEBUG: compiler=$compiler"
+  echo "DEBUG: mpi=$mpi"
+
+return 0
 
   [[ $PETSC_ARCH != *-opt* ]] && debug="+debug"
   [[ $PETSC_ARCH == *-64* ]] && long="+longindex"
