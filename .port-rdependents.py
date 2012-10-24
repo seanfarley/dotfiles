@@ -10,11 +10,12 @@ import sqlite3 as lite
 def rdependents(cur,g,name):
     g.add_node(name)
     cur.execute("""
-        SELECT dependencies.id,ports.name FROM dependencies
-        INNER JOIN ports ON dependencies.id = ports.id
+        SELECT dependencies.id,ports.name,ports.version,ports.revision,ports.variants
+        FROM dependencies INNER JOIN ports ON dependencies.id = ports.id
         WHERE dependencies.name='%s' AND ports.state='installed'""" % name
     )
     for r in cur.fetchall():
+        # print "PORT: %s @%s_%s%s" % (r[1],r[2],r[3],r[4])
         rdependents(cur,g,r[1])
         g.add_edge(name,r[1])
 
