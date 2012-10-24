@@ -57,11 +57,12 @@ def rdependents(cur,g,name,comp=""):
     # This following loop is an approximation. It will search the parents of all
     # dependents (and then their children). Ideally, we'd search for all port with the
     # +compiler variants
-    d1 = deps(cur,name,comp)
-    for r in d1:
-        if not g.has_node(r[1]):
-            rdependents(cur,g,r[1],comp)
-        g.add_edge(name,r[1])
+    if comp:
+        d1 = deps(cur,name,comp)
+        for r in d1:
+            if not g.has_node(r[1]):
+                rdependents(cur,g,r[1],comp)
+                g.add_edge(name,r[1])
 
     d2 = dependents(cur,name)
     for r in d2:
