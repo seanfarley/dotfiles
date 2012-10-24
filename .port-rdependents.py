@@ -18,8 +18,10 @@ def variants(cur,name):
         WHERE state='installed' AND name='%s'""" % name
     )
 
-    return "@%s_%s%s" % cur.fetchone()
-
+    r = cur.fetchone()
+    if r:
+        return "@%s_%s%s" % r
+    return ''
 
 def deps(cur,name,variant=''):
     d = []
