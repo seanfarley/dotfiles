@@ -12,6 +12,15 @@ import sys
 import networkx as nx
 import sqlite3 as lite
 
+def variants(cur,name):
+    cur.execute("""
+        SELECT version,revision,variants FROM ports
+        WHERE state='installed' AND name='%s'""" % name
+    )
+
+    return "@%s_%s%s" % cur.fetchone()
+
+
 def deps(cur,name,variant=''):
     d = []
     cur.execute("""
@@ -41,7 +50,7 @@ def dependents(cur,name):
     return d
 
 def rdependents(cur,g,name,comp=""):
-    g.add_node(name)
+    g.add_node(name, variants=variants(cur,name))
 
     # This following loop is an approximation. It will search the parents of all
     # dependents (and then their children). Ideally, we'd search for all port with the
@@ -54,7 +63,6 @@ def rdependents(cur,g,name,comp=""):
 
     d2 = dependents(cur,name)
     for r in d2:
-        # print "PORT: %s @%s_%s%s" % (r[1],r[2],r[3],r[4])
         if not g.has_node(r[1]):
             rdependents(cur,g,r[1],comp)
         g.add_edge(r[1],name)
@@ -80,7 +88,7 @@ with con:
     if g.nodes():
 
         for i in nx.topological_sort(g):
-            print i
+            print i,g.node[i]['variants']
 
         # nx.draw_graphviz(g) # only available if pydot is installed
         # plt.show()
