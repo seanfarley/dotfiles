@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 """
 Uses direct SQLite to compute the recursive dependecies of a port
+Usage:
+port-rdependents.py mpich2
 """
+
+import sys
 
 # import matplotlib.pyplot as plt
 import networkx as nx
@@ -27,12 +31,18 @@ with con:
 
     cur = con.cursor()
 
-    rdependents(cur,g,'mpich2')
+    # expected to pass argument of the port name
+    if len(sys.argv) < 2:
+        sys.exit(1)
 
-    d=nx.dfs_tree(g,'mpich2')
+    port = sys.argv[1]
+    rdependents(cur,g,port)
 
-    for i in nx.dfs_postorder_nodes(d,'mpich2'):
-        print i
+    d=nx.dfs_tree(g,port)
+
+    if d.nodes():
+        for i in nx.dfs_postorder_nodes(d,port):
+            print i
 
     # nx.draw_graphviz(d) # only available if pydot is installed
     # plt.show()
