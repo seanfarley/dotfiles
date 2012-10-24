@@ -3,7 +3,7 @@
 Uses direct SQLite to compute the recursive dependecies of a port
 """
 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import networkx as nx
 import sqlite3 as lite
 
@@ -33,5 +33,5 @@ with con:
     for i in nx.dfs_postorder_nodes(d,'mpich2'):
         print i
 
-    nx.draw_graphviz(d) # only available if pydot is installed
-    plt.show()
+    # nx.draw_graphviz(d) # only available if pydot is installed
+    # plt.show()
