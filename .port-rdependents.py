@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 """
-Uses direct SQLite to compute the recursive dependecies of a port
+Uses direct SQLite to compute the recursive dependecies of a port,
+plus the variants containing a compiler
 Usage:
-port-rdependents.py mpich2
+port-rdependents.py mpich2 gcc47
 """
 
 import sys
@@ -11,19 +12,52 @@ import sys
 import networkx as nx
 import sqlite3 as lite
 
-def rdependents(cur,g,name):
-    g.add_node(name)
+def deps(cur,name,variant=''):
+    d = []
+    cur.execute("""
+        SELECT ports.id, ports.name, ports.variants FROM dependencies
+        INNER JOIN ports ON ports.name = dependencies.name
+        WHERE dependencies.id IN (
+            SELECT ports.id FROM ports WHERE ports.name='%s' AND ports.state='installed'
+        ) AND ports.state='installed' AND ports.variants LIKE '%%%s%%'""" % (name,comp)
+    )
+
+    for r in cur.fetchall():
+        d.append(r)
+
+    return d
+
+def dependents(cur,name):
+    d = []
     cur.execute("""
         SELECT dependencies.id,ports.name,ports.version,ports.revision,ports.variants
         FROM dependencies INNER JOIN ports ON dependencies.id = ports.id
         WHERE dependencies.name='%s' AND ports.state='installed'""" % name
     )
+
     for r in cur.fetchall():
-        # print "PORT: %s @%s_%s%s" % (r[1],r[2],r[3],r[4])
-        rdependents(cur,g,r[1])
+        d.append(r)
+
+    return d
+
+def rdependents(cur,g,name,comp=""):
+    g.add_node(name)
+
+    # This following loop is an approximation. It will search the parents of all
+    # dependents (and then their children). Ideally, we'd search for all port with the
+    # +compiler variants
+    d1 = deps(cur,name,comp)
+    for r in d1:
+        if not g.has_node(r[1]):
+            rdependents(cur,g,r[1],comp)
         g.add_edge(name,r[1])
 
-g=nx.DiGraph()
+    d2 = dependents(cur,name)
+    for r in d2:
+        # print "PORT: %s @%s_%s%s" % (r[1],r[2],r[3],r[4])
+        if not g.has_node(r[1]):
+            rdependents(cur,g,r[1],comp)
+        g.add_edge(r[1],name)
 
 con = lite.connect('/opt/local/var/macports/registry/registry.db')
 
@@ -36,13 +70,17 @@ with con:
         sys.exit(1)
 
     port = sys.argv[1]
-    rdependents(cur,g,port)
+    comp = ''
+    if len(sys.argv) > 2:
+        comp = sys.argv[2]
 
-    d=nx.dfs_tree(g,port)
+    g = nx.DiGraph()
+    rdependents(cur,g,port,comp)
 
-    if d.nodes():
-        for i in nx.dfs_postorder_nodes(d,port):
+    if g.nodes():
+
+        for i in nx.topological_sort(g):
             print i
 
-    # nx.draw_graphviz(d) # only available if pydot is installed
-    # plt.show()
+        # nx.draw_graphviz(g) # only available if pydot is installed
+        # plt.show()
