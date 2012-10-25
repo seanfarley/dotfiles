@@ -49,6 +49,47 @@ digga() {
   dig +nocmd "$1" any +multiline +noall +answer
 }
 
+killgrep() {
+  local PROCS=$(psgrep $@ | grep $USER | awk '{print $2;}')
+  for p in $PROCS; do
+    kill -9 $p
+  done
+}
+
+d() {
+  local GET="curl -O"
+  [[ -z "$(which curl 2>/dev/null)" ]] && GET="wget -c"
+
+  for i in $@; do
+    $GET $i;
+  done;
+}
+
+essh() {
+  # system ssh command
+  local SSH=$(which ssh)
+
+  # read from emacs server file what port it is currently listening on
+  local PORT=$(egrep  -o '127.0.0.1:([0-9]*)' ~/.emacs.d/server/server | sed 's/127.0.0.1://')
+
+  # read the server file, escaping single quotes that are in the auth string
+  local SRV=$(cat ~/.emacs.d/server/server | sed "s/'/\\\\\\'/")
+
+  # When connecting to the remote host, print the server file to the
+  # correct location and then invoke my shell.
+  local CMD="mkdir -m 700 -p ~/.emacs.d/server; echo $'$SRV' > ~/.emacs.d/server/server; bash -l"
+
+  # -t : allocate a tty so we are there.
+  # -R : the remote port forward that lets emacsclient talk back
+  # $@ : any other args this script was invoked with should be passed along.
+  $SSH -t -R $PORT:127.0.0.1:$PORT $@ "$CMD"
+}
+complete -F _ssh essh
+
+psgrep() {
+  ps aux | grep -v grep | grep "$@"
+}
+
 mpcategory() {
   port info $@ 2>/dev/null | head -n 1 | sed -n 's#.*(\(.\{1,\}\)).*#\1#p' | awk -F',' '{print $1}'
 }
@@ -120,10 +161,6 @@ mpbumprev() {
   done
 }
 
-psgrep() {
-  ps aux | grep -v grep | grep "$@"
-}
-
 _mp_compilers() {
   local c=$(echo clang{,3{0..2}} gcc4{4..8} dragonegg3{0..2} system_gcc)
   echo ${c//\ /,}
@@ -182,43 +219,6 @@ mpmpi() {
   IFS=$OLD_IFS
 }
 complete -W "$(echo {$(_mp_mpis)}/{$(_mp_compilers)})" mpmpi
-
-killgrep() {
-  local PROCS=$(psgrep $@ | grep $USER | awk '{print $2;}')
-  for p in $PROCS; do
-    kill -9 $p
-  done
-}
-
-d() {
-  local GET="curl -O"
-  [[ -z "$(which curl 2>/dev/null)" ]] && GET="wget -c"
-
-  for i in $@; do
-    $GET $i;
-  done;
-}
-
-essh() {
-  # system ssh command
-  local SSH=$(which ssh)
-
-  # read from emacs server file what port it is currently listening on
-  local PORT=$(egrep  -o '127.0.0.1:([0-9]*)' ~/.emacs.d/server/server | sed 's/127.0.0.1://')
-
-  # read the server file, escaping single quotes that are in the auth string
-  local SRV=$(cat ~/.emacs.d/server/server | sed "s/'/\\\\\\'/")
-
-  # When connecting to the remote host, print the server file to the
-  # correct location and then invoke my shell.
-  local CMD="mkdir -m 700 -p ~/.emacs.d/server; echo $'$SRV' > ~/.emacs.d/server/server; bash -l"
-
-  # -t : allocate a tty so we are there.
-  # -R : the remote port forward that lets emacsclient talk back
-  # $@ : any other args this script was invoked with should be passed along.
-  $SSH -t -R $PORT:127.0.0.1:$PORT $@ "$CMD"
-}
-complete -F _ssh essh
 
 pd() {
   local d="${@%/}"
