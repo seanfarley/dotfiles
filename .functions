@@ -181,6 +181,16 @@ mpmpi() {
   local mpis=$(_mp_mpis)
   local mpisvariants="${mpis//-/_}"
 
+  local portquery=$(port installed ${mpis//,/\ } | grep active)
+  local olddebug=$(echo $portquery | perl -lne "print $& if /\+(debug)/" | perl -pe 's,\+,,g')
+  local oldmpi=$(echo $portquery | perl -lne "print $& if /(${mpis//,/|})/")
+  local oldc=$(echo $portquery | perl -lne "print $& if /(${compilers//,/|})/")
+
+  if [ $# -eq 0 ]; then
+    echo "$oldmpi/$oldc $olddebug"
+    return 0
+  fi
+
   local mpi=$(echo $1 | cut -d/ -f1)
   local c=$(echo $1 | cut -d/ -f2)
 
@@ -197,10 +207,6 @@ mpmpi() {
     echo "$c is not in the list of $compilers"
     return 1
   fi
-
-  local portquery=$(port installed ${mpis//,/\ } | grep active)
-  local oldmpi=$(echo $portquery | perl -lne "print $& if /(${mpis//,/|})/")
-  local oldc=$(echo $portquery | perl -lne "print $& if /(${compilers//,/|})/")
 
   local deps=$($HOME/.port-rdependents.py $oldmpi $oldc)
 
