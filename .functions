@@ -213,7 +213,6 @@ mpmpi() {
     port=$(echo $i | cut -d' ' -f1)
     variant=$(echo $i | cut -d' ' -f2)
 
-    # echo "DEACTIVATE: $port"
     echo "port -q activate $port $variant" >> ~/.ports.undo.deactivate.$oldmpi.$oldc
     sudo port -q deactivate $port
   done
@@ -233,7 +232,6 @@ mpmpi() {
     variant=$(echo $variant | perl -pe "s,${compilers//,/|},$c,g")
     variant=$(echo $variant | perl -pe "s,${mpisvariants//,/|},${mpi//-/_},g")
 
-    # echo "   INSTALL: $port $variant"
     sudo port -q clean $port
     sudo port -q install $port $variant
   done
