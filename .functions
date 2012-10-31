@@ -201,7 +201,7 @@ mpmpi() {
   local oldmpi=$(echo $portquery | perl -lne "print $& if /(${mpis//,/|})/")
   local oldc=$(echo $portquery | perl -lne "print $& if /(${compilers//,/|})/")
 
-  local deps=$($HOME/.port-rdependents.py $oldmpi)
+  local deps=$($HOME/.port-rdependents.py $oldmpi $oldc)
 
   local OLD_IFS=$IFS
   IFS=$'\n';
