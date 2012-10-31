@@ -207,12 +207,15 @@ mpmpi() {
   local OLD_IFS=$IFS
   IFS=$'\n';
 
+  rm -f ~/.ports.undo.deactivate.$oldmpi.$oldc
+
   for i in $deps; do
     port=$(echo $i | cut -d' ' -f1)
     variant=$(echo $i | cut -d' ' -f2)
 
     # echo "DEACTIVATE: $port"
-    sudo port deactivate $port
+    echo "port -q activate $port $variant" >> ~/.ports.undo.deactivate.$oldmpi.$oldc
+    sudo port -q deactivate $port
   done
 
   for i in $(printf "$deps\n" | tac); do
@@ -231,7 +234,8 @@ mpmpi() {
     variant=$(echo $variant | perl -pe "s,${mpisvariants//,/|},${mpi//-/_},g")
 
     # echo "   INSTALL: $port $variant"
-    sudo port install $port $variant
+    sudo port -q clean $port
+    sudo port -q install $port $variant
   done
 
   IFS=$OLD_IFS
