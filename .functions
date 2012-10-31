@@ -217,6 +217,8 @@ mpmpi() {
     sudo port -q deactivate $port
   done
 
+  [[ "$deps" != "$oldmpi" ]] && rm -f ~/.ports.undo.install.$mpi.$c
+
   for i in $(printf "$deps\n" | tac); do
     port=$(echo $i | cut -d' ' -f1)
     variant=$(echo $i | cut -d' ' -f2)
@@ -232,11 +234,15 @@ mpmpi() {
     variant=$(echo $variant | perl -pe "s,${compilers//,/|},$c,g")
     variant=$(echo $variant | perl -pe "s,${mpisvariants//,/|},${mpi//-/_},g")
 
-    sudo port -q clean $port
-    sudo port -q install $port $variant
+    echo "port -q clean $port" >> ~/.ports.undo.install.$mpi.$c
+    echo "port -q install $port $variant" >> ~/.ports.undo.install.$mpi.$c
   done
 
   IFS=$OLD_IFS
+
+  sudo ~/.sudo-batch.sh ~/.ports.undo.install.$mpi.$c
+
+  [ $? -eq 0 ] && rm ~/.ports.undo.install.$mpi.$c && rm ~/.ports.undo.deactivate.$oldmpi.$oldc
 }
 complete -W "$(echo {$(_mp_mpis)}/{$(_mp_compilers)})" mpmpi
 
