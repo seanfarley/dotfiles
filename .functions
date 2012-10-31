@@ -179,6 +179,7 @@ mpmpi() {
 
   local compilers=$(_mp_compilers)
   local mpis=$(_mp_mpis)
+  local mpisvariants="${mpis//-/_}"
 
   local mpi=$(echo $1 | cut -d/ -f1)
   local c=$(echo $1 | cut -d/ -f2)
@@ -227,7 +228,8 @@ mpmpi() {
     [[ "$2" == "opt" ]] && variant=$(echo $variant | perl -pe 's,\+debug,-debug,')
 
     variant=$(echo $variant | perl -pe "s,${compilers//,/|},$c,g")
-    variant=$(echo $variant | perl -pe "s,${mpis//,/|},$mpi,g")
+    variant=$(echo $variant | perl -pe "s,${mpisvariants//,/|},${mpi//-/_},g")
+
     echo "Installing $port $variant"
     sudo port install $port $variant
   done
