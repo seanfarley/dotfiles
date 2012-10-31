@@ -227,7 +227,7 @@ mpmpi() {
     #   debug) opt -> debug
     [[ "$port" == "$oldmpi" ]] && port=$mpi
     [[ "$port*" == "openmpi-devel*" ]] && variant="$variant+threads+valgrind"
-    [[ "$2" == "debug" ]] && variant=$(echo "$variant" | perl -pe 's,\-debug,+debug,' | perl -pe 's,+opt,,g' | perl -pe 's,+tuned,,g')
+    [[ "$2" == "debug" ]] && variant=$(echo "$variant" | perl -pe 's,\-debug,+debug,' | perl -pe 's,\+opt,,g' | perl -pe 's,\+tuned,,g')
     [[ "$2" == "opt" ]] && variant=$(echo "$variant+opt+tuned" | perl -pe 's,\+debug,-debug,')
 
     variant=$(echo $variant | perl -pe "s,${compilers//,/|},$c,g")
