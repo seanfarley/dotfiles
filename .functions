@@ -211,8 +211,8 @@ mpmpi() {
     port=$(echo $i | cut -d' ' -f1)
     variant=$(echo $i | cut -d' ' -f2)
 
-    echo "Deactivating $port $variants"
-    sudo port deactivate $port $variant
+    # echo "DEACTIVATE: $port"
+    sudo port deactivate $port
   done
 
   for i in $(printf "$deps\n" | tac); do
@@ -230,7 +230,7 @@ mpmpi() {
     variant=$(echo $variant | perl -pe "s,${compilers//,/|},$c,g")
     variant=$(echo $variant | perl -pe "s,${mpisvariants//,/|},${mpi//-/_},g")
 
-    echo "Installing $port $variant"
+    # echo "   INSTALL: $port $variant"
     sudo port install $port $variant
   done
 
