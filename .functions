@@ -57,6 +57,7 @@ killgrep() {
 }
 
 d() {
+  local i
   local GET="curl -O"
   [[ -z "$(which curl 2>/dev/null)" ]] && GET="wget -c"
 
@@ -172,6 +173,7 @@ _mp_mpis() {
 }
 
 mpmpi() {
+  local i
   local port
   local variant
 
@@ -221,6 +223,7 @@ mpmpi() {
 complete -W "$(echo {$(_mp_mpis)}/{$(_mp_compilers)})" mpmpi
 
 pd() {
+  local i
   local d="${@%/}"
   if [ ! -z "$d" ]; then
     if [ ! -d "$d" ]; then
@@ -234,6 +237,7 @@ complete -o nospace -F _cd pd
 
 # this enforces only one compiler type (e.g. gcc46 XOR clang XOR gcc45)
 _build_port_list() {
+  local i
   local list=""
   local cmd="printf @ && port installed \$i | sed -n 2p | cut -d'@' -f2 | sed 's, (active),,' | sed 's,\+debug,,' | sed 's,\+longindex,,'"
   local variants="$3"
@@ -251,6 +255,7 @@ _build_port_list() {
 _activate_pa() {
   [ ! -x /opt/local/bin/port ] && return
 
+  local i
   local ports="$(port -q rdependents mpich2 | s 's,^\s+,,' | tac)"
   local ports64="metis parmetis superlu_dist" # which just *happens* to also be the dependencies
   local debug=""
@@ -330,6 +335,8 @@ pc() {
 }
 
 emacs-compile-plugins() {
+  local i
+
   for i in $(ls | grep -v cedet); do
     if [ $(ls $i | grep -c elc) -eq 0 ]; then
       cd $i
