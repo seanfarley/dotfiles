@@ -183,6 +183,20 @@ mpmpi() {
   local mpi=$(echo $1 | cut -d/ -f1)
   local c=$(echo $1 | cut -d/ -f2)
 
+  local found=0
+  for i in ${mpis//,/ }; do [[ "$i" == "$mpi" ]] && found=1; done
+  if [ $found -eq 0 ]; then
+    echo "$mpi is not in the list of $mpis"
+    return 1
+  fi
+
+  found=0
+  for i in ${compilers//,/ }; do [[ "$i" == "$c" ]] && found=1; done
+  if [ $found -eq 0 ]; then
+    echo "$c is not in the list of $compilers"
+    return 1
+  fi
+
   local portquery=$(port installed ${mpis//,/\ } | grep active)
   local oldmpi=$(echo $portquery | perl -lne "print $& if /(${mpis//,/|})/")
   local oldc=$(echo $portquery | perl -lne "print $& if /(${compilers//,/|})/")
