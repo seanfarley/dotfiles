@@ -167,7 +167,7 @@ _mp_compilers() {
 }
 
 _mp_mpis() {
-  local m=$(echo {mpich2,openmpi}{,-devel})
+  local m=$(echo {mpich2,openmpi}{-devel,})
   echo ${m//\ /,}
 }
 
