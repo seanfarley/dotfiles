@@ -44,6 +44,21 @@ function my_cd {
 alias cd='my_cd'
 complete -o nospace -F _cd my_cd
 
+##################
+# helper functions
+##################
+
+# usage: _not_in_list_exit $element $list
+# return: echo "1" if found, "" if not found
+_in_list() {
+  local i
+  local found=0
+
+  for i in ${2//,/ }; do [[ "$i" == "$1" ]] && found=1; done
+
+  [ $found -eq 1 ] && echo 1
+}
+
 # All the dig info
 digga() {
   dig +nocmd "$1" any +multiline +noall +answer
@@ -194,19 +209,8 @@ mpmpi() {
   local mpi=$(echo $1 | cut -d/ -f1)
   local c=$(echo $1 | cut -d/ -f2)
 
-  local found=0
-  for i in ${mpis//,/ }; do [[ "$i" == "$mpi" ]] && found=1; done
-  if [ $found -eq 0 ]; then
-    echo "$mpi is not in the list of $mpis"
-    return 1
-  fi
-
-  found=0
-  for i in ${compilers//,/ }; do [[ "$i" == "$c" ]] && found=1; done
-  if [ $found -eq 0 ]; then
-    echo "$c is not in the list of $compilers"
-    return 1
-  fi
+  [ ! $(_in_list "$mpi" "$mpis") ] && echo "$mpi is not in the list of $mpis" && return 1
+  [ ! $(_in_list "$c" "$compilers") ] && echo "$c is not in the list of $compilers" && return 1
 
   local deps=$($HOME/.port-rdependents.py $oldmpi $oldc)
 
