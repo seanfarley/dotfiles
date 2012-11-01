@@ -14,13 +14,13 @@ import sqlite3 as lite
 
 def variants(cur,name):
     cur.execute("""
-        SELECT variants,negated_variants FROM ports
+        SELECT version,revision,variants,negated_variants FROM ports
         WHERE state='installed' AND name='%s'""" % name
     )
 
     r = cur.fetchone()
     if r:
-        return "%s%s" % r
+        return "@%s_%s %s%s" % r
     return ''
 
 def deps(cur,name,variant=''):
