@@ -252,7 +252,7 @@ mpmpi() {
 
   sudo ~/.sudo-batch.sh ~/.ports.undo.install.$mpi.$c
 
-  [ $? -eq 0 ] && rm ~/.ports.undo.install.$mpi.$c && rm ~/.ports.undo.deactivate.$oldmpi.$oldc
+  [ $? -eq 0 ] && rm -f ~/.ports.undo.install.$mpi.$c && rm ~/.ports.undo.deactivate.$oldmpi.$oldc
 }
 complete -W "$(echo {$(_mp_mpis)}/{$(_mp_compilers)})" mpmpi
 
