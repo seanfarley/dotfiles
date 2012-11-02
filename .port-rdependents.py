@@ -74,11 +74,11 @@ con = lite.connect('/opt/local/var/macports/registry/registry.db')
 
 with con:
 
-    cur = con.cursor()
-
     # expected to pass argument of the port name
     if len(sys.argv) < 2:
         sys.exit(1)
+
+    cur = con.cursor()
 
     port = sys.argv[1]
     comp = ''
