@@ -12,6 +12,15 @@ import sys
 import networkx as nx
 import sqlite3 as lite
 
+def sql_command(cur,command):
+    d = []
+    cur.execute(command)
+
+    for r in cur.fetchall():
+        d.append(r)
+
+    return d
+
 def variants(cur,name):
     cur.execute("""
         SELECT version,revision,variants,negated_variants FROM ports
@@ -24,8 +33,7 @@ def variants(cur,name):
     return ''
 
 def deps(cur,name,variant=''):
-    d = []
-    cur.execute("""
+    return sql_command(cur,"""
         SELECT ports.id, ports.name, ports.variants FROM dependencies
         INNER JOIN ports ON ports.name = dependencies.name
         WHERE dependencies.id IN (
@@ -33,23 +41,12 @@ def deps(cur,name,variant=''):
         ) AND ports.state='installed' AND ports.variants LIKE '%%%s%%'""" % (name,variant)
     )
 
-    for r in cur.fetchall():
-        d.append(r)
-
-    return d
-
 def dependents(cur,name):
-    d = []
-    cur.execute("""
+    return sql_command(cur,"""
         SELECT dependencies.id,ports.name,ports.version,ports.revision,ports.variants
         FROM dependencies INNER JOIN ports ON dependencies.id = ports.id
         WHERE dependencies.name='%s' AND ports.state='installed'""" % name
     )
-
-    for r in cur.fetchall():
-        d.append(r)
-
-    return d
 
 def rdependents(cur,g,name,comp=""):
     g.add_node(name, variants=variants(cur,name))
