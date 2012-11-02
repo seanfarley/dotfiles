@@ -30,7 +30,7 @@ def deps(cur,name,variant=''):
         INNER JOIN ports ON ports.name = dependencies.name
         WHERE dependencies.id IN (
             SELECT ports.id FROM ports WHERE ports.name='%s' AND ports.state='installed'
-        ) AND ports.state='installed' AND ports.variants LIKE '%%%s%%'""" % (name,comp)
+        ) AND ports.state='installed' AND ports.variants LIKE '%%%s%%'""" % (name,variant)
     )
 
     for r in cur.fetchall():
