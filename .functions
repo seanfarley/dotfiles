@@ -195,14 +195,13 @@ mpmpi() {
   local mpisvariants="${mpis//-/_}"
 
   local portquery=$(port installed ${mpis//,/\ } | grep active)
-  local olddebug=$(echo $portquery | perl -lne "print $& if /\+(debug)/" | perl -pe 's,\+,,g')
   local oldmpi=$(echo $portquery | perl -lne "print $& if /(${mpis//,/|})/")
   local oldc=$(echo $portquery | perl -lne "print $& if /(${compilers//,/|})/")
+  local olddebug=$(echo $portquery | perl -lne "print $& if /\+(debug)/" | perl -pe 's,\+,,g')
 
-  if [ $# -eq 0 ]; then
-    echo "$oldmpi/$oldc $olddebug"
-    return 0
-  fi
+  local current="$oldmpi/$oldc $olddebug"
+  [ "${current:0:1}" = "/" ] && current="No mpi is active"
+  [ $# -eq 0 ] && echo "$current" && return 0
 
   local mpi=$(echo $1 | cut -d/ -f1)
   local c=$(echo $1 | cut -d/ -f2)
