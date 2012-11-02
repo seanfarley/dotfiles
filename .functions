@@ -188,9 +188,7 @@ _mp_mpis() {
 }
 
 mpmpi() {
-  local i
-  local port
-  local variant
+  local i port variant
 
   local compilers=$(_mp_compilers)
   local mpis=$(_mp_mpis)
