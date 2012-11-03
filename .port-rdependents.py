@@ -49,7 +49,9 @@ def dependents(cur,name):
     )
 
 def rdependents(cur,g,name,comp=""):
-    g.add_node(name, variants=variants(cur,name))
+    v = variants(cur,name)
+    if v:
+        g.add_node(name, variants=v)
 
     # This following loop is an approximation. It will search the parents of all
     # dependents (and then their children). Ideally, we'd search for all port with the
