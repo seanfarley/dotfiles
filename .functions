@@ -198,6 +198,7 @@ mpmpi() {
   local oldmpi=$(echo $portquery | perl -lne "print $& if /(${mpis//,/|})/")
   local oldc=$(echo $portquery | perl -lne "print $& if /(${compilers//,/|})/")
   local olddebug=$(echo $portquery | perl -lne "print $& if /\+(debug)/" | perl -pe 's,\+,,g')
+  [ -z "$olddebug" ] && olddebug="opt"
 
   local current="$oldmpi/$oldc $olddebug"
   [ "${current:0:1}" = "/" ] && current="No mpi is active"
@@ -205,6 +206,8 @@ mpmpi() {
 
   local mpi=$(echo $1 | cut -d/ -f1)
   local c=$(echo $1 | cut -d/ -f2)
+  local debug="$2"
+  [ -z "$debug" ] && debug="$olddebug"
 
   [ ! $(_in_list "$mpi" "$mpis") ] && echo "$mpi is not in the list of $mpis" && return 1
   [ ! $(_in_list "$c" "$compilers") ] && echo "$c is not in the list of $compilers" && return 1
