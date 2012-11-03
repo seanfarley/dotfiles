@@ -267,18 +267,27 @@ mpmpi() {
     version=$(echo $i | cut -d' ' -f2)
     variant=$(echo $i | cut -d' ' -f3)
 
+    ####################################################
+    # some hacky logic; described in details in comments
+    ####################################################
 
+    # change the old port name to the new one (e.g. mpich2 -> openmpi) and drop the
+    # version number so that and upgrade can occur
+    [[ "$port" == "$oldmpi" ]] && port=$mpi && version=""
 
+    # only for openmpi{,-devel} do we want +threads+valgrind
+    [ $(grep -c openmpi <<<$port) -ne 0 ] && variant="$variant+threads+valgrind"
 
-    # some hacky logic; if $2 is non-empty and contains:
+    # if $debug contains:
     #   opt) debug -> opt
     #   debug) opt -> debug
-    [[ "$port" == "$oldmpi" ]] && port=$mpi
-    [[ "$port*" == "openmpi-devel*" ]] && variant="$variant+threads+valgrind"
-    [[ "$2" == "debug" ]] && variant=$(echo "$variant" | perl -pe 's,\-debug,+debug,' | perl -pe 's,\+opt,,g' | perl -pe 's,\+tuned,,g')
-    [[ "$2" == "opt" ]] && variant=$(echo "$variant+opt+tuned" | perl -pe 's,\+debug,-debug,')
+    [[ "$debug" == "debug" ]] && variant=$(echo "$variant" | perl -pe 's,\-debug,+debug,' | perl -pe 's,\+opt,,g' | perl -pe 's,\+tuned,,g')
+    [[ "$debug" == "opt" ]] && variant=$(echo "$variant+opt+tuned" | perl -pe 's,\+debug,-debug,')
 
+    # replace old compiler with new one
     variant=$(echo $variant | perl -pe "s,${compilers//,/|},$c,g")
+
+    # replace old mpi variant with new one
     variant=$(echo $variant | perl -pe "s,${mpisvariants//,/|},${mpi//-/_},g")
 
     echo "port -q clean $port" >> ~/.ports.cmd.install.$mpi
