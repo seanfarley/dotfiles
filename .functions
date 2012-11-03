@@ -187,6 +187,40 @@ _mp_mpis() {
   echo ${m//\ /,}
 }
 
+# usage: mpdeactivate $port $compiler
+# notes: if $compiler is non-empty, then search upwards for sibling ports that are
+# connected to $port. Also, we cannot calculate dependents of a deactivated port because
+# of the design of macports storing the dependents without the graph data
+mpdeactivate() {
+  local i port version variant
+  local deps=$(~/.port-rdependents.py $1 $2)
+
+  [ -z "$deps" ] && return 0
+
+  rm -f ~/.ports.{cmd,undo}.deactivate.$1
+
+  local OLD_IFS=$IFS
+  IFS=$'\n';
+
+  for i in $deps; do
+    port=$(echo $i | cut -d' ' -f1)
+
+    echo "port -q deactivate $port" >> ~/.ports.cmd.deactivate.$1
+  done
+
+  for i in $(printf "$deps\n" | tac); do
+    port=$(echo $i | cut -d' ' -f1)
+    version=$(echo $i | cut -d' ' -f2)
+    variant=$(echo $i | cut -d' ' -f3)
+
+    echo "port -q activate $port $version $variant" >> ~/.ports.undo.deactivate.$1
+  done
+
+  IFS=$OLD_IFS
+
+  sudo ~/.sudo-batch.sh ~/.ports.cmd.deactivate.$1
+}
+
 mpmpi() {
   local i port variant
 
@@ -212,26 +246,29 @@ mpmpi() {
   [ ! $(_in_list "$mpi" "$mpis") ] && echo "$mpi is not in the list of $mpis" && return 1
   [ ! $(_in_list "$c" "$compilers") ] && echo "$c is not in the list of $compilers" && return 1
 
-  local deps=$($HOME/.port-rdependents.py $oldmpi $oldc)
+  mpdeactivate "$oldmpi" "$oldc"
+
+  local deps=$(cat ~/.ports.undo.deactivate.*mpi* | perl -pe 's,port.*activate ,,')
+
+  if [ -z "$oldmpi" ]; then
+    oldmpi=$(printf "$deps" | head -n1 | perl -lne "print $& if /(${mpis//,/|})/")
+    oldc=$(printf "$deps" | head -n1 | perl -lne "print $& if /(${compilers//,/|})/")
+    olddebug=$(printf "$deps" | head -n1 | perl -lne "print $& if /\+(debug)/" | perl -pe 's,\+,,g')
+    [ -z "$olddebug" ] && olddebug="opt"
+  fi
+
+  rm -f ~/.ports.cmd.install.$mpi
 
   local OLD_IFS=$IFS
   IFS=$'\n';
 
-  rm -f ~/.ports.undo.deactivate.$oldmpi.$oldc
-
   for i in $deps; do
     port=$(echo $i | cut -d' ' -f1)
-    variant=$(echo $i | cut -d' ' -f2)
+    version=$(echo $i | cut -d' ' -f2)
+    variant=$(echo $i | cut -d' ' -f3)
 
-    echo "port -q activate $port $variant" >> ~/.ports.undo.deactivate.$oldmpi.$oldc
-    sudo port -q deactivate $port
-  done
 
-  [[ "$deps" != "$oldmpi" ]] && rm -f ~/.ports.undo.install.$mpi.$c
 
-  for i in $(printf "$deps\n" | tac); do
-    port=$(echo $i | cut -d' ' -f1)
-    variant=$(echo $i | cut -d' ' -f2)
 
     # some hacky logic; if $2 is non-empty and contains:
     #   opt) debug -> opt
@@ -244,15 +281,15 @@ mpmpi() {
     variant=$(echo $variant | perl -pe "s,${compilers//,/|},$c,g")
     variant=$(echo $variant | perl -pe "s,${mpisvariants//,/|},${mpi//-/_},g")
 
-    echo "port -q clean $port" >> ~/.ports.undo.install.$mpi.$c
-    echo "port -q install $port $variant" >> ~/.ports.undo.install.$mpi.$c
+    echo "port -q clean $port" >> ~/.ports.cmd.install.$mpi
+    echo "port -q install $port $version $variant" >> ~/.ports.cmd.install.$mpi
   done
 
   IFS=$OLD_IFS
 
-  sudo ~/.sudo-batch.sh ~/.ports.undo.install.$mpi.$c
+  sudo ~/.sudo-batch.sh ~/.ports.cmd.install.$mpi
 
-  [ $? -eq 0 ] && rm -f ~/.ports.undo.install.$mpi.$c && rm ~/.ports.undo.deactivate.$oldmpi.$oldc
+  [ $? -eq 0 ] && rm -f ~/.ports.cmd.install.$mpi && rm ~/.ports.{cmd,undo}.deactivate.$oldmpi
 }
 complete -W "$(echo {$(_mp_mpis)}/{$(_mp_compilers)})" mpmpi
 
