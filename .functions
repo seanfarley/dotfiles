@@ -178,14 +178,18 @@ mpbumprev() {
   done
 }
 
-_mp_compilers() {
-  local c=$(echo clang{,3{0..2}} gcc4{4..8} dragonegg3{0..2} system_gcc)
-  echo ${c// /,}
-}
-
-_mp_mpis() {
-  local m=$(echo {mpich2,openmpi}{-devel,})
-  echo ${m// /,}
+# usage: _mp_equiv $portname
+# notes: due to macports not having a 'port conflicts' command, we'll just hardcode it here
+_mp_equiv() {
+  local compilers=$(echo clang{,3{0..2}} gcc4{4..8} dragonegg3{0..2} system_gcc)
+  local mpi=$(echo {mpich2,openmpi}{-devel,})
+  local petsc=$(echo petsc{-dev,})
+  case $1 in
+    clang|gcc|dragon*) echo "${compilers// /,}";;
+    *mpi*) echo "${mpi// /,}";;
+    petsc*) echo "${petsc// /,}";;
+    *) echo "$1";;
+  esac
 }
 
 # usage: mpdeactivate $port $compiler
@@ -225,8 +229,8 @@ mpdeactivate() {
 mpmpi() {
   local i port variant
 
-  local compilers=$(_mp_compilers)
-  local mpis=$(_mp_mpis)
+  local compilers=$(_mp_equiv gcc)
+  local mpis=$(_mp_equiv mpi)
   local mpisvariants="${mpis//-/_}"
 
   local portquery=$(port installed ${mpis//,/\ } | grep active)
@@ -301,7 +305,7 @@ mpmpi() {
 
   [ $? -eq 0 ] && rm -f ~/.ports.cmd.install.$mpi && rm ~/.ports.{cmd,undo}.deactivate.$oldmpi
 }
-complete -W "$(echo {$(_mp_mpis)}/{$(_mp_compilers)})" mpmpi
+complete -W "$(echo {$(_mp_equiv mpi)}/{$(_mp_equiv gcc)})" mpmpi
 
 pd() {
   local i
