@@ -180,12 +180,12 @@ mpbumprev() {
 
 _mp_compilers() {
   local c=$(echo clang{,3{0..2}} gcc4{4..8} dragonegg3{0..2} system_gcc)
-  echo ${c//\ /,}
+  echo ${c// /,}
 }
 
 _mp_mpis() {
   local m=$(echo {mpich2,openmpi}{-devel,})
-  echo ${m//\ /,}
+  echo ${m// /,}
 }
 
 # usage: mpdeactivate $port $compiler
