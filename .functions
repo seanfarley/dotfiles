@@ -215,7 +215,7 @@ mpdeactivate() {
   local i port version variant
   local deps=$(~/.port-rdependents.py $1 $2)
 
-  [ -z "$deps" ] && return 0
+  [[ -z "$deps" || "$deps" == "$1"* ]] && return 0
 
   rm -f ~/.ports.{cmd,undo}.deactivate.$1
 
