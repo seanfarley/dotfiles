@@ -192,6 +192,21 @@ _mp_equiv() {
   esac
 }
 
+_mpdeactivate() {
+  local cur words cword
+  local count
+
+  _init_completion || return
+
+  count=0
+  for i in ${words[@]}; do
+    [ $count -eq $cword ] && break
+    count=$((++count))
+  done
+
+  [ $count -le 1 ] && COMPREPLY=( $( command port -q search --name --glob -- "$cur*" 2>/dev/null | uniq ) )
+}
+
 # usage: mpdeactivate $port $compiler
 # notes: if $compiler is non-empty, then search upwards for sibling ports that are
 # connected to $port. Also, we cannot calculate dependents of a deactivated port because
@@ -225,6 +240,7 @@ mpdeactivate() {
 
   sudo ~/.sudo-batch.sh ~/.ports.cmd.deactivate.$1
 }
+complete -F _mpdeactivate mpdeactivate
 
 mpmpi() {
   local i port variant
