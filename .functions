@@ -242,43 +242,56 @@ mpdeactivate() {
 }
 complete -F _mpdeactivate mpdeactivate
 
-mpmpi() {
-  local i port variant
 
-  local compilers=$(_mp_equiv gcc)
+mpactivate() {
+  local i port variant compilers c oldc
+
+  local newport=$1
+  shift
+  local variants="$@"
+
+  # nothing to do, return error
+  [ -z "$newport" ] && return 1
+
+  # look up (in a hard coded dictionary) the equivalent ports for a given name
+  local porteq=$(_mp_equiv $newport)
   local mpis=$(_mp_equiv mpi)
-  local mpisvariants="${mpis//-/_}"
 
-  local portquery=$(port installed ${mpis//,/\ } | grep active)
-  local oldmpi=$(echo $portquery | perl -lne "print $& if /(${mpis//,/|})/")
-  local oldc=$(echo $portquery | perl -lne "print $& if /(${compilers//,/|})/")
-  local olddebug=$(echo $portquery | perl -lne "print $& if /\+(debug)/" | perl -pe 's,\+,,g')
-  [ -z "$olddebug" ] && olddebug="opt"
+  # special concept for mpi because it is a compiler wrapper and some of the compilers are
+  # not ports
+  [[ "$mpis" == "$porteq" ]] && compilers=$(_mp_equiv gcc)
 
-  local current="$oldmpi/$oldc $olddebug"
-  [ "${current:0:1}" = "/" ] && current="No mpi is active"
-  [ $# -eq 0 ] && echo "$current" && return 0
+  # no two equivalent ports can be active at the same time, so grep for 'active'
+  local portquery=$(port installed ${porteq//,/ } | grep active)
+  local oldport=$(echo $portquery | perl -lne "print $& if /(${porteq//,/|})/")
 
-  local mpi=$(echo $1 | cut -d/ -f1)
-  local c=$(echo $1 | cut -d/ -f2)
-  local debug="$2"
-  [ -z "$debug" ] && debug="$olddebug"
-
-  [ ! $(_in_list "$mpi" "$mpis") ] && echo "$mpi is not in the list of $mpis" && return 1
-  [ ! $(_in_list "$c" "$compilers") ] && echo "$c is not in the list of $compilers" && return 1
-
-  mpdeactivate "$oldmpi" "$oldc"
-
-  local deps=$(cat ~/.ports.undo.deactivate.*mpi* | perl -pe 's,port.*activate ,,')
-
-  if [ -z "$oldmpi" ]; then
-    oldmpi=$(printf "$deps" | head -n1 | perl -lne "print $& if /(${mpis//,/|})/")
-    oldc=$(printf "$deps" | head -n1 | perl -lne "print $& if /(${compilers//,/|})/")
-    olddebug=$(printf "$deps" | head -n1 | perl -lne "print $& if /\+(debug)/" | perl -pe 's,\+,,g')
-    [ -z "$olddebug" ] && olddebug="opt"
+  # if $compilers is not empty, then we're switching mpi
+  if [ -n "$compilers" ]; then
+    oldc=$(echo $portquery | perl -lne "print $& if /(${compilers//,/|})/")
+    c=$(echo $variants | perl -lne "print $& if /(${compilers//,/|})/")
+    [ -z "$c" ] && c=$oldc
   fi
 
-  rm -f ~/.ports.cmd.install.$mpi
+  # so far, there is only one special variant: 'debug'
+  # +debug -> debug
+  # -debug -> no debug, i.e. optimized
+  local debug=$(echo $variants | perl -lne "print $& if /\+(debug)/")
+  local olddebug=$(echo $portquery | perl -lne "print $& if /\+(debug)/")
+
+  mpdeactivate "$oldport" "$oldc"
+
+  local deps=$(cat ~/.ports.undo.deactivate.$oldport | perl -pe 's,port.*activate ,,')
+
+  # if $oldport is empty, then perhaps the port was deactivated by hand; if so, read the
+  # dependencies from the file leftover by mpdeactivate
+  if [ -z "$oldport" ]; then
+    oldport=$(printf "$deps" | head -n1 | perl -lne "print $& if /(${porteq//,/|})/")
+    olddebug=$(printf "$deps" | head -n1 | perl -lne "print $& if /\+(debug)/")
+    oldc=$(printf "$deps" | head -n1 | perl -lne "print $& if /(${compilers//,/|})/")
+    [ -z "$c" ] && c=$oldc
+  fi
+
+  rm -f ~/.ports.cmd.install.$newport
 
   local OLD_IFS=$IFS
   IFS=$'\n';
@@ -288,38 +301,32 @@ mpmpi() {
     version=$(echo $i | cut -d' ' -f2)
     variant=$(echo $i | cut -d' ' -f3)
 
+    # change the old port name to the new one (e.g. mpich2 -> openmpi) and drop the
+    # version number so that and upgrade can occur
+    [[ "$port" == "$oldport" ]] && port=$newport && version="" && variant="$variant$variants"
+
+    # replace old port variant with new one (if it exists)
+    variant=$(echo $variant | perl -pe "s,${oldport//-/_},${newport//-/_},g")
+
     ####################################################
     # some hacky logic; described in details in comments
     ####################################################
 
-    # change the old port name to the new one (e.g. mpich2 -> openmpi) and drop the
-    # version number so that and upgrade can occur
-    [[ "$port" == "$oldmpi" ]] && port=$mpi && version=""
-
-    # only for openmpi{,-devel} do we want +threads+valgrind
-    [ $(grep -c openmpi <<<$port) -ne 0 ] && variant="$variant+threads+valgrind"
-
-    # if $debug contains:
-    #   opt) debug -> opt
-    #   debug) opt -> debug
-    [[ "$debug" == "debug" ]] && variant=$(echo "$variant" | perl -pe 's,\-debug,+debug,' | perl -pe 's,\+opt,,g' | perl -pe 's,\+tuned,,g')
-    [[ "$debug" == "opt" ]] && variant=$(echo "$variant+opt+tuned" | perl -pe 's,\+debug,-debug,')
+    # if $debug is empty, then remove the variant
+    [ -z "$debug" ] && variant=$(echo "$variant" | perl -pe 's,\+debug,,')
 
     # replace old compiler with new one
-    variant=$(echo $variant | perl -pe "s,${compilers//,/|},$c,g")
+    [ -n "$compilers" ] && variant=$(echo $variant | perl -pe "s,${compilers//,/|},$c,g")
 
-    # replace old mpi variant with new one
-    variant=$(echo $variant | perl -pe "s,${mpisvariants//,/|},${mpi//-/_},g")
-
-    echo "port -q clean $port" >> ~/.ports.cmd.install.$mpi
-    echo "port -q install $port $version $variant" >> ~/.ports.cmd.install.$mpi
+    echo "port -q clean $port" >> ~/.ports.cmd.install.$newport
+    echo "port -q install $port $version $variant" >> ~/.ports.cmd.install.$newport
   done
 
   IFS=$OLD_IFS
 
-  sudo ~/.sudo-batch.sh ~/.ports.cmd.install.$mpi
+  sudo ~/.sudo-batch.sh ~/.ports.cmd.install.$newport
 
-  [ $? -eq 0 ] && rm -f ~/.ports.cmd.install.$mpi && rm ~/.ports.{cmd,undo}.deactivate.$oldmpi
+  [ $? -eq 0 ] && rm -f ~/.ports.cmd.install.$newport ~/.ports.{cmd,undo}.deactivate.$oldport
 }
 complete -W "$(echo {$(_mp_equiv mpi)}/{$(_mp_equiv gcc)})" mpmpi
 
