@@ -434,7 +434,7 @@ pa() {
   [ ! -z "$@" ] && export PETSC_ARCH="arch-${@%/}" && _activate_pa
   echo "$PETSC_ARCH"
 }
-complete -W "c c-64 c-fast c-opt complex cuda intel intel-opt" pa
+complete -W "c c-64 c-fast c-opt complex cuda intel intel-opt test" pa
 
 rmlog() {
   rm -rf CMake* *.log *.log.* *TAGS *.cache *.status $@
