@@ -354,6 +354,13 @@ mpactivate() {
 }
 complete -F _mpactivate mpactivate
 
+mpi() {
+  local mpis=$(_mp_equiv mpi)
+  local port=$(port installed ${mpis//,/ }  | grep 'active' | perl -pe 's, \(active\),,')
+  [ -z "$port" ] && port="No mpi is active"
+  echo $port
+}
+
 pd() {
   local i
   local d="${@%/}"
