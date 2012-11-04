@@ -233,7 +233,7 @@ mpdeactivate() {
     version=$(echo $i | cut -d' ' -f2)
     variant=$(echo $i | cut -d' ' -f3)
 
-    echo "port -q activate $port $version $variant" >> ~/.ports.undo.deactivate.$1
+    echo "port -q install $port $version $variant" >> ~/.ports.undo.deactivate.$1
   done
 
   IFS=$OLD_IFS
@@ -304,7 +304,7 @@ mpactivate() {
 
   mpdeactivate "$oldport" "$oldc"
 
-  local deps=$(cat ~/.ports.undo.deactivate.$oldport | perl -pe 's,port.*activate ,,')
+  local deps=$(cat ~/.ports.undo.deactivate.$oldport | perl -pe 's,port.*install ,,')
 
   # if $oldport is empty, then perhaps the port was deactivated by hand; if so, read the
   # dependencies from the file leftover by mpdeactivate
