@@ -242,6 +242,30 @@ mpdeactivate() {
 }
 complete -F _mpdeactivate mpdeactivate
 
+_mpactivate() {
+  local cur prev words cword
+  local count port
+
+  _init_completion || return
+
+  count=0
+  for i in ${words[@]}; do
+    [ $count -eq $cword ] && break
+    if [[ -z "$port" && $i != -* ]]; then
+      if command port -q search --name --exact -- "$i" | grep -qi '^'$i'$'; then
+        port=$i
+      fi
+    fi
+    count=$((++count))
+  done
+
+  if [ -z "$port" ]; then
+    COMPREPLY=( $( command port -q search --name --glob -- "$cur*" 2>/dev/null | uniq ) )
+  else
+    COMPREPLY=( $( command port -q info --line --variants -- "$port" | tr '\n,' '  ' ) )
+    COMPREPLY=( $( compgen -P'+' -W '${COMPREPLY[@]}' -- ${cur/+/} ) )
+  fi
+}
 
 mpactivate() {
   local i port variant compilers c oldc
@@ -328,7 +352,7 @@ mpactivate() {
 
   [ $? -eq 0 ] && rm -f ~/.ports.cmd.install.$newport ~/.ports.{cmd,undo}.deactivate.$oldport
 }
-complete -W "$(echo {$(_mp_equiv mpi)}/{$(_mp_equiv gcc)})" mpmpi
+complete -F _mpactivate mpactivate
 
 pd() {
   local i
