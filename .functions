@@ -127,8 +127,9 @@ mp() {
 
 _mpe() {
   local cur prev words cword codesearch
+  local codesearch=$(which csearch)
+
   _init_completion || return
-  codesearch=$(which csearch)
 
   if [ -z "$codesearch" ]; then
     COMPREPLY=( $( command port -q search --name --glob -- "$cur*" 2>/dev/null | uniq ) )
