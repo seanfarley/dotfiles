@@ -374,64 +374,19 @@ pd() {
 }
 complete -o nospace -F _cd pd
 
-# this enforces only one compiler type (e.g. gcc46 XOR clang XOR gcc45)
-_build_port_list() {
-  local i
-  local list=""
-  local cmd="printf @ && port installed \$i | sed -n 2p | cut -d'@' -f2 | sed 's, (active),,' | sed 's,\+debug,,' | sed 's,\+longindex,,'"
-  local variants="$3"
-
-  [[ $2 == *-test* ]] && variants="" && cmd=""
-
-  for i in $1; do
-    list="$list $i$(eval $cmd)$variants"
-  done
-
-  echo $list
-}
-
-# very simple for now, only +debug and +longindex
-_activate_pa() {
-  [ ! -x /opt/local/bin/port ] && return
-
-  local i
-  local ports="$(port -q rdependents mpich2 | s 's,^\s+,,' | tac)"
-  local ports64="metis parmetis superlu_dist" # which just *happens* to also be the dependencies
-  local debug=""
-  local long=""
-  local command="activate"
-  local p=""
-  local list="$ports64"
-  local compilers="$(echo clang{,3{0..2}} gcc4{4..8} dragonegg3{0..2} llvm system_gcc)"
-  local mpis="$(echo {mpich2,openmpi}{-devel,})"
-  local compiler=$(port installed $mpis | grep active | perl -lne "print $& if /(${compilers//\ /|})/")
-  local mpi=$(port installed $mpis | grep active | perl -lne "print $& if /(${mpis//\ /|})/")
-
-  echo "DEBUG: compiler=$compiler"
-  echo "DEBUG: mpi=$mpi"
-
-return 0
-
-  [[ $PETSC_ARCH != *-opt* ]] && debug="+debug"
-  [[ $PETSC_ARCH == *-64* ]] && long="+longindex"
-
-  local variants="$debug$long"
-
-  [[ $PETSC_ARCH == *-test* ]] && command="deactivate" && list="$(_reverse_list $ports)" && variants="$debug"
-
-  p=$(_build_port_list "$list" $PETSC_ARCH "$variants")
-
-  list="$ports"
-  variants="$debug"
-  [[ $PETSC_ARCH == *-test* ]] && list="$(_reverse_list $ports64)" && variants="$debug$long"
-
-  p=$p\ $(_build_port_list "$list" $PETSC_ARCH "$variants")
-
-  for i in $p; do sudo port $command $i; done
-}
-
 pa() {
-  [ ! -z "$@" ] && export PETSC_ARCH="arch-${@%/}" && _activate_pa
+  if [[ -n "$@" && -x /opt/local/bin/port ]]; then
+    export PETSC_ARCH="arch-${@%/}"
+
+    [[ $PETSC_ARCH != *-opt* ]] && debug="+debug"
+    [[ $PETSC_ARCH == *-64* ]] && long="+longindex"
+
+    local variants="$debug$long"
+    local mpi="$(mpi)"
+    [[ $PETSC_ARCH == *-test* ]] && mpdeactivate $mpi && sudo port -q activate $mpi
+
+    mpdeactivate $(port installed petsc* | grep active | perl -pe 's, \(active\),,')
+  fi
   echo "$PETSC_ARCH"
 }
 complete -W "c c-64 c-fast c-opt complex cuda intel intel-opt test" pa
@@ -449,23 +404,52 @@ complete -A file petsc-clean
 pc() {
   printf "Configuring for PETSC_ARCH: "
 
+  local i port
   local extra=""
   local arch=""
   for opt in $@; do
     [[ $opt == --* ]] && extra="$extra $opt" || arch="$opt"
   done
 
+  local common_variants="netcdf,ml,hypre,metis,parmetis,blacs,scalapack,mumps,superlu,superlu_dist,sundials,suitesparse,fftw,yaml"
+
+  # need to have map from variants to port names
+  local common_ports="${common_variants//yaml/libyaml}"
+  common_ports="${common_ports//fftw/fftw-3}"
+
+  local common=""
+  local active_ports=$(port installed ${common_ports//,/ } | grep active | perl -pe 's,^[\s]*,,')
+
+  local OLD_IFS=$IFS
+  IFS=$'\n';
+
+  # for each active port, build the configure options
+  for i in $active_ports; do
+    port=$(echo $i | cut -d' ' -f1)
+    case $port in
+      fftw-3) common+=",fftw";;
+      SuiteSparse) common+=",cholmod,umfpack";;
+      *) common+=",$port";;
+    esac
+  done
+
+  common=$(echo $common | perl -pe 's/^,//')
+
+  IFS=$OLD_IFS
+
   pa $arch
   arch="$PETSC_ARCH"
-  local common="netcdf,ml,hypre,metis,parmetis,blacs,scalapack,mumps,superlu,superlu_dist,sundials,umfpack,cholmod,fftw,yaml"
-  local libs="--with-shared-libraries --with-c++-support --COPFLAGS=-O0 --CXXOPTFLAGS=-O0 --FOPTFLAGS=-O0"
+
+  local libs="--with-shared-libraries --with-c++-support"
+
+  [[ $PETSC_ARCH != *opt* ]] && libs+="--COPTFLAGS=-O0 --CXXOPTFLAGS=-O0 --FOPTFLAGS=-O0"
 
   if [[ $PETSC_ARCH == *-64* ]]; then
     common="metis,parmetis,superlu_dist,numdiff"
     libs="$libs --with-64-bit-indices"
   fi
 
-  [[ $PETSC_ARCH == *-cuda* ]] && common="$common,cusp" && libs="$libs --with-thrust --with-cuda"
+  [[ $PETSC_ARCH == *-cuda* ]] && common+=",cusp" && libs+=" --with-thrust --with-cuda"
 
   libs="--with-{$common}-dir=/opt/local $libs"
   [[ $PETSC_ARCH == *-test* ]] && libs=""
