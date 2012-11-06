@@ -194,7 +194,7 @@ _mp_equiv() {
 
 _mpdeactivate() {
   local cur words cword
-  local count
+  local i count
 
   _init_completion || return
 
@@ -244,7 +244,7 @@ complete -F _mpdeactivate mpdeactivate
 
 _mpactivate() {
   local cur prev words cword
-  local count port
+  local i count port
 
   _init_completion || return
 
