@@ -338,6 +338,7 @@ mpactivate() {
 
     # if $debug is empty, then remove the variant
     [ -z "$debug" ] && variant=$(echo "$variant" | perl -pe 's,\+debug,,')
+    variant+="$debug"
 
     # replace old compiler with new one
     [ -n "$compilers" ] && variant=$(echo $variant | perl -pe "s,${compilers//,/|},$c,g")
