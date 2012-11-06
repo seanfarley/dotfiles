@@ -181,7 +181,7 @@ mpbumprev() {
 # usage: _mp_equiv $portname
 # notes: due to macports not having a 'port conflicts' command, we'll just hardcode it here
 _mp_equiv() {
-  local compilers=$(echo clang{,3{0..2}} gcc4{4..8} dragonegg3{0..2} system_gcc)
+  local compilers=$(echo clang{3{0..2},} gcc4{4..8} dragonegg3{0..2} system_gcc)
   local mpi=$(echo {mpich2,openmpi}{-devel,})
   local petsc=$(echo petsc{-dev,})
   case $1 in
