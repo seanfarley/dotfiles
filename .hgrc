@@ -9,7 +9,6 @@ publish = False
 
 [extensions]
 transplant =
-purge =
 color =
 patchbomb =
 parentrevspec =
