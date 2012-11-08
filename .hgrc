@@ -16,7 +16,6 @@ parentrevspec =
 schemes =
 progress =
 extdiff =
-mq =
 rebase =
 convert =
 hgk =
