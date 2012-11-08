@@ -460,10 +460,11 @@ pc() {
 
 emacs-compile-plugins() {
   local i
+  local includes=$(for i in $(ls); do printf "'-'L ../$i "; done | perl -pe "s,'-',-,g")
 
   for i in $(ls ~/.emacs.d/plugins | grep -v cedet); do
     cd ~/.emacs.d/plugins/$i
-    for j in *.el; do emacs -L . $(for i in ../*; do printf "%s" "-L $i "; done) -L ../nxhtml/util --batch --eval "(byte-compile-file \"$j\")"; done
+    for j in *.el; do emacs -L . $includes -L ../nxhtml/util --batch --eval "(byte-compile-file \"$j\")"; done
     cd -
   done
 }
