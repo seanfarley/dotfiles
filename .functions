@@ -467,3 +467,15 @@ emacs-compile-plugins() {
     cd -
   done
 }
+
+emacs-pull-plugins() {
+  local i
+
+  for i in $(ls ~/.emacs.d/plugins); do
+    if [ -d ~/.emacs.d/plugins/$i/.git ]; then
+      cd ~/.emacs.d/plugins/$i
+      git pull
+      cd -
+    fi
+  done
+}
