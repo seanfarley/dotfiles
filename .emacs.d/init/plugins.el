@@ -77,8 +77,8 @@
 
 ; hungry-delete
 (require 'hungry-delete)
-(global-set-key (kbd "C-c <DEL>") 'hungry-delete-backward)
-(global-set-key (kbd "C-c d") 'hungry-delete-forward)
+(global-set-key (kbd "C-c <M-backspace>") 'hungry-delete-backward)
+(global-set-key (kbd "C-c M-d") 'hungry-delete-forward)
 
 ; ebib
 (autoload 'ebib "ebib" "Ebib, a BibTeX database manager." t)
