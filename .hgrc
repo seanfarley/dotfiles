@@ -154,9 +154,6 @@ nudge = push --branch .
 df = diff
 r = record
 
-# Push the qparent revision (mnemonic: q push parent).
-qpp = push -r qparent
-
 # Merge with default.
 md = merge default
 
