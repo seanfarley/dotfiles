@@ -17,6 +17,7 @@ export PHD=$PROJECTS/phd
 
 export PETSC_DIR=$PROJECTS/petsc-dev
 export PETSC_ARCH=arch-c
+export PETSC_OPTIONS="-malloc_test"
 
 export CDPATH=.:$PROJECTS:$HOME
 
