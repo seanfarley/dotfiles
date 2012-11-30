@@ -164,3 +164,6 @@
                ac-sources))
 )
 (add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)
+
+; load codesearch
+(require 'codesearch)
