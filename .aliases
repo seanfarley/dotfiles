@@ -80,3 +80,7 @@ if [ "$(echo test | grep --color=auto te 2>/dev/null)" == "te" ];then
 fi
 alias g='grep'
 
+if [ -s "$(which chg 2>/dev/null)" ]; then
+  alias hg=chg
+  alias killhg="kill $(ps aux | grep 'hg serve' | awk '{ print $2; }')"
+fi
