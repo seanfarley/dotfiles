@@ -90,8 +90,6 @@ username = sean.michael.farley@gmail.com
 tls = True
 
 [color]
-mode = terminfo
-color.purple = 141
 status.modified = cyan
 status.added = green
 status.removed = red
@@ -113,7 +111,7 @@ qseries.missing = red bold
 bookmarks.current = magenta bold
 tags.normal = magenta
 log.tag = magenta
-log.bookmark = purple bold
+log.bookmark = magenta bold
 log.date = green bold
 log.user = yellow
 changeset.public = blue
