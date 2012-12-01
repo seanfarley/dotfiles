@@ -41,9 +41,9 @@ if [ -t 0 ]; then
     GIT=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/")
     HG=$(fast-hg-bookmark 2> /dev/null)$(fast-hg-status 2> /dev/null)
     if [[ -n $GIT ]]; then
-      echo "$WHITE on $PURPLE$GIT"
+      printf "$WHITE on $PURPLE$GIT"
     elif [[ -n $HG ]]; then
-      echo "$WHITE on $PURPLE$HG"
+      printf "$WHITE on $PURPLE$HG"
     fi
   }
 
