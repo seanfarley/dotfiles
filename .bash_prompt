@@ -13,7 +13,7 @@ if [ -t 0 ]; then
       MAGENTA=$(tput setaf 9)
       ORANGE=$(tput setaf 172)
       GREEN=$(tput setaf 190)
-      PURPLE=$(tput setaf 141)
+      PURPLE=$(tput setaf 5)
       WHITE=$(tput setaf 240)
     else
       MAGENTA=$(tput setaf 5)
