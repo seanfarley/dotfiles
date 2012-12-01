@@ -121,7 +121,7 @@ changeset.secret = red bold
 [revsetalias]
 h = head()
 d($1) = sort($1, date)
-l($1) = reverse(limit(reverse(max(.~$1 or rev(0)):. and branch(.)), $1))
+l($1) = reverse(limit(reverse(max(.~$1 or rev(0)):. and branch(.) and not hidden()), $1))
 
 [alias]
 ### useful alias to check future amend result
