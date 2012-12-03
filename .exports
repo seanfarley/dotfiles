@@ -30,7 +30,7 @@ export COPYFILE_DISABLE=true
 
 if [ -d /opt/local ]; then
   export PATH=/opt/local/bin:/opt/local/sbin:/opt/local/libexec/gnubin:$PATH
-  export MP=/opt/local/var/macports/sources/rsync.macports.org/release/tarballs/ports
+  export MP=$PROJECTS/macports/dports
   if [ -e /opt/local/include/petsc.h ]; then
     export PETSC_DIR=/opt/local
     export PETSC_ARCH=
