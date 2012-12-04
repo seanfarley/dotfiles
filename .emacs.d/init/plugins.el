@@ -12,7 +12,6 @@
 
 ; Monky
 (require 'monky)
-(setq monky-process-type 'cmdserver)
 
 ; Highlight both the row and column
 (require 'crosshairs)
