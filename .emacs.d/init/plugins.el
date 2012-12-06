@@ -166,3 +166,7 @@
 
 ; load codesearch
 (require 'codesearch)
+
+; load vim-modeline
+(require 'vim-modeline)
+(add-to-list 'find-file-hook 'vim-modeline/do)
