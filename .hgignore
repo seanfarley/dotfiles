@@ -199,6 +199,7 @@ Doxyfile
 .rope*
 .filezilla
 .ports.*
+output_*
 
 # due to my home directory being a repo, .emacs.d/plugins ignores need to go here globally
 
