@@ -5,7 +5,6 @@
   (require 'preview-latex)
 
   (setq
-   TeX-electric-escape t
    TeX-parse-self t
    TeX-auto-save t
    TeX-insert-braces nil
