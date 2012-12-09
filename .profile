@@ -19,6 +19,9 @@ if [ -n "$PS1" ]; then
   # don't put duplicate lines or lines starting with space in the history.
   HISTCONTROL=ignoreboth
 
+  # append to the history file, don't overwrite it
+  shopt -s histappend
+
   # Get ctrl-s to work in bash searching
   stty stop undef
 fi
