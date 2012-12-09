@@ -167,7 +167,7 @@ GRTAGS
 *.dat
 .lirc*
 .macromedia
-.mythtv
+.myth*
 .pulse*
 .smb
 .sudo*
