@@ -200,6 +200,8 @@ Doxyfile
 .filezilla
 .ports.*
 output_*
+.rnd
+.pki
 
 # due to my home directory being a repo, .emacs.d/plugins ignores need to go here globally
 
