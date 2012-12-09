@@ -8,13 +8,17 @@ for file in {/opt/,$HOME/.}local/etc/profile.d/bash_completion.sh $HOME/.{bashrc
   [ -e "$file" ] && source "$file"
 done
 
-[[ BASH_VERSINFO -ge 4 ]] && shopt -s globstar
+# Only run these if running interactively
+if [ -n "$PS1" ]; then
 
-# Case-insensitive globbing (used in pathname expansion)
-shopt -s nocaseglob
+  [[ BASH_VERSINFO -ge 4 ]] && shopt -s globstar
 
-# Don't save commands that start with a space
-HISTCONTROL=ignorespace
+  # Case-insensitive globbing (used in pathname expansion)
+  shopt -s nocaseglob
 
-# Get ctrl-s to work in bash searching
-[ -t 0 ] && stty stop undef
+  # don't put duplicate lines or lines starting with space in the history.
+  HISTCONTROL=ignoreboth
+
+  # Get ctrl-s to work in bash searching
+  stty stop undef
+fi
