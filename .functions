@@ -138,6 +138,11 @@ _mpe() {
   fi
 }
 
+mplivecheck() {
+  port livecheck $(port echo $@ $(csearch -l -f scienceports PortSystem | xargs -I{} dirname {} | xargs -I{} basename {}) maintainer:farley)
+}
+complete -F _mpe mplivecheck
+
 mpdiff() {
   local MPFILE=$(mp $@)/Portfile
   [ -e $MPFILE ] && diff -u $MPFILE $(port file $@)
