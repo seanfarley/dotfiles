@@ -12,19 +12,19 @@
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation, either version 3 of the License, or
 ;; (at your option) any later version.
-;; 
+;;
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
-;; 
+;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;
 
 ;; GLOBAL home page is at: http://www.gnu.org/software/global/
 ;; Author: Tama Communications Corporation
-;; Version: 3.6
+;; Version: 3.7
 ;; Keywords: tools
 
 ;; Gtags-mode is implemented as a minor mode so that it can work with any
@@ -191,8 +191,12 @@
       (define-key gtags-mode-map "\e." 'gtags-find-tag)
       (define-key gtags-mode-map "\C-x4." 'gtags-find-tag-other-window)
       (if gtags-disable-pushy-mouse-mapping nil
-        (define-key gtags-mode-map [mouse-3] 'gtags-pop-stack)
-        (define-key gtags-mode-map [mouse-2] 'gtags-find-tag-by-event)))
+        (if gtags-running-xemacs nil
+          (define-key gtags-mode-map [mouse-3] 'gtags-pop-stack)
+          (define-key gtags-mode-map [mouse-2] 'gtags-find-tag-by-event))
+        (if (not gtags-running-xemacs) nil
+          (define-key gtags-mode-map 'button3 'gtags-pop-stack)
+          (define-key gtags-mode-map 'button2 'gtags-find-tag-by-event))))
 )
 ;; Key mapping of old gtags-mode (obsoleted)
 (if (and gtags-suggested-key-mapping gtags-use-old-key-map)
@@ -214,8 +218,12 @@
       (define-key gtags-mode-map "\e." 'gtags-find-tag)
       (define-key gtags-mode-map "\C-x4." 'gtags-find-tag-other-window)
       (if gtags-disable-pushy-mouse-mapping nil
-        (define-key gtags-mode-map [mouse-3] 'gtags-pop-stack)
-        (define-key gtags-mode-map [mouse-2] 'gtags-find-tag-by-event)))
+        (if gtags-running-xemacs nil
+          (define-key gtags-mode-map [mouse-3] 'gtags-pop-stack)
+          (define-key gtags-mode-map [mouse-2] 'gtags-find-tag-by-event))
+        (if (not gtags-running-xemacs) nil
+          (define-key gtags-mode-map 'button3 'gtags-pop-stack)
+          (define-key gtags-mode-map 'button2 'gtags-find-tag-by-event))))
 )
 
 ;; Key mapping of gtags-select-mode.
@@ -238,8 +246,12 @@
       (define-key gtags-select-mode-map "\C-o" 'gtags-select-tag-other-window)
       (define-key gtags-select-mode-map "\e." 'gtags-select-tag)
       (if gtags-disable-pushy-mouse-mapping nil
-        (define-key gtags-select-mode-map [mouse-3] 'gtags-pop-stack)
-        (define-key gtags-select-mode-map [mouse-2] 'gtags-select-tag-by-event)))
+        (if gtags-running-xemacs nil
+          (define-key gtags-select-mode-map [mouse-3] 'gtags-pop-stack)
+          (define-key gtags-select-mode-map [mouse-2] 'gtags-select-tag-by-event))
+        (if (not gtags-running-xemacs) nil
+          (define-key gtags-select-mode-map 'button3 'gtags-pop-stack)
+          (define-key gtags-select-mode-map 'button2 'gtags-select-tag-by-event))))
 )
 
 ;;
@@ -339,6 +351,11 @@
 	case-fold-search
         gtags-ignore-case))
 
+(eval-and-compile
+  (if (not (fboundp 'replace-in-string))
+      (defun replace-in-string (which from-str to-str)
+        (replace-regexp-in-string from-str to-str which))))
+
 (defun gtags-match-string (n)
   (buffer-substring (match-beginning n) (match-end n)))
 
@@ -386,7 +403,7 @@
           1
         (count-lines (point-min) (point))))))
 
-;; completsion function for completing-read.
+;; completion function for completing-read.
 (defun gtags-completing-gtags (string predicate code)
   (gtags-completing 'gtags string predicate code))
 (defun gtags-completing-grtags (string predicate code)
@@ -443,8 +460,7 @@
     (save-excursion
       (setq buffer (generate-new-buffer (generate-new-buffer-name "*rootdir*")))
       (set-buffer buffer)
-      (setq n (call-process gtags-global-command nil t nil "-pr"))
-      (if (= n 0)
+      (if (= (call-process gtags-global-command nil t nil "-pr") 0)
         (setq path (file-name-as-directory (buffer-substring (point-min)(1- (point-max))))))
       (kill-buffer buffer))
     path))
@@ -457,7 +473,7 @@
     (while (setq start (string-match "%\\([0-9a-f][0-9a-f]\\)" path))
       (setq result (concat result
                      (substring path 0 start)
-                     (format "%c" (string-to-int (substring path (match-beginning 1) (match-end 1)) 16))))
+                     (format "%c" (string-to-number (substring path (match-beginning 1) (match-end 1)) 16))))
       (setq path (substring path (match-end 1))))
     (concat result path)))
 ;;
@@ -466,7 +482,7 @@
 (defun gtags-visit-rootdir ()
   "Tell tags commands the root directory of source tree."
   (interactive)
-  (let (path input n)
+  (let (path input)
     (setq path gtags-rootdir)
     (if (not path)
         (setq path (gtags-get-rootpath)))
@@ -581,12 +597,14 @@
         (message "Please specify an existing source file.")
        (setq tagname input)
        (gtags-push-context)
+       ; expand the file name (~->$HOME))
+       (setq tagname (expand-file-name tagname))
        (gtags-goto-tag tagname "f"))))
 
 (defun gtags-find-tag-from-here ()
   "Get the expression as a tagname around here and move there."
   (interactive)
-  (let (tagname flag)
+  (let (tagname)
     (setq tagname (gtags-current-token))
     (if (not tagname)
         nil
@@ -654,7 +672,7 @@
 (defun gtags-pop-stack ()
   "Move to previous point on the stack."
   (interactive)
-  (let (delete context buffer)
+  (let (delete context)
     (if (and (not (equal gtags-current-buffer nil))
              (not (equal gtags-current-buffer (current-buffer))))
          (switch-to-buffer gtags-current-buffer)
@@ -682,12 +700,15 @@
   (let (option context save prefix buffer lines flag-char)
     (setq save (current-buffer))
     (setq flag-char (string-to-char flag))
+    (if (equal flag-char nil)
+        (setq flag-char (string-to-char " ")))
     ; Use always ctags-x format.
     (setq option "-x")
     (if (gtags-ignore-casep)
         (setq option (concat option "i")))
     (if (char-equal flag-char ?C)
-        (setq context (concat "--from-here=" (number-to-string (gtags-current-lineno)) ":" (gtags-buffer-file-name)))
+	; replaces the Windows path delimiter (\\) by / which is understood by global.
+        (setq context (concat "--from-here=" (number-to-string (gtags-current-lineno)) ":" (replace-in-string (gtags-buffer-file-name) "\\\\" "/")))
         (setq option (concat option flag)))
     (cond
      ((char-equal flag-char ?C)
@@ -802,11 +823,11 @@
       ;; will be changed. This might cause loading error, if you use relative
       ;; path in [GTAGS SELECT MODE], because emacs's buffer has its own
       ;; current directory.
-      ;; 
+      ;;
       (let ((prev-buffer (current-buffer)))
         ;; move to the context
-        (if gtags-read-only 
-	    (if (null other-win) (find-file-read-only file) 
+        (if gtags-read-only
+	    (if (null other-win) (find-file-read-only file)
 	      (find-file-read-only-other-window file))
 	  (if (null other-win) (find-file file)
 	    (find-file-other-window file)))
