@@ -160,6 +160,8 @@ r = record
 md = merge default
 
 # Commit message shortcuts.
+
+# this blows up when message has a '!' in it?
 cm = commit -m
 cus = commit -m 'subrepo: update state'
 cmm = commit -m 'merge'
