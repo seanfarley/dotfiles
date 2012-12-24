@@ -22,6 +22,8 @@ record =
 pager =
 churn =
 histedit =
+mq =
+purge =
 # Third-party extensions
 hggit =
 hgsubversion =
