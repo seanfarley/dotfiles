@@ -15,6 +15,7 @@
    TeX-show-compilation nil ; show the compilation buffer
    LaTeX-item-indent 0
    TeX-source-correlate-method 'synctex
+   TeX-clean-confirm nil
    )
 
   (setq-default TeX-master 'dwim)
