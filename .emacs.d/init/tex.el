@@ -212,7 +212,7 @@
                 (TeX-check-files (concat name ".bbl")
                                  (mapcar 'car
                                          (LaTeX-bibliography-list))
-                                 BibTeX-Biber-file-extensions))
+                                 TeX-Biber-file-extensions))
            ;; We should check for bst files here as well.
            TeX-command-BibTeX)
           ((TeX-process-get-variable name
