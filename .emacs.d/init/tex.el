@@ -47,6 +47,12 @@
                '("example" LaTeX-env-label)
                '("proposition" LaTeX-env-label))))
 
+  (add-hook 'LaTeX-mode-hook (lambda ()
+    (progn
+      (add-to-list 'LaTeX-clean-intermediate-suffixes "\\.fls")
+      (add-to-list 'LaTeX-clean-intermediate-suffixes "\\.fdb_latexmk")
+  )))
+
   (defun prelude-latex-mode-hook ()
     ; (setq TeX-master (guess-TeX-master (buffer-file-name)))
     (imenu-add-menubar-index)
@@ -63,6 +69,16 @@
       (add-to-list 'font-latex-keywords   match-tikz)))
 
   (add-hook 'LaTeX-mode-hook (lambda () (run-hooks 'prelude-latex-mode-hook)))
+
+  ;; make latexmk available via C-c C-c
+  ;; note: SyncTeX is setup via ~/.latexmkrc
+  ;; note: add '&& latexmk -c %s' to the command for auto-clean
+  (add-hook 'LaTeX-mode-hook (lambda ()
+    (push
+      '("LaTeX Make" "latexmk -pdf %s" TeX-run-TeX nil t
+        :help "Run latexmk on file")
+      TeX-command-list)))
+  (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LaTeX Make")))
 
   ;;; --------------------------------------------------------
   ;;; Reftex
