@@ -188,6 +188,8 @@ Doxyfile
 .csearch*
 *.fmt
 *-blx.bib
+*.fls
+*.fdb*
 *.run.xml
 *.rel
 *.spl
