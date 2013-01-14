@@ -98,7 +98,7 @@ export PYTHONPATH=$LOC/lib/python$(python -c 'import sys; print("%i.%i" % (sys.v
 export PATH=$HOME/.local:$PATH
 
 if [[ $PACKAGES == hg || $PACKAGES == *hg[!-a-zA-Z]* || $PACKAGES == *merc* ]]; then
-  install python http://selenic.com/hg/archive/tip.tar.gz
+  install python http://hg.intevation.org/mercurial/crew/archive/tip.tar.gz
 fi
 
 if [[ $PACKAGES == git || $PACKAGES == *[!-a-zA-Z]git* ]]; then
