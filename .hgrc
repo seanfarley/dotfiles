@@ -178,11 +178,11 @@ d = diff -p --pager=always
 # Log shortcuts --------------------------------------------------------------------
 
 # Simple log command that doesn't look bad
-gll = log -G --pager=always                --template="{label('changeset.{phase}', rev)}:{label('changeset.{phase}', node|short)} {label('log.description', desc|firstline|strip)} {bookmarks % \"{label('log.bookmark', '{bookmark} ')}\"}{tags % \"{label('log.tag', '{tag} ')}\"}{label('log.date', date|shortdate)} by {label('log.user', author|person)}"
+gll = log -G --pager=always                --template="{label('changeset.{phase}', rev)}:{label('changeset.{phase}', node|short)} {label('log.description', sub('{',r'\{',desc|firstline|strip))} {bookmarks % \"{label('log.bookmark', '{bookmark} ')}\"}{tags % \"{label('log.tag', '{tag} ')}\"}{label('log.date', date|shortdate)} by {label('log.user', author|person)}"
 
 gl = gll -l 25 -r :.
 
-nll = log -G --pager=always --color=always --template="{label('changeset.{phase}', rev)}:{label('changeset.{phase}', node|short)} {label('log.description', desc|firstline|strip)} {bookmarks % \"{label('log.bookmark', '{bookmark} ')}\"}{tags % \"{label('log.tag', '{tag} ')}\"}{label('log.date', date|shortdate)} by {label('log.user', author|person)}\n{if(sub(r'^.*\n?\n?', '', desc), \"\n{label('log.description', sub(r'^.*\n?\n?', '', desc))}\n\")}\n{file_mods % \"{label('status.modified', 'M {file}')}\n\"}{file_adds % \"{label('status.added', 'A {file}')}\n\"}{file_dels % \"{label('status.removed', 'R {file}')}\"}\n"
+nll = log -G --pager=always --color=always --template="{label('changeset.{phase}', rev)}:{label('changeset.{phase}', node|short)} {label('log.description', sub('{',r'\{',desc|firstline|strip))} {bookmarks % \"{label('log.bookmark', '{bookmark} ')}\"}{tags % \"{label('log.tag', '{tag} ')}\"}{label('log.date', date|shortdate)} by {label('log.user', author|person)}\n{if(sub(r'^.*\n?\n?', '', desc), \"\n{label('log.description', sub(r'^.*\n?\n?', '', desc))}\n\")}\n{file_mods % \"{label('status.modified', 'M {file}')}\n\"}{file_adds % \"{label('status.added', 'A {file}')}\n\"}{file_dels % \"{label('status.removed', 'R {file}')}\"}\n"
 
 nl = nll -r :. -l 10
 
