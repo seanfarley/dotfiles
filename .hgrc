@@ -52,6 +52,8 @@ secret = True
 cmd.sourcetreediff=opendiff
 opts.sourcetreediff=
 cmd.opendiff = fmdiff
+cmd.wdiff = cwdiff
+opts.wdiff = --diff --ab
 
 [merge-tools]
 emacsclient.executable = ~/.emacs.sh
