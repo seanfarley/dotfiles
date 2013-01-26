@@ -28,7 +28,7 @@ if [ -t 0 ]; then
     fi
   }
 
-  PS1="\[${BOLD}${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\$(parse_git_hg_branch)\[$WHITE\]\n\$ \[$RESET\]"
+  PS1="\[$MAGENTA\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\$(parse_git_hg_branch)\[$WHITE\]\n\$ \[$RESET\]"
 
 ##
 # colored highlighting is awesome
