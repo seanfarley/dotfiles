@@ -3,6 +3,14 @@
 
 if [ -t 0 ]; then
 
+  ##
+  # colored highlighting is awesome
+  ##
+
+  if [ "$TERM" != "dumb" -a -x "$(which dircolors 2>/dev/null)" ]; then
+    eval "$(dircolors -b ~/.dir_colors)"
+  fi
+
   MAGENTA=9
   ORANGE=172
   GREEN=190
@@ -49,13 +57,5 @@ if [ -t 0 ]; then
   }
 
   PS1="$(_fg $MAGENTA)\u $(_fg $WHITE)at $(_fg $ORANGE)\h $(_fg $WHITE)in $(_fg $GREEN)\$(pretty_dir \$PWD)\$(parse_git_hg_branch)$(_fg $WHITE)\n\$ $RESET"
-
-  ##
-  # colored highlighting is awesome
-  ##
-
-  if [ "$TERM" != "dumb" -a -x "$(which dircolors 2>/dev/null)" ]; then
-    eval "$(dircolors -b ~/.dir_colors)"
-  fi
 
 fi
