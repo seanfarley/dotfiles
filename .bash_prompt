@@ -59,9 +59,9 @@ if [ -t 0 ]; then
 
     # example: since this root_prompt's bg color is changing, we print the previous '>'
     # (arrow) in this function instead of, say, pretty_dir()
-    printf "$RESET$(_bg $bg)$(_fg $PATHBG)"
+    printf "$RESET$bg${PATHBG//48;/38;}"
 
-    printf "$(_bg $bg)$(_fg $fg) \$ $RESET$(_fg $bg)"
+    printf "$bg$fg \$ $RESET${bg//48;/30;}"
   }
 
   # note: unless the last portion of PS1 is a newline, then calling functions will have a
@@ -71,10 +71,10 @@ if [ -t 0 ]; then
     # this function will build the PS1 string in-place as opposed to embedding bash
     # functions in the string due craziness with escape sequences as mentioned in the
     # stackoverflow link above
-    local err=$?
+    local prompt=$(root_prompt $?)
     local dir="$(pretty_dir $PWD)"
     local st="$(parse_git_hg_branch)"
-    export PS1="\[$MAGENTA\]\u\[$WHITE\] at\[$ORANGE\] \h\[$WHITE\] in\[$GREEN\] $dir\[$RESET\]$st\[$WHITE\]\n \$ \[$RESET\]"
+    export PS1="\[$MAGENTA\]\u\[$WHITE\] at\[$ORANGE\] \h\[$WHITE\] in\[$GREEN\] $dir\[$RESET\]$st\[$WHITE\]\n $prompt \[$RESET\]"
   }
 
   export PROMPT_COMMAND="update_ps1"
