@@ -64,11 +64,6 @@ if [ -t 0 ]; then
       bg="$FAILBG"
       fg="$FAILFG"
     fi
-    # note: when there's a background color transition, you have to get the next
-    # segment's bg color, this is where doing it in python would be nice
-
-    # example: since this root_prompt's bg color is changing, we print the previous '>'
-    # (arrow) in this function instead of, say, pretty_dir()
 
     printf "\[$bg$fg\] \$ \[${bg//48;/30;}\]"
   }
