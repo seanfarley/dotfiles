@@ -25,6 +25,11 @@ if [ -t 0 ]; then
   CWD_FG=$(tput setaf 254)
   SEP_FG=$(tput setaf 244)
 
+  CLEAN_BG=$(tput setab 148) # a light green color
+  CLEAN_FG=$(tput setaf 0)   # black
+  DIRTY_BG=$(tput setab 161) # pink/red
+  DIRTY_FG=$(tput setaf 15)  # white
+
   PASSBG=$(tput setab 236)
   PASSFG=$(tput setaf 15)
   FAILBG=$(tput setab 161)
@@ -34,10 +39,17 @@ if [ -t 0 ]; then
     [[ $(git status 2> /dev/null | tail -1) != "nothing to commit (working directory clean)" ]] && echo "*"
   }
 
-  function parse_git_hg_branch () {
-    local st=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/")
-    [ -z "$st" ] && st=$(fast-hg-bookmark 2> /dev/null)$(fast-hg-status 2> /dev/null)
-    [ -n "$st" ] && printf "$WHITE on $PURPLE$st"
+  # need the previous background color passed as $1
+  function repo_branch_status () {
+    local br="$(git branch --no-color 2> /dev/null | perl -pe 's,^[*] ,,')"
+    local st="$(git status 2> /dev/null | tail -1 | grep -v 'nothing to commit')"
+    local bg="$CLEAN_BG"
+    local fg="$CLEAN_FG"
+    [ -z "$br" ] && br="$(fast-hg-bookmark 2> /dev/null)" && st="$(fast-hg-status 2> /dev/null)"
+    if [ -n "$br" ]; then
+      [ -n "$st" ] && bg="$DIRTY_BG" && fg="$DIRTY_FG"
+      printf "\[$bg${1//48;/38;}\]⮀$fg $br "
+    fi
   }
 
   function pretty_dir () {
@@ -79,8 +91,8 @@ if [ -t 0 ]; then
     # sure to check when rearranging
     local user="\[$PATHBG$MAGENTA\] $USER\[${PATHBG//48;/38;}\] "
     local host="\[$ORANGEBG\]⮀\[$PATHFG\] $(hostname -s)"
-    local dir="\[$ORANGE$PATHBG\]⮀$(pretty_dir $PWD)\[${PATHBG//48;/38;}\] "
-    local st="\[$ORANGEBG\]⮀$(parse_git_hg_branch)"
+    local dir="\[$ORANGE$PATHBG\]⮀$(pretty_dir $PWD)\[${PATHBG//48;/38;}\]"
+    local st="$(repo_branch_status $PATHBG)"
     local prompt="$(root_prompt $err)"
 
     export PS1="$user$host$dir$st\n$prompt\[$RESET\]"
