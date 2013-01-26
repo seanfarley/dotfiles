@@ -16,7 +16,7 @@ if [ -t 0 ]; then
   GREEN=190
   PURPLE=5
   WHITE=240
-  RESET="\[$(tput sgr0)\]"
+  RESET="$(tput sgr0)"
 
   PATHBG=237
   PATHFG=250
@@ -57,6 +57,23 @@ if [ -t 0 ]; then
     printf "$(_fg $CWD_FG)$(basename $path) "
   }
 
-  PS1="$(_fg $MAGENTA)\u $(_fg $WHITE)at $(_fg $ORANGE)\h $(_fg $WHITE)in $(_fg $GREEN)\$(pretty_dir \$PWD)$RESET\$(parse_git_hg_branch)$(_fg $WHITE)\n\$ $RESET"
+  function root_prompt () {
+    local bg="$PASSBG"
+    local fg="$PASSFG"
+    if [ ${1:-0} -ne 0 ]; then
+      bg="$FAILBG"
+      fg="$FAILFG"
+    fi
+    # note: when there's a background color transition, you have to get the next
+    # segment's bg color, this is where doing it in python would be nice
+
+    # example: since this root_prompt's bg color is changing, we print the previous '>'
+    # (arrow) in this function instead of, say, pretty_dir()
+    printf "$RESET$(_bg $bg)$(_fg $PATHBG)"
+
+    printf "$(_bg $bg)$(_fg $fg) \$ $RESET$(_fg $bg)"
+  }
+
+  PS1="$(_fg $MAGENTA)\u $(_fg $WHITE)at $(_fg $ORANGE)\h $(_fg $WHITE)in $(_fg $GREEN)\$(pretty_dir \$PWD)$RESET\$(parse_git_hg_branch)$(_fg $WHITE)\n\$(root_prompt) $RESET"
 
 fi
