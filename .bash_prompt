@@ -17,17 +17,18 @@ if [ -t 0 ]; then
   GREEN=$(tput setaf 190)
   PURPLE=$(tput setaf 5)
   WHITE=$(tput setaf 240)
+  BLACK=$(tput setaf 0)
   BOLD=$(tput bold)
   RESET=$(tput sgr0)
 
-  PATHBG=$(tput setab 237)
+  PATHBG=$(tput setab 237)      # dark grey
   PATHBGFG=$(tput setaf 237)
-  PATHFG=$(tput setaf 250)
-  CWD_FG=$(tput setaf 254)
+  PATHFG=$(tput setaf 250)      # light grey
+  CWD_FG=$(tput setaf 254)      # nearly-white grey
   SEP_FG=$(tput setaf 244)
 
   CLEAN_BG=$(tput setab 148)    # a light green color
-  CLEAN_FG=$(tput setaf 0)      # black
+  CLEAN_FG=$BLACK
   DIRTY_BG=$(tput setab 161)    # pink/red
   DIRTY_FG=$(tput setaf 15)     # white
 
@@ -62,21 +63,21 @@ if [ -t 0 ]; then
 
     local br="$(git branch --no-color 2> /dev/null | perl -pe 's,^[*] ,,')"
     local st="$(git status 2> /dev/null | tail -1 | grep -v 'nothing to commit')"
-    local bg="$CLEAN_BG"
-    local fg="$CLEAN_FG"
+    local bg=$CLEAN_BG
+    local fg=$CLEAN_FG
     local repo=""
     [ -z "$br" ] && br="$(fast-hg-bookmark 2> /dev/null)" && st="$(fast-hg-status 2> /dev/null)"
     if [ -n "$br" ]; then
-      [ -n "$st" ] && bg="$DIRTY_BG" && fg="$DIRTY_FG"
+      [ -n "$st" ] && bg=$DIRTY_BG && fg=$DIRTY_FG
       repo="\[$bg${1//48;/38;}\]⮀$fg $br "
     fi
 
-    local oldbg="$bg"
-    bg="$PASSBG"
-    fg="$PASSFG"
+    local oldbg=$bg
+    bg=$PASSBG
+    fg=$PASSFG
     if [ $err -ne 0 ]; then
-      bg="$FAILBG"
-      fg="$FAILFG"
+      bg=$FAILBG
+      fg=$FAILFG
     fi
 
     # display previous bg color as fg color for arrow and new fg color for '$'
@@ -84,7 +85,7 @@ if [ -t 0 ]; then
 
     # the end cap which clears the background color and puts an arrow in the fg color of
     # the previous bg color
-    oldbg="$bg"
+    oldbg=$bg
     local end="\[$RESET\]\[${bg//48;/38;}\]⮀"
 
     export PS1="$user$host$dir$repo$prompt$end\[$RESET\]"
