@@ -50,12 +50,13 @@ if [ -t 0 ]; then
     local path=${1//$HOME/'~'}
     local dir=$(dirname $path | perl -pe 's,^[^~],,')
     local dir=${dir//\//$(_fg $SEP_FG) ⮁ $(_fg $PATHFG)}
+    _bg $PATHBG
     _fg $PATHFG
-    printf "$(echo $dir)"
+    printf " $(echo $dir)"
     [ -n "$dir" ] && printf "$(_fg $SEP_FG) ⮁ "
-    printf "$(_fg $CWD_FG)$(basename $path)"
+    printf "$(_fg $CWD_FG)$(basename $path) "
   }
 
-  PS1="$(_fg $MAGENTA)\u $(_fg $WHITE)at $(_fg $ORANGE)\h $(_fg $WHITE)in $(_fg $GREEN)\$(pretty_dir \$PWD)\$(parse_git_hg_branch)$(_fg $WHITE)\n\$ $RESET"
+  PS1="$(_fg $MAGENTA)\u $(_fg $WHITE)at $(_fg $ORANGE)\h $(_fg $WHITE)in $(_fg $GREEN)\$(pretty_dir \$PWD)$RESET\$(parse_git_hg_branch)$(_fg $WHITE)\n\$ $RESET"
 
 fi
