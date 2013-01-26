@@ -35,10 +35,6 @@ if [ -t 0 ]; then
   FAILBG=$(tput setab 161)
   FAILFG=$(tput setaf 15)
 
-  function parse_git_dirty () {
-    [[ $(git status 2> /dev/null | tail -1) != "nothing to commit (working directory clean)" ]] && echo "*"
-  }
-
   # need the previous background color passed as $1
   function repo_branch_status () {
     local br="$(git branch --no-color 2> /dev/null | perl -pe 's,^[*] ,,')"
