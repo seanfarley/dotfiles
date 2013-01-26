@@ -38,12 +38,8 @@ if [ -t 0 ]; then
   # colored highlighting is awesome
   ##
 
-  if [ "$TERM" != "dumb" ];then
-    if [ -x /opt/local/bin/gdircolors ]; then
-      eval "$(gdircolors -b ~/.dir_colors)"
-    elif [ -x "$(which dircolors 2>/dev/null)" ]; then
-      dircolors -b ~/.dir_colors 2>&1 > /dev/null
-    fi
+  if [ "$TERM" != "dumb" -a -x "$(which dircolors 2>/dev/null)" ]; then
+    eval "$(dircolors -b ~/.dir_colors)"
   fi
 
 fi
