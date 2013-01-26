@@ -31,9 +31,9 @@ if [ -t 0 ]; then
 
   PS1="\[$MAGENTA\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\$(parse_git_hg_branch)\[$WHITE\]\n\$ \[$RESET\]"
 
-##
-# colored highlighting is awesome
-##
+  ##
+  # colored highlighting is awesome
+  ##
 
   if [ "$TERM" != "dumb" ];then
     if [ -x /opt/local/bin/gdircolors ]; then
