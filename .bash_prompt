@@ -15,10 +15,11 @@ if [ -t 0 ]; then
   BOLD=$(tput bold)
   RESET=$(tput sgr0)
 
-  parse_git_dirty () {
+  function parse_git_dirty () {
     [[ $(git status 2> /dev/null | tail -1) != "nothing to commit (working directory clean)" ]] && echo "*"
   }
-  parse_git_hg_branch () {
+
+  function parse_git_hg_branch () {
     GIT=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/")
     HG=$(fast-hg-bookmark 2> /dev/null)$(fast-hg-status 2> /dev/null)
     if [[ -n $GIT ]]; then
