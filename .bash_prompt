@@ -56,9 +56,9 @@ if [ -t 0 ]; then
     local path=${1//$HOME/'~'}
     local dir=$(dirname $path | perl -pe 's,^[^~],,')
     local dir=${dir//\//$SEP_FG ⮁ $PATHFG}
-    printf "$PATHBG$PATHFG $(echo $dir)"
+    printf "\[$PATHBG$PATHFG\] $(echo $dir)"
     [ -n "$dir" ] && printf "$SEP_FG ⮁ "
-    printf "$CWD_FG$(basename $path) "
+    printf "\[$CWD_FG\]$(basename $path) "
   }
 
   function root_prompt () {
@@ -73,9 +73,8 @@ if [ -t 0 ]; then
 
     # example: since this root_prompt's bg color is changing, we print the previous '>'
     # (arrow) in this function instead of, say, pretty_dir()
-    printf "$RESET$bg${PATHBG//48;/38;}"
 
-    printf "$bg$fg \$ $RESET${bg//48;/30;}"
+    printf "\[$bg$fg\] \$ \[${bg//48;/30;}\]"
   }
 
   # note: unless the last portion of PS1 is a newline, then calling functions will have a
@@ -89,7 +88,7 @@ if [ -t 0 ]; then
 
     # note: these strings are chained from background color to foreground color so make
     # sure to check when rearranging
-    local user="\[$PATHBG$MAGENTA\] $USER\[${PATHBG//48;/38;}\] "
+    local user="\[$PATHBG$MAGENTA\] $USER \[${PATHBG//48;/38;}\] "
     local host="\[$ORANGEBG\]⮀\[$PATHFG\] $(hostname -s)"
     local dir="\[$ORANGE$PATHBG\]⮀$(pretty_dir $PWD)\[${PATHBG//48;/38;}\]"
     local st="$(repo_branch_status $PATHBG)"
