@@ -77,10 +77,10 @@ if [ -t 0 ]; then
 
     # note: these strings are chained from background color to foreground color so make
     # sure to check when rearranging
-    local user="\[$PATHBG$MAGENTA\] $USER\[${PATHBG//48;/38;}\] \[$ORANGEBG\]⮀"
-    local host="\[$PATHFG\] $(hostname -s)\[$ORANGE$PATHBG\]⮀"
-    local dir="$(pretty_dir $PWD)"
-    local st="$(parse_git_hg_branch)"
+    local user="\[$PATHBG$MAGENTA\] $USER\[${PATHBG//48;/38;}\] "
+    local host="\[$ORANGEBG\]⮀\[$PATHFG\] $(hostname -s)"
+    local dir="\[$ORANGE$PATHBG\]⮀$(pretty_dir $PWD)\[${PATHBG//48;/38;}\] "
+    local st="\[$ORANGEBG\]⮀$(parse_git_hg_branch)"
     local prompt="$(root_prompt $err)"
 
     export PS1="$user$host$dir$st\n$prompt\[$RESET\]"
