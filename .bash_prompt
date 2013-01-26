@@ -74,7 +74,8 @@ if [ -t 0 ]; then
     local prompt=$(root_prompt $?)
     local dir="$(pretty_dir $PWD)"
     local st="$(parse_git_hg_branch)"
-    export PS1="\[$MAGENTA\]\u\[$WHITE\] at\[$ORANGE\] \h\[$WHITE\] in\[$GREEN\] $dir\[$RESET\]$st\[$WHITE\]\n $prompt \[$RESET\]"
+
+    export PS1="\[$MAGENTA\]\u\[$WHITE\] at\[$ORANGE\] \h\[$WHITE\] in\[$GREEN\] \w\[$RESET\]$st\[$WHITE\]\n$prompt\[$RESET\]"
   }
 
   export PROMPT_COMMAND="update_ps1"
