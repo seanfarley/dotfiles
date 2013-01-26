@@ -7,12 +7,20 @@ if [ -t 0 ]; then
   elif infocmp xterm-256color >/dev/null 2>&1; then export TERM=xterm-256color
   fi
 
-  MAGENTA=$(tput setaf 9)
-  ORANGE=$(tput setaf 172)
-  GREEN=$(tput setaf 190)
-  PURPLE=$(tput setaf 5)
-  WHITE=$(tput setaf 240)
-  RESET=$(tput sgr0)
+  MAGENTA=9
+  ORANGE=172
+  GREEN=190
+  PURPLE=5
+  WHITE=240
+  RESET="\[$(tput sgr0)\]"
+
+  function _fg () {
+    tput setaf $1
+  }
+
+  function _bg () {
+    tput setab $1
+  }
 
   function parse_git_dirty () {
     [[ $(git status 2> /dev/null | tail -1) != "nothing to commit (working directory clean)" ]] && echo "*"
@@ -22,13 +30,13 @@ if [ -t 0 ]; then
     GIT=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/")
     HG=$(fast-hg-bookmark 2> /dev/null)$(fast-hg-status 2> /dev/null)
     if [[ -n $GIT ]]; then
-      printf "$WHITE on $PURPLE$GIT"
+      printf "$(_fg $WHITE) on $(_fg $PURPLE)$GIT"
     elif [[ -n $HG ]]; then
-      printf "$WHITE on $PURPLE$HG"
+      printf "$(_fg $WHITE) on $(_fg $PURPLE)$HG"
     fi
   }
 
-  PS1="\[$MAGENTA\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\$(parse_git_hg_branch)\[$WHITE\]\n\$ \[$RESET\]"
+  PS1="$(_fg $MAGENTA)\u $(_fg $WHITE)at $(_fg $ORANGE)\h $(_fg $WHITE)in $(_fg $GREEN)\w\$(parse_git_hg_branch)$(_fg $WHITE)\n\$ $RESET"
 
   ##
   # colored highlighting is awesome
