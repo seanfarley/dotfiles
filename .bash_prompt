@@ -12,7 +12,6 @@ if [ -t 0 ]; then
   GREEN=$(tput setaf 190)
   PURPLE=$(tput setaf 5)
   WHITE=$(tput setaf 240)
-  BOLD=$(tput bold)
   RESET=$(tput sgr0)
 
   function parse_git_dirty () {
