@@ -10,6 +10,16 @@ if [ -t 0 ]; then
   WHITE=240
   RESET="\[$(tput sgr0)\]"
 
+  PATHBG=237
+  PATHFG=250
+  CWD_FG=254
+  SEP_FG=244
+
+  PASSBG=236
+  PASSFG=15
+  FAILBG=161
+  FAILFG=15
+
   function _fg () {
     tput setaf $1
   }
