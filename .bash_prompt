@@ -85,7 +85,7 @@ if [ -t 0 ]; then
     # display new fg color and '$'
     local prompt="$prev\[$fg\] \$ \[$RESET\]\[${bg//48;/38;}\]⮀"
 
-    export PS1="$user$host$dir$repo\[$RESET\]\n$prompt\[$RESET\]"
+    export PS1="$user$host$dir$repo$prompt\[$RESET\]"
   }
 
   export PROMPT_COMMAND="update_ps1"
