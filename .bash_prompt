@@ -95,7 +95,7 @@ if [ -t 0 ]; then
     local st="$(repo_branch_status $PATHBG)"
     local prompt="$(root_prompt $err)"
 
-    export PS1="$user$host$dir$st\n$prompt\[$RESET\]"
+    export PS1="$user$host$dir$st\[$RESET\]\n$prompt\[$RESET\]"
   }
 
   export PROMPT_COMMAND="update_ps1"
