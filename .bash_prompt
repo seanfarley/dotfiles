@@ -58,7 +58,7 @@ if [ -t 0 ]; then
     # note: these strings are chained from background color to foreground color so make
     # sure to check when rearranging
     local user="\[$PATHBG$MAGENTA\] $USER\[$PATHBGFG\] "
-    local host="\[$ORANGEBG\]⮀\[$PATHFG\] $(hostname -s) "
+    local host="\[$ORANGEBG\]⮀\[$BLACK\] $(hostname -s) "
     local dir="\[$ORANGE$PATHBG\]⮀$(pretty_dir $PWD)\[$PATHBGFG\]"
 
     local br="$(git branch --no-color 2> /dev/null | perl -pe 's,^[*] ,,')"
