@@ -13,6 +13,7 @@ if [ -t 0 ]; then
 
   MAGENTA=$(tput setaf 9)
   ORANGE=$(tput setaf 172)
+  ORANGEBG=$(tput setab 172)
   GREEN=$(tput setaf 190)
   PURPLE=$(tput setaf 5)
   WHITE=$(tput setaf 240)
@@ -78,9 +79,10 @@ if [ -t 0 ]; then
 
     # note: these strings are chained from background color to foreground color so make
     # sure to check when rearranging
-    local user="\[$PATHBG$MAGENTA$BOLD\] $USER\[$SEP_FG\] ⮁"
+    local user="\[$PATHBG$MAGENTA\] $USER\[${PATHBG//48;/38;}\] \[$ORANGEBG\]⮀"
+    local host="\[$PATHFG\] $(hostname -s)\[$ORANGE$PATHBG\]⮀"
 
-    export PS1="$user\[$WHITE\] at\[$ORANGE\] \h\[$WHITE\] in\[$GREEN\] $dir\[$RESET\]$st\[$WHITE\]\n$prompt\[$RESET\]"
+    export PS1="$user$host$dir\[$RESET\]$st\[$WHITE\]\n$prompt\[$RESET\]"
   }
 
   export PROMPT_COMMAND="update_ps1"
