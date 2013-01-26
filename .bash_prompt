@@ -27,13 +27,9 @@ if [ -t 0 ]; then
   }
 
   function parse_git_hg_branch () {
-    GIT=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/")
-    HG=$(fast-hg-bookmark 2> /dev/null)$(fast-hg-status 2> /dev/null)
-    if [[ -n $GIT ]]; then
-      printf "$(_fg $WHITE) on $(_fg $PURPLE)$GIT"
-    elif [[ -n $HG ]]; then
-      printf "$(_fg $WHITE) on $(_fg $PURPLE)$HG"
-    fi
+    local st=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/")
+    [ -z "$st" ] && st=$(fast-hg-bookmark 2> /dev/null)$(fast-hg-status 2> /dev/null)
+    [ -n "$st" ] && printf "$(_fg $WHITE) on $(_fg $PURPLE)$st"
   }
 
   PS1="$(_fg $MAGENTA)\u $(_fg $WHITE)at $(_fg $ORANGE)\h $(_fg $WHITE)in $(_fg $GREEN)\w\$(parse_git_hg_branch)$(_fg $WHITE)\n\$ $RESET"
