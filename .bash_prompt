@@ -21,32 +21,20 @@ if [ -t 0 ]; then
   RESET=$(tput sgr0)
 
   PATHBG=$(tput setab 237)
+  PATHBGFG=$(tput setaf 237)
   PATHFG=$(tput setaf 250)
   CWD_FG=$(tput setaf 254)
   SEP_FG=$(tput setaf 244)
 
-  CLEAN_BG=$(tput setab 148) # a light green color
-  CLEAN_FG=$(tput setaf 0)   # black
-  DIRTY_BG=$(tput setab 161) # pink/red
-  DIRTY_FG=$(tput setaf 15)  # white
+  CLEAN_BG=$(tput setab 148)    # a light green color
+  CLEAN_FG=$(tput setaf 0)      # black
+  DIRTY_BG=$(tput setab 161)    # pink/red
+  DIRTY_FG=$(tput setaf 15)     # white
 
   PASSBG=$(tput setab 236)
   PASSFG=$(tput setaf 15)
   FAILBG=$(tput setab 161)
   FAILFG=$(tput setaf 15)
-
-  # need the previous background color passed as $1
-  function repo_branch_status () {
-    local br="$(git branch --no-color 2> /dev/null | perl -pe 's,^[*] ,,')"
-    local st="$(git status 2> /dev/null | tail -1 | grep -v 'nothing to commit')"
-    local bg="$CLEAN_BG"
-    local fg="$CLEAN_FG"
-    [ -z "$br" ] && br="$(fast-hg-bookmark 2> /dev/null)" && st="$(fast-hg-status 2> /dev/null)"
-    if [ -n "$br" ]; then
-      [ -n "$st" ] && bg="$DIRTY_BG" && fg="$DIRTY_FG"
-      printf "\[$bg${1//48;/38;}\]⮀$fg $br "
-    fi
-  }
 
   function pretty_dir () {
     local path=${1//$HOME/'~'}
@@ -55,17 +43,6 @@ if [ -t 0 ]; then
     printf "\[$PATHBG$PATHFG\] $(echo $dir)"
     [ -n "$dir" ] && printf "$SEP_FG ⮁ "
     printf "\[$CWD_FG\]$(basename $path) "
-  }
-
-  function root_prompt () {
-    local bg="$PASSBG"
-    local fg="$PASSFG"
-    if [ ${1:-0} -ne 0 ]; then
-      bg="$FAILBG"
-      fg="$FAILFG"
-    fi
-
-    printf "\[$bg$fg\] \$ \[${bg//48;/30;}\]"
   }
 
   # note: unless the last portion of PS1 is a newline, then calling functions will have a
@@ -79,13 +56,36 @@ if [ -t 0 ]; then
 
     # note: these strings are chained from background color to foreground color so make
     # sure to check when rearranging
-    local user="\[$PATHBG$MAGENTA\] $USER \[${PATHBG//48;/38;}\] "
+    local user="\[$PATHBG$MAGENTA\] $USER \[$PATHBGFG\] "
     local host="\[$ORANGEBG\]⮀\[$PATHFG\] $(hostname -s)"
-    local dir="\[$ORANGE$PATHBG\]⮀$(pretty_dir $PWD)\[${PATHBG//48;/38;}\]"
-    local st="$(repo_branch_status $PATHBG)"
-    local prompt="$(root_prompt $err)"
+    local dir="\[$ORANGE$PATHBG\]⮀$(pretty_dir $PWD)\[$PATHBGFG\]"
 
-    export PS1="$user$host$dir$st\[$RESET\]\n$prompt\[$RESET\]"
+    local br="$(git branch --no-color 2> /dev/null | perl -pe 's,^[*] ,,')"
+    local st="$(git status 2> /dev/null | tail -1 | grep -v 'nothing to commit')"
+    local bg="$CLEAN_BG"
+    local fg="$CLEAN_FG"
+    local repo=""
+    [ -z "$br" ] && br="$(fast-hg-bookmark 2> /dev/null)" && st="$(fast-hg-status 2> /dev/null)"
+    if [ -n "$br" ]; then
+      [ -n "$st" ] && bg="$DIRTY_BG" && fg="$DIRTY_FG"
+      repo="\[$bg${1//48;/38;}\]⮀$fg $br "
+    fi
+
+    local oldbg="$bg"
+    bg="$PASSBG"
+    fg="$PASSFG"
+    if [ $err -ne 0 ]; then
+      bg="$FAILBG"
+      fg="$FAILFG"
+    fi
+
+    # display previous bg color as fg color for arrow
+    local prev="\[$bg${oldbg//48;/38;}\]⮀"
+
+    # display new fg color and '$'
+    local prompt="$prev\[$fg\] \$ \[${bg//48;/30;}\]"
+
+    export PS1="$user$host$dir$repo\[$RESET\]\n$prompt\[$RESET\]"
   }
 
   export PROMPT_COMMAND="update_ps1"
