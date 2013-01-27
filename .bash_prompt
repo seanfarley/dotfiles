@@ -61,7 +61,7 @@ if [ -t 0 ]; then
     local host="\[$ORANGEBG\]⮀\[$BLACK\] $(hostname -s) "
     local dir="\[$ORANGE$PATHBG\]⮀$(pretty_dir $PWD)\[$PATHBGFG\]"
 
-    local br="$(git branch --no-color 2> /dev/null | perl -pe 's,^[*] ,,')"
+    local br="$(git branch --no-color 2> /dev/null | grep \* | perl -pe 's,^[*] ,,')"
     local st="$(git status 2> /dev/null | tail -1 | grep -v 'nothing to commit')"
     local bg=$CLEAN_BG
     local fg=$CLEAN_FG
