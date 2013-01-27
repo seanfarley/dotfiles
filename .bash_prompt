@@ -40,9 +40,9 @@ if [ -t 0 ]; then
   function pretty_dir () {
     local path=${1//$HOME/'~'}
     local dir=$(dirname $path | perl -pe 's,^[^~],,')
-    local dir=${dir//\//$SEP_FG ⮁ $PATHFG}
+    dir=${dir//\//\\[$SEP_FG\\] ⮁ \\[$PATHFG\\]}
     printf "\[$PATHBG$PATHFG\] $(echo $dir)"
-    [ -n "$dir" ] && printf "$SEP_FG ⮁ "
+    [ -n "$dir" ] && printf "\[$SEP_FG\] ⮁ "
     printf "\[$CWD_FG\]$(basename $path) "
   }
 
@@ -57,8 +57,7 @@ if [ -t 0 ]; then
 
     # note: these strings are chained from background color to foreground color so make
     # sure to check when rearranging
-    local user="\[$PATHBG$MAGENTA\] $USER\[$PATHBGFG\] "
-    local host="\[$ORANGEBG\]⮀\[$BLACK\] $(hostname -s) "
+    local host="\[$ORANGEBG\]\[$BOLD$BLACK\] $(hostname -s) \[$RESET\]"
     local dir="\[$ORANGE$PATHBG\]⮀$(pretty_dir $PWD)\[$PATHBGFG\]"
 
     local br="$(git branch --no-color 2> /dev/null | grep \* | perl -pe 's,^[*] ,,')"
@@ -69,7 +68,7 @@ if [ -t 0 ]; then
     [ -z "$br" ] && br="$(fast-hg-bookmark 2> /dev/null)" && st="$(fast-hg-status 2> /dev/null)"
     if [ -n "$br" ]; then
       [ -n "$st" ] && bg=$DIRTY_BG && fg=$DIRTY_FG
-      repo="\[$bg${1//48;/38;}\]⮀$fg $br "
+      repo="\[$bg$PATHBGFG\]⮀\[$fg\] $br "
     fi
 
     local oldbg=$bg
@@ -86,9 +85,9 @@ if [ -t 0 ]; then
     # the end cap which clears the background color and puts an arrow in the fg color of
     # the previous bg color
     oldbg=$bg
-    local end="\[$RESET\]\[${bg//48;/38;}\]⮀"
+    local end="\[$RESET\]\[${oldbg//48;/38;}\]⮀"
 
-    export PS1="$user$host$dir$repo$prompt$end\[$RESET\]"
+    export PS1="$host$dir$repo$prompt$end\[$RESET\]"
   }
 
   export PROMPT_COMMAND="update_ps1"
