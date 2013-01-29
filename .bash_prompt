@@ -60,15 +60,38 @@ if [ -t 0 ]; then
     local host="\[$ORANGEBG\]\[$BOLD$BLACK\] $(hostname -s) \[$RESET\]"
     local dir="\[$ORANGE$PATHBG\]⮀$(pretty_dir $PWD)\[$PATHBGFG\]"
 
-    local br="$(git branch --no-color 2> /dev/null | grep \* | perl -pe 's,^[*] ,,')"
-    local st="$(git status 2> /dev/null | tail -1 | grep -v 'nothing to commit')"
+    # mercurial needs to be the last one checked since my home directory is a repo
     local bg=$CLEAN_BG
     local fg=$CLEAN_FG
     local repo=""
-    [ -z "$br" ] && br="$(fast-hg-bookmark 2> /dev/null)" && st="$(fast-hg-status 2> /dev/null)"
+    local br="$(git branch --no-color 2> /dev/null | grep \* | perl -pe 's,^[*] ,,')"
+    local st=""
+    local remote=""
+    local untracked=""
+    local removed=""
+    if [ -n "$br" ]; then
+      st="$(git status 2> /dev/null)" # | tail -1 | grep -v 'nothing to commit')"
+      remote="$(echo "$st" | perl -lne 'print "$2$1" if /Your branch is (ahead|behind).*?(\d+) comm/' | perl -pe 's,behind,⇣,' | perl -pe 's,ahead,⇡,')"
+      untracked=""
+      [ -n "$(echo "$st" | grep 'Untracked files')" ] && untracked=" +"
+      repo="$br$remote$untracked"
+    else
+      br="$(fast-hg-bookmark 2> /dev/null)"
+      if [ -n "$br" ]; then
+        # st="$(fast-hg-status 2> /dev/null)"
+        st="$(chg st --remote 2> /dev/null)"
+        [ "$(echo "$st" | grep -c '^?')" != "0" ] && untracked=" +"
+        [ "$(echo "$st" | grep -c '^!')" != "0" ] && removed="!"
+        [ -z "$untracked" -a -n "$removed" ] && removed=" $removed"
+        remote="$(echo "$st" | egrep '^(\+|-)' | perl -pe 's,-\s?(\d+), \1⇣,' | perl -pe 's,\+\s?(\d+), \1⇡,')"
+        [ "$(echo $st | egrep -c '^(M|A|R|!)')" == "0" ] && st=""
+      fi
+    fi
+    repo="$br$remote$untracked$removed"
+
     if [ -n "$br" ]; then
       [ -n "$st" ] && bg=$DIRTY_BG && fg=$DIRTY_FG
-      repo="\[$bg$PATHBGFG\]⮀\[$fg\] $br "
+      repo="\[$bg$PATHBGFG\]⮀\[$fg\] $repo "
     fi
 
     local oldbg=$bg
