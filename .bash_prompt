@@ -67,27 +67,18 @@ if [ -t 0 ]; then
     local br="$(git branch --no-color 2> /dev/null | grep \* | perl -pe 's,^[*] ,,')"
     local st=""
     local remote=""
-    local untracked=""
-    local removed=""
     if [ -n "$br" ]; then
       st="$(git status 2> /dev/null)" # | tail -1 | grep -v 'nothing to commit')"
       remote="$(echo "$st" | perl -lne 'print "$2$1" if /Your branch is (ahead|behind).*?(\d+) comm/' | perl -pe 's,behind,⇣,' | perl -pe 's,ahead,⇡,')"
-      untracked=""
-      [ -n "$(echo "$st" | grep 'Untracked files')" ] && untracked=" +"
-      repo="$br$remote$untracked"
+      repo="$br$remote"
     else
       br="$(fast-hg-bookmark 2> /dev/null)"
       if [ -n "$br" ]; then
         st="$(fast-hg-status 2> /dev/null)"
-        # st="$(chg st --remote 2> /dev/null)"
-        [ "$(echo "$st" | grep -c '^?')" != "0" ] && untracked=" +"
-        [ "$(echo "$st" | grep -c '^!')" != "0" ] && removed="!"
-        [ -z "$untracked" -a -n "$removed" ] && removed=" $removed"
         remote="$(fast-hg-remote | grep -v '+ 0' | egrep '^(\+|-)' | perl -pe 's,-\s?(\d+), \1⇣,' | perl -pe 's,\+\s?(\d+), \1⇡,')"
-        [ "$(echo $st | egrep -c '^(M|A|R|!)')" == "0" ] && st=""
       fi
     fi
-    repo="$br$remote$untracked$removed"
+    repo="$br$remote"
 
     if [ -n "$br" ]; then
       [ -n "$st" ] && bg=$DIRTY_BG && fg=$DIRTY_FG
