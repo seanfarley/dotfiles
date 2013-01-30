@@ -78,12 +78,12 @@ if [ -t 0 ]; then
     else
       br="$(fast-hg-bookmark 2> /dev/null)"
       if [ -n "$br" ]; then
-        # st="$(fast-hg-status 2> /dev/null)"
-        st="$(chg st --remote 2> /dev/null)"
+        st="$(fast-hg-status 2> /dev/null)"
+        # st="$(chg st --remote 2> /dev/null)"
         [ "$(echo "$st" | grep -c '^?')" != "0" ] && untracked=" +"
         [ "$(echo "$st" | grep -c '^!')" != "0" ] && removed="!"
         [ -z "$untracked" -a -n "$removed" ] && removed=" $removed"
-        remote="$(echo "$st" | egrep '^(\+|-)' | perl -pe 's,-\s?(\d+), \1⇣,' | perl -pe 's,\+\s?(\d+), \1⇡,')"
+        remote="$(fast-hg-remote | grep -v '+ 0' | egrep '^(\+|-)' | perl -pe 's,-\s?(\d+), \1⇣,' | perl -pe 's,\+\s?(\d+), \1⇡,')"
         [ "$(echo $st | egrep -c '^(M|A|R|!)')" == "0" ] && st=""
       fi
     fi
