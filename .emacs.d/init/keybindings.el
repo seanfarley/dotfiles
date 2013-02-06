@@ -19,6 +19,23 @@
 
 (global-set-key (kbd "s-r") 'recompile)
 
+;; Keybonds
+(global-set-key [(hyper a)] 'mark-whole-buffer)
+(global-set-key [(hyper v)] 'yank)
+(global-set-key [(hyper c)] 'kill-ring-save)
+(global-set-key [(hyper s)] 'save-buffer)
+(global-set-key [(hyper l)] 'goto-line)
+(global-set-key [(hyper w)]
+                (lambda () (interactive) (delete-window)))
+(global-set-key [(hyper z)] 'undo)
+(global-set-key [(hyper q)] 'save-buffers-kill-terminal)
+(global-set-key [(hyper k)] 'kill-this-buffer)
+(global-set-key [(hyper r)] 'recompile)
+(global-set-key [(hyper })] 'forward-paragraph)
+(global-set-key [(hyper {)] 'backward-paragraph)
+(global-set-key [(hyper f)] 'isearch-forward)
+(global-set-key [(hyper g)] 'isearch-repeat-forward)
+
 ;; mac switch meta key
 (defun mac-switch-meta nil
   "switch meta between Option and Command"
