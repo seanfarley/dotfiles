@@ -114,7 +114,7 @@
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 ; pymacs
-(when (require 'pymacs)
+(when (require 'pymacs nil 'noerror)
   (autoload 'pymacs-apply "pymacs")
   (autoload 'pymacs-call "pymacs")
   (autoload 'pymacs-eval "pymacs" nil t)
