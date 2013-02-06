@@ -16,7 +16,6 @@
 (add-to-list 'load-path "~/.emacs.d/scripts")
 
 (load "init/basic.el")
-(load "init/keybindings.el")
 (load "init/ediff.el")
 
 ; loading auctex is complicated and needs to be first
@@ -27,6 +26,7 @@
 (load "init/cedet.el")
 
 (load "init/functions.el")
+(load "init/keybindings.el")
 (load "init/ctrl-tab.el")
 (load "init/ediff.el")
 
