@@ -55,7 +55,7 @@
   ;; Bookmarks
   (setq mu4e-bookmarks
         '(("flag:unread"                                          "New"                 ?n)
-          ("(tag:\\\\Inbox OR tag:\\\\Sent) AND date:365d..now"   "Inbox"               ?i)
+          ("tag:\\\\Inbox AND date:365d..now"                     "Inbox"               ?i)
           ("tag:\\\\Sent AND date:365d..now"                      "Sent"                ?s)
 
           ("tag:R/phd AND date:365d..now"                         "PhD"                 ?p)
