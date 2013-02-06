@@ -59,7 +59,6 @@
           ("tag:\\\\Sent AND date:365d..now"                      "Sent"                ?s)
 
           ("tag:R/phd AND date:365d..now"                         "PhD"                 ?p)
-          ("tag:teaching AND date:365d..now"                      "Teaching"            ?t)
           ("tag:list AND date:365d..now"                          "Lists"               ?l)
           ))
 
