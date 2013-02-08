@@ -58,6 +58,14 @@
 
   (define-key mu4e-view-mode-map (kbd "]") 'mu4e-archive-next-message)
 
+  (defun mu4e-action-hg-import-patch (msg)
+  "Import the hg [patch] message."
+    (let ((path (read-directory-name "Target directory: " nil "~/" t) ))
+      (shell-command
+        (format "cd %s; hg import %s"
+          path
+          (mu4e-message-field msg :path)))))
+
   ;; Custom actions
   (setq mu4e-action-tags-header "X-Keywords")
   (add-to-list 'mu4e-headers-actions '("aArchive message" . mu4e-action-archive-message) t)
@@ -65,6 +73,8 @@
 
   (add-to-list 'mu4e-headers-actions '("tRetag message" . mu4e-action-retag-message) t)
   (add-to-list 'mu4e-view-actions '("tRetag message" . mu4e-action-retag-message) t)
+
+  (add-to-list 'mu4e-view-actions '("pPatch" . mu4e-action-hg-import-patch) t)
 
   (add-to-list 'mu4e-view-actions '("bView in browser" . mu4e-action-view-in-browser) t)
 
