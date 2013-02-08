@@ -3,7 +3,6 @@
 ; -------------------------
 
 ; Add modifier keys for M-x
-(global-set-key "\C-x\C-m" 'monky-status)
 
 ; Moving between windows
 (global-set-key (kbd "C-H-<up>") 'windmove-up)
