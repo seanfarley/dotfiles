@@ -59,12 +59,12 @@
 
   ;; Bookmarks
   (setq mu4e-bookmarks
-        '(("flag:unread"                                          "New"                 ?n)
-          ("tag:\\\\Inbox AND date:365d..now"                     "Inbox"               ?i)
-          ("tag:\\\\Sent AND date:365d..now"                      "Sent"                ?s)
+        '(("flag:unread"                       "New"                 ?n)
+          ("tag:\\\\Inbox"                     "Inbox"               ?i)
+          ("tag:\\\\Sent"                      "Sent"                ?s)
 
-          ("tag:R/phd AND date:365d..now"                         "PhD"                 ?p)
-          ("tag:list AND date:365d..now"                          "Lists"               ?l)
+          ("tag:R/phd"                         "PhD"                 ?p)
+          ("tag:list"                          "Lists"               ?l)
           ))
 
   ;; Times and dates
