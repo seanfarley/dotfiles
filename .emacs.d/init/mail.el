@@ -44,7 +44,8 @@
    user-full-name  "Sean Farley")
 
   ;; Fancy chars
-  ; (setq mu4e-use-fancy-chars t)
+  (setq mu4e-use-fancy-chars t)
+  (setq mu4e-view-show-images t)
 
   ;; convert html messages to markdown syntax
   (setq mu4e-html2text-command "html2text")
