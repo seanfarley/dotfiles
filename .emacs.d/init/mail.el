@@ -1,5 +1,9 @@
 (when (require 'mu4e nil 'noerror)
 
+  ;; use imagemagick, if available
+  (when (fboundp 'imagemagick-register-types)
+   (imagemagick-register-types))
+
   ;; default
   (setq mu4e-maildir "~/.mail")
   (setq mu4e-attachment-dir  "~/Downloads")
