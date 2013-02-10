@@ -79,6 +79,9 @@
    ;; allow for updating mail using 'U' in the main view:
    mu4e-get-mail-command "offlineimap"
 
+   ;; update every 5 minutes
+   mu4e-update-interval 300
+
    ;; Fancy chars
    mu4e-use-fancy-chars t
    mu4e-view-show-images t
