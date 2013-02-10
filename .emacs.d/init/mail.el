@@ -39,7 +39,7 @@
   (define-key mu4e-view-mode-map (kbd "]") 'mu4e-archive-next-message)
   (add-hook 'mu4e-compose-pre-hook 'mu4e-set-from-address)
 
-  ;; Custom actions
+  ;; custom actions
   (add-to-list 'mu4e-headers-actions '("aArchive message" . mu4e-action-archive-message) t)
   (add-to-list 'mu4e-view-actions '("aArchive message" . mu4e-action-archive-message) t)
 
@@ -94,7 +94,7 @@
    ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
    mu4e-sent-messages-behavior 'delete
 
-   ;; Set mu4e as default emacs email program
+   ;; set mu4e as default emacs email program
    mail-user-agent 'mu4e-user-agent
 
    ;; allow for updating mail using 'U' in the main view:
@@ -103,7 +103,7 @@
    ;; update every 5 minutes
    mu4e-update-interval 300
 
-   ;; Fancy chars
+   ;; fancy chars
    mu4e-use-fancy-chars t
    mu4e-view-show-images t
 
@@ -119,7 +119,7 @@
    mu4e-headers-skip-duplicates t
    mu4e-headers-include-related t
 
-   ;; Fields on message view
+   ;; fields on message view
    mu4e-view-fields '(:from :to  :cc :subject :mailing-list :tags :flags :date :maildir :attachments :signature)
 
    ;; smtp mail setting
