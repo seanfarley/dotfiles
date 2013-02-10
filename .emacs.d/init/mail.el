@@ -12,7 +12,7 @@
 
   (defun mu4e-action-hg-import-patch (msg)
     "Import the hg [patch] message."
-    (let ((path (read-directory-name "Target directory: " nil "~/pro" t) ))
+    (let ((path (read-directory-name "Target directory: " nil "~/projects/hg" t) ))
       (shell-command
        (format "cd %s; hg import %s"
                path
