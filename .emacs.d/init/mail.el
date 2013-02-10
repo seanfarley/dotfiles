@@ -40,7 +40,6 @@
   (add-hook 'mu4e-compose-pre-hook 'mu4e-set-from-address)
 
   ;; Custom actions
-  (setq mu4e-action-tags-header "X-Keywords")
   (add-to-list 'mu4e-headers-actions '("aArchive message" . mu4e-action-archive-message) t)
   (add-to-list 'mu4e-view-actions '("aArchive message" . mu4e-action-archive-message) t)
 
@@ -88,6 +87,9 @@
    mu4e-trash-folder  "/trash"
    user-mail-address "sean.michael.farley@gmail.com"
    user-full-name  "Sean Farley"
+
+   ;; make sure to use the same header for syncing labels
+   mu4e-action-tags-header "X-Keywords"
 
    ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
    mu4e-sent-messages-behavior 'delete
