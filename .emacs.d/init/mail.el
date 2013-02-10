@@ -50,43 +50,21 @@
 
   (add-to-list 'mu4e-view-actions '("bView in browser" . mu4e-action-view-in-browser) t)
 
-  ;; Bookmarks
-  (setq mu4e-bookmarks
-        '(("flag:unread"                       "New"                 ?n)
-          ("tag:\\\\Inbox"                     "Inbox"               ?i)
-          ("tag:\\\\Sent"                      "Sent"                ?s)
-
-          ("tag:R/phd"                         "PhD"                 ?p)
-          ("tag:list"                          "Lists"               ?l)
-          ))
-
-  (setq mu4e-maildir-shortcuts
-        '( ("/archive"    . ?a)
-           ("/drafts"     . ?d)
-           ("/trash"      . ?t)))
-
-  ;; fields in list view
-  (setq mu4e-headers-fields
-        '( (:human-date    .  15)
-           (:flags         .   5)
-           (:from          .  30)
-           (:subject       .  nil)))
-
-  ;; to detect my mail
-  (setq mu4e-user-mail-address-list '("sean.michael.farley@gmail.com"
-                                      "sean@seanfarley.org"
-                                      "sean@mcs.anl.gov"
-                                      "sean@macports.org"
-                                      "sean@lsmsa.net"
-                                      "sfarley@iit.edu"))
-
   (setq
+   mu4e-user-mail-address-list '("sean.michael.farley@gmail.com"
+                                 "sean@seanfarley.org"
+                                 "sean@mcs.anl.gov"
+                                 "sean@macports.org"
+                                 "sean@lsmsa.net"
+                                 "sfarley@iit.edu")
+
+   user-mail-address "sean.michael.farley@gmail.com"
+   user-full-name  "Sean Farley"
+
    mu4e-maildir "~/.mail"
    mu4e-attachment-dir  "~/Downloads"
    mu4e-drafts-folder "/drafts"
    mu4e-trash-folder  "/trash"
-   user-mail-address "sean.michael.farley@gmail.com"
-   user-full-name  "Sean Farley"
 
    ;; make sure to use the same header for syncing labels
    mu4e-action-tags-header "X-Keywords"
