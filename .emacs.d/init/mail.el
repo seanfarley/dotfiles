@@ -61,6 +61,7 @@
    user-mail-address "sean.michael.farley@gmail.com"
    user-full-name  "Sean Farley"
 
+   mu4e-confirm-quit nil
    mu4e-maildir "~/.mail"
    mu4e-attachment-dir  "~/Downloads"
    mu4e-drafts-folder "/drafts"
