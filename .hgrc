@@ -178,6 +178,10 @@ takeother = !"$HG" revert --rev 'p2()' $@ && "$HG" resolve -m $@
 # Run a colored diff and pipe it to less.
 d = diff -p --pager=always
 
+# Temporary stash
+stash = !$HG cm STASH && $HG phase -fs .
+unstash = strip -k .
+
 # Log shortcuts --------------------------------------------------------------------
 
 # Simple log command that doesn't look bad
