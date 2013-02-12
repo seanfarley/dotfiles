@@ -2,53 +2,7 @@
 
   ;; use imagemagick, if available
   (when (fboundp 'imagemagick-register-types)
-   (imagemagick-register-types))
-
-  ;; default
-  (setq mu4e-maildir "~/.mail")
-  (setq mu4e-attachment-dir  "~/Downloads")
-
-  (setq mu4e-drafts-folder "/drafts")
-  (setq mu4e-trash-folder  "/trash")
-
-  ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-  (setq mu4e-sent-messages-behavior 'delete)
-
-  ;; to detect my mail
-  (setq mu4e-user-mail-address-list '("sean.michael.farley@gmail.com"
-                                      "sean@seanfarley.org"
-                                      "sean@mcs.anl.gov"
-                                      "sean@macports.org"
-                                      "sean@lsmsa.net"
-                                      "sfarley@iit.edu"))
-
-  ;; Set mu4e as default emacs email program
-  (setq mail-user-agent 'mu4e-user-agent)
-
-  ;; setup some handy shortcuts
-  ;; you can quickly switch to your Inbox -- press ``ji''
-  ;; then, when you want archive some messages, move them to
-  ;; the 'All Mail' folder by pressing ``ma''.
-
-  (setq mu4e-maildir-shortcuts
-        '( ("/archive"    . ?a)
-           ("/drafts"     . ?d)
-           ("/trash"      . ?t)))
-
-  ;; allow for updating mail using 'U' in the main view:
-  (setq mu4e-get-mail-command "offlineimap")
-
-  ;; something about ourselves
-  (setq
-   user-mail-address "sean.michael.farley@gmail.com"
-   user-full-name  "Sean Farley")
-
-  ;; Fancy chars
-  (setq mu4e-use-fancy-chars t)
-  (setq mu4e-view-show-images t)
-
-  ;; convert html messages to markdown syntax
-  (setq mu4e-html2text-command "html2text")
+    (imagemagick-register-types))
 
   (defun mu4e-archive-next-message ()
     (interactive)
@@ -56,15 +10,15 @@
     (sit-for .05)
     (mu4e-view-headers-next))
 
-  (define-key mu4e-view-mode-map (kbd "]") 'mu4e-archive-next-message)
-
   (defun mu4e-action-hg-import-patch (msg)
-  "Import the hg [patch] message."
-    (let ((path (read-directory-name "Target directory: " nil "~/" t) ))
+    "Import the hg [patch] message."
+    (let ((path (read-directory-name "Target directory: " nil "~/pro" t) ))
       (shell-command
-        (format "cd %s; hg import %s"
-          path
-          (mu4e-message-field msg :path)))))
+       (format "cd %s; hg import %s"
+               path
+               (mu4e-message-field msg :path)))))
+
+  (define-key mu4e-view-mode-map (kbd "]") 'mu4e-archive-next-message)
 
   ;; Custom actions
   (setq mu4e-action-tags-header "X-Keywords")
@@ -88,15 +42,10 @@
           ("tag:list"                          "Lists"               ?l)
           ))
 
-  ;; Times and dates
-  (setq mu4e-headers-date-format "%d %b %Y")
-  (setq mu4e-headers-time-format "%H:%M")
-
-  ;; threading and duplicates
-  (setq mu4e-headers-show-threads t)
-  (setq mu4e-headers-results-limit 500)
-  (setq mu4e-headers-skip-duplicates t)
-  (setq mu4e-headers-include-related t)
+  (setq mu4e-maildir-shortcuts
+        '( ("/archive"    . ?a)
+           ("/drafts"     . ?d)
+           ("/trash"      . ?t)))
 
   ;; fields in list view
   (setq mu4e-headers-fields
@@ -105,14 +54,74 @@
            (:from          .  30)
            (:subject       .  nil)))
 
-  ;; Fields on message view
-  (setq mu4e-view-fields
-        '(:from :to  :cc :subject :mailing-list :tags :flags :date :maildir :attachments :signature))
+  ;; to detect my mail
+  (setq mu4e-user-mail-address-list '("sean.michael.farley@gmail.com"
+                                      "sean@seanfarley.org"
+                                      "sean@mcs.anl.gov"
+                                      "sean@macports.org"
+                                      "sean@lsmsa.net"
+                                      "sfarley@iit.edu"))
 
-  ;; smtp mail setting
-  (setq send-mail-function 'message-send-mail-with-sendmail)
-  (setq sendmail-program "msmtp")
+  (setq
+   mu4e-maildir "~/.mail"
+   mu4e-attachment-dir  "~/Downloads"
+   mu4e-drafts-folder "/drafts"
+   mu4e-trash-folder  "/trash"
+   user-mail-address "sean.michael.farley@gmail.com"
+   user-full-name  "Sean Farley"
 
-  ;; don't keep message buffers around
-  (setq message-kill-buffer-on-exit t)
+   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+   mu4e-sent-messages-behavior 'delete
+
+   ;; Set mu4e as default emacs email program
+   mail-user-agent 'mu4e-user-agent
+
+   ;; allow for updating mail using 'U' in the main view:
+   mu4e-get-mail-command "offlineimap"
+
+   ;; Fancy chars
+   mu4e-use-fancy-chars t
+   mu4e-view-show-images t
+
+   ;; convert html messages to markdown syntax
+   mu4e-html2text-command "html2text"
+
+   mu4e-headers-date-format "%d %b %Y"
+   mu4e-headers-time-format "%H:%M"
+
+   ;; threading and duplicates
+   mu4e-headers-show-threads t
+   mu4e-headers-results-limit 500
+   mu4e-headers-skip-duplicates t
+   mu4e-headers-include-related t
+
+   ;; Fields on message view
+   mu4e-view-fields '(:from :to  :cc :subject :mailing-list :tags :flags :date :maildir :attachments :signature)
+
+   ;; smtp mail setting
+   send-mail-function 'message-send-mail-with-sendmail
+   sendmail-program "msmtp"
+
+   ;; don't keep message buffers around
+   message-kill-buffer-on-exit t
+
+   ;; bookmarks
+   mu4e-bookmarks '(("tag:\\\\Inbox" "Inbox"  ?i)
+                    ("flag:unread"   "Unread" ?u)
+                    ("tag:\\\\Sent"  "Sent"   ?s)
+                    ("tag:R/phd"     "PhD"    ?p)
+                    ("tag:list"      "Lists"  ?l))
+
+  mu4e-maildir-shortcuts '(("/archive" . ?a)
+                           ("/drafts"  . ?d)
+                           ("/trash"   . ?t))
+
+  ;; fields in list view
+  mu4e-headers-fields '((:human-date . 15)
+                        (:flags      .  5)
+                        (:from       . 30)
+                        (:subject    . nil))
+
+
+  )
 )
