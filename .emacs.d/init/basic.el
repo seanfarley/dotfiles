@@ -49,3 +49,7 @@
     ".aux" ".tdo" ".fmt" ".swp" ".pdfsync" ".pdf" ".vrb" ".idx" ".ind"
     ".bbl" ".toc" ".blg" ".snm" ".ilg" ".log" ".out" ".pyc" ".DS_Store"
     "-blx.bib" ".run.xml" ".hi" ".fls" ".fdb_latexmk"))
+
+;; cool frame title with currently edited buffer name
+(setq frame-title-format
+      (concat "%b - " invocation-name "@" system-name))
