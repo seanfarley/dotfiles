@@ -58,3 +58,6 @@
 
 ;; keep minibuffer history between session
 (savehist-mode t)
+
+;; files should always end with a new line
+(setq require-final-newline t)
