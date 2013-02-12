@@ -53,3 +53,6 @@
 ;; cool frame title with currently edited buffer name
 (setq frame-title-format
       (concat "%b - " invocation-name "@" system-name))
+
+;; keep minibuffer history between session
+(savehist-mode t)
