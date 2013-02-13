@@ -84,3 +84,12 @@
   (set-frame-parameter
      nil 'fullscreen
      (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
+
+;; C-x k == C-x # when editing emacsclient is waiting
+(add-hook 'server-switch-hook
+          (lambda ()
+            (local-set-key (kbd "H-k") '(lambda ()
+                                            (interactive)
+                                            (if server-buffer-clients
+                                                (server-edit)
+                                              (kill-this-buffer))))))
