@@ -93,3 +93,13 @@
                                             (if server-buffer-clients
                                                 (server-edit)
                                               (kill-this-buffer))))))
+
+(defun delete-to-end-of-buffer (add-to-kill-ring-p)
+  "Deletes from point to end of buffer. If prefix argument is
+given, kill the region, adding it to the kill ring."
+  (interactive "P")
+  (if add-to-kill-ring-p
+      (kill-region (point) (point-max))
+    (delete-region (point) (point-max))))
+
+(global-set-key (kbd "C-M-d") 'delete-to-end-of-buffer)
