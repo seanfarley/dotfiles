@@ -86,10 +86,6 @@
 ; rust
 (require 'rust-mode)
 
-; cua
-(setq cua-enable-cua-keys nil)
-(cua-mode)
-
 ; outline-magic
 (add-hook 'outline-mode-hook
            (lambda ()
@@ -172,3 +168,7 @@
 ; load vim-modeline
 (require 'vim-modeline)
 (add-to-list 'find-file-hook 'vim-modeline/do)
+
+; iedit
+(require 'iedit)
+(require 'iedit-rect)
