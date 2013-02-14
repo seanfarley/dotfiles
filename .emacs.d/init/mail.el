@@ -50,9 +50,19 @@
   ;; convert html messages to markdown syntax
   (setq mu4e-html2text-command "html2text")
 
+  (defun mu4e-archive-next-message ()
+    (interactive)
+    (mu4e-action-retag-message (mu4e-message-at-point) "-\\Inbox")
+    (sit-for .05)
+    (mu4e-view-headers-next))
+
+  (define-key mu4e-view-mode-map (kbd "]") 'mu4e-archive-next-message)
+
   ;; Custom actions
   (setq mu4e-action-tags-header "X-Keywords")
+  (add-to-list 'mu4e-headers-actions '("aArchive message" . mu4e-action-archive-message) t)
   (add-to-list 'mu4e-headers-actions '("tRetag message" . mu4e-action-retag-message) t)
+  (add-to-list 'mu4e-view-actions '("aArchive message" . mu4e-action-archive-message) t)
   (add-to-list 'mu4e-view-actions '("tRetag message" . mu4e-action-retag-message) t)
 
   (add-to-list 'mu4e-view-actions '("bView in browser" . mu4e-action-view-in-browser) t)
