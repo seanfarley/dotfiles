@@ -18,7 +18,26 @@
                path
                (mu4e-message-field msg :path)))))
 
+  (defun mu4e-set-from-address ()
+    "Set the From address based on the To address of the original."
+    (let ((msg mu4e-compose-parent-message))
+          (setq user-mail-address
+                (cond
+                 ((null msg) "sean.michael.farley@gmail.com")
+                 ((mu4e-message-contact-field-matches msg :to "sean@seanfarley.org")
+                  "sean@seanfarley.org")
+                 ((mu4e-message-contact-field-matches msg :to "sean@mcs.anl.gov")
+                  "sean@mcs.anl.gov")
+                 ((mu4e-message-contact-field-matches msg :to "sean@macports.org")
+                  "sean@macports.org")
+                 ((mu4e-message-contact-field-matches msg :to "sean@lsmsa.net")
+                  "sean@lsmsa.net")
+                 ((mu4e-message-contact-field-matches msg :to "sfarley@iit.edu")
+                  "sfarley@iit.edu")
+                 (t "sean.micheal.farley@gmail.com")))))
+
   (define-key mu4e-view-mode-map (kbd "]") 'mu4e-archive-next-message)
+  (add-hook 'mu4e-compose-pre-hook 'mu4e-set-from-address)
 
   ;; Custom actions
   (setq mu4e-action-tags-header "X-Keywords")
