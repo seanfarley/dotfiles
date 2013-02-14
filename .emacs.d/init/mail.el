@@ -131,11 +131,11 @@
    message-kill-buffer-on-exit t
 
    ;; bookmarks
-   mu4e-bookmarks '(("tag:\\\\Inbox" "Inbox"  ?i)
-                    ("flag:unread"   "Unread" ?u)
-                    ("tag:\\\\Sent"  "Sent"   ?s)
-                    ("tag:R/phd"     "PhD"    ?p)
-                    ("tag:list"      "Lists"  ?l))
+   mu4e-bookmarks '(("tag:\\\\Inbox AND NOT flag:trashed" "Inbox"  ?i)
+                    ("flag:unread"                        "Unread" ?u)
+                    ("tag:\\\\Sent"                       "Sent"   ?s)
+                    ("tag:R/phd"                          "PhD"    ?p)
+                    ("tag:list"                           "Lists"  ?l))
 
   mu4e-maildir-shortcuts '(("/archive" . ?a)
                            ("/drafts"  . ?d)
