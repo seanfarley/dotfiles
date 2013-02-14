@@ -34,6 +34,18 @@
                   "sean@lsmsa.net")
                  ((mu4e-message-contact-field-matches msg :to "sfarley@iit.edu")
                   "sfarley@iit.edu")
+                 ((or
+                   (mu4e-message-contact-field-matches msg :from "anl.gov")
+                   (mu4e-message-contact-field-matches msg :to "anl.gov"))
+                  "sean@mcs.anl.gov")
+                 ((or
+                   (mu4e-message-contact-field-matches msg :from "macports")
+                   (mu4e-message-contact-field-matches msg :to "macports"))
+                  "sean@macports.org")
+                 ((or
+                   (mu4e-message-contact-field-matches msg :from "iit.edu")
+                   (mu4e-message-contact-field-matches msg :to "iit.edu"))
+                  "sfarley@iit.edu")
                  (t "sean.micheal.farley@gmail.com")))))
 
   (define-key mu4e-view-mode-map (kbd "]") 'mu4e-archive-next-message)
