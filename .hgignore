@@ -205,6 +205,10 @@ output_*
 .rnd
 .pki
 .mu
+.AppleD*
+.rpm*
+.x11*
+.goutput*
 
 # due to my home directory being a repo, .emacs.d/plugins ignores need to go here globally
 
