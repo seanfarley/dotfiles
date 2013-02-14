@@ -10,6 +10,8 @@
 ; ell 'l', one '1', little eye 'i', big eye 'I'
 ; zero '0', little oh 'o', big oh 'O'
 
+(prefer-coding-system 'utf-8)
+
 ; Auto-revert
 (global-auto-revert-mode t)
 
