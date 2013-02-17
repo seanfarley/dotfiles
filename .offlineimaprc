@@ -1,0 +1,57 @@
+[general]
+accounts = main
+pythonfile = ~/.offlineimap.py
+fsync = false
+
+[Account main]
+localrepository = main-local
+remoterepository = main-remote
+status_backend = sqlite
+
+# autorefresh = 5
+# holdconnectionopen = yes
+# keepalive = 1800
+maxconnections = 5
+
+synclabels = True
+labelsheader = X-Keywords
+filterheaders = X-Keywords
+ignorelabels = \Important, \Draft
+
+#postsynchook = mu index --maildir=~/.mail
+
+[Repository main-local]
+type = GmailMaildir
+localfolders = ~/.mail
+nametrans = lambda folder: re.sub('spam', '[Gmail].Spam',
+                           re.sub('drafts', '[Gmail].Drafts',
+                           re.sub('sent', '[Gmail].Sent Mail',
+                           re.sub('flagged', '[Gmail].Starred',
+                           re.sub('trash', '[Gmail].Trash',
+                           re.sub('important', '[Gmail].Important',
+                           re.sub('archive', '[Gmail].All Mail', folder)))))))
+
+[Repository main-remote]
+type = Gmail
+ssl = yes
+realdelete = no
+remoteuser = sean.michael.farley@gmail.com
+remotepasseval = get_keychain_pass(account="sean.michael.farley@gmail.com", server="imap.gmail.com")
+cert_fingerprint = 6d1b5b5ee0180ab493b71d3b94534b5ab937d042
+folderfilter = lambda folder: folder in [
+  #'INBOX',
+  '[Gmail]/All Mail',
+  #'[Gmail]/Sent Mail',
+  #'[Gmail]/Spam',
+  '[Gmail]/Drafts',
+  #'[Gmail]/Starred',
+  '[Gmail]/Trash',
+  ]
+idlefolders  = ['[Gmail]/All Mail'] #,'[Gmail]/Sent Mail']
+nametrans = lambda folder: re.sub('.*Spam$', 'spam',
+                           re.sub('.*Drafts$', 'drafts',
+                           re.sub('.*Sent Mail$', 'sent',
+                           re.sub('.*Starred$', 'flagged',
+                           re.sub('.*Trash$', 'trash',
+                           re.sub('.*Important$', 'important',
+                           re.sub('.*All Mail$', 'archive', folder)))))))
