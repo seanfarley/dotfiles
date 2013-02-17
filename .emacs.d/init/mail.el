@@ -52,13 +52,13 @@
   (add-hook 'mu4e-compose-pre-hook 'mu4e-set-from-address)
 
   ;; custom actions
-  (add-to-list 'mu4e-headers-actions '("aArchive message" . mu4e-action-archive-message) t)
-  (add-to-list 'mu4e-view-actions '("aArchive message" . mu4e-action-archive-message) t)
+  (add-to-list 'mu4e-headers-actions '("archive message" . mu4e-action-archive-message) t)
+  (add-to-list 'mu4e-view-actions '("archive message" . mu4e-action-archive-message) t)
 
   (add-to-list 'mu4e-headers-actions '("tRetag message" . mu4e-action-retag-message) t)
   (add-to-list 'mu4e-view-actions '("tRetag message" . mu4e-action-retag-message) t)
 
-  (add-to-list 'mu4e-view-actions '("pPatch" . mu4e-action-hg-import-patch) t)
+  (add-to-list 'mu4e-view-actions '("patch" . mu4e-action-hg-import-patch) t)
 
   (add-to-list 'mu4e-view-actions '("bView in browser" . mu4e-action-view-in-browser) t)
 
