@@ -50,6 +50,7 @@
 
   (define-key mu4e-view-mode-map (kbd "]") 'mu4e-archive-next-message)
   (add-hook 'mu4e-compose-pre-hook 'mu4e-set-from-address)
+  (add-hook 'mu4e-compose-mode-hook (lambda () (flyspell-mode)))
 
   ;; custom actions
   (add-to-list 'mu4e-headers-actions '("archive message" . mu4e-action-archive-message) t)
