@@ -48,3 +48,14 @@
         (setq mac-command-modifier 'meta))))
 
 (mac-switch-meta)
+
+;; easy spell check
+(global-set-key (kbd "C-<f4>") 'flyspell-mode)
+(global-set-key (kbd "H-<f4>") 'flyspell-buffer)
+(global-set-key (kbd "M-S-<f4>") 'flyspell-check-previous-highlighted-word)
+(defun flyspell-check-next-highlighted-word ()
+  "Custom function to spell check next highlighted word"
+  (interactive)
+  (flyspell-goto-next-error)
+  (ispell-word))
+(global-set-key (kbd "M-<f4>") 'flyspell-check-next-highlighted-word)
