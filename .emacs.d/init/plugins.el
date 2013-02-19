@@ -95,10 +95,10 @@
            (lambda ()
              (require 'outline-cycle)))
 
- (add-hook 'outline-minor-mode-hook
-           (lambda ()
-             (require 'outline-magic)
-             (define-key outline-minor-mode-map [(f4)] 'outline-cycle)))
+(add-hook 'outline-minor-mode-hook
+          (lambda ()
+            (require 'outline-magic)
+            (define-key outline-minor-mode-map [(f10)] 'outline-cycle)))
 
 (require 'pandoc-mode)
 (setq pandoc-binary "pandoc")
