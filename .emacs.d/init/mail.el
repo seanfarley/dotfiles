@@ -139,14 +139,9 @@
 
    ;; fancy chars from http://pablo.rauzy.name/dev/init.el.html
    mu4e-headers-new-mark            '("N" . "✉")
-   mu4e-headers-unread-mark         '("u" . "☐")
    mu4e-headers-seen-mark           '("S" . "☑")
    mu4e-headers-replied-mark        '("R" . "↵")
    mu4e-headers-passed-mark         '("P" . "⇉")
-   mu4e-headers-encrypted-mark      '("x" . "⚷")
-   mu4e-headers-signed-mark         '("s" . "✍")
-   mu4e-headers-empty-parent-prefix '("-" . "◆")
-   mu4e-headers-first-child-prefix  '("\\" . "▶")
 
   )
 )
