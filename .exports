@@ -4,6 +4,7 @@ export EDITOR="emacsclient -n -f $HOME/.emacs.d/server/server"
 export MANPAGER="less -X"
 export HGRCPATH="$HOME/.hgrc"
 export GREP_OPTIONS="--binary-files=without-match --directories=skip --color=auto"
+export LESS="-R --ignore-case --quit-if-one-screen --quit-on-intr"
 
 # Have bash ignore the .DS_Store
 export FIGNORE=DS_Store
