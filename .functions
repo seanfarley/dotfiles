@@ -447,8 +447,8 @@ pc() {
   arch="$PETSC_ARCH"
 
   local libs="--with-shared-libraries --with-c++-support"
-
-  [[ $PETSC_ARCH != *opt* ]] && libs+="--COPTFLAGS=-O0 --CXXOPTFLAGS=-O0 --FOPTFLAGS=-O0"
+  local debug="--without-debugging"
+  [[ $PETSC_ARCH != *opt* ]] && debug="--COPTFLAGS=-O0 --CXXOPTFLAGS=-O0 --FOPTFLAGS=-O0"
 
   if [[ $PETSC_ARCH == *-64* ]]; then
     common="metis,parmetis,superlu_dist,numdiff"
@@ -457,7 +457,7 @@ pc() {
 
   [[ $PETSC_ARCH == *-cuda* ]] && common+=",cusp" && libs+=" --with-thrust --with-cuda"
 
-  libs="--with-{$common}-dir=/opt/local $libs"
+  libs="--with-{$common}-dir=/opt/local $libs $debug"
   [[ $PETSC_ARCH == *-test* ]] && libs=""
 
   eval ./configure $extra $libs
