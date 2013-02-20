@@ -37,7 +37,11 @@ if [ -t 0 ]; then
   FAILBG=$(tput setab 161)
   FAILFG=$(tput setaf 15)
 
+  HAS_READLINK=$(which readlink 2>/dev/null)
+
   function pretty_dir () {
+    local home=$HOME
+    [ -n "$HAS_READLINK" ] && home=$(readlink -f $home)
     local path=${1//$HOME/'~'}
     local dir=$(dirname $path | perl -pe 's,^[^~],,')
     dir=${dir//\//\\[$SEP_FG\\] ⮁ \\[$PATHFG\\]}
