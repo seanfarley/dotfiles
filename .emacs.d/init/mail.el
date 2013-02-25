@@ -51,10 +51,12 @@
                   "sfarley@iit.edu")
                  (t "sean.micheal.farley@gmail.com")))))
 
-  (defun mu4e-select-label ()
+  (defun mu4e-select-label (&optional prefix)
     "Select a label from a hard-coded list"
-    (interactive)
-    (ido-completing-read "Label: " mylabels))
+    (interactive "P")
+    (if (not (equal prefix '-))
+        (setq prefix ""))
+    (format "%s%s" prefix (ido-completing-read "Label: " mylabels)))
 
   (define-key mu4e-view-mode-map (kbd "]") 'mu4e-archive-next-message)
   (add-hook 'mu4e-compose-pre-hook 'mu4e-set-from-address)
