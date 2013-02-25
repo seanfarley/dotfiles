@@ -14,6 +14,28 @@
         (setq prefix ""))
     (format "%s%s" prefix (ido-completing-read "Label: " mylabels)))
 
+  (defun mu4e-thread-count (&optional negative)
+    "Count the number of messages in a thread from the current
+point. Passing a boolean prefix will count in the other
+direction, i.e. count backwards"
+    (interactive)
+    (let* ((msg (mu4e-message-at-point))
+           (msgid (mu4e-message-field msg :message-id))
+           (thread-id (mu4e~headers-get-thread-info msg 'thread-id))
+           (path      (mu4e~headers-get-thread-info msg 'path))
+           (started negative)
+           (tcount 0))
+      (mu4e-headers-for-each
+       (lambda (mymsg)
+         (let ((my-thread-id (mu4e~headers-get-thread-info mymsg 'thread-id))
+               (mymsgid (mu4e-message-field msg :message-id)))
+           (when (string= thread-id (mu4e~headers-get-thread-info mymsg 'thread-id))
+             (when (string= mymsgid msgid)
+               (setq started (not started)))
+             (when started
+               (setq tcount (+ tcount 1)))))))
+      tcount))
+
   (defun mu4e-archive-next-message ()
     (interactive)
     (mu4e-action-retag-message (mu4e-message-at-point) "-\\Inbox")
