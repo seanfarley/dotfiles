@@ -1,5 +1,8 @@
 (when (require 'mu4e nil 'noerror)
 
+  ;; define my custom set of labels for easy word completion
+  (setq mylabels (list "\\Inbox" "C/computer" "C/errands" "C/home" "C/phone" "C/school" "C/work" "P/bitbucket mercurial plugin" "P/finish plugin" "P/native vtk viewer" "P/petsc cuda cmake" "P/petsc embedded webserver" "P/petsc-webpage" "P/python-graph-dispatch" "P/scienceports into macports" "P/yaml in petsc" "R/anl" "R/aperture" "R/applications" "R/armins-wedding" "R/barryisms" "R/bout" "R/chipy" "R/documents" "R/facets" "R/family" "R/friends" "R/iit" "R/karlin" "R/karlin-users" "R/llnl" "R/lsmsa" "R/lsmsa-elections" "R/lsmsa.net" "R/lsu" "R/macports" "R/math" "R/mercurial" "R/nersc" "R/petsc-announce" "R/petsc-dev" "R/petsc-exchange" "R/petsc-maint" "R/petsc-students" "R/petsc-users" "R/phd" "R/posterity" "R/recipes" "R/reunion" "R/server" "R/shelved-projects" "R/siam" "R/talks" "R/teaching" "R/tips" "R/V2" "R/vera" "R/website" "S/Action" "S/ASAP" "S/Some Day"))
+
   ;; use imagemagick, if available
   (when (fboundp 'imagemagick-register-types)
     (imagemagick-register-types))
@@ -47,6 +50,11 @@
                    (mu4e-message-contact-field-matches msg :to "iit.edu"))
                   "sfarley@iit.edu")
                  (t "sean.micheal.farley@gmail.com")))))
+
+  (defun mu4e-select-label ()
+    "Select a label from a hard-coded list"
+    (interactive)
+    (ido-completing-read "Label: " mylabels))
 
   (define-key mu4e-view-mode-map (kbd "]") 'mu4e-archive-next-message)
   (add-hook 'mu4e-compose-pre-hook 'mu4e-set-from-address)
