@@ -7,6 +7,13 @@
   (when (fboundp 'imagemagick-register-types)
     (imagemagick-register-types))
 
+  (defun mu4e-select-label (&optional prefix)
+    "Select a label from a hard-coded list"
+    (interactive "P")
+    (if (not (equal prefix '-))
+        (setq prefix ""))
+    (format "%s%s" prefix (ido-completing-read "Label: " mylabels)))
+
   (defun mu4e-archive-next-message ()
     (interactive)
     (mu4e-action-retag-message (mu4e-message-at-point) "-\\Inbox")
@@ -50,13 +57,6 @@
                    (mu4e-message-contact-field-matches msg :to "iit.edu"))
                   "sfarley@iit.edu")
                  (t "sean.micheal.farley@gmail.com")))))
-
-  (defun mu4e-select-label (&optional prefix)
-    "Select a label from a hard-coded list"
-    (interactive "P")
-    (if (not (equal prefix '-))
-        (setq prefix ""))
-    (format "%s%s" prefix (ido-completing-read "Label: " mylabels)))
 
   (define-key mu4e-view-mode-map (kbd "]") 'mu4e-archive-next-message)
   (add-hook 'mu4e-compose-pre-hook 'mu4e-set-from-address)
