@@ -209,6 +209,7 @@ output_*
 .rpm*
 .x11*
 .goutput*
+.emacs.d/persistent-scratch*
 
 # due to my home directory being a repo, .emacs.d/plugins ignores need to go here globally
 
