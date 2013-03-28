@@ -210,6 +210,8 @@ output_*
 .x11*
 .goutput*
 .emacs.d/persistent-scratch*
+.jdownloader
+.aptitude
 
 # due to my home directory being a repo, .emacs.d/plugins ignores need to go here globally
 
