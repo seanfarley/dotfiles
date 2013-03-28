@@ -16,6 +16,7 @@
 (add-to-list 'load-path "~/.emacs.d/scripts")
 
 (load "init/basic.el")
+(load "init/scratch.el")
 (load "init/ediff.el")
 
 ; loading auctex is complicated and needs to be first
