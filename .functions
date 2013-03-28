@@ -139,7 +139,7 @@ _mpe() {
 }
 
 mplivecheck() {
-  port livecheck $(port echo $@ $(csearch -l -f scienceports PortSystem | xargs -I{} dirname {} | xargs -I{} basename {}) maintainer:farley)
+  port livecheck $(port echo $@ $(csearch -l -f scienceports PortSystem | xargs -I{} dirname {} | xargs -I{} basename {}) maintainer:sean)
 }
 complete -F _mpe mplivecheck
 
