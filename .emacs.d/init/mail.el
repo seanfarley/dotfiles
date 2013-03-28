@@ -36,11 +36,84 @@ direction, i.e. count backwards"
                (setq tcount (+ tcount 1)))))))
       tcount))
 
+  (defun mu4e-label-thread (label)
+    "Label the thread at point."
+    ;; the thread id is shared by all messages in a thread
+    (interactive "P")
+    (let* ((msg (mu4e-message-at-point))
+           (thread-id (mu4e~headers-get-thread-info msg 'thread-id))
+           (path      (mu4e~headers-get-thread-info msg 'path)))
+      (mu4e-headers-for-each
+       (lambda (mymsg)
+         (let ((my-thread-id (mu4e~headers-get-thread-info mymsg 'thread-id)))
+           (when (string= thread-id (mu4e~headers-get-thread-info mymsg 'thread-id))
+             (mu4e-action-retag-message mymsg label)))))))
+
+  (defun mu4e-mark-read-thread ()
+    "Label the thread at point."
+    ;; the thread id is shared by all messages in a thread
+    (interactive)
+    (let* ((msg (mu4e-message-at-point))
+           (thread-id (mu4e~headers-get-thread-info msg 'thread-id))
+           (path      (mu4e~headers-get-thread-info msg 'path)))
+      (mu4e-headers-for-each
+       (lambda (mymsg)
+         (let ((my-thread-id (mu4e~headers-get-thread-info mymsg 'thread-id))
+               (mymsgid (mu4e-message-field mymsg :message-id)))
+           (when (string= thread-id (mu4e~headers-get-thread-info mymsg 'thread-id))
+             (mu4e~proc-move mymsgid nil "+S-u-N")))))))
+
+  (defun mu4e-headers-label-thread (&optional prefix)
+    (interactive "P")
+    (mu4e-label-thread (mu4e-select-label prefix)))
+
+  (defun mu4e-view-label-thread (&optional prefix)
+    (interactive "P")
+    (mu4e~view-in-headers-context
+     (mu4e-label-thread (mu4e-select-label prefix))))
+
+  (defun mu4e-headers-thread-next ()
+    (interactive)
+    (mu4e-headers-next (mu4e-thread-count)))
+
+  (defun mu4e-view-thread-next ()
+    (interactive)
+    (mu4e-view-headers-next (mu4e~view-in-headers-context
+     (mu4e-thread-count))))
+
+  (defun mu4e-headers-thread-prev ()
+    (interactive)
+    ;; move the beginnging of the current thread
+    (mu4e-headers-prev (mu4e-thread-count 't))
+    ;; move up to the previous thread
+    (mu4e-headers-prev)
+    ;; now move the beginning of desired thread
+    (mu4e-headers-prev (mu4e-thread-count 't)))
+
+  (defun mu4e-view-thread-prev (&optional)
+    (interactive)
+    ;; move the beginnging of the current thread
+    (mu4e-view-headers-prev (mu4e~view-in-headers-context (mu4e-thread-count 't)))
+
+    ;; wtf, this errors out?
+    ;; user-error: [mu4e] No message at point
+
+    ;; move up to the previous thread
+    (sit-for .1)
+    (mu4e-view-headers-prev)
+    ;; now move the beginning of desired thread
+    ;; (mu4e-view-headers-prev (mu4e~view-in-headers-context (mu4e-thread-count 't)))
+    )
+
   (defun mu4e-archive-next-message ()
     (interactive)
-    (mu4e-action-retag-message (mu4e-message-at-point) "-\\Inbox")
+    (mu4e~view-in-headers-context
+     (mu4e-label-thread "-\\Inbox"))
     (sit-for .05)
-    (mu4e-view-headers-next))
+    (mu4e~view-in-headers-context
+     (mu4e-mark-read-thread))
+    (sit-for .1)
+    (mu4e-view-thread-next))
 
   (defun mu4e-action-hg-import-patch (msg)
     "Import the hg [patch] message."
@@ -80,7 +153,18 @@ direction, i.e. count backwards"
                   "sfarley@iit.edu")
                  (t "sean.micheal.farley@gmail.com")))))
 
+  (define-key mu4e-headers-mode-map (kbd "]") 'mu4e-mark-read-thread)
   (define-key mu4e-view-mode-map (kbd "]") 'mu4e-archive-next-message)
+
+  (define-key mu4e-headers-mode-map (kbd "l") 'mu4e-headers-label-thread)
+  (define-key mu4e-view-mode-map (kbd "l") 'mu4e-view-label-thread)
+
+  (define-key mu4e-headers-mode-map (kbd "M-n") 'mu4e-headers-thread-next)
+  (define-key mu4e-view-mode-map (kbd "M-n") 'mu4e-view-thread-next)
+
+  (define-key mu4e-headers-mode-map (kbd "M-p") 'mu4e-headers-thread-prev)
+  (define-key mu4e-view-mode-map (kbd "M-p") 'mu4e-view-thread-prev)
+
   (add-hook 'mu4e-compose-pre-hook 'mu4e-set-from-address)
   (add-hook 'mu4e-compose-mode-hook (lambda () (flyspell-mode)))
 
