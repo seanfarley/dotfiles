@@ -61,3 +61,6 @@
   (flyspell-goto-next-error)
   (ispell-word))
 (global-set-key (kbd "M-<f4>") 'flyspell-check-next-highlighted-word)
+
+;; Fix annoying list-buffer behavior
+(global-set-key "\C-x\C-b" 'buffer-menu)
