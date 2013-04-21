@@ -212,6 +212,8 @@ output_*
 .emacs.d/persistent-scratch*
 .jdownloader
 .aptitude
+project.xcworkspace
+xcuserdata
 
 # due to my home directory being a repo, .emacs.d/plugins ignores need to go here globally
 
