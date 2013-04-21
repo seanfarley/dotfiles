@@ -32,6 +32,7 @@ alias gda="gdb --args"
 alias s="perl -pi -e"
 alias l="less"
 alias h="hg"
+alias lhg="$HOME/projects/hg/hg"
 
 # File size
 alias fs="stat -f \"%z bytes\""
