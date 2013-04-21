@@ -234,3 +234,4 @@ tests/cedet/cogre/Subclass.dot
 doc/info/dir
 *-compile-script
 *-make-script
+clang-complete
