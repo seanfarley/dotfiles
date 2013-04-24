@@ -191,3 +191,5 @@
 ))
 
 (yas-global-mode 1)
+
+(setq auto-mode-alist (cons '("\\.m$" . objc-mode) auto-mode-alist))
