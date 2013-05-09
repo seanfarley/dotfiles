@@ -43,7 +43,7 @@
 ; Columns
 (column-number-mode t)
 (line-number-mode t)
-(setq-default fill-column 90)
+(setq-default fill-column 79)
 
 ; Ignored extensions
 (setq completion-ignored-extensions
