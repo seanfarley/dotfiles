@@ -19,6 +19,8 @@
 
 LOC=$HOME/.local
 CURL="curl -k -C - -L -O"
+LOCPY=$LOC/lib/python$(python -c 'import sys; print("%i.%i" % (sys.version_info[0],sys.version_info[1]))')/site-packages
+
 [[ -z "$(which curl 2>/dev/null)" ]] && CURL="wget -c"
 
 [[ -z "$SANDBOX" ]] && SANDBOX=$HOME/sandbox
@@ -94,7 +96,7 @@ PACKAGES="hg git histedit hgsubversion hg-git hg-remotebranches evolve hg-keyrin
 [[ -n "$@" ]] && PACKAGES="$@"
 
 [[ -d $LOC/lib/python ]] && export PYTHONPATH=$LOC/lib/python/site-packages:$PYTHONPATH
-export PYTHONPATH=$LOC/lib/python$(python -c 'import sys; print("%i.%i" % (sys.version_info[0],sys.version_info[1]))')/site-packages:$PYTHONPATH
+export PYTHONPATH=$LOCPY:$PYTHONPATH
 export PATH=$HOME/.local:$PATH
 
 if [[ $PACKAGES == hg || $PACKAGES == *hg[!-a-zA-Z]* || $PACKAGES == *merc* ]]; then
