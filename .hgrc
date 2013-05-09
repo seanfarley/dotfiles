@@ -29,7 +29,7 @@ hggit =
 hgsubversion =
 hg_remotebranches =
 mercurial_keyring =
-evolve =
+hgevolve =
 
 [schemes]
 bb = ssh://hg@bitbucket.org/
