@@ -37,7 +37,7 @@ ssl = yes
 realdelete = no
 remoteuser = sean.michael.farley@gmail.com
 remotepasseval = get_keychain_pass(account="sean.michael.farley@gmail.com", server="imap.gmail.com")
-cert_fingerprint = 6d1b5b5ee0180ab493b71d3b94534b5ab937d042
+cert_fingerprint = b0ba392bba326e6feb1add4d04fa0fb86cd173fa
 folderfilter = lambda folder: folder in [
   #'INBOX',
   '[Gmail]/All Mail',
