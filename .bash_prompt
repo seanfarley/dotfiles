@@ -1,7 +1,7 @@
 # @gf3’s Sexy Bash Prompt, inspired by "Extravagant Zsh Prompt"
 # Shamelessly copied from https://github.com/gf3/dotfiles
 
-if [ -t 0 ]; then
+if [ -t 0 ] && [ "$TERM" != "dumb" ]; then
 
   ##
   # colored highlighting is awesome
