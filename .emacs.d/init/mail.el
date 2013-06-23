@@ -132,7 +132,7 @@ direction, i.e. count backwards"
                  ((mu4e-message-contact-field-matches msg :to "sean@seanfarley.org")
                   "sean@seanfarley.org")
                  ((mu4e-message-contact-field-matches msg :to "sean@mcs.anl.gov")
-                  "sean@mcs.anl.gov")
+                  "sean.michael.farley@gmail.com")
                  ((mu4e-message-contact-field-matches msg :to "sean@macports.org")
                   "sean@macports.org")
                  ((mu4e-message-contact-field-matches msg :to "sean@lsmsa.net")
@@ -146,7 +146,7 @@ direction, i.e. count backwards"
                  ((or
                    (mu4e-message-contact-field-matches msg :from "anl.gov")
                    (mu4e-message-contact-field-matches msg :to "anl.gov"))
-                  "sean@mcs.anl.gov")
+                  "sean.michael.farley@gmail.com")
                  ((or
                    (mu4e-message-contact-field-matches msg :from "macports")
                    (mu4e-message-contact-field-matches msg :to "macports"))
