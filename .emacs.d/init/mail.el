@@ -243,14 +243,14 @@ direction, i.e. count backwards"
    message-kill-buffer-on-exit t
 
    ;; bookmarks
-   mu4e-bookmarks '(("tag:\\\\Inbox AND NOT flag:trashed" "Inbox"   ?i)
-                    ("flag:unread"                        "Unread"  ?u)
-                    ("tag:\\\\Sent"                       "Sent"    ?s)
-                    ("tag:R/phd"                          "PhD"     ?p)
-                    ("tag:S/ASAP"                         "ASAP"    ?a)
-                    ("tag:S/Action"                       "Action"  ?c)
-                    ("tag:S/Someday"                      "Someday" ?a)
-                    ("tag:list"                           "Lists"   ?l))
+   mu4e-bookmarks '(("tag:/Inbox AND NOT flag:trashed"  "Inbox"     ?i)
+                    ("flag:unread"                      "Unread"    ?u)
+                    ("tag:/Sent"                        "Sent"      ?s)
+                    ("tag:R/phd"                        "PhD"       ?p)
+                    ("tag:S/ASAP"                       "ASAP"      ?a)
+                    ("tag:S/Action"                     "Action"    ?c)
+                    ("tag:S/Someday"                    "Someday"   ?a)
+                    ("tag:list"                         "Lists"     ?l))
 
   mu4e-maildir-shortcuts '(("/archive" . ?a)
                            ("/drafts"  . ?d)
