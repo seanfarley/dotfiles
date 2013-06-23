@@ -201,3 +201,8 @@
 (yas-global-mode 1)
 
 (setq auto-mode-alist (cons '("\\.m$" . objc-mode) auto-mode-alist))
+
+;; w3m
+(when (require 'w3m-load nil 'noerror)
+  (setq w3m-display-inline-images t)
+)
