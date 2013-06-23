@@ -57,13 +57,13 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 # PETSc commands
 ##
 
-alias ts="cd \$PROJECTS/petsc-dev/src/ts/examples/tutorials"
-alias snes="cd \$PROJECTS/petsc-dev/src/snes/examples/tutorials"
-alias ksp="cd \$PROJECTS/petsc-dev/src/ksp/ksp/examples/tutorials"
-alias vec="cd \$PROJECTS/petsc-dev/src/vec/vec/examples/tutorials"
-alias mat="cd \$PROJECTS/petsc-dev/src/mat/examples/tutorials"
-alias sys="cd \$PROJECTS/petsc-dev/src/sys/examples/tutorials"
-alias dm="cd \$PROJECTS/petsc-dev/src/dm/examples/tutorials"
+alias ts="cd \$PROJECTS/petsc/src/ts/examples/tutorials"
+alias snes="cd \$PROJECTS/petsc/src/snes/examples/tutorials"
+alias ksp="cd \$PROJECTS/petsc/src/ksp/ksp/examples/tutorials"
+alias vec="cd \$PROJECTS/petsc/src/vec/vec/examples/tutorials"
+alias mat="cd \$PROJECTS/petsc/src/mat/examples/tutorials"
+alias sys="cd \$PROJECTS/petsc/src/sys/examples/tutorials"
+alias dm="cd \$PROJECTS/petsc/src/dm/examples/tutorials"
 alias pb="make -j4 -C \$PETSC_DIR/\$PETSC_ARCH"
 
 ##
