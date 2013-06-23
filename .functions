@@ -139,7 +139,7 @@ _mpe() {
 }
 
 mplivecheck() {
-  port livecheck $(port echo $@ $(csearch -l -f scienceports PortSystem | xargs -I{} dirname {} | xargs -I{} basename {}) maintainer:sean)
+  port livecheck $(port echo $@ $(csearch -l -f scienceports PortSystem | xargs -I{} dirname {} | xargs -I{} basename {}) maintainer:"sean(\W|$)" and not maintainer:"node99.org:sean")
 }
 complete -F _mpe mplivecheck
 
