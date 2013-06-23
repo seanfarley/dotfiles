@@ -20,7 +20,7 @@ sandbox
 .subversion
 .macports
 .texlive*
-.gem
+.gem*
 .font*
 .dropbox
 .dvd*
