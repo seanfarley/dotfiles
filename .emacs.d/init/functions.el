@@ -103,3 +103,15 @@ given, kill the region, adding it to the kill ring."
     (delete-region (point) (point-max))))
 
 (global-set-key (kbd "C-M-d") 'delete-to-end-of-buffer)
+
+(defun underline-with-char (char)
+  (interactive (list (read-from-minibuffer "Char: ")))
+  (when (= 0 (length char))
+    (error "Need a character"))
+  (setq char (aref char 0))             ; Ignore everything but the first char.
+  (save-excursion
+    (goto-char (point-at-eol))
+    (insert "\n"
+            (make-string (- (point-at-eol)
+                            (point-at-bol))
+                         char))))
