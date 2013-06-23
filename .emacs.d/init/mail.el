@@ -246,6 +246,8 @@ direction, i.e. count backwards"
    mu4e-bookmarks '(("tag:/Inbox AND NOT flag:trashed"  "Inbox"     ?i)
                     ("flag:unread"                      "Unread"    ?u)
                     ("tag:/Sent"                        "Sent"      ?s)
+                    ("tag:R/mercurial"                  "Mercurial" ?h)
+                    ("tag:R/macports"                   "Macports"  ?m)
                     ("tag:R/phd"                        "PhD"       ?p)
                     ("tag:S/ASAP"                       "ASAP"      ?a)
                     ("tag:S/Action"                     "Action"    ?c)
