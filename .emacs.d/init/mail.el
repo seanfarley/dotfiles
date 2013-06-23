@@ -137,6 +137,8 @@ direction, i.e. count backwards"
                   "sean@macports.org")
                  ((mu4e-message-contact-field-matches msg :to "sean@lsmsa.net")
                   "sean@lsmsa.net")
+                 ((mu4e-message-contact-field-matches msg :to "sean@farley.io")
+                  "sean@farley.io")
                  ((mu4e-message-contact-field-matches msg :to "sfarley@iit.edu")
                   "sfarley@iit.edu")
                  ((or
@@ -185,6 +187,7 @@ direction, i.e. count backwards"
                                  "sean@mcs.anl.gov"
                                  "sean@macports.org"
                                  "sean@lsmsa.net"
+                                 "sean@farley.io"
                                  "sfarley@iit.edu")
 
    user-mail-address "sean.michael.farley@gmail.com"
