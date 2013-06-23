@@ -38,6 +38,7 @@ me = ssh://hg@bitbucket.org/seanfarley/
 gh = git+ssh://git@github.com/
 petsc = ssh://hg@bitbucket.org/petsc/
 logilab = ssh://hg-lab@hg-lab.logilab.org/users/
+smf = ssh://smf//opt/repo/
 
 [diff]
 git = True
