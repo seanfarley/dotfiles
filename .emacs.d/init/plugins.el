@@ -122,9 +122,6 @@
   (setq ropemacs-confirm-saving 'nil)
 )
 
-; load nXhtml
-(load "~/.emacs.d/plugins/nxhtml/autostart.el")
-
 ; load websocket
 (require 'websocket)
 
