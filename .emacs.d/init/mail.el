@@ -251,7 +251,7 @@ direction, i.e. count backwards"
                     ("tag:R/phd"                        "PhD"       ?p)
                     ("tag:S/ASAP"                       "ASAP"      ?a)
                     ("tag:S/Action"                     "Action"    ?c)
-                    ("tag:S/Someday"                    "Someday"   ?a)
+                    ("tag:S/Someday"                    "Someday"   ?d)
                     ("tag:list"                         "Lists"     ?l))
 
   mu4e-maildir-shortcuts '(("/archive" . ?a)
