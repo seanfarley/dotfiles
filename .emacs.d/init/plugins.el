@@ -175,9 +175,9 @@
 
 ; yasnippet
 (require 'yasnippet)
-(setq yas-snippet-dirs
-      '("~/.emacs.d/snippets"            ;; personal snippets
-))
+(setq yas/root-directory '("~/.emacs.d/snippets"
+"~/.emacs.d/plugins/yasnippet/snippets"))
+(mapc 'yas/load-directory yas/root-directory)
 
 (yas-global-mode 1)
 
