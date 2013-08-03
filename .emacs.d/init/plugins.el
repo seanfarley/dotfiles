@@ -106,22 +106,6 @@
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
-; pymacs
-(when (require 'pymacs nil 'noerror)
-  (autoload 'pymacs-apply "pymacs")
-  (autoload 'pymacs-call "pymacs")
-  (autoload 'pymacs-eval "pymacs" nil t)
-  (autoload 'pymacs-exec "pymacs" nil t)
-  (autoload 'pymacs-load "pymacs" nil t)
-  (autoload 'pymacs-autoload "pymacs")
-
-  ; load ropemacs
-  (pymacs-load "ropemacs" "rope-")
-
-  ;; Automatically save project python buffers before refactorings
-  (setq ropemacs-confirm-saving 'nil)
-)
-
 ; load websocket
 (require 'websocket)
 
@@ -217,3 +201,16 @@
 
 ; php mode
 (require 'php-mode)
+
+; ctable
+(require 'ctable)
+
+; epc
+(require 'epc)
+
+; jedi
+(autoload 'jedi:setup "jedi" nil t)
+(setq jedi:complete-on-dot t)
+(add-hook 'python-mode-hook (lambda () (define-key jedi-mode-map (kbd "<C-tab>") nil)))
+(add-hook 'python-mode-hook (lambda () (define-key jedi-mode-map (kbd "C-c C-,") 'jedi:complete)))
+(add-hook 'python-mode-hook 'jedi:setup)
