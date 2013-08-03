@@ -214,3 +214,8 @@
 (add-hook 'python-mode-hook (lambda () (define-key jedi-mode-map (kbd "<C-tab>") nil)))
 (add-hook 'python-mode-hook (lambda () (define-key jedi-mode-map (kbd "C-c C-,") 'jedi:complete)))
 (add-hook 'python-mode-hook 'jedi:setup)
+
+; visual basic
+(autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
+(setq auto-mode-alist (append '(("\\.\\(frm\\|bas\\|vbs\\|cls\\)$" .
+				 visual-basic-mode)) auto-mode-alist))
