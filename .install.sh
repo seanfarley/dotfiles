@@ -117,6 +117,8 @@ fi
 
 if [[ $PACKAGES == *evolve* ]]; then
   install python https://bitbucket.org/marmoute/mutable-history
+  cp $LOCPY/hgext/evolve.py $LOCPY/hgevolve.py
+  cp $LOCPY/hgext/evolve.pyc $LOCPY/hgevolve.pyc
 fi
 
 if [[ $PACKAGES == *ring* ]]; then
