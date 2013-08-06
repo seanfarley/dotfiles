@@ -56,6 +56,9 @@ function install() {
     GET="hg clone"
   fi
 
+  # set the commands for downloading so they can be overloaded
+  DL="cd $SANDBOX; rm -rf $PACKAGE; $GET $2; $EXTRACT $(basename $2); cd $PACKAGE"
+
   if [[ -n "$DEBUG" ]]; then
     echo "Type: $1"
     echo "URL: $2"
@@ -63,10 +66,8 @@ function install() {
     echo "Extension: $EXT"
     echo "Exract: $EXTRACT"
     echo "Get: $GET"
+    echo "DL: $DL"
   fi
-
-  # set the commands for downloading so they can be overloaded
-  DL="cd $SANDBOX; rm -rf $PACKAGE; $GET $2; $EXTRACT $(basename $2); cd $PACKAGE"
 
   case $1 in
     python)
