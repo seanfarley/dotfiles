@@ -33,6 +33,7 @@ LOCPY=$LOC/lib/python$(python -c 'import sys; print("%i.%i" % (sys.version_info[
 function install() {
 
   PACKAGE=$(basename $2)
+  PDIR='$(echo $PACKAGE)'
   EXT=""
   GET="$CURL"
   EXTRACT="true"
@@ -45,7 +46,7 @@ function install() {
     # everything is .tar.* for tarballs
 
     EXT=".tar.${PACKAGE##*.}"
-    PACKAGE=$(tar -tf $SANDBOX/$PACKAGE | head -n2 | tail -n1 | xargs dirname)
+    PDIR='$(tar -tf $PACKAGE | head -n2 | tail -n1 | xargs dirname)'
 
     # Testing for zip type? ugh.
     EXTRACT="tar zxf"
@@ -57,7 +58,7 @@ function install() {
   fi
 
   # set the commands for downloading so they can be overloaded
-  DL="cd $SANDBOX; rm -rf $PACKAGE; $GET $2; $EXTRACT $(basename $2); cd $PACKAGE"
+  DL='cd $SANDBOX; rm -rf $PACKAGE; $GET $2; $EXTRACT $(basename $2); cd "$(eval echo $PDIR)"'
 
   if [[ -n "$DEBUG" ]]; then
     echo "Type: $1"
