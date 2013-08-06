@@ -77,6 +77,7 @@ function install() {
       ;;
     gnu)
       eval $DL
+      [ -e ./configure ] || autoreconf -i
       ./configure --prefix=$LOC $3
       make install
       ;;
