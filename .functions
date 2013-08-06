@@ -100,7 +100,7 @@ essh() {
   # $@ : any other args this script was invoked with should be passed along.
   $SSH -t -R $PORT:127.0.0.1:$PORT $@ "$CMD"
 }
-complete -F _ssh essh
+shopt -u hostcomplete && complete -F _known_hosts essh
 
 psgrep() {
   ps aux | grep -v grep | grep "$@"
