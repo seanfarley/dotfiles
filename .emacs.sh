@@ -6,6 +6,9 @@ SF="$HOME/.emacs.d/server/server"
 PORT="1"
 HN=$(hostname -f)
 
+# hack: if on euclid, change to a public name
+[[ $HN == euclid* ]] && HN=${HN/euclid/smf}
+
 # hack: if options contain --eval then don't parse args
 
 if [[ $@ != *--eval* ]]; then
