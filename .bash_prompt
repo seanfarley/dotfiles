@@ -42,7 +42,7 @@ if [ -t 0 ] && [ "$TERM" != "dumb" ]; then
   function pretty_dir () {
     local home=$HOME
     [ -n "$HAS_READLINK" ] && home=$(readlink -f $home)
-    local path=${1//$HOME/'~'}
+    local path=${1//$home/'~'}
     local dir=$(dirname $path | perl -pe 's,^[^~],,')
     dir=${dir//\//\\[$SEP_FG\\] ⮁ \\[$PATHFG\\]}
     printf "\[$PATHBG$PATHFG\] $(echo $dir)"
