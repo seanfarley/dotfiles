@@ -154,5 +154,5 @@ if [[ $PACKAGES == *pss* ]]; then
 fi
 
 if [[ $PACKAGES == *emac* ]]; then
-  install gnu http://ftp.gnu.org/gnu/emacs/emacs-24.1.tar.gz "--without-x --without-jpeg --without-gif --without-sound"
+  install gnu http://ftp.gnu.org/gnu/emacs/emacs-24.3.tar.gz "--without-x --without-jpeg --without-gif --without-sound"
 fi
