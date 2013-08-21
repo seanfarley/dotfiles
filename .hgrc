@@ -180,6 +180,7 @@ takeother = !"$HG" revert --rev 'p2()' $@ && "$HG" resolve -m $@
 
 # Run a colored diff and pipe it to less.
 d = diff -p --pager=always
+gd = d
 
 # Log shortcuts --------------------------------------------------------------------
 
