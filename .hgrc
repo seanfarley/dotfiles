@@ -152,7 +152,7 @@ p = pull -u
 pr = pull --rebase
 
 # Nudge: just push the current branch.
-nudge = push --branch .
+nudge = push -r .
 
 # Some useful little aliases.
 ? = summary
