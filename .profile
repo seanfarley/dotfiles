@@ -11,6 +11,9 @@ done
 # Only run these if running interactively
 if [ -n "$PS1" ]; then
 
+  # make sure multiplexing directory exists
+  [ -d $HOME/.ssh/connections ] || mkdir $HOME/.ssh/connections
+
   [[ BASH_VERSINFO -ge 4 ]] && shopt -s globstar
 
   # Case-insensitive globbing (used in pathname expansion)
