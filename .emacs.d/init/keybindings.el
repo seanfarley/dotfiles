@@ -63,4 +63,7 @@
 (global-set-key (kbd "M-<f4>") 'flyspell-check-next-highlighted-word)
 
 ;; Fix annoying list-buffer behavior
-(global-set-key "\C-x\C-b" 'buffer-menu)
+(global-set-key "\C-x\C-b" 'ido-switch-buffer)
+
+;; Also, capture typos for C-x b
+(global-set-key "\C-x\C-n" 'ido-switch-buffer)
