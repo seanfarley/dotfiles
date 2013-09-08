@@ -81,7 +81,7 @@ d() {
   done;
 }
 
-essh() {
+ssh() {
   # system ssh command
   local SSH=$(which ssh)
 
@@ -97,7 +97,6 @@ essh() {
 
   $SSH -t -R $PORT:127.0.0.1:$PORT $@
 }
-shopt -u hostcomplete && complete -F _known_hosts essh
 
 psgrep() {
   ps aux | grep -v grep | grep "$@"
