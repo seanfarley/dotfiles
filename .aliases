@@ -66,10 +66,6 @@ alias sys="cd \$PROJECTS/petsc/src/sys/examples/tutorials"
 alias dm="cd \$PROJECTS/petsc/src/dm/examples/tutorials"
 alias pb="make -j4 -C \$PETSC_DIR/\$PETSC_ARCH"
 
-##
-# SSH tunnels
-##
-
 [ -n "$(ls --version 2>/dev/null)" ] && alias ls='ls --color=auto'
 alias dir='ls --color=auto --format=vertical'
 alias vdir='ls --color=auto --format=long'
