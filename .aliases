@@ -2,6 +2,9 @@
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
+# keep aliases for sudo
+alias sudo="sudo "
+
 # List all files colorized in long format, including dot files
 alias la="ls -Gla"
 
