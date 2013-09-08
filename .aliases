@@ -84,3 +84,7 @@ alias g='grep -i'
 if [ -s "$(which chg 2>/dev/null)" ]; then
   alias hg=chg
 fi
+
+if [ -s "$(which pss 2>/dev/null)" ]; then
+  alias pss='pss --ignore-dir=dist --ignore-dir=build --ignore-dir=tests --ignore-dir=test'
+fi
