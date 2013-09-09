@@ -102,8 +102,6 @@
 (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
 (define-key pandoc-mode-map "\C-c/o" 'pandoc-set-output)
 
-(require 'weblogger)
-
 ; haskell mode
 (load "haskell-site-file")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
