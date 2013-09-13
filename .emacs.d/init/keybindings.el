@@ -71,3 +71,7 @@
 ;; Ebib
 (eval-after-load 'latex
   '(define-key LaTeX-mode-map "\C-cb" 'ebib))
+
+;; Sauron keys
+(global-set-key (kbd "C-c s") 'sauron-toggle-hide-show)
+(global-set-key (kbd "C-c t") 'sauron-clear)
