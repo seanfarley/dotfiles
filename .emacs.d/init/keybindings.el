@@ -67,3 +67,7 @@
 
 ;; Also, capture typos for C-x b
 (global-set-key "\C-x\C-n" 'ido-switch-buffer)
+
+;; Ebib
+(eval-after-load 'latex
+  '(define-key LaTeX-mode-map "\C-cb" 'ebib))
