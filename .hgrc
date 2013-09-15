@@ -3,6 +3,7 @@ username = Sean Farley <sean.michael.farley@gmail.com>
 ssh = ssh -C
 editor = ~/.emacs.sh
 ignore = ~/.hgignore
+debugger = ipdb
 
 [phases]
 publish = False
