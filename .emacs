@@ -38,3 +38,6 @@
 (load "init/mail.el")
 
 (load "init/chat.el")
+
+;; start sauron
+(sauron-start)
