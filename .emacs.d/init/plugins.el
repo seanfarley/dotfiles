@@ -220,3 +220,10 @@
 (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
 (setq auto-mode-alist (append '(("\\.\\(frm\\|bas\\|vbs\\|cls\\)$" .
                                  visual-basic-mode)) auto-mode-alist))
+
+;; notifications
+(require 'sauron)
+
+; make sure our path to terminal-notifier is found before alert.el is loaded
+(setq exec-path (append exec-path '("/Applications/terminal-notifier.app/Contents/MacOS")))
+(require 'alert)
