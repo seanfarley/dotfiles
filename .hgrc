@@ -40,6 +40,9 @@ petsc = ssh://hg@bitbucket.org/petsc/
 logilab = ssh://hg-lab@hg-lab.logilab.org/users/
 smf = ssh://www-data@smf/
 
+[hgsubversion]
+nativerevs = True
+
 [diff]
 git = True
 unified = 5
