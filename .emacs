@@ -36,3 +36,5 @@
 (load "init/themes.el")
 
 (load "init/mail.el")
+
+(load "init/chat.el")
