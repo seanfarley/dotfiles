@@ -227,3 +227,11 @@
 ; make sure our path to terminal-notifier is found before alert.el is loaded
 (setq exec-path (append exec-path '("/Applications/terminal-notifier.app/Contents/MacOS")))
 (require 'alert)
+
+; have sauron feed notifications to alert.el
+(add-hook 'sauron-event-added-functions 'sauron-alert-el-adapter)
+
+(setq
+  alert-default-style 'notifier ; use notifier for alert.el
+  sauron-separate-frame nil     ; don't use a seperate frame
+)
