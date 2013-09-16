@@ -65,3 +65,6 @@
 ;; don't let Customize mess with my .emacs
 (setq custom-file (concat (getenv "HOME") "/.emacs.d/custom.el"))
 (load custom-file 'noerror)
+
+;; enable winner
+(winner-mode t)
