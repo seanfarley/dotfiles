@@ -2,10 +2,11 @@
 ; from http://www.emacswiki.org/cgi-bin/wiki/ControlTABbufferCycling
 (defvar stesla-hated-buffers '("KILL" "*Apropos*" "*Completions*" "*grep*"
                                 ".newsrc-dribble" ".bbdb" "sent-mail" "*vc*"
-                               "*Compile-Log*" "*Help*" "*Messages*" ".aux"))
+                               "*Compile-Log*" "*Help*" "*Messages*" ".aux"
+                               "*Sauron*" "&bitlbee"))
 
 (defvar stesla-hated-buffer-regexps
-  '("^ " "^\\*[^s][^c][^r]"))
+  '("^ " "^\\*[^s][^c][^r]" "^\\*irc"))
 
 (setq iswitchb-buffer-ignore
   (append stesla-hated-buffer-regexps  stesla-hated-buffers))
