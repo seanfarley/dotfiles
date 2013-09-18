@@ -157,3 +157,12 @@ given, kill the region, adding it to the kill ring."
 
 (defun find-keychain-generic-password (account server)
   (find-keychain-password "generic" account server))
+
+(defun my-delete-backward-to-ws ()
+  (interactive)
+  (if (and transient-mark-mode mark-active)
+    (kill-region (point) (mark))
+    (progn
+      (delete-region (point) (save-excursion (skip-syntax-backward " ") (point)))
+      (delete-region (point) (save-excursion (skip-syntax-backward "^ ") (point))))))
+(global-set-key "\C-w" 'my-delete-backward-to-ws)
