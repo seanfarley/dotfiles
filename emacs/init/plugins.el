@@ -103,7 +103,8 @@
 (define-key pandoc-mode-map "\C-c/o" 'pandoc-set-output)
 
 ; haskell mode
-(load "haskell-site-file")
+(require 'haskell-mode-autoloads)
+(add-to-list 'Info-default-directory-list "~/.emacs.d/plugins/haskell-mode/")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
