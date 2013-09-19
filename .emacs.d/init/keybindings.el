@@ -51,7 +51,12 @@
 
 (mac-switch-meta)
 
-;; easy spell check
+;; easy spell
+(eval-after-load "flyspell"
+  '(progn
+     (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word)
+     (define-key flyspell-mouse-map [mouse-3] #'undefined)))
+
 (global-set-key (kbd "C-<f4>") 'flyspell-mode)
 (global-set-key (kbd "H-<f4>") 'flyspell-buffer)
 (global-set-key (kbd "M-S-<f4>") 'flyspell-check-previous-highlighted-word)
