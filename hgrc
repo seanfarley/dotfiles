@@ -29,9 +29,9 @@ purge =
 debugshell = ~/.debugshell.py
 hggit =
 hgsubversion =
-hg_remotebranches =
 mercurial_keyring =
 hgevolve =
+hg_remotebranches =
 
 [schemes]
 bb = ssh://hg@bitbucket.org/
