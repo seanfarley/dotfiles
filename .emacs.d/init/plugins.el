@@ -9,6 +9,10 @@
 ; Turn on whitespace
 (require 'whitespace)
 (global-whitespace-mode t)
+(setq whitespace-global-modes '(c-mode c++-mode python-mode
+                                       text-mode conf-mode
+                                       lisp-mode emacs-lisp-mode
+                                       sh-mode))
 
 ; Monky
 (require 'monky)
