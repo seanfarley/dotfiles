@@ -239,7 +239,7 @@ mpdeactivate() {
 
   IFS=$OLD_IFS
 
-  sudo ~/.sudo-batch.sh ~/.ports.cmd.deactivate.$1
+  sudo bash -c "while read line; do eval \"$line\"; done < ~/.ports.cmd.deactivate.$1"
 }
 complete -F _mpdeactivate mpdeactivate
 
@@ -350,7 +350,7 @@ mpactivate() {
 
   IFS=$OLD_IFS
 
-  sudo ~/.sudo-batch.sh ~/.ports.cmd.install.$newport
+  sudo bash -c "while read line; do eval \"$line\"; done < ~/.ports.cmd.install.$newport"
 
   [ $? -eq 0 ] && rm -f ~/.ports.cmd.install.$newport ~/.ports.{cmd,undo}.deactivate.$oldport
 }
