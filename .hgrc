@@ -1,7 +1,7 @@
 [ui]
 username = Sean Farley <sean.michael.farley@gmail.com>
 ssh = ssh -C
-editor = ~/.emacs.sh
+editor = ~/.edit.sh
 ignore = ~/.hgignore
 debugger = ipdb
 
@@ -63,7 +63,7 @@ cmd.wdiff = cwdiff
 opts.wdiff = --diff --ab
 
 [merge-tools]
-emacsclient.executable = ~/.emacs.sh
+emacsclient.executable = ~/.edit.sh
 emacsclient.args = "-q --eval '(hg-mergetool-emacsclient-ediff \"$local\" \"$other\" \"$base\" \"$output\")'"
 emacsclient.premerge = keep
 emacsclient.priority = 1

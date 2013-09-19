@@ -28,7 +28,7 @@
   ;; this section is good for OS X only
   ;; TODO add sensible defaults for Linux/Windows
   (setq TeX-view-program-list
-        '(("DVI Viewer" "$HOME/.emacs.sh -n %o")
+        '(("DVI Viewer" "$HOME/.edit.sh -n %o")
           ("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b %n %o %b")
           ("HTML Viewer" "open %o")))
 

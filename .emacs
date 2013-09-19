@@ -1,6 +1,6 @@
 ; -------------------------
 ; emacsclient
-; note: this is put first so that ~/.emacs.sh will continue to work
+; note: this is put first so that ~/.edit.sh will continue to work
 ; -------------------------
 (setq server-use-tcp t)
 (server-start)
