@@ -1,37 +1,47 @@
 #!/usr/bin/env bash
-#===============================================================================
-#
-#          FILE:  .bootstrap.sh
-#
-#         USAGE:  ./.bootstrap.sh
-#
-#   DESCRIPTION:  Copies over files from an initial clone of 'settings'
-#
-#       OPTIONS:  ---
-#  REQUIREMENTS:  ---
-#          BUGS:  ---
-#         NOTES:  ---
-#        AUTHOR:  Sean Farley
-#       COMPANY:
-#       CREATED:  01/19/2012 01:08:31 AM CST
-#      REVISION:  ---
-#===============================================================================
+set -e
 
-set -o nounset                              # Treat unset variables as an error
+function ensure_link {
+  local DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+  local NEW="$2"
+  test -z "$NEW" && NEW=".$1"
+  test -f "$HOME/$NEW" && rm "$HOME/$NEW"
+  test -L "$HOME/$NEW" || ln -s "$DIR/$1" "$HOME/$NEW"
+}
 
-# if accidentally ran from $HOME, then change directories
-[[ $PWD != $HOME/settings ]] && cd $HOME/settings/
+test -d $HOME/.hg && echo "$HOME is still a repo, please check and remove" && exit 1
 
-for file in .ssh/*; do
-  mv $file $HOME/$file
-done
+mkdir -p ~/projects
+mkdir -p ~/sandbox
 
-[[ -d .ssh ]] && rm -rf .ssh
+ensure_link "aliases"
+ensure_link "aspell.en.prepl"
+ensure_link "aspell.en.pws"
+ensure_link "bash_prompt"
+ensure_link "ctags"
+ensure_link "debugshell.py"
+ensure_link "dir_colors"
+ensure_link "emacs" ".emacs.d"
+ensure_link "edit.sh"
+ensure_link "exports"
+ensure_link "functions"
+ensure_link "gdbinit"
+ensure_link "gitconfig"
+ensure_link "globalrc"
+ensure_link "hgrc"
+ensure_link "hgignore"
+ensure_link "inputrc"
+ensure_link "lynx.lss"
+ensure_link "lynxrc"
+ensure_link "msmtprc"
+ensure_link "offlineimap.py"
+ensure_link "offlineimaprc"
+ensure_link "osx"
+ensure_link "port-rdependents.py"
+ensure_link "profile"
+ensure_link "ssh/authorized_keys"
+ensure_link "ssh/config"
+ensure_link "ssh/environment"
 
-for file in .[a-zA-Z0-9]*; do
-  [[ -d $HOME/$file ]] && rm -rf $HOME/$file
-  mv $file $HOME/$file
-done
-
-# cleanup
-rmdir $HOME/settings
+ensure_link "profile" ".bashrc"
+ensure_link "hgignore" ".gitignore"
