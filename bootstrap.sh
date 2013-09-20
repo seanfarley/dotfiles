@@ -6,6 +6,7 @@ function ensure_link {
   local NEW="$2"
   test -z "$NEW" && NEW=".$1"
   test -f "$HOME/$NEW" && rm "$HOME/$NEW"
+  test -d "$HOME/$NEW" && rm -r "$HOME/$NEW"
   test -L "$HOME/$NEW" || ln -s "$DIR/$1" "$HOME/$NEW"
 }
 
