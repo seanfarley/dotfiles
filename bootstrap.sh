@@ -13,6 +13,7 @@ test -d $HOME/.hg && echo "$HOME is still a repo, please check and remove" && ex
 
 mkdir -p ~/projects
 mkdir -p ~/sandbox
+mkdir -p ~/.ipython
 
 ensure_link "aliases"
 ensure_link "aspell.en.prepl"
@@ -31,6 +32,7 @@ ensure_link "globalrc"
 ensure_link "hgrc"
 ensure_link "hgignore"
 ensure_link "inputrc"
+ensure_link "ipython/profile_default"
 ensure_link "lynx.lss"
 ensure_link "lynxrc"
 ensure_link "msmtprc"
