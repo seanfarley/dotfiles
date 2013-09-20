@@ -127,7 +127,7 @@ c = get_config()
 # c.TerminalIPythonApp.ipython_dir = u'/Users/sean/.ipython'
 
 # Whether to display a banner upon starting IPython.
-# c.TerminalIPythonApp.display_banner = True
+c.TerminalIPythonApp.display_banner = False
 
 # Whether to install the default config files into the profile dir. If a new
 # profile is being created, and IPython contains config files for that profile,
