@@ -43,6 +43,7 @@ syntax:glob
 *.rel
 *.spl
 *.hi
+*.sqlite
 
 .rope*
 output_*
