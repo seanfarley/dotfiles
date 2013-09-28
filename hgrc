@@ -24,6 +24,7 @@ pager =
 churn =
 histedit =
 purge =
+strip =
 # Third-party extensions
 debugshell = ~/.debugshell.py
 hggit =
