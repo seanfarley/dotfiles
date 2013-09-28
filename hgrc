@@ -23,7 +23,6 @@ record =
 pager =
 churn =
 histedit =
-mq =
 purge =
 # Third-party extensions
 debugshell = ~/.debugshell.py
