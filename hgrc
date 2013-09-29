@@ -89,7 +89,7 @@ sourcetreebulkmerge.binary=True
 
 [hostfingerprints]
 bitbucket.org = 24:9c:45:8b:9c:aa:ba:55:4e:01:6d:58:ff:e4:28:7d:2a:14:ae:3b
-secure.rhodecode.org = 79:ce:40:68:a1:b1:cc:df:99:5d:04:52:35:61:28:7a:e7:f8:35:01
+secure.rhodecode.org = 09:5b:0d:46:f8:97:61:27:01:f9:f0:72:a1:2f:79:69:98:3c:0c:68
 svn.macports.org = 4d:ea:4a:77:55:ac:8e:2e:9e:11:8a:59:3d:ec:c7:45:7d:b0:72:19
 
 [email]
