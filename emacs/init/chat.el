@@ -1,3 +1,4 @@
+(setq load-path (cons "~/.emacs.d/plugins/erc" load-path))
 (require 'erc)
 (require 'erc-join)
 (require 'erc-hl-nicks)
