@@ -20,7 +20,8 @@
   erc-email-userid "sean.michael.farley@gmail.com"
   erc-autojoin-channels-alist '((".*smf.io.*" "&bitlbee" "#mercurial"))
   erc-prompt-for-password nil
-  erc-auto-query t
+  erc-auto-query 'buffer
+  erc-query-display 'buffer
   erc-prompt-for-nickserv-password nil
   erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
                             "324" "329" "332" "333" "353" "477")
@@ -54,6 +55,10 @@
 (erc-track-mode t)
 (erc-spelling-mode 1)
 (erc-button-mode 1)
+
+(add-hook 'erc-after-connect
+          (lambda (server nick)
+            (add-hook 'erc-server-NOTICE-hook 'erc-auto-query)))
 
 (defun erc-start-or-switch ()
   "Connect to ERC, or switch to last active buffer"
