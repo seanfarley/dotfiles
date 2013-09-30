@@ -16,6 +16,9 @@ mkdir -p ~/projects
 mkdir -p ~/sandbox
 mkdir -p ~/.ipython
 
+test -d $HOME/Library && mkdir -p $HOME/Library/Scripts && \
+  ensure_link "quicksilver" "Library/Scripts/quicksilver"
+
 ensure_link "aliases"
 ensure_link "aspell.en.prepl"
 ensure_link "aspell.en.pws"
