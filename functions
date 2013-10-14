@@ -62,13 +62,21 @@ _in_list() {
 # All the dig info
 digga() {
   dig +nocmd "$1" any +multiline +noall +answer
+
 }
 
-killgrep() {
-  local PROCS=$(psgrep $@ | grep $USER | awk '{print $2;}')
-  for p in $PROCS; do
-    kill -9 $p
-  done
+pg() {
+  [ -z "$@" ] && ps aux && return
+  ps aux | grep -v grep | grep "$@"
+}
+
+kg() {
+  local p line
+  while read -r line; do
+    p=($line)
+    sudo kill -9 ${p[1]}
+    [ -z "$(ps ${p[1]} | grep -v PID)" ] && echo "Killed ${p[8]}|${p[1]}|${p[0]}|${p[10]}"
+  done <<< "$(pg $@)"
 }
 
 d() {
@@ -96,10 +104,6 @@ ssh() {
   scp ~/.emacs.d/server/server $@:~/.emacs.d/server/server &>/dev/null
 
   $SSH -t -R $PORT:127.0.0.1:$PORT $@
-}
-
-psgrep() {
-  ps aux | grep -v grep | grep "$@"
 }
 
 # usage: _mp_equiv $portname
