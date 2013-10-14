@@ -73,7 +73,7 @@ if [ -t 0 ] && [ "$TERM" != "dumb" ]; then
     local remote=""
     if [ -n "$br" ]; then
       st="$(git status 2> /dev/null)"
-      remote="$(echo "$st" | perl -lne 'print "$2$1" if /Your branch is (ahead|behind).*?(\d+) comm/' | perl -pe 's,behind,⇣,' | perl -pe 's,ahead,⇡,')"
+      remote="$(echo "$st" | perl -lne 'print " $2$1" if /Your branch is (ahead|behind).*?(\d+) comm/' | perl -pe 's,behind,⇣,' | perl -pe 's,ahead,⇡,')"
       st="$(echo "$st" | tail -1 | grep -v 'nothing to commit')"
       repo="$br$remote"
     else
