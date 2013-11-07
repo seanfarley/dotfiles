@@ -41,6 +41,3 @@
 
 ;; start sauron
 (sauron-start)
-
-;; start irc
-(znc-all)
