@@ -39,6 +39,7 @@ syntax:glob
 *-blx.bib
 *.fls
 *.fdb*
+*.tdo
 *.run.xml
 *.rel
 *.spl
