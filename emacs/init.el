@@ -22,10 +22,6 @@
 ; loading auctex is complicated and needs to be first
 (load "init/tex.el")
 
-; same with cedet; needs to be loaded first
-(setq byte-compile-warnings nil)
-(load "init/cedet.el")
-
 (load "init/functions.el")
 (load "init/keybindings.el")
 (load "init/ctrl-tab.el")
