@@ -179,11 +179,6 @@
 
 (setq auto-mode-alist (cons '("\\.m$" . objc-mode) auto-mode-alist))
 
-;; w3m
-(when (require 'w3m-load nil 'noerror)
-  (setq w3m-display-inline-images t)
-)
-
 ; web mode
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
