@@ -48,7 +48,6 @@ syntax:glob
 .rope*
 output_*
 _region*
-config.*
 PortIndex*
 .csearch*
 arch-*
