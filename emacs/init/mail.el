@@ -1,5 +1,7 @@
-(when (require 'mu4e nil 'noerror)
+(autoload 'mu4e "mu4e" t)
 
+(eval-after-load "mu4e"
+  '(progn
   ;; define my custom set of labels for easy word completion
   (setq mylabels (list "/Inbox" "C/computer" "C/errands" "C/home" "C/phone" "C/school" "C/work" "P/bitbucket-mercurial-plugin" "P/python-graph-dispatch" "P/scienceports-into-macports" "P/yaml-in-petsc" "R/anl" "R/aperture" "R/applications" "R/armins-wedding" "R/barryisms" "R/bout" "R/chipy" "R/documents" "R/facets" "R/family" "R/friends" "R/GSoC" "R/iit" "R/karlin" "R/karlin-users" "R/llnl" "R/lsmsa" "R/lsmsa-elections" "R/lsmsa.net" "R/lsu" "R/macports" "R/math" "R/mercurial" "R/nersc" "R/petsc-announce" "R/petsc-dev" "R/petsc-exchange" "R/petsc-maint" "R/petsc-students" "R/petsc-users" "R/phd" "R/posterity" "R/recipes" "R/reunion" "R/server" "R/shelved-projects" "R/siam" "R/talks" "R/teaching" "R/tips" "R/V2" "R/vera" "R/website" "R/zfs" "S/Action" "S/ASAP" "S/SomeDay"))
 
@@ -271,4 +273,4 @@ direction, i.e. count backwards"
    mu4e-headers-passed-mark         '("P" . "⇉")
 
   )
-)
+))
