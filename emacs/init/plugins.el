@@ -80,16 +80,6 @@
 ; ebib
 (autoload 'ebib "ebib" "Ebib, a BibTeX database manager." t)
 
-; outline-magic
-(add-hook 'outline-mode-hook
-           (lambda ()
-             (require 'outline-cycle)))
-
-(add-hook 'outline-minor-mode-hook
-          (lambda ()
-            (require 'outline-magic)
-            (define-key outline-minor-mode-map [(f10)] 'outline-cycle)))
-
 (require 'pandoc-mode)
 (setq pandoc-binary "pandoc")
 (add-hook 'markdown-mode-hook 'turn-on-pandoc)
