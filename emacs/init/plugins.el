@@ -80,9 +80,6 @@
 ; ebib
 (autoload 'ebib "ebib" "Ebib, a BibTeX database manager." t)
 
-; rust
-(require 'rust-mode)
-
 ; outline-magic
 (add-hook 'outline-mode-hook
            (lambda ()
