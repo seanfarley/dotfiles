@@ -71,11 +71,15 @@ pg() {
 }
 
 kg() {
-  local p line
+  local p line SUDO
   while read -r line; do
+    SUDO=""
     p=($line)
-    sudo kill -9 ${p[1]}
-    [ -z "$(ps ${p[1]} | grep -v PID)" ] && echo "Killed ${p[8]}|${p[1]}|${p[0]}|${p[10]}"
+    if [[ -n "${p[1]}" && ${p[1]} > 0 ]]; then
+      [ "$USER" != "${p[0]}" ] && SUDO=sudo
+      $SUDO kill -9 ${p[1]}
+      [ -z "$(ps ${p[1]} | grep -v PID)" ] && echo "Killed ${p[8]}|${p[1]}|${p[0]}|${p[10]}"
+    fi
   done <<< "$(pg $@)"
 }
 
