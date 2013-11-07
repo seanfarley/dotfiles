@@ -92,17 +92,6 @@
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
-; load websocket
-(require 'websocket)
-
-; load smartrep
-(require 'smartrep)
-
-; load ein
-(require 'ein)
-(setq ein:use-auto-complete t)
-(setq ein:use-smartrep t)
-
 ;; Workaround the annoying warnings:
 ;;    Warning (mumamo-per-buffer-local-vars):
 ;;    Already 'permanent-local t: buffer-file-name
