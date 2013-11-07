@@ -28,9 +28,9 @@
 ; Load ido
 (require 'ido)
 (require 'ido-ubiquitous)
+(require 'ido-yes-or-no)
 (ido-mode t)
 (ido-ubiquitous t)
-(require 'ido-yes-or-no)
 (ido-yes-or-no-mode t)
 
 ; Enable ido
@@ -39,7 +39,7 @@
 (setq ido-ignore-extensions t)
 
 ; Ace-jump (Easymotion equivalent)
-(require 'ace-jump-mode)
+(autoload 'ace-jump-mode "ace-jump-mode" "Ace Jump Mode." t)
 (define-key global-map (kbd "C-j") 'ace-jump-mode)
 
 ; Enable undo-tree
@@ -53,11 +53,11 @@
   uniquify-separator ":")
 
 ; Use zen-coding
-(require 'zencoding-mode)
+(autoload 'zencoding-mode "zencoding-mode" "Zen Coding Mode." t)
 (add-hook 'sgml-mode-hook 'zencoding-mode)
 (add-hook 'html-helper-mode-hook 'zencoding-mode)
 
-(load-library "matlab-load")
+;; (load-library "matlab-load")
 (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
 (setq matlab-indent-function t)
 (setq matlab-shell-command-switches '("-nodesktop -nosplash"))
@@ -80,14 +80,15 @@
 ; ebib
 (autoload 'ebib "ebib" "Ebib, a BibTeX database manager." t)
 
-(require 'pandoc-mode)
+(autoload 'pandoc-mode "pandoc-mode" "Pandoc Mode." t)
 (setq pandoc-binary "pandoc")
 (add-hook 'markdown-mode-hook 'turn-on-pandoc)
 (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
-(define-key pandoc-mode-map "\C-c/o" 'pandoc-set-output)
+(eval-after-load "pandoc-mode"
+  '(define-key pandoc-mode-map "\C-c/o" 'pandoc-set-output))
 
 ; haskell mode
-(require 'haskell-mode-autoloads)
+(autoload 'haskell-mode-autoloads "haskell-mode" "Haskell Mode." t)
 (add-to-list 'Info-default-directory-list "~/.emacs.d/plugins/haskell-mode/")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
@@ -101,27 +102,32 @@
            (delq 'buffer-file-name mumamo-per-buffer-local-vars))))
 
 ; Autocomplete
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete/dict")
-(ac-config-default)
-;; dirty fix for having AC everywhere
-(define-globalized-minor-mode real-global-auto-complete-mode
-  auto-complete-mode (lambda ()
-                       (if (not (minibufferp (current-buffer)))
-                         (auto-complete-mode 1))
-                       ))
-(real-global-auto-complete-mode t)
-(ac-flyspell-workaround)
+(autoload 'auto-complete-config "auto-complete-mode" "Auto-complete Mode." t)
+(eval-after-load "auto-complete-config"
+  '(progn
+     (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete/dict")
+     (ac-config-default)
+     ;; dirty fix for having AC everywhere
+     (define-globalized-minor-mode real-global-auto-complete-mode
+       auto-complete-mode (lambda ()
+                            (if (not (minibufferp (current-buffer)))
+                                (auto-complete-mode 1))
+                            ))
+     (real-global-auto-complete-mode t)
+     (ac-flyspell-workaround)))
 
 ; ac-math
-(require 'ac-math)
-(add-to-list 'ac-modes 'latex-mode)   ; make auto-complete aware of {{{latex-mode}}}
-(defun ac-latex-mode-setup ()         ; add ac-sources to default ac-sources
-  (setq ac-sources
-     (append '(ac-source-math-unicode ac-source-math-latex ac-source-latex-commands)
-               ac-sources))
-)
-(add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)
+(autoload 'ac-math "latex-mode" "Auto-complete Math Mode." t)
+(eval-after-load "ac-math"
+  '(progn
+     (add-to-list 'ac-modes 'latex-mode)   ; make auto-complete aware of {{{latex-mode}}}
+     (defun ac-latex-mode-setup ()         ; add ac-sources to default ac-sources
+       (setq ac-sources
+             (append '(ac-source-math-unicode
+                       ac-source-math-latex
+                       ac-source-latex-commands)
+                     ac-sources)))
+     (add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)))
 
 ; load codesearch
 (require 'codesearch)
@@ -131,11 +137,11 @@
 (add-to-list 'find-file-hook 'vim-modeline/do)
 
 ; iedit
-(require 'iedit)
-(require 'iedit-rect)
+(autoload 'iedit "iedit-rectangle-mode" "iEdit Mode." t)
+(autoload 'iedit-rect "iedit-rectangle-mode" "iEdit Rectangle Mode." t)
 
 ; clang-complete-async
-(require 'auto-complete-clang-async)
+(autoload 'auto-complete-clang-async "ac-mode-setup" "Auto-complete Clang." t)
 
 (defun ac-cc-mode-setup ()
   (setq ac-clang-complete-executable "~/.emacs.d/plugins/emacs-clang-complete-async/clang-complete")
@@ -146,7 +152,6 @@
 
 (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
 (add-hook 'auto-complete-mode-hook 'ac-common-setup)
-(global-auto-complete-mode t)
 
 ; yasnippet
 (require 'yasnippet)
@@ -159,7 +164,7 @@
 (setq auto-mode-alist (cons '("\\.m$" . objc-mode) auto-mode-alist))
 
 ; web mode
-(require 'web-mode)
+(autoload 'web-mode "web-mode" "Web Mode." t)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
@@ -170,13 +175,13 @@
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
 ; php mode
-(require 'php-mode)
+(autoload 'php-mode "php-mode" "PHP Mode." t)
 
 ; ctable
 (require 'ctable)
 
 ; epc
-(require 'epc)
+(autoload 'epc "jedi" "Asynchronous RPC Stack." t)
 
 ; jedi
 (autoload 'jedi:setup "jedi" nil t)
