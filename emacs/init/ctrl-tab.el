@@ -6,7 +6,15 @@
                                "*Sauron*" "&bitlbee"))
 
 (defvar stesla-hated-buffer-regexps
-  '("^ " "^\\*[^s][^c][^r]" "^\\*irc"))
+  '("^ " "^\\*[^s][^c][^r]" "^\\*irc"
+    "\\` " "^\\*ESS\\*" "^\\*Messages\\*"
+    "^\\*Help\\*" "^\\*Buffer" "^\\*Ibuffer"
+    "^\\*.*Completions\\*$" "^\\*Ediff"
+    "^\\*tramp" "^\\*cvs-" "^\\*Minibuf-\\*"
+    "_region_" " output\\*$" "^TAGS$" "^\*Ido"
+    "Sauron" "bitlbee" "mu4e-"))
+
+(setq ido-ignore-buffers stesla-hated-buffer-regexps)
 
 (setq iswitchb-buffer-ignore
   (append stesla-hated-buffer-regexps  stesla-hated-buffers))
