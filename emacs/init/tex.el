@@ -75,7 +75,7 @@
   ;; note: add '&& latexmk -c %s' to the command for auto-clean
   (add-hook 'LaTeX-mode-hook (lambda ()
     (push
-      '("LaTeX Make" "latexmk -pdf %s" TeX-run-TeX nil t
+      '("LaTeX Make" "latexmk -pdflatex='xelatex -file-line-error -synctex=1' -pdf %s && latexmk -c %s" TeX-run-TeX nil t
         :help "Run latexmk on file")
       TeX-command-list)))
   (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LaTeX Make")))
