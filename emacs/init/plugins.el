@@ -14,9 +14,6 @@
                                        lisp-mode emacs-lisp-mode
                                        sh-mode))
 
-; Monky
-(require 'monky)
-
 ; Highlight both the row and column
 (require 'crosshairs)
 
