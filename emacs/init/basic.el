@@ -10,6 +10,10 @@
 ; ell 'l', one '1', little eye 'i', big eye 'I'
 ; zero '0', little oh 'o', big oh 'O'
 
+; No splash
+(setq inhibit-splash-screen t)
+(setq inhibit-startup-message t)
+
 (prefer-coding-system 'utf-8)
 
 ; Auto-revert
