@@ -25,6 +25,7 @@ churn =
 histedit =
 purge =
 strip =
+shelve =
 # Third-party extensions
 debugshell = ~/.debugshell.py
 hggit =
