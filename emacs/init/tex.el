@@ -3,6 +3,8 @@
 
 (when (require 'tex-site nil 'noerror)
   (require 'preview-latex)
+  (require 'auctex-latexmk)
+  (auctex-latexmk-setup)
 
   (setq
    TeX-parse-self t
