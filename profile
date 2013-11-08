@@ -1,4 +1,3 @@
-
 for file in exports bash_prompt aliases extra; do
   file="$HOME/.$file"
   [ -e "$file" ] && source "$file"
