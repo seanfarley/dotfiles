@@ -24,6 +24,9 @@ if [ -n "$PS1" ]; then
   # append to the history file, don't overwrite it
   shopt -s histappend
 
+  # write history after a command has executed; not at the end of a session
+  PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+
   # check the window size after each command and, if necessary,
   # update the values of LINES and COLUMNS.
   shopt -s checkwinsize
