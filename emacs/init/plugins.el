@@ -6,6 +6,16 @@
 ; Plugins
 ; -------------------------
 
+; add known files to sh-mode
+(setq auto-mode-alist (cons '(".?aliases" . sh-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '(".?bash_prompt" . sh-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '(".?bashrc" . sh-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '(".?exports" . sh-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '(".?functions" . sh-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '(".?osx" . sh-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '(".?osx" . sh-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '(".?profile" . sh-mode) auto-mode-alist))
+
 ; Turn on whitespace
 (require 'whitespace)
 (global-whitespace-mode t)
