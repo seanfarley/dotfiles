@@ -120,9 +120,9 @@
           ("footcites" "[{")
           ("parencite" "[{")
           ("textcite" "[{")
-          ("fullcite" "[{") 
-          ("citetitle" "[{") 
-          ("citetitles" "[{") 
+          ("fullcite" "[{")
+          ("citetitle" "[{")
+          ("citetitles" "[{")
           ("headlessfullcite" "[{")))
 
   (setq reftex-cite-prompt-optional-args nil)
