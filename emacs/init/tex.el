@@ -71,16 +71,6 @@
 
   (add-hook 'LaTeX-mode-hook (lambda () (run-hooks 'prelude-latex-mode-hook)))
 
-  ;; make latexmk available via C-c C-c
-  ;; note: SyncTeX is setup via ~/.latexmkrc
-  ;; note: add '&& latexmk -c %s' to the command for auto-clean
-  (add-hook 'LaTeX-mode-hook (lambda ()
-    (push
-      '("LaTeX Make" "latexmk -pdflatex='xelatex --shell-escape -interaction=nonstopmode -file-line-error -synctex=1' -pdf %s" TeX-run-TeX nil t
-        :help "Run latexmk on file")
-      TeX-command-list)))
-  (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LaTeX Make")))
-
   ;;; --------------------------------------------------------
   ;;; Reftex
   ;;; --------------------------------------------------------
@@ -237,5 +227,6 @@
                                      TeX-command-Show))
           (TeX-command-Show)))
 
-  (add-hook 'LaTeX-mode-hook '(lambda () (define-key LaTeX-mode-map (kbd "C-c C-a") '(lambda () (interactive) (TeX-command "LaTeX Make" 'TeX-master-file -1)))))
+
+  (add-hook 'LaTeX-mode-hook (lambda () (define-key LaTeX-mode-map (kbd "C-c C-a") '(lambda () (interactive) (TeX-command "LatexMk" 'TeX-master-file -1)))))
 )
