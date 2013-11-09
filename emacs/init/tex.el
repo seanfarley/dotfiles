@@ -52,8 +52,7 @@
   (add-hook 'LaTeX-mode-hook (lambda ()
     (progn
       (add-to-list 'LaTeX-clean-intermediate-suffixes "\\.fls")
-      (add-to-list 'LaTeX-clean-intermediate-suffixes "\\.fdb_latexmk")
-  )))
+      (add-to-list 'LaTeX-clean-intermediate-suffixes "\\.tdo"))))
 
   (defun prelude-latex-mode-hook ()
     ; (setq TeX-master (guess-TeX-master (buffer-file-name)))
