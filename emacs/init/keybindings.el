@@ -49,7 +49,7 @@
         (setq mac-option-modifier nil)
         (setq mac-command-modifier 'meta))))
 
-(mac-switch-meta)
+(if (boundp 'mac-option-modifier) (mac-switch-meta))
 
 ;; easy spell
 (eval-after-load "flyspell"
