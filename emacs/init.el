@@ -19,9 +19,6 @@
 (load "init/scratch.el")
 (load "init/ediff.el")
 
-; loading auctex is complicated and needs to be first
-(load "init/tex.el")
-
 (load "init/functions.el")
 (load "init/keybindings.el")
 (load "init/ctrl-tab.el")
@@ -34,6 +31,8 @@
 (load "init/mail.el")
 
 (load "init/chat.el")
+
+(load "init/tex.el")
 
 ;; start sauron
 (sauron-start)
