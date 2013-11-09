@@ -162,8 +162,7 @@
          "\\)"
          "\\*?\\(\\[[^]]*\\]\\)?{"))
 
-  (add-hook 'LaTeX-mode-hook '(lambda ()
-               (define-key LaTeX-mode-map (kbd "C-c p") 'reftex-parse-all)))
+  (add-hook 'LaTeX-mode-hook (lambda () (define-key LaTeX-mode-map (kbd "C-c p") 'reftex-parse-all)))
 
   ;;; --------------------------------------------------------
   ;;; folding
