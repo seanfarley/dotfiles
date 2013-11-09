@@ -16,6 +16,16 @@ mkdir -p ~/projects
 mkdir -p ~/sandbox
 mkdir -p ~/.ipython
 
+rm -f ~/.bootstrap.sh
+rm -f ~/.emacs
+rm -f ~/.emacs.sh
+rm -f ~/.eudc-options
+rm -f ~/.hgfilter.py*
+rm -f ~/.install.sh
+rm -f ~/.sudo-batch.sh
+rm -f ~/.notmuch-config
+rm -f ~/.tmux.conf
+
 test -d $HOME/Library && mkdir -p $HOME/Library/Scripts && \
   ensure_link "quicksilver" "Library/Scripts/quicksilver"
 
