@@ -15,16 +15,29 @@
    persistent-scratch-backup-directory
    (format-time-string "%y-%m-%d_%H-%M-%S_%s" (current-time))))
 
+(defun save-persistent-scratch-backup ()
+  "Save the current persistant scratch file into the backup
+  directory"
+  (interactive)
+  (message "Making persistant scratch backup...")
+  (if (not (file-exists-p persistent-scratch-backup-directory))
+      (make-directory persistent-scratch-backup-directory))
+  (if (file-exists-p persistent-scratch-filename)
+      (copy-file persistent-scratch-filename
+                 (make-persistent-scratch-backup-name))))
+
 (defun save-persistent-scratch ()
   "Write the contents of *scratch* to the file name
-  PERSISTENT-SCRATCH-FILENAME, making a backup copy in
-  PERSISTENT-SCRATCH-BACKUP-DIRECTORY."
+  PERSISTENT-SCRATCH-FILENAME"
+  (interactive)
   (with-current-buffer (get-buffer "*scratch*")
-    (if (file-exists-p persistent-scratch-filename)
-        (copy-file persistent-scratch-filename
-                   (make-persistent-scratch-backup-name)))
-    (write-region (point-min) (point-max)
-                  persistent-scratch-filename)))
+    ;; Only save if modified bit is set
+    (if (buffer-modified-p)
+        (progn (message "Saving scratch")
+               (write-region (point-min) (point-max)
+                             persistent-scratch-filename)
+               ;; mark as not modified
+               (set-buffer-modified-p nil)))))
 
 (defun load-persistent-scratch ()
   "Load the contents of PERSISTENT-SCRATCH-FILENAME into the
