@@ -54,7 +54,7 @@
   '(".o" ".elc" "~" ".bin" ".bak" ".obj" ".map" ".a" ".ln" ".mod" ".gz"
     ".aux" ".tdo" ".fmt" ".swp" ".pdfsync" ".pdf" ".vrb" ".idx" ".ind"
     ".bbl" ".toc" ".blg" ".snm" ".ilg" ".log" ".out" ".pyc" ".DS_Store"
-    "-blx.bib" ".run.xml" ".hi" ".fls" ".fdb_latexmk"))
+    "-blx.bib" ".run.xml" ".hi" ".fls" ".fdb_latexmk" ".bcf" ".rel"))
 
 ;; cool frame title with currently edited buffer name
 (setq frame-title-format
