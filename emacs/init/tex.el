@@ -239,5 +239,5 @@
           (TeX-command-Show)))
 
 
-  (add-hook 'LaTeX-mode-hook (lambda () (define-key LaTeX-mode-map (kbd "C-c C-a") '(lambda () (interactive) (TeX-command "LatexMk" 'TeX-master-file -1)))))
+  (add-hook 'LaTeX-mode-hook (lambda () (define-key LaTeX-mode-map (kbd "C-c C-a") (lambda () (interactive) (save-buffer) (TeX-command "LatexMk" 'TeX-master-file -1)))))
 )
