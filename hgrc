@@ -249,7 +249,5 @@ psubscmd = !"$HG" debugsub | grep '^path' | cut -d' ' -f2 | parallel -j10 -I SUB
 #     M lol.py
 sub = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | grep "$1" | tr -d '\n ' | xargs -0 -I SUB $HG -R SUB "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9" "$10" "$11" "$12" "$13" "$14" "$15" "$16" "$17" "$18" "$19" "$20"
 
-# pss for non-ignored files
-pss = !$HG locate "set:not ignored()" | xargs pss $@
-grep-wdir = !$HG locate "set:not ignored()" | xargs grep $@
-egrep = !$HG locate "set:not ignored()" | xargs egrep $@
+pss = !chg status --no-status --clean --modified --added --print0 . | xargs pss $@
+wgrep = !chg status --no-status --clean --modified --added --print0 . | xargs -0 grep --binary-files=without-match $@
