@@ -16,6 +16,9 @@
 (setq auto-mode-alist (cons '(".?osx" . sh-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '(".?profile" . sh-mode) auto-mode-alist))
 
+; add known files to conf-mode
+(setq auto-mode-alist (cons '(".?hgrc" . conf-mode) auto-mode-alist))
+
 ; Turn on whitespace
 (require 'whitespace)
 (global-whitespace-mode t)
