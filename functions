@@ -93,7 +93,7 @@ d() {
   done;
 }
 
-ssh() {
+essh() {
   # system ssh command
   local SSH=$(which ssh)
 
