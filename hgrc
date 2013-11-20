@@ -162,6 +162,8 @@ nudge = push -r .
 ? = summary
 df = diff
 r = record
+view = hgview
+v = hgview
 
 # Merge with default.
 md = merge default
