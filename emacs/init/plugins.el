@@ -127,7 +127,20 @@
                                 (auto-complete-mode 1))
                             ))
      (real-global-auto-complete-mode t)
-     (ac-flyspell-workaround)))
+     (ac-flyspell-workaround)
+
+     ; clang-complete-async
+     (autoload 'auto-complete-clang-async "ac-mode-setup" "Auto-complete Clang." t)
+
+     (defun ac-cc-mode-setup ()
+       (setq ac-clang-complete-executable "~/.emacs.d/plugins/emacs-clang-complete-async/clang-complete")
+       (setq ac-clang-async-do-autocompletion-automatically t)
+       (setq ac-sources '(ac-source-clang-async))
+       (ac-clang-launch-completion-process))
+
+     (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+     (add-hook 'auto-complete-mode-hook 'ac-common-setup)
+))
 
 ; load codesearch
 (require 'codesearch)
@@ -139,19 +152,6 @@
 ; iedit
 (autoload 'iedit "iedit-rectangle-mode" "iEdit Mode." t)
 (autoload 'iedit-rect "iedit-rectangle-mode" "iEdit Rectangle Mode." t)
-
-; clang-complete-async
-(autoload 'auto-complete-clang-async "ac-mode-setup" "Auto-complete Clang." t)
-
-(defun ac-cc-mode-setup ()
-  (setq ac-clang-complete-executable "~/.emacs.d/plugins/emacs-clang-complete-async/clang-complete")
-  (setq ac-clang-async-do-autocompletion-automatically t)
-  (setq ac-sources '(ac-source-clang-async))
-  (ac-clang-launch-completion-process)
-)
-
-(add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
-(add-hook 'auto-complete-mode-hook 'ac-common-setup)
 
 ; yasnippet
 (require 'yasnippet)
