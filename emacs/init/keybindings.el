@@ -3,7 +3,7 @@
 ; -------------------------
 
 ;; add modifier keys for mu4e
-(global-set-key (kbd "C-c m") 'mu4e)
+(global-set-key (kbd "C-c e") 'mu4e)
 
 ;; Moving between windows
 (global-set-key (kbd "C-H-<up>") 'windmove-up)
