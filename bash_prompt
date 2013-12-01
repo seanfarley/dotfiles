@@ -38,6 +38,7 @@ if [ -t 0 ] && [ "$TERM" != "dumb" ]; then
   FAILFG=$(tput setaf 15)
 
   HAS_READLINK=$(which readlink 2>/dev/null)
+  HAS_CHG=$(which chg 2>/dev/null)
 
   function pretty_dir () {
     local home=$HOME
@@ -79,7 +80,11 @@ if [ -t 0 ] && [ "$TERM" != "dumb" ]; then
     else
       br="$(fast-hg-bookmark 2> /dev/null)"
       if [ -n "$br" ]; then
-        st="$(fast-hg-status 2> /dev/null)"
+        if [ -n "$HAS_CHG" ]; then
+          st="$(chg status 2> /dev/null)"
+        else
+          st="$(fast-hg-status 2> /dev/null)"
+        fi
         remote="$(fast-hg-remote | grep -v '+ 0' | egrep '^(\+|-)' | perl -pe 's,-\s?(\d+), \1⇣,' | perl -pe 's,\+\s?(\d+), \1⇡,')"
       fi
     fi
