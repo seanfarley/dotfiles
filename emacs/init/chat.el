@@ -70,6 +70,17 @@
 
 (global-set-key (kbd "C-c m") 'erc-start-or-switch)
 
+(defun user-keys (hashtable)
+  "Return all keys in hashtable."
+  (let (allkeys)
+    (maphash (lambda (kk vv) (setq allkeys (cons kk allkeys))) hashtable)
+    allkeys))
+
+(defun buffer-users (buffer)
+  "Return users for a given ERC buffer"
+  (set-buffer buffer)
+  (user-keys erc-channel-users))
+
 (defun erc-chat (nick)
   (interactive (list (completing-read "Nick: " (progn
                                                  (set-buffer "&bitlbee")
