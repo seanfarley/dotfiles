@@ -63,10 +63,10 @@
 (defun erc-start-or-switch ()
   "Connect to ERC, or switch to last active buffer"
   (interactive)
-  (if (get-buffer "*irc-bitlbee*") ;; ERC already active?
+  (if (get-buffer "*irc-freenode*") ;; ERC already active?
 
-    (erc-track-switch-buffer 1) ;; yes: switch to last active
-    (znc-all)))                 ;; no: start ERC
+    (switch-to-buffer "#mercurial") ;; yes: switch to #mercurial
+    (znc-all)))                     ;; no: start ERC
 
 (global-set-key (kbd "C-c m") 'erc-start-or-switch)
 
