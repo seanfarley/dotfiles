@@ -68,7 +68,7 @@
     (erc-track-switch-buffer 1) ;; yes: switch to last active
     (znc-all)))                 ;; no: start ERC
 
-(global-set-key (kbd "C-c e") 'erc-start-or-switch)
+(global-set-key (kbd "C-c m") 'erc-start-or-switch)
 
 (defun erc-chat (nick)
   (interactive (list (completing-read "Nick: " (progn
