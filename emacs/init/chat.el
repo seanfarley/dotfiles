@@ -82,9 +82,12 @@
   (user-keys erc-channel-users))
 
 (defun erc-chat (nick)
-  (interactive (list (completing-read "Nick: " (progn
-                                                 (set-buffer "&bitlbee")
-                                                 erc-channel-users))))
+  "Start a query with nick"
+  (interactive
+   (list (completing-read "Nick: "
+                          (append (buffer-users "&bitlbee")
+                                  (buffer-users "#mercurial")))))
+  (when (memq nick (buffer-users "&bitlbee")) (set-buffer "&bitlbee"))
   (erc-cmd-QUERY nick))
 
 (global-set-key (kbd "C-x m") 'erc-chat)
