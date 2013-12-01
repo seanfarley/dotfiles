@@ -76,4 +76,4 @@
                                                  erc-channel-users))))
   (erc-cmd-QUERY nick))
 
-(global-set-key (kbd "C-c c") 'erc-chat)
+(global-set-key (kbd "C-x m") 'erc-chat)
