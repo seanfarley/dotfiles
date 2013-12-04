@@ -144,7 +144,7 @@ fi
 if [[ $PACKAGES == bc || $PACKAGES == *bc[!-a-zA-Z]* || $PACKAGES == *bash-comp* || $PACKAGES == *bashcomp* ]]; then
   install gnu git://git.debian.org/git/bash-completion/bash-completion.git
   # after bash-completion is installed, get the mercurial and git scripts
-  install script http://selenic.com/hg/raw-file/e15765c18ebc/contrib/bash_completion $LOC/etc/bash_completion.d/mercurial
+  install script http://selenic.com/hg/raw-file/tip/contrib/bash_completion $LOC/etc/bash_completion.d/mercurial
   cp $LOC/etc/bash_completion.d/mercurial $LOC/etc/bash_completion.d/hg
   install script https://raw.github.com/gitster/git/master/contrib/completion/git-completion.bash $LOC/etc/bash_completion.d/git
 fi
