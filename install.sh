@@ -79,7 +79,7 @@ function install() {
       eval $DL
       [ -e ./configure ] || autoreconf -i
       ./configure --prefix=$LOC $3
-      make install
+      make install PREFIX=$LOC HGEXTDIR=$LOC/lib/python2.7/site-packages/hgext
       ;;
     script)
       # sigh
