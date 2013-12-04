@@ -138,7 +138,7 @@ if [[ $PACKAGES == *fast* ]]; then
 fi
 
 if [[ $PACKAGES == *global* ]]; then
-  install gnu http://tamacom.com/global/global-6.2.4.tar.gz
+  install gnu http://tamacom.com/global/global-6.2.9.tar.gz
 fi
 
 if [[ $PACKAGES == bc || $PACKAGES == *bc[!-a-zA-Z]* || $PACKAGES == *bash-comp* || $PACKAGES == *bashcomp* ]]; then
