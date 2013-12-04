@@ -107,7 +107,7 @@ if [[ $PACKAGES == hg || $PACKAGES == *hg[!-a-zA-Z]* || $PACKAGES == *merc* ]]; 
 fi
 
 if [[ $PACKAGES == git || $PACKAGES == *[!-a-zA-Z]git* ]]; then
-  install gnu http://git-core.googlecode.com/files/git-1.8.1.tar.gz
+  install gnu http://git-core.googlecode.com/files/git-1.8.5.1.tar.gz
 fi
 
 if [[ $PACKAGES == *hgsub* ]]; then
