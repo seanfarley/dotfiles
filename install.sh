@@ -95,7 +95,7 @@ function install() {
 }
 
 # default packages to install unless a command-line option is given
-PACKAGES="hg git histedit hgsubversion hg-git hg-remotebranches evolve hg-keyring fast-hg-prompt global bash-completion pss emacs"
+PACKAGES="hg git histedit hgsubversion hg-git hg-remotebranches evolve hg-keyring fast-hg-prompt global bash-completion pss emacs chg"
 [[ -n "$@" ]] && PACKAGES="$@"
 
 [[ -d $LOC/lib/python ]] && export PYTHONPATH=$LOC/lib/python/site-packages:$PYTHONPATH
@@ -104,6 +104,10 @@ export PATH=$HOME/.local:$PATH
 
 if [[ $PACKAGES == hg || $PACKAGES == *hg[!-a-zA-Z]* || $PACKAGES == *merc* ]]; then
   install python http://hg.intevation.org/mercurial/crew/archive/tip.tar.gz
+fi
+
+if [[ $PACKAGES == *chg* ]]; then
+  install gnu https://bitbucket.org/yuja/chg
 fi
 
 if [[ $PACKAGES == git || $PACKAGES == *[!-a-zA-Z]git* ]]; then
