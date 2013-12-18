@@ -25,7 +25,7 @@
 (setq whitespace-global-modes '(c-mode c++-mode python-mode
                                        text-mode conf-mode
                                        lisp-mode emacs-lisp-mode
-                                       sh-mode))
+                                       sh-mode tcl-mode))
 
 ; Highlight both the row and column
 (require 'crosshairs)
