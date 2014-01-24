@@ -64,9 +64,12 @@
   "Connect to ERC, or switch to last active buffer"
   (interactive)
   (if (get-buffer "*irc-freenode*") ;; ERC already active?
-
-    (switch-to-buffer "#mercurial") ;; yes: switch to #mercurial
-    (znc-all)))                     ;; no: start ERC
+      (progn
+        (set-buffer "*irc-freenode*")
+        (if (erc-server-process-alive)
+            (switch-to-buffer "#mercurial") ;; yes: switch to #mercurial
+          (znc-all)))                       ;; no: start ERC
+    (znc-all)))                         ;; no: start ERC
 
 (global-set-key (kbd "C-c m") 'erc-start-or-switch)
 
@@ -87,7 +90,7 @@
    (list (completing-read "Nick: "
                           (append (buffer-users "&bitlbee")
                                   (buffer-users "#mercurial")))))
-  (when (memq nick (buffer-users "&bitlbee")) (set-buffer "&bitlbee"))
+  (unless (memq nick (buffer-users "&bitlbee")) (set-buffer "#mercurial"))
   (erc-cmd-QUERY nick))
 
 (global-set-key (kbd "C-x m") 'erc-chat)
