@@ -117,6 +117,16 @@ direction, i.e. count backwards"
     (sit-for .1)
     (mu4e-view-thread-next))
 
+  (defun mu4e-delete-next-message ()
+    (interactive)
+    (mu4e~view-in-headers-context
+     (mu4e-label-thread "\\Trash"))
+    (sit-for .05)
+    (mu4e~view-in-headers-context
+     (mu4e-mark-read-thread))
+    (sit-for .1)
+    (mu4e-view-thread-next))
+
   (defun mu4e-action-hg-import-patch (msg)
     "Import the hg [patch] message."
     (let ((path (read-directory-name "Target directory: " nil "~/projects/hg" t) ))
@@ -170,6 +180,9 @@ direction, i.e. count backwards"
 
   (define-key mu4e-headers-mode-map (kbd "M-p") 'mu4e-headers-thread-prev)
   (define-key mu4e-view-mode-map (kbd "M-p") 'mu4e-view-thread-prev)
+
+  (define-key mu4e-headers-mode-map (kbd "d") 'mu4e-delete-next-message)
+  (define-key mu4e-view-mode-map (kbd "d") 'mu4e-delete-next-message)
 
   (add-hook 'mu4e-compose-pre-hook 'mu4e-set-from-address)
   (add-hook 'mu4e-compose-mode-hook (lambda () (flyspell-mode)))
