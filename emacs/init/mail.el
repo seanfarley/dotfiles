@@ -285,5 +285,7 @@ direction, i.e. count backwards"
    mu4e-headers-replied-mark        '("R" . "↵")
    mu4e-headers-passed-mark         '("P" . "⇉")
 
+   ;; don't use a signature
+   mu4e-compose-signature-auto-include nil
   )
 ))
