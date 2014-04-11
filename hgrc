@@ -33,7 +33,6 @@ hgsubversion =
 mercurial_keyring =
 hgevolve =
 hg_remotebranches =
-pushexperiment =
 
 [schemes]
 bb = ssh://hg@bitbucket.org/
