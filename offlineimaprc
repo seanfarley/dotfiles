@@ -1,16 +1,12 @@
 [general]
 accounts = main
 pythonfile = ~/.offlineimap.py
-fsync = false
 
 [Account main]
 localrepository = main-local
 remoterepository = main-remote
 status_backend = sqlite
 
-# autorefresh = 5
-# holdconnectionopen = yes
-# keepalive = 1800
 maxconnections = 5
 
 synclabels = True
