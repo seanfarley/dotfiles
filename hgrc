@@ -220,9 +220,6 @@ mkrepo = !$HG init $1 && cd $1 && \
           echo 'tags'         >> .hgignore && \
           echo "[paths]\n" >> .hg/hgrc
 
-# Edit the current repo's hgrc file.
-rc = !$EDITOR `$HG root`/.hg/hgrc
-
 # Easily add ignore patterns to .hgignore and commit.
 ignore = ![ -n "$@" ] && echo '$@' >> `$HG root`/.hgignore && \
           $HG commit `$HG root`/.hgignore -Am 'Add "$@" to .hgignore.'
