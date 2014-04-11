@@ -8,6 +8,7 @@ remoterepository = main-remote
 status_backend = sqlite
 
 maxconnections = 5
+maxage = 60
 
 synclabels = True
 labelsheader = X-Keywords
