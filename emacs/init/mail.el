@@ -258,7 +258,7 @@ direction, i.e. count backwards"
    message-kill-buffer-on-exit t
 
    ;; bookmarks
-   mu4e-bookmarks '(("tag:/Inbox AND NOT flag:trashed"  "Inbox"     ?i)
+   mu4e-bookmarks '(("tag:/Inbox AND NOT flag:trashed AND NOT tag:/Trash"  "Inbox"     ?i)
                     ("flag:unread"                      "Unread"    ?u)
                     ("tag:/Sent"                        "Sent"      ?s)
                     ("tag:R/mercurial"                  "Mercurial" ?h)
