@@ -81,3 +81,7 @@
 ;; Sauron keys
 (global-set-key (kbd "C-c s") 'sauron-toggle-hide-show)
 (global-set-key (kbd "C-c t") 'sauron-clear)
+
+(add-hook 'c-mode-common-hook
+  (lambda()
+    (local-set-key  (kbd "C-c o") 'ff-find-other-file)))
