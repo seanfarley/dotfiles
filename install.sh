@@ -159,7 +159,7 @@ if [[ $PACKAGES == bc || $PACKAGES == *bc[!-a-zA-Z]* || $PACKAGES == *bash-comp*
 fi
 
 if [[ $PACKAGES == *pss* ]]; then
-  install python http://pypi.python.org/packages/source/p/pss/pss-0.35.tar.gz
+  install python http://pypi.python.org/packages/source/p/pss/pss-1.39.tar.gz
 fi
 
 if [[ $PACKAGES == *emac* ]]; then
