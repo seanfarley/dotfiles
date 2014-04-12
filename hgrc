@@ -90,9 +90,10 @@ sourcetreebulkmerge.premerge=False
 sourcetreebulkmerge.binary=True
 
 [hostfingerprints]
-bitbucket.org = 24:9c:45:8b:9c:aa:ba:55:4e:01:6d:58:ff:e4:28:7d:2a:14:ae:3b
+bitbucket.org = 45:ad:ae:1a:cf:0e:73:47:06:07:e0:88:f5:cc:10:e5:fa:1c:f7:99
 secure.rhodecode.org = 09:5b:0d:46:f8:97:61:27:01:f9:f0:72:a1:2f:79:69:98:3c:0c:68
-svn.macports.org = 4d:ea:4a:77:55:ac:8e:2e:9e:11:8a:59:3d:ec:c7:45:7d:b0:72:19
+code.rhodecode.com = 2a:99:33:8d:e1:8b:65:04:6c:b8:a1:3b:85:64:ba:f8:9f:08:39:f2
+svn.macports.org = 69:72:15:c6:d9:71:d8:6b:15:ec:81:76:13:a8:59:aa:f0:21:e8:01
 
 [email]
 method = smtp
