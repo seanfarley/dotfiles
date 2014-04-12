@@ -115,7 +115,7 @@ if [[ $PACKAGES == git || $PACKAGES == *[!-a-zA-Z]git* ]]; then
 fi
 
 if [[ $PACKAGES == *hgsub* ]]; then
-  install python https://bitbucket.org/durin42/hgsubversion
+  install python https://bitbucket.org/seanfarley/hgsubversion
 fi
 
 if [[ $PACKAGES == *remot* ]]; then
