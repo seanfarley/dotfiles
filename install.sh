@@ -103,7 +103,7 @@ export PYTHONPATH=$LOCPY:$PYTHONPATH
 export PATH=$HOME/.local:$PATH
 
 if [[ $PACKAGES == hg || $PACKAGES == *hg[!-a-zA-Z]* || $PACKAGES == *merc* ]]; then
-  install python http://hg.intevation.org/mercurial/crew/archive/tip.tar.gz
+  install python https://bitbucket.org/seanfarley/mercurial
 fi
 
 if [[ $PACKAGES == *chg* ]]; then
