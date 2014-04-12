@@ -264,9 +264,7 @@ direction, i.e. count backwards"
                     ("tag:R/mercurial"                  "Mercurial" ?h)
                     ("tag:R/macports"                   "Macports"  ?m)
                     ("tag:R/phd"                        "PhD"       ?p)
-                    ("tag:S/ASAP"                       "ASAP"      ?a)
-                    ("tag:S/Action"                     "Action"    ?c)
-                    ("tag:S/Someday"                    "Someday"   ?d)
+                    ("tag:Action"                       "Action"    ?a)
                     ("tag:list"                         "Lists"     ?l))
 
   mu4e-maildir-shortcuts '(("/archive" . ?a)
