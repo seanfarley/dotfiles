@@ -95,7 +95,7 @@ function install() {
 }
 
 # default packages to install unless a command-line option is given
-PACKAGES="hg git histedit hgsubversion hg-git hg-remotebranches evolve hg-keyring fast-hg-prompt global bash-completion pss emacs chg"
+PACKAGES="hg git histedit hgsubversion hg-git hg-remotebranches evolve hg-keyring fast-hg-prompt global bash-completion pss emacs chg watchman"
 [[ -n "$@" ]] && PACKAGES="$@"
 
 [[ -d $LOC/lib/python ]] && export PYTHONPATH=$LOC/lib/python/site-packages:$PYTHONPATH
@@ -126,6 +126,11 @@ if [[ $PACKAGES == *evolve* ]]; then
   install python https://bitbucket.org/marmoute/mutable-history
   cp $LOCPY/hgext/evolve.py $LOCPY/hgevolve.py
   cp $LOCPY/hgext/evolve.pyc $LOCPY/hgevolve.pyc
+fi
+
+if [[ $PACKAGES == *watch* ]]; then
+  install gnu git://github.com/facebook/watchman.git
+  install python https://bitbucket.org/facebook/hgwatchman
 fi
 
 if [[ $PACKAGES == *ring* ]]; then
