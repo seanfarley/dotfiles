@@ -12,14 +12,20 @@ if [ -t 0 ] && [ "$TERM" != "dumb" ]; then
   fi
 
   MAGENTA=$(tput setaf 9)
-  ORANGE=$(tput setaf 172)
-  ORANGEBG=$(tput setab 172)
   GREEN=$(tput setaf 190)
   PURPLE=$(tput setaf 5)
   WHITE=$(tput setaf 240)
   BLACK=$(tput setaf 0)
   BOLD=$(tput bold)
   RESET=$(tput sgr0)
+
+  # raw color numbers for hostname background and foreground
+  PURPLEBG=5
+  MAGENTABG=9
+  ORANGEBG=172
+  YELLOWBG=214
+  PINKBG=216
+  WHITEBG=230
 
   PATHBG=$(tput setab 237)      # dark grey
   PATHBGFG=$(tput setaf 237)
@@ -39,6 +45,23 @@ if [ -t 0 ] && [ "$TERM" != "dumb" ]; then
 
   HAS_READLINK=$(which readlink 2>/dev/null)
   HAS_CHG=$(which chg 2>/dev/null)
+  HAS_MD5SUM=$(which md5sum 2>/dev/null)
+
+  MD5="md5"
+  [ -n "$HAS_MD5SUM" ] && MD5="md5sum"
+
+  COLORS=(
+    $PURPLEBG
+    $PINKBG
+    $WHITEBG
+    $YELLOWBG
+    $MAGENTABG
+    $YELLOWBG
+    $MAGENTABG
+    $WHITEBG
+    $PINKBG
+    $PURPLEBG
+  )
 
   function pretty_dir () {
     local home=$HOME
@@ -60,10 +83,23 @@ if [ -t 0 ] && [ "$TERM" != "dumb" ]; then
     # stackoverflow link above
     local err=$?
 
+    # only generate a hash color for non-local machines
+    local host_color=$ORANGEBG
+    if [[ "$(hostname)" != "laptop.local" ]]; then
+      # generate a hash from the hostname
+      local host_hash="$(hostname | $MD5)"
+
+      # convert into a positive integer
+      local host_number=$(( 0x${host_hash:4:6} % ${#COLORS[@]} ))
+      [[ $host_number -lt 0 ]] && host_number=$(( -$host_number ))
+
+      host_color=${COLORS[$host_number]}
+    fi
+
     # note: these strings are chained from background color to foreground color so make
     # sure to check when rearranging
-    local host="\[$ORANGEBG\]\[$BOLD$BLACK\] $(hostname -s) \[$RESET\]"
-    local dir="\[$ORANGE$PATHBG\]⮀$(pretty_dir $PWD)\[$PATHBGFG\]"
+    local host="\[$(tput setab $host_color)\]\[$BOLD$BLACK\] $(hostname -s) \[$RESET\]"
+    local dir="\[$(tput setaf $host_color)$PATHBG\]⮀$(pretty_dir $PWD)\[$PATHBGFG\]"
 
     # mercurial needs to be the last one checked since my home directory is a repo
     local bg=$CLEAN_BG
