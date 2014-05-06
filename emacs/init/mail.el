@@ -129,7 +129,7 @@ direction, i.e. count backwards"
 
   (defun mu4e-action-hg-import-patch (msg)
     "Import the hg [patch] message."
-    (let ((path (read-directory-name "Target directory: " nil "~/projects/hg" t) ))
+    (let ((path (read-directory-name "Target directory: " "~/projects/hg" nil nil nil) ))
       (shell-command
        (format "cd %s; hg import %s"
                path
