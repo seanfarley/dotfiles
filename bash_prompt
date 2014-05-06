@@ -1,6 +1,11 @@
 # @gf3’s Sexy Bash Prompt, inspired by "Extravagant Zsh Prompt"
 # Shamelessly copied from https://github.com/gf3/dotfiles
 
+# Powerline fonts from: https://github.com/Lokaltog/powerline-fonts
+# On Mavericks, the powerline font was about 1px off, so followed:
+# https://gist.github.com/qrush/1595572
+# on the powerline-fontpatcher repo and settled on just using the y offset
+
 if [ -t 0 ] && [ "$TERM" != "dumb" ]; then
 
   ##
