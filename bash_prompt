@@ -143,9 +143,15 @@ if [ -t 0 ] && [ "$TERM" != "dumb" ]; then
       fg=$FAILFG
     fi
 
-    # display previous bg color as fg color for arrow and new fg color for '$'
-    local prompt="\[$bg${oldbg//48;/38;}\]\[$fg\] \$ "
+    # repo is empty so just match the path background and foreground
+    if [ -z "$repo" ]; then
+      repo="\[$bg${oldbg//48;/38;}$PATHBGFG\]"
+    else
+      repo="$repo\[$bg${oldbg//48;/38;}\]"
+    fi
 
+    # display previous bg color as fg color for arrow and new fg color for '$'
+    local prompt="\[$bg$fg\] \$ "
     # the end cap which clears the background color and puts an arrow in the fg color of
     # the previous bg color
     oldbg=$bg
