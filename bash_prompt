@@ -106,7 +106,6 @@ if [ -t 0 ] && [ "$TERM" != "dumb" ]; then
     local host="\[$(tput setab $host_color)\]\[$BOLD$BLACK\] $(hostname -s) \[$RESET\]"
     local dir="\[$(tput setaf $host_color)$PATHBG\]$(pretty_dir $PWD)\[$PATHBGFG\]"
 
-    # mercurial needs to be the last one checked since my home directory is a repo
     local bg=$CLEAN_BG
     local fg=$CLEAN_FG
     local repo=""
