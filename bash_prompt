@@ -6,160 +6,161 @@
 # https://gist.github.com/qrush/1595572
 # on the powerline-fontpatcher repo and settled on just using the y offset
 
-if [ -t 0 ] && [ "$TERM" != "dumb" ]; then
+# exit if we terminal can't do colors
+if [ ! -t 0 ] || [ "$TERM" == "dumb" ]; then
+  return
+fi
 
-  ##
-  # colored highlighting is awesome
-  ##
+##
+# colored highlighting is awesome
+##
 
-  if [ "$TERM" != "dumb" -a -x "$(which dircolors 2>/dev/null)" ]; then
-    eval "$(dircolors -b ~/.dir_colors)"
+if [ "$TERM" != "dumb" -a -x "$(which dircolors 2>/dev/null)" ]; then
+  eval "$(dircolors -b ~/.dir_colors)"
+fi
+
+MAGENTA=$(tput setaf 9)
+GREEN=$(tput setaf 190)
+PURPLE=$(tput setaf 5)
+WHITE=$(tput setaf 240)
+BLACK=$(tput setaf 0)
+BOLD=$(tput bold)
+RESET=$(tput sgr0)
+
+# raw color numbers for hostname background and foreground
+PURPLEBG=5
+MAGENTABG=9
+ORANGEBG=172
+YELLOWBG=214
+PINKBG=216
+WHITEBG=230
+
+PATHBG=$(tput setab 237)      # dark grey
+PATHBGFG=$(tput setaf 237)
+PATHFG=$(tput setaf 250)      # light grey
+CWD_FG=$(tput setaf 254)      # nearly-white grey
+SEP_FG=$(tput setaf 244)
+
+CLEAN_BG=$(tput setab 148)    # a light green color
+CLEAN_FG=$BLACK
+DIRTY_BG=$(tput setab 161)    # pink/red
+DIRTY_FG=$(tput setaf 15)     # white
+
+PASSBG=$(tput setab 236)
+PASSFG=$(tput setaf 15)
+FAILBG=$(tput setab 161)
+FAILFG=$(tput setaf 15)
+
+HAS_READLINK=$(which readlink 2>/dev/null)
+HAS_CHG=$(which chg 2>/dev/null)
+HAS_MD5SUM=$(which md5sum 2>/dev/null)
+
+MD5="md5"
+[ -n "$HAS_MD5SUM" ] && MD5="md5sum"
+
+COLORS=(
+  $PURPLEBG
+  $PINKBG
+  $WHITEBG
+  $YELLOWBG
+  $MAGENTABG
+  $YELLOWBG
+  $MAGENTABG
+  $WHITEBG
+  $PINKBG
+  $PURPLEBG
+)
+
+function pretty_dir () {
+  local home=$HOME
+  [ -n "$HAS_READLINK" ] && home=$(readlink -f $home)
+  local path=${1//$home/'~'}
+  local dir=$(dirname $path | perl -pe 's,^[^~],,')
+  dir=${dir//\//\\[$SEP_FG\\]  \\[$PATHFG\\]}
+  printf "\[$PATHBG$PATHFG\] $(echo $dir)"
+  [ -n "$dir" ] && printf "\[$SEP_FG\]  "
+  printf "\[$CWD_FG\]$(basename $path) "
+}
+
+# note: unless the last portion of PS1 is a newline, then calling functions will have a
+# problem as described here:
+# http://stackoverflow.com/questions/6592077/bash-prompt-and-echoing-colors-inside-a-function
+function update_ps1 () {
+  # this function will build the PS1 string in-place as opposed to embedding bash
+  # functions in the string due craziness with escape sequences as mentioned in the
+  # stackoverflow link above
+  local err=$?
+
+  # only generate a hash color for non-local machines
+  local host_color=$ORANGEBG
+  if [[ "$(hostname)" != "laptop.local" ]]; then
+    # generate a hash from the hostname
+    local host_hash="$(hostname | $MD5)"
+
+    # convert into a positive integer
+    local host_number=$(( 0x${host_hash:4:6} % ${#COLORS[@]} ))
+    [[ $host_number -lt 0 ]] && host_number=$(( -$host_number ))
+
+    host_color=${COLORS[$host_number]}
   fi
 
-  MAGENTA=$(tput setaf 9)
-  GREEN=$(tput setaf 190)
-  PURPLE=$(tput setaf 5)
-  WHITE=$(tput setaf 240)
-  BLACK=$(tput setaf 0)
-  BOLD=$(tput bold)
-  RESET=$(tput sgr0)
+  # note: these strings are chained from background color to foreground color so make
+  # sure to check when rearranging
+  local host="\[$(tput setab $host_color)\]\[$BOLD$BLACK\] $(hostname -s) \[$RESET\]"
+  local dir="\[$(tput setaf $host_color)$PATHBG\]$(pretty_dir $PWD)\[$PATHBGFG\]"
 
-  # raw color numbers for hostname background and foreground
-  PURPLEBG=5
-  MAGENTABG=9
-  ORANGEBG=172
-  YELLOWBG=214
-  PINKBG=216
-  WHITEBG=230
-
-  PATHBG=$(tput setab 237)      # dark grey
-  PATHBGFG=$(tput setaf 237)
-  PATHFG=$(tput setaf 250)      # light grey
-  CWD_FG=$(tput setaf 254)      # nearly-white grey
-  SEP_FG=$(tput setaf 244)
-
-  CLEAN_BG=$(tput setab 148)    # a light green color
-  CLEAN_FG=$BLACK
-  DIRTY_BG=$(tput setab 161)    # pink/red
-  DIRTY_FG=$(tput setaf 15)     # white
-
-  PASSBG=$(tput setab 236)
-  PASSFG=$(tput setaf 15)
-  FAILBG=$(tput setab 161)
-  FAILFG=$(tput setaf 15)
-
-  HAS_READLINK=$(which readlink 2>/dev/null)
-  HAS_CHG=$(which chg 2>/dev/null)
-  HAS_MD5SUM=$(which md5sum 2>/dev/null)
-
-  MD5="md5"
-  [ -n "$HAS_MD5SUM" ] && MD5="md5sum"
-
-  COLORS=(
-    $PURPLEBG
-    $PINKBG
-    $WHITEBG
-    $YELLOWBG
-    $MAGENTABG
-    $YELLOWBG
-    $MAGENTABG
-    $WHITEBG
-    $PINKBG
-    $PURPLEBG
-  )
-
-  function pretty_dir () {
-    local home=$HOME
-    [ -n "$HAS_READLINK" ] && home=$(readlink -f $home)
-    local path=${1//$home/'~'}
-    local dir=$(dirname $path | perl -pe 's,^[^~],,')
-    dir=${dir//\//\\[$SEP_FG\\]  \\[$PATHFG\\]}
-    printf "\[$PATHBG$PATHFG\] $(echo $dir)"
-    [ -n "$dir" ] && printf "\[$SEP_FG\]  "
-    printf "\[$CWD_FG\]$(basename $path) "
-  }
-
-  # note: unless the last portion of PS1 is a newline, then calling functions will have a
-  # problem as described here:
-  # http://stackoverflow.com/questions/6592077/bash-prompt-and-echoing-colors-inside-a-function
-  function update_ps1 () {
-    # this function will build the PS1 string in-place as opposed to embedding bash
-    # functions in the string due craziness with escape sequences as mentioned in the
-    # stackoverflow link above
-    local err=$?
-
-    # only generate a hash color for non-local machines
-    local host_color=$ORANGEBG
-    if [[ "$(hostname)" != "laptop.local" ]]; then
-      # generate a hash from the hostname
-      local host_hash="$(hostname | $MD5)"
-
-      # convert into a positive integer
-      local host_number=$(( 0x${host_hash:4:6} % ${#COLORS[@]} ))
-      [[ $host_number -lt 0 ]] && host_number=$(( -$host_number ))
-
-      host_color=${COLORS[$host_number]}
-    fi
-
-    # note: these strings are chained from background color to foreground color so make
-    # sure to check when rearranging
-    local host="\[$(tput setab $host_color)\]\[$BOLD$BLACK\] $(hostname -s) \[$RESET\]"
-    local dir="\[$(tput setaf $host_color)$PATHBG\]$(pretty_dir $PWD)\[$PATHBGFG\]"
-
-    local bg=$CLEAN_BG
-    local fg=$CLEAN_FG
-    local repo=""
-    local br="$(git branch --no-color 2> /dev/null | grep \* | perl -pe 's,^[*] ,,')"
-    local st=""
-    local remote=""
-    if [ -n "$br" ]; then
-      st="$(git status 2> /dev/null)"
-      remote="$(echo "$st" | perl -lne 'print " $2$1" if /Your branch is (ahead|behind).*?(\d+) comm/' | perl -pe 's,behind,⇣,' | perl -pe 's,ahead,⇡,')"
-      st="$(echo "$st" | tail -1 | grep -v 'nothing to commit')"
-      repo="$br$remote"
-    else
-      br="$(fast-hg-bookmark 2> /dev/null)"
-      if [ -n "$br" ]; then
-        if [ -n "$HAS_CHG" ]; then
-          st="$(chg status 2> /dev/null)"
-        else
-          st="$(fast-hg-status 2> /dev/null)"
-        fi
-        remote="$(fast-hg-remote | grep -v '+ 0' | egrep '^(\+|-)' | perl -pe 's,-\s?(\d+), \1⇣,' | perl -pe 's,\+\s?(\d+), \1⇡,')"
-      fi
-    fi
+  local bg=$CLEAN_BG
+  local fg=$CLEAN_FG
+  local repo=""
+  local br="$(git branch --no-color 2> /dev/null | grep \* | perl -pe 's,^[*] ,,')"
+  local st=""
+  local remote=""
+  if [ -n "$br" ]; then
+    st="$(git status 2> /dev/null)"
+    remote="$(echo "$st" | perl -lne 'print " $2$1" if /Your branch is (ahead|behind).*?(\d+) comm/' | perl -pe 's,behind,⇣,' | perl -pe 's,ahead,⇡,')"
+    st="$(echo "$st" | tail -1 | grep -v 'nothing to commit')"
     repo="$br$remote"
-
+  else
+    br="$(fast-hg-bookmark 2> /dev/null)"
     if [ -n "$br" ]; then
-      [ -n "$st" ] && bg=$DIRTY_BG && fg=$DIRTY_FG
-      repo="\[$bg$PATHBGFG\]\[$fg\] $repo "
+      if [ -n "$HAS_CHG" ]; then
+        st="$(chg status 2> /dev/null)"
+      else
+        st="$(fast-hg-status 2> /dev/null)"
+      fi
+      remote="$(fast-hg-remote | grep -v '+ 0' | egrep '^(\+|-)' | perl -pe 's,-\s?(\d+), \1⇣,' | perl -pe 's,\+\s?(\d+), \1⇡,')"
     fi
+  fi
+  repo="$br$remote"
 
-    local oldbg=$bg
-    bg=$PASSBG
-    fg=$PASSFG
-    if [ $err -ne 0 ]; then
-      bg=$FAILBG
-      fg=$FAILFG
-    fi
+  if [ -n "$br" ]; then
+    [ -n "$st" ] && bg=$DIRTY_BG && fg=$DIRTY_FG
+    repo="\[$bg$PATHBGFG\]\[$fg\] $repo "
+  fi
 
-    # repo is empty so just match the path background and foreground
-    if [ -z "$repo" ]; then
-      repo="\[$bg${oldbg//48;/38;}$PATHBGFG\]"
-    else
-      repo="$repo\[$bg${oldbg//48;/38;}\]"
-    fi
+  local oldbg=$bg
+  bg=$PASSBG
+  fg=$PASSFG
+  if [ $err -ne 0 ]; then
+    bg=$FAILBG
+    fg=$FAILFG
+  fi
 
-    # display previous bg color as fg color for arrow and new fg color for '$'
-    local prompt="\[$bg$fg\] \$ "
-    # the end cap which clears the background color and puts an arrow in the fg color of
-    # the previous bg color
-    oldbg=$bg
-    local end="\[$RESET\]\[${oldbg//48;/38;}\]"
+  # repo is empty so just match the path background and foreground
+  if [ -z "$repo" ]; then
+    repo="\[$bg${oldbg//48;/38;}$PATHBGFG\]"
+  else
+    repo="$repo\[$bg${oldbg//48;/38;}\]"
+  fi
 
-    export PS1="$host$dir$repo$prompt$end\[$RESET\]"
-  }
+  # display previous bg color as fg color for arrow and new fg color for '$'
+  local prompt="\[$bg$fg\] \$ "
+  # the end cap which clears the background color and puts an arrow in the fg color of
+  # the previous bg color
+  oldbg=$bg
+  local end="\[$RESET\]\[${oldbg//48;/38;}\]"
 
-  export PROMPT_COMMAND="update_ps1"
+  export PS1="$host$dir$repo$prompt$end\[$RESET\]"
+}
 
-fi
+export PROMPT_COMMAND="update_ps1"
