@@ -51,7 +51,6 @@ PASSFG=$(tput setaf 15)
 FAILBG=$(tput setab 161)
 FAILFG=$(tput setaf 15)
 
-HAS_READLINK=$(which readlink 2>/dev/null)
 HAS_CHG=$(which chg 2>/dev/null)
 HAS_MD5SUM=$(which md5sum 2>/dev/null)
 
