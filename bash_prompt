@@ -123,7 +123,7 @@ function update_ps1 () {
 
   # only generate a hash color for non-local machines
   local host_color=$ORANGEBG
-  if [[ "$(hostname)" != "laptop.local" ]]; then
+  if [[ "$(hostname)" != laptop.* ]]; then
     # generate a hash from the hostname
     local host_hash="$(hostname | $MD5)"
 
