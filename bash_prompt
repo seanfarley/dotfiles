@@ -72,14 +72,45 @@ COLORS=(
 )
 
 function pretty_dir () {
-  local home=$HOME
-  [ -n "$HAS_READLINK" ] && home=$(readlink -f $home)
-  local path=${1//$home/'~'}
-  local dir=$(dirname $path | perl -pe 's,^[^~],,')
-  dir=${dir//\//\\[$SEP_FG\\]  \\[$PATHFG\\]}
-  printf "\[$PATHBG$PATHFG\] $(echo $dir)"
-  [ -n "$dir" ] && printf "\[$SEP_FG\]  "
-  printf "\[$CWD_FG\]$(basename $path) "
+  # decent default values
+  local max_len=27
+  local mask=" … "
+  local keep=2
+  local ret=""
+  local p=${PWD/#$HOME/"~"}
+
+  if (( ${#p} <= ${max_len} )); then
+    ret="$p"
+  else
+    local tmp=${path//\//}
+    local -i delims=$(( ${#p} - ${#tmp} ))
+
+    for (( dir=0; dir < ${keep}; dir++ )); do
+      (( ${dir} == ${delims} )) && break
+
+      local left="${p#*/}"
+      local name="${p:0:${#p} - ${#left}}"
+      p="${left}"
+      ret="${ret}${name%/}/"
+    done
+
+    if (( ${delims} <= ${keep} )); then
+      # no dirs between LP_PATH_KEEP leading dirs and current dir
+      ret="${ret}${p##*/}"
+    else
+      local base="${p##*/}"
+
+      p="${p:0:${#p} - ${#base}}"
+
+      [[ ${ret} != "/" ]] && ret="${ret%/}" # strip trailing slash
+
+      local -i len_left=$(( ${max_len} - ${#ret} - ${#base} - ${#mask} ))
+
+      ret="${ret}${mask}${p:${#p} - ${len_left}}${base}"
+    fi
+  fi
+
+  printf "${ret//\\/\\\\}"
 }
 
 # note: unless the last portion of PS1 is a newline, then calling functions will have a
@@ -107,7 +138,13 @@ function update_ps1 () {
   # note: these strings are chained from background color to foreground color so make
   # sure to check when rearranging
   local host="\[$(tput setab $host_color)\]\[$BOLD$BLACK\] $(hostname -s) \[$RESET\]"
-  local dir="\[$(tput setaf $host_color)$PATHBG\]$(pretty_dir $PWD)\[$PATHBGFG\]"
+
+  # creates a string with a shortened path
+  local dir="$(pretty_dir)"
+  # replace all the '/' with a fancy unicode separator
+  dir="${dir//\//\\[$SEP_FG\\]  \\[$PATHFG\\]}"
+  # hook into hostname color
+  dir="\[$(tput setaf $host_color)$PATHBG\]\[$PATHBG$PATHFG\] $dir \[$PATHBGFG\]"
 
   local bg=$CLEAN_BG
   local fg=$CLEAN_FG
