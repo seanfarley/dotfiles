@@ -6,6 +6,9 @@
 # https://gist.github.com/qrush/1595572
 # on the powerline-fontpatcher repo and settled on just using the y offset
 
+# Helper functions are borrowed from liquidprompt:
+# https://github.com/nojhan/liquidprompt
+
 # exit if we terminal can't do colors
 if [ ! -t 0 ] || [ "$TERM" == "dumb" ]; then
   return
