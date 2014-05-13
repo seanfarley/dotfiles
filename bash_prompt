@@ -261,8 +261,15 @@ function update_ps1 () {
     repo="$repo\[$bg${oldbg//48;/38;}\]"
   fi
 
+  # change the prompt mark depending on the repo type
+  local mark="\$"
+  case "$vcs_type" in
+    git) mark="±";;
+    hg) mark="☿";;
+  esac
+
   # display previous bg color as fg color for arrow and new fg color for '$'
-  local prompt="\[$bg$fg\] \$ "
+  local prompt="\[$bg$fg\] $mark "
   # the end cap which clears the background color and puts an arrow in the fg color of
   # the previous bg color
   oldbg=$bg
