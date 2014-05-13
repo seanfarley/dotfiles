@@ -223,30 +223,26 @@ function update_ps1 () {
   # variables and subprocesses
   local bg=$CLEAN_BG
   local fg=$CLEAN_FG
-  local repo=""
-  local br="$(git branch --no-color 2> /dev/null | grep \* | perl -pe 's,^[*] ,,')"
-  local st=""
-  local remote=""
-  if [ -n "$br" ]; then
-    st="$(git status 2> /dev/null)"
-    remote="$(echo "$st" | perl -lne 'print " $2$1" if /Your branch is (ahead|behind).*?(\d+) comm/' | perl -pe 's,behind,⇣,' | perl -pe 's,ahead,⇡,')"
-    st="$(echo "$st" | tail -1 | grep -v 'nothing to commit')"
-    repo="$br$remote"
-  else
-    br="$(fast-hg-bookmark 2> /dev/null)"
-    if [ -n "$br" ]; then
-      if [ -n "$HAS_CHG" ]; then
-        st="$(chg status 2> /dev/null)"
-      else
-        st="$(fast-hg-status 2> /dev/null)"
-      fi
-      remote="$(fast-hg-remote | grep -v '+ 0' | egrep '^(\+|-)' | perl -pe 's,-\s?(\d+), \1⇣,' | perl -pe 's,\+\s?(\d+), \1⇡,')"
-    fi
-  fi
-  repo="$br$remote"
+  local repo
+  local dirty
+  local vcs_type
 
-  if [ -n "$br" ]; then
-    [ -n "$st" ] && bg=$DIRTY_BG && fg=$DIRTY_FG
+  repo="$(_git_info)"
+  dirty=$?
+  vcs_type="git"
+  if [ -z "$repo" ]; then
+    repo="$(_hg_info)"
+    dirty="$?"
+    vcs_type="hg"
+    if [ -z "$repo" ]; then
+      dirty=0
+      vcs_type=""
+    fi # nothing
+  fi # hg
+
+  # if repo found, plug it into the powerline chain
+  if [ -n "$vcs_type" ]; then
+    [ $dirty -eq 1 ] && bg=$DIRTY_BG && fg=$DIRTY_FG
     repo="\[$bg$PATHBGFG\]\[$fg\] $repo "
   fi
 
