@@ -218,6 +218,9 @@ function update_ps1 () {
   # hook into hostname color
   dir="\[$(tput setaf $host_color)$PATHBG\]\[$PATHBG$PATHFG\] $dir \[$PATHBGFG\]"
 
+  # color repo depending on dirty working directory; must check here because we
+  # need to set vcs type, status, etc. and it's annoying to deal with global
+  # variables and subprocesses
   local bg=$CLEAN_BG
   local fg=$CLEAN_FG
   local repo=""
