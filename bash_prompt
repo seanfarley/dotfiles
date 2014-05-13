@@ -128,6 +128,22 @@ _lp_upwards_find()
     return 1
 }
 
+function _lp_git_branch() {
+  local gitdir
+  gitdir="$([ $(\git ls-files . 2>/dev/null | wc -l) -gt 0 ] && \git rev-parse --git-dir 2>/dev/null)"
+  [[ $? -ne 0 || ! $gitdir =~ (.*\/)?\.git.* ]] && return
+  local branch
+  # Recent versions of Git support the --short option for symbolic-ref, but
+  # not 1.7.9 (Ubuntu 12.04)
+  if branch="$(\git symbolic-ref -q HEAD)"; then
+    printf "${branch#refs/heads/}"
+  else
+    # In detached head state, use commit instead
+    # No escape needed
+    \git rev-parse --short -q HEAD
+  fi
+}
+
 # note: unless the last portion of PS1 is a newline, then calling functions will have a
 # problem as described here:
 # http://stackoverflow.com/questions/6592077/bash-prompt-and-echoing-colors-inside-a-function
