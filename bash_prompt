@@ -168,13 +168,13 @@ function _git_info() {
 function _hg_info() {
   _lp_upwards_find .hg || return -1
 
-  local br="$(fast-hg-bookmark 2> /dev/null)"
+  local br="$(fast-hg-bookmark 2>/dev/null)"
+  local st="$($HG status 2>/dev/null)"
   local remote
-  local st
 
+  [ "$(echo "$st" | grep -c '\(^\?\)')" != "0" ] && br="$br*"
   [ -n "$($HG shelve -l 2>/dev/null)" ] && br="$br+"
 
-  st="$($HG status 2> /dev/null)"
   remote="$(fast-hg-remote | grep -v '+ 0' | egrep '^(\+|-)' | perl -pe 's,-\s?(\d+), \1⇣,' | perl -pe 's,\+\s?(\d+), \1⇡,')"
 
   printf "$br$remote"
