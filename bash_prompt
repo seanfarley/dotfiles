@@ -172,11 +172,10 @@ function _hg_info() {
   local remote
   local st
 
-  if [ -n "$br" ]; then
-    [ -n "$($HG shelve -l 2>/dev/null)" ] && br="$br+"
-    st="$($HG status 2> /dev/null)"
-    remote="$(fast-hg-remote | grep -v '+ 0' | egrep '^(\+|-)' | perl -pe 's,-\s?(\d+), \1⇣,' | perl -pe 's,\+\s?(\d+), \1⇡,')"
-  fi
+  [ -n "$($HG shelve -l 2>/dev/null)" ] && br="$br+"
+
+  st="$($HG status 2> /dev/null)"
+  remote="$(fast-hg-remote | grep -v '+ 0' | egrep '^(\+|-)' | perl -pe 's,-\s?(\d+), \1⇣,' | perl -pe 's,\+\s?(\d+), \1⇡,')"
 
   printf "$br$remote"
 
