@@ -115,6 +115,19 @@ function pretty_dir () {
   printf "${ret//\\/\\\\}"
 }
 
+# Search upwards through a directory structure looking for a file/folder with
+# the given name.  Used to avoid invoking 'hg' and 'bzr'.
+_lp_upwards_find()
+{
+    local dir
+    dir="$PWD"
+    while [[ -n "$dir" ]]; do
+        [[ -d "$dir/$1" ]] && return 0
+        dir="${dir%/*}"
+    done
+    return 1
+}
+
 # note: unless the last portion of PS1 is a newline, then calling functions will have a
 # problem as described here:
 # http://stackoverflow.com/questions/6592077/bash-prompt-and-echoing-colors-inside-a-function
