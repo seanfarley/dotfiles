@@ -54,7 +54,8 @@ PASSFG=$(tput setaf 15)
 FAILBG=$(tput setab 161)
 FAILFG=$(tput setaf 15)
 
-HAS_CHG=$(which chg 2>/dev/null)
+HG="hg"
+[ -n "$(which chg 2>/dev/null)" ] && HG="chg"
 
 MD5="md5"
 [ -n "$(which md5sum 2>/dev/null)" ] && MD5="md5sum"
@@ -170,11 +171,7 @@ function _hg_info() {
   local st
 
   if [ -n "$br" ]; then
-    if [ -n "$HAS_CHG" ]; then
-      st="$(chg status 2> /dev/null)"
-    else
-      st="$(fast-hg-status 2> /dev/null)"
-    fi
+    st="$($HG status 2> /dev/null)"
     remote="$(fast-hg-remote | grep -v '+ 0' | egrep '^(\+|-)' | perl -pe 's,-\s?(\d+), \1⇣,' | perl -pe 's,\+\s?(\d+), \1⇡,')"
   fi
 
