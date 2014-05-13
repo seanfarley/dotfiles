@@ -55,10 +55,9 @@ FAILBG=$(tput setab 161)
 FAILFG=$(tput setaf 15)
 
 HAS_CHG=$(which chg 2>/dev/null)
-HAS_MD5SUM=$(which md5sum 2>/dev/null)
 
 MD5="md5"
-[ -n "$HAS_MD5SUM" ] && MD5="md5sum"
+[ -n "$(which md5sum 2>/dev/null)" ] && MD5="md5sum"
 
 COLORS=(
   $PURPLEBG
