@@ -251,7 +251,14 @@ function update_ps1 () {
 
   prompt="$prompt$(_chain "$(hostname -s)" $oldbg $bg $fg "\[$BOLD\]")"
 
-  # hook into hostname color
+  local jobs="$(_lp_jobcount_color)"
+  if [ -n "$jobs" ]; then
+    oldbg=$bg
+    bg=$MAGENTA
+    fg=$DARKBLUE
+    prompt="$prompt$(_chain "\[$BOLD\]$jobs" $oldbg $bg $fg)"
+  fi
+
   oldbg=$bg
   bg=$PATHBG
   fg=$PATHFG
