@@ -254,7 +254,7 @@ function update_ps1 () {
     fg=$CLEAN_FG
 
     [ $dirty -eq 1 ] && bg=$DIRTY_BG && fg=$DIRTY_FG
-    repo="\[$(tput setaf $oldbg)$(tput setab $bg)\]\[$(tput setaf $fg)\] $repo "
+    repo="$(_chain "$repo" $oldbg $bg $fg)"
   fi
 
   oldbg=$bg
