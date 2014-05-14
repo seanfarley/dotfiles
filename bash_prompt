@@ -221,7 +221,7 @@ function update_ps1 () {
     bg=${COLORS[$host_number]}
   fi
 
-  prompt="$prompt$(_chain $(hostname -s) $oldbg $bg $fg "\[$BOLD\]")"
+  prompt="$prompt$(_chain "$(hostname -s)" $oldbg $bg $fg "\[$BOLD\]")"
 
   # hook into hostname color
   oldbg=$bg
@@ -272,7 +272,7 @@ function update_ps1 () {
     hg) mark="☿";;
   esac
 
-  prompt="$prompt$(_chain $mark $oldbg $bg $fg)"
+  prompt="$prompt$(_chain "$mark" $oldbg $bg $fg)"
 
   # the end cap which clears the background color and puts an arrow in the fg color of
   # the previous bg color
