@@ -177,6 +177,14 @@ function _hg_info() {
   return 0
 }
 
+# adds a new powerline chain link
+# note: last argument is optional and represents the beginning separator
+# call as _chain("FOO" oldbg bg fg '>')
+function _chain() {
+  [ -z "$1" ] && return -1
+  printf "\[$(tput setaf $2)$(tput setab $3)\]${5:-} \[$(tput setaf $4)\]$1 \[$RESET\]"
+}
+
 # note: unless the last portion of PS1 is a newline, then calling functions will have a
 # problem as described here:
 # http://stackoverflow.com/questions/6592077/bash-prompt-and-echoing-colors-inside-a-function
