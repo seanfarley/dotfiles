@@ -22,21 +22,17 @@ if [ "$TERM" != "dumb" -a -x "$(which dircolors 2>/dev/null)" ]; then
   eval "$(dircolors -b ~/.dir_colors)"
 fi
 
-MAGENTA=$(tput setaf 9)
-GREEN=$(tput setaf 190)
-PURPLE=$(tput setaf 5)
-WHITE=$(tput setaf 240)
-BLACK=$(tput setaf 0)
-BOLD=$(tput bold)
 RESET=$(tput sgr0)
+BOLD=$(tput bold)
 
-# raw color numbers for hostname background and foreground
-PURPLEBG=5
-MAGENTABG=9
-ORANGEBG=172
-YELLOWBG=214
-PINKBG=216
-WHITEBG=230
+BLACK=0
+WHITE=240
+MAGENTA=9
+GREEN=190
+PURPLE=5
+ORANGE=172
+YELLOW=214
+PINK=216
 
 PATHBG=237                      # dark grey
 PATHFG=250                      # light grey
@@ -59,16 +55,16 @@ MD5="md5"
 [ -n "$(which md5sum 2>/dev/null)" ] && MD5="md5sum"
 
 COLORS=(
-  $PURPLEBG
-  $PINKBG
-  $WHITEBG
-  $YELLOWBG
-  $MAGENTABG
-  $YELLOWBG
-  $MAGENTABG
-  $WHITEBG
-  $PINKBG
-  $PURPLEBG
+  $PURPLE
+  $PINK
+  $WHITE
+  $YELLOW
+  $MAGENTA
+  $YELLOW
+  $MAGENTA
+  $WHITE
+  $PINK
+  $PURPLE
 )
 
 function pretty_dir () {
@@ -190,8 +186,19 @@ function update_ps1 () {
   # stackoverflow link above
   local err=$?
 
+  # keeping track of the current powerline color
+  local oldbg
+  local bg
+  local fg
+
+  # repo variables
+  local repo
+  local dirty
+  local vcs_type
+
   # only generate a hash color for non-local machines
-  local host_color=$ORANGEBG
+  bg=$ORANGE
+  fg=$BLACK
   if [[ "$(hostname)" != laptop.* ]]; then
     # generate a hash from the hostname
     local host_hash="$(hostname | $MD5)"
@@ -200,28 +207,23 @@ function update_ps1 () {
     local host_number=$(( 0x${host_hash:4:6} % ${#COLORS[@]} ))
     [[ $host_number -lt 0 ]] && host_number=$(( -$host_number ))
 
-    host_color=${COLORS[$host_number]}
+    bg=${COLORS[$host_number]}
   fi
 
   # note: these strings are chained from background color to foreground color so make
   # sure to check when rearranging
-  local host="\[$(tput setab $host_color)\]\[$BOLD$BLACK\] $(hostname -s) \[$RESET\]"
+  local host="\[$BOLD$(tput setab $bg)$(tput setaf $fg)\] $(hostname -s) \[$RESET\]"
+
+  # hook into hostname color
+  oldbg=$bg
+  bg=$PATHBG
+  fg=$PATHFG
 
   # creates a string with a shortened path
   local dir="$(pretty_dir)"
   # replace all the '/' with a fancy unicode separator
-  dir="${dir//\//\\[$(tput setaf $SEP_FG)\\]  \\[$(tput setaf $PATHFG)\\]}"
-  # hook into hostname color
-  dir="\[$(tput setaf $host_color)$(tput setab $PATHBG)\]\[$(tput setaf $PATHFG)\] $dir \[$(tput setaf $PATHBG)\]"
-
-  # color repo depending on dirty working directory; must check here because we
-  # need to set vcs type, status, etc. and it's annoying to deal with global
-  # variables and subprocesses
-  local bg=$CLEAN_BG
-  local fg=$CLEAN_FG
-  local repo
-  local dirty
-  local vcs_type
+  dir="${dir//\//\\[$(tput setaf $SEP_FG)\\]  \\[$(tput setaf $fg)\\]}"
+  dir="\[$(tput setaf $oldbg)$(tput setab $bg)\]\[$(tput setaf $fg)\] $dir "
 
   repo="$(_git_info)"
   dirty=$?
@@ -238,24 +240,23 @@ function update_ps1 () {
 
   # if repo found, plug it into the powerline chain
   if [ -n "$vcs_type" ]; then
+    # color repo depending on dirty working directory; must check here because we
+    # need to set vcs type, status, etc. and it's annoying to deal with global
+    # variables and subprocesses
+    oldbg=$bg
+    bg=$CLEAN_BG
+    fg=$CLEAN_FG
+
     [ $dirty -eq 1 ] && bg=$DIRTY_BG && fg=$DIRTY_FG
-    repo="\[$(tput setab $bg)$(tput setaf $PATHBG)\]\[$(tput setaf $fg)\] $repo "
+    repo="\[$(tput setaf $oldbg)$(tput setab $bg)\]\[$(tput setaf $fg)\] $repo "
   fi
 
-  local oldbg=$bg
+  oldbg=$bg
   bg=$PASSBG
   fg=$PASSFG
-  if [ $err -ne 0 ]; then
-    bg=$FAILBG
-    fg=$FAILFG
-  fi
+  [ $err -ne 0 ] && bg=$FAILBG && fg=$FAILFG
 
-  # repo is empty so just match the path background and foreground
-  if [ -z "$repo" ]; then
-    repo="\[$(tput setab $bg)$(tput setaf $oldbg)$(tput setaf $PATHBG)\]"
-  else
-    repo="$repo\[$(tput setab $bg)$(tput setaf $oldbg)\]"
-  fi
+  repo="$repo\[$(tput setab $bg)$(tput setaf $oldbg)\]"
 
   # change the prompt mark depending on the repo type
   local mark="\$"
