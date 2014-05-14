@@ -256,8 +256,6 @@ function update_ps1 () {
   fg=$PASSFG
   [ $err -ne 0 ] && bg=$FAILBG && fg=$FAILFG
 
-  repo="$repo\[$(tput setab $bg)$(tput setaf $oldbg)\]"
-
   # change the prompt mark depending on the repo type
   local mark="\$"
   case "$vcs_type" in
@@ -266,7 +264,7 @@ function update_ps1 () {
   esac
 
   # display previous bg color as fg color for arrow and new fg color for '$'
-  local prompt="\[$(tput setab $bg)$(tput setaf $fg)\] $mark "
+  local prompt="\[$(tput setaf $oldbg)$(tput setab $bg)\]\[$(tput setaf $fg)\] $mark "
   # the end cap which clears the background color and puts an arrow in the fg color of
   # the previous bg color
   local end="\[$RESET\]\[$(tput setaf $bg)\]"
