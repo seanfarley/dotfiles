@@ -218,9 +218,7 @@ function update_ps1 () {
     bg=${COLORS[$host_number]}
   fi
 
-  # note: these strings are chained from background color to foreground color so make
-  # sure to check when rearranging
-  local host="\[$(tput setaf $oldbg)$(tput setab $bg)\] \[$BOLD\]$(hostname -s) \[$RESET\]"
+  local host="$(_chain $(hostname -s) $oldbg $bg $fg "\[$BOLD\]")"
 
   # hook into hostname color
   oldbg=$bg
