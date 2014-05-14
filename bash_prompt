@@ -229,7 +229,7 @@ function update_ps1 () {
   local dir="$(pretty_dir)"
   # replace all the '/' with a fancy unicode separator
   dir="${dir//\//\\[$(tput setaf $SEP_FG)\\]  \\[$(tput setaf $fg)\\]}"
-  dir="\[$(tput setaf $oldbg)$(tput setab $bg)\]\[$(tput setaf $fg)\] $dir "
+  dir="$(_chain "$dir" $oldbg $bg $fg)"
 
   repo="$(_git_info)"
   dirty=$?
