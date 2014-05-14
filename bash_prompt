@@ -33,6 +33,7 @@ PURPLE=5
 ORANGE=172
 YELLOW=214
 PINK=216
+DARKBLUE=18
 
 PATHBG=237                      # dark grey
 PATHFG=250                      # light grey
