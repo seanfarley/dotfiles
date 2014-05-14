@@ -25,7 +25,7 @@ if [ -n "$PS1" ]; then
   shopt -s histappend
 
   # write history after a command has executed; not at the end of a session
-  [ -z "$PROMPT_COMMAND" ] || PROMPT_COMMAND="$PROMPT_COMMAND; history -a;"
+  export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
 
   # check the window size after each command and, if necessary,
   # update the values of LINES and COLUMNS.
