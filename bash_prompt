@@ -187,7 +187,7 @@ function update_ps1 () {
   local err=$?
 
   # keeping track of the current powerline color
-  local oldbg
+  local oldbg=0
   local bg
   local fg
 
@@ -212,7 +212,7 @@ function update_ps1 () {
 
   # note: these strings are chained from background color to foreground color so make
   # sure to check when rearranging
-  local host="\[$BOLD$(tput setab $bg)$(tput setaf $fg)\] $(hostname -s) \[$RESET\]"
+  local host="\[$(tput setaf $oldbg)$(tput setab $bg)\] \[$BOLD\]$(hostname -s) \[$RESET\]"
 
   # hook into hostname color
   oldbg=$bg
