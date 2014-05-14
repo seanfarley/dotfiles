@@ -204,6 +204,9 @@ function update_ps1 () {
   local dirty
   local vcs_type
 
+  # prompt variable to build
+  local prompt
+
   # only generate a hash color for non-local machines
   bg=$ORANGE
   fg=$BLACK
@@ -218,7 +221,7 @@ function update_ps1 () {
     bg=${COLORS[$host_number]}
   fi
 
-  local host="$(_chain $(hostname -s) $oldbg $bg $fg "\[$BOLD\]")"
+  prompt="$prompt$(_chain $(hostname -s) $oldbg $bg $fg "\[$BOLD\]")"
 
   # hook into hostname color
   oldbg=$bg
@@ -229,7 +232,7 @@ function update_ps1 () {
   local dir="$(pretty_dir)"
   # replace all the '/' with a fancy unicode separator
   dir="${dir//\//\\[$(tput setaf $SEP_FG)\\]  \\[$(tput setaf $fg)\\]}"
-  dir="$(_chain "$dir" $oldbg $bg $fg)"
+  prompt="$prompt$(_chain "$dir" $oldbg $bg $fg)"
 
   repo="$(_git_info)"
   dirty=$?
@@ -254,7 +257,7 @@ function update_ps1 () {
     fg=$CLEAN_FG
 
     [ $dirty -eq 1 ] && bg=$DIRTY_BG && fg=$DIRTY_FG
-    repo="$(_chain "$repo" $oldbg $bg $fg)"
+    prompt="$prompt$(_chain "$repo" $oldbg $bg $fg)"
   fi
 
   oldbg=$bg
@@ -269,13 +272,11 @@ function update_ps1 () {
     hg) mark="☿";;
   esac
 
-  # display previous bg color as fg color for arrow and new fg color for '$'
-  local prompt="$(_chain $mark $oldbg $bg $fg)"
+  prompt="$prompt$(_chain $mark $oldbg $bg $fg)"
+
   # the end cap which clears the background color and puts an arrow in the fg color of
   # the previous bg color
-  local end="\[$RESET\]\[$(tput setaf $bg)\]"
-
-  export PS1="$host$dir$repo$prompt$end\[$RESET\]"
+  export PS1="$prompt\[$RESET\]\[$(tput setaf $bg)\]\[$RESET\]"
 }
 
 export PROMPT_COMMAND="update_ps1"
