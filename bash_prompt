@@ -38,11 +38,9 @@ YELLOWBG=214
 PINKBG=216
 WHITEBG=230
 
-PATHBG=$(tput setab 237)        # dark grey
-PATHBGFG=$(tput setaf 237)
-PATHFG=$(tput setaf 250)        # light grey
-CWD_FG=$(tput setaf 254)        # nearly-white grey
-SEP_FG=$(tput setaf 244)
+PATHBG=237                      # dark grey
+PATHFG=250                      # light grey
+SEP_FG=244                      # nearly-white grey
 
 CLEAN_BG=148                    # a light green color
 CLEAN_FG=0                      # black
@@ -212,9 +210,9 @@ function update_ps1 () {
   # creates a string with a shortened path
   local dir="$(pretty_dir)"
   # replace all the '/' with a fancy unicode separator
-  dir="${dir//\//\\[$SEP_FG\\]  \\[$PATHFG\\]}"
+  dir="${dir//\//\\[$(tput setaf $SEP_FG)\\]  \\[$(tput setaf $PATHFG)\\]}"
   # hook into hostname color
-  dir="\[$(tput setaf $host_color)$PATHBG\]\[$PATHBG$PATHFG\] $dir \[$PATHBGFG\]"
+  dir="\[$(tput setaf $host_color)$(tput setab $PATHBG)\]\[$(tput setaf $PATHFG)\] $dir \[$(tput setaf $PATHBG)\]"
 
   # color repo depending on dirty working directory; must check here because we
   # need to set vcs type, status, etc. and it's annoying to deal with global
@@ -241,7 +239,7 @@ function update_ps1 () {
   # if repo found, plug it into the powerline chain
   if [ -n "$vcs_type" ]; then
     [ $dirty -eq 1 ] && bg=$DIRTY_BG && fg=$DIRTY_FG
-    repo="\[$(tput setab $bg)$PATHBGFG\]\[$(tput setaf $fg)\] $repo "
+    repo="\[$(tput setab $bg)$(tput setaf $PATHBG)\]\[$(tput setaf $fg)\] $repo "
   fi
 
   local oldbg=$bg
@@ -254,7 +252,7 @@ function update_ps1 () {
 
   # repo is empty so just match the path background and foreground
   if [ -z "$repo" ]; then
-    repo="\[$(tput setab $bg)$(tput setaf $oldbg)$PATHBGFG\]"
+    repo="\[$(tput setab $bg)$(tput setaf $oldbg)$(tput setaf $PATHBG)\]"
   else
     repo="$repo\[$(tput setab $bg)$(tput setaf $oldbg)\]"
   fi
