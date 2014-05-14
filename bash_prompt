@@ -259,14 +259,14 @@ function update_ps1 () {
     prompt="$prompt$(_chain "\[$BOLD\]$jobs" $oldbg $bg $fg)"
   fi
 
-  oldbg=$bg
-  bg=$PATHBG
-  fg=$PATHFG
-
   # creates a string with a shortened path
   local dir="$(pretty_dir)"
   # replace all the '/' with a fancy unicode separator
   dir="${dir//\//\\[$(tput setaf $SEP_FG)\\]  \\[$(tput setaf $fg)\\]}"
+
+  oldbg=$bg
+  bg=$PATHBG
+  fg=$PATHFG
   prompt="$prompt$(_chain "$dir" $oldbg $bg $fg)"
 
   repo="$(_git_info)"
