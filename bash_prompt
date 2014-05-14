@@ -178,6 +178,33 @@ function _hg_info() {
   return 0
 }
 
+################
+# Related jobs #
+################
+
+# Display the count of each if non-zero:
+# - detached screens sessions and/or tmux sessions running on the host
+# - attached running jobs (started with $ myjob &)
+# - attached stopped jobs (suspended with Ctrl-Z)
+_lp_jobcount_color()
+{
+    local running=$(( $(jobs -r | wc -l) ))
+    local stopped=$(( $(jobs -s | wc -l) ))
+    local m_stop="z"
+    local m_run="&"
+    local ret=""
+
+    if [[ $running != "0" ]] ; then
+        ret="${ret}${running}${m_run}"
+    fi
+
+    if [[ $stopped != "0" ]] ; then
+        ret="${ret}${stopped}${m_stop}"
+    fi
+
+    printf "$ret"
+}
+
 # adds a new powerline chain link
 # note: last argument is optional and represents the beginning separator
 # call as _chain("FOO" oldbg bg fg '>')
