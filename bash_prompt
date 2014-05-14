@@ -270,7 +270,7 @@ function update_ps1 () {
   esac
 
   # display previous bg color as fg color for arrow and new fg color for '$'
-  local prompt="\[$(tput setaf $oldbg)$(tput setab $bg)\]\[$(tput setaf $fg)\] $mark "
+  local prompt="$(_chain $mark $oldbg $bg $fg)"
   # the end cap which clears the background color and puts an arrow in the fg color of
   # the previous bg color
   local end="\[$RESET\]\[$(tput setaf $bg)\]"
