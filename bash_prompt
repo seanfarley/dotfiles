@@ -38,21 +38,21 @@ YELLOWBG=214
 PINKBG=216
 WHITEBG=230
 
-PATHBG=$(tput setab 237)      # dark grey
+PATHBG=$(tput setab 237)        # dark grey
 PATHBGFG=$(tput setaf 237)
-PATHFG=$(tput setaf 250)      # light grey
-CWD_FG=$(tput setaf 254)      # nearly-white grey
+PATHFG=$(tput setaf 250)        # light grey
+CWD_FG=$(tput setaf 254)        # nearly-white grey
 SEP_FG=$(tput setaf 244)
 
-CLEAN_BG=$(tput setab 148)    # a light green color
-CLEAN_FG=$BLACK
-DIRTY_BG=$(tput setab 161)    # pink/red
-DIRTY_FG=$(tput setaf 15)     # white
+CLEAN_BG=148                    # a light green color
+CLEAN_FG=0                      # black
+DIRTY_BG=161                    # pink/red
+DIRTY_FG=15                     # white
 
-PASSBG=$(tput setab 236)
-PASSFG=$(tput setaf 15)
-FAILBG=$(tput setab 161)
-FAILFG=$(tput setaf 15)
+PASSBG=236                      # dary grey
+PASSFG=15                       # white-ish
+FAILBG=161                      # pink/red
+FAILFG=15                       # white-ish
 
 HG="hg"
 [ -n "$(which chg 2>/dev/null)" ] && HG="chg"
@@ -241,7 +241,7 @@ function update_ps1 () {
   # if repo found, plug it into the powerline chain
   if [ -n "$vcs_type" ]; then
     [ $dirty -eq 1 ] && bg=$DIRTY_BG && fg=$DIRTY_FG
-    repo="\[$bg$PATHBGFG\]\[$fg\] $repo "
+    repo="\[$(tput setab $bg)$PATHBGFG\]\[$(tput setaf $fg)\] $repo "
   fi
 
   local oldbg=$bg
@@ -254,9 +254,9 @@ function update_ps1 () {
 
   # repo is empty so just match the path background and foreground
   if [ -z "$repo" ]; then
-    repo="\[$bg${oldbg//48;/38;}$PATHBGFG\]"
+    repo="\[$(tput setab $bg)$(tput setaf $oldbg)$PATHBGFG\]"
   else
-    repo="$repo\[$bg${oldbg//48;/38;}\]"
+    repo="$repo\[$(tput setab $bg)$(tput setaf $oldbg)\]"
   fi
 
   # change the prompt mark depending on the repo type
@@ -267,11 +267,10 @@ function update_ps1 () {
   esac
 
   # display previous bg color as fg color for arrow and new fg color for '$'
-  local prompt="\[$bg$fg\] $mark "
+  local prompt="\[$(tput setab $bg)$(tput setaf $fg)\] $mark "
   # the end cap which clears the background color and puts an arrow in the fg color of
   # the previous bg color
-  oldbg=$bg
-  local end="\[$RESET\]\[${oldbg//48;/38;}\]"
+  local end="\[$RESET\]\[$(tput setaf $bg)\]"
 
   export PS1="$host$dir$repo$prompt$end\[$RESET\]"
 }
