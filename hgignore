@@ -46,6 +46,7 @@ syntax:glob
 *.spl
 *.hi
 *.sqlite
+venv
 
 .rope*
 output_*
