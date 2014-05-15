@@ -117,7 +117,7 @@ _lp_upwards_find()
     local dir
     dir="$PWD"
     while [[ -n "$dir" ]]; do
-        [[ -d "$dir/$1" ]] && return 0
+        [[ -d "$dir/$1" ]] && printf "$dir" && return 0
         dir="${dir%/*}"
     done
     return 1
@@ -141,8 +141,6 @@ function _lp_git_branch() {
 
 # return 0 or 1 for dirty working directory
 function _git_info() {
-  _lp_upwards_find .git || return -1
-
   local br="$(_lp_git_branch)"
   local remote
   local st
@@ -161,8 +159,6 @@ function _git_info() {
 
 # return 0 or 1 for dirty working directory
 function _hg_info() {
-  _lp_upwards_find .hg || return -1
-
   local br="$(fast-hg-bookmark 2>/dev/null)"
   local st="$($HG status 2>/dev/null)"
   local remote
@@ -229,6 +225,7 @@ function update_ps1 () {
 
   # repo variables
   local repo
+  local repo_dir
   local dirty
   local vcs_type
 
@@ -270,18 +267,23 @@ function update_ps1 () {
   dir="${dir//\//\\[$(tput setaf $SEP_FG)\\]  \\[$(tput setaf $fg)\\]}"
   prompt="$prompt$(_chain "$dir" $oldbg $bg $fg)"
 
-  repo="$(_git_info)"
-  dirty=$?
-  vcs_type="git"
-  if [ -z "$repo" ]; then
+  # search for each repo type
+  repo_dir=$(_lp_upwards_find .hg)
+  if [ -n "$repo_dir" ]; then
     repo="$(_hg_info)"
     dirty="$?"
     vcs_type="hg"
-    if [ -z "$repo" ]; then
+  else
+    repo_dir=$(_lp_upwards_find .git)
+    if [ -n "$repo_dir" ]; then
+      repo="$(_git_info)"
+      dirty=$?
+      vcs_type="git"
+    else
       dirty=0
       vcs_type=""
     fi # nothing
-  fi # hg
+  fi # git
 
   # if repo found, plug it into the powerline chain
   if [ -n "$vcs_type" ]; then
