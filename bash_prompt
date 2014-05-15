@@ -273,6 +273,8 @@ function update_ps1 () {
     repo="$(_hg_info)"
     dirty="$?"
     vcs_type="hg"
+    [ -f "$repo_dir/.hg/svn/uuid" ] && vcs_type="hg-svn"
+    [ -f "$repo_dir/.hg/git-mapfile" ] && vcs_type="hg-git"
   else
     repo_dir=$(_lp_upwards_find .git)
     if [ -n "$repo_dir" ]; then
@@ -308,6 +310,8 @@ function update_ps1 () {
   case "$vcs_type" in
     git) mark="±";;
     hg) mark="☿";;
+    hg-svn) mark="☿⟆";;
+    hg-git) mark="☿±";;
   esac
 
   prompt="$prompt$(_chain "$mark" $oldbg $bg $fg)"
