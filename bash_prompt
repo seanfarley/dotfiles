@@ -300,6 +300,13 @@ function update_ps1 () {
     prompt="$prompt$(_chain "$repo" $oldbg $bg $fg)"
   fi
 
+  if [ -n "$VIRTUAL_ENV" ]; then
+    oldbg=$bg
+    bg=4
+    fg=17
+    prompt="$prompt$(_chain "${VIRTUAL_ENV##*/}" $oldbg $bg $fg)"
+  fi
+
   oldbg=$bg
   bg=$PASSBG
   fg=$PASSFG
