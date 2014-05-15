@@ -28,7 +28,6 @@ strip =
 shelve =
 # Third-party extensions
 debugshell = ~/.debugshell.py
-hggit =
 hgsubversion =
 mercurial_keyring =
 hgwatchman =
