@@ -278,6 +278,9 @@ function update_ps1 () {
     vcs_type="hg"
     [ -f "$repo_dir/.hg/svn/uuid" ] && vcs_type="hg-svn"
     [ -f "$repo_dir/.hg/git-mapfile" ] && vcs_type="hg-git"
+    if [ -f "$repo_dir/.hg/histedit-state" ]; then
+      vcs_extra="histedit: $(python -c "import cPickle as pickle; fp=open('$repo_dir/.hg/histedit-state'); print(len(pickle.load(fp)[1]))")"
+    fi
   else
     repo_dir=$(_lp_upwards_find .git)
     if [ -n "$repo_dir" ]; then
