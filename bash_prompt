@@ -230,6 +230,7 @@ function update_ps1 () {
   local repo_dir
   local dirty
   local vcs_type
+  local vcs_extra
 
   # prompt variable to build
   local prompt
@@ -300,6 +301,13 @@ function update_ps1 () {
 
     [ $dirty -eq 1 ] && bg=$DIRTY_BG && fg=$DIRTY_FG
     prompt="$prompt$(_chain "$repo" $oldbg $bg $fg)"
+
+    if [ -n "$vcs_extra" ]; then
+      oldbg=$bg
+      bg=8
+      fg=$DIRTY_FG
+      prompt="$prompt$(_chain "$vcs_extra" $oldbg $bg $fg)"
+    fi
   fi
 
   if [ -n "$VIRTUAL_ENV" ]; then
