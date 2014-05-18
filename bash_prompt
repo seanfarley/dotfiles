@@ -163,6 +163,8 @@ function _hg_info() {
   local st="$($HG status 2>/dev/null)"
   local remote
 
+  [ -z "$br" ] && br="default"
+
   [ "$(echo "$st" | grep -c '\(^\?\)')" != "0" ] && br="$br*"
   [ -n "$($HG shelve -l 2>/dev/null)" ] && br="$br+"
 
