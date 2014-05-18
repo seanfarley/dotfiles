@@ -286,6 +286,8 @@ function update_ps1 () {
       vcs_extra="rebase"
     elif [ -f "$repo_dir/.hg/bisect.state" ]; then
       vcs_extra="bisect"
+    elif [ -f "$repo_dir/.hg/merge/state" ]; then
+      vcs_extra="merge"
     fi
   else
     repo_dir=$(_lp_upwards_find .git)
