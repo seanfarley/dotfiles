@@ -134,6 +134,7 @@ if [[ $PACKAGES == *watch* ]]; then
 fi
 
 if [[ $PACKAGES == *ring* ]]; then
+  install python https://bitbucket.org/kang/python-keyring-lib
   install python https://bitbucket.org/Mekk/mercurial_keyring
 fi
 
