@@ -261,6 +261,8 @@ function update_ps1 () {
 
   # creates a string with a shortened path
   local dir="$(pretty_dir)"
+  # if the first character is '/' remove that
+  [[ "${dir:0:1}" == "/" ]] && dir="${dir:1:${#dir}-1}"
   # replace all the '/' with a fancy unicode separator
 
   oldbg=$bg
