@@ -269,7 +269,8 @@ function update_ps1 () {
   bg=$PATHBG
   fg=$PATHFG
   [ -w "$PWD" ] || fg=$FAILBG
-  dir="${dir//\//\\[$(tput setaf $SEP_FG)\\]  \\[$(tput setaf $fg)\\]}"
+  dir="$(echo $dir | perl -pe 's,/,  ,g')"
+  dir="${dir//  /\\[$(tput setaf $SEP_FG)\\]  \\[$(tput setaf $fg)\\]}"
   prompt="$prompt$(_chain "$dir" $oldbg $bg $fg)"
 
   # search for each repo type
