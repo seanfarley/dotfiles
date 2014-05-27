@@ -142,13 +142,13 @@ changeset.secret = red bold
 # equivalent to the qdiff command for mq
 
 # diff
-pdiff=diff --rev .^
+pdiff = diff --rev .^
 
 # status
-pstatus=status --rev .^
+pstatus = status --rev .^
 
 # diff with the previous amend
-odiff=diff --rev 'limit(precursors(.),1)' --rev .
+odiff = diff --rev 'limit(precursors(.),1)' --rev .
 
 he = histedit
 l = log --pager=always
