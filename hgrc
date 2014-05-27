@@ -149,6 +149,7 @@ pstatus = status --rev .^
 
 # diff with the previous amend
 odiff = diff --rev 'limit(precursors(.),1)' --rev .
+n = !$HG next || $HG evolve; $HG show .
 
 he = histedit
 l = log --pager=always
