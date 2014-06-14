@@ -212,11 +212,6 @@
 (autoload 'd-mode "d-mode" "Major mode for editing D code." t)
 (add-to-list 'auto-mode-alist '("\\.d[i]?\\'" . d-mode))
 
-; dash-mode
-(autoload 'dash-at-point "dash-at-point"
-          "Search the word at point with Dash." t nil)
-(global-set-key "\C-cd" 'dash-at-point)
-
 ;; powerline
 (require 'powerline)
 (powerline-default-theme)
