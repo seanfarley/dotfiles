@@ -157,7 +157,7 @@ p = pull -u
 pr = pull --rebase
 
 # by default, don't prompt for cc
-email = email --cc ''
+email = email --confirm --cc ''
 
 # Nudge: just push the current branch.
 nudge = push -r .
