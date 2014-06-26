@@ -417,3 +417,7 @@ emacs-pull-plugins() {
     done
   done
 }
+
+mpsearch() {
+  csearch -f Portfile "$@" | less
+}
