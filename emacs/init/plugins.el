@@ -215,3 +215,5 @@
 ;; powerline
 (require 'powerline)
 (powerline-default-theme)
+
+(add-hook 'prog-mode-hook 'linum-mode)
