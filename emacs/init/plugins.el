@@ -225,3 +225,13 @@
           (lambda ()
             (when (featurep 'filladapt)
               (c-setup-filladapt))))
+
+;; breadcrumb
+(require 'breadcrumb)
+(global-set-key [(hyper /)]              'bc-set)
+(global-set-key [(meta j)]               'bc-previous)
+(global-set-key [(shift meta j)]         'bc-next)
+(global-set-key [(meta up)]              'bc-local-previous)
+(global-set-key [(meta down)]            'bc-local-next)
+(global-set-key [(control c)(j)]         'bc-goto-current)
+(global-set-key [(control x)(control j)] 'bc-list)
