@@ -13,7 +13,6 @@
 
 ;; cmd-backspace delete to beginning of line (by default, you can do
 ;; this is emacs with C-0 C-k)
-(global-set-key [s-backspace] '(lambda () (interactive) (kill-line 0)))
 (global-set-key [H-backspace] [?\C-  ?\C-a backspace])
 
 (global-set-key (kbd "C-H-f") 'toggle-fullscreen)
