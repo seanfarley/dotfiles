@@ -168,7 +168,7 @@ function _hg_info() {
   [ "$(echo "$st" | grep -c '\(^\?\)')" != "0" ] && br="$br*"
   [ -n "$($HG shelve -l 2>/dev/null)" ] && br="$br+"
 
-  remote="$(fast-hg-remote | grep -v '+ 0' | egrep '^(\+|-)' | perl -pe 's,-\s?(\d+), \1⇣,' | perl -pe 's,\+\s?(\d+), \1⇡,')"
+  # remote="$(fast-hg-remote | grep -v '+ 0' | egrep '^(\+|-)' | perl -pe 's,-\s?(\d+), \1⇣,' | perl -pe 's,\+\s?(\d+), \1⇡,')"
 
   printf "$br$remote"
 
