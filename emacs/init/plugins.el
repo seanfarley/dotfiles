@@ -253,3 +253,8 @@
 
 (require 'ido-vertical-mode)
 (ido-vertical-mode t)
+
+;; smart modeline
+(require 'smart-mode-line)
+(sml/apply-theme 'respectful)
+(sml/setup)
