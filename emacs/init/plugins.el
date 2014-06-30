@@ -247,3 +247,6 @@
 ;; projectile
 (require 'projectile)
 (projectile-global-mode)
+
+;; ack-and-a-half
+(require 'ack-and-a-half)
