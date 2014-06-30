@@ -241,6 +241,7 @@
 (add-hook 'prog-mode-hook 'hideshowvis-enable)
 
 ;; projectile
+(require 'recentf)
 (require 'projectile)
 (projectile-global-mode)
 
