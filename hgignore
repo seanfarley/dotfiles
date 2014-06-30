@@ -58,6 +58,7 @@ arch-*
 .DS_*
 backup*
 tags-*
+projectile-bookmarks.eld
 
 tags
 GTAGS
