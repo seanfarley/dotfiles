@@ -40,10 +40,8 @@
 
 ; Load ido
 (require 'ido)
-(require 'ido-ubiquitous)
 (require 'ido-yes-or-no)
 (ido-mode t)
-(ido-ubiquitous t)
 (ido-yes-or-no-mode t)
 
 ; Enable ido
@@ -255,3 +253,8 @@
 (require 'smart-mode-line)
 (sml/apply-theme 'respectful)
 (sml/setup)
+
+;; ido-ubiquitous
+(require 'ido-ubiquitous)
+(setq ido-ubiquitous-command-overrides 'enable-old)
+(ido-ubiquitous t)
