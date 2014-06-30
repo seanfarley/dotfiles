@@ -235,3 +235,11 @@
 (global-set-key [(meta down)]            'bc-local-next)
 (global-set-key [(control c)(j)]         'bc-goto-current)
 (global-set-key [(control x)(control j)] 'bc-list)
+
+;; hide-show visual markers
+(autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions")
+(autoload 'hideshowvis-minor-mode
+  "hideshowvis"
+  "Will indicate regions foldable with hideshow in the fringe."
+  'interactive)
+(add-hook 'prog-mode-hook 'hideshowvis-enable)
