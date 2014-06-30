@@ -243,3 +243,7 @@
   "Will indicate regions foldable with hideshow in the fringe."
   'interactive)
 (add-hook 'prog-mode-hook 'hideshowvis-enable)
+
+;; projectile
+(require 'projectile)
+(projectile-global-mode)
