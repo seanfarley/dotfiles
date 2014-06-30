@@ -212,10 +212,6 @@
 (autoload 'd-mode "d-mode" "Major mode for editing D code." t)
 (add-to-list 'auto-mode-alist '("\\.d[i]?\\'" . d-mode))
 
-;; powerline
-(require 'powerline)
-(powerline-default-theme)
-
 (add-hook 'prog-mode-hook 'linum-mode)
 
 ;; filladap
