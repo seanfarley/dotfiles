@@ -159,10 +159,13 @@ function _git_info() {
 
 # return 0 or 1 for dirty working directory
 function _hg_info() {
-  local br="$(fast-hg-bookmark 2>/dev/null)"
+  local repo_dir="$1"
+  local br="$(less $repo_dir/.hg/bookmarks.current 2>/dev/null)"
   local st="$($HG status 2>/dev/null)"
   local remote
 
+  # fallback to branch name if bookmark isn't active
+  [ -z "$br" ] && br="$(less $repo_dir/branch 2>/dev/null)"
   [ -z "$br" ] && br="default"
 
   [ "$(echo "$st" | grep -c '\(^\?\)')" != "0" ] && br="$br*"
@@ -276,7 +279,7 @@ function update_ps1 () {
   # search for each repo type
   repo_dir=$(_lp_upwards_find .hg)
   if [ -n "$repo_dir" ]; then
-    repo="$(_hg_info)"
+    repo="$(_hg_info $repo_dir)"
     dirty="$?"
     vcs_type="hg"
     [ -f "$repo_dir/.hg/svn/uuid" ] && vcs_type="hg-svn"
