@@ -251,6 +251,9 @@
 
 ;; smart modeline
 (require 'smart-mode-line)
+
+(setq sml/hidden-modes " \\(Projectile.*\\|hs\\|yas\\|Undo-Tree\\|Fly\\|Filladapt\\|WLR\\|AC\\|WS\\|MML\\)")
+
 (sml/apply-theme 'respectful)
 (sml/setup)
 
