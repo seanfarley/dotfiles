@@ -60,18 +60,19 @@
           (lambda (server nick)
             (add-hook 'erc-server-NOTICE-hook 'erc-auto-query)))
 
-(defun erc-start-or-switch ()
-  "Connect to ERC, or switch to last active buffer"
+(defun erc-start-or-switch (channel)
+  "Connect to ERC, or switch to given channel"
   (interactive)
   (if (get-buffer "*irc-freenode*") ;; ERC already active?
       (progn
         (set-buffer "*irc-freenode*")
         (if (erc-server-process-alive)
-            (switch-to-buffer "#mercurial") ;; yes: switch to #mercurial
-          (znc-all)))                       ;; no: start ERC
-    (znc-all)))                         ;; no: start ERC
+            (switch-to-buffer channel) ;; yes: switch to #channel
+          (znc-all)))                  ;; no: start ERC
+    (znc-all)))                        ;; no: start ERC
 
-(global-set-key (kbd "C-c m") 'erc-start-or-switch)
+(global-set-key (kbd "C-c m") (lambda () (interactive) (erc-start-or-switch "#mercurial")))
+(global-set-key (kbd "C-c k") (lambda () (interactive) (erc-start-or-switch "#kallithea")))
 
 (defun user-keys (hashtable)
   "Return all keys in hashtable."
