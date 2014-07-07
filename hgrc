@@ -92,6 +92,7 @@ sourcetreebulkmerge.binary=True
 bitbucket.org = 45:ad:ae:1a:cf:0e:73:47:06:07:e0:88:f5:cc:10:e5:fa:1c:f7:99
 svn.macports.org = 69:72:15:c6:d9:71:d8:6b:15:ec:81:76:13:a8:59:aa:f0:21:e8:01
 smf.io = d2:3c:26:22:bf:d0:2c:7f:05:c5:b4:94:3e:63:4e:ea:e6:ff:f6:54
+kallithea-scm.org = 53:de:4d:c5:f8:32:6f:26:36:9a:95:86:21:21:4b:6f:99:b2:e4:9a
 
 [email]
 method = smtp
