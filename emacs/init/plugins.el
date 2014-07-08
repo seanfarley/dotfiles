@@ -204,7 +204,8 @@
 (autoload 'd-mode "d-mode" "Major mode for editing D code." t)
 (add-to-list 'auto-mode-alist '("\\.d[i]?\\'" . d-mode))
 
-(add-hook 'prog-mode-hook 'linum-mode)
+(require 'nlinum)
+(add-hook 'prog-mode-hook 'nlinum-mode)
 
 ;; filladap
 (require 'filladapt)
