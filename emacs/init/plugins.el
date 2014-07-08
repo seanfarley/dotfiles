@@ -98,12 +98,6 @@
 (eval-after-load "pandoc-mode"
   '(define-key pandoc-mode-map "\C-c/o" 'pandoc-set-output))
 
-; haskell mode
-(autoload 'haskell-mode-autoloads "haskell-mode" "Haskell Mode." t)
-(add-to-list 'Info-default-directory-list "~/.emacs.d/plugins/haskell-mode/")
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-
 ;; Workaround the annoying warnings:
 ;;    Warning (mumamo-per-buffer-local-vars):
 ;;    Already 'permanent-local t: buffer-file-name
