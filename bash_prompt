@@ -165,7 +165,7 @@ function _hg_info() {
   local remote
 
   # fallback to branch name if bookmark isn't active
-  [ -z "$br" ] && br="$(less $repo_dir/branch 2>/dev/null)"
+  [ -z "$br" ] && br="$(less $repo_dir/.hg/branch 2>/dev/null)"
   [ -z "$br" ] && br="default"
 
   [ "$(echo "$st" | grep -c '\(^\?\)')" != "0" ] && br="$br*"
