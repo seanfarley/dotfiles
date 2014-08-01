@@ -30,5 +30,3 @@ Host sean-farleys-ip*.local
 
 Host *
   ForwardAgent yes
-  ControlMaster auto
-  ControlPath ~/.ssh/connections/%r_%h_%p
