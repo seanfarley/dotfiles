@@ -260,6 +260,9 @@
 ;; floobit
 (require 'floobits)
 
+;; hg-test
+(require 'hg-test-mode)
+
 ;; auto-complete for rst
 (require 'auto-complete-rst)
 (auto-complete-rst-init)
