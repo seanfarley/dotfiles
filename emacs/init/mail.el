@@ -122,10 +122,7 @@ direction, i.e. count backwards"
     (mu4e~view-in-headers-context
      (mu4e-label-thread "\\Trash"))
     (sit-for .05)
-    (mu4e~view-in-headers-context
-     (mu4e-mark-read-thread))
-    (sit-for .1)
-    (mu4e-view-thread-next))
+    (mu4e-archive-next-message))
 
   (defun mu4e-action-hg-import-patch (msg)
     "Import the hg [patch] message."
