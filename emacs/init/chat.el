@@ -1,4 +1,5 @@
 (setq load-path (cons "~/.emacs.d/plugins/erc" load-path))
+(require 'tls)
 (require 'erc)
 (require 'erc-join)
 (require 'erc-hl-nicks)
@@ -9,9 +10,9 @@
   ;; znc
   znc-detatch-on-kill t
   znc-servers `(
-                ("smf.io" 16667 nil ((freenode "smf"
+                ("smf.io" 6697 t ((freenode "smf/freenode"
                                                ,(find-keychain-internet-password "smf" "smf.io"))))
-                ("smf.io" 16667 nil ((bitlbee "smf/bitlbee"
+                ("smf.io" 6697 t ((bitlbee "smf/bitlbee"
                                               ,(find-keychain-internet-password "smf" "smf.io"))))
                 )
 
