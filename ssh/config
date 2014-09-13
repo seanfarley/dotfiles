@@ -1,18 +1,6 @@
 KeepAlive yes
 ServerAliveInterval 60
 
-Host home
-  HostName home.seanfarley.org
-  Port 22537
-
-Host smf
-  HostName smf.io
-  Port 22537
-
-Host farley
-  HostName farley.io
-  Port 22537
-
 Host winxp
   HostName localhost
   Port 10722
@@ -20,13 +8,6 @@ Host winxp
 Host win7
   HostName localhost
   Port 10723
-
-Host gpu-iit
-  HostName 216.47.138.239
-  User farley
-
-Host sean-farleys-ip*.local
-  User root
 
 Host *
   ForwardAgent yes
