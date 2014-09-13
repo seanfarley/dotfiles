@@ -256,3 +256,15 @@
 (require 'ido-ubiquitous)
 (setq ido-ubiquitous-command-overrides 'enable-old)
 (ido-ubiquitous t)
+
+;; floobit
+(require 'floobits)
+
+;; auto-complete for rst
+(require 'auto-complete-rst)
+(auto-complete-rst-init)
+(setq auto-complete-rst-other-sources
+      '(ac-source-filename
+        ac-source-abbrev
+        ac-source-dictionary
+        ac-source-yasnippet))
