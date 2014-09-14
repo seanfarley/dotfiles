@@ -234,6 +234,7 @@ function update_ps1 () {
   local dirty
   local vcs_type
   local vcs_extra
+  local host
 
   # prompt variable to build
   local prompt
@@ -252,7 +253,9 @@ function update_ps1 () {
     bg=${COLORS[$host_number]}
   fi
 
-  prompt="$prompt$(_chain "$(hostname -s)" $oldbg $bg $fg "\[$BOLD\]")"
+  host=$(hostname -s)
+  [[ "$USER" != sean ]] && host="$USER@$host"
+  prompt="$prompt$(_chain "$host" $oldbg $bg $fg "\[$BOLD\]")"
 
   local jobs="$(_lp_jobcount_color)"
   if [ -n "$jobs" ]; then
