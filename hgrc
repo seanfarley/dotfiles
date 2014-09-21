@@ -104,7 +104,12 @@ port = 587
 username = sean.michael.farley@gmail.com
 tls = True
 
+[templates]
+sl = '{ifeq(branch,"default","","{label(blue_background, branch)} ")}{label("log.changeset changeset.{phase}", shortest(node))} {label("grep.user", author|user)}{label("tags.normal", if(tags," {tags}"))} {label("sl.book", if(bookmarks," {bookmarks}"))}\n{label(ifcontains(rev, revset("."), "desc.here"),desc|firstline)}'
+
 [color]
+sl.book = magenta bold
+desc.here = inverse
 status.modified = cyan
 status.added = green
 status.removed = red
@@ -136,6 +141,9 @@ log.extra = yellow bold underline
 changeset.public = blue
 changeset.draft = green
 changeset.secret = red bold
+
+[revsetalias]
+smart = (parents(not public()) or not public() or . or head()) and (not obsolete() or unstable()^)
 
 [alias]
 ### useful alias to check future amend result
@@ -201,6 +209,8 @@ ll = log --pager=always                    --template="{label('changeset.{phase}
 gll = log -G --pager=always                 --template="{label('changeset.{phase}', pad(shortest(node), 7, ' ', True))} {label('log.description', fill(desc|firstline|strip, '80')|firstline|strip)} {ifeq(branch,'default','',label('log.branch', '{branch} '))}{bookmarks % \"{label('log.bookmark', '{bookmark} ')}\"}[{preferredremoterefs}] {tags % \"{ifeq(tag,'tip','',label('log.tag', '{tag} '))}\"}{label('log.date', date|shortdate)} by {label('log.user', author|person)}\n{label('log.description', sub('^.*\n?\n?', '', '{fill(desc|firstline|strip, \"95\", \"\", sub(\"[0-9]\", \" \", \"        \"))}\n\n'))}"
 
 gl = gll -l 15 -r ::.
+
+sl = log -G --pager=always -r smart -T sl
 
 nll = log -G --pager=always --color=always --template="{if(svnrev, label('log.changeset', '[r{svnrev}] '))}{label('changeset.{phase}', rev)}:{label('changeset.{phase}', node|short)} {label('log.description', \"{fill(desc|firstline|strip, '80')|firstline|strip}\")} {ifeq(branch,'default','',label('log.branch', '{branch} '))}{bookmarks % \"{label('log.bookmark', '{bookmark} ')}\"}{tags % \"{ifeq(tag,'tip','',label('log.tag', '{tag} '))}\"}{label('log.date', date|shortdate)} by {label('log.user', author|person)}\n{label('log.description', if(sub('^.*\n?\n?', '', '{fill(desc|strip, \"95\")}\n'), sub('^.*\n?\n?', '\n', '{fill(desc|strip, \"95\")}\n'), sub('^.*\n?\n?', '', '{fill(desc|strip, \"95\")}\n')))}\n{file_mods % \"{label('status.modified', 'M {file}')}\n\"}{file_adds % \"{label('status.added', 'A {file}')}\n\"}{file_dels % \"{label('status.removed', 'R {file}')}\n\"}\n"
 
