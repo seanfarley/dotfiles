@@ -30,6 +30,9 @@
   ;; erc-hl-nicks-nick-base-face '((t nil))
   erc-hl-nicks-color-contrast-strategy '(invert contrast)
 
+  ;; don't go into an infinite loop
+  erc-server-auto-reconnect nil
+
   ;; erc modules
   erc-modules '(autojoin
                 button
