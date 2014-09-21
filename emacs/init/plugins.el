@@ -271,3 +271,7 @@
         ac-source-abbrev
         ac-source-dictionary
         ac-source-yasnippet))
+
+;; smart-tabs
+(require 'smart-tabs-mode)
+(smart-tabs-insinuate 'c 'javascript)
