@@ -3,7 +3,45 @@
 (eval-after-load "mu4e"
   '(progn
   ;; define my custom set of labels for easy word completion
-  (setq mylabels (list "\\Trash" "\\Inbox" "\\Spam" "Action" "R/anl" "R/aperture" "R/applications" "R/barryisms" "R/bout" "R/documents" "R/facebook" "R/facets" "R/family" "R/friends" "R/iit" "R/kallithea" "R/karlin" "R/job" "R/llnl" "R/lsmsa" "R/lsu" "R/macports" "R/math" "R/mercurial" "R/petsc-dev" "R/petsc-maint" "R/petsc-students" "R/phd" "R/posterity" "R/recipes" "R/server" "R/siam" "R/talks" "R/teaching" "R/tips" "R/V2" "R/website"))
+  (setq mylabels (list
+                  "\\Trash"
+                  "\\Inbox"
+                  "\\Spam"
+                  "Action"
+                  "R/anl"
+                  "R/aperture"
+                  "R/applications"
+                  "R/barryisms"
+                  "R/bout"
+                  "R/documents"
+                  "R/facebook"
+                  "R/facets"
+                  "R/family"
+                  "R/friends"
+                  "R/iit"
+                  "R/kallithea"
+                  "R/karlin"
+                  "R/job"
+                  "R/llnl"
+                  "R/lsmsa"
+                  "R/lsu"
+                  "R/macports"
+                  "R/math"
+                  "R/mercurial"
+                  "R/osi"
+                  "R/petsc-dev"
+                  "R/petsc-maint"
+                  "R/petsc-students"
+                  "R/phd"
+                  "R/posterity"
+                  "R/recipes"
+                  "R/server"
+                  "R/siam"
+                  "R/talks"
+                  "R/teaching"
+                  "R/tips"
+                  "R/V2"
+                  "R/website"))
 
   ;; use imagemagick, if available
   (when (fboundp 'imagemagick-register-types)
