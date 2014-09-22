@@ -30,7 +30,7 @@ shelve =
 debugshell = ~/.debugshell.py
 hgsubversion =
 mercurial_keyring =
-hgevolve =
+evolve =
 
 [schemes]
 bb = ssh://hg@bitbucket.org/
