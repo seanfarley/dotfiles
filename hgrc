@@ -142,7 +142,7 @@ changeset.draft = green
 changeset.secret = red bold
 
 [revsetalias]
-smart = (parents(not public()) or not public() or . or head()) and (not obsolete() or unstable()^)
+smart = (parents(not public()) or not public() or . or (heads(all()) and not closed() and not desc("Added tag"))) and (not obsolete() or unstable()^)
 
 [alias]
 ### useful alias to check future amend result
