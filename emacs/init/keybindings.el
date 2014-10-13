@@ -37,6 +37,24 @@
 (global-set-key [(hyper f)] 'isearch-forward)
 (global-set-key [(hyper g)] 'isearch-repeat-forward)
 
+ (when (equal window-system 'w32)
+    (setq
+       w32-pass-lwindow-to-system nil
+       w32-lwindow-modifier 'hyper
+       w32-pass-rwindow-to-system nil
+       w32-rwindow-modifier 'hyper
+       w32-apps-modifier 'hyper
+       w32-scroll-lock-modifier nil)
+
+    ;; silliness due to windows key being not sent to emacs
+    (global-set-key (kbd "C-H-c") 'kill-ring-save)
+    (global-set-key (kbd "C-H-k") 'kill-this-buffer)
+    (global-set-key (kbd "C-H-s") 'save-buffer)
+    (global-set-key (kbd "C-H-v") 'yank)
+    (global-set-key (kbd "C-H-x") 'kill-region)
+    (global-set-key (kbd "C-H-z") 'undo)
+    )
+
 ;; mac switch meta key
 (defun mac-switch-meta nil
   "switch meta between Option and Command"
