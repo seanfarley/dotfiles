@@ -12,27 +12,26 @@
 ; note: plugins/ is only for subrepos
 ; -------------------------
 
-(add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/scripts")
 
-(load "init/basic.el")
-(load "init/scratch.el")
-(load "init/ediff.el")
+(load "~/.emacs.d/init/basic.el")
+(load "~/.emacs.d/init/scratch.el")
+(load "~/.emacs.d/init/ediff.el")
 
-(load "init/functions.el")
-(load "init/keybindings.el")
-(load "init/ctrl-tab.el")
-(load "init/ediff.el")
+(load "~/.emacs.d/init/functions.el")
+(load "~/.emacs.d/init/keybindings.el")
+(load "~/.emacs.d/init/ctrl-tab.el")
+(load "~/.emacs.d/init/ediff.el")
 
-(load "init/plugins.el")
+(load "~/.emacs.d/init/plugins.el")
 
-(load "init/themes.el")
+(load "~/.emacs.d/init/themes.el")
 
-(load "init/mail.el")
+(load "~/.emacs.d/init/mail.el")
 
-(load "init/chat.el")
+(load "~/.emacs.d/init/chat.el")
 
-(load "init/tex.el")
+(load "~/.emacs.d/init/tex.el")
 
 ;; start sauron
 (sauron-start)
