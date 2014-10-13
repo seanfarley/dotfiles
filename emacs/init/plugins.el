@@ -263,15 +263,24 @@
 ;; hg-test
 (require 'hg-test-mode)
 
-;; auto-complete for rst
-(require 'auto-complete-rst)
-(auto-complete-rst-init)
-(setq auto-complete-rst-other-sources
-      '(ac-source-filename
-        ac-source-abbrev
-        ac-source-dictionary
-        ac-source-yasnippet))
+;; ;; auto-complete for rst
+;; (require 'auto-complete-rst)
+;; (auto-complete-rst-init)
+;; (setq auto-complete-rst-other-sources
+;;       '(ac-source-filename
+;;         ac-source-abbrev
+;;         ac-source-dictionary
+;;         ac-source-yasnippet))
 
 ;; smart-tabs
 (require 'smart-tabs-mode)
 (smart-tabs-insinuate 'c 'javascript)
+
+;; dos mode
+(require 'dos)
+
+;; autohotkey mode
+(require 'ahk-mode)
+
+;; csharp mode
+(require 'csharp-mode)
