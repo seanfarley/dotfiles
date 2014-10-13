@@ -43,3 +43,12 @@ if [ -n "$PS1" ]; then
       || complete -o default -o nospace -F _hg lhg
 
 fi
+
+if [[ -z "$SSH_CLIENT" && -d /cygdrive/c ]]; then
+  SSHAGENT=/usr/bin/ssh-agent
+  SSHAGENTARGS="-s"
+  if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
+    eval `$SSHAGENT $SSHAGENTARGS`
+    trap "kill $SSH_AGENT_PID" 0
+  fi
+fi
