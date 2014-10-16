@@ -9,6 +9,9 @@ Host win7
   HostName localhost
   Port 10723
 
+Host farley.in
+  Port 22537
+
 Host sfarley7600*
   HostName sfarley7600.osisoft.int
   User sfarley
