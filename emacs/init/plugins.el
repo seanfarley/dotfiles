@@ -238,9 +238,6 @@
 (require 'projectile)
 (projectile-global-mode)
 
-;; ack-and-a-half
-(require 'ack-and-a-half)
-
 (require 'ido-vertical-mode)
 (ido-vertical-mode t)
 
