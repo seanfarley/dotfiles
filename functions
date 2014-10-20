@@ -76,7 +76,7 @@ kg() {
     SUDO=""
     p=($line)
     if [[ -n "${p[1]}" && ${p[1]} > 0 ]]; then
-      [ "$USER" != "${p[0]}" ] && SUDO=sudo
+      [[ "$USER" != "${p[0]}" && "$(which sudo 2>/dev/null)" != "" ]] && SUDO=sudo
       $SUDO kill -9 ${p[1]}
       [ -z "$(ps ${p[1]} | grep -v PID)" ] && echo "Killed ${p[8]}|${p[1]}|${p[0]}|${p[10]}"
     fi
