@@ -91,6 +91,5 @@ if [ -s "$(which pss 2>/dev/null)" ]; then
 fi
 
 if [ -d /cygdrive/c ]; then
-  alias hg=hg.exe
   alias msbuild=MSBuild.exe
 fi
