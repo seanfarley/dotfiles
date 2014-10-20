@@ -92,4 +92,5 @@ fi
 
 if [ -d /cygdrive/c ]; then
   alias msbuild=MSBuild.exe
+  alias hg=~/projects/chg/chg
 fi
