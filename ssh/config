@@ -12,6 +12,10 @@ Host win7
 Host sfarley7600*
   HostName sfarley7600.osisoft.int
   User sfarley
+  ControlMaster auto
+  ControlPath ~/.ssh/connections/%r_%h_%p
+  ServerAliveCountMax 30
+  ServerAliveInterval 5
 
 Host *
   ForwardAgent yes
