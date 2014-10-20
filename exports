@@ -59,8 +59,6 @@ if [ -d $HOME/.local/lib/python2.7 ]; then
 fi
 
 if [ -d /cygdrive/c ]; then
-  export PYTHONHOME=C:\\Python27
-  export PYTHONPATH=$PYTHONHOME\\Lib
   export MSSdk=1
   export DISTUTILS_USE_SDK=1
   export PATH=~/projects/hg:$PATH
