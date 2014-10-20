@@ -74,6 +74,4 @@
 (winner-mode t)
 
 (when (window-system)
-  (set-frame-font "Source Code Pro Light for Powerline")
-  (set-face-attribute 'default nil :font "Source Code Pro Light for Powerline" :height 140)
-  (set-face-font 'default "Source Code Pro Light for Powerline"))
+  (set-default-font "Sauce Code Powerline Light"))
