@@ -145,11 +145,13 @@ function _git_info() {
   local remote
   local st
 
-  [ -n "$(\git stash list 2>/dev/null)" ] && br="$br+"
+  if [ ! -d /cygdrive/c ]; then
+    [ -n "$(\git stash list 2>/dev/null)" ] && br="$br+"
 
-  st="$(git status 2> /dev/null)"
-  remote="$(echo "$st" | perl -lne 'print " $2$1" if /Your branch is (ahead|behind).*?(\d+) comm/' | perl -pe 's,behind,⇣,' | perl -pe 's,ahead,⇡,')"
-  st="$(echo "$st" | tail -1 | grep -v 'nothing to commit')"
+    st="$(git status 2> /dev/null)"
+    remote="$(echo "$st" | perl -lne 'print " $2$1" if /Your branch is (ahead|behind).*?(\d+) comm/' | perl -pe 's,behind,⇣,' | perl -pe 's,ahead,⇡,')"
+    st="$(echo "$st" | tail -1 | grep -v 'nothing to commit')"
+  fi
 
   printf "$br$remote"
 
@@ -161,15 +163,18 @@ function _git_info() {
 function _hg_info() {
   local repo_dir="$1"
   local br="$(less $repo_dir/.hg/bookmarks.current 2>/dev/null)"
-  local st="$($HG status 2>/dev/null)"
+  local st
   local remote
 
   # fallback to branch name if bookmark isn't active
   [ -z "$br" ] && br="$(less $repo_dir/.hg/branch 2>/dev/null)"
   [ -z "$br" ] && br="default"
 
-  [ "$(echo "$st" | grep -c '\(^\?\)')" != "0" ] && br="$br*"
-  [ -n "$($HG shelve -l 2>/dev/null)" ] && br="$br+"
+  if [ ! -d /cygdrive/c ]; then
+    st="$($HG status 2>/dev/null)"
+    [ "$(echo "$st" | grep -c '\(^\?\)')" != "0" ] && br="$br*"
+    [ -n "$($HG shelve -l 2>/dev/null)" ] && br="$br+"
+  fi
 
   # remote="$(fast-hg-remote | grep -v '+ 0' | egrep '^(\+|-)' | perl -pe 's,-\s?(\d+), \1⇣,' | perl -pe 's,\+\s?(\d+), \1⇡,')"
 
