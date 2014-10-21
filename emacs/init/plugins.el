@@ -276,8 +276,5 @@
 ;; dos mode
 (require 'dos)
 
-;; autohotkey mode
-(require 'ahk-mode)
-
 ;; csharp mode
 (require 'csharp-mode)
