@@ -74,4 +74,7 @@
 (winner-mode t)
 
 (when (window-system)
-  (set-default-font "Sauce Code Powerline Light"))
+  (condition-case err
+    (set-default-font "Source Code Pro for Powerline Light")
+    (error
+      (set-default-font "Sauce Code Powerline Light"))))
