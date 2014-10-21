@@ -236,7 +236,6 @@
 ;; projectile
 (require 'recentf)
 (require 'projectile)
-(projectile-global-mode)
 
 (require 'ido-vertical-mode)
 (ido-vertical-mode t)
