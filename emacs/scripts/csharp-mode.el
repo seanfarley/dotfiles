@@ -377,8 +377,8 @@
 ;;          - imenu: split menus now have better labels, are sorted correctly.
 ;;
 ;;    0.8.6 DPC 2011 May ??
-;;          -
-
+;;          - extern keyword
+;;
 
 (require 'cc-mode)
 
@@ -1852,7 +1852,7 @@ wrote this alternative.
   csharp '("namespace"))
 
 (c-lang-defconst c-other-kwds
-  csharp '("sizeof" "typeof" "is" "as" "yield"
+  csharp '("sizeof" "typeof" "is" "as" "yield" "extern"
            "where" "select" "in" "from"))
 
 (c-lang-defconst c-overloadable-operators
