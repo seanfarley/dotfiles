@@ -7,7 +7,7 @@
 ;; Version    : 0.8.6
 ;; Keywords   : c# languages oop mode
 ;; X-URL      : http://code.google.com/p/csharpmode/
-;; Last-saved : <2011-May-22 10:51:23>
+;; Last-saved : <2011-May-22 10:48:26>
 
 ;;
 ;; This program is free software; you can redistribute it and/or modify
@@ -2657,7 +2657,7 @@ This fn does these things:
                           csharp-advise-revert-buffer
                           activate compile)
   (let ((is-flymake-enabled
-         (and (fboundp 'flymake-mode)
+         (and (featurep 'flymake)
               flymake-mode)))
     ;; disable
     (if is-flymake-enabled
