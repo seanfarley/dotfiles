@@ -149,7 +149,7 @@ smart = (parents(not public()) or not public() or . or (heads(all()) and not clo
 # equivalent to the qdiff command for mq
 
 # diff
-pdiff = diff --rev .^
+pdiff = diff --pager=always --rev .^
 
 # status
 pstatus = status --rev .^
