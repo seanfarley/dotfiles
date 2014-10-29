@@ -50,7 +50,7 @@ showfunc = True
 unified = 5
 
 [pager]
-pager = LESS="FRX" less
+pager = less
 
 [mq]
 secret = True
