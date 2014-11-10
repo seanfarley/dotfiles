@@ -122,7 +122,8 @@ given, kill the region, adding it to the kill ring."
     (cond
      ((string-equal major-version-number "10.7.") 'os-x-lion)
      ((string-equal major-version-number "10.8.") 'os-x-mountain-lion)
-     ((string-equal major-version-number "10.9.") 'os-x-mountain-lion))))
+     ((string-equal major-version-number "10.9.") 'os-x-mountain-lion)
+     ((string-equal major-version-number "10.10") 'os-x-mountain-lion))))
 
 (defun find-keychain-password-mountain-lion (type account server)
   (condition-case nil
