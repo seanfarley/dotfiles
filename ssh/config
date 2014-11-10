@@ -9,7 +9,8 @@ Host win7
   HostName localhost
   Port 10723
 
-Host farley.in
+Host home
+  HostName farley.in
   Port 22537
 
 Host sfarley7600*
