@@ -5,6 +5,11 @@ editor = ~/.edit.sh
 ignore = ~/.hgignore
 debugger = ipdb
 
+[auth]
+vso.schemes = http https
+vso.prefix = sfarley.visualstudio.com
+vso.username = sfarley@osisoft.com
+
 [phases]
 publish = False
 
