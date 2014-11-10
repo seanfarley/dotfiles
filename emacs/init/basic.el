@@ -38,11 +38,16 @@
 (show-paren-mode t)
 
 ; Tabs
-(setq-default tab-width 2)
+(setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
-(setq tab-stop-list (number-sequence 2 120 2))
+(setq tab-stop-list (number-sequence 4 120 4))
 (setq-default sh-basic-offset 2)
 (setq-default sh-indentation 2)
+(setq-default c-basic-offset 4)
+(setq-default web-mode-code-indent-offset 4)
+(setq-default web-mode-markup-indent-offset 4)
+(setq-default web-mode-css-indent-offset 4)
+(setq-default web-mode-sql-indent-offset 4)
 
 ; Columns
 (column-number-mode t)
