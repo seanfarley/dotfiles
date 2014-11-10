@@ -46,8 +46,10 @@
 
 ; Enable ido
 (ido-mode t)
-(setq ido-enable-flex-matching t) ; fuzzy matching is a must have
+(setq ido-enable-flex-matching t)       ; fuzzy matching is a must have
 (setq ido-ignore-extensions t)
+(setq ido-ubiquitous-max-items 50000)   ; Unicode lists are much larger than the
+                                        ; default 30k
 
 ; Ace-jump (Easymotion equivalent)
 (autoload 'ace-jump-mode "ace-jump-mode" "Ace Jump Mode." t)
