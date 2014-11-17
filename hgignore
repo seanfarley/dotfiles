@@ -47,6 +47,7 @@ syntax:glob
 *.hi
 *.sqlite
 *.mdb
+*.zip
 venv
 
 .rope*
@@ -60,6 +61,7 @@ arch-*
 backup*
 tags-*
 projectile-bookmarks.eld
+.python-eggs
 
 tags
 GTAGS
