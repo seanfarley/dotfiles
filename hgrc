@@ -33,8 +33,6 @@ strip =
 shelve =
 # Third-party extensions
 debugshell = ~/.debugshell.py
-hgsubversion =
-mercurial_keyring =
 evolve =
 
 [schemes]
