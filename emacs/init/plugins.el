@@ -279,3 +279,30 @@
 
 ;; csharp mode
 (require 'csharp-mode)
+
+;; omnisharp-mode
+(require 'omnisharp)
+(setq omnisharp-server-executable-path "~/.emacs.d/plugins/omnisharp-server/OmniSharp/bin/Debug/OmniSharp.exe")
+
+(defun my-csharp-mode ()
+  (omnisharp-mode)
+  (flycheck-mode)
+  (auto-complete-mode)
+  (turn-on-eldoc-mode)
+  (nlinum-mode)
+  (setq csharp-want-imenu nil)
+  (c-set-offset 'substatement-open 0))
+
+(add-hook 'csharp-mode-hook 'my-csharp-mode)
+
+(eval-after-load 'omnisharp
+  '(progn
+     (define-key omnisharp-mode-map (kbd "H-'") 'omnisharp-auto-complete)
+     (define-key omnisharp-mode-map (kbd "H-2") 'omnisharp-find-usages)
+     (define-key omnisharp-mode-map (kbd "H-3") 'omnisharp-go-to-definition)
+     (define-key omnisharp-mode-map (kbd "H-1") 'omnisharp-fix-code-issue-at-point)))
+
+(eval-after-load 'flycheck
+  '(progn
+     (define-key flycheck-mode-map (kbd "H->") 'flycheck-next-error)
+     (define-key flycheck-mode-map (kbd "H-<") 'flycheck-previous-error)))
