@@ -32,7 +32,7 @@ if [ -n "$PS1" ]; then
   shopt -s checkwinsize
 
   # Get ctrl-s to work in bash searching
-  stty stop undef
+  stty -ixon
 
   # bashcompletion for chg
   complete -o bashdefault -o default -o nospace -F _hg chg \
