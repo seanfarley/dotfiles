@@ -5,6 +5,8 @@ emacs/server
 emacs/tramp
 emacs/persistent-scratch*
 
+omnisharp-server
+
 # ignores from nested git repos
 
 .git*
