@@ -14,7 +14,12 @@
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 
-(prefer-coding-system 'utf-8)
+;; UTF-8 please
+(setq locale-coding-system 'utf-8) ; pretty
+(set-terminal-coding-system 'utf-8) ; pretty
+(set-keyboard-coding-system 'utf-8) ; pretty
+(set-selection-coding-system 'utf-8) ; please
+(prefer-coding-system 'utf-8) ; with sugar on top
 
 ; Auto-revert
 (global-auto-revert-mode t)
