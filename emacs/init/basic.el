@@ -72,6 +72,7 @@
 
 ;; keep minibuffer history between session
 (savehist-mode t)
+(setq history-length 1000)
 
 ;; files should always end with a new line
 (setq require-final-newline t)
@@ -83,8 +84,42 @@
 ;; enable winner
 (winner-mode t)
 
+;; set the font
 (when (window-system)
   (condition-case err
     (set-default-font "Source Code Pro for Powerline Light")
     (error
       (set-default-font "Sauce Code Powerline Light"))))
+
+;; Allow pasting selection outside of Emacs
+(setq x-select-enable-clipboard t)
+
+;; Show keystrokes in progress
+(setq echo-keystrokes 0.1)
+
+;; Move files to trash when deleting
+(setq delete-by-moving-to-trash t)
+
+;; Real emacs knights don't use shift to mark things
+(setq shift-select-mode nil)
+
+;; Transparently open compressed files
+(auto-compression-mode t)
+
+;; Answering just 'y' or 'n' will do
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; Show active region
+(transient-mark-mode 1)
+(make-variable-buffer-local 'transient-mark-mode)
+(put 'transient-mark-mode 'permanent-local t)
+(setq-default transient-mark-mode t)
+
+;; Remove text in active region if inserting text
+(delete-selection-mode 1)
+
+;; Allow recursive minibuffers
+(setq enable-recursive-minibuffers t)
+
+;; Don't be so stingy on the memory, we have lots now. It's the distant future.
+(setq gc-cons-threshold 20000000)

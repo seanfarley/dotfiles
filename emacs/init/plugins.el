@@ -34,6 +34,9 @@
 (global-hl-line-highlight)
 (global-set-key (kbd "C-|") 'column-highlight-mode)
 
+;; Easily navigate sillycased words
+(global-subword-mode 1)
+
 ;; Sets the column highlight color to match hl-line (bug?)
 ;; (set-face-background 'col-highlight "#0a2832") ;dark
 (set-face-background 'col-highlight "#e9e2cb") ;light
@@ -55,7 +58,8 @@
 (autoload 'ace-jump-mode "ace-jump-mode" "Ace Jump Mode." t)
 (define-key global-map (kbd "C-j") 'ace-jump-mode)
 
-; Enable undo-tree
+;; Represent undo-history as an actual tree (visualize with C-x u)
+(setq undo-tree-mode-lighter "")
 (require 'undo-tree)
 (global-undo-tree-mode)
 
@@ -237,6 +241,7 @@
 
 ;; projectile
 (require 'recentf)
+(setq recentf-max-saved-items 100) ;; just 20 is too recent
 (require 'projectile)
 
 (require 'ido-vertical-mode)
