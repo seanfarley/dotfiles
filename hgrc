@@ -38,11 +38,9 @@ evolve =
 [schemes]
 bb = ssh://hg@bitbucket.org/
 git+bb = git+ssh://git@bitbucket.org/
-me = ssh://hg@bitbucket.org/seanfarley/
 gh = git+ssh://git@github.com/
-petsc = ssh://hg@bitbucket.org/petsc/
 logilab = ssh://hg-lab@hg-lab.logilab.org/users/
-smf = https://sean@smf.io/
+smf = ssh://hg@smf.io/
 
 [hgsubversion]
 nativerevs = True
