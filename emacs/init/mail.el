@@ -2,6 +2,7 @@
 
 (eval-after-load "mu4e"
   '(progn
+  (require 'mu4e-contrib)
   ;; define my custom set of labels for easy word completion
   (setq mylabels (list
                   "\\Trash"
@@ -271,7 +272,7 @@ direction, i.e. count backwards"
    mu4e-view-show-images t
 
    ;; convert html messages to markdown syntax
-   mu4e-html2text-command "html2text"
+   mu4e-html2text-command 'mu4e-shr2text
 
    mu4e-headers-date-format "%d %b %Y"
    mu4e-headers-time-format "%H:%M"
