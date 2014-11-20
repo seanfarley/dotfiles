@@ -453,7 +453,7 @@ early as possible.
 
 #+NAME: turn-off-chrome
 #+BEGIN_SRC emacs-lisp
-  (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
+  (dolist (mode '(tool-bar-mode scroll-bar-mode))
     (when (fboundp mode) (funcall mode -1)))
 #+END_SRC
 
