@@ -1,6 +1,6 @@
 #+OPTIONS: toc:2
 
-* Bradley Wright's Emacs Configuration
+* Sean Farley's Emacs Configuration
 
 ** Preamble
 
