@@ -357,8 +357,6 @@ As per [[https://sites.google.com/site/steveyegge2/effective-emacs#item2][Yegge'
 m=, and then add a fat-finger combination of =C-x C-m=:
 
 #+begin_src emacs-lisp
-  (global-unset-key (kbd "C-x m"))
-  (global-unset-key (kbd "M-x"))
   (global-set-key (kbd "C-x m") 'execute-extended-command)
   (global-set-key (kbd "C-x C-m") 'execute-extended-command)
 #+end_src
