@@ -74,18 +74,18 @@ information.
 ** Conventions
 
 Functions and variables defined exclusively for my use are prefixed with my
-initials and a slash =bw/= to namespace them.
+initials and a slash =smf/= to namespace them.
 
 ** Setup
 
 Emacs looks in [[https://www.gnu.org/software/emacs/manual/html_node/eintr/Loading-Files.html][load-path]] for Emacs lisp files. =require= and other loading
 constructs use this when looking for implicit names.
 
-First we define a convenience function =bw/add-to-load-path= that adds the
+First we define a convenience function =smf/add-to-load-path= that adds the
 passed in directory to =load-path=:
 
 #+BEGIN_SRC emacs-lisp
-  (defun bw/add-to-load-path (dir)
+  (defun smf/add-to-load-path (dir)
     "Adds `dir' to load-path"
     (add-to-list 'load-path dir))
 #+END_SRC
@@ -93,14 +93,14 @@ passed in directory to =load-path=:
 and a convenience function for making a proper path out of two strings:
 
 #+begin_src emacs-lisp
-  (defun bw/join-dirs (prefix suffix)
+  (defun smf/join-dirs (prefix suffix)
     "Joins `prefix' and `suffix' into a directory"
     (file-name-as-directory (concat prefix suffix)))
 #+end_src
 
 *** Base load path
 
-Define a base directory =bw/dotfiles-dir= that's relative to the currently
+Define a base directory =smf/dotfiles-dir= that's relative to the currently
 loading file (this file). This means if I deliberately start Emacs with a file
 loaded:
 
@@ -108,10 +108,10 @@ loaded:
 $ emacs -q -l ~/src/emacs/init.el
 #+END_SRC
 
-then =bw/dotfiles-dir= will be =~/src/emacs=.
+then =smf/dotfiles-dir= will be =~/src/emacs=.
 
 #+BEGIN_SRC emacs-lisp
-  (defconst bw/dotfiles-dir
+  (defconst smf/dotfiles-dir
     (file-name-directory
      (or (buffer-file-name) load-file-name))
     "Base path for customised Emacs configuration")
@@ -125,13 +125,13 @@ relative to it, which means my Emacs config doesn't need to live in
 
 Emacs has many packages which need to store state in files. Generally these are
 in =~= or =user-emacs-directory= - since my entire =~/.emacs.d= is versioned,
-I'd rather all temporary files were stored in a known place, =bw/tmp-local-dir=.
+I'd rather all temporary files were stored in a known place, =smf/tmp-local-dir=.
 This directory is created if it doesn't exist.
 
 #+begin_src emacs-lisp
   (make-directory
-   (setq bw/tmp-local-dir
-         (bw/join-dirs bw/dotfiles-dir ".tmp")) t)
+   (setq smf/tmp-local-dir
+         (smf/join-dirs smf/dotfiles-dir ".tmp")) t)
 #+end_src
 
 *** Backups
@@ -143,18 +143,18 @@ First, set up some directories to keep backups:
 
 #+begin_src emacs-lisp
   (make-directory
-   (setq bw/tmp-backups-dir
-         (bw/join-dirs bw/tmp-local-dir "backups")) t)
+   (setq smf/tmp-backups-dir
+         (smf/join-dirs smf/tmp-local-dir "backups")) t)
   (make-directory
-   (setq bw/tmp-autosaves-dir
-         (bw/join-dirs bw/tmp-local-dir "autosaves")) t)
+   (setq smf/tmp-autosaves-dir
+         (smf/join-dirs smf/tmp-local-dir "autosaves")) t)
 #+end_src
 
 Now use those directories for backups and autosave files:
 
 #+begin_src emacs-lisp
-  (setq backup-directory-alist `((".*" . ,bw/tmp-backups-dir))
-        auto-save-file-name-transforms `((".*" ,bw/tmp-autosaves-dir)))
+  (setq backup-directory-alist `((".*" . ,smf/tmp-backups-dir))
+        auto-save-file-name-transforms `((".*" ,smf/tmp-autosaves-dir)))
 #+end_src
 
 Always copy files when backing up to avoid breaking symlinks:
@@ -252,12 +252,12 @@ basis, so Makefiles, Ruby etc. will still get the correct indentation rules.
 First we define convenience toggling functions we can use in a hook (or interactively):
 
 #+begin_src emacs-lisp
-  (defun bw/turn-on-electric-indent-mode ()
+  (defun smf/turn-on-electric-indent-mode ()
     "Turns on electric-indent-mode"
     (interactive)
     (electric-indent-mode 1))
 
-  (defun bw/turn-off-electric-indent-mode ()
+  (defun smf/turn-off-electric-indent-mode ()
     "Turns off electric-indent-mode"
     (interactive)
     (electric-indent-mode -1))
@@ -267,7 +267,7 @@ then we enable it for [[https://www.gnu.org/software/emacs/manual/html_node/emac
 introduced in Emacs 24.1]] ([[http://emacsredux.com/blog/2013/04/05/prog-mode-the-parent-of-all-programming-modes/][more about =prog-mode= on Emacs Redux]]):
 
 #+begin_src emacs-lisp
-  (add-hook 'prog-mode-hook 'bw/turn-on-electric-indent-mode)
+  (add-hook 'prog-mode-hook 'smf/turn-on-electric-indent-mode)
 #+end_src
 
 *** Encoding
@@ -413,16 +413,16 @@ combo as =C-x C-l=, which is normally =downcase-region= - a command I use so
 infrequently I didn't even know there was a key binding for it.
 
 #+begin_src emacs-lisp
-  (define-prefix-command 'bw/launcher-map)
-  (define-key ctl-x-map (kbd "C-l") 'bw/launcher-map)
+  (define-prefix-command 'smf/launcher-map)
+  (define-key ctl-x-map (kbd "C-l") 'smf/launcher-map)
 #+end_src
 
-rather than remembering that it's =bw/launcher-map=, just make a function:
+rather than remembering that it's =smf/launcher-map=, just make a function:
 
 #+begin_src emacs-lisp
-  (defun bw/add-launcher (key function)
-    "Maps FUNCTION to KEY under the `bw/launcher-map' prefix"
-    (define-key bw/launcher-map key function))
+  (defun smf/add-launcher (key function)
+    "Maps FUNCTION to KEY under the `smf/launcher-map' prefix"
+    (define-key smf/launcher-map key function))
 #+end_src
 
 ** Interface
@@ -666,19 +666,19 @@ gotten from [[http://mindlev.wordpress.com/2011/06/13/emacs-in-a-terminal-on-osx
 
 #+begin_src emacs-lisp
   (when (and (not (display-graphic-p)) (eq system-type 'darwin))
-    (defun bw/copy-from-osx ()
+    (defun smf/copy-from-osx ()
       "Copies the current clipboard content using the `pbcopy` command"
       (shell-command-to-string "pbpaste"))
 
-    (defun bw/paste-to-osx (text &optional push)
+    (defun smf/paste-to-osx (text &optional push)
       "Copies the top of the kill ring stack to the OSX clipboard"
       (let ((process-connection-type nil))
         (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
           (process-send-string proc text)
           (process-send-eof proc))))
 
-    (setq interprogram-cut-function 'bw/paste-to-osx)
-    (setq interprogram-paste-function 'bw/copy-from-osx))
+    (setq interprogram-cut-function 'smf/paste-to-osx)
+    (setq interprogram-paste-function 'smf/copy-from-osx))
 #+end_src
 
 *** Fullscreen support
@@ -717,15 +717,15 @@ If I'm on OS X, I can fetch passwords etc. from my Keychain. This is much more
 secure than storing them in configuration on disk:
 
 #+begin_src emacs-lisp
-  (defun bw/chomp (str)
+  (defun smf/chomp (str)
     "Chomp leading and tailing whitespace from `str'."
     (while (string-match "\\`\n+\\|^\\s-+\\|\\s-+$\\|\n+\\'" str)
       (setq str (replace-match "" t t str))) str)
 
-  (defun bw/get-keychain-password (account-name)
+  (defun smf/get-keychain-password (account-name)
     "Get `account-name' keychain password from OS X Keychain"
     (interactive "sAccount name: ")
-    (bw/chomp
+    (smf/chomp
      (shell-command-to-string
       (concat
        "security find-generic-password -wa "
@@ -739,7 +739,7 @@ the entire server. And, when I kill my server, I want Emacs to confirm this with
 me:
 
 #+begin_src emacs-lisp
-  (defun bw/kill-emacs ()
+  (defun smf/kill-emacs ()
     "If this buffer is a client, just kill it, otherwise confirm
   the quit."
     (interactive)
@@ -754,7 +754,7 @@ me:
 Enable this, and override the default command Emacs assigns to kill itself:
 
 #+begin_src emacs-lisp
-  (define-key (current-global-map) [remap save-buffers-kill-terminal] 'bw/kill-emacs)
+  (define-key (current-global-map) [remap save-buffers-kill-terminal] 'smf/kill-emacs)
 #+end_src
 
 ** Other modes
@@ -852,7 +852,7 @@ Configure Ido (see comments for more information):
 Store =ido= temporary directory cache elsewhere:
 
 #+begin_src emacs-lisp
-  (setq ido-save-directory-list-file (expand-file-name ".ido.last" bw/tmp-local-dir))
+  (setq ido-save-directory-list-file (expand-file-name ".ido.last" smf/tmp-local-dir))
 #+end_src
 
 Finally load Ido:
@@ -868,7 +868,7 @@ bookmarks, so make sure that file is in my custom temporary directory:
 
 #+begin_src emacs-lisp
   (after-load 'bookmark
-    (setq bookmark-default-file (expand-file-name ".emacs.bmk" bw/tmp-local-dir)))
+    (setq bookmark-default-file (expand-file-name ".emacs.bmk" smf/tmp-local-dir)))
 #+end_src
 
 *** eldoc-mode
@@ -995,7 +995,7 @@ eshell has a directory where it stores bookmarks and other temporary cruft -
 move that out of the way:
 
 #+begin_src emacs-lisp
-  (setq eshell-directory-name (bw/join-dirs bw/tmp-local-dir "eshell"))
+  (setq eshell-directory-name (smf/join-dirs smf/tmp-local-dir "eshell"))
 #+end_src
 
 When using the =ssh= command (or =vagrant ssh=, which is really the same thing),
@@ -1024,7 +1024,7 @@ traditional terminal emulator than [[eshell]].
 Force ansi-term to be UTF-8 after it launches:
 
 #+begin_src emacs-lisp
-  (defadvice ansi-term (after bw/advise-ansi-term-coding-system activate)
+  (defadvice ansi-term (after smf/advise-ansi-term-coding-system activate)
     (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
 #+end_src
 
@@ -1032,7 +1032,7 @@ When exiting a terminal buffer (either with =exit= or =EOF=), automatically kill
 the buffer:
 
 #+begin_src emacs-lisp
-  (defadvice term-sentinel (around bw/advice-term-sentinel (proc msg) activate)
+  (defadvice term-sentinel (around smf/advice-term-sentinel (proc msg) activate)
     (if (memq (process-status proc) '(signal exit))
         (let ((buffer (process-buffer proc)))
           ad-do-it
@@ -1073,7 +1073,7 @@ Customise the place =recentf= persists its list of items:
 
 #+begin_src emacs-lisp
   (after-load 'recentf
-    (setq recentf-save-file (expand-file-name ".recentf" bw/tmp-local-dir)))
+    (setq recentf-save-file (expand-file-name ".recentf" smf/tmp-local-dir)))
 #+end_src
 
 Strip =$HOME= from the front of =recentf= candidate files:
@@ -1090,14 +1090,14 @@ to search over them. Bind this to =C-x C-r= (=C-c C-r= is used in modes like
 #+begin_src emacs-lisp
   (after-load 'recentf
     (after-load 'ido
-      (defun bw/recentf-ido-find-file ()
+      (defun smf/recentf-ido-find-file ()
         "Find a recent file using ido."
         (interactive)
         (let ((file (ido-completing-read "Recently: " recentf-list nil t)))
           (when file
             (find-file file))))
 
-      (global-set-key (kbd "C-x C-r") 'bw/recentf-ido-find-file)))
+      (global-set-key (kbd "C-x C-r") 'smf/recentf-ido-find-file)))
 #+end_src
 
 Now enable =recentf=:
@@ -1171,7 +1171,7 @@ Final result should be something like =~/.emacs.d/.elpa/24.3.93.1/=.
 #+begin_src emacs-lisp
   (after-load 'package
     (setq package-user-dir
-          (bw/join-dirs (bw/join-dirs bw/dotfiles-dir ".elpa") emacs-version)))
+          (smf/join-dirs (smf/join-dirs smf/dotfiles-dir ".elpa") emacs-version)))
 #+end_src
 
 **** Customise package repositories to install from
@@ -1243,13 +1243,13 @@ follow changes to them):
 
 #+begin_src emacs-lisp
   (setq paradox-automatically-star t)
-  (setq paradox-github-token (bw/get-keychain-password "paradox-github-token"))
+  (setq paradox-github-token (smf/get-keychain-password "paradox-github-token"))
 #+end_src
 
 Add launch command:
 
 #+begin_src emacs-lisp
-  (bw/add-launcher "p" 'paradox-list-packages)
+  (smf/add-launcher "p" 'paradox-list-packages)
 #+end_src
 
 *** exec-path-from-shell
@@ -1296,7 +1296,7 @@ Make sure we stop the annoying "click this menubar" advice in the buffer:
 Move =smex='s cache file out of the home directory:
 
 #+begin_src emacs-lisp
-  (setq smex-save-file (expand-file-name ".smex-items" bw/tmp-local-dir))
+  (setq smex-save-file (expand-file-name ".smex-items" smf/tmp-local-dir))
 #+end_src
 
 *** fullframe
@@ -1320,7 +1320,7 @@ need to load Magit first.
 
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-c g") 'magit-status)
-  (bw/add-launcher "g" 'magit-status)
+  (smf/add-launcher "g" 'magit-status)
 #+end_src
 
 =magit-grep= isn't =autoloaded=, so I need to explicitly load it before binding
@@ -1496,8 +1496,8 @@ Bind it:
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-c SPC") 'ace-jump-char-mode)
   (global-set-key (kbd "C-<return>") 'ace-jump-line-mode)
-  (bw/add-launcher "j" 'ace-jump-char-mode)
-  (bw/add-launcher "J" 'ace-jump-line-mode)
+  (smf/add-launcher "j" 'ace-jump-char-mode)
+  (smf/add-launcher "J" 'ace-jump-line-mode)
 #+end_src
 
 **** evil integration
@@ -1567,8 +1567,8 @@ Set up some key bindings:
   (when (eq system-type 'darwin)
     (global-set-key (kbd "s-F") 'ag-project)
     (global-set-key (kbd "s-A") 'ag))
-  (bw/add-launcher "a" 'ag-project)
-  (bw/add-launcher "A" 'ag)
+  (smf/add-launcher "a" 'ag-project)
+  (smf/add-launcher "A" 'ag)
 #+end_src
 
 Make sure that we re-use the =ag= buffers - without this my buffer list is full
@@ -1620,7 +1620,7 @@ Also define a convenience keyboard shortcut to switch between buffers from the s
   (after-load 'projectile
     (global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
     (global-set-key (kbd "C-x 4 s-b") 'projectile-switch-to-buffer-other-window)
-    (bw/add-launcher "s" 'projectile-switch-project))
+    (smf/add-launcher "s" 'projectile-switch-project))
 #+end_src
 
 Provide some advice to =projectile-current-project-files= so it uses the
@@ -1633,7 +1633,7 @@ at any time, just make sure this advice runs after everything has finished:
   (add-hook 'after-init-hook
             (lambda ()
               (when (fboundp 'magit-find-file-completing-read)
-                (defadvice projectile-current-project-files (around bw/use-magit-find-file activate)
+                (defadvice projectile-current-project-files (around smf/use-magit-find-file activate)
                   "If magit-find-file-completing-read is available use that to
   call the files instead of Projectile's native caller - this is
   much much faster"
@@ -1699,7 +1699,7 @@ Set up keybindings for it, particularly the SublimeText equivalent:
   (global-set-key (kbd "M-p") 'magit-find-file-completing-read)
   (when (eq system-type 'darwin)
       (global-set-key (kbd "s-p") 'magit-find-file-completing-read))
-  (bw/add-launcher "t" 'magit-find-file-completing-read)
+  (smf/add-launcher "t" 'magit-find-file-completing-read)
 #+end_src
 
 *** evil
@@ -1740,17 +1740,17 @@ Now set up all the =evil-leader= powered shortcuts I want:
     "o" 'occur
     "O" 'browse-url
     "P" 'popwin:popup-last-buffer
-    "r" 'bw/recentf-ido-find-file
+    "r" 'smf/recentf-ido-find-file
     "w" 'save-buffer
     "x" 'smex
     "y" 'bury-buffer)
 #+end_src
 
-Now we automatically copy across everything from =bw/launcher-map= to ensure I
+Now we automatically copy across everything from =smf/launcher-map= to ensure I
 easily retain muscle memory:
 
 #+begin_src emacs-lisp
-  (dolist (entry (cdr bw/launcher-map))
+  (dolist (entry (cdr smf/launcher-map))
     (evil-leader/set-key
       (key-description (vector (car entry))) (cdr entry)))
 #+end_src
@@ -1819,7 +1819,7 @@ undo/redo history. This mode is bundled with evil:
 Finally, invoke =evil-mode= using my launcher:
 
 #+begin_src emacs-lisp
-  (bw/add-launcher "e" 'evil-mode)
+  (smf/add-launcher "e" 'evil-mode)
 #+end_src
 
 **** fix annoying defaults
@@ -1950,7 +1950,7 @@ the local buffer only (this means I can use the same key binding for completion
 no matter which minor mode I'm using):
 
 #+begin_src emacs-lisp
-  (defun bw/enable-company-mode ()
+  (defun smf/enable-company-mode ()
     "Enables company-mode and overloads hippie-expand's binding"
     (company-mode 1)
     (define-key (current-local-map) [remap dabbrev-expand] 'company-complete))
@@ -1960,7 +1960,7 @@ Add this function to any modes derived from =prog-mode=:
 
 #+begin_src emacs-lisp
   (after-load 'company
-    (add-hook 'prog-mode-hook 'bw/enable-company-mode))
+    (add-hook 'prog-mode-hook 'smf/enable-company-mode))
 #+end_src
 
 **** evil integration
@@ -1969,7 +1969,7 @@ If I'm using [[evil]], I'll need to create a new function which acts like a lamb
 (and ignores arguments):
 
 #+begin_src emacs-lisp
-  (defun bw/company-complete-lambda (arg)
+  (defun smf/company-complete-lambda (arg)
     "Ignores passed in arg like a lambda and runs company-complete"
     (company-complete))
 #+end_src
@@ -1979,8 +1979,8 @@ And then bind that to the functions evil uses to complete:
 #+begin_src emacs-lisp
   (after-load 'evil
     (setq
-     evil-complete-next-func 'bw/company-complete-lambda
-     evil-complete-previous-func 'bw/company-complete-lambda))
+     evil-complete-next-func 'smf/company-complete-lambda
+     evil-complete-previous-func 'smf/company-complete-lambda))
 #+end_src
 
 **** Install and load company
@@ -2074,7 +2074,7 @@ Add the =node_modules= binary path to my exec path.
 
 #+begin_src emacs-lisp
   (after-load 'flycheck
-    (add-to-list 'exec-path (concat bw/dotfiles-dir "node_modules/.bin/")))
+    (add-to-list 'exec-path (concat smf/dotfiles-dir "node_modules/.bin/")))
 #+end_src
 
 Define a custom checker that supports the output of the =--terse= flag to
@@ -2096,14 +2096,14 @@ clash.
 
 #+begin_src emacs-lisp
   (after-load 'flycheck
-    (defun bw/turn-on-flycheck-mode-js2 ()
+    (defun smf/turn-on-flycheck-mode-js2 ()
       "Turn on and define JS2 mode checker"
       (set (make-local-variable 'js2-highlight-external-variables) nil)
       (set (make-local-variable 'js2-strict-missing-semi-warning) nil)
       (flycheck-select-checker 'javascript-jslint-reporter)
       (flycheck-mode 1))
 
-    (add-hook 'js2-mode-hook 'bw/turn-on-flycheck-mode-js2))
+    (add-hook 'js2-mode-hook 'smf/turn-on-flycheck-mode-js2))
 #+end_src
 
 *** go
@@ -2138,7 +2138,7 @@ Deal with [[https://github.com/mattn/gom][gom]] - =gom= puts locally versioned p
 dynamically add that to our =GOPATH=:
 
 #+begin_src emacs-lisp
-  (defun bw/set-local-go-path ()
+  (defun smf/set-local-go-path ()
     "Sets a local GOPATH if appropriate"
     (make-local-variable 'process-environment)
     (let* ((local-go-path (concat (projectile-project-root) "_vendor"))
@@ -2148,7 +2148,7 @@ dynamically add that to our =GOPATH=:
         (unless (string-match-p local-go-path current-go-path)
           (setenv "GOPATH" (concat local-go-path ":" current-go-path))))))
 
-  (add-hook 'go-mode-hook 'bw/set-local-go-path)
+  (add-hook 'go-mode-hook 'smf/set-local-go-path)
 #+end_src
 
 Make sure that if we're using =goenv= or =gom= we can detect that with
@@ -2191,7 +2191,7 @@ First I define a hook lambda that deletes all other company backends - gocode is
 that I don't need any other suggestions:
 
 #+begin_src emacs-lisp
-  (defun bw/setup-company-go ()
+  (defun smf/setup-company-go ()
     "Hook for running on company-go"
     (set (make-local-variable 'company-backends) '(company-go)))
 #+end_src
@@ -2200,7 +2200,7 @@ Now add the hook:
 
 #+begin_src emacs-lisp
   (after-load 'company-go
-    (add-hook 'go-mode-hook 'bw/setup-company-go))
+    (add-hook 'go-mode-hook 'smf/setup-company-go))
 #+end_src
 
 and install and load =company-go=:
@@ -2255,10 +2255,10 @@ Enable it for Emacs Lisp files:
 Conditionally enable it in the minibuffer when entering an expression:
 
 #+begin_src emacs-lisp
-  (defun bw/conditionally-enable-paredit-mode ()
+  (defun smf/conditionally-enable-paredit-mode ()
     (if (eq this-command 'eval-expression)
         (enable-paredit-mode)))
-  (add-hook 'minibuffer-setup-hook 'bw/conditionally-enable-paredit-mode)
+  (add-hook 'minibuffer-setup-hook 'smf/conditionally-enable-paredit-mode)
 #+end_src
 
 *** cider
@@ -2326,7 +2326,7 @@ through classes etc. using completion for methods.
 Add it to my launcher:
 
 #+begin_src emacs-lisp
-  (bw/add-launcher "i" 'idomenu)
+  (smf/add-launcher "i" 'idomenu)
 #+end_src
 
 Automatically rescan the current file so =imenu= is up to date:
@@ -2363,25 +2363,25 @@ some configuration.
 First set up a directory to hold the files:
 
 #+begin_src emacs-lisp
-  (setq bw/local-dotfiles-dir (bw/join-dirs bw/dotfiles-dir "local"))
+  (setq smf/local-dotfiles-dir (smf/join-dirs smf/dotfiles-dir "local"))
 #+end_src
 
 Now try to load a file named after the current user:
 
 #+begin_src emacs-lisp
-  (load (concat bw/local-dotfiles-dir user-login-name ".el") t)
+  (load (concat smf/local-dotfiles-dir user-login-name ".el") t)
 #+end_src
 
 and try to load a file named after the local system:
 
 #+begin_src emacs-lisp
-  (load (concat bw/local-dotfiles-dir system-name ".el") t)
+  (load (concat smf/local-dotfiles-dir system-name ".el") t)
 #+end_src
 
 Finally, try loading a default file:
 
 #+begin_src emacs-lisp
-  (load (concat bw/local-dotfiles-dir "local-overrides.el") t)
+  (load (concat smf/local-dotfiles-dir "local-overrides.el") t)
 #+end_src
 
 *** =Customize=-d configuration
@@ -2390,7 +2390,7 @@ Make sure anything saved using =customize= goes into a consistent (and ignored)
 place:
 
 #+begin_src emacs-lisp
-  (load (setq custom-file (concat bw/dotfiles-dir "custom.el")) t)
+  (load (setq custom-file (concat smf/dotfiles-dir "custom.el")) t)
 #+end_src
 
 (note that this works because =setq= returns the value it's set to)
