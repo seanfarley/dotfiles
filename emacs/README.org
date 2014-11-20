@@ -10,6 +10,8 @@ that it'll install basically anywhere.
 This configuration is designed to run in shells as well as on
 desktops. There are some platform specific optimisations as well.
 
+This excellent configuration was forked from [[https://github.com/bradleywright/emacs.d][Bradley Wright]].
+
 *** What is this?
 
 It's built using [[http://orgmode.org][Org mode]]'s [[http://orgmode.org/manual/Extracting-source-code.html#Extracting-source-code][tangling functionality]].
