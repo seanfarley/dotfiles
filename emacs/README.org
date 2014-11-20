@@ -173,6 +173,20 @@ Finally, use version numbers in the filenames:
   (setq version-control t)
 #+end_src
 
+** =after-load=
+
+First let's define a convenient macro that wraps typical =eval-after-load= in
+such a way that we don't need to use =progn= to contain the callback logic. This
+macro was gotten from [[https://github.com/purcell/emacs.d/blob/aa789c9745b13612c4fea6e638d81d8ebbfecdf8/init-utils.el#L1-L5][Steve Purcell's emacs.d repo]]:
+
+#+begin_src emacs-lisp
+  (defmacro after-load (feature &rest body)
+    "After FEATURE is loaded, evaluate BODY."
+    (declare (indent defun))
+    `(eval-after-load ,feature
+       '(progn ,@body)))
+#+end_src
+
 ** Client/server
 
 Emacs has a [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html#Emacs-Server][client/server]] model for editing. The client is invoked via [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Invoking-emacsclient.html][the
@@ -766,18 +780,6 @@ Enable this, and override the default command Emacs assigns to kill itself:
 
 Emacs comes with hundreds of major and minor modes to do many many things. These
 are the ones I commonly use and have configured.
-
-First let's define a convenient macro that wraps typical =eval-after-load= in
-such a way that we don't need to use =progn= to contain the callback logic. This
-macro was gotten from [[https://github.com/purcell/emacs.d/blob/aa789c9745b13612c4fea6e638d81d8ebbfecdf8/init-utils.el#L1-L5][Steve Purcell's emacs.d repo]]:
-
-#+begin_src emacs-lisp
-  (defmacro after-load (feature &rest body)
-    "After FEATURE is loaded, evaluate BODY."
-    (declare (indent defun))
-    `(eval-after-load ,feature
-       '(progn ,@body)))
-#+end_src
 
 *** org
 
