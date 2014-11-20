@@ -325,6 +325,7 @@ prompt. Code taken from [[http://ergoemacs.org/emacs/emacs_stop_cursor_enter_pro
 #+BEGIN_SRC emacs-lisp
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-alternate-modifier 'meta)
+    (setq mac-option-modifier 'meta)
     (setq ns-right-alternate-modifier nil))
 #+END_SRC
 
@@ -332,14 +333,16 @@ prompt. Code taken from [[http://ergoemacs.org/emacs/emacs_stop_cursor_enter_pro
 
 #+BEGIN_SRC emacs-lisp
   (when (and (eq system-type 'darwin) (display-graphic-p))
-    (setq ns-command-modifier 'super))
+    (setq ns-command-modifier 'super)
+    (setq mac-command-modifier 'super)) ;; for EmacsMac.app
 #+END_SRC
 
 - =H-= means [[http://en.wikipedia.org/wiki/Hyper_key][hyper key]]. On OS X I want this to be =fn=:
 
 #+BEGIN_SRC emacs-lisp
   (when (and (eq system-type 'darwin) (display-graphic-p))
-    (setq ns-function-modifier 'hyper))
+    (setq ns-function-modifier 'hyper)
+    (setq mac-function-modifier 'hyper)) ;; for EmacsMac.app
 #+END_SRC
 
 *** Basic remappings
