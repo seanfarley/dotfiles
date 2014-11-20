@@ -381,6 +381,11 @@ also mapping =M-o=:
 
 #+begin_src emacs-lisp
   (global-set-key (kbd "M-o") 'other-window)
+  ;; Moving between windows
+  (global-set-key (kbd "C-s-<up>") 'windmove-up)
+  (global-set-key (kbd "C-s-<down>") 'windmove-down)
+  (global-set-key (kbd "C-s-<right>") 'windmove-right)
+  (global-set-key (kbd "C-s-<left>") 'windmove-left)
 #+end_src
 
 **** Buffer management
