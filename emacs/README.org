@@ -19,12 +19,6 @@ It's built using [[http://orgmode.org][Org mode]]'s [[http://orgmode.org/manual/
 My entire Emacs configuration is thus written in a [[https://en.wikipedia.org/wiki/Literate_programming][literate programming]] style,
 and is contained entirely in this file.
 
-*** Old version
-
-   The previous version can be found at [[https://www.github.com/bradleywright/emacs-d][bradleywright/emacs-d]]. This
-   version has been refactored to use traditional Emacs loading
-   techniques and macros for installing packages.
-
 *** Installing
 
 Just check it out straight to the right directory, and use Make to
@@ -37,7 +31,6 @@ install it:
 **** OS X desktop (Emacs.app)
 
 - Left =option= key is remapped to =M-=
-- =M-3= prints a literal =#= (UK Mac keyboards being weird)
 - We use the [[https://github.com/bbatsov/solarized-emacs][Solarized Dark]] theme
 - Font is [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]]
 
