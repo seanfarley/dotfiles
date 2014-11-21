@@ -651,6 +651,15 @@ let's use that if we can find it:
       (setq ispell-program-name (executable-find "aspell")))
 #+end_src
 
+On the mac, the default mouse bindings are problematic since a two-finger click
+is =mouse-3= and not =mouse-2=:
+
+#+begin_src emacs-lisp
+    (after-load 'flyspell
+      (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word)
+      (define-key flyspell-mouse-map [mouse-3] #'undefined))
+#+end_src
+
 *** dired fixes
 
 OS X's bundled version of =ls= isn't the GNU one, so it doesn't support the
