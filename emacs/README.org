@@ -813,6 +813,13 @@ to select the whole buffer, or =⌘-c= to copy.
     (global-set-key (kbd "s-g") 'isearch-repeat-forward))
 #+end_src
 
+The =⌘-backspace= deletes text from the current position to the beginning of the
+line.
+
+#+begin_src emacs-lisp
+  (global-set-key [s-backspace] [?\C- ?\C-a backspace])
+#+end_src
+
 ** Utility functions
 
 *** Rename modeline
