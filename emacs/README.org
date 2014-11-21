@@ -342,6 +342,39 @@ technology.
   (setq history-length 1000)
 #+end_src
 
+*** Deleting files
+
+Move files to the trash when deleting:
+
+#+begin_src emacs-lisp
+  (setq delete-by-moving-to-trash t)
+#+end_src
+
+*** Compressed files
+
+Transparently open compressed files:
+
+#+begin_src emacs-lisp
+  (auto-compression-mode t)
+#+end_src
+
+*** Active region
+
+Got these from [[https://github.com/magnars/.emacs.d/blob/master/sane-defaults.el][Magnar Sveen's =sane-defaults.el=]]. Show the active region,
+
+#+begin_src emacs-lisp
+  (transient-mark-mode 1)
+  (make-variable-buffer-local 'transient-mark-mode)
+  (put 'transient-mark-mode 'permanent-local t)
+  (setq-default transient-mark-mode t)
+#+end_src
+
+Remove text in active region if inserting text,
+
+#+begin_src emacs-lisp
+  (delete-selection-mode 1)
+#+end_src
+
 ** Keyboard
 
 *** Modifier keys
