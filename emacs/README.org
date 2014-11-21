@@ -244,7 +244,15 @@ basis, so Makefiles, Ruby etc. will still get the correct indentation rules.
 #+begin_src emacs-lisp
   (setq-default
    indent-tabs-mode nil
-   tab-width 4)
+   tab-width 4
+   tab-stop-list (number-sequence 4 120 4)
+   sh-basic-offset 2
+   sh-indentation 2
+   c-basic-offset 4
+   web-mode-code-indent-offset 4
+   web-mode-markup-indent-offset 4
+   web-mode-css-indent-offset 4
+   web-mode-sql-indent-offset 4)
 #+end_src
 
 **** Auto-indentation
