@@ -733,6 +733,31 @@ On the Yosemite beta, =ns-use-native-fullscreen= is =nil=.
     (setq ns-use-native-fullscreen nil))
 #+end_src
 
+*** OS X keybindings
+
+There are a lot of native OS X-isms that I would like to keep. Things such =⌘-a=
+to select the whole buffer, or =⌘-c= to copy.
+
+#+begin_src emacs-lisp
+  (when (eq system-type 'darwin)
+    (global-set-key (kbd "s-a") 'mark-whole-buffer)
+    (global-set-key (kbd "s-v") 'yank)
+    (global-set-key (kbd "s-c") 'kill-ring-save)
+    (global-set-key (kbd "s-x") 'kill-region)
+    (global-set-key (kbd "s-s") 'save-buffer)
+    (global-set-key (kbd "s-l") 'goto-line)
+    (global-set-key (kbd "s-w")
+                    (lambda () (interactive) (delete-window)))
+    (global-set-key (kbd "s-z") 'undo)
+    (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
+    (global-set-key (kbd "s-k") 'kill-this-buffer)
+    (global-set-key (kbd "s-r") 'recompile)
+    (global-set-key (kbd "s-}") 'forward-paragraph)
+    (global-set-key (kbd "s-{") 'backward-paragraph)
+    (global-set-key (kbd "s-f") 'isearch-forward)
+    (global-set-key (kbd "s-g") 'isearch-repeat-forward))
+#+end_src
+
 ** Utility functions
 
 *** Rename modeline
