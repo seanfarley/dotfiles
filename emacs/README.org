@@ -726,6 +726,12 @@ gotten from [[http://mindlev.wordpress.com/2011/06/13/emacs-in-a-terminal-on-osx
     (setq interprogram-paste-function 'smf/copy-from-osx))
 #+end_src
 
+Also, allow pasting selection outside of Emacs:
+
+#+begin_src emacs-lisp
+  (setq x-select-enable-clipboard t)
+#+end_src
+
 *** Fullscreen support
 
 On Emacs 24.4 and above, Lion-style fullscreen display is supported but I
