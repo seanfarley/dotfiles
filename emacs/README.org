@@ -467,10 +467,12 @@ disk):
   (global-set-key (kbd "C-c r") 'revert-buffer)
 #+end_src
 
-Use =ibuffer= instead of the feature-lacking =list-buffers=:
+Use =ido-switch-buffer= instead of the feature-lacking =list-buffers= (and
+include a common typo I make):
 
 #+begin_src emacs-lisp
-  (global-set-key (kbd "C-x C-b") 'ibuffer)
+  (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
+  (global-set-key (kbd "C-x C-n") 'ido-switch-buffer)
 #+end_src
 
 *** Launcher keymap
