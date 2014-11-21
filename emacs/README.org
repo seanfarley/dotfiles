@@ -32,7 +32,7 @@ install it:
 
 - Left =option= key is remapped to =M-=
 - We use the [[https://github.com/bbatsov/solarized-emacs][Solarized Dark]] theme
-- Font is [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]]
+- Font is [[https://github.com/Lokaltog/powerline-fonts/tree/master/SourceCodePro][Source (Sauce) Code Pro]]
 
 **** OS X CLI in iTerm2
 
@@ -486,13 +486,15 @@ Turn off the startup screen, and always show =*scratch*=.
 
 *** Font
 
-I use [[http://levien.com/type/myfonts/inconsolata.html][Inconsolata]] as my default coding font. It's set to render at 18pt:
+I use [[https://github.com/Lokaltog/powerline-fonts/tree/master/SourceCodePro][Source (Sauce) Code Pro]] as my default coding font:
 
 #+begin_src emacs-lisp
-  (when (and
-         (display-graphic-p)
-         (find-font (font-spec :name "Inconsolata")))
-    (set-frame-font "Inconsolata-18" t t))
+  ;; set the font
+  (when (window-system)
+    (condition-case err
+      (set-default-font "Source Code Pro for Powerline Light")
+      (error
+        (set-default-font "Sauce Code Powerline Light"))))
 #+end_src
 
 *** Syntax highlighting
