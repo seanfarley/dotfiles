@@ -232,14 +232,6 @@ that option:
   (setq require-final-newline t)
 #+end_src
 
-I don't want to leave trailing whitespace in files I touch, so set up a hook
-that automatically deletes trailing whitespace after every line when saving a
-file:
-
-#+begin_src emacs-lisp
-  (add-hook 'write-file-hooks 'delete-trailing-whitespace)
-#+end_src
-
 Emacs has lots of other options for [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Useless-Whitespace.html][managing superfluous whitespace]].
 
 *** Indentation
