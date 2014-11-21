@@ -197,6 +197,7 @@ We make sure the server is running, additionally guarded to check if the version
 of Emacs we're using supports the server package:
 
 #+begin_src emacs-lisp
+  (setq server-use-tcp t)
   (when (require 'server nil t)
     (unless (server-running-p)
       (server-start)))
