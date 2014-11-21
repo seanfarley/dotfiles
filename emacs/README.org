@@ -711,19 +711,25 @@ gotten from [[http://mindlev.wordpress.com/2011/06/13/emacs-in-a-terminal-on-osx
 
 *** Fullscreen support
 
-On Emacs 24.4 and above, Lion-style fullscreen display is supported. Bind it to
-=⌘-<return>=.
+On Emacs 24.4 and above, Lion-style fullscreen display is supported but I
+dislike it. Define a method to toggle fullscreen pre-Lion.
 
 #+begin_src emacs-lisp
   (when (and (eq system-type 'darwin) (fboundp 'toggle-frame-fullscreen))
-    (global-set-key (kbd "s-<return>") 'toggle-frame-fullscreen))
+    (defun toggle-fullscreen ()
+      "Toggle full screen"
+      (interactive)
+      (set-frame-parameter nil 'fullscreen
+                           (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
+
+      (global-set-key (kbd "C-s-f") 'toggle-fullscreen))
 #+end_src
 
 On the Yosemite beta, =ns-use-native-fullscreen= is =nil=.
 
 #+begin_src emacs-lisp
   (when (eq system-type 'darwin)
-    (setq ns-use-native-fullscreen t))
+    (setq ns-use-native-fullscreen nil))
 #+end_src
 
 ** Utility functions
