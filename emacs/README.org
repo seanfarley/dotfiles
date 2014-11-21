@@ -1430,132 +1430,6 @@ frame using advice.
   (require-package 'fullframe)
 #+end_src
 
-*** magit
-
-[[https://github.com/magit/magit][Magit]] is an Emacs interface to Git. It's very feature-rich and I find it
-intuitive.
-
-**** Keyboard shortcuts
-
-=magit-status= is the main command to launch Magit. It's =autoloaded= so I don't
-need to load Magit first.
-
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-c g") 'magit-status)
-  (smf/add-launcher "g" 'magit-status)
-#+end_src
-
-=magit-grep= isn't =autoloaded=, so I need to explicitly load it before binding
-it:
-
-#+begin_src emacs-lisp
-  (autoload 'magit-grep "magit" "Grep for files" t)
-  (global-set-key (kbd "C-c f") 'magit-grep)
-#+end_src
-
-**** VC-mode integration
-
-Since I use Magit I don't need to use Emacs's native [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html][vc-mode]]:
-
-#+begin_src emacs-lisp
-  (delete 'Git vc-handled-backends)
-#+end_src
-
-**** Configuration
-
-When performing a [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Minibuffer-Completion.html][completing-read]] within Magit, I'd like to use IDO:
-
-#+begin_src emacs-lisp
-  (setq magit-completing-read-function 'magit-ido-completing-read)
-#+end_src
-
-When I create a new local branch from remote, by default I want it to be named
-the same as the remote branch (default is =$(remotename)-$(branchname)=, eg
-=origin-my-branch=):
-
-#+begin_src emacs-lisp
-  (setq magit-default-tracking-name-function 'magit-default-tracking-name-branch-only)
-#+end_src
-
-Open the =magit-status= buffer in the same window as the current buffer:
-
-#+begin_src emacs-lisp
-  (setq magit-status-buffer-switch-function 'switch-to-buffer)
-#+end_src
-
-Highlight individual word and letter changes when showing hunk diff overlays:
-
-#+begin_src emacs-lisp
-  (setq magit-diff-refine-hunk t)
-#+end_src
-
-When [[http://magit.github.io/master/magit.html#Rewriting][rewriting]], always ask me if I want to include the revision at point in the
-rewrite:
-
-#+begin_src emacs-lisp
-  (setq magit-rewrite-inclusive 'ask)
-#+end_src
-
-When Magit asks me to save modified buffers, ask me about them:
-
-#+begin_src emacs-lisp
-  (setq magit-save-some-buffers t)
-#+end_src
-
-When Magit takes a while to call out to Git, pop the process buffer after 10
-seconds so I can look for issues:
-
-#+begin_src emacs-lisp
-  (setq magit-process-popup-time 10)
-#+end_src
-
-When pushing a branch without a remote, ask me which remote to set it to:
-
-#+begin_src emacs-lisp
-  (setq magit-set-upstream-on-push t)
-#+end_src
-
-When =magit-auto-revert-mode= is enabled, diminish its [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Defining-Minor-Modes.html][lighter]] in the modeline:
-
-#+begin_src emacs-lisp
-  (setq magit-auto-revert-mode-lighter "")
-#+end_src
-
-**** Interaction with fullframe
-
-If =fullframe= is installed (see below), use it to make =magit-status= take over
-the entire frame:
-
-#+begin_src emacs-lisp
-  (after-load 'fullframe
-    (fullframe magit-status magit-mode-quit-window nil))
-#+end_src
-
-
-**** Load Magit
-
-Finally we can install Magit:
-
-#+begin_src emacs-lisp
-  (require-package 'magit)
-#+end_src
-
-*** gitignore-mode
-
-[[https://github.com/magit/git-modes][gitignore-mode]] is a major mode for editing =gitignore= files:
-
-#+begin_src emacs-lisp
-  (require-package 'gitignore-mode)
-#+end_src
-
-*** gitconfig-mode
-
-[[https://github.com/magit/git-modes][gitconfig-mode]] is a major more for editing =gitconfig= files:
-
-#+begin_src emacs-lisp
-  (require-package 'gitconfig-mode)
-#+end_src
-
 *** ido-ubiquitous
 
 [[https://github.com/DarwinAwardWinner/ido-ubiquitous][ido-ubiquitous]] mode enables ido in many more places than the default ido setup:
@@ -1631,13 +1505,12 @@ buffers, search buffers etc. a bit more sane.
   (require-package 'popwin)
 #+end_src
 
-As well as the defaults, I want [[ag]], [[magit]], [[flycheck]] and [[http://www.emacswiki.org/emacs/OccurMode][occur]] to 'pop'. I don't
-want to auto-select the Magit process buffer as it's for information only.
+As well as the defaults, I want [[ag]], [[flycheck]] and [[http://www.emacswiki.org/emacs/OccurMode][occur]] to 'pop'. I don't want to
+auto-select the =Compile-Log= process buffer as it's for information only.
 
 #+begin_src emacs-lisp
   (after-load 'popwin
     (add-to-list 'popwin:special-display-config `"*ag search*")
-    (add-to-list 'popwin:special-display-config `("*magit-process*" :noselect t))
     (add-to-list 'popwin:special-display-config `"*Flycheck errors*")
     (add-to-list 'popwin:special-display-config `"*Occur*")
     (add-to-list 'popwin:special-display-config `("*Compile-Log*" :noselect t)))
@@ -1706,7 +1579,6 @@ buffers, so do some remapping:
 
 #+begin_src emacs-lisp
   (after-load 'projectile
-    (define-key projectile-mode-map [remap magit-find-file-completing-read] 'projectile-find-file)
     (define-key projectile-mode-map [remap ag-project] 'projectile-ag))
 #+end_src
 
@@ -1724,28 +1596,6 @@ Also define a convenience keyboard shortcut to switch between buffers from the s
     (global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
     (global-set-key (kbd "C-x 4 s-b") 'projectile-switch-to-buffer-other-window)
     (smf/add-launcher "s" 'projectile-switch-project))
-#+end_src
-
-Provide some advice to =projectile-current-project-files= so it uses the
-=magit-find-file= library when we're in a Git repository - using Magit's process
-manager is significantly faster than Projectile's own Git interaction, which
-creates a new shell process each time. Since =magit-find-file= might be loaded
-at any time, just make sure this advice runs after everything has finished:
-
-#+begin_src emacs-lisp
-  (add-hook 'after-init-hook
-            (lambda ()
-              (when (fboundp 'magit-find-file-completing-read)
-                (defadvice projectile-current-project-files (around smf/use-magit-find-file activate)
-                  "If magit-find-file-completing-read is available use that to
-  call the files instead of Projectile's native caller - this is
-  much much faster"
-                  (autoload 'magit-find-file-files "magit-find-file")
-                  (autoload 'magit-get-top-dir "magit")
-                  (if (magit-get-top-dir)
-                      (let ((default-directory (projectile-project-root)))
-                        (setq ad-return-value (magit-find-file-files)))
-                    ad-do-it)))))
 #+end_src
 
 *** solarized-theme
@@ -1784,25 +1634,6 @@ theme.
 
 #+begin_src emacs-lisp
   (require-package 'base16-theme)
-#+end_src
-
-*** magit-find-file
-
-[[https://github.com/bradleywright/magit-find-file.el][magit-find-file]] is a package that uses Magit's process buffers to emulate
-SublimeText's =Command+p= functionality within Git repositories.
-
-#+begin_src emacs-lisp
-  (require-package 'magit-find-file)
-#+end_src
-
-Set up keybindings for it, particularly the SublimeText equivalent:
-
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-c t") 'magit-find-file-completing-read)
-  (global-set-key (kbd "M-p") 'magit-find-file-completing-read)
-  (when (eq system-type 'darwin)
-      (global-set-key (kbd "s-p") 'magit-find-file-completing-read))
-  (smf/add-launcher "t" 'magit-find-file-completing-read)
 #+end_src
 
 *** undo-tree
