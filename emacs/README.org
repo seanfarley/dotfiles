@@ -876,6 +876,16 @@ Force Ido to [[http://stackoverflow.com/a/11341239/61435][ignore Dropbox cruft]]
     (add-to-list 'ido-ignore-files "Icon\n"))
 #+end_src
 
+Also ignore certain extensions that I don't care about
+
+#+begin_src emacs-lisp
+  (setq completion-ignored-extensions
+        '(".o" ".elc" "~" ".bin" ".bak" ".obj" ".map" ".a" ".ln" ".mod" ".gz"
+          ".aux" ".tdo" ".fmt" ".swp" ".pdfsync" ".pdf" ".vrb" ".idx" ".ind"
+          ".bbl" ".toc" ".blg" ".snm" ".ilg" ".log" ".out" ".pyc" ".DS_Store"
+          "-blx.bib" ".run.xml" ".hi" ".fls" ".fdb_latexmk" ".bcf" ".rel"))
+#+end_src
+
 Configure Ido (see comments for more information):
 
 #+begin_src emacs-lisp
