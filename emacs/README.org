@@ -328,6 +328,12 @@ prompt. Code taken from [[http://ergoemacs.org/emacs/emacs_stop_cursor_enter_pro
   (setq minibuffer-prompt-properties (add-to-list 'minibuffer-prompt-properties 'point-entered))
 #+end_src
 
+While we're at it, let's allow recursive minibuffers.
+
+#+begin_src emacs-lisp
+  (setq enable-recursive-minibuffers t)
+#+end_src
+
 Also, let's save the minibuffer history between sessions. It's 2014. We have the
 technology.
 
