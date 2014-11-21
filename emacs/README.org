@@ -1787,30 +1787,6 @@ Conditionally enable it in the minibuffer when entering an expression:
   (add-hook 'minibuffer-setup-hook 'smf/conditionally-enable-paredit-mode)
 #+end_src
 
-*** cider
-
-[[https://github.com/clojure-emacs/cider][CIDER]] (Clojure IDE and REPL) is the best way to develop [[http://clojure.org][Clojure]] in Emacs.
-
-#+begin_src emacs-lisp
-  (require-package 'cider)
-#+end_src
-
-Automatically enable [[eldoc-mode]] and [[paredit]] in CIDER buffers:
-
-#+begin_src emacs-lisp
-  (after-load 'cider-mode
-    (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-    (add-hook 'cider-mode-hook 'enable-paredit-mode)
-    (add-hook 'cider-repl-mode-hook 'enable-paredit-mode))
-#+end_src
-
-Finally enable the CIDER minor mode in Clojure buffers:
-
-#+begin_src emacs-lisp
-  (after-load 'clojure-mode
-    (add-hook 'clojure-mode-hook 'clojure-enable-cider))
-#+end_src
-
 *** web-mode
 
 [[https://github.com/fxbois/web-mode][web-mode]] is a major mode for editing templates and HTML. It supports a very
