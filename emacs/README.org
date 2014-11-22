@@ -441,15 +441,21 @@ m=, and then add a fat-finger combination of =C-x C-m=:
 
 **** Prefer =backward-kill-word= over Backspace
 
-As per [[https://sites.google.com/site/steveyegge2/effective-emacs#item3][Yegge's Item 3]]. This copies readline's =C-w= command to
-=backward-kill-word=, remaps the command that used to live there
-(=kill-region=), and then enables a fat-finger version of the new =kill=region=
-mapping:
+As per [[https://sites.google.com/site/steveyegge2/effective-emacs#item3][Yegge's Item 3]]. This emulates readline =C-w= command to
+=backward-kill-word=. The command that used to live there (=kill-region=) is not
+needed since the backspace key works just fine in that case.
 
 #+begin_src emacs-lisp
-  (global-set-key (kbd "C-w") 'backward-kill-word)
-  (global-set-key (kbd "C-x C-k") 'kill-region)
-  (global-set-key (kbd "C-c C-k") 'kill-region)
+  ;; deletes backward until a space is hit
+  (defun smf/backward-kill-word ()
+    (interactive)
+    (if (and transient-mark-mode mark-active)
+        (kill-region (point) (mark))
+      (progn
+        (delete-region (point) (save-excursion (skip-syntax-backward " ") (point)))
+        (delete-region (point) (save-excursion (skip-syntax-backward "^ ") (point))))))
+
+  (global-set-key (kbd "C-w") 'smf/backward-kill-word)
 #+end_src
 
 **** Quick window switching
