@@ -707,13 +707,15 @@ We can use [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Uniquify.
 
 *** Themes
 
-On a GUI Emacs, I want to use [[solarized-theme]]. On a terminal I want to use
-[[zenburn-theme]]:
+On a GUI Emacs, I want to use the [[zenburn-theme]]. On a terminal I want to use the
+[[base16-theme]].
+
 
 #+begin_src emacs-lisp
   (add-hook 'after-init-hook (lambda ()
                                (if (window-system)
-                                   (load-theme 'solarized-dark t)
+                                   ;; (load-theme 'solarized-dark t)
+                                   (load-theme 'zenburn t)
                                  (load-theme 'base16-default t))))
 #+end_src
 
@@ -1650,7 +1652,7 @@ Also define a convenience keyboard shortcut to switch between buffers from the s
 
 *** solarized-theme
 
-I use the [[http://ethanschoonover.com/solarized][solarized]] dark theme in my editor. Specifically, I use the
+I used to use the [[http://ethanschoonover.com/solarized][solarized]] dark theme in my editor. Specifically, I use the
 [[https://github.com/bbatsov/solarized-emacs]] variant as it has the best support
 for the major modes I use, and is the most up to date. Previously I used
 [[https://github.com/sellout/emacs-color-theme-solarized][sellout's variant]] as it has much better terminal support, but it hasn't been
@@ -1670,7 +1672,7 @@ modeline to be high contrast (reversed out):
 
 *** zenburn-theme
 
-I use the [[https://github.com/bbatsov/zenburn-emacs][zenburn-theme]] on a TTY Emacs as it has excellent terminal colouring
+I use the [[https://github.com/bbatsov/zenburn-emacs][zenburn-theme]] as my Emacs theme as it has excellent coloring
 (see [[Themes]]):
 
 #+begin_src emacs-lisp
