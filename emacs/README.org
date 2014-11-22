@@ -597,22 +597,39 @@ information on frame titles]].
 
 *** Cursor
 
-On modern operating systems, a vertical bar is used as a cursor:
+I prefer a box, non-blinking cursor. So, turn off that blinking:
 
 #+begin_src emacs-lisp
   (when (display-graphic-p)
-    (setq-default cursor-type 'bar))
+    (setq-default cursor-type 'box)
+    (blink-cursor-mode (- (*) (*) (*))))
 #+end_src
 
-Make the cursor blink (interestingly in Emacs 24.4+ the [[https://lists.gnu.org/archive/html/emacs-diffs/2013-07/msg00208.html][cursor automatically
-stops blinking after a period to conserve CPU]]).
-
-Make the cursor blink every second:
+Depending on the mode, let's [[http://www.emacswiki.org/emacs/ChangingCursorDynamically][change the cursor]].
 
 #+begin_src emacs-lisp
-  (when (display-graphic-p)
-    (setq blink-cursor-interval 1.0)
-    (blink-cursor-mode 1))
+  (setq smf/read-only-color       "gray")
+  (setq smf/read-only-cursor-type 'hbar)
+  (setq smf/overwrite-color       "red")
+  (setq smf/overwrite-cursor-type 'box)
+  (setq smf/normal-color          "gray")
+  (setq smf/normal-cursor-type    'box)
+
+  (defun smf/set-cursor-according-to-mode ()
+    "change cursor color and type according to some minor modes."
+
+    (cond
+     (buffer-read-only
+      (set-cursor-color smf/read-only-color)
+      (setq cursor-type smf/read-only-cursor-type))
+     (overwrite-mode
+      (set-cursor-color smf/overwrite-color)
+      (setq cursor-type smf/overwrite-cursor-type))
+     (t
+      (set-cursor-color smf/normal-color)
+      (setq cursor-type smf/normal-cursor-type))))
+
+  (add-hook 'post-command-hook 'smf/set-cursor-according-to-mode)
 #+end_src
 
 *** Typing
