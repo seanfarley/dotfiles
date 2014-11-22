@@ -668,6 +668,22 @@ Don't make me type =yes= or =no= to boolean interface questions:
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
 
+*** Code commenting
+
+A drop-in replacement for comment-dwim. If no region is selected and current
+line is not blank and we are not at the end of the line, then comment current
+line.
+
+#+begin_src emacs-lisp
+  (defun comment-dwim-line (&optional arg)
+    (interactive "*P")
+    (comment-normalize-vars)
+    (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
+        (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+      (comment-dwim arg)))
+  (global-set-key (kbd "M-;") 'comment-dwim-line)
+#+end_src
+
 *** Bells
 
 Don't make a sound when [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Beeping.html][ringing a bell]] - flash a visual bell instead:
