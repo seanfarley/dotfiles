@@ -909,8 +909,6 @@ me:
     (if server-buffer-clients
         (server-edit)
       (if (= (length (frame-list)) 1)
-          (cond ((y-or-n-p "Quit Emacs? ")
-                 (save-buffers-kill-terminal)))
         (save-buffers-kill-terminal))))
 #+end_src
 
