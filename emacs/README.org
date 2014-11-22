@@ -918,6 +918,19 @@ Enable this, and override the default command Emacs assigns to kill itself:
   (define-key (current-global-map) [remap save-buffers-kill-terminal] 'smf/kill-emacs)
 #+end_src
 
+Also, when using an emacsclient that is waiting, I don't want a prompt that asks
+if I really want to exit. So, we define our own function and bind it to =⌘-k=.
+
+#+begin_src emacs-lisp
+  (add-hook 'server-switch-hook
+            (lambda ()
+              (local-set-key (kbd "s-k") '(lambda ()
+                                            (interactive)
+                                            (if server-buffer-clients
+                                                (server-edit)
+                                              (kill-this-buffer))))))
+#+end_src
+
 ** Other modes
 
 Emacs comes with hundreds of major and minor modes to do many many things. These
