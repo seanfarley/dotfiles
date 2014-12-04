@@ -251,7 +251,9 @@ direction, i.e. count backwards"
    mu4e-maildir "~/.mail"
    mu4e-attachment-dir  "~/Downloads"
    mu4e-drafts-folder "/drafts"
-   mu4e-trash-folder  "/trash"
+
+   ;; add note about why we aren't setting up like most other examples
+   ;; mu4e-trash-folder  "/trash"
 
    ;; make sure to use the same header for syncing labels
    mu4e-action-tags-header "X-Keywords"
