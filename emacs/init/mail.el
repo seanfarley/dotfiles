@@ -247,6 +247,8 @@ direction, i.e. count backwards"
    user-mail-address "sean.michael.farley@gmail.com"
    user-full-name  "Sean Farley"
 
+   mu4e~headers-sort-direction 'ascending
+
    mu4e-confirm-quit nil
    mu4e-maildir "~/.mail"
    mu4e-attachment-dir  "~/Downloads"
