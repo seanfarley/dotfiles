@@ -303,10 +303,6 @@ direction, i.e. count backwards"
                     ("tag:Action"                       "Action"    ?a)
                     ("tag:list"                         "Lists"     ?l))
 
-  mu4e-maildir-shortcuts '(("/archive" . ?a)
-                           ("/drafts"  . ?d)
-                           ("/trash"   . ?t))
-
   ;; fields in list view
   mu4e-headers-fields '((:human-date . 15)
                         (:flags      .  5)
