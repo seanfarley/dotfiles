@@ -272,6 +272,7 @@ direction, i.e. count backwards"
 
    mu4e-use-fancy-chars t
    mu4e-view-show-images t
+   mu4e-view-prefer-html nil
 
    ;; convert html messages to markdown syntax
    mu4e-html2text-command 'mu4e-shr2text
