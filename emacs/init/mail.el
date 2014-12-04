@@ -48,120 +48,29 @@
   (when (fboundp 'imagemagick-register-types)
     (imagemagick-register-types))
 
-  (defun mu4e-select-label (&optional prefix)
-    "Select a label from a hard-coded list"
+  (defun mu4e-headers-next-thread (&optional backwards)
+    "Move point to the next thread. If BACKWARDS is non-`nil',
+    move backwards."
     (interactive "P")
-    (if (not (equal prefix '-))
-        (setq prefix ""))
-    (format "%s%s" prefix (ido-completing-read "Label: " mylabels)))
+    (let ((find-func (if backwards 'mu4e-headers-find-if 'mu4e-headers-find-if-next)))
+      (or (funcall find-func
+           (lambda (msg)
+             (let ((thread (mu4e-message-field msg :thread)))
+               (eq (plist-get thread :level) 0)))
+           backwards)
+          (mu4e-message (format "No %s thread found"
+                                (if backwards "previous" "next"))))))
 
-  (defun mu4e-thread-count (&optional negative)
-    "Count the number of messages in a thread from the current
-point. Passing a boolean prefix will count in the other
-direction, i.e. count backwards"
-    (interactive)
-    (let* ((msg (mu4e-message-at-point))
-           (msgid (mu4e-message-field msg :message-id))
-           (thread-id (mu4e~headers-get-thread-info msg 'thread-id))
-           (path      (mu4e~headers-get-thread-info msg 'path))
-           (started negative)
-           (tcount 0))
-      (mu4e-headers-for-each
-       (lambda (mymsg)
-         (let ((my-thread-id (mu4e~headers-get-thread-info mymsg 'thread-id))
-               (mymsgid (mu4e-message-field msg :message-id)))
-           (when (string= thread-id (mu4e~headers-get-thread-info mymsg 'thread-id))
-             (when (string= mymsgid msgid)
-               (setq started (not started)))
-             (when started
-               (setq tcount (+ tcount 1)))))))
-      tcount))
-
-  (defun mu4e-label-thread (label)
-    "Label the thread at point."
-    ;; the thread id is shared by all messages in a thread
-    (interactive "P")
-    (let* ((msg (mu4e-message-at-point))
-           (thread-id (mu4e~headers-get-thread-info msg 'thread-id))
-           (path      (mu4e~headers-get-thread-info msg 'path)))
-      (mu4e-headers-for-each
-       (lambda (mymsg)
-         (let ((my-thread-id (mu4e~headers-get-thread-info mymsg 'thread-id)))
-           (when (string= thread-id (mu4e~headers-get-thread-info mymsg 'thread-id))
-             (mu4e-action-retag-message mymsg label)))))))
-
-  (defun mu4e-mark-read-thread ()
-    "Label the thread at point."
-    ;; the thread id is shared by all messages in a thread
-    (interactive)
-    (let* ((msg (mu4e-message-at-point))
-           (thread-id (mu4e~headers-get-thread-info msg 'thread-id))
-           (path      (mu4e~headers-get-thread-info msg 'path)))
-      (mu4e-headers-for-each
-       (lambda (mymsg)
-         (let ((my-thread-id (mu4e~headers-get-thread-info mymsg 'thread-id))
-               (mymsgid (mu4e-message-field mymsg :message-id)))
-           (when (string= thread-id (mu4e~headers-get-thread-info mymsg 'thread-id))
-             (mu4e~proc-move mymsgid nil "+S-u-N")))))))
-
-  (defun mu4e-headers-label-thread (&optional prefix)
-    (interactive "P")
-    (mu4e-label-thread (mu4e-select-label prefix)))
-
-  (defun mu4e-view-label-thread (&optional prefix)
+  (defun mu4e-view-headers-next-thread (&optional backwards)
+    "Move point to the next or previous (when BACKWARDS is non-`nil')
+unread message header in the headers buffer connected with this
+message view. If this succeeds, return the new docid. Otherwise,
+return nil."
     (interactive "P")
     (mu4e~view-in-headers-context
-     (mu4e-label-thread (mu4e-select-label prefix))))
-
-  (defun mu4e-headers-thread-next ()
-    (interactive)
-    (mu4e-headers-next (mu4e-thread-count)))
-
-  (defun mu4e-view-thread-next ()
-    (interactive)
-    (mu4e-view-headers-next (mu4e~view-in-headers-context
-     (mu4e-thread-count))))
-
-  (defun mu4e-headers-thread-prev ()
-    (interactive)
-    ;; move the beginnging of the current thread
-    (mu4e-headers-prev (mu4e-thread-count 't))
-    ;; move up to the previous thread
-    (mu4e-headers-prev)
-    ;; now move the beginning of desired thread
-    (mu4e-headers-prev (mu4e-thread-count 't)))
-
-  (defun mu4e-view-thread-prev (&optional)
-    (interactive)
-    ;; move the beginnging of the current thread
-    (mu4e-view-headers-prev (mu4e~view-in-headers-context (mu4e-thread-count 't)))
-
-    ;; wtf, this errors out?
-    ;; user-error: [mu4e] No message at point
-
-    ;; move up to the previous thread
-    (sit-for .1)
-    (mu4e-view-headers-prev)
-    ;; now move the beginning of desired thread
-    ;; (mu4e-view-headers-prev (mu4e~view-in-headers-context (mu4e-thread-count 't)))
-    )
-
-  (defun mu4e-archive-next-message ()
-    (interactive)
-    (mu4e~view-in-headers-context
-     (mu4e-label-thread "-\\Inbox"))
-    (sit-for .05)
-    (mu4e~view-in-headers-context
-     (mu4e-mark-read-thread))
-    (sit-for .1)
-    (mu4e-view-thread-next))
-
-  (defun mu4e-delete-next-message ()
-    (interactive)
-    (mu4e~view-in-headers-context
-     (mu4e-label-thread "\\Trash"))
-    (sit-for .05)
-    (mu4e-archive-next-message))
+     (mu4e-headers-next-thread backwards))
+    (mu4e-select-other-view)
+    (mu4e-headers-view-message))
 
   (defun mu4e-action-hg-import-patch (msg)
     "Import the hg [patch] message."
@@ -205,34 +114,126 @@ direction, i.e. count backwards"
                   "sfarley@iit.edu")
                  (t "sean.micheal.farley@gmail.com")))))
 
-  (define-key mu4e-headers-mode-map (kbd "]") 'mu4e-mark-read-thread)
-  (define-key mu4e-view-mode-map (kbd "]") 'mu4e-archive-next-message)
+  (define-key mu4e-headers-mode-map (kbd "N") 'mu4e-headers-next-thread)
+  (define-key mu4e-view-mode-map (kbd "N") 'mu4e-view-headers-next-thread)
 
-  (define-key mu4e-headers-mode-map (kbd "l") 'mu4e-headers-label-thread)
-  (define-key mu4e-view-mode-map (kbd "l") 'mu4e-view-label-thread)
-
-  (define-key mu4e-headers-mode-map (kbd "M-n") 'mu4e-headers-thread-next)
-  (define-key mu4e-view-mode-map (kbd "M-n") 'mu4e-view-thread-next)
-
-  (define-key mu4e-headers-mode-map (kbd "M-p") 'mu4e-headers-thread-prev)
-  (define-key mu4e-view-mode-map (kbd "M-p") 'mu4e-view-thread-prev)
-
-  (define-key mu4e-headers-mode-map (kbd "d") 'mu4e-delete-next-message)
-  (define-key mu4e-view-mode-map (kbd "d") 'mu4e-delete-next-message)
+  ;; override default binding for "P"
+  (define-key mu4e-headers-mode-map (kbd "P")
+    (lambda() (interactive) (mu4e-headers-next-thread t)))
+  (define-key mu4e-view-mode-map (kbd "P")
+    (lambda() (interactive) (mu4e-view-headers-next-thread t)))
 
   (add-hook 'mu4e-compose-pre-hook 'mu4e-set-from-address)
   (add-hook 'mu4e-compose-mode-hook (lambda () (flyspell-mode)))
 
   ;; custom actions
-  (add-to-list 'mu4e-headers-actions '("archive message" . mu4e-action-archive-message) t)
-  (add-to-list 'mu4e-view-actions '("archive message" . mu4e-action-archive-message) t)
-
-  (add-to-list 'mu4e-headers-actions '("tRetag message" . mu4e-action-retag-message) t)
-  (add-to-list 'mu4e-view-actions '("tRetag message" . mu4e-action-retag-message) t)
 
   (add-to-list 'mu4e-view-actions '("patch" . mu4e-action-hg-import-patch) t)
 
   (add-to-list 'mu4e-view-actions '("bView in browser" . mu4e-action-view-in-browser) t)
+
+  (setq mu4e-marks (delq (assoc 'delete mu4e-marks) mu4e-marks)
+        mu4e-marks (delq (assoc 'trash mu4e-marks) mu4e-marks)
+        mu4e-marks (delq (assoc 'untrash mu4e-marks) mu4e-marks)
+        mu4e-marks (delq (assoc 'refile mu4e-marks) mu4e-marks)
+        mu4e-marks (delq (assoc 'flag mu4e-marks) mu4e-marks)
+        mu4e-marks (delq (assoc 'unflag mu4e-marks) mu4e-marks)
+        mu4e-marks (delq (assoc 'move mu4e-marks) mu4e-marks))
+
+  (setq mu4e-marks (delq (assoc 'archive mu4e-marks) mu4e-marks))
+
+  (add-to-list 'mu4e-marks
+               '(untag
+                 :char       "-"
+                 :prompt     "-tag"
+                 :ask-target (lambda () (ido-completing-read "Label: " mylabels))
+                 :action      (lambda (docid msg target)
+                                (mu4e~proc-move docid nil "-N")
+                                (mu4e-action-retag-message msg (concat "-" target)))))
+
+  (add-to-list 'mu4e-marks
+               '(tag
+                 :char       "+"
+                 :prompt     "+tag"
+                 :ask-target (lambda () (ido-completing-read "Label: " mylabels))
+                 :action      (lambda (docid msg target)
+                                (mu4e~proc-move docid nil "-N")
+                                (mu4e-action-retag-message msg (concat "+" target)))))
+
+  (add-to-list 'mu4e-marks
+               '(archive
+                 :char       "A"
+                 :prompt     "Archive"
+                 :show-target (lambda (target) "archive")
+                 :action      (lambda (docid msg target)
+                                (mu4e-action-retag-message msg "-\\Inbox")
+                                (mu4e~proc-move docid nil "+S-u-N"))))
+
+  (add-to-list 'mu4e-marks
+               '(untrash
+                 :char       "="
+                 :prompt     "=untrash"
+                 :show-target (lambda (target) "untrash")
+                 :action      (lambda (docid msg target)
+                                (mu4e~proc-move docid nil "-N")
+                                (mu4e-action-retag-message msg "-\\Trash"))))
+
+  (add-to-list 'mu4e-marks
+               '(trash
+                 :char       "d"
+                 :prompt     "dtrash"
+                 :show-target (lambda (target) "trash")
+                 :action      (lambda (docid msg target)
+                                (mu4e-action-retag-message msg "\\Trash")
+                                (mu4e~proc-move docid nil "+S-u-N"))))
+
+  ;; removed the functions we don't need (for view)
+  (fmakunbound 'mu4e-view-mark-for-move)
+  (fmakunbound 'mu4e-view-mark-for-refile)
+  (fmakunbound 'mu4e-view-mark-for-flag)
+  (fmakunbound 'mu4e-view-mark-for-unflag)
+
+  ;; removed the functions we don't need (for headers)
+  (fmakunbound 'mu4e-headers-mark-for-move)
+  (fmakunbound 'mu4e-headers-mark-for-refile)
+  (fmakunbound 'mu4e-headers-mark-for-flag)
+  (fmakunbound 'mu4e-headers-mark-for-unflag)
+
+  ;; regenerate the functions we just defined above
+  (mu4e~view-defun-mark-for trash)
+  (mu4e~view-defun-mark-for delete)
+  (mu4e~view-defun-mark-for tag)
+  (mu4e~view-defun-mark-for untag)
+  (mu4e~view-defun-mark-for archive)
+
+  ;; regenerate the functions we just defined above (for headers)
+  (mu4e~headers-defun-mark-for trash)
+  (mu4e~headers-defun-mark-for delete)
+  (mu4e~headers-defun-mark-for tag)
+  (mu4e~headers-defun-mark-for untag)
+  (mu4e~headers-defun-mark-for archive)
+
+  ;; remove move
+  (define-key mu4e-view-mode-map (kbd "m") nil)
+  (define-key mu4e-headers-mode-map (kbd "m") nil)
+
+  ;; remove delete
+  (define-key mu4e-view-mode-map (kbd "D") nil)
+  (define-key mu4e-headers-mode-map (kbd "D") nil)
+
+  ;; remap the actions we renamed
+  (define-key mu4e-view-mode-map (kbd "A") 'mu4e-view-mark-for-archive)
+  (define-key mu4e-view-mode-map (kbd "<delete>") 'mu4e-view-mark-for-trash)
+  (define-key mu4e-view-mode-map (kbd "<deletechar>") 'mu4e-view-mark-for-trash)
+  (define-key mu4e-view-mode-map (kbd "+") 'mu4e-view-mark-for-tag)
+  (define-key mu4e-view-mode-map (kbd "-") 'mu4e-view-mark-for-untag)
+
+  ;; remap the actions we renamed (for headers)
+  (define-key mu4e-headers-mode-map (kbd "A") 'mu4e-headers-mark-for-archive)
+  (define-key mu4e-headers-mode-map (kbd "<delete>") 'mu4e-headers-mark-for-trash)
+  (define-key mu4e-headers-mode-map (kbd "<deletechar>") 'mu4e-headers-mark-for-trash)
+  (define-key mu4e-headers-mode-map (kbd "+") 'mu4e-headers-mark-for-tag)
+  (define-key mu4e-headers-mode-map (kbd "-") 'mu4e-headers-mark-for-untag)
 
   (setq
    mu4e-user-mail-address-list '("sean.michael.farley@gmail.com"
