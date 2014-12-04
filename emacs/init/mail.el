@@ -268,7 +268,7 @@ direction, i.e. count backwards"
    mu4e-get-mail-command "offlineimap"
 
    ;; update every 5 minutes
-   mu4e-update-interval 300
+   ;; mu4e-update-interval 300
 
    mu4e-use-fancy-chars t
    mu4e-view-show-images t
