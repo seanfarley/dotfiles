@@ -1935,6 +1935,56 @@ It's very convenient to select the whole line when no region is active.
   (whole-line-or-region-mode)
 #+end_src
 
+*** cycle buffer
+
+I find cycling buffers with =ctrl-tab= very fast and convenient. For that, I use
+[[https://github.com/martinp26/cycbuf][cycbuf]], so let's install and load that.
+
+#+begin_src emacs-lisp
+  (require-package 'cycbuf)
+  (require 'cycbuf)
+  (add-hook 'after-init-hook 'cycbuf-init)
+#+end_src
+
+I prefer to just cycle without seeing a list, so set the delay to zero (i.e.
+never show it).
+
+#+begin_src emacs-lisp
+  (setq cycbuf-clear-delay 0)
+#+end_src
+
+Modern OSes sort applications by last recently used, so we also copy that behavior.
+
+#+begin_src emacs-lisp
+  (setq cycbuf-buffer-sort-function 'cycbuf-sort-by-recency)
+#+end_src
+
+Also, I don't want to cycle through Emacs internal buffers, so I filter out
+buffers that start and end with an asterisk.
+
+#+begin_src emacs-lisp
+  (setq cycbuf-dont-show-regexp
+        '("^ "
+          "^\\*cycbuf\\*$"
+          "^\\*.*\\*"))
+#+end_src
+
+Remap the default keybinding to =ctrl-tab= for next buffer and =ctrl-shift-tab=
+for previous buffer.
+
+#+begin_src emacs-lisp
+  (global-set-key [(control tab)] 'cycbuf-switch-to-next-buffer)
+  (global-set-key [(control shift tab)] 'cycbuf-switch-to-previous-buffer)
+#+end_src
+
+Finally, unset =org-mode='s =ctrl-tab= binding.
+
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook
+            '(lambda ()
+               (define-key org-mode-map [(control tab)] nil)))
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
