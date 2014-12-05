@@ -2078,6 +2078,21 @@ Always enable this mode and bind =C-|= to highlight the column
   (global-set-key (kbd "C-c M-d") 'hungry-delete-forward)
 #+end_src
 
+*** alert
+
+A Growl-like alerts notifier for Emacs.
+
+#+begin_src emacs-lisp
+  (require-package 'alert)
+#+end_src
+
+On the mac, we'll use the [[https://github.com/alloy/terminal-notifier][terminal-notifier]] to integrate with [[http://en.wikipedia.org/wiki/Notification_Center][Notification Center]].
+
+#+begin_src emacs-lisp
+  (when (eq system-type 'darwin)
+    (setq alert-default-style 'notifier))
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
