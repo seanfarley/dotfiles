@@ -2045,6 +2045,22 @@ Finally, unset =org-mode='s =ctrl-tab= binding.
                (define-key org-mode-map [(control tab)] nil)))
 #+end_src
 
+*** crosshairs
+
+Highlights both the line and the column.
+
+#+begin_src emacs-lisp
+  (require-package 'crosshairs)
+#+end_src
+
+Always enable this mode and bind =C-|= to highlight the column
+
+#+begin_src emacs-lisp
+  (global-hl-line-mode)
+  (global-hl-line-highlight)
+  (global-set-key (kbd "C-|") 'column-highlight-mode)
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
