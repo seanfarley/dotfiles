@@ -1591,6 +1591,13 @@ frame using advice.
   (ido-ubiquitous-mode 1)
 #+end_src
 
+Unicode lists are much, much larger than the default max of 30,000 so we set to
+50,000.
+
+#+begin_src emacs-lisp
+  (setq ido-ubiquitous-max-items 50000)
+#+end_src
+
 *** ido-vertical
 
 [[https://github.com/gempesaw/ido-vertical-mode.el][ido-vertical]] mode renders the ido prompt vertically instead of horizontally. I
