@@ -2068,6 +2068,16 @@ Always enable this mode and bind =C-|= to highlight the column
   (global-set-key (kbd "C-|") 'column-highlight-mode)
 #+end_src
 
+*** hungry-delete
+
+=hungry-delete= will delete all whitespace forward or backward.
+
+#+begin_src emacs-lisp
+  (require-package 'hungry-delete)
+  (global-set-key (kbd "C-c <M-backspace>") 'hungry-delete-backward)
+  (global-set-key (kbd "C-c M-d") 'hungry-delete-forward)
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
