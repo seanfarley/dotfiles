@@ -2105,6 +2105,15 @@ separate frame.
   (setq sauron-separate-frame nil)
 #+end_src
 
+*** d-mode
+
+An Emacs major mode for editing D code.
+
+#+begin_src emacs-lisp
+  (require-package 'd-mode)
+  (add-to-list 'auto-mode-alist '("\\.d[i]?\\'" . d-mode))
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
