@@ -2093,6 +2093,18 @@ On the mac, we'll use the [[https://github.com/alloy/terminal-notifier][terminal
     (setq alert-default-style 'notifier))
 #+end_src
 
+*** sauron
+
+Event log for emacs. We'll use =alert.el= as the backend so it's integrated with
+the host system. Also, we'll try to use sauron in a "pop-up" way, i.e. no
+separate frame.
+
+#+begin_src emacs-lisp
+  (require-package 'sauron)
+  (add-hook 'sauron-event-added-functions 'sauron-alert-el-adapter)
+  (setq sauron-separate-frame nil)
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
