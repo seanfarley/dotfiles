@@ -2123,6 +2123,15 @@ This is like linum-mode, but uses jit-lock to be (hopefully) more efficient.
   (add-hook 'prog-mode-hook 'nlinum-mode)
 #+end_src
 
+*** hideshowvis
+
+Enables collapsable regions.
+
+#+begin_src emacs-lisp
+  (require-package 'hideshowvis)
+  (add-hook 'prog-mode-hook 'hideshowvis-enable)
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
