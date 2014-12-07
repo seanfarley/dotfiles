@@ -2269,6 +2269,14 @@ Enable smart-tabs-mode automatically for C and Javascript,
   (smart-tabs-insinuate 'c 'javascript)
 #+end_src
 
+*** dos-mode
+
+For the few times that I edit a dos script,
+
+#+begin_src emacs-lisp
+  (require-package 'dos)
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
