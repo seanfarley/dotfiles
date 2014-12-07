@@ -2004,12 +2004,12 @@ It's very convenient to select the whole line when no region is active.
 *** cycle buffer
 
 I find cycling buffers with =ctrl-tab= very fast and convenient. For that, I use
-[[https://github.com/martinp26/cycbuf][cycbuf]], so let's install and load that.
+[[https://github.com/martinp26/cycbuf][cycbuf]], so let's install and load that. I don't want the default key bindings so
+we call 'cycbuf-init'.
 
 #+begin_src emacs-lisp
   (require-package 'cycbuf)
   (require 'cycbuf)
-  (add-hook 'after-init-hook 'cycbuf-init)
 #+end_src
 
 I prefer to just cycle without seeing a list, so set the delay to zero (i.e.
