@@ -2182,6 +2182,21 @@ colors with the color they represent as background.
     (rainbow-mode 1))
 #+end_src
 
+*** rainbow-delimiters
+
+=rainbow-delimiters= is a "rainbow parentheses"-like mode which highlights
+delimiters such as parentheses, brackets or braces according to their depth.
+
+#+begin_src emacs-lisp
+  (require-package 'rainbow-delimiters)
+#+end_src
+
+Add =rainbow-delimiters= to all programming modes,
+
+#+begin_src emacs-lisp
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
