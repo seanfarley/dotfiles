@@ -1517,7 +1517,6 @@ follow changes to them):
 
 #+begin_src emacs-lisp
   (setq paradox-automatically-star t)
-  (setq paradox-github-token (smf/get-keychain-password "paradox-github-token"))
 #+end_src
 
 Add launch command:
