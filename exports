@@ -2,7 +2,6 @@
 export EDITOR="emacsclient -n -f $HOME/.emacs.d/server/server"
 # Don't clear the screen after quitting a manual page
 export MANPAGER="less -X"
-export GREP_OPTIONS="--binary-files=without-match --directories=skip --color=auto"
 export LESS="-R --ignore-case --quit-if-one-screen --quit-on-intr"
 
 # Have bash ignore the .DS_Store
