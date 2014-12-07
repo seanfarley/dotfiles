@@ -10,9 +10,6 @@ HN=$(hostname -f)
 # check for emacsclient path, fallback to home directory
 hash emacsclient 2>/dev/null || EC="$HOME/.local/bin/emacsclient"
 
-# hack: if on euclid, change to a public name
-[[ $HN == euclid* ]] && HN=${HN/euclid/smf}
-
 # hack: if options contain --eval then don't parse args
 
 if [[ $@ != *--eval* ]]; then
