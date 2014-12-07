@@ -2212,6 +2212,29 @@ Add =rainbow-blocks= to programming modes,
   (add-hook 'prog-mode-hook #'rainbow-blocks-mode)
 #+end_src
 
+*** elpy
+
+=elpy= is an Emacs package to bring powerful Python editing to Emacs. It
+combines a number of other packages, both written in Emacs Lisp as well as
+Python.
+
+To being with, we'll need the following dependecies installed,
+
+#+begin_src shell :tangle no
+  # Either of these
+  pip install rope
+  pip install jedi
+  # And flake8 for code checks
+  pip install flake8
+#+end_src
+
+Now, we install elpy and enable it,
+
+#+begin_src emacs-lisp
+  (require-package 'elpy)
+  (elpy-enable)
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
