@@ -9,7 +9,7 @@ Host win7
   HostName localhost
   Port 10723
 
-Host home
+Host euclid
   HostName farley.in
   Port 22537
 
