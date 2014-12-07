@@ -2165,6 +2165,23 @@ periods of time.
   (sml/apply-theme 'respectful)
 #+end_src
 
+*** rainbow-mode
+
+=rainbow-mode= is a minor mode for Emacs which displays strings representing
+colors with the color they represent as background.
+
+#+begin_src emacs-lisp
+  (require-package 'rainbow-mode)
+#+end_src
+
+=rainbow-mode= doesn't have a global method, so we'll add a css hook for it,
+
+#+begin_src emacs-lisp
+  (add-hook 'css-mode-hook 'my-css-mode-hook)
+  (defun my-css-mode-hook ()
+    (rainbow-mode 1))
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
