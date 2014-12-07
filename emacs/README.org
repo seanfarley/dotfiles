@@ -2251,6 +2251,24 @@ snippet syntax is inspired from [[http://manual.macromates.com/en/snippets][Text
   (yas-global-mode 1)
 #+end_src
 
+*** smart-tabs-mode
+
+This mode provides code which improves on Emacs’ auto-indenting, so that
+whenever you press the <tab> key, the appropriate amount of tabs and spaces is
+inserted automatically. You can still use all spaces if you prefer, of course;
+the code merely ensures that if you enable tabs (maybe when maintaining legacy
+code), the tab size does not matter.
+
+#+begin_src emacs-lisp
+  (require-package 'smart-tabs-mode)
+#+end_src
+
+Enable smart-tabs-mode automatically for C and Javascript,
+
+#+begin_src emacs-lisp
+  (smart-tabs-insinuate 'c 'javascript)
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
