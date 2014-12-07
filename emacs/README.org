@@ -2197,6 +2197,21 @@ Add =rainbow-delimiters= to all programming modes,
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 #+end_src
 
+*** rainbow-blocks
+
+=rainbow-blocks= is an Emacs mode that highlights blocks made of parentheses,
+brackets, and braces according to their depth.
+
+#+begin_src emacs-lisp
+  (require-package 'rainbow-blocks)
+#+end_src
+
+Add =rainbow-blocks= to programming modes,
+
+#+begin_src emacs-lisp
+  (add-hook 'prog-mode-hook #'rainbow-blocks-mode)
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
