@@ -1426,6 +1426,28 @@ startup.
   (run-with-idle-timer 300 t 'smf/save-persistent-scratch)
 #+end_src
 
+*** Known config files
+
+I have a few files in my dotfiles repo that are known to be shell files, so
+let's add them:
+
+#+begin_src emacs-lisp
+  (setq auto-mode-alist (cons '(".?aliases" . sh-mode) auto-mode-alist))
+  (setq auto-mode-alist (cons '(".?bash_prompt" . sh-mode) auto-mode-alist))
+  (setq auto-mode-alist (cons '(".?bashrc" . sh-mode) auto-mode-alist))
+  (setq auto-mode-alist (cons '(".?exports" . sh-mode) auto-mode-alist))
+  (setq auto-mode-alist (cons '(".?functions" . sh-mode) auto-mode-alist))
+  (setq auto-mode-alist (cons '(".?osx" . sh-mode) auto-mode-alist))
+  (setq auto-mode-alist (cons '(".?osx" . sh-mode) auto-mode-alist))
+  (setq auto-mode-alist (cons '(".?profile" . sh-mode) auto-mode-alist))
+#+end_src
+
+Same with conf-mode,
+
+#+begin_src emacs-lisp
+  (setq auto-mode-alist (cons '(".?hgrc" . conf-mode) auto-mode-alist))
+#+end_src
+
 ** Third-party packages
 
 Emacs has a built-in [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Packaging.html#Packaging][package manager]].
