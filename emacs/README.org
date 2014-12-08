@@ -1800,6 +1800,7 @@ theme.
 
 #+begin_src emacs-lisp
   (require-package 'undo-tree)
+  (global-undo-tree-mode 1)
 #+end_src
 
 *** smartparens
