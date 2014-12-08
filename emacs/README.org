@@ -1885,6 +1885,15 @@ perform on-the-fly syntax checking and linting.
   (require 'flycheck)
 #+end_src
 
+Also, we add some keymaps,
+
+#+begin_src emacs-lisp
+  (eval-after-load 'flycheck
+    '(progn
+       (define-key flycheck-mode-map (kbd "H->") 'flycheck-next-error)
+       (define-key flycheck-mode-map (kbd "H-<") 'flycheck-previous-error)))
+#+end_src
+
 *** puppet-mode
 
 [[https://github.com/lunaryorn/puppet-mode][puppet-mode]] is a major mode for editing =.pp= files.
