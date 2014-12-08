@@ -2277,6 +2277,28 @@ For the few times that I edit a dos script,
   (require-package 'dos)
 #+end_src
 
+*** csharp-mode
+
+This is a mode for editing C# in emacs.
+
+#+begin_src emacs-lisp
+  (require-package 'csharp-mode)
+#+end_src
+
+By default, I hate substatement being indented past their parent line, so we
+turn that off. Also, we enable =flycheck-mode=, =eldoc=, and =nlinum-mode=,
+
+#+begin_src emacs-lisp
+  (defun my-csharp-mode ()
+    (flycheck-mode)
+    (company-mode)
+    (turn-on-eldoc-mode)
+    (nlinum-mode)
+    (c-set-offset 'substatement-open 0))
+
+  (add-hook 'csharp-mode-hook 'my-csharp-mode)
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
