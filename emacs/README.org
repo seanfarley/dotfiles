@@ -1497,27 +1497,6 @@ Finally we initialise the package manager:
   (package-initialize)
 #+end_src
 
-*** diminish
-
-[[http://www.emacswiki.org/emacs/DiminishedModes][diminish]] removes or abbreviates the minor mode indicators that can clutter up
-one's modeline.
-
-#+begin_src emacs-lisp
-  (require-package 'diminish)
-#+end_src
-
-Diminish =subword-mode=, =eldoc-mode=, and =auto-revert-mode=:
-
-#+begin_src emacs-lisp
-  (after-load 'diminish
-    (after-load 'subword
-      (diminish 'subword-mode))
-    (after-load 'eldoc
-      (diminish 'eldoc-mode))
-    (after-load 'autorevert
-      (diminish 'auto-revert-mode)))
-#+end_src
-
 *** paradox
 
 [[https://github.com/Bruce-Connor/paradox][paradox]] is an advanced package.el frontend with GitHub integration.
@@ -1811,13 +1790,10 @@ theme.
 
 *** undo-tree
 
-Also diminish [[http://www.dr-qubit.org/undo-tree/undo-tree.el][undo-tree-mode]], a mode which allows one to visualise their
-undo/redo history:
+[[http://www.dr-qubit.org/undo-tree/undo-tree.el][undo-tree-mode]], a mode which allows one to visualise their undo/redo history:
 
 #+begin_src emacs-lisp
   (require-package 'undo-tree)
-  (after-load 'undo-tree
-    (diminish 'undo-tree-mode))
 #+end_src
 
 *** smartparens
@@ -1860,14 +1836,6 @@ Show candidates immediately rather than waiting:
 #+begin_src emacs-lisp
   (after-load 'company
     (setq company-echo-delay 0))
-#+end_src
-
-Make the lighter shorter:
-
-#+begin_src emacs-lisp
-  (after-load 'company
-    (after-load 'diminish
-      (diminish 'company-mode "com")))
 #+end_src
 
 **** enable company mode in programming buffers only
