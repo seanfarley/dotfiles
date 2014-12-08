@@ -2235,6 +2235,22 @@ Now, we install elpy and enable it,
   (elpy-enable)
 #+end_src
 
+*** yasnippet
+
+YASnippet is a template system for Emacs. It allows you to type an abbreviation
+and automatically expand it into function templates. Bundled language templates
+include: C, C++, C#, Perl, Python, Ruby, SQL, LaTeX, HTML, CSS and more. The
+snippet syntax is inspired from [[http://manual.macromates.com/en/snippets][TextMate's]] syntax.
+
+#+begin_src emacs-lisp
+  (require-package 'yasnippet)
+#+end_src
+
+#+begin_src emacs-lisp
+  (setq yas/root-directory (smf/join-dirs smf/dotfiles-dir "snippets"))
+  (yas-global-mode 1)
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
