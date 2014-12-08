@@ -734,20 +734,6 @@ We can use [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Uniquify.
   (setq uniquify-buffer-name-style 'forward)
 #+end_src
 
-*** Themes
-
-On a GUI Emacs, I want to use the [[zenburn-theme]]. On a terminal I want to use the
-[[base16-theme]].
-
-
-#+begin_src emacs-lisp
-  (add-hook 'after-init-hook (lambda ()
-                               (if (window-system)
-                                   ;; (load-theme 'solarized-dark t)
-                                   (load-theme 'zenburn t)
-                                 (load-theme 'base16-default t))))
-#+end_src
-
 ** OS X specific configuration
 
 Besides the keyboard configuration above, there are some other specific things I
@@ -2396,6 +2382,20 @@ Finally, start omnisharp-mode with csharp-mode,
 #+end_src
 
 ** Local and custom configuration
+
+*** Themes
+
+On a GUI Emacs, I want to use the [[zenburn-theme]]. On a terminal I want to use the
+[[base16-theme]].
+
+
+#+begin_src emacs-lisp
+  (add-hook 'after-init-hook (lambda ()
+                               (if (window-system)
+                                   ;; (load-theme 'solarized-dark t)
+                                   (load-theme 'zenburn t)
+                                 (load-theme 'base16-default t))))
+#+end_src
 
 *** Local overrides
 
