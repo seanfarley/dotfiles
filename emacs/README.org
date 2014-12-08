@@ -876,6 +876,7 @@ to select the whole buffer, or =⌘-c= to copy.
     (global-set-key (kbd "s-w")
                     (lambda () (interactive) (delete-window)))
     (global-set-key (kbd "s-z") 'undo)
+    (global-set-key (kbd "s-Z") 'undo-tree-redo)
     (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
     (global-set-key (kbd "s-k") 'kill-this-buffer)
     (global-set-key (kbd "s-r") 'recompile)
