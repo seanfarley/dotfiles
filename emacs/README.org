@@ -1448,6 +1448,25 @@ Same with conf-mode,
   (setq auto-mode-alist (cons '(".?hgrc" . conf-mode) auto-mode-alist))
 #+end_src
 
+*** whitespace-mode
+
+I like whitespace-mode for programming and text modes (including org),
+
+#+begin_src emacs-lisp
+  (require 'whitespace)
+  (global-whitespace-mode t)
+  (setq whitespace-global-modes '(text-mode prog-mode org-mode))
+#+end_src
+
+But most of the time, I only want to see tabs and trailing spaces,
+
+#+begin_src emacs-lisp
+  (setq whitespace-style '(trailing face tabs tab-mark lines-tail))
+  (setq whitespace-display-mappings '((space-mark 32 [183] [46])
+                                      (newline-mark 10 [182 10])
+                                      (tab-mark 9 [9655 9] [92 9])))
+#+end_src
+
 ** Third-party packages
 
 Emacs has a built-in [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Packaging.html#Packaging][package manager]].
