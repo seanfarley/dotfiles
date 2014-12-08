@@ -903,14 +903,17 @@ secure than storing them in configuration on disk:
     (while (string-match "\\`\n+\\|^\\s-+\\|\\s-+$\\|\n+\\'" str)
       (setq str (replace-match "" t t str))) str)
 
-  (defun smf/get-keychain-password (account-name)
+  (defun smf/get-keychain-password (account-name &optional server)
     "Get `account-name' keychain password from OS X Keychain"
     (interactive "sAccount name: ")
     (smf/chomp
      (shell-command-to-string
       (concat
-       "security find-generic-password -wa "
-       account-name))))
+       "security find-"
+       (if server "internet" "generic")
+       "-password -wa "
+       account-name
+       (if server (concat " -s " server))))))
 #+end_src
 
 *** Conditionally kill Emacs
