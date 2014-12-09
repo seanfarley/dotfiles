@@ -2384,11 +2384,11 @@ Finally, start omnisharp-mode with csharp-mode,
   (add-hook 'csharp-mode-hook 'omnisharp-mode)
 #+end_src
 
-*** LaTeX
+** LaTeX
 
 I love [[http://en.wikipedia.org/wiki/LaTeX][LaTex]]. It's the best way to typeset a document.
 
-**** AucTeX
+*** AucTeX
 
 Let's start by installing some LaTeX specific plugins (mostly AucTex-related)
 and initialize them,
@@ -2415,7 +2415,7 @@ Who uses dvi?
   (setq TeX-PDF-mode t)
 #+end_src
 
-**** SyncTeX
+*** SyncTeX
 
 [[http://mactex-wiki.tug.org/wiki/index.php/SyncTeX][SyncTeX]] enables synchronization between source TeX files and the resulting pdf
 file.
@@ -2425,7 +2425,7 @@ file.
   (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
 #+end_src
 
-**** OS X
+*** OS X
 
 Sensible defaults for OS X, other OSes should be covered out-of-the-box,
 
@@ -2459,7 +2459,7 @@ Modes to load,
 
 #+end_src
 
-**** RefTeX
+*** RefTeX
 
 You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html][RefTeX]].
 
@@ -2499,7 +2499,7 @@ These settings were randomly found,
         reftex-use-multiple-selection-buffers t)
 #+end_src
 
-**** Folding
+*** Folding
 
 #+begin_src emacs-lisp
   (add-hook 'LaTeX-mode-hook (lambda () (outline-minor-mode 1)))
@@ -2519,7 +2519,7 @@ These settings were randomly found,
                 ("[shell]" ("shell")))))
 #+end_src
 
-**** Latexmk
+*** Latexmk
 
 [[http://users.phys.psu.edu/~collins/software/latexmk-jcc/][Latexmk]] is a handy way to compile the TeX source the correct number of times.
 So, we'll create a convenient binding for that,
@@ -2528,7 +2528,7 @@ So, we'll create a convenient binding for that,
   (add-hook 'LaTeX-mode-hook (lambda () (define-key LaTeX-mode-map (kbd "C-c C-a") (lambda () (interactive) (save-buffer) (TeX-command "LatexMk" 'TeX-master-file -1)))))
 #+end_src
 
-**** Guessing the master TeX file
+*** Guessing the master TeX file
 
 Taken from [[http://www.emacswiki.org/AUCTeX#toc19][EmacsWiki]] for automatic detection of the master file,
 
@@ -2558,7 +2558,7 @@ Taken from [[http://www.emacswiki.org/AUCTeX#toc19][EmacsWiki]] for automatic de
     (setq TeX-master (smf/guess-TeX-master (buffer-file-name)))))
 #+end_src
 
-**** company-math
+*** company-math
 
 #+begin_src emacs-lisp
   (require-package 'company-auctex)
@@ -2568,7 +2568,7 @@ Taken from [[http://www.emacswiki.org/AUCTeX#toc19][EmacsWiki]] for automatic de
   (add-to-list 'company-backends 'company-math-symbols-unicode)
 #+end_src
 
-*** Themes
+** Loading Themes
 
 On a GUI Emacs, I want to use the [[zenburn-theme]]. On a terminal I want to use the
 [[base16-theme]].
@@ -2585,7 +2585,9 @@ but I do know it messes up erc-hl-nicks if I don't do it this way.
     (load-theme 'base16-default t))
 #+end_src
 
-*** ERC
+** ERC
+
+*** Setup
 
 [[http://en.wikipedia.org/wiki/Internet_Relay_Chat][IRC]] is still popular, so we'll use Emacs IRC.
 
@@ -2658,6 +2660,8 @@ Spelling mode is exactly what it says it is,
   (erc-spelling-mode 1)
 #+end_src
 
+*** Query behavior
+
 Button mode allows you to click on a nick and open a new query,
 
 #+begin_src emacs-lisp
@@ -2680,6 +2684,8 @@ I want the same behavior when I receive all notices (from [[http://www.emacswiki
             (lambda (server nick)
               (add-hook 'erc-server-NOTICE-hook 'erc-auto-query)))
 #+end_src
+
+*** Switch to buffer or connect to znc
 
 If I haven't connected to my ZNC server, then we connect to it; otherwise, just
 switch to the buffer.
@@ -2704,6 +2710,8 @@ switch to the buffer.
                           (interactive)
                           (smf/erc-start-or-switch "#kallithea")))
 #+end_src
+
+*** Query any user
 
 Below adds the ability to launch a new chat with any nick. It amalgamates all
 nicks in all channels because that is simple and hasn't been a problem for me
@@ -2733,6 +2741,8 @@ method so that takes care of most potential name conflicts.
 
   (smf/add-launcher "c" 'smf/erc-chat)
 #+end_src
+
+*** Change erc-track mouse button
 
 This is annoying as hell but the only way to change the mouse button from the
 middle click (mouse-2) to a normal click (mouse-1) is to redefine this [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/erc/erc-track.el#n776][whole
