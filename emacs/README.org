@@ -2382,10 +2382,10 @@ Map some common functions to keys,
 #+begin_src emacs-lisp
   (eval-after-load 'omnisharp
     '(progn
-       (define-key omnisharp-mode-map (kbd "H-'") 'omnisharp-auto-complete)
-       (define-key omnisharp-mode-map (kbd "H-2") 'omnisharp-find-usages)
-       (define-key omnisharp-mode-map (kbd "H-3") 'omnisharp-go-to-definition)
-       (define-key omnisharp-mode-map (kbd "H-1") 'omnisharp-fix-code-issue-at-point)))
+       (define-key omnisharp-mode-map (kbd "s-.") 'omnisharp-auto-complete)
+       (define-key omnisharp-mode-map (kbd "s-2") 'omnisharp-find-usages)
+       (define-key omnisharp-mode-map (kbd "s-3") 'omnisharp-go-to-definition)
+       (define-key omnisharp-mode-map (kbd "s-1") 'omnisharp-fix-code-issue-at-point)))
 #+end_src
 
 Finally, start omnisharp-mode with csharp-mode,
