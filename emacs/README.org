@@ -1,5 +1,3 @@
-#+OPTIONS: toc:2
-
 * Sean Farley's Emacs Configuration
 
 ** Preamble
