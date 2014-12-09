@@ -2122,8 +2122,8 @@ Always enable this mode and bind =C-|= to highlight the column
 
 #+begin_src emacs-lisp
   (require-package 'hungry-delete)
-  (global-set-key (kbd "C-c <M-backspace>") 'hungry-delete-backward)
-  (global-set-key (kbd "C-c M-d") 'hungry-delete-forward)
+  (global-set-key (kbd "<H-backspace>") 'hungry-delete-backward)
+  (global-set-key (kbd "H-d") 'hungry-delete-forward)
 #+end_src
 
 *** alert
