@@ -2568,6 +2568,23 @@ Taken from [[http://www.emacswiki.org/AUCTeX#toc19][EmacsWiki]] for automatic de
   (add-to-list 'company-backends 'company-math-symbols-unicode)
 #+end_src
 
+*** Themes
+
+On a GUI Emacs, I want to use the [[zenburn-theme]]. On a terminal I want to use the
+[[base16-theme]].
+
+*CAVEAT*
+
+We need to load the theme after AUCTeX but before ERC. Why? I don't really know
+but I do know it messes up erc-hl-nicks if I don't do it this way.
+
+#+begin_src emacs-lisp
+  (if (window-system)
+      ;; (load-theme 'solarized-dark t)
+      (load-theme 'zenburn t)
+    (load-theme 'base16-default t))
+#+end_src
+
 *** ERC
 
 [[http://en.wikipedia.org/wiki/Internet_Relay_Chat][IRC]] is still popular, so we'll use Emacs IRC.
@@ -2757,20 +2774,6 @@ damn function]],
 #+end_src
 
 ** Local and custom configuration
-
-*** Themes
-
-On a GUI Emacs, I want to use the [[zenburn-theme]]. On a terminal I want to use the
-[[base16-theme]].
-
-
-#+begin_src emacs-lisp
-  (add-hook 'after-init-hook (lambda ()
-                               (if (window-system)
-                                   ;; (load-theme 'solarized-dark t)
-                                   (load-theme 'zenburn t)
-                                 (load-theme 'base16-default t))))
-#+end_src
 
 *** Local overrides
 
