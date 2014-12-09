@@ -3261,6 +3261,14 @@ We'll add bookmarks for common "views" of our mailbox:
                       ("tag:list"                         "Lists"     ?l))))
 #+end_src
 
+*** Keybinding
+
+Finally, add a keybinding to open our email client:
+
+#+begin_src emacs-lisp
+  (smf/add-launcher "e" 'mu4e)
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
