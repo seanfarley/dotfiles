@@ -3244,7 +3244,9 @@ Taken from the manual, we'll also add an action to view an html message in the b
     (add-to-list 'mu4e-view-actions '("bView in browser" . mu4e-action-view-in-browser) t))
 #+end_src
 
-Finally, we'll add bookmarks for common "views" of our mailbox:
+*** Bookmarks
+
+We'll add bookmarks for common "views" of our mailbox:
 
 #+begin_src emacs-lisp
   (after-load 'mu4e
