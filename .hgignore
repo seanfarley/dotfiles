@@ -4,6 +4,10 @@ emacs/*history
 emacs/server
 emacs/tramp
 emacs/persistent-scratch*
+emacs/.elpa
+emacs/.tmp
+emacs/README.*
+emacs/custom.el
 
 omnisharp-server
 
