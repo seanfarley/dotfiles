@@ -2631,7 +2631,8 @@ Some basic settings about my IRC setup,
     erc-prompt-for-nickserv-password nil
     erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
                               "324" "329" "332" "333" "353" "477")
-    erc-hide-list '("JOIN" "PART" "QUIT" "NICK"))
+    erc-hide-list '("JOIN" "PART" "QUIT" "NICK")
+    erc-quit-reason 'erc-quit-reason-normal)
 #+end_src
 
 I found when having a flaky connection that ERC would attempt to reconnect ad
