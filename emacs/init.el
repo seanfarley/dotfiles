@@ -1,37 +1,10 @@
-; -------------------------
-; emacsclient
-; note: this is put first so that ~/.edit.sh will continue to work
-; -------------------------
-(setq server-use-tcp t)
-(server-start)
+;;; init.el - Load Emacs
 
-; -------------------------
-; Load paths
-; note: init/ is for stand-alone .el files
-; note: scripts/ is for stand-alone .el files
-; note: plugins/ is only for subrepos
-; -------------------------
+;;; Commentary:
 
-(add-to-list 'load-path "~/.emacs.d/scripts")
+;; This file uses org-babel to load my literate configuration.
 
-(load "~/.emacs.d/init/basic.el")
-(load "~/.emacs.d/init/scratch.el")
-(load "~/.emacs.d/init/ediff.el")
+(require 'ob-tangle)
 
-(load "~/.emacs.d/init/functions.el")
-(load "~/.emacs.d/init/keybindings.el")
-(load "~/.emacs.d/init/ctrl-tab.el")
-(load "~/.emacs.d/init/ediff.el")
-
-(load "~/.emacs.d/init/plugins.el")
-
-(load "~/.emacs.d/init/themes.el")
-
-(load "~/.emacs.d/init/mail.el")
-
-(load "~/.emacs.d/init/chat.el")
-
-(load "~/.emacs.d/init/tex.el")
-
-;; start sauron
-(sauron-start)
+(org-babel-load-file (expand-file-name "README.org" (file-name-directory
+                                                    (or (buffer-file-name) load-file-name))))
