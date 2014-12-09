@@ -2370,7 +2370,9 @@ I store the omnisharp-server in a hidden directory,
 
 #+begin_src emacs-lisp
   (setq omnisharp-server-executable-path
-        (smf/join-dirs smf/dotfiles-dir "omnisharp-server/OmniSharp/bin/Debug/OmniSharp.exe"))
+    (concat
+      (smf/join-dirs smf/dotfiles-dir "omnisharp-server/OmniSharp/bin/Debug")
+      "OmniSharp.exe"))
 #+end_src
 
 Map some common functions to keys,
