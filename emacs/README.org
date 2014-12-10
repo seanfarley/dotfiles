@@ -2568,6 +2568,194 @@ Taken from [[http://www.emacswiki.org/AUCTeX#toc19][EmacsWiki]] for automatic de
   (add-to-list 'company-backends 'company-math-symbols-unicode)
 #+end_src
 
+*** ERC
+
+[[http://en.wikipedia.org/wiki/Internet_Relay_Chat][IRC]] is still popular, so we'll use Emacs IRC.
+
+#+begin_src emacs-lisp
+  (require 'tls)
+  (require 'erc)
+  (require 'erc-join)
+  (require 'erc-menu)
+  (require-package 'erc-hl-nicks)
+  (require-package 'znc)
+#+end_src
+
+I use [[http://wiki.znc.in/ZNC][ZNC]] to always stay connected to IRC channels, so when I close a buffer I
+don't want to quit the channel, just detach from my server. Also, we use the
+keychain method defined above to get our password.
+
+#+begin_src emacs-lisp
+  (setq
+   znc-detatch-on-kill t
+   znc-servers `(
+                 ("smf.io" 6697 t ((freenode "smf/freenode"
+                                             ,(smf/get-keychain-password "smf" "smf.io"))))
+                 ("smf.io" 6697 t ((bitlbee "smf/bitlbee"
+                                            ,(smf/get-keychain-password "smf" "smf.io"))))))
+#+end_src
+
+Some basic settings about my IRC setup,
+
+#+begin_src emacs-lisp
+  (setq
+    erc-prompt ">"
+    erc-email-userid "sean.michael.farley@gmail.com"
+    erc-autojoin-channels-alist '((".*smf.io.*" "&bitlbee" "#mercurial"))
+    erc-prompt-for-password nil
+    erc-prompt-for-nickserv-password nil
+    erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
+                              "324" "329" "332" "333" "353" "477")
+    erc-hide-list '("JOIN" "PART" "QUIT" "NICK"))
+#+end_src
+
+I found when having a flaky connection that ERC would attempt to reconnect ad
+infinitum, so we turn that off,
+
+#+begin_src emacs-lisp
+  (setq erc-server-auto-reconnect nil)
+#+end_src
+
+The following makes colors look nice with [[zenburn]].
+
+#+begin_src emacs-lisp
+  (setq erc-hl-nicks-color-contrast-strategy '(invert contrast))
+#+end_src
+
+While we're at it, let's enable [[http://www.emacswiki.org/emacs/ErcDCC][direct client-to-client]],
+
+#+begin_src emacs-lisp
+  (add-to-list 'erc-modules 'dcc)
+  (erc-update-modules)
+#+end_src
+
+Track mode allows notifications in the mode-line,
+
+#+begin_src emacs-lisp
+  (erc-track-mode t)
+#+end_src
+
+Spelling mode is exactly what it says it is,
+
+#+begin_src emacs-lisp
+  (erc-spelling-mode 1)
+#+end_src
+
+Button mode allows you to click on a nick and open a new query,
+
+#+begin_src emacs-lisp
+  (erc-button-mode 1)
+#+end_src
+
+When people send me a message (called 'query' in IRC speak), I want the buffer
+to pop up and notify me,
+
+#+begin_src emacs-lisp
+  (setq erc-auto-query 'buffer)
+  (setq erc-query-display 'buffer)
+#+end_src
+
+As a default, only private messages trigger automatic creation of query buffers.
+I want the same behavior when I receive all notices (from [[http://www.emacswiki.org/emacs/ErcAutoQuery][EmacsWiki]]),
+
+#+begin_src emacs-lisp
+  (add-hook 'erc-after-connect
+            (lambda (server nick)
+              (add-hook 'erc-server-NOTICE-hook 'erc-auto-query)))
+#+end_src
+
+If I haven't connected to my ZNC server, then we connect to it; otherwise, just
+switch to the buffer.
+
+#+begin_src emacs-lisp
+  (defun smf/erc-start-or-switch (channel)
+    "Connect to ERC, or switch to given channel"
+    (interactive)
+    (if (get-buffer "*irc-freenode*") ;; ERC already active?
+        (progn
+          (set-buffer "*irc-freenode*")
+          (if (erc-server-process-alive)
+              (switch-to-buffer channel) ;; yes: switch to #channel
+            (znc-all)))                  ;; no: start ERC
+      (znc-all)))                        ;; no: start ERC
+
+  (smf/add-launcher "m" (lambda ()
+                          (interactive)
+                          (smf/erc-start-or-switch "#mercurial")))
+
+  (smf/add-launcher "k" (lambda ()
+                          (interactive)
+                          (smf/erc-start-or-switch "#kallithea")))
+#+end_src
+
+Below adds the ability to launch a new chat with any nick. It amalgamates all
+nicks in all channels because that is simple and hasn't been a problem for me
+yet. My [[http://www.bitlbee.org][BitlBee]] server appends "|fb" or "|gtalk" for the corresponding chat
+method so that takes care of most potential name conflicts.
+
+#+begin_src emacs-lisp
+  (defun smf/user-keys (hashtable)
+    "Return all keys in hashtable."
+    (let (allkeys)
+      (maphash (lambda (kk vv) (setq allkeys (cons kk allkeys))) hashtable)
+      allkeys))
+
+  (defun smf/buffer-users (buffer)
+    "Return users for a given ERC buffer"
+    (set-buffer buffer)
+    (smf/user-keys erc-channel-users))
+
+  (defun smf/erc-chat (nick)
+    "Start a query with nick"
+    (interactive
+     (list (completing-read "Nick: "
+                            (append (smf/buffer-users "&bitlbee")
+                                    (smf/buffer-users "#mercurial")))))
+    (unless (memq nick (smf/buffer-users "&bitlbee")) (set-buffer "#mercurial"))
+    (erc-cmd-QUERY nick))
+
+  (smf/add-launcher "c" 'smf/erc-chat)
+#+end_src
+
+This is annoying as hell but the only way to change the mouse button from the
+middle click (mouse-2) to a normal click (mouse-1) is to redefine this [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/erc/erc-track.el#n776][whole
+damn function]],
+
+#+begin_src emacs-lisp
+  (eval-after-load "erc-track"
+  '(defun erc-make-mode-line-buffer-name (string buffer &optional faces count)
+    (let ((map (make-sparse-keymap))
+          (name (if erc-track-showcount
+                    (concat string
+                            erc-track-showcount-string
+                            (int-to-string count))
+                  (copy-sequence string))))
+      (define-key map (vector 'mode-line 'mouse-1)
+        `(lambda (e)
+           (interactive "e")
+           (save-selected-window
+             (select-window
+              (posn-window (event-start e)))
+             (switch-to-buffer ,buffer))))
+      (define-key map (vector 'mode-line 'mouse-3)
+        `(lambda (e)
+           (interactive "e")
+           (save-selected-window
+             (select-window
+              (posn-window (event-start e)))
+             (switch-to-buffer-other-window ,buffer))))
+      (put-text-property 0 (length name) 'local-map map name)
+      (put-text-property
+       0 (length name)
+       'help-echo (concat "mouse-1: switch to buffer, "
+                          "mouse-3: switch to buffer in other window")
+       name)
+      (put-text-property 0 (length name) 'mouse-face erc-track-mouse-face name)
+      (when (and faces erc-track-use-faces)
+        (put-text-property 0 (length name) 'face faces name))
+      name)))
+#+end_src
+
 ** Local and custom configuration
 
 *** Themes
