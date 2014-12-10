@@ -2200,6 +2200,8 @@ separate frame.
   (require-package 'sauron)
   (add-hook 'sauron-event-added-functions 'sauron-alert-el-adapter)
   (setq sauron-separate-frame nil)
+  (push #'sauron-start after-init-hook)
+  (smf/add-launcher "n" 'sauron-toggle-hide-show)
 #+end_src
 
 *** d-mode
