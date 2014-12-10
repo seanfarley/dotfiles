@@ -992,6 +992,23 @@ add a launcher for it bound to 'n'.
   (global-set-key (kbd "H-n") 'smf/narrow-or-widen-dwim)
 #+end_src
 
+*** Delete to end of buffer
+
+In emails (and sometimes other places, too) I frequently want to delete the rest
+of the buffer. We'll bind this to =H-M-d=
+
+#+begin_src emacs-lisp
+  (defun smf/delete-to-end-of-buffer (add-to-kill-ring-p)
+    "Deletes from point to end of buffer. If prefix argument is
+     given, kill the region, adding it to the kill ring."
+    (interactive "P")
+    (if add-to-kill-ring-p
+        (kill-region (point) (point-max))
+      (delete-region (point) (point-max))))
+
+  (global-set-key (kbd "H-M-d") 'smf/delete-to-end-of-buffer)
+#+end_src
+
 ** Other modes
 
 Emacs comes with hundreds of major and minor modes to do many many things. These
