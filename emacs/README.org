@@ -212,7 +212,7 @@ The default wrap width (known as [[https://www.gnu.org/software/emacs/manual/htm
 conventions state that 80 characters is the standard:
 
 #+begin_src emacs-lisp
-  (setq-default fill-column 80)
+  (setq-default fill-column 79)
 #+end_src
 
 I don't type double-space sentences, so make sure that Emacs doesn't look for
