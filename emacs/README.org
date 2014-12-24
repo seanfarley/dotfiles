@@ -2333,6 +2333,19 @@ Now, we install elpy and enable it,
   (elpy-enable)
 #+end_src
 
+By default, elpy binds M-<left> and M-<right>, which I use for navigation, for
+indenting / de-indenting code. Let's change that,
+
+#+begin_src emacs-lisp
+  (defun smf/elpy-hook ()
+    (define-key elpy-mode-map (kbd "<M-left>") nil)
+    (define-key elpy-mode-map (kbd "<M-right>") nil)
+    (define-key elpy-mode-map (kbd "<H-M-left>") 'elpy-nav-move-iblock-left)
+    (define-key elpy-mode-map (kbd "<H-M-right>") 'elpy-nav-move-iblock-right))
+  (add-hook 'elpy-mode-hook 'smf/elpy-hook)
+
+#+end_src
+
 *** yasnippet
 
 YASnippet is a template system for Emacs. It allows you to type an abbreviation
