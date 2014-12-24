@@ -995,7 +995,7 @@ add a launcher for it bound to 'n'.
 *** Delete to end of buffer
 
 In emails (and sometimes other places, too) I frequently want to delete the rest
-of the buffer. We'll bind this to =H-M-d=
+of the buffer. We'll bind this to =C-M-d=
 
 #+begin_src emacs-lisp
   (defun smf/delete-to-end-of-buffer (add-to-kill-ring-p)
@@ -1006,7 +1006,7 @@ of the buffer. We'll bind this to =H-M-d=
         (kill-region (point) (point-max))
       (delete-region (point) (point-max))))
 
-  (global-set-key (kbd "H-M-d") 'smf/delete-to-end-of-buffer)
+  (global-set-key (kbd "C-M-d") 'smf/delete-to-end-of-buffer)
 #+end_src
 
 ** Other modes
