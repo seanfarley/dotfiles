@@ -3143,14 +3143,13 @@ check the thread level instead of the unread flag. We'll bind them to 'N' and
       "Move point to the next thread. If BACKWARDS is non-`nil',
         move backwards."
       (interactive "P")
-      (let ((find-func (if backwards 'mu4e-headers-find-if 'mu4e-headers-find-if-next)))
-        (or (funcall find-func
-                     (lambda (msg)
-                       (let ((thread (mu4e-message-field msg :thread)))
-                         (eq (plist-get thread :level) 0)))
-                     backwards)
-            (mu4e-message (format "No %s thread found"
-                                  (if backwards "previous" "next"))))))
+      (or (mu4e-headers-find-if-next
+           (lambda (msg)
+             (let ((thread (mu4e-message-field msg :thread)))
+               (eq (plist-get thread :level) 0)))
+           backwards)
+          (mu4e-message (format "No %s thread found"
+                                (if backwards "previous" "next")))))
 
     (defun smf/mu4e-view-headers-next-thread (&optional backwards)
       "Move point to the next or previous (when BACKWARDS is non-`nil')
