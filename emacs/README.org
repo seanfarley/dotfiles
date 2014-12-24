@@ -2277,9 +2277,7 @@ colors with the color they represent as background.
 =rainbow-mode= doesn't have a global method, so we'll add a css hook for it,
 
 #+begin_src emacs-lisp
-  (add-hook 'css-mode-hook 'my-css-mode-hook)
-  (defun my-css-mode-hook ()
-    (rainbow-mode 1))
+  (add-hook 'css-mode-hook 'rainbow-mode)
 #+end_src
 
 *** rainbow-delimiters
