@@ -2007,31 +2007,6 @@ There's no official Markdown file extension, so support all the unofficial ones:
   (add-to-list 'auto-mode-alist '("\\.ft$" . markdown-mode)) ;; FoldingText
 #+end_src
 
-*** paredit
-
-[[http://melpa.milkbox.net/#/paredit][paredit]] is a minor mode for editing S-expressions in a balanced way. It's a very
-good way to edit Lisp, Clojure etc. files. [[http://www.emacswiki.org/emacs/ParEdit][More on EmacsWiki]].
-
-#+begin_src emacs-lisp
-  (require-package 'paredit)
-#+end_src
-
-Enable it for Emacs Lisp files:
-
-#+begin_src emacs-lisp
-  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-  (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
-#+end_src
-
-Conditionally enable it in the minibuffer when entering an expression:
-
-#+begin_src emacs-lisp
-  (defun smf/conditionally-enable-paredit-mode ()
-    (if (eq this-command 'eval-expression)
-        (enable-paredit-mode)))
-  (add-hook 'minibuffer-setup-hook 'smf/conditionally-enable-paredit-mode)
-#+end_src
-
 *** web-mode
 
 [[https://github.com/fxbois/web-mode][web-mode]] is a major mode for editing templates and HTML. It supports a very
