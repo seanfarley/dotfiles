@@ -2411,6 +2411,16 @@ make =browse-kill-ring= act like =yank-pop= by overwriting the previous yank:
     (setq browse-kill-ring-replace-yank t))
 #+end_src
 
+*** narrow-indirect
+
+[[http://www.emacswiki.org/emacs/narrow-indirect.el][narrow-indirect]] allows one to focus a buffer onto some particular code in
+another window, editing it separately from its original context ([[http://demonastery.org/2013/04/emacs-narrow-to-region-indirect/][a better
+description of this workflow]]).
+
+#+begin_src emacs-lisp
+  (require-package 'narrow-indirect)
+#+end_src
+
 *** dos-mode
 
 For the few times that I edit a dos script,
