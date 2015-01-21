@@ -1513,6 +1513,16 @@ But most of the time, I only want to see tabs and trailing spaces,
                                       (tab-mark 9 [9655 9] [92 9])))
 #+end_src
 
+*** Highlight C functions
+
+Taken from [[http://stackoverflow.com/questions/14715181/emacs-function-call-highlight][this StackOverflow]] question, we use it to highlight functions in C,
+
+#+begin_src emacs-lisp
+  (font-lock-add-keywords
+   'c-mode
+   '(("\\<\\(\\sw+\\) ?(" 1 'font-lock-function-name-face)))
+#+end_src
+
 ** Third-party packages
 
 Emacs has a built-in [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Packaging.html#Packaging][package manager]].
