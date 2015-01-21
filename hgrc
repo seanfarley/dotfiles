@@ -13,6 +13,9 @@ vso.username = sfarley@osisoft.com
 [phases]
 publish = False
 
+[experimental]
+bundle2-exp = True
+
 [extensions]
 transplant =
 color =
