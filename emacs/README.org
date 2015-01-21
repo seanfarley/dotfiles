@@ -2374,6 +2374,22 @@ Enable smart-tabs-mode automatically for C and Javascript,
   (smart-tabs-insinuate 'c 'javascript)
 #+end_src
 
+*** guide-key
+
+[[https://github.com/kai2nenobu/guide-key][guide-key]] shows a popup help window after a pressing defined keys for a short
+delay.
+
+#+begin_src emacs-lisp
+  (require-package 'guide-key)
+#+end_src
+
+Enable it for my [[Launcher keymap]] prefix:
+
+#+begin_src emacs-lisp
+  (setq guide-key/guide-key-sequence '("C-x C-l" "C-c p" "C-x 4"))
+  (guide-key-mode 1)
+#+end_src
+
 *** dos-mode
 
 For the few times that I edit a dos script,
