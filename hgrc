@@ -35,6 +35,11 @@ shelve =
 debugshell = ~/.debugshell.py
 evolve =
 
+[remotenames]
+alias.default = True
+suppressbranches = True
+unhide = True
+
 [schemes]
 bb = ssh://hg@bitbucket.org/
 git+bb = git+ssh://git@bitbucket.org/
