@@ -2307,7 +2307,8 @@ brackets, and braces according to their depth.
 Add =rainbow-blocks= to programming modes,
 
 #+begin_src emacs-lisp
-  (add-hook 'prog-mode-hook #'rainbow-blocks-mode)
+  (add-hook 'emacs-lisp-mode-hook 'rainbow-blocks-mode)
+  (add-hook 'lisp-interaction-mode-hook 'rainbow-blocks-mode)
 #+end_src
 
 *** elpy
