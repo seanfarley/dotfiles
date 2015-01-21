@@ -103,6 +103,9 @@ kallithea-scm.org = 53:de:4d:c5:f8:32:6f:26:36:9a:95:86:21:21:4b:6f:99:b2:e4:9a
 method = smtp
 from = Sean Farley <sean.michael.farley@gmail.com>
 
+[patchbomb]
+intro = never
+
 [smtp]
 host = smtp.gmail.com
 port = 587
@@ -180,7 +183,7 @@ p = pull -u
 pr = pull --rebase
 
 # by default, don't prompt for cc
-email = email --confirm --cc ''
+email = email --confirm --cc ' '
 
 # Nudge: just push the current branch.
 nudge = push -r .
