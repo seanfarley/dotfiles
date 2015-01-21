@@ -105,10 +105,15 @@ username = sean.michael.farley@gmail.com
 tls = True
 
 [templates]
-sl = '{ifeq(branch,"default","","{label(blue_background, branch)} ")}{label("log.changeset changeset.{phase}", shortest(node))} {label("grep.user", author|user)}{label("tags.normal", if(tags," {tags}"))} {label("sl.book", if(bookmarks," {bookmarks}"))}\n{label(ifcontains(rev, revset("."), "desc.here"),desc|firstline)}'
+sl = "{if(svnrev, label('log.changeset', '[r{svnrev}] '))}{label('log.changeset changeset.{phase} {ifcontains(rev, revset(\"merge()\"), \"changeset.merge\")} {ifcontains(rev, revset(\"obsolete()\"), \"changeset.obsolete\")}', shortest(node))} {label('log.changeset', author|user)}{tags % \"{ifeq(tag,'tip','',label('log.tag', '{tag} '))}\"}{ifeq(branch,'default','',label('log.branch', ' {branch}'))}{label('log.remotebranch', if(remotebranches, ' {remotebranches}'))}{label('log.bookmark', if(bookmarks,' {bookmarks}'))}{label('log.remotebookmark', if(remotebookmarks, ' {remotebookmarks}'))}\n{label('{ifcontains(rev, revset(\".\"), \"desc.here\")} {ifcontains(rev, revset(\"obsolete()\"), \"changeset.obsolete\")}', desc|firstline)}"
+
+gl = "{label('changeset.{phase} {ifcontains(rev, revset(\"merge()\"), \"changeset.merge\")} {ifcontains(rev, revset(\"obsolete()\"), \"changeset.obsolete\")}', pad(shortest(node), 7, ' ', True))} {label('log.description', fill(desc|firstline|strip, '80')|firstline|strip)} {ifeq(branch,'default','',label('log.branch', '{branch} '))}{bookmarks % \"{label('log.bookmark', '{bookmark} ')}\"}{label('log.remotebookmark', if(remotebookmarks, '{remotebookmarks} '))}{label('log.remotebranch', if(remotebranches, '{remotebranches} '))}{tags % \"{ifeq(tag,'tip','',label('log.tag', '{tag} '))}\"}{label('log.date', date|shortdate)} by {label('log.user', author|person)}\n{label('log.description', sub('^.*\n?\n?', '', '{fill(desc|firstline|strip, \"95\", \"\", sub(\"[0-9]\", \" \", \"        \"))}\n\n'))}"
+
+ll = "{if(svnrev, label('log.changeset', '[r{svnrev}] '))}{label('changeset.{phase} {ifcontains(rev, revset(\"merge()\"), \"changeset.merge\")} {ifcontains(rev, revset(\"obsolete()\"), \"changeset.obsolete\")}', '{rev}')}:{label('changeset.{phase} {ifcontains(rev, revset(\"merge()\"), \"changeset.merge\")}', '{node|short}')} {label('log.description', \"{fill(desc|firstline|strip, '80')|firstline|strip}\")}{tags % \"{ifeq(tag,'tip','',label('log.tag', '{tag} '))}\"}{ifeq(branch,'default','',label('log.branch', ' {branch}'))}{label('log.remotebranch', if(remotebranches, ' {remotebranches}'))}{label('log.bookmark', if(bookmarks,' {bookmarks}'))}{label('log.remotebookmark', if(remotebookmarks, ' {remotebookmarks}'))} {label('log.date', date|shortdate)} by {label('log.user', author|person)}\n"
+
+nl = "{if(svnrev, label('log.changeset', '[r{svnrev}] '))}{label('changeset.{phase} {ifcontains(rev, revset(\"merge()\"), \"changeset.merge\")} {ifcontains(rev, revset(\"merge()\"), \"changeset.merge\")} {ifcontains(rev, revset(\"obsolete()\"), \"changeset.obsolete\")}', '{rev}')}:{label('changeset.{phase} {ifcontains(rev, revset(\"merge()\"), \"changeset.merge\")}', '{node|short}')}{tags % \"{ifeq(tag,'tip','',label('log.tag', ' {tag}'))}\"}{ifeq(branch,'default','',label('log.branch', ' {branch}'))}{label('log.remotebranch', if(remotebranches, ' {remotebranches}'))}{label('log.bookmark', if(bookmarks,' {bookmarks}'))}{label('log.remotebookmark', if(remotebookmarks, ' {remotebookmarks}'))} {label('log.date', date|shortdate)} by {label('log.user', author|person)}\n{label('{ifcontains(rev, revset(\".\"), \"desc.here\")} {ifcontains(rev, revset(\"obsolete()\"), \"changeset.obsolete\")}', desc)}\n\n{file_mods % \"{label('status.modified', 'M {file}')}\n\"}{file_adds % \"{label('status.added', 'A {file}')}\n\"}{file_dels % \"{label('status.removed', 'R {file}')}\n\"}\n"
 
 [color]
-sl.book = magenta bold
 desc.here = inverse
 status.modified = cyan
 status.added = green
@@ -130,20 +135,25 @@ qseries.applied = blue bold underline
 qseries.unapplied = cyan bold
 qseries.missing = red bold
 bookmarks.current = magenta bold
-tags.normal = magenta
-log.tag = magenta
-log.bookmark = magenta bold
-log.branch = magenta bold
+tags.normal = green
+log.tag = green
+log.bookmark = magenta
+log.branch = blue bold
 log.date = green bold
 log.user = yellow
 log.manifest = green bold underline
 log.extra = yellow bold underline
+log.remotename = red dim
+log.remotebookmark = red dim
+log.remotebranch = cyan dim
 changeset.public = blue
 changeset.draft = green
 changeset.secret = red bold
+changeset.merge = dim
+changeset.obsolete = italic dim
 
 [revsetalias]
-smart = (parents(not public()) or not public() or . or (heads(all()) and not closed() and not desc("Added tag"))) and (not obsolete() or unstable()^)
+smart = (parents(not public()) or not public() or . or (heads(all()) and not closed())) and (not obsolete() or unstable()^)
 
 [alias]
 ### useful alias to check future amend result
@@ -157,7 +167,7 @@ pstatus = status --rev .^
 
 # diff with the previous amend
 odiff = diff --rev 'limit(precursors(.),1)' --rev .
-n = !$HG next || $HG evolve && $HG show .
+n = !$HG next || $HG evolve && $HG --color=always show .
 
 he = histedit
 l = log --pager=always
@@ -204,20 +214,20 @@ gd = d
 
 # Simple log commands that don't look bad
 
-ll = log --pager=always                    --template="{label('changeset.{phase}', '{rev}')}:{label('changeset.{phase}', '{node|short}')} {label('log.description', \"{fill(desc|firstline|strip, '80')|firstline|strip}\")} {ifeq(branch,'default','',label('log.branch', '{branch} '))}{bookmarks % \"{label('log.bookmark', '{bookmark} ')}\"}{tags % \"{ifeq(tag,'tip','',label('log.tag', '{tag} '))}\"}{label('log.date', date|shortdate)} by {label('log.user', author|person)}\n"
+ll = log --pager=always -T ll
 
-gll = log -G --pager=always                 --template="{label('changeset.{phase}', pad(shortest(node), 7, ' ', True))} {label('log.description', fill(desc|firstline|strip, '80')|firstline|strip)} {ifeq(branch,'default','',label('log.branch', '{branch} '))}{bookmarks % \"{label('log.bookmark', '{bookmark} ')}\"}[{preferredremoterefs}] {tags % \"{ifeq(tag,'tip','',label('log.tag', '{tag} '))}\"}{label('log.date', date|shortdate)} by {label('log.user', author|person)}\n{label('log.description', sub('^.*\n?\n?', '', '{fill(desc|firstline|strip, \"95\", \"\", sub(\"[0-9]\", \" \", \"        \"))}\n\n'))}"
+gll = log -G --pager=always -T sl
 
-gl = gll -l 15 -r ::.
+gl = gll -r '::. and smart'
 
 sl = log -G --pager=always -r smart -T sl
 
-nll = log -G --pager=always --color=always --template="{if(svnrev, label('log.changeset', '[r{svnrev}] '))}{label('changeset.{phase}', rev)}:{label('changeset.{phase}', node|short)} {label('log.description', \"{fill(desc|firstline|strip, '80')|firstline|strip}\")} {ifeq(branch,'default','',label('log.branch', '{branch} '))}{bookmarks % \"{label('log.bookmark', '{bookmark} ')}\"}{tags % \"{ifeq(tag,'tip','',label('log.tag', '{tag} '))}\"}{label('log.date', date|shortdate)} by {label('log.user', author|person)}\n{label('log.description', if(sub('^.*\n?\n?', '', '{fill(desc|strip, \"95\")}\n'), sub('^.*\n?\n?', '\n', '{fill(desc|strip, \"95\")}\n'), sub('^.*\n?\n?', '', '{fill(desc|strip, \"95\")}\n')))}\n{file_mods % \"{label('status.modified', 'M {file}')}\n\"}{file_adds % \"{label('status.added', 'A {file}')}\n\"}{file_dels % \"{label('status.removed', 'R {file}')}\n\"}\n"
+nll = log -G --pager=always -T nl
 
-nl = nll -l 15 -r ::.
+nl = nll -r '::. and smart'
 
 # hg show .  -- show a summary of rev . with diff.
-show = nll --stat --hidden -vpr
+show = log --stat --hidden -T nl -vpr
 
 # Make a new repo with some sensible defaults.
 mkrepo = !$HG init $1 && cd $1 && \
