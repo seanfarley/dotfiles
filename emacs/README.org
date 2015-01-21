@@ -1704,6 +1704,12 @@ Unicode lists are much, much larger than the default max of 30,000 so we set to
   (setq ido-ubiquitous-max-items 50000)
 #+end_src
 
+Also, let's add bringing up a unicode list to our launcher.
+
+#+begin_src emacs-lisp
+  (smf/add-launcher "U" 'insert-char)
+#+end_src
+
 *** ido-vertical
 
 [[https://github.com/gempesaw/ido-vertical-mode.el][ido-vertical]] mode renders the ido prompt vertically instead of horizontally. I
