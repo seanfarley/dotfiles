@@ -238,7 +238,7 @@ nll = log -G --pager=always -T nl
 nl = nll -r '::. and smart'
 
 # hg show .  -- show a summary of rev . with diff.
-show = log --stat --hidden -T nl -vpr
+show = log --pager=always --stat --hidden -T nl -vpr
 
 # Make a new repo with some sensible defaults.
 mkrepo = !$HG init $1 && cd $1 && \
