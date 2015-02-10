@@ -2526,6 +2526,7 @@ A few basic settings,
 #+begin_src emacs-lisp
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
+  (setq LaTeX-item-indent 0)
   (setq TeX-clean-confirm nil) ;; don't ask me to clean
 #+end_src
 
