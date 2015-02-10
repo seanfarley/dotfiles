@@ -41,7 +41,6 @@ evolve =
 [remotenames]
 alias.default = True
 suppressbranches = True
-unhide = True
 
 [schemes]
 bb = ssh://hg@bitbucket.org/
