@@ -176,7 +176,12 @@ function _hg_info() {
     [ -n "$($HG shelve -l 2>/dev/null)" ] && br="$br+"
   fi
 
-  # remote="$(fast-hg-remote | grep -v '+ 0' | egrep '^(\+|-)' | perl -pe 's,-\s?(\d+), \1⇣,' | perl -pe 's,\+\s?(\d+), \1⇡,')"
+  remote="$(less $repo_dir/.hg/remotedistance 2>/dev/null)"
+  sign="⇡"
+  [[ ${remote:0:1} == "-" ]] && sign="⇣"
+  distance="$(echo $remote | cut -d ' ' -f2)"
+  remote=""
+  [[ "$distance" != "" && "$distance" != "0" ]] && remote=" $distance$sign"
 
   printf "$br$remote"
 
