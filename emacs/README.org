@@ -165,6 +165,12 @@ Delete old versions automatically, and keep a limited number around:
         kept-old-versions 2)
 #+end_src
 
+Turn off all version control,
+
+#+begin_src emacs-lisp
+  (setq vc-handled-backends nil)
+#+end_src
+
 Finally, use version numbers in the filenames:
 
 #+begin_src emacs-lisp
