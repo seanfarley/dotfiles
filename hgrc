@@ -97,7 +97,7 @@ sourcetreebulkmerge.binary=True
 
 [hostfingerprints]
 bitbucket.org = 45:ad:ae:1a:cf:0e:73:47:06:07:e0:88:f5:cc:10:e5:fa:1c:f7:99
-svn.macports.org = 69:72:15:c6:d9:71:d8:6b:15:ec:81:76:13:a8:59:aa:f0:21:e8:01
+svn.macports.org = 15:5e:21:55:fe:e3:26:ae:b2:f8:c6:6a:d2:1a:bf:82:74:dd:c9:14
 smf.io = 52:19:49:00:ca:c8:9f:de:a6:35:9d:a6:bc:69:38:c5:c9:a4:5f:a3
 kallithea-scm.org = 53:de:4d:c5:f8:32:6f:26:36:9a:95:86:21:21:4b:6f:99:b2:e4:9a
 
