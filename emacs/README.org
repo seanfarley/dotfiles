@@ -1406,6 +1406,7 @@ Finally, we add customizations for using ediff with mercurial:
   (defun local-ediff-before-setup-hook ()
     (setq local-ediff-saved-frame-configuration (current-frame-configuration))
     (setq local-ediff-saved-window-configuration (current-window-configuration))
+    (global-auto-revert-mode 0)
     ;; (local-ediff-frame-maximize)
     (if hg-mergetool-emacsclient-ediff-active
         (raise-frame)))
@@ -1431,6 +1432,7 @@ Finally, we add customizations for using ediff with mercurial:
     (recursive-edit))
 
   (defun hg-mergetool-emacsclient-ediff-after-quit-hook ()
+    (global-auto-revert-mode t)
     (exit-recursive-edit))
 
   (add-hook 'ediff-after-quit-hooks 'hg-mergetool-emacsclient-ediff-after-quit-hook 'append)
