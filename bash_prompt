@@ -176,12 +176,16 @@ function _hg_info() {
     [ -n "$($HG shelve -l 2>/dev/null)" ] && br="$br+"
   fi
 
-  remote="$(less $repo_dir/.hg/remotedistance 2>/dev/null)"
-  sign="⇡"
-  [[ ${remote:0:1} == "-" ]] && sign="⇣"
-  distance="$(echo $remote | cut -d ' ' -f2)"
   remote=""
-  [[ "$distance" != "" && "$distance" != "0" ]] && remote=" $distance$sign"
+  read -a distance <<< "$(less $repo_dir/.hg/cache/tracking.$br 2>/dev/null)"
+  [[ ${distance[0]} != "" && ${distance[0]} != "0" ]] && remote="$remote ${distance[0]}⇡"
+  [[ ${distance[1]} != "" && ${distance[1]} != "0" ]] && remote="$remote ${distance[1]}⇣"
+
+  if [[ "$remote" == "" && $br == "default" ]]; then
+    read -a distance <<< "$(less $repo_dir/.hg/cache/tracking.current 2>/dev/null)"
+    [[ ${distance[0]} != "" ]] && br=":${distance[0]}"
+    [[ ${distance[1]} != "" && ${distance[1]} != "0" ]] && remote=" ${distance[1]}⇣"
+  fi
 
   printf "$br$remote"
 
