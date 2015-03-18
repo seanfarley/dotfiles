@@ -1,5 +1,5 @@
 [ui]
-username = Sean Farley <sean.michael.farley@gmail.com>
+username = Sean Farley <sean@farley.io>
 ssh = ssh -C
 editor = ~/.edit.sh
 ignore = ~/.hgignore
@@ -98,16 +98,17 @@ kallithea-scm.org = 53:de:4d:c5:f8:32:6f:26:36:9a:95:86:21:21:4b:6f:99:b2:e4:9a
 
 [email]
 method = smtp
-from = Sean Farley <sean.michael.farley@gmail.com>
+from = Sean Farley <sean@farley.io>
 
 [patchbomb]
 intro = never
 
 [smtp]
-host = smtp.gmail.com
+host = mail.farley.io
 port = 587
-username = sean.michael.farley@gmail.com
+username = sean@farley.io
 tls = True
+local_hostname = farley.io
 
 [templates]
 sl = "{if(svnrev, label('log.changeset', '[r{svnrev}] '))}{label('log.changeset changeset.{phase} {ifcontains(rev, revset(\"merge()\"), \"changeset.merge\")} {ifcontains(rev, revset(\"obsolete()\"), \"changeset.obsolete\")}', shortest(node))} {label('log.changeset', author|user)}{tags % \"{ifeq(tag,'tip','',label('log.tag', ' {tag}'))}\"}{ifeq(branch,'default','',label('log.branch', ' {branch}'))}{label('log.bookmark', if(bookmarks,' {bookmarks}'))}{label('log.remotename', if(remotenames, ' {remotenames}'))}\n{label('{ifcontains(rev, revset(\".\"), \"desc.here\")} {ifcontains(rev, revset(\"obsolete()\"), \"changeset.obsolete\")}', desc|firstline)}"
