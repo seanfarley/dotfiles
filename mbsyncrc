@@ -1,0 +1,24 @@
+IMAPAccount mail
+Host mail.farley.io
+User sean@farley.io
+PassCmd "/usr/bin/security find-internet-password -w -a sean@farley.io -s mail.farley.io"
+RequireSSL yes
+UseTLSv1.2 yes
+CertificateFile ~/.mail.crt
+
+IMAPStore mail-remote
+Account mail
+
+MaildirStore mail-local
+Path ~/.mail/
+Inbox ~/.mail/inbox
+
+Channel mail
+Master :mail-remote:
+Slave  :mail-local:
+Patterns * !virtual*
+# Automatically create missing mailboxes, both locally and on the server
+Create Both
+# Save the synchronization state files in the relevant directory
+SyncState *
+Expunge Both
