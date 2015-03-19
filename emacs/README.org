@@ -2880,7 +2880,7 @@ I have many email addresses, so let's set them here:
                                    "me@smf.io"
                                    "sfarley@iit.edu")
 
-     user-mail-address "sean.michael.farley@gmail.com"
+     user-mail-address "sean@farley.io"
      user-full-name  "Sean Farley"))
 #+end_src
 
@@ -2897,11 +2897,11 @@ to be used. To achieve this, I wrote a function to handle it:
       (let ((msg mu4e-compose-parent-message))
             (setq user-mail-address
                   (cond
-                   ((null msg) "sean.michael.farley@gmail.com")
+                   ((null msg) "sean@farley.io")
                    ((mu4e-message-contact-field-matches msg :to "sean@seanfarley.org")
                     "sean@seanfarley.org")
                    ((mu4e-message-contact-field-matches msg :to "sean@mcs.anl.gov")
-                    "sean.michael.farley@gmail.com")
+                    "sean@farley.io")
                    ((mu4e-message-contact-field-matches msg :to "sean@macports.org")
                     "sean@macports.org")
                    ((mu4e-message-contact-field-matches msg :to "sean@lsmsa.net")
@@ -2910,21 +2910,11 @@ to be used. To achieve this, I wrote a function to handle it:
                     "sean@farley.io")
                    ((mu4e-message-contact-field-matches msg :to "me@smf.io")
                     "me@smf.io")
-                   ((mu4e-message-contact-field-matches msg :to "sfarley@iit.edu")
-                    "sfarley@iit.edu")
-                   ((or
-                     (mu4e-message-contact-field-matches msg :from "anl.gov")
-                     (mu4e-message-contact-field-matches msg :to "anl.gov"))
-                    "sean.michael.farley@gmail.com")
                    ((or
                      (mu4e-message-contact-field-matches msg :from "macports")
                      (mu4e-message-contact-field-matches msg :to "macports"))
                     "sean@macports.org")
-                   ((or
-                     (mu4e-message-contact-field-matches msg :from "iit.edu")
-                     (mu4e-message-contact-field-matches msg :to "iit.edu"))
-                    "sfarley@iit.edu")
-                   (t "sean.micheal.farley@gmail.com")))))
+                   (t "sean@farley.io")))))
 
     (add-hook 'mu4e-compose-pre-hook 'smf/mu4e-set-from-address))
 #+end_src
@@ -2953,7 +2943,11 @@ Set the mail directories I have,
     (setq
        mu4e-maildir "~/.mail"
        mu4e-attachment-dir  "~/Downloads"
-       mu4e-drafts-folder "/drafts"))
+       mu4e-refile-folder "/archive"
+       mu4e-drafts-folder "/drafts"
+       mu4e-trash-folder "/trash"
+       mu4e-sent-folder "/sent"
+  ))
 #+end_src
 
 Set mu4e as default emacs email program,
@@ -2963,24 +2957,19 @@ Set mu4e as default emacs email program,
     (setq mail-user-agent 'mu4e-user-agent))
 #+end_src
 
-Set offlineimap to be called for fetching new mail. This allows mail to be
+Set mbsync to be called for fetching new mail. This allows mail to be
 updated from within [[mu4e]] with keyboard shortcuts.
 
 #+begin_src emacs-lisp
   (after-load 'mu4e
-    (setq mu4e-get-mail-command "offlineimap"))
+    (setq mu4e-get-mail-command "mbsync -a"))
 #+end_src
 
-A lot of examples have offlineimap run every 5 or so minutes. I don't like this
-because it causing the mail view to [[https://github.com/djcb/mu/issues/514][pause while reading email]]. So, we'll turn it
-off and manually update.
-
-Side note: from practice I've found that running offlineimap with no new
-messages to sync takes more than two minutes for 75,000 messages.
+Update email every two minutes,
 
 #+begin_src emacs-lisp
-       ;; update every 5 minutes
-       ;; mu4e-update-interval 300
+;;  (after-load 'mu4e
+;;       (setq mu4e-update-interval 120))
 #+end_src
 
 Miscellaneous settings: these variable names speak for themselves,
@@ -2991,6 +2980,9 @@ Miscellaneous settings: these variable names speak for themselves,
        mu4e-confirm-quit nil
        mu4e-view-show-images t
        mu4e-view-prefer-html nil
+
+       ;; show email address as well as name
+       mu4e-view-show-addresses t
 
        ;; don't use a signature
        mu4e-compose-signature-auto-include nil
@@ -3004,12 +2996,18 @@ Miscellaneous settings: these variable names speak for themselves,
        mu4e-headers-skip-duplicates t
        mu4e-headers-include-related t
 
+       ;; mbsync needs messages to be renamed
+       mu4e-change-filenames-when-moving t
+
        ;; fields on message view
-       mu4e-view-fields '(:from :to  :cc :subject :mailing-list :tags :flags :date :maildir :attachments :signature)
+       mu4e-view-fields '(:from :to :cc :subject :mailing-list :tags :flags :date :maildir :attachments :signature)
 
        ;; smtp mail setting
-       send-mail-function 'message-send-mail-with-sendmail
-       sendmail-program "msmtp"
+       send-mail-function    'smtpmail-send-it
+       smtpmail-default-smtp-server "mail.farley.io"
+       smtpmail-smtp-server  "mail.farley.io"
+       smtpmail-stream-type  'starttls
+       smtpmail-smtp-service 587
 
        ;; don't keep message buffers around
        message-kill-buffer-on-exit t
@@ -3044,82 +3042,7 @@ Finally, let's use [[http://pablo.rauzy.name/dev/init.el.html][fancy unicode cha
        mu4e-headers-passed-mark         '("P" . "⇉")))
 #+end_src
 
-*** Labels
-
-To the best of my knowledge, mu4e + offlineimap is the only way to sync gmail
-labels bidirectionally with emacs. Packages such at [[http://notmuchmail.org][notmuch]] don't actually write
-the labels into the email file so reading from multiple clients is broken (by
-design / philosophy).
-
-Below is the code I use to achieve a gmail-like experience.
-
-Since I use labels instead of folders, we actually don't want to set the trash
-folder like below, so it's commented out but left as an example.
-
-#+begin_src emacs-lisp
-       ;; mu4e-trash-folder  "/trash"
-#+end_src
-
-Make sure to use the same header for syncing labels:
-
-#+begin_src emacs-lisp
-  (after-load 'mu4e
-    (setq mu4e-action-tags-header "X-Keywords"))
-#+end_src
-
-Don't save message to Sent Messages, Gmail/IMAP takes care of this:
-
-#+begin_src emacs-lisp
-  (after-load 'mu4e
-    (setq mu4e-sent-messages-behavior 'delete))
-#+end_src
-
-The easiest way to work with labels and to main auto-complete is to have a
-hard-coded list of labels. Adding or removing labels from here is fairly
-trivial.
-
-#+begin_src emacs-lisp
-  (after-load 'mu4e
-    (setq mylabels (list
-                    "\\Trash"
-                    "\\Inbox"
-                    "\\Spam"
-                    "Action"
-                    "R/anl"
-                    "R/aperture"
-                    "R/applications"
-                    "R/barryisms"
-                    "R/bout"
-                    "R/documents"
-                    "R/facebook"
-                    "R/facets"
-                    "R/family"
-                    "R/friends"
-                    "R/iit"
-                    "R/kallithea"
-                    "R/karlin"
-                    "R/job"
-                    "R/llnl"
-                    "R/lsmsa"
-                    "R/lsu"
-                    "R/macports"
-                    "R/math"
-                    "R/mercurial"
-                    "R/osi"
-                    "R/petsc-dev"
-                    "R/petsc-maint"
-                    "R/petsc-students"
-                    "R/phd"
-                    "R/posterity"
-                    "R/recipes"
-                    "R/server"
-                    "R/siam"
-                    "R/talks"
-                    "R/teaching"
-                    "R/tips"
-                    "R/V2"
-                    "R/website")))
-#+end_src
+*** Thread Navigation
 
 These functions are copied from [[https://github.com/djcb/mu/blob/master/mu4e/mu4e-headers.el#L1434][mu4e-headers-next-unread]] and just changed to
 check the thread level instead of the unread flag. We'll bind them to 'N' and
@@ -3163,114 +3086,20 @@ check the thread level instead of the unread flag. We'll bind them to 'N' and
 *** Custom marks
 
 [[mu4e]] has a way to apply arbitrary 'marks' to a message or thread. We will use
-these to apply custom labels and override default behavior.
+these to override default behavior.
 
 #+begin_src emacs-lisp
   (after-load 'mu4e
-      (setq mu4e-marks (delq (assoc 'delete mu4e-marks) mu4e-marks)
-            mu4e-marks (delq (assoc 'trash mu4e-marks) mu4e-marks)
-            mu4e-marks (delq (assoc 'untrash mu4e-marks) mu4e-marks)
-            mu4e-marks (delq (assoc 'refile mu4e-marks) mu4e-marks)
-            mu4e-marks (delq (assoc 'flag mu4e-marks) mu4e-marks)
-            mu4e-marks (delq (assoc 'unflag mu4e-marks) mu4e-marks)
-            mu4e-marks (delq (assoc 'move mu4e-marks) mu4e-marks))
+      (setq mu4e-marks (delq (assoc 'refile mu4e-marks) mu4e-marks))
 
       (add-to-list 'mu4e-marks
-                   '(untag
-                     :char       "-"
-                     :prompt     "-tag"
-                     :ask-target (lambda () (ido-completing-read "Label: " mylabels))
+                   '(refile
+                     :char       "r"
+                     :prompt     "refile"
+                     :dyn-target  (lambda (target msg) (mu4e-get-refile-folder msg))
                      :action      (lambda (docid msg target)
-                                    (mu4e~proc-move docid nil "-N")
-                                    (mu4e-action-retag-message msg (concat "-" target)))))
-
-      (add-to-list 'mu4e-marks
-                   '(tag
-                     :char       "+"
-                     :prompt     "+tag"
-                     :ask-target (lambda () (ido-completing-read "Label: " mylabels))
-                     :action      (lambda (docid msg target)
-                                    (mu4e~proc-move docid nil "-N")
-                                    (mu4e-action-retag-message msg (concat "+" target)))))
-
-      (add-to-list 'mu4e-marks
-                   '(archive
-                     :char       "A"
-                     :prompt     "Archive"
-                     :show-target (lambda (target) "archive")
-                     :action      (lambda (docid msg target)
-                                    ;; must come before proc-move since retag runs
-                                    ;; 'sed' on the file
-                                    (mu4e-action-retag-message msg "-\\Inbox")
-                                    (mu4e~proc-move docid nil "+S-u-N"))))
-
-      (add-to-list 'mu4e-marks
-                   '(untrash
-                     :char       "="
-                     :prompt     "=untrash"
-                     :show-target (lambda (target) "untrash")
-                     :action      (lambda (docid msg target)
-                                    (mu4e~proc-move docid nil "-N")
-                                    (mu4e-action-retag-message msg "-\\Trash"))))
-
-      (add-to-list 'mu4e-marks
-                   '(trash
-                     :char       "d"
-                     :prompt     "dtrash"
-                     :show-target (lambda (target) "trash")
-                     :action      (lambda (docid msg target)
-                                    (mu4e-action-retag-message msg "\\Trash")
-                                    (mu4e~proc-move docid nil "+S-u-N"))))
-
-      ;; removed the functions we don't need (for view)
-      (fmakunbound 'mu4e-view-mark-for-delete)
-      (fmakunbound 'mu4e-view-mark-for-move)
-      (fmakunbound 'mu4e-view-mark-for-refile)
-      (fmakunbound 'mu4e-view-mark-for-flag)
-      (fmakunbound 'mu4e-view-mark-for-unflag)
-
-      ;; removed the functions we don't need (for headers)
-      (fmakunbound 'mu4e-headers-mark-for-delete)
-      (fmakunbound 'mu4e-headers-mark-for-move)
-      (fmakunbound 'mu4e-headers-mark-for-refile)
-      (fmakunbound 'mu4e-headers-mark-for-flag)
-      (fmakunbound 'mu4e-headers-mark-for-unflag)
-
-      ;; regenerate the functions we just defined above
-      (mu4e~view-defun-mark-for trash)
-      (mu4e~view-defun-mark-for untrash)
-      (mu4e~view-defun-mark-for tag)
-      (mu4e~view-defun-mark-for untag)
-      (mu4e~view-defun-mark-for archive)
-
-      ;; regenerate the functions we just defined above (for headers)
-      (mu4e~headers-defun-mark-for trash)
-      (mu4e~headers-defun-mark-for untrash)
-      (mu4e~headers-defun-mark-for tag)
-      (mu4e~headers-defun-mark-for untag)
-      (mu4e~headers-defun-mark-for archive)
-
-      ;; remove move
-      (define-key mu4e-view-mode-map (kbd "m") nil)
-      (define-key mu4e-headers-mode-map (kbd "m") nil)
-
-      ;; remove delete
-      (define-key mu4e-view-mode-map (kbd "D") nil)
-      (define-key mu4e-headers-mode-map (kbd "D") nil)
-
-      ;; remap the actions we renamed
-      (define-key mu4e-view-mode-map (kbd "A") 'mu4e-view-mark-for-archive)
-      (define-key mu4e-view-mode-map (kbd "<delete>") 'mu4e-view-mark-for-trash)
-      (define-key mu4e-view-mode-map (kbd "<deletechar>") 'mu4e-view-mark-for-trash)
-      (define-key mu4e-view-mode-map (kbd "+") 'mu4e-view-mark-for-tag)
-      (define-key mu4e-view-mode-map (kbd "-") 'mu4e-view-mark-for-untag)
-
-      ;; remap the actions we renamed (for headers)
-      (define-key mu4e-headers-mode-map (kbd "A") 'mu4e-headers-mark-for-archive)
-      (define-key mu4e-headers-mode-map (kbd "<delete>") 'mu4e-headers-mark-for-trash)
-      (define-key mu4e-headers-mode-map (kbd "<deletechar>") 'mu4e-headers-mark-for-trash)
-      (define-key mu4e-headers-mode-map (kbd "+") 'mu4e-headers-mark-for-tag)
-      (define-key mu4e-headers-mode-map (kbd "-") 'mu4e-headers-mark-for-untag))
+                                    (mu4e~proc-move docid
+                                      (mu4e~mark-check-target target) "+S-u-N")))))
 #+end_src
 
 *** Custom actions
@@ -3305,14 +3134,7 @@ We'll add bookmarks for common "views" of our mailbox:
 #+begin_src emacs-lisp
   (after-load 'mu4e
     (setq
-     mu4e-bookmarks '(("tag:/Inbox AND NOT flag:trashed AND NOT tag:/Trash"  "Inbox"     ?i)
-                      ("flag:unread"                      "Unread"    ?u)
-                      ("tag:/Sent"                        "Sent"      ?s)
-                      ("tag:R/mercurial"                  "Mercurial" ?h)
-                      ("tag:R/macports"                   "Macports"  ?m)
-                      ("tag:R/phd"                        "PhD"       ?p)
-                      ("tag:Action"                       "Action"    ?a)
-                      ("tag:list"                         "Lists"     ?l))))
+     mu4e-bookmarks '(("flag:unread"                      "Unread"    ?u))))
 #+end_src
 
 *** Keybinding
