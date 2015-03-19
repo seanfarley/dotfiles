@@ -930,6 +930,13 @@ secure than storing them in configuration on disk:
        (if server (concat " -s " server))))))
 #+end_src
 
+Eventually, I'd like to use auth-source instead of custom methods for accessing
+the keychain, but erc is giving me problems currently.
+
+#+begin_src emacs-lisp
+  (setq auth-sources '(macos-keychain-internet))
+#+end_src
+
 *** Conditionally kill Emacs
 
 When I'm in an emacsclient, I probably just want the client to die rather than
@@ -2661,10 +2668,10 @@ keychain method defined above to get our password.
   (setq
    znc-detatch-on-kill t
    znc-servers `(
-                 ("smf.io" 6697 t ((freenode "smf/freenode"
-                                             ,(smf/get-keychain-password "smf" "smf.io"))))
-                 ("smf.io" 6697 t ((bitlbee "smf/bitlbee"
-                                            ,(smf/get-keychain-password "smf" "smf.io"))))))
+                 ("smf.io" "6697" t ((freenode "smf/freenode"
+                                               ,(smf/get-keychain-password "smf" "smf.io"))))
+                 ("smf.io" "6697" t ((bitlbee "smf/bitlbee"
+                                              ,(smf/get-keychain-password "smf" "smf.io"))))))
 #+end_src
 
 Some basic settings about my IRC setup,
