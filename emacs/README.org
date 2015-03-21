@@ -2770,6 +2770,10 @@ switch to the buffer.
   (smf/add-launcher "k" (lambda ()
                           (interactive)
                           (smf/erc-start-or-switch "#kallithea")))
+
+  (smf/add-launcher "b" (lambda ()
+                          (interactive)
+                          (smf/erc-start-or-switch "#bitbucket")))
 #+end_src
 
 *** Query any user
