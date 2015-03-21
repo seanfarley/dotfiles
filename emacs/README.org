@@ -2951,6 +2951,13 @@ Set the mail directories I have,
        mu4e-drafts-folder "/drafts"
        mu4e-trash-folder "/trash"
        mu4e-sent-folder "/sent"
+
+       mu4e-maildir-shortcuts '(("/inbox"     . ?i)
+                                ("/archive"   . ?a)
+                                ("/drafts"    . ?d)
+                                ("/posterity" . ?p)
+                                ("/barryisms" . ?b)
+                                ("/sent"      . ?s))
   ))
 #+end_src
 
