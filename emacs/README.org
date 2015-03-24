@@ -2860,6 +2860,7 @@ We only load it if it exists on the system (by wrapping it with =after-load=).
 
 #+begin_src emacs-lisp
   (autoload 'mu4e "mu4e" t)
+  (require 'smtpmail-async)
 #+end_src
 
 If available, let's use imagemagick.
@@ -3015,7 +3016,8 @@ Miscellaneous settings: these variable names speak for themselves,
        mu4e-view-fields '(:from :to :cc :subject :mailing-list :tags :flags :date :maildir :attachments :signature)
 
        ;; smtp mail setting
-       send-mail-function    'smtpmail-send-it
+       send-mail-function    'async-smtpmail-send-it
+       message-send-mail-function 'async-smtpmail-send-it
        smtpmail-default-smtp-server "mail.farley.io"
        smtpmail-smtp-server  "mail.farley.io"
        smtpmail-stream-type  'starttls
