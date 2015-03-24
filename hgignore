@@ -74,3 +74,5 @@ Doxyfile
 data
 .svn
 flush/system
+.vagrant
+node_modules
