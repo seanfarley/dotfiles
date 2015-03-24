@@ -56,31 +56,3 @@ fi
 if [ -d $HOME/.local/lib/python2.7 ]; then
   export PYTHONPATH=$HOME/.local/lib/python2.7/site-packages:$HOME/.local/lib/python2.7:$PYTHONPATH
 fi
-
-if [ -d /cygdrive/c ]; then
-  export MSSdk=1
-  export DISTUTILS_USE_SDK=1
-  export PATH=~/projects/hg:$PATH
-
-  # replicate functionality of vcvarsall.bat
-  export VS110COMNTOOLS="C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\"
-  export VS120COMNTOOLS="C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\"
-  export VSINSTALLDIR="C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\"
-  export VCINSTALLDIR="C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\VC\\"
-  export WindowsSdkDir="C:\\Program Files (x86)\\Windows Kits\\8.1\\"
-  export WindowsSDK_ExecutablePath_x86="C:\\Program Files (x86)\\Microsoft SDKs\\Windows\\v8.1A\\bin\\NETFX 4.5.1 Tools\\"
-  export WindowsSDK_ExecutablePath_x64="C:\\Program Files (x86)\\Microsoft SDKs\\Windows\\v8.1A\\bin\\NETFX 4.5.1 Tools\\x64\\"
-  export FrameworkDir="C:\\WINDOWS\\Microsoft.NET\\Framework64"
-  export FrameworkDIR64="C:\\WINDOWS\\Microsoft.NET\\Framework64"
-  export FrameworkVersion="v4.0.30319"
-  export FrameworkVersion64="v4.0.30319"
-  export Framework40Version="v4.0"
-
-  export PATH="$(cygpath "$WindowsSdkDir")/bin/x64:$(cygpath "$VS120COMNTOOLS"):$PATH"
-  export PATH="$(cygpath "$VSINSTALLDIR")/Common7/IDE:$(cygpath "$VCINSTALLDIR")/bin/amd64:$PATH"
-  export PATH="$(cygpath "C:\\Program Files (x86)\\MSBuild\\12.0\\bin\\amd64"):$PATH"
-  export INCLUDE="$WindowsSdkDir\\include\\shared;$WindowsSdkDir\\include\um;$WindowsSdkDir\\include\winrt;$INCLUDE"
-
-  export Platform=X64
-  export VisualStudioVersion=12.0
-fi
