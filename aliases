@@ -38,6 +38,7 @@ alias l="less"
 alias h="hg"
 alias lhg="$HOME/projects/hg/hg"
 alias hg-git="hg --config extensions.hggit="
+alias bb="cd \$PROJECTS/bitbucket && workon bb"
 
 # File size
 alias fs="stat -f \"%z bytes\""
