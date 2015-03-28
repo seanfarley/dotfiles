@@ -76,3 +76,4 @@ data
 flush/system
 .vagrant
 node_modules
+bower_components
