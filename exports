@@ -35,6 +35,9 @@ if [ -d /opt/local ]; then
     export PETSC_DIR=/opt/local/lib/petsc
     export PETSC_ARCH=
   fi
+  if [ -f /opt/local/bin/virtualenvwrapper.sh-2.7 ]; then
+    source /opt/local/bin/virtualenvwrapper.sh-2.7
+  fi
 fi
 
 if [ -d $HOME/.local/bin ]; then
@@ -56,3 +59,7 @@ fi
 if [ -d $HOME/.local/lib/python2.7 ]; then
   export PYTHONPATH=$HOME/.local/lib/python2.7/site-packages:$HOME/.local/lib/python2.7:$PYTHONPATH
 fi
+
+# for virtualenv
+export WORKON_HOME="$SANDBOX/envs"
+export VIRTUALENV_USE_DISTRIBUTE=1
