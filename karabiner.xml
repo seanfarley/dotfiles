@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<root>
+  <!-- file path -->
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_APP_Calendar</name>
+    <url type="file">/Applications/Calendar.app</url>
+  </vkopenurldef>
+
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_APP_EmacsMac</name>
+    <url type="file">/Applications/MacPorts/EmacsMac.app</url>
+  </vkopenurldef>
+
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_APP_iTerm</name>
+    <url type="file">/Applications/iTerm.app</url>
+  </vkopenurldef>
+
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_APP_iTunes</name>
+    <url type="file">/Applications/iTunes.app</url>
+  </vkopenurldef>
+
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_APP_Papers</name>
+    <url type="file">/Applications/Papers.app</url>
+  </vkopenurldef>
+
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_APP_Safari</name>
+    <url type="file">/Applications/Safari.app</url>
+  </vkopenurldef>
+
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_APP_Skim</name>
+    <url type="file">/Applications/Skim.app</url>
+  </vkopenurldef>
+
+  <item>
+    <name>Change left-command + ctrl + l to launch Calendar</name>
+    <identifier>private.left_command_ctrl_c</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::L, ModifierFlag::COMMAND_L, ModifierFlag::CONTROL_L,
+      KeyCode::VK_OPEN_URL_APP_Calendar,
+    </autogen>
+  </item>
+
+  <item>
+    <name>Change left-command + ctrl + e to launch EmacsMac</name>
+    <identifier>private.left_command_ctrl_e</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::E, ModifierFlag::COMMAND_L, ModifierFlag::CONTROL_L,
+      KeyCode::VK_OPEN_URL_APP_EmacsMac,
+    </autogen>
+  </item>
+
+  <item>
+    <name>Change left-command + ctrl + t to launch iTerm</name>
+    <identifier>private.left_command_ctrl_t</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::T, ModifierFlag::COMMAND_L, ModifierFlag::CONTROL_L,
+      KeyCode::VK_OPEN_URL_APP_iTerm,
+    </autogen>
+  </item>
+
+  <item>
+    <name>Change left-command + ctrl + i to launch iTunes</name>
+    <identifier>private.left_command_ctrl_i</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::I, ModifierFlag::COMMAND_L, ModifierFlag::CONTROL_L,
+      KeyCode::VK_OPEN_URL_APP_iTunes,
+    </autogen>
+  </item>
+
+  <item>
+    <name>Change left-command + ctrl + p to launch Papers</name>
+    <identifier>private.left_command_ctrl_p</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::P, ModifierFlag::COMMAND_L, ModifierFlag::CONTROL_L,
+      KeyCode::VK_OPEN_URL_APP_Papers,
+    </autogen>
+  </item>
+
+  <item>
+    <name>Change left-command + ctrl + s to launch Safari</name>
+    <identifier>private.left_command_ctrl_s</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::S, ModifierFlag::COMMAND_L, ModifierFlag::CONTROL_L,
+      KeyCode::VK_OPEN_URL_APP_Safari,
+    </autogen>
+  </item>
+
+  <item>
+    <name>Change left-command + ctrl + k to launch Skim</name>
+    <identifier>private.left_command_ctrl_k</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::K, ModifierFlag::COMMAND_L, ModifierFlag::CONTROL_L,
+      KeyCode::VK_OPEN_URL_APP_Skim,
+    </autogen>
+  </item>
+
+</root>
