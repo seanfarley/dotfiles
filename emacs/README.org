@@ -2295,6 +2295,15 @@ colors with the color they represent as background.
   (add-hook 'css-mode-hook 'rainbow-mode)
 #+end_src
 
+*** less-css-mode
+
+=less-css-mode= is a major mode for Emacs which displays strings representing
+colors with the color they represent as background.
+
+#+begin_src emacs-lisp
+  (require-package 'less-css-mode)
+#+end_src
+
 *** rainbow-delimiters
 
 =rainbow-delimiters= is a "rainbow parentheses"-like mode which highlights
