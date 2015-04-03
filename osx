@@ -25,6 +25,9 @@ sudo xcodebuild -license
 sudo /opt/local/bin/port -v install mercurial-devel +bash_completion
 sudo /opt/local/bin/port -v install py27-hgevolve-devel
 
+# install gnu tools
+sudo /opt/local/bin/port -v install coreutils findutils
+
 if ! grep -q "/opt/local/bin/bash" /etc/shells; then
   sudo sh -c "echo '/opt/local/bin/bash' >> /etc/shells"
 fi
