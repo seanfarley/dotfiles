@@ -36,9 +36,19 @@
     <url type="file">/Applications/Skim.app</url>
   </vkopenurldef>
 
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_APP_HipChat</name>
+    <url type="file">/Applications/HipChat.app</url>
+  </vkopenurldef>
+
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_APP_Messages</name>
+    <url type="file">/Applications/Messages.app</url>
+  </vkopenurldef>
+
   <item>
     <name>Change left-command + ctrl + l to launch Calendar</name>
-    <identifier>private.left_command_ctrl_c</identifier>
+    <identifier>private.left_command_ctrl_l</identifier>
     <autogen>
       __KeyToKey__
       KeyCode::L, ModifierFlag::COMMAND_L, ModifierFlag::CONTROL_L,
@@ -103,6 +113,26 @@
       __KeyToKey__
       KeyCode::K, ModifierFlag::COMMAND_L, ModifierFlag::CONTROL_L,
       KeyCode::VK_OPEN_URL_APP_Skim,
+    </autogen>
+  </item>
+
+  <item>
+    <name>Change left-command + ctrl + c to launch HipChat</name>
+    <identifier>private.left_command_ctrl_c</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::C, ModifierFlag::COMMAND_L, ModifierFlag::CONTROL_L,
+      KeyCode::VK_OPEN_URL_APP_HipChat,
+    </autogen>
+  </item>
+
+  <item>
+    <name>Change left-command + ctrl + m to launch Messages</name>
+    <identifier>private.left_command_ctrl_m</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::M, ModifierFlag::COMMAND_L, ModifierFlag::CONTROL_L,
+      KeyCode::VK_OPEN_URL_APP_Messages,
     </autogen>
   </item>
 
