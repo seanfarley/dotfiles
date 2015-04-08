@@ -95,8 +95,10 @@ $cli set option.emacsmode_controlPNBF 1
 /bin/echo
 
 # AdBlock Plus
-curl -LO https://update.adblockplus.org/latest/adblockplussafari.safariextz
-open adblockplussafari.safariextz
+if ! [ -n "$(ls ~/Library/Safari/Extensions/*Adblock*)" ]; then
+  curl -LO https://update.adblockplus.org/latest/adblockplussafari.safariextz
+  open adblockplussafari.safariextz
+fi
 
 # Spectacle
 if ! [ -d /Applications/Spectacle.app ]; then
@@ -107,8 +109,10 @@ if ! [ -d /Applications/Spectacle.app ]; then
 fi
 
 # Pocket
-curl -L https://getpocket.com/apps/link/pocket-safari > pocket.safariextz
-open pocket.safariextz
+if ! [ -n "$(ls ~/Library/Safari/Extensions/*Pocket*)" ]; then
+  curl -L https://getpocket.com/apps/link/pocket-safari > pocket.safariextz
+  open pocket.safariextz
+fi
 
 ###############################################################################
 # General UI/UX                                                               #
