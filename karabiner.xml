@@ -46,6 +46,11 @@
     <url type="file">/Applications/Messages.app</url>
   </vkopenurldef>
 
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_APP_AmazonMusic</name>
+    <url type="file">/Applications/Amazon Music.app</url>
+  </vkopenurldef>
+
   <item>
     <name>Change left-command + ctrl + l to launch Calendar</name>
     <identifier>private.left_command_ctrl_l</identifier>
@@ -133,6 +138,16 @@
       __KeyToKey__
       KeyCode::M, ModifierFlag::COMMAND_L, ModifierFlag::CONTROL_L,
       KeyCode::VK_OPEN_URL_APP_Messages,
+    </autogen>
+  </item>
+
+  <item>
+    <name>Change left-command + ctrl + a to launch Amazon Music</name>
+    <identifier>private.left_command_ctrl_a</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::A, ModifierFlag::COMMAND_L, ModifierFlag::CONTROL_L,
+      KeyCode::VK_OPEN_URL_APP_AmazonMusic,
     </autogen>
   </item>
 
