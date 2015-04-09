@@ -11,7 +11,10 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # install xcode command-line tools
-sudo xcode-select --install
+if ! xcode-select -p; then
+  sudo xcode-select --install
+  sudo xcodebuild -license
+fi
 
 # install macports
 if ! [ -d /opt/local/bin ]; then
@@ -19,8 +22,6 @@ if ! [ -d /opt/local/bin ]; then
   sudo installer -pkg ./MacPorts-2.3.3-10.10-Yosemite.pkg -target /
   rm -f MacPorts-2.3.3-10.10-Yosemite.pkg
 fi
-
-sudo xcodebuild -license
 
 sudo /opt/local/bin/port -v install mercurial-devel +bash_completion
 sudo /opt/local/bin/port -v install py27-hgevolve-devel
