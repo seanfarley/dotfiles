@@ -15,6 +15,7 @@ test -d $HOME/.hg && echo "$HOME is still a repo, please check and remove" && ex
 mkdir -p ~/projects
 mkdir -p ~/sandbox
 mkdir -p ~/.ipython
+mkdir -p ~/.ssh
 
 rm -f ~/.bootstrap.sh
 rm -f ~/.emacs
