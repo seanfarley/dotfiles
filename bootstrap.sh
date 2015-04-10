@@ -26,9 +26,6 @@ rm -f ~/.sudo-batch.sh
 rm -f ~/.notmuch-config
 rm -f ~/.tmux.conf
 
-test -d $HOME/Library && mkdir -p $HOME/Library/Scripts && \
-  ensure_link "quicksilver" "Library/Scripts/quicksilver"
-
 ensure_link "aliases"
 ensure_link "aspell.en.prepl"
 ensure_link "aspell.en.pws"
