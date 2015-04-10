@@ -16,6 +16,7 @@ mkdir -p ~/projects
 mkdir -p ~/sandbox
 mkdir -p ~/.ipython
 mkdir -p ~/.ssh
+mkdir -p ~/.config
 
 rm -f ~/.bootstrap.sh
 rm -f ~/.emacs
