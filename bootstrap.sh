@@ -17,6 +17,7 @@ mkdir -p ~/sandbox
 mkdir -p ~/.ipython
 mkdir -p ~/.ssh
 mkdir -p ~/.config
+mkdir -p ~/.pastebin.d
 
 rm -f ~/.bootstrap.sh
 rm -f ~/.emacs
@@ -60,3 +61,5 @@ ensure_link "ssh/environment"
 ensure_link "flake8" ".config/flake8"
 ensure_link "profile" ".bashrc"
 ensure_link "hgignore" ".gitignore"
+ensure_link "pastebin.d/bpaste.net.conf"
+ensure_link "pastebinit.xml"
