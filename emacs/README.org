@@ -2973,7 +2973,7 @@ Set the mail directories I have,
                                 ("/phd"       . ?p)
                                 ("/posterity" . ?t)
                                 ("/barryisms" . ?b)
-                                ("/sent"      . ?s))
+                                ("/spam"      . ?s))
   ))
 #+end_src
 
