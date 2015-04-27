@@ -171,7 +171,7 @@ function _hg_info() {
   [ -z "$br" ] && br="default"
 
   remote=""
-  read -a distance <<< "$(less $repo_dir/.hg/cache/distance/$br 2>/dev/null)"
+  read -a distance <<< "$(grep $br $repo_dir/.hg/cache/distance 2>/dev/null | cut -d' ' -f2-)"
   [[ ${distance[0]} != "" && ${distance[0]} != "0" ]] && remote="$remote ${distance[0]}⇡"
   [[ ${distance[1]} != "" && ${distance[1]} != "0" ]] && remote="$remote ${distance[1]}⇣"
 
