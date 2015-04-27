@@ -425,3 +425,25 @@ emacs-pull-plugins() {
 mpsearch() {
   csearch -f Portfile "$@" | less
 }
+
+ve() {
+  [ ! -d "$WORKON_HOME" ] && mkdir -p "$WORKON_HOME"
+  [ -z "$@" ] && return
+  if [ ! -d "$WORKON_HOME/$@" ]; then
+    mkvirtualenv "$@"
+    mkdir -p $VIRTUAL_ENV/repos/bucket01 $VIRTUAL_ENV/repos/bucket02 $VIRTUAL_ENV/repos/bucket03
+    cat >$VIRTUAL_ENV/bin/postactivate <<EOF
+#!/opt/local/bin/bash
+# This hook is sourced after this virtualenv is activated.
+
+export DJANGO_SETTINGS_MODULE="bitbucket.settings.dev"
+export PATH=\$PATH:\$PWD/node_modules/.bin
+
+export CPPFLAGS="-I\$VIRTUAL_ENV/include -I/opt/local/include"
+export LDFLAGS="-L\$VIRTUAL_ENV/lib -L/opt/local/lib"
+export LIBGIT2="\$VIRTUAL_ENV"
+EOF
+    deactivate "$@"
+  fi
+  workon "$@"
+}
