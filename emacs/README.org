@@ -2678,6 +2678,7 @@ but I do know it messes up erc-hl-nicks if I don't do it this way.
   (require 'erc-menu)
   (require-package 'erc-hl-nicks)
   (require-package 'znc)
+  (require-package 'erc-image)
 #+end_src
 
 I use [[http://wiki.znc.in/ZNC][ZNC]] to always stay connected to IRC channels, so when I close a buffer I
@@ -2726,6 +2727,7 @@ While we're at it, let's enable [[http://www.emacswiki.org/emacs/ErcDCC][direct 
 
 #+begin_src emacs-lisp
   (add-to-list 'erc-modules 'dcc)
+  (add-to-list 'erc-modules 'image)
   (erc-update-modules)
 #+end_src
 
