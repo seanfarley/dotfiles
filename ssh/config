@@ -1,6 +1,9 @@
 KeepAlive yes
 ServerAliveInterval 60
 
+Host *.bitbucket.org
+  User sfarley
+
 Host winxp
   HostName localhost
   Port 10722
