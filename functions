@@ -86,7 +86,7 @@ kg() {
 
 d() {
   local i
-  local GET="curl -O"
+  local GET="curl -OL"
   [[ -z "$(which curl 2>/dev/null)" ]] && GET="wget -c"
 
   for i in $@; do
