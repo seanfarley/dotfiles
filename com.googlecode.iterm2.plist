@@ -916,6 +916,8 @@
 	<string></string>
 	<key>NSScrollAnimationEnabled</key>
 	<false/>
+	<key>NSScrollViewShouldScrollUnderTitlebar</key>
+	<false/>
 	<key>NSTableView Columns KeyBingingTable</key>
 	<array>
 		<data>
@@ -933,10 +935,33 @@
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
+	<key>NSUserKeyEquivalents</key>
+	<dict>
+		<key>Move Divider Down</key>
+		<string>@$↓</string>
+		<key>Move Divider Left</key>
+		<string>@$←</string>
+		<key>Move Divider Right</key>
+		<string>@$→</string>
+		<key>Move Divider Up</key>
+		<string>@$↑</string>
+		<key>Select Pane Above</key>
+		<string>@^↑</string>
+		<key>Select Pane Below</key>
+		<string>@^↓</string>
+		<key>Select Pane Left</key>
+		<string>@^←</string>
+		<key>Select Pane Right</key>
+		<string>@^→</string>
+	</dict>
 	<key>NSWindow Frame Preferences</key>
-	<string>269 159 796 475 0 0 1440 877 </string>
+	<string>269 196 606 456 0 0 1440 900 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>410 382 620 392 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1440 900 0 0 1440 877 </string>
+	<key>NSWindow Frame iTerm Window 1</key>
+	<string>247 107 570 427 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_9201D274-C099-460C-B5A2-AE6A8C2B20D1</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -2526,10 +2551,6 @@
 			<string>/Users/sean</string>
 		</dict>
 	</array>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
-	<true/>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
-	<integer>0</integer>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -2544,6 +2565,8 @@
 	<false/>
 	<key>PasteFromClipboard</key>
 	<false/>
+	<key>PasteTabToStringTabStopSize</key>
+	<integer>4</integer>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -2598,7 +2621,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-03-28T19:52:00Z</date>
+	<date>2015-04-30T18:23:15Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -2656,7 +2679,7 @@
 	<key>globalSettingsRestartBOOL</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20150324-nightly</string>
+	<string>2.9.20150429-nightly</string>
 	<key>madDisplaySetupBool</key>
 	<false/>
 	<key>madRestartFinderBOOL</key>
