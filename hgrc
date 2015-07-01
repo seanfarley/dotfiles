@@ -225,13 +225,13 @@ ll = log --pager=always -T ll
 
 gll = log -G --pager=always -T sl
 
-gl = gll -r '::. and smart'
+gl = gll -r '.%(bookmark()-. or max(public()))^'
 
 sl = log -G --pager=always -r smart -T sl
 
 nll = log -G --pager=always -T nl
 
-nl = nll -r '::. and smart'
+nl = nll -r '.%(bookmark()-. or max(public()))^'
 
 # hg show .  -- show a summary of rev . with diff.
 show = log --pager=always --stat --hidden -T nl -vpr
