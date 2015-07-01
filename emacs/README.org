@@ -2452,6 +2452,17 @@ description of this workflow]]).
   (require-package 'narrow-indirect)
 #+end_src
 
+*** dtrt-indent
+
+[[https://github.com/jscheid/dtrt-indent][dtrt-indent]] is an Emacs minor mode that guesses the indentation offset
+originally used for creating source code files and transparently adjusts the
+corresponding settings in Emacs, making it more convenient to edit foreign
+files.
+
+#+begin_src emacs-lisp
+  (require-package 'dtrt-indent)
+#+end_src
+
 ** LaTeX
 
 I love [[http://en.wikipedia.org/wiki/LaTeX][LaTex]]. It's the best way to typeset a document.
