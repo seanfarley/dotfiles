@@ -438,10 +438,6 @@ ve() {
 
 export DJANGO_SETTINGS_MODULE="bitbucket.settings.dev"
 export PATH=\$PATH:\$PWD/node_modules/.bin
-
-export CPPFLAGS="-I\$VIRTUAL_ENV/include -I/opt/local/include"
-export LDFLAGS="-L\$VIRTUAL_ENV/lib -L/opt/local/lib"
-export LIBGIT2="\$VIRTUAL_ENV"
 EOF
     deactivate "$@"
   fi
