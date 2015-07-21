@@ -2463,6 +2463,15 @@ files.
   (require-package 'dtrt-indent)
 #+end_src
 
+*** editorconfig
+
+[[https://github.com/editorconfig/editorconfig-core-c][EditorConfig]] makes it easy to maintain the correct coding style when switching
+between different text editors and between different projects.
+
+#+begin_src emacs-lisp
+  (require-package 'editorconfig)
+#+end_src
+
 ** LaTeX
 
 I love [[http://en.wikipedia.org/wiki/LaTeX][LaTex]]. It's the best way to typeset a document.
