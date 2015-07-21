@@ -2343,7 +2343,7 @@ Python.
 
 To being with, we'll need the following dependecies installed,
 
-#+begin_src shell :tangle no
+#+begin_src sh :tangle no
   # Either of these
   pip install rope
   pip install jedi
