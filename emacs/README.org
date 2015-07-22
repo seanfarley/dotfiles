@@ -2457,7 +2457,6 @@ indenting / de-indenting code. Let's change that,
     (define-key elpy-mode-map (kbd "<H-M-left>") 'elpy-nav-move-iblock-left)
     (define-key elpy-mode-map (kbd "<H-M-right>") 'elpy-nav-move-iblock-right))
   (add-hook 'elpy-mode-hook 'smf/elpy-hook)
-
 #+end_src
 
 *** yasnippet
