@@ -442,6 +442,7 @@ export LDFLAGS="-L/opt/local/lib"
 export DJANGO_SETTINGS_MODULE="bitbucket.settings.dev"
 export PATH=\$PATH:\$PWD/node_modules/.bin
 EOF
+    pip install --upgrade pip
     deactivate "$@"
   fi
   workon "$@"
