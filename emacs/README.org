@@ -2820,10 +2820,11 @@ We need to load the theme after AUCTeX but before ERC. Why? I don't really know
 but I do know it messes up erc-hl-nicks if I don't do it this way.
 
 #+begin_src emacs-lisp
-  (if (window-system)
-      ;; (load-theme 'solarized-dark t)
-      (load-theme 'zenburn t)
-    (load-theme 'base16-default t))
+  ;; (load-theme 'zenburn t)
+  ;; (enable-theme 'ample)
+  (moe-dark)
+  (powerline-moe-theme)
+  (moe-theme-set-color 'blue)
 #+end_src
 
 ** ERC
