@@ -2347,9 +2347,18 @@ colors integrated with your current theme therefore I can look at it for longer
 periods of time.
 
 #+begin_src emacs-lisp
-  (sml/setup)
-  ;; (sml/apply-theme 'powerline)
-  (sml/apply-theme 'respectful)
+;;  (sml/setup)
+;;  (sml/apply-theme 'powerline)
+;;  (sml/apply-theme 'respectful)
+#+end_src
+
+*** powerline
+
+I use [[https://github.com/milkypostman/powerline][powerline]] to format my modeline.
+
+#+begin_src emacs-lisp
+  (require-package 'powerline)
+  (powerline-default-theme)
 #+end_src
 
 *** rainbow-mode
