@@ -61,5 +61,6 @@ if [ -d $HOME/.local/lib/python2.7 ]; then
 fi
 
 # for virtualenv
-export WORKON_HOME="$SANDBOX/envs"
+mkdir -p "$HOME/.env"
+export WORKON_HOME="$HOME/.env"
 export VIRTUALENV_USE_DISTRIBUTE=1
