@@ -2481,6 +2481,15 @@ Improved JavaScript editing mode for GNU Emacs.
   (setq js2-basic-offset 2)
 #+end_src
 
+*** json-mode
+
+Sure, why not.
+
+#+begin_src emacs-lisp
+  (require-package 'json-mode)
+  (setq json-reformat:indent-width 2)
+#+end_src
+
 ** LaTeX
 
 I love [[http://en.wikipedia.org/wiki/LaTeX][LaTex]]. It's the best way to typeset a document.
