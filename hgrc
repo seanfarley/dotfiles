@@ -47,6 +47,9 @@ smf = ssh://hg@smf.io/
 [hgsubversion]
 nativerevs = True
 
+[git]
+use_namespaces = True
+
 [diff]
 git = True
 showfunc = True
