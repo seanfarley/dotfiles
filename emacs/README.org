@@ -1950,6 +1950,15 @@ I use the [[https://github.com/bbatsov/zenburn-emacs][zenburn-theme]] as my Emac
   (setq moe-theme-highlight-buffer-id t)
 #+end_src
 
+*** ample-theme
+
+#+begin_src emacs-lisp
+  (require-package 'ample-theme)
+  (load-theme 'ample t t)
+  (load-theme 'ample-flat t t)
+  (load-theme 'ample-light t t)
+#+end_src
+
 *** base16-theme
 
 The [[https://github.com/neil477/base16-emacs][base16]] themes are very compatible with terminals. I use the [[http://chriskempson.github.io/base16/#default][default]]
