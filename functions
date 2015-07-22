@@ -436,6 +436,9 @@ ve() {
 #!/opt/local/bin/bash
 # This hook is sourced after this virtualenv is activated.
 
+export ARCHFLAGS="-arch x86_64"
+export CPPFLAGS="-I/opt/local/include"
+export LDFLAGS="-L/opt/local/lib"
 export DJANGO_SETTINGS_MODULE="bitbucket.settings.dev"
 export PATH=\$PATH:\$PWD/node_modules/.bin
 EOF
