@@ -82,7 +82,7 @@ passed in directory to =load-path=:
   (defun smf/add-to-load-path (dir)
     "Adds `dir' to load-path"
     (add-to-list 'load-path dir))
-#+END_SRC
+#+end_src
 
 and a convenience function for making a proper path out of two strings:
 
@@ -98,18 +98,18 @@ Define a base directory =smf/dotfiles-dir= that's relative to the currently
 loading file (this file). This means if I deliberately start Emacs with a file
 loaded:
 
-#+BEGIN_SRC
+#+begin_src
 $ emacs -q -l ~/src/emacs/init.el
-#+END_SRC
+#+end_src
 
 then =smf/dotfiles-dir= will be =~/src/emacs=.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (defconst smf/dotfiles-dir
     (file-name-directory
      (or (buffer-file-name) load-file-name))
     "Base path for customised Emacs configuration")
-#+END_SRC
+#+end_src
 
 This variable is important because all other directories I load things from are
 relative to it, which means my Emacs config doesn't need to live in
@@ -404,28 +404,28 @@ if the last command was a copy - skip past all the expand-region cruft.
   =⌘= on OS X (by default). =Esc= also serves as =Meta= if it's not separately
   bound. On OS X I want to use left =⌥= for =Meta=, and leave right =⌥= alone:
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-alternate-modifier 'meta)
     (setq mac-option-modifier 'meta)
     (setq ns-right-alternate-modifier nil))
-#+END_SRC
+#+end_src
 
 - =s-= means [[http://en.wikipedia.org/wiki/Super_key_(keyboard_button)][super key]]. On OS X I want this to be =⌘=:
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-command-modifier 'super)
     (setq mac-command-modifier 'super)) ;; for EmacsMac.app
-#+END_SRC
+#+end_src
 
 - =H-= means [[http://en.wikipedia.org/wiki/Hyper_key][hyper key]]. On OS X I want this to be =fn=:
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-function-modifier 'hyper)
     (setq mac-function-modifier 'hyper)) ;; for EmacsMac.app
-#+END_SRC
+#+end_src
 
 *** Basic remappings
 
@@ -534,22 +534,22 @@ To ensure that all scrollbars, toolbars etc. are turned off, we run this as
 early as possible.
 
 #+NAME: turn-off-chrome
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (dolist (mode '(tool-bar-mode scroll-bar-mode))
     (when (fboundp mode) (funcall mode -1)))
-#+END_SRC
+#+end_src
 
 *** Startup buffers
 
 Turn off the startup screen, and always show =*scratch*=.
 
 #+NAME: turn-off-startup
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   ;; inhibit startup screen
   (setq inhibit-startup-screen t
         ;; Show *scratch* on start
         initial-buffer-choice t)
-#+END_SRC
+#+end_src
 
 *** Font
 
