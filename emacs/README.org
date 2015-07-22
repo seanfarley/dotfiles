@@ -55,7 +55,7 @@ via package install or via a Git submodule:
 
 *** License and copyright
 
-Copyright 2010-2014 Bradley Wright.
+Copyright 2010 Bradley Wright.
 Copyright 2014 Sean Farley.
 
 Files are licensed under the same license as Emacs (GPL) unless
