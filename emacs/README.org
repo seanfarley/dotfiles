@@ -2521,6 +2521,13 @@ Hide [[anzu]]'s mode,
     (diminish 'anzu-mode))
 #+end_src
 
+*** move-text
+
+#+begin_src emacs-lisp
+  (require-package 'move-text)
+  (move-text-default-bindings)
+#+end_src
+
 ** LaTeX
 
 I love [[http://en.wikipedia.org/wiki/LaTeX][LaTex]]. It's the best way to typeset a document.
