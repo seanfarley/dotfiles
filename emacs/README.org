@@ -1610,6 +1610,35 @@ Finally we initialise the package manager:
   (package-initialize)
 #+end_src
 
+*** diminish
+
+[[http://www.emacswiki.org/emacs/DiminishedModes][diminish]] removes or abbreviates the minor mode indicators that can clutter up
+one's modeline.
+
+#+begin_src emacs-lisp
+  (require-package 'diminish)
+#+end_src
+
+Diminish =subword-mode=, =eldoc-mode=, and =auto-revert-mode=:
+
+#+begin_src emacs-lisp
+  (after-load 'diminish
+    (after-load 'subword
+      (diminish 'subword-mode))
+    (after-load 'eldoc
+      (diminish 'eldoc-mode))
+    (after-load 'autorevert
+      (diminish 'auto-revert-mode)))
+#+end_src
+
+Also, diminish some built-in modes:
+
+#+begin_src emacs-lisp
+  (after-load 'diminish
+    (diminish 'overwrite-mode)
+    (diminish 'global-whitespace-mode))
+#+end_src
+
 *** paradox
 
 [[https://github.com/Bruce-Connor/paradox][paradox]] is an advanced package.el frontend with GitHub integration.
@@ -1931,6 +1960,13 @@ theme.
   (global-undo-tree-mode 1)
 #+end_src
 
+Also, diminish this mode:
+
+#+begin_src emacs-lisp
+  (after-load 'undo-tree
+    (diminish 'undo-tree-mode))
+#+end_src
+
 *** smartparens
 
 [[https://github.com/Fuco1/smartparens][smartparens]] is a [[paredit]] like minor-mode for many more things than just Lisp.
@@ -1971,6 +2007,14 @@ Show candidates immediately rather than waiting:
 #+begin_src emacs-lisp
   (after-load 'company
     (setq company-echo-delay 0))
+#+end_src
+
+Make the lighter shorter:
+
+#+begin_src emacs-lisp
+  (after-load 'company
+    (after-load 'diminish
+      (diminish 'company-mode "com")))
 #+end_src
 
 **** enable company mode in programming buffers only
@@ -2114,6 +2158,14 @@ It's very convenient to select the whole line when no region is active.
   (whole-line-or-region-mode)
 #+end_src
 
+Also, diminish this mode:
+
+#+begin_src emacs-lisp
+  (after-load 'diminish
+    (diminish 'whole-line-or-region-mode))
+#+end_src
+
+
 *** cycle buffer
 
 I find cycling buffers with =ctrl-tab= very fast and convenient. For that, I use
@@ -2239,11 +2291,14 @@ This is like linum-mode, but uses jit-lock to be (hopefully) more efficient.
 
 *** hideshowvis
 
-Enables collapsable regions.
+Enables collapsable regions and diminish the mode:
 
 #+begin_src emacs-lisp
   (require-package 'hideshowvis)
-  (add-hook 'prog-mode-hook 'hideshowvis-enable)
+  (defun smf-prog-mode-hook ()
+    (hideshowvis-enable)
+    (diminish 'hs-minor-mode))
+  (add-hook 'prog-mode-hook 'smf-prog-mode-hook)
 #+end_src
 
 *** smart-mode-line
@@ -2335,6 +2390,14 @@ Add =rainbow-blocks= to programming modes,
   (add-hook 'lisp-interaction-mode-hook 'rainbow-blocks-mode)
 #+end_src
 
+and diminish the mode:
+
+#+begin_src emacs-lisp
+  (after-load 'rainbow-blocks
+    (after-load 'diminish
+      (diminish 'rainbow-blocks-mode)))
+#+end_src
+
 *** elpy
 
 =elpy= is an Emacs package to bring powerful Python editing to Emacs. It
@@ -2419,6 +2482,13 @@ Enable it for my [[Launcher keymap]] prefix:
 #+begin_src emacs-lisp
   (setq guide-key/guide-key-sequence '("C-x C-l" "C-c p" "C-x 4"))
   (guide-key-mode 1)
+#+end_src
+
+[[diminish]] =guide-key-mode=:
+
+#+begin_src emacs-lisp
+  (after-load 'diminish
+    (diminish 'guide-key-mode))
 #+end_src
 
 *** browse-kill-ring
