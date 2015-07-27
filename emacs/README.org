@@ -2459,6 +2459,15 @@ indenting / de-indenting code. Let's change that,
   (add-hook 'elpy-mode-hook 'smf/elpy-hook)
 #+end_src
 
+Add [[elpy]] to diminish,
+
+#+begin_src emacs-lisp
+    (defun smf/diminish-elpy-hook ()
+      (diminish 'highlight-indentation-mode)
+      (diminish 'elpy-mode))
+    (add-hook 'elpy-mode-hook 'smf/diminish-elpy-hook)
+#+end_src
+
 *** yasnippet
 
 YASnippet is a template system for Emacs. It allows you to type an abbreviation
