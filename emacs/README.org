@@ -2490,6 +2490,37 @@ Sure, why not.
   (setq json-reformat:indent-width 2)
 #+end_src
 
+*** anzu
+
+[[https://github.com/syohex/emacs-anzu][anzu]] provides enhancements to =isearch= and related tasks, particularly
+providing counts and better replacement visualisation.
+
+#+begin_src emacs-lisp
+  (require-package 'anzu)
+  (require 'anzu)
+#+end_src
+
+Enable [[anzu]] globally,
+
+#+begin_src emacs-lisp
+  (global-anzu-mode +1)
+#+end_src
+
+Use [[anzu]]'s better =query-replace= and =query-replace-regexp=:
+
+#+begin_src emacs-lisp
+    (define-key (current-global-map) [remap query-replace] 'anzu-query-replace)
+    (define-key (current-global-map) [remap query-replace-regexp]
+      'anzu-query-replace-regexp)
+#+end_src
+
+Hide [[anzu]]'s mode,
+
+#+begin_src emacs-lisp
+  (after-load 'diminish
+    (diminish 'anzu-mode))
+#+end_src
+
 ** LaTeX
 
 I love [[http://en.wikipedia.org/wiki/LaTeX][LaTex]]. It's the best way to typeset a document.
