@@ -778,6 +778,14 @@ is =mouse-3= and not =mouse-2=:
       (define-key flyspell-mouse-map [mouse-3] #'undefined))
 #+end_src
 
+Diminish [[flyspell]],
+
+#+begin_src emacs-lisp
+  (after-load 'flyspell
+    (after-load 'diminish
+      (diminish 'flyspell-mode)))
+#+end_src
+
 *** dired fixes
 
 OS X's bundled version of =ls= isn't the GNU one, so it doesn't support the
