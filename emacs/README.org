@@ -2366,6 +2366,26 @@ I use [[https://github.com/milkypostman/powerline][powerline]] to format my mode
 
 #+begin_src emacs-lisp
   (require-package 'powerline)
+#+end_src
+
+Slightly modify the buffer-id function so that it displays the projectile
+project name,
+
+#+begin_src emacs-lisp
+  (defpowerline powerline-buffer-id
+    (let ((bname (powerline-trim (format-mode-line mode-line-buffer-identification))))
+      (concat
+       (cond
+        ((string= (projectile-project-name) "-") "")
+        ((string-match "freenode$" bname) "")
+        ((string-match "BitlBee$" bname) "")
+        ((string-match "^\\*mu4e" bname) "")
+        ((string-match "^Upgrade:" bname) "")
+        (t (format "[%s]" (projectile-project-name))))
+       bname)))
+#+end_src
+
+#+begin_src emacs-lisp
   (powerline-default-theme)
 #+end_src
 
