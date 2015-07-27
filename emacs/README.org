@@ -1921,6 +1921,11 @@ Also define a convenience keyboard shortcut to switch between buffers from the s
     (smf/add-launcher "s" 'projectile-switch-project))
 #+end_src
 
+#+begin_src emacs-lisp
+  (after-load 'projectile
+    (diminish 'projectile-mode))
+#+end_src
+
 *** solarized-theme
 
 I used to use the [[http://ethanschoonover.com/solarized][solarized]] dark theme in my editor. Specifically, I use the
@@ -2320,10 +2325,10 @@ Enables collapsable regions and diminish the mode:
 
 #+begin_src emacs-lisp
   (require-package 'hideshowvis)
-  (defun smf-prog-mode-hook ()
+  (defun smf/prog-mode-hook ()
     (hideshowvis-enable)
     (diminish 'hs-minor-mode))
-  (add-hook 'prog-mode-hook 'smf-prog-mode-hook)
+  (add-hook 'prog-mode-hook 'smf/prog-mode-hook)
 #+end_src
 
 *** smart-mode-line
