@@ -2850,6 +2850,15 @@ So, we'll create a convenient binding for that,
       (TeX-command "LatexMk" 'TeX-master-file -1))
 #+end_src
 
+*** =magic-latex-buffer=
+
+Magical syntax highlighting for LaTeX-mode buffers.
+
+#+begin_src emacs-lisp
+  (require-package 'magic-latex-buffer)
+  (require 'magic-latex-buffer)
+#+end_src
+
 *** OS X
 
 Sensible defaults for OS X, other OSes should be covered out-of-the-box,
@@ -2876,7 +2885,10 @@ Modes to load,
     (smartparens-mode +1)
     (LaTeX-math-mode 1)
     (outline-minor-mode 1)
+    (magic-latex-buffer)
     (define-key LaTeX-mode-map (kbd "C-c C-a") 'smf/latexmk-compile)
+    (diminish 'magic-latex-buffer)
+    (diminish 'iimage-mode)
     (diminish 'outline-minor-mode)
     (diminish 'smartparens-mode)
     (diminish 'auto-fill-function)
