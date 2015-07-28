@@ -2838,6 +2838,18 @@ file.
   (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
 #+end_src
 
+*** Latexmk
+
+[[http://users.phys.psu.edu/~collins/software/latexmk-jcc/][Latexmk]] is a handy way to compile the TeX source the correct number of times.
+So, we'll create a convenient binding for that,
+
+#+begin_src emacs-lisp
+(defun smf/latexmk-compile ()
+      (interactive)
+      (save-buffer)
+      (TeX-command "LatexMk" 'TeX-master-file -1))
+#+end_src
+
 *** OS X
 
 Sensible defaults for OS X, other OSes should be covered out-of-the-box,
@@ -2930,15 +2942,6 @@ These settings were randomly found,
                 ("[tabularx]" ("tabularx"))
                 ("[code]" ("code"))
                 ("[shell]" ("shell")))))
-#+end_src
-
-*** Latexmk
-
-[[http://users.phys.psu.edu/~collins/software/latexmk-jcc/][Latexmk]] is a handy way to compile the TeX source the correct number of times.
-So, we'll create a convenient binding for that,
-
-#+begin_src emacs-lisp
-  (add-hook 'LaTeX-mode-hook (lambda () (define-key LaTeX-mode-map (kbd "C-c C-a") (lambda () (interactive) (save-buffer) (TeX-command "LatexMk" 'TeX-master-file -1)))))
 #+end_src
 
 *** Guessing the master TeX file
