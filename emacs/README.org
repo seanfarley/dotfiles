@@ -2870,18 +2870,23 @@ Sensible defaults for OS X, other OSes should be covered out-of-the-box,
 Modes to load,
 
 #+begin_src emacs-lisp
-  (add-hook 'LaTeX-mode-hook (lambda ()
-                               (turn-on-auto-fill)
-                               (abbrev-mode +1)
-                               (smartparens-mode +1)
-                               (LaTeX-math-mode 1)))
+  (defun smf/latex-mode-hook ()
+    (turn-on-auto-fill)
+    (abbrev-mode +1)
+    (smartparens-mode +1)
+    (LaTeX-math-mode 1)
+    (outline-minor-mode 1)
+    (define-key LaTeX-mode-map (kbd "C-c C-a") 'smf/latexmk-compile)
+    (diminish 'outline-minor-mode)
+    (diminish 'smartparens-mode)
+    (diminish 'auto-fill-function)
+    (diminish 'reftex-mode)
+    (diminish 'abbrev-mode))
 
+  (add-hook 'LaTeX-mode-hook 'smf/latex-mode-hook)
   (add-hook 'LaTeX-mode-hook 'reftex-mode)
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
   (add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
-
-
-
 #+end_src
 
 *** RefTeX
@@ -2927,8 +2932,6 @@ These settings were randomly found,
 *** Folding
 
 #+begin_src emacs-lisp
-  (add-hook 'LaTeX-mode-hook (lambda () (outline-minor-mode 1)))
-
   (setq outline-minor-mode-prefix (kbd "\C-co"))
 
   (setq TeX-fold-env-spec-list
