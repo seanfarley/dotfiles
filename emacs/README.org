@@ -2447,8 +2447,172 @@ bookmarks (falling back to named branches),
                     (powerline-trim branch)))))))
 #+end_src
 
+To add more powerline sections, we need to define some more faces.
+
 #+begin_src emacs-lisp
-  (powerline-default-theme)
+  (defface powerline-active3 '((t (:background "grey40" :inherit mode-line)))
+    "Powerline face 3."
+    :group 'powerline)
+
+  (defface powerline-inactive3
+    '((t (:background "grey20" :inherit mode-line-inactive)))
+    "Powerline face 3."
+    :group 'powerline)
+
+  (defface powerline-active4 '((t (:background "grey22" :inherit mode-line)))
+    "Powerline face 1."
+    :group 'powerline)
+
+  (defface powerline-inactive4
+    '((t (:background "grey11" :inherit mode-line-inactive)))
+    "Powerline face 1."
+    :group 'powerline)
+#+end_src
+
+Currently, I just add colors for the blue [[moe-theme]]. This function is a
+straight copy from =moe-theme.el= but the 'dark 'blue colors are tweaked.
+
+#+begin_src emacs-lisp
+  (defun powerline-moe-theme ()
+    "Powerline theme powered by moe-theme.el
+  It's recommended use this with `moe-light' or `moe-dark', but it's ok without them,
+  as long as setq `moe-theme-mode-line-color' first."
+    (interactive)
+    (cond ((eq (frame-parameter nil 'background-mode) 'light)
+           (set-face-attribute 'mode-line-buffer-id nil :background nil :foreground "#1c1c1c")
+           (set-face-attribute 'mode-line-inactive nil :background "#b2b2b2" :foreground "#ffffff")
+           (set-face-attribute 'powerline-active2 nil :background "#585858" :foreground "#ffffff")
+           (set-face-attribute 'powerline-inactive1 nil :background "#c6c6c6" :foreground "#585858")
+           (set-face-attribute 'powerline-inactive2 nil :background "#e4e4e4" :foreground "#585858")
+           (cond ((eq moe-theme-mode-line-color 'blue)
+                  (set-face-attribute 'mode-line nil :background "#5fafd7" :foreground "#ffffff")
+                  (set-face-attribute 'powerline-active1 nil :background "#afd7ff" :foreground "#005faf"))
+                 ((eq moe-theme-mode-line-color 'green)
+                  (set-face-attribute 'mode-line nil :background "#a1db00" :foreground "#005f00")
+                  (set-face-attribute 'powerline-active1 nil :background "#d7ff87" :foreground "#008700"))
+                 ((eq moe-theme-mode-line-color 'orange)
+                  (set-face-attribute 'mode-line nil :background "#ff8700" :foreground "#ffffff")
+                  (set-face-attribute 'powerline-active1 nil :background "#ffd787" :foreground "#d75f00"))
+                 ((eq moe-theme-mode-line-color 'magenta)
+                  (set-face-attribute 'mode-line nil :background "#ff4ea3" :foreground "#ffffff")
+                  (set-face-attribute 'powerline-active1 nil :background "#ffafff" :foreground "#ff1f8b"))
+                 ((eq moe-theme-mode-line-color 'yellow)
+                  (set-face-attribute 'mode-line nil :background "#fce94f" :foreground "#875f00")
+                  (set-face-attribute 'powerline-active1 nil :background "#ffff87" :foreground "#875f00"))
+                 ((eq moe-theme-mode-line-color 'purple)
+                  (set-face-attribute 'mode-line nil :background "#af5fd7" :foreground "#ffffff")
+                  (set-face-attribute 'powerline-active1 nil :background "#e6a8df" :foreground "#6c0099"))
+                 ((eq moe-theme-mode-line-color 'red)
+                  (set-face-attribute 'mode-line nil :background "#ff4b4b" :foreground "#ffffff")
+                  (set-face-attribute 'powerline-active1 nil :background "#ffafaf" :foreground "#cc0000"))
+                 ((eq moe-theme-mode-line-color 'cyan)
+                  (set-face-attribute 'mode-line nil :background "#5faf87" :foreground "#ffffff")
+                  (set-face-attribute 'powerline-active1 nil :background "#87d7af" :foreground "#005f5f"))
+                 ((eq moe-theme-mode-line-color 'w/b)
+                  (set-face-attribute 'mode-line nil :background "#1c1c1c" :foreground "#ffffff")
+                  (set-face-attribute 'powerline-active1 nil :background "#bcbcbc" :foreground "#3a3a3a")
+                  (set-face-attribute 'mode-line-buffer-id nil :background nil :foreground "#ffffff"))))
+          ((eq (frame-parameter nil 'background-mode) 'dark)
+           (set-face-attribute 'mode-line-buffer-id nil :background nil :foreground "#080808")
+           (set-face-attribute 'mode-line-inactive nil :background "#4e4e4e" :foreground "#9e9e9e")
+           (set-face-attribute 'powerline-active4 nil :background "#ffffff" :foreground "#3a3a3a")
+           (set-face-attribute 'powerline-inactive1 nil :background "#626262" :foreground "#e4e4e4")
+           (set-face-attribute 'powerline-inactive2 nil :background "#6c6c6c" :foreground "#eeeeee")
+           (set-face-attribute 'powerline-inactive3 nil :background "#767676" :foreground "#e4e4e4")
+           (set-face-attribute 'powerline-inactive4 nil :background "#828282" :foreground "#e4e4e4")
+           (cond ((eq moe-theme-mode-line-color 'blue)
+                  (set-face-attribute 'powerline-active1 nil :background "#87c3eb" :foreground "#005faf")
+                  (set-face-attribute 'powerline-active3 nil :background "#d1e9ff" :foreground "#005faf")
+                  (set-face-attribute 'mode-line nil :background "#5fafd7" :foreground "#ffffff")
+                  (set-face-attribute 'powerline-active2 nil :background "#afd7ff" :foreground "#005faf"))
+                 ((eq moe-theme-mode-line-color 'green)
+                  (set-face-attribute 'mode-line nil :background "#a1db00" :foreground "#005f00")
+                  (set-face-attribute 'powerline-active1 nil :background "#d7ff87" :foreground "#008700"))
+                 ((eq moe-theme-mode-line-color 'orange)
+                  (set-face-attribute 'mode-line nil :background "#ff8700" :foreground "#ffffff")
+                  (set-face-attribute 'powerline-active1 nil :background "#ffd787" :foreground "#d75f00"))
+                 ((eq moe-theme-mode-line-color 'magenta)
+                  (set-face-attribute 'mode-line nil :background "#ff4ea3" :foreground "#ffffff")
+                  (set-face-attribute 'powerline-active1 nil :background "#ffafff" :foreground "#ff1f8b"))
+                 ((eq moe-theme-mode-line-color 'yellow)
+                  (set-face-attribute 'mode-line nil :background "#fce94f" :foreground "#875f00")
+                  (set-face-attribute 'powerline-active1 nil :background "#ffff87" :foreground "#875f00"))
+                 ((eq moe-theme-mode-line-color 'purple)
+                  (set-face-attribute 'mode-line nil :background "#af5fd7" :foreground "#ffffff")
+                  (set-face-attribute 'powerline-active1 nil :background "#e6a8df" :foreground "#6c0099"))
+                 ((eq moe-theme-mode-line-color 'red)
+                  (set-face-attribute 'mode-line nil :background "#ff4b4b" :foreground "#ffffff")
+                  (set-face-attribute 'powerline-active1 nil :background "#ffafaf" :foreground "#cc0000"))
+                 ((eq moe-theme-mode-line-color 'cyan)
+                  (set-face-attribute 'mode-line nil :background "#5faf87" :foreground "#ffffff")
+                  (set-face-attribute 'powerline-active1 nil :background "#87d7af" :foreground "#005f5f"))
+                 ((eq moe-theme-mode-line-color 'w/b)
+                  (set-face-attribute 'mode-line nil :background "#ffffff" :foreground "#080808")
+                  (set-face-attribute 'powerline-active1 nil :background "#bcbcbc" :foreground "#3a3a3a")
+                  (set-face-attribute 'mode-line-buffer-id nil :background nil :foreground "#3a3a3a")))))
+    (powerline-default-theme)
+    (powerline-reset)
+    (setq moe-theme-powerline-enable-p t))
+#+end_src
+
+#+begin_src emacs-lisp
+  (defun powerline-default-theme ()
+    "Setup the default mode-line."
+    (interactive)
+    (setq-default mode-line-format
+                  '("%e"
+                    (:eval
+                     (let* ((active (powerline-selected-window-active))
+                            (mode-line (if active 'mode-line 'mode-line-inactive))
+                            (face1 (if active 'powerline-active1 'powerline-inactive1))
+                            (face2 (if active 'powerline-active2 'powerline-inactive2))
+                            (face3 (if active 'powerline-active3 'powerline-inactive3))
+                            (face4 (if active 'powerline-active4 'powerline-inactive4))
+                            (separator-left (intern (format "powerline-%s-%s"
+                                                            (powerline-current-separator)
+                                                            (car powerline-default-separator-dir))))
+                            (separator-right (intern (format "powerline-%s-%s"
+                                                             (powerline-current-separator)
+                                                             (cdr powerline-default-separator-dir))))
+                            (lhs (list (powerline-raw "%*" nil 'l)
+                                       (when powerline-display-buffer-size
+                                         (powerline-buffer-size nil 'l))
+                                       (when powerline-display-mule-info
+                                         (powerline-raw mode-line-mule-info nil 'l))
+                                       (powerline-raw (powerline-projectile-name) mode-line)
+                                       (funcall separator-left mode-line face1)
+                                       (powerline-buffer-id face1 'l)
+                                       (powerline-raw " " face1)
+                                       (when (boundp 'erc-modified-channels-object)
+                                         (powerline-raw erc-modified-channels-object face1 'l))
+                                       (funcall separator-left face1 face2)
+                                       (powerline-major-mode face2 'l)
+                                       (powerline-process face2)
+                                       (powerline-minor-modes face2 'l)
+                                       (powerline-narrow face2 'l)
+                                       (powerline-raw " " face2)
+                                       (funcall separator-left face2 face3)
+                                       (powerline-raw which-func-format face3 'l)
+                                       (powerline-raw " " face3)
+                                       (funcall separator-left face3 face4)
+                                       (powerline-vc face4 'r)
+                                       (when (bound-and-true-p nyan-mode)
+                                         (powerline-raw (list (nyan-create)) face4 'l))))
+                            (rhs (list (powerline-raw global-mode-string face4 'r)
+                                       (funcall separator-right face4 face3)
+                                       (powerline-raw (char-to-string #xe0a1) face3 'l)
+                                       (powerline-raw "%l:%c " face3 'l)
+                                       (funcall separator-right face3 mode-line)
+                                       (powerline-raw " ")
+                                       (powerline-raw "%p" nil 'r)
+                                       (when powerline-display-hud
+                                         (powerline-hud face4 face2)))))
+                       (set-face-attribute 'which-func nil
+                                           :background (face-attribute face3 :background)
+                                           :foreground (face-attribute face3 :foreground))
+                       (concat (powerline-render lhs)
+                               (powerline-fill face4 (powerline-width rhs))
+                               (powerline-render rhs)))))))
 #+end_src
 
 *** rainbow-mode
