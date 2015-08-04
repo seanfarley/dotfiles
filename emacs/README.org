@@ -2518,7 +2518,7 @@ straight copy from =moe-theme.el= but the 'dark 'blue colors are tweaked.
            (set-face-attribute 'powerline-active4 nil :background "#ffffff" :foreground "#3a3a3a")
            (set-face-attribute 'powerline-inactive1 nil :background "#626262" :foreground "#e4e4e4")
            (set-face-attribute 'powerline-inactive2 nil :background "#6c6c6c" :foreground "#eeeeee")
-           (set-face-attribute 'powerline-inactive3 nil :background "#767676" :foreground "#e4e4e4")
+           (set-face-attribute 'powerline-inactive3 nil :background "#767676" :foreground "#d3d3d3")
            (set-face-attribute 'powerline-inactive4 nil :background "#828282" :foreground "#e4e4e4")
            (cond ((eq moe-theme-mode-line-color 'blue)
                   (set-face-attribute 'powerline-active1 nil :background "#87c3eb" :foreground "#005faf")
