@@ -2608,6 +2608,7 @@ straight copy from =moe-theme.el= but the 'dark 'blue colors are tweaked.
                                        (when powerline-display-hud
                                          (powerline-hud face4 face2)))))
                        (set-face-attribute 'which-func nil
+                                           :slant 'oblique
                                            :background (face-attribute face3 :background)
                                            :foreground (face-attribute face3 :foreground))
                        (concat (powerline-render lhs)
