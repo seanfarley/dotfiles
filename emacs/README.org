@@ -2384,6 +2384,20 @@ I use [[https://github.com/milkypostman/powerline][powerline]] to format my mode
   (require-package 'powerline)
 #+end_src
 
+First, we add a method for determining if we should ignore a buffer based on
+its name,
+
+#+begin_src emacs-lisp
+  (defun smf/ignore-buffer (bname)
+    (cond
+     ((string-match "^\\*.*\\*$" bname) t)
+     ((string-match "freenode$" bname) t)
+     ((string-match "BitlBee$" bname) t)
+     ((string-match "nil$" bname) t)
+     ((string-match "^\\*mu4u" bname) t)
+     ((string-match "^Upgrade:" bname) t)))
+#+end_src
+
 Change =powerline-buffer-id= to include modified and read-only status,
 
 #+begin_src emacs-lisp
