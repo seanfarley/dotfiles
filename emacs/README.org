@@ -2402,11 +2402,20 @@ Change =powerline-buffer-id= to include modified and read-only status,
 
 #+begin_src emacs-lisp
   (defpowerline powerline-buffer-id
-    (concat
-     (concat
-      (if (buffer-modified-p) "●" "")
-      (if buffer-read-only "⌀" ""))
-     (powerline-trim (format-mode-line mode-line-buffer-identification))))
+    (let ((bname (powerline-trim (format-mode-line mode-line-buffer-identification))))
+      (concat
+       (concat
+        (if (buffer-modified-p)
+            (cond
+             ((smf/ignore-buffer bname) "")
+             (t "●"))
+          "")
+        (if buffer-read-only
+            (cond
+             ((smf/ignore-buffer bname) "")
+             (t "⌀"))
+          "")
+        bname))))
 #+end_src
 
 Add a new method that returns the projectile project name (or an empty string),
