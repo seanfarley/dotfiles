@@ -2310,15 +2310,6 @@ An Emacs major mode for editing D code.
   (add-to-list 'auto-mode-alist '("\\.d[i]?\\'" . d-mode))
 #+end_src
 
-*** nlinum
-
-This is like linum-mode, but uses jit-lock to be (hopefully) more efficient.
-
-#+begin_src emacs-lisp
-  (require-package 'nlinum)
-  (add-hook 'prog-mode-hook 'nlinum-mode)
-#+end_src
-
 *** hideshowvis
 
 Enables collapsable regions and diminish the mode:
