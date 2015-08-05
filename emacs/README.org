@@ -2585,9 +2585,7 @@ straight copy from =moe-theme.el= but the 'dark 'blue colors are tweaked.
                             (separator-right (intern (format "powerline-%s-%s"
                                                              (powerline-current-separator)
                                                              (cdr powerline-default-separator-dir))))
-                            (lhs (list (when powerline-display-buffer-size
-                                         (powerline-buffer-size nil 'l))
-                                       (when powerline-display-mule-info
+                            (lhs (list (when powerline-display-mule-info
                                          (powerline-raw mode-line-mule-info nil 'l))
                                        (powerline-raw (powerline-projectile-name) mode-line)
                                        (funcall separator-left mode-line face1)
@@ -2610,9 +2608,12 @@ straight copy from =moe-theme.el= but the 'dark 'blue colors are tweaked.
                                          (powerline-raw (list (nyan-create)) face4 'l))))
                             (rhs (list (powerline-raw global-mode-string face4 'r)
                                        (funcall separator-right face4 face3)
-                                       (powerline-raw (char-to-string #xe0a1) face3 'l)
-                                       (powerline-raw "%l:%c " face3 'l)
-                                       (funcall separator-right face3 mode-line)
+                                       (powerline-buffer-size face3 'l)
+                                       (powerline-raw " " face3)
+                                       (funcall separator-right face3 face2)
+                                       (powerline-raw (char-to-string #xe0a1) face2 'l)
+                                       (powerline-raw "%l:%c " face2 'l)
+                                       (funcall separator-right face2 mode-line)
                                        (powerline-raw " ")
                                        (powerline-raw "%p" nil 'r)
                                        (when powerline-display-hud
