@@ -2585,9 +2585,7 @@ straight copy from =moe-theme.el= but the 'dark 'blue colors are tweaked.
                             (separator-right (intern (format "powerline-%s-%s"
                                                              (powerline-current-separator)
                                                              (cdr powerline-default-separator-dir))))
-                            (lhs (list (when powerline-display-mule-info
-                                         (powerline-raw mode-line-mule-info nil 'l))
-                                       (powerline-raw (powerline-projectile-name) mode-line)
+                            (lhs (list (powerline-raw (powerline-projectile-name) mode-line)
                                        (funcall separator-left mode-line face1)
                                        (powerline-buffer-id face1 'l)
                                        (powerline-raw " " face1)
