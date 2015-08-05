@@ -3243,15 +3243,15 @@ Some basic settings about my IRC setup,
 
 #+begin_src emacs-lisp
   (setq
-    erc-prompt ">"
-    erc-email-userid "sean.michael.farley@gmail.com"
-    erc-autojoin-channels-alist '((".*smf.io.*" "&bitlbee" "#mercurial"))
-    erc-prompt-for-password nil
-    erc-prompt-for-nickserv-password nil
-    erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
-                              "324" "329" "332" "333" "353" "477")
-    erc-hide-list '("JOIN" "PART" "QUIT" "NICK")
-    erc-quit-reason 'erc-quit-reason-normal)
+   erc-prompt ">"
+   erc-email-userid "sean.michael.farley@gmail.com"
+   erc-autojoin-channels-alist '((".*smf.io.*" "&bitlbee" "#mercurial"))
+   erc-prompt-for-password nil
+   erc-prompt-for-nickserv-password nil
+   erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
+                             "324" "329" "332" "333" "353" "477")
+   erc-hide-list '("JOIN" "PART" "QUIT" "NICK")
+   erc-quit-reason 'erc-quit-reason-normal)
 #+end_src
 
 I found when having a flaky connection that ERC would attempt to reconnect ad
