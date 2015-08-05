@@ -2393,6 +2393,17 @@ I use [[https://github.com/milkypostman/powerline][powerline]] to format my mode
   (require-package 'powerline)
 #+end_src
 
+Change =powerline-buffer-id= to include modified and read-only status,
+
+#+begin_src emacs-lisp
+  (defpowerline powerline-buffer-id
+    (concat
+     (concat
+      (if (buffer-modified-p) "●" "")
+      (if buffer-read-only "⌀" ""))
+     (powerline-trim (format-mode-line mode-line-buffer-identification))))
+#+end_src
+
 Add a new method that returns the projectile project name (or an empty string),
 
 #+begin_src emacs-lisp
@@ -2574,8 +2585,7 @@ straight copy from =moe-theme.el= but the 'dark 'blue colors are tweaked.
                             (separator-right (intern (format "powerline-%s-%s"
                                                              (powerline-current-separator)
                                                              (cdr powerline-default-separator-dir))))
-                            (lhs (list (powerline-raw "%*" nil 'l)
-                                       (when powerline-display-buffer-size
+                            (lhs (list (when powerline-display-buffer-size
                                          (powerline-buffer-size nil 'l))
                                        (when powerline-display-mule-info
                                          (powerline-raw mode-line-mule-info nil 'l))
