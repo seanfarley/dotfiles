@@ -2580,8 +2580,6 @@ straight copy from =moe-theme.el= but the 'dark 'blue colors are tweaked.
                                        (funcall separator-left mode-line face1)
                                        (powerline-buffer-id face1 'l)
                                        (powerline-raw " " face1)
-                                       (when (boundp 'erc-modified-channels-object)
-                                         (powerline-raw erc-modified-channels-object face1 'l))
                                        (funcall separator-left face1 face2)
                                        (powerline-major-mode face2 'l)
                                        (powerline-process face2)
@@ -2606,6 +2604,8 @@ straight copy from =moe-theme.el= but the 'dark 'blue colors are tweaked.
                                        (funcall separator-right face2 mode-line)
                                        (powerline-raw " ")
                                        (powerline-raw "%p" nil 'r)
+                                       (when (boundp 'erc-modified-channels-object)
+                                         (powerline-raw erc-modified-channels-object mode-line))
                                        (when powerline-display-hud
                                          (powerline-hud face4 face2)))))
                        (set-face-attribute 'which-func nil
