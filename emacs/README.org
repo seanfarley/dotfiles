@@ -2417,10 +2417,7 @@ Add a new method that returns the projectile project name (or an empty string),
           (bname (powerline-trim (format-mode-line mode-line-buffer-identification))))
       (cond
        ((string= pname "-") "")
-       ((string-match "freenode$" bname) "")
-       ((string-match "BitlBee$" bname) "")
-       ((string-match "^\\*mu4e" bname) "")
-       ((string-match "^Upgrade:" bname) "")
+       ((smf/ignore-buffer bname) "")
        (t (format " %s " pname)))))
 #+end_src
 
