@@ -1770,6 +1770,7 @@ find this easier to read.
 #+begin_src emacs-lisp
   (require-package 'ido-vertical-mode)
   (ido-vertical-mode) ;; autoloaded
+  (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)
 #+end_src
 
 Because it's displayed vertically and I want to save screen real estate, I want
