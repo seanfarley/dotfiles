@@ -2390,6 +2390,45 @@ project name,
        bname)))
 #+end_src
 
+Define some helper methods and override powerline-vc to display Mercurial
+bookmarks (falling back to named branches),
+
+#+begin_src emacs-lisp
+  (defun smf/get-string-from-file (filePath)
+    "Return filePath's file content."
+    (condition-case nil
+        (with-temp-buffer
+          (insert-file-contents filePath)
+          (buffer-string))
+      (error nil)))
+
+  (defun smf/get-hg-branch-bookmark (root)
+    (let ((book (smf/get-string-from-file
+                 (concat root "/.hg/bookmarks.current")))
+          (branch (smf/get-string-from-file
+                   (concat root "/.hg/branch"))))
+      (cond
+       (book book)
+       (branch branch)
+       ((not root) "")
+       (t "default"))))
+
+  (defpowerline powerline-vc
+    (when (buffer-file-name (current-buffer))
+      (let ((gitbranch (condition-case nil
+                           (magit-get-current-branch)
+                         (error nil)))
+            (hgroot (condition-case nil
+                        (ahg-root)
+                      (error nil))))
+        (when (or gitbranch hgroot)
+          (let ((branch (if gitbranch gitbranch
+                          (smf/get-hg-branch-bookmark hgroot))))
+            (format " %s %s"
+                    (char-to-string #xe0a0)
+                    (powerline-trim branch)))))))
+#+end_src
+
 #+begin_src emacs-lisp
   (powerline-default-theme)
 #+end_src
