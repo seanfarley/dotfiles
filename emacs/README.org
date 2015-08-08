@@ -2633,7 +2633,7 @@ straight copy from =moe-theme.el= but the 'dark 'blue colors are tweaked.
                                        (powerline-raw " " face2)
                                        (funcall separator-left face2 face3)
                                        (when (and (boundp 'which-func-mode) which-func-mode)
-                                         (powerline-raw which-func-format face3 'l))
+                                         (powerline-raw (which-function) face3 'l))
                                        (powerline-raw " " face3)
                                        (funcall separator-left face3 face4)
                                        (powerline-vc face4 'r)
@@ -2648,10 +2648,6 @@ straight copy from =moe-theme.el= but the 'dark 'blue colors are tweaked.
                                          (powerline-raw erc-modified-channels-object mode-line))
                                        (when powerline-display-hud
                                          (powerline-hud face4 face2)))))
-                       (set-face-attribute 'which-func nil
-                                           :slant 'oblique
-                                           :background (face-attribute face3 :background)
-                                           :foreground (face-attribute face3 :foreground))
                        (concat (powerline-render lhs)
                                (powerline-fill face4 (powerline-width rhs))
                                (powerline-render rhs)))))))
