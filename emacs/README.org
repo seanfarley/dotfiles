@@ -2927,7 +2927,9 @@ Hide [[anzu]]'s mode,
 *** aHg
 
 #+begin_src emacs-lisp
-  (require-package 'ahg)
+  (if (file-accessible-directory-p "~/projects/ahg")
+      (smf/add-to-load-path "~/projects/ahg")
+    (require-package 'ahg))
   (require 'ahg)
 #+end_src
 
