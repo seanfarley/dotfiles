@@ -2931,6 +2931,13 @@ Hide [[anzu]]'s mode,
   (require 'ahg)
 #+end_src
 
+*** git-commit
+
+#+begin_src emacs-lisp
+(require-package 'git-commit)
+(require 'git-commit)
+#+end_src
+
 *** magit
 
 [[https://github.com/magit/magit][Magit]] is an Emacs interface to Git. It's very feature-rich and I find it
