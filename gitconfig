@@ -3,7 +3,7 @@
   email = sean@farley.io
 
 [core]
-  editor = vim
+  editor = ~/.edit.sh
   excludesfile = ~/.gitignore
   quotepath = false
 
