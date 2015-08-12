@@ -2933,6 +2933,14 @@ Hide [[anzu]]'s mode,
   (require 'ahg)
 #+end_src
 
+*** hg-test-mode
+
+A mode for Mercurial test files
+
+#+begin_src emacs-lisp
+  (load "~/.emacs.d/hg-test-mode")
+#+end_src
+
 *** git-commit
 
 #+begin_src emacs-lisp
