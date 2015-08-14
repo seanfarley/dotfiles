@@ -1067,6 +1067,12 @@ depth:
   (setq org-imenu-depth 6)
 #+end_src
 
+Also, I like using shift+arrow keys to highlight, so let's set that:
+
+#+begin_src emacs-lisp
+  (setq org-support-shift-select 'always)
+#+end_src
+
 *** ido
 
 [[http://www.emacswiki.org/emacs/InteractivelyDoThings][ido]] is a mode for narrowing candidates as you type. It has excellent
