@@ -2461,11 +2461,15 @@ bookmarks (falling back to named branches),
 #+begin_src emacs-lisp
   (defun smf/get-string-from-file (filePath)
     "Return filePath's file content."
-    (condition-case nil
+    ;; NOTE: `insert-file-content' sets `deactivate-mark' to t which makes
+    ;; `smf/get-string-from-file' always deactivate the mark after activating it
+    ;; as this triggers mode line updates. This has been fixed in emacs as of
+    ;; 20150814.
+    (let* (deactivate-mark)
+      (ignore-errors
         (with-temp-buffer
           (insert-file-contents filePath)
-          (buffer-string))
-      (error nil)))
+          (buffer-string)))))
 
   (defun smf/get-hg-branch-bookmark (root)
     (let ((book (smf/get-string-from-file
