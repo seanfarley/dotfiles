@@ -2651,8 +2651,11 @@ straight copy from =moe-theme.el= but the 'dark 'blue colors are tweaked.
                                          (powerline-raw (list (nyan-create)) face4 'l))))
                             (rhs (list (powerline-raw global-mode-string face4 'r)
                                        (funcall separator-right face4 face3)
-                                       (powerline-raw (char-to-string #xe0a1) face3 'l)
-                                       (powerline-raw "%l:%c " face3 'l)
+                                       (powerline-raw (concat
+                                                       "%l:%c"
+                                                       (format "%s "
+                                                               (char-to-string #xe0a1)))
+                                                      face3 'l)
                                        (funcall separator-right face3 mode-line)
                                        (when (boundp 'erc-modified-channels-object)
                                          (powerline-raw erc-modified-channels-object mode-line))
