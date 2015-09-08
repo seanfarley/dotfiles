@@ -3996,6 +3996,28 @@ Finally, add a keybinding to open our email client:
   (smf/add-launcher "e" 'mu4e)
 #+end_src
 
+*** persp-mode
+
+After trying a few different packages for managing emacs windows
+(=perspective=, =workgroups2=, =purpose=), it seems =persp-mode= works best
+with my setup.
+
+#+begin_src emacs-lisp
+  (require-package 'persp-mode)
+  (with-eval-after-load "persp-mode-autoloads"
+    (setq wg-morph-on nil) ;; switch off animation
+    (add-hook 'after-init-hook #'(lambda ()
+                                   (persp-mode 1)
+                                   (make-directory persp-save-dir t))))
+  (global-set-key (kbd "H-s") #'persp-switch)
+#+end_src
+
+#+begin_src emacs-lisp
+  (toggle-fullscreen)
+  (mu4e)
+  (persp-mode)
+#+end_src
+
 ** Local and custom configuration
 
 *** Local overrides
