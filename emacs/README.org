@@ -2605,11 +2605,11 @@ bookmarks (falling back to named branches),
   (defun smf/get-hg-branch-bookmark (root)
     (let ((book (smf/get-string-from-file
                  (concat root "/.hg/bookmarks.current")))
-          (branch (smf/get-string-from-file
-                   (concat root "/.hg/branch"))))
+          (p1 (smf/get-p1-from-dirstate
+               (concat root "/.hg/dirstate"))))
       (cond
        (book book)
-       (branch branch)
+       (p1 p1)
        ((not root) "")
        (t "default"))))
 
