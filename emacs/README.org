@@ -2164,13 +2164,6 @@ has better code for integrating with).
 
 **** configuration
 
-I don't want =company= to auto-start - it should only pop when I ask for it:
-
-#+begin_src emacs-lisp
-  (after-load 'company
-    (setq company-idle-delay nil))
-#+end_src
-
 I want it to attempt a completion immediately after a =.= character - without
 this I need a few characters before it'll show candidates:
 
