@@ -3016,6 +3016,14 @@ Improved JavaScript editing mode for GNU Emacs.
   (require-package 'js2-mode)
 #+end_src
 
+*** skewer-mode
+
+[[https://github.com/skeeto/skewer-mode][Skewer]]: live web development with Emacs.
+
+#+begin_src emacs-lisp
+  (require-package 'skewer-mode)
+#+end_src
+
 *** json-mode
 
 Sure, why not.
