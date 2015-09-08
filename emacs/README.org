@@ -2337,57 +2337,6 @@ Also, diminish this mode:
     (diminish 'whole-line-or-region-mode))
 #+end_src
 
-
-*** cycle buffer
-
-I find cycling buffers with =ctrl-tab= very fast and convenient. For that, I use
-[[https://github.com/martinp26/cycbuf][cycbuf]], so let's install and load that. I don't want the default key bindings so
-we call 'cycbuf-init'.
-
-#+begin_src emacs-lisp
-  (require-package 'cycbuf)
-  (require 'cycbuf)
-#+end_src
-
-I prefer to just cycle without seeing a list, so set the delay to zero (i.e.
-never show it).
-
-#+begin_src emacs-lisp
-  (setq cycbuf-clear-delay 0)
-#+end_src
-
-Modern OSes sort applications by last recently used, so we also copy that behavior.
-
-#+begin_src emacs-lisp
-  (setq cycbuf-buffer-sort-function 'cycbuf-sort-by-recency)
-#+end_src
-
-Also, I don't want to cycle through Emacs internal buffers, so I filter out
-buffers that start and end with an asterisk.
-
-#+begin_src emacs-lisp
-  (setq cycbuf-dont-show-regexp
-        '("^ "
-          "^\\*cycbuf\\*$"
-          "^\\*.*\\*"))
-#+end_src
-
-Remap the default keybinding to =ctrl-tab= for next buffer and =ctrl-shift-tab=
-for previous buffer.
-
-#+begin_src emacs-lisp
-  (global-set-key [(control tab)] 'cycbuf-switch-to-next-buffer)
-  (global-set-key [(control shift tab)] 'cycbuf-switch-to-previous-buffer)
-#+end_src
-
-Finally, unset =org-mode='s =ctrl-tab= binding.
-
-#+begin_src emacs-lisp
-  (add-hook 'org-mode-hook
-            '(lambda ()
-               (define-key org-mode-map [(control tab)] nil)))
-#+end_src
-
 *** crosshairs
 
 Highlights both the line and the column.
@@ -4016,6 +3965,22 @@ with my setup.
   (toggle-fullscreen)
   (mu4e)
   (persp-mode)
+#+end_src
+
+Remap the default keybinding to =ctrl-tab= for next buffer and =ctrl-shift-tab=
+for previous buffer.
+
+#+begin_src emacs-lisp
+  (global-set-key [(control tab)] 'persp-next)
+  (global-set-key [(control shift tab)] 'persp-prev)
+#+end_src
+
+Finally, unset =org-mode='s =ctrl-tab= binding.
+
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook
+            '(lambda ()
+               (define-key org-mode-map [(control tab)] nil)))
 #+end_src
 
 ** Local and custom configuration
