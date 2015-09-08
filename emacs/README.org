@@ -3941,7 +3941,11 @@ We'll add bookmarks for common "views" of our mailbox:
 Finally, add a keybinding to open our email client:
 
 #+begin_src emacs-lisp
-  (smf/add-launcher "e" 'mu4e)
+  (smf/add-launcher "e" (lambda ()
+                          (interactive)
+                          (persp-switch "email")
+                          (select-window (or (get-buffer-window " *mu4e-main*")
+                                             (get-buffer-window "*mu4e-view*")))))
 #+end_src
 
 *** persp-mode
