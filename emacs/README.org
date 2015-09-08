@@ -2452,6 +2452,13 @@ An Emacs major mode for editing D code.
   (add-to-list 'auto-mode-alist '("\\.d[i]?\\'" . d-mode))
 #+end_src
 
+Follow-up with a company backend,
+
+#+begin_src emacs-lisp
+  (require-package 'company-dcd)
+  (add-hook 'd-mode-hook 'company-dcd-mode)
+#+end_src
+
 *** hideshowvis
 
 Enables collapsable regions and diminish the mode:
