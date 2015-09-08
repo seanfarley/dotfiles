@@ -2197,6 +2197,8 @@ no matter which minor mode I'm using):
   (defun smf/enable-company-mode ()
     "Enables company-mode and overloads hippie-expand's binding"
     (company-mode 1)
+    (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
+    (setq company-tooltip-align-annotations t)
     (define-key (current-local-map) [remap dabbrev-expand] 'company-complete))
 #+end_src
 
