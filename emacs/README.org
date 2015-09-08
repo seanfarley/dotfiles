@@ -3024,6 +3024,14 @@ Improved JavaScript editing mode for GNU Emacs.
   (require-package 'skewer-mode)
 #+end_src
 
+*** impatient-mode
+
+See the effect of your HTML as you type it.
+
+#+begin_src emacs-lisp
+  (require-package 'impatient-mode)
+#+end_src
+
 *** json-mode
 
 Sure, why not.
