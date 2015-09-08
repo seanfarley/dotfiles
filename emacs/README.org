@@ -3479,6 +3479,12 @@ Spelling mode is exactly what it says it is,
   (erc-spelling-mode 1)
 #+end_src
 
+Also, please rescale images to the size of the window,
+
+#+begin_src emacs-lisp
+  (setq erc-image-inline-rescale 'window)
+#+end_src
+
 *** Query behavior
 
 Button mode allows you to click on a nick and open a new query,
