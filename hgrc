@@ -10,6 +10,7 @@ publish = False
 
 [experimental]
 bundle2-exp = True
+crecord = True
 
 [extensions]
 transplant =
