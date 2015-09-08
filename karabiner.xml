@@ -117,12 +117,12 @@
   </item>
 
   <item>
-    <name>Change left-command + ctrl + c to launch HipChat</name>
+    <name>Change left-command + ctrl + c to launch EmacsMac</name>
     <identifier>private.left_command_ctrl_c</identifier>
     <autogen>
       __KeyToKey__
       KeyCode::C, ModifierFlag::COMMAND_L, ModifierFlag::CONTROL_L,
-      KeyCode::VK_OPEN_URL_APP_HipChat,
+      KeyCode::VK_OPEN_URL_APP_EmacsMac,
     </autogen>
   </item>
 
