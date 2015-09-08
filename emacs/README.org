@@ -3514,14 +3514,17 @@ switch to the buffer.
 
   (smf/add-launcher "k" (lambda ()
                           (interactive)
+                          (persp-switch "erc")
                           (smf/erc-start-or-switch "#kallithea")))
 
   (smf/add-launcher "b" (lambda ()
                           (interactive)
+                          (persp-switch "erc")
                           (smf/erc-start-or-switch "#bitbucket")))
 
   (smf/add-launcher "r" (lambda ()
                           (interactive)
+                          (persp-switch "erc")
                           (smf/erc-start-or-switch "#kallithea-private")))
 #+end_src
 
