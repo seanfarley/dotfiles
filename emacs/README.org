@@ -559,7 +559,105 @@ I use [[https://github.com/tonsky/FiraCode][Fira Code]] as my default coding fon
   ;; set the font
   (when (window-system)
     (set-default-font "Fira Code"))
+
+  (let ((alist '((33 . ".\\(?:\\(?:==\\)\\|[!=]\\)")
+                 (35 . ".\\(?:[(?[_{]\\)")
+                 (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+                 (42 . ".\\(?:\\(?:\\*\\*\\)\\|[*/]\\)")
+                 (43 . ".\\(?:\\(?:\\+\\+\\)\\|\\+\\)")
+                 (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+                 (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=]\\)")
+                 (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+                 (58 . ".\\(?:[:=]\\)")
+                 (59 . ".\\(?:;\\)")
+                 (60 . ".\\(?:\\(?:!--\\)\\|\\(?:\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[/<=>|-]\\)")
+                 (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+                 (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+                 (63 . ".\\(?:[:=?]\\)")
+                 (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+                 (94 . ".\\(?:=\\)")
+                 (123 . ".\\(?:-\\)")
+                 (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+                 (126 . ".\\(?:[=@~-]\\)")
+               )
+        ))
+  (dolist (char-regexp alist)
+    (set-char-table-range composition-function-table (car char-regexp)
+                          `([,(cdr char-regexp) 0 font-shape-gstring]))))
 #+end_src
+
+**** Generate ligature codes
+
+To generate the above list of ligatures, Mitsuharu Yamamoto provided me this
+awesome bit of lisp,
+
+#+begin_src emacs-lisp
+  (defvar fira-code-ligatured-string-list
+    '(;; 0.6
+      "**" "***" "+++" "--" "---" "?:"
+      "/=" "/==" ".=" "^=" "=~" "?=" "||=" "|="
+      "<<<" "<=<" "-<<" "-<" ">-" ">>-" ">=>" ">>>"
+      "<*>" "<|>" "<$>" "<+>"
+      "<!--" "{-" "-}" "/**" "\\\\" "\\\\\\" "..<" "??" "|||" "&&&" "<|" "|>"
+      ;; 0.5
+      "#{" "~-" "-~" "<==" "==>" "///" ";;" "</"
+      ;; 0.4
+      "~=" "~~" "#["
+      ;; 0.3
+      "~@" "#?" "=:=" "=<"
+      ;; 0.2
+      "-->" "<--" "&&" "||" "=>>" "=/="
+      ;; 0.1
+      ">>=" "=<<" "<<=" "->>" "->" "=>" "<<-" "<-"
+      "===" "==" "<=>" ">=" "<=" ">>" "<<" "!==" "!=" "<>"
+      ":=" "++" "#(" "#_"
+      "::" "..." ".." "!!" "//" "/*" "*/" "/>"))
+
+  (defun classify (value-to-key values)
+    (let ((alist))
+      (dolist (value values)
+        (let* ((key (funcall value-to-key value))
+               (key-values (assoc key alist)))
+          (if key-values
+              (unless (member value (cdr key-values))
+                (setcdr key-values (cons value (cdr key-values))))
+            (push (list key value) alist))))
+      alist))
+
+  (defun create-comp-table-data (strings)
+    (let ((alist (sort (classify 'string-to-char strings)
+                       (lambda (x y) (< (car x) (car y))))))
+      (setq alist
+            (mapcar (lambda (key-values)
+                      (cons (car key-values)
+                            (sort (classify 'length (cdr key-values))
+                                  ;; Prefer longer matches.
+                                  (lambda (x y) (> (car x) (car y))))))
+                    alist))
+      (mapcar (lambda (key-values)
+                (cons (car key-values)
+                      (concat ".\\(?:"
+                              (mapconcat (lambda (len-strings)
+                                           (regexp-opt
+                                            (mapcar (lambda (string)
+                                                      (substring string 1))
+                                                    (cdr len-strings))))
+                                         (cdr key-values)
+                                         "\\|")
+                              "\\)")))
+              alist)))
+
+  (defun dump (strings)
+    (insert (format "(let ((alist '%s))
+    (dolist (char-regexp alist)
+      (set-char-table-range composition-function-table (car char-regexp)
+          `([,(cdr char-regexp) 0 font-shape-gstring]))))"
+                    (pp-to-string (create-comp-table-data strings)))))
+
+  ;;(dump fira-code-ligatured-string-list)
+#+end_src
+
+Uncomment the last line to generate the table of ligature codes.
 
 *** Syntax highlighting
 
