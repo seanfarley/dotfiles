@@ -395,6 +395,12 @@ if the last command was a copy - skip past all the expand-region cruft.
         (when (= p (point)) ad-do-it))))
 #+end_src
 
+*** Window mark
+
+#+begin_src emacs-lisp
+  (setq switch-to-buffer-preserve-window-point t)
+#+end_src
+
 ** Keyboard
 
 *** Modifier keys
