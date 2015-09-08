@@ -9,6 +9,8 @@ emacs/.tmp
 emacs/README.*
 emacs/custom.el
 emacs/url
+emacs/persp-confs
+emacs/.mc-lists.el
 
 omnisharp-server
 
