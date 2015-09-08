@@ -2044,6 +2044,11 @@ Also define a convenience keyboard shortcut to switch between buffers from the s
     (diminish 'projectile-mode))
 #+end_src
 
+#+begin_src emacs-lisp
+  (after-load 'projectile
+    (setq projectile-enable-caching t))
+#+end_src
+
 *** solarized-theme
 
 I used to use the [[http://ethanschoonover.com/solarized][solarized]] dark theme in my editor. Specifically, I use the
