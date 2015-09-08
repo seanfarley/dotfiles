@@ -3508,13 +3508,9 @@ switch to the buffer.
         (progn
           (set-buffer "*irc-freenode*")
           (if (erc-server-process-alive)
-              (switch-to-buffer channel) ;; yes: switch to #channel
-            (znc-all)))                  ;; no: start ERC
-      (znc-all)))                        ;; no: start ERC
-
-  (smf/add-launcher "m" (lambda ()
-                          (interactive)
-                          (smf/erc-start-or-switch "#mercurial")))
+              (select-window (get-buffer-window channel)) ;; yes: switch to #channel
+            (znc-all)))                                   ;; no: start ERC
+      (znc-all)))                                         ;; no: start ERC
 
   (smf/add-launcher "k" (lambda ()
                           (interactive)
