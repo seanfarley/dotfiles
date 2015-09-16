@@ -975,6 +975,12 @@ On the Yosemite beta, =ns-use-native-fullscreen= is =nil=.
     (setq ns-use-native-fullscreen nil))
 #+end_src
 
+Start emacs in fullscreen,
+
+#+begin_src emacs-lisp
+  (toggle-fullscreen)
+#+end_src
+
 *** OS X keybindings
 
 There are a lot of native OS X-isms that I would like to keep. Things such =⌘-a=
@@ -3508,23 +3514,20 @@ switch to the buffer.
         (progn
           (set-buffer "*irc-freenode*")
           (if (erc-server-process-alive)
-              (select-window (get-buffer-window channel)) ;; yes: switch to #channel
-            (znc-all)))                                   ;; no: start ERC
-      (znc-all)))                                         ;; no: start ERC
+              (switch-to-buffer channel) ;; yes: switch to #channel
+            (znc-all)))                  ;; no: start ERC
+      (znc-all)))                        ;; no: start ERC
 
   (smf/add-launcher "k" (lambda ()
                           (interactive)
-                          (persp-switch "erc")
                           (smf/erc-start-or-switch "#kallithea")))
 
   (smf/add-launcher "b" (lambda ()
                           (interactive)
-                          (persp-switch "erc")
                           (smf/erc-start-or-switch "#bitbucket")))
 
   (smf/add-launcher "r" (lambda ()
                           (interactive)
-                          (persp-switch "erc")
                           (smf/erc-start-or-switch "#kallithea-private")))
 #+end_src
 
@@ -3941,49 +3944,7 @@ We'll add bookmarks for common "views" of our mailbox:
 Finally, add a keybinding to open our email client:
 
 #+begin_src emacs-lisp
-  (smf/add-launcher "e" (lambda ()
-                          (interactive)
-                          (persp-switch "email")
-                          (select-window (or (get-buffer-window " *mu4e-main*")
-                                             (get-buffer-window "*mu4e-view*")))))
-#+end_src
-
-*** persp-mode
-
-After trying a few different packages for managing emacs windows
-(=perspective=, =workgroups2=, =purpose=), it seems =persp-mode= works best
-with my setup.
-
-#+begin_src emacs-lisp
-  (require-package 'persp-mode)
-  (with-eval-after-load "persp-mode-autoloads"
-    (setq wg-morph-on nil) ;; switch off animation
-    (add-hook 'after-init-hook #'(lambda ()
-                                   (persp-mode 1)
-                                   (make-directory persp-save-dir t))))
-  (global-set-key (kbd "H-s") #'persp-switch)
-#+end_src
-
-#+begin_src emacs-lisp
-  (toggle-fullscreen)
-  (mu4e)
-  (persp-mode)
-#+end_src
-
-Remap the default keybinding to =ctrl-tab= for next buffer and =ctrl-shift-tab=
-for previous buffer.
-
-#+begin_src emacs-lisp
-  (global-set-key [(control tab)] 'persp-next)
-  (global-set-key [(control shift tab)] 'persp-prev)
-#+end_src
-
-Finally, unset =org-mode='s =ctrl-tab= binding.
-
-#+begin_src emacs-lisp
-  (add-hook 'org-mode-hook
-            '(lambda ()
-               (define-key org-mode-map [(control tab)] nil)))
+  (smf/add-launcher "e" 'mu4e)
 #+end_src
 
 ** Local and custom configuration
