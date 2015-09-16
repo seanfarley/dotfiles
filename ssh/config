@@ -4,6 +4,16 @@ ServerAliveInterval 60
 Host *.bitbucket.org
   User sfarley
 
+Host util01
+  User sfarley
+  HostName util01.ash-private.bitbucket.org
+  CheckHostIP yes
+  ProxyCommand none
+
+Host *.ash-private.bitbucket.org *.ash1.bb-inf.net
+  User sfarley
+  ProxyCommand ssh -A -W %h:%p util01
+
 Host winxp
   HostName localhost
   Port 10722
