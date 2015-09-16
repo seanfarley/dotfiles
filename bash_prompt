@@ -321,7 +321,7 @@ function update_ps1 () {
     [ -f "$repo_dir/.hg/svn/uuid" ] && vcs_type="hg-svn"
     [ -f "$repo_dir/.hg/git-mapfile" ] && vcs_type="hg-git"
     if [ -f "$repo_dir/.hg/histedit-state" ]; then
-      vcs_extra="histedit: $(python -c "import cPickle as pickle; fp=open('$repo_dir/.hg/histedit-state'); print(len(pickle.load(fp)[1]))")"
+      vcs_extra="histedit"
     elif [ -f "$repo_dir/.hg/graftstate" ]; then
       vcs_extra="graft"
     elif [ -f "$repo_dir/.hg/rebasestate" ]; then
