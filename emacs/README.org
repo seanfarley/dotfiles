@@ -3408,7 +3408,6 @@ but I do know it messes up erc-hl-nicks if I don't do it this way.
   (require-package 'erc-hl-nicks)
   (require-package 'erc-tweet)
   (require-package 'znc)
-  (require-package 'erc-image)
   (require-package 'cloud-to-butt-erc)
 #+end_src
 
@@ -3459,7 +3458,6 @@ While we're at it, let's enable [[http://www.emacswiki.org/emacs/ErcDCC][direct 
 
 #+begin_src emacs-lisp
   (add-to-list 'erc-modules 'dcc)
-  (add-to-list 'erc-modules 'image)
   (add-to-list 'erc-modules 'tweet)
   (erc-update-modules)
 #+end_src
@@ -3474,12 +3472,6 @@ Spelling mode is exactly what it says it is,
 
 #+begin_src emacs-lisp
   (erc-spelling-mode 1)
-#+end_src
-
-Also, please rescale images to the size of the window,
-
-#+begin_src emacs-lisp
-  (setq erc-image-inline-rescale 'window)
 #+end_src
 
 *** Query behavior
