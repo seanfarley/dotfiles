@@ -291,6 +291,11 @@ defaults write NSGlobalDomain KeyRepeat -int 0
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
+# Set computer name (as done via System Preferences → Sharing)
+sudo scutil --set ComputerName "laptop"
+sudo scutil --set LocalHostName "laptop"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "laptop"
+
 ###############################################################################
 # Screen                                                                      #
 ###############################################################################
