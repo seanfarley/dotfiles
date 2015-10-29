@@ -38,6 +38,7 @@ fi
 
 sudo /opt/local/bin/port -v install mercurial-devel +bash_completion
 sudo /opt/local/bin/port -v install py27-hgevolve-devel
+sudo /opt/local/bin/port -v select python python27
 
 # install gnu tools
 sudo /opt/local/bin/port -v install coreutils findutils
