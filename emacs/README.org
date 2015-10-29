@@ -397,8 +397,10 @@ if the last command was a copy - skip past all the expand-region cruft.
 
 *** Window mark
 
+If this is true, then [[erc]]'s scrolling is broken.
+
 #+begin_src emacs-lisp
-  (setq switch-to-buffer-preserve-window-point t)
+  (setq switch-to-buffer-preserve-window-point nil)
 #+end_src
 
 ** Keyboard
