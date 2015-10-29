@@ -3488,6 +3488,12 @@ Also, please rescale images to the 0.4 size of the window,
   (setq shr-max-image-proportion 0.4)
 #+end_src
 
+Set the token for HipChat api calls,
+
+#+begin_src emacs-lisp
+  (setq erc-hipchatify-token `,(smf/get-keychain-password "smf/token" "hipchat.com"))
+#+end_src
+
 When people send me a message (called 'query' in IRC speak), I want the buffer
 to pop up and notify me,
 
