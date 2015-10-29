@@ -3523,17 +3523,14 @@ switch to the buffer.
             (znc-all)))                  ;; no: start ERC
       (znc-all)))                        ;; no: start ERC
 
-  (smf/add-launcher "k" (lambda ()
-                          (interactive)
-                          (smf/erc-start-or-switch "#kallithea")))
-
   (smf/add-launcher "b" (lambda ()
                           (interactive)
                           (smf/erc-start-or-switch "#bitbucket")))
 
-  (smf/add-launcher "r" (lambda ()
+  (smf/add-launcher "m" (lambda ()
                           (interactive)
-                          (smf/erc-start-or-switch "#kallithea-private")))
+                          (smf/erc-start-or-switch "#mercurial")))
+
 #+end_src
 
 *** Query any user
