@@ -150,6 +150,9 @@ defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 
+# Disable ext change warning
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
 # Expand print panel by default
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
