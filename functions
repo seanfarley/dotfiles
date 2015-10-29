@@ -458,3 +458,16 @@ bb() {
   rm -rf local/env
   ln -si $VIRTUAL_ENV local/env
 }
+
+imsg() {
+  if [ $# -lt 1 ]; then
+    echo "Enter a iMessage account (email or phone number i.e +14156...) "
+  fi
+
+  local dbpath=$2
+  [ -z "$dbpath" ] && dbpath="$HOME"
+
+  sqlite3 $dbpath/Library/Messages/chat.db "select is_from_me,text,datetime(date + strftime('%s', '2001-01-01 00:00:00'),'unixepoch', 'localtime') as date from message" > MessageBackup.txt
+
+  sqlite3 $dbpath/Library/Messages/chat.db "select filename from attachment" | cut -c 2- | awk -v home=$dbpath '{print home $0}' | tr '\n' '\0' | xargs -0 -t -I fname cp fname .
+}
