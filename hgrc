@@ -167,6 +167,9 @@ changeset.obsolete = italic dim
 smart = (parents(not public()) or not public() or . or (heads(all()) and not closed())) and (not obsolete() or unstable()^)
 
 [alias]
+# always use relative paths
+st = st ""
+
 ### useful alias to check future amend result
 # equivalent to the qdiff command for mq
 
