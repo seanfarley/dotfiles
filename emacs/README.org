@@ -2859,6 +2859,7 @@ indenting / de-indenting code. Let's change that,
   (defun smf/elpy-hook ()
     (define-key elpy-mode-map (kbd "<M-left>") nil)
     (define-key elpy-mode-map (kbd "<M-right>") nil)
+    (define-key elpy-mode-map (kbd "<C-return>") nil)
     (define-key elpy-mode-map (kbd "<H-M-left>") 'elpy-nav-move-iblock-left)
     (define-key elpy-mode-map (kbd "<H-M-right>") 'elpy-nav-move-iblock-right))
   (add-hook 'elpy-mode-hook 'smf/elpy-hook)
