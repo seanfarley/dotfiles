@@ -471,3 +471,10 @@ imsg() {
 
   sqlite3 $dbpath/Library/Messages/chat.db "select filename from attachment" | cut -c 2- | awk -v home=$dbpath '{print home $0}' | tr '\n' '\0' | xargs -0 -t -I fname cp fname .
 }
+
+function vpn-connect {
+  echo -n "Connecting ${user} to vpn using DUO ${duo}..."
+  # hardcode the password here so that no variables hold the plain text
+  printf "sfarley\n$(/usr/bin/security find-internet-password -w -a sfarley -s vpn.atlassian.com)\npush\n" | sudo openconnect vpn-us-east-1.atlassian.com
+  echo "Done"
+}
