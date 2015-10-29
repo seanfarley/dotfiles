@@ -553,15 +553,12 @@ Turn off the startup screen, and always show =*scratch*=.
 
 *** Font
 
-I use [[https://github.com/Lokaltog/powerline-fonts/tree/master/SourceCodePro][Source (Sauce) Code Pro]] as my default coding font:
+I use [[https://github.com/tonsky/FiraCode][Fira Code]] as my default coding font:
 
 #+begin_src emacs-lisp
   ;; set the font
   (when (window-system)
-    (condition-case err
-      (set-default-font "Source Code Pro for Powerline Light")
-      (error
-        (set-default-font "Sauce Code Powerline Light"))))
+    (set-default-font "Fira Code"))
 #+end_src
 
 *** Syntax highlighting
