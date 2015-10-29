@@ -3409,6 +3409,7 @@ but I do know it messes up erc-hl-nicks if I don't do it this way.
   (require-package 'erc-tweet)
   (require-package 'znc)
   (require-package 'erc-image)
+  (require-package 'cloud-to-butt-erc)
 #+end_src
 
 I use [[http://wiki.znc.in/ZNC][ZNC]] to always stay connected to IRC channels, so when I close a buffer I
