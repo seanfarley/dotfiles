@@ -30,9 +30,10 @@ fi
 
 # install macports
 if ! [ -d /opt/local/bin ]; then
-  curl -O https://distfiles.macports.org/MacPorts/MacPorts-2.3.3-10.10-Yosemite.pkg
-  sudo installer -pkg ./MacPorts-2.3.3-10.10-Yosemite.pkg -target /
-  rm -f MacPorts-2.3.3-10.10-Yosemite.pkg
+  PKG=MacPorts-2.3.4-10.11-ElCapitan.pkg
+  curl -O https://distfiles.macports.org/MacPorts/$PKG
+  sudo installer -pkg ./$PKG -target /
+  rm -f $PKG
 fi
 
 sudo /opt/local/bin/port -v install mercurial-devel +bash_completion
