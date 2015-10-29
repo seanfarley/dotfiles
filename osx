@@ -613,8 +613,8 @@ defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
 
-# Don’t display the annoying prompt when quitting iTerm
-defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+# Install the dark base16 theme for iTerm
+open "base16-default.dark.256.itermcolors"
 
 ###############################################################################
 # Time Machine                                                                #
