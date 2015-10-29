@@ -3494,6 +3494,17 @@ Set the token for HipChat api calls,
   (setq erc-hipchatify-token `,(smf/get-keychain-password "smf/token" "hipchat.com"))
 #+end_src
 
+Set the channel names (buffer names) for which to replace 'nick' with '@nick',
+
+#+begin_src emacs-lisp
+  (setq erc-hipchatify-mention-channels '("smf"
+                                          "#bitbucket-social"
+                                          "#bitbucket-cloud"
+                                          "#bitbucket-support"
+                                          "#bitbucket-bugfix"
+                                          "#sourcetree"))
+#+end_src
+
 When people send me a message (called 'query' in IRC speak), I want the buffer
 to pop up and notify me,
 
