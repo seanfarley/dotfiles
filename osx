@@ -62,14 +62,15 @@ open fonts/*
 
 # karabiner
 if ! [ -d /Applications/Karabiner.app ]; then
-  PKG=Karabiner-10.6.0
+  PKG=Karabiner-10.9.0
   curl -LO https://pqrs.org/osx/karabiner/files/$PKG.dmg
   sudo hdiutil attach $PKG.dmg
-  sudo installer -package /Volumes/$PKG/Karabiner.pkg -target /
+  sudo installer -package /Volumes/$PKG/Karabiner*.pkg -target /
   sudo umount /Volumes/$PKG
   rm -f $PKG.dmg
 fi
 
+mkdir -p ~/Library/Application\ Support/Karabiner
 cp karabiner.xml ~/Library/Application\ Support/Karabiner/private.xml
 cli=/Applications/Karabiner.app/Contents/Library/bin/karabiner
 
