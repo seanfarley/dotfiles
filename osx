@@ -110,24 +110,12 @@ $cli set option.emacsmode_controlPNBF 1
 /bin/echo -n .
 /bin/echo
 
-# AdBlock Plus
-if ! [ -n "$(ls ~/Library/Safari/Extensions/*Adblock*)" ]; then
-  curl -LO https://update.adblockplus.org/latest/adblockplussafari.safariextz
-  open adblockplussafari.safariextz
-fi
-
 # Spectacle
 if ! [ -d /Applications/Spectacle.app ]; then
   curl -LO https://s3.amazonaws.com/spectacle/downloads/Spectacle+0.8.8.zip
   unzip Spectacle+0.8.8.zip
   sudo mv Spectacle.app /Applications
   rm -rf __MACOSX Spectacle+0.8.8.zip
-fi
-
-# Pocket
-if ! [ -n "$(ls ~/Library/Safari/Extensions/*Pocket*)" ]; then
-  curl -L https://getpocket.com/apps/link/pocket-safari > pocket.safariextz
-  open pocket.safariextz
 fi
 
 ###############################################################################
