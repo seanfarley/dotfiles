@@ -10,6 +10,12 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Bootstrapping                                                               #
 ###############################################################################
 
+# check for xcode
+if ! [ -d /Applications/Xcode.app ]; then
+  echo "Please install Xcode through the App Store"
+  exit 1
+fi
+
 # install xcode command-line tools
 if ! xcode-select -p; then
   sudo xcode-select --install
