@@ -112,10 +112,11 @@ $cli set option.emacsmode_controlPNBF 1
 
 # Spectacle
 if ! [ -d /Applications/Spectacle.app ]; then
-  curl -LO https://s3.amazonaws.com/spectacle/downloads/Spectacle+0.8.8.zip
-  unzip Spectacle+0.8.8.zip
+  PKG=Spectacle+1.0.1.zip
+  curl -LO https://s3.amazonaws.com/spectacle/downloads/$PKG
+  unzip $PKG
   sudo mv Spectacle.app /Applications
-  rm -rf __MACOSX Spectacle+0.8.8.zip
+  rm -rf __MACOSX $PKG
 fi
 
 ###############################################################################
