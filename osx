@@ -58,7 +58,7 @@ if ! [ -d /Applications/iTerm.app ]; then
   rm -f latest.zip
 fi
 
-sudo cp fonts/Sauce* /Library/Fonts
+open fonts/*
 
 # karabiner
 if ! [ -d /Applications/Karabiner.app ]; then
