@@ -3409,6 +3409,9 @@ but I do know it messes up erc-hl-nicks if I don't do it this way.
   (require-package 'erc-tweet)
   (require-package 'znc)
   (require-package 'cloud-to-butt-erc)
+  (if (file-accessible-directory-p "~/projects/erc-hipchatify")
+      (smf/add-to-load-path "~/projects/erc-hipchatify"))
+  (require 'erc-hipchatify)
 #+end_src
 
 I use [[http://wiki.znc.in/ZNC][ZNC]] to always stay connected to IRC channels, so when I close a buffer I
@@ -3458,6 +3461,7 @@ While we're at it, let's enable [[http://www.emacswiki.org/emacs/ErcDCC][direct 
 
 #+begin_src emacs-lisp
   (add-to-list 'erc-modules 'dcc)
+  (add-to-list 'erc-modules 'hipchatify)
   (add-to-list 'erc-modules 'tweet)
   (erc-update-modules)
 #+end_src
