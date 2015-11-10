@@ -3439,7 +3439,7 @@ Some basic settings about my IRC setup,
    erc-prompt-for-nickserv-password nil
    erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
                              "324" "329" "332" "333" "353" "477")
-   erc-hide-list '("JOIN" "PART" "QUIT" "NICK")
+   erc-hide-list '("JOIN" "PART" "QUIT")
    erc-quit-reason 'erc-quit-reason-normal
    erc-track-exclude-server-buffer t)
 #+end_src
