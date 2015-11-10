@@ -478,3 +478,41 @@ function vpn-connect {
   printf "sfarley\n$(/usr/bin/security find-internet-password -w -a sfarley -s vpn.atlassian.com)\npush\n" | sudo openconnect vpn-us-east-1.atlassian.com
   echo "Done"
 }
+
+watchman-sync() {
+  local wm=$(which watchman)
+  [ -z "$wm" ] && echo "watchman executable not found!" && return 2
+
+  local server="euclid"
+  local project="$(basename $PWD)"
+  local root="$(basename $(dirname $PWD))"
+
+  # make sure we are in projects/foo
+  [[ "$root" != "projects" ]] && echo "current working directory not recognized" && return 3
+
+  # set remote server
+  [ -n "$1" ] && server="$1"
+
+  watchman -j<<-EOF
+  [
+  "trigger",
+  "$PWD",
+  {
+    "name": "resync",
+    "append_files": "false",
+    "command": [
+      "rsync",
+      "-avhpI",
+      "--checksum",
+      "--exclude", "build",
+      "--exclude", "hg.build",
+      "--exclude", "*.so",
+      "--exclude", "*.dll",
+      "--exclude", "*.dSYM",
+      "$PWD/",
+      "euclid:$root/$project"
+    ]
+  }
+  ]
+EOF
+}
