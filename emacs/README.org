@@ -3828,7 +3828,7 @@ reverse this for searches but don't know if that's possible.
 
 #+begin_src emacs-lisp
   (after-load 'mu4e
-    (setq mu4e~headers-sort-direction 'ascending))
+    (setq mu4e-headers-sort-direction 'ascending))
 #+end_src
 
 Set the mail directories I have,
