@@ -481,7 +481,7 @@ function vpn-connect {
 
 watchman-sync() {
   local wm=$(which watchman)
-  [ -z "$wm" ] && echo "watchman executable not found!" && return 2
+  [[ -z "$wm" ]] && echo "watchman executable not found!" && return 2
 
   local server="euclid"
   local project="$(basename $PWD)"
@@ -491,7 +491,7 @@ watchman-sync() {
   [[ "$root" != "projects" ]] && echo "current working directory not recognized" && return 3
 
   # set remote server
-  [ -n "$1" ] && server="$1"
+  [[ -n "$1" ]] && server="$1"
 
   watchman -j<<-EOF
   [
