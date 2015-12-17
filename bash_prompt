@@ -10,7 +10,7 @@
 # https://github.com/nojhan/liquidprompt
 
 # exit if we terminal can't do colors
-if [ ! -t 0 ] || [ "$TERM" == "dumb" ]; then
+if [[ ! -t 0 ]] || [[ "$TERM" == "dumb" ]]; then
   return
 fi
 
@@ -18,7 +18,7 @@ fi
 # colored highlighting is awesome
 ##
 
-if [ "$TERM" != "dumb" -a -x "$(which dircolors 2>/dev/null)" ]; then
+if [[ "$TERM" != "dumb" ]] && [[ -x "$(which dircolors 2>/dev/null)" ]]; then
   eval "$(dircolors -b ~/.dir_colors)"
 fi
 
@@ -50,10 +50,10 @@ FAILBG=161                      # pink/red
 FAILFG=15                       # white-ish
 
 HG="hg"
-[ -n "$(which chg 2>/dev/null)" ] && HG="chg"
+[[ -n "$(which chg 2>/dev/null)" ]] && HG="chg"
 
 MD5="md5"
-[ -n "$(which md5sum 2>/dev/null)" ] && MD5="md5sum"
+[[ -n "$(which md5sum 2>/dev/null)" ]] && MD5="md5sum"
 
 COLORS=(
   $PURPLE
@@ -125,7 +125,7 @@ _lp_upwards_find()
 
 function _lp_git_branch() {
   local gitdir
-  gitdir="$([ $(\git ls-files . 2>/dev/null | wc -l) -gt 0 ] && \git rev-parse --git-dir 2>/dev/null)"
+  gitdir="$([[ $(\git ls-files . 2>/dev/null | wc -l) -gt 0 ]] && \git rev-parse --git-dir 2>/dev/null)"
   [[ $? -ne 0 || ! $gitdir =~ (.*\/)?\.git.* ]] && return
   local branch
   # Recent versions of Git support the --short option for symbolic-ref, but
@@ -145,8 +145,8 @@ function _git_info() {
   local remote
   local st
 
-  if [ ! -d /cygdrive/c ]; then
-    [ -n "$(\git stash list 2>/dev/null)" ] && br="$br+"
+  if [[ ! -d /cygdrive/c ]]; then
+    [[ -n "$(\git stash list 2>/dev/null)" ]] && br="$br+"
 
     st="$(git status 2> /dev/null)"
     remote="$(echo "$st" | perl -lne 'print " $2$1" if /Your branch is (ahead|behind).*?(\d+) comm/' | perl -pe 's,behind,⇣,' | perl -pe 's,ahead,⇡,')"
@@ -155,7 +155,7 @@ function _git_info() {
 
   printf "$br$remote"
 
-  [ -n "$st" ] && return 1
+  [[ -n "$st" ]] && return 1
   return 0
 }
 
@@ -170,17 +170,17 @@ function _hg_info() {
   local head
 
   # if the dirstate doesn't exist, the repo is null, so just report 'default'
-  [ ! -f "$repo_dir/.hg/dirstate" ] && br="default"
+  [[ ! -f "$repo_dir/.hg/dirstate" ]] && br="default"
 
   # fallback to branch name if bookmark isn't active
-  if [ -z "$br" ]; then
+  if [[ -z "$br" ]]; then
     p1="$(head -c 20 $repo_dir/.hg/dirstate | xxd -p)"
     p2="$(head -c 40 $repo_dir/.hg/dirstate | xxd -p -s 20)"
     br="$(less $repo_dir/.hg/branch 2>/dev/null)"
-    [ -z "$br" ] && br="default"
+    [[ -z "$br" ]] && br="default"
     # only display the branch name if it's a head
     head="$(grep -c $p1 $repo_dir/.hg/cache/branch2 2>/dev/null)"
-    [ -z "$head" ] && head="0"
+    [[ -z "$head" ]] && head="0"
     if [[ "$head" == "0" ]]; then
       p1="$(echo $p1 | head -c 7)"
       p2="$(echo $p2 | head -c 7)"
@@ -200,15 +200,15 @@ function _hg_info() {
     [[ ${distance[1]} != "" && ${distance[1]} != "0" ]] && remote=" ${distance[1]}⇣"
   fi
 
-  if [ ! -d /cygdrive/c ]; then
+  if [[ ! -d /cygdrive/c ]]; then
     st="$($HG status 2>/dev/null)"
-    [ "$(echo "$st" | grep -c '\(^\?\)')" != "0" ] && br="$br*"
-    [ -n "$($HG shelve -l 2>/dev/null)" ] && br="$br+"
+    [[ "$(echo "$st" | grep -c '\(^\?\)')" != "0" ]] && br="$br*"
+    [[ -n "$(ls $repo_dir/.hg/shelved/ 2>/dev/null)" ]] && br="$br+"
   fi
 
   printf "$br$remote"
 
-  [ -n "$st" ] && return 1
+  [[ -n "$st" ]] && return 1
   return 0
 }
 
@@ -243,7 +243,7 @@ _lp_jobcount_color()
 # note: last argument is optional and represents the beginning separator
 # call as _chain("FOO" oldbg bg fg '>')
 function _chain() {
-  [ -z "$1" ] && return -1
+  [[ -z "$1" ]] && return -1
   printf "\[$(tput setaf $2)$(tput setab $3)\]${5:-} \[$(tput setaf $4)\]$1 \[$RESET\]"
 }
 
@@ -291,7 +291,7 @@ function update_ps1 () {
   prompt="$prompt$(_chain "$host" $oldbg $bg $fg "\[$BOLD\]")"
 
   local jobs="$(_lp_jobcount_color)"
-  if [ -n "$jobs" ]; then
+  if [[ -n "$jobs" ]]; then
     oldbg=$bg
     bg=$MAGENTA
     fg=$DARKBLUE
@@ -307,33 +307,33 @@ function update_ps1 () {
   oldbg=$bg
   bg=$PATHBG
   fg=$PATHFG
-  [ -w "$PWD" ] || fg=$FAILBG
+  [[ -w "$PWD" ]] || fg=$FAILBG
   dir="$(echo $dir | perl -pe 's,/,  ,g')"
   dir="${dir//  /\\[$(tput setaf $SEP_FG)\\]  \\[$(tput setaf $fg)\\]}"
   prompt="$prompt$(_chain "$dir" $oldbg $bg $fg)"
 
   # search for each repo type
   repo_dir=$(_lp_upwards_find .hg)
-  if [ -n "$repo_dir" ]; then
+  if [[ -n "$repo_dir" ]]; then
     repo="$(_hg_info $repo_dir)"
     dirty="$?"
     vcs_type="hg"
-    [ -f "$repo_dir/.hg/svn/uuid" ] && vcs_type="hg-svn"
-    [ -f "$repo_dir/.hg/git-mapfile" ] && vcs_type="hg-git"
-    if [ -f "$repo_dir/.hg/histedit-state" ]; then
+    [[ -f "$repo_dir/.hg/svn/uuid" ]] && vcs_type="hg-svn"
+    [[ -f "$repo_dir/.hg/git-mapfile" ]] && vcs_type="hg-git"
+    if [[ -f "$repo_dir/.hg/histedit-state" ]]; then
       vcs_extra="histedit"
-    elif [ -f "$repo_dir/.hg/graftstate" ]; then
+    elif [[ -f "$repo_dir/.hg/graftstate" ]]; then
       vcs_extra="graft"
-    elif [ -f "$repo_dir/.hg/rebasestate" ]; then
+    elif [[ -f "$repo_dir/.hg/rebasestate" ]]; then
       vcs_extra="rebase"
-    elif [ -f "$repo_dir/.hg/bisect.state" ]; then
+    elif [[ -f "$repo_dir/.hg/bisect.state" ]]; then
       vcs_extra="bisect"
-    elif [ -f "$repo_dir/.hg/merge/state" ]; then
+    elif [[ -f "$repo_dir/.hg/merge/state" ]]; then
       vcs_extra="merge"
     fi
   else
     repo_dir=$(_lp_upwards_find .git)
-    if [ -n "$repo_dir" ]; then
+    if [[ -n "$repo_dir" ]]; then
       repo="$(_git_info)"
       dirty=$?
       vcs_type="git"
@@ -344,7 +344,7 @@ function update_ps1 () {
   fi # git
 
   # if repo found, plug it into the powerline chain
-  if [ -n "$vcs_type" ]; then
+  if [[ -n "$vcs_type" ]]; then
     # color repo depending on dirty working directory; must check here because we
     # need to set vcs type, status, etc. and it's annoying to deal with global
     # variables and subprocesses
@@ -352,10 +352,10 @@ function update_ps1 () {
     bg=$CLEAN_BG
     fg=$CLEAN_FG
 
-    [ $dirty -eq 1 ] && bg=$DIRTY_BG && fg=$DIRTY_FG
+    [[ $dirty -eq 1 ]] && bg=$DIRTY_BG && fg=$DIRTY_FG
     prompt="$prompt$(_chain "$repo" $oldbg $bg $fg)"
 
-    if [ -n "$vcs_extra" ]; then
+    if [[ -n "$vcs_extra" ]]; then
       oldbg=$bg
       bg=8
       fg=$DIRTY_FG
@@ -363,7 +363,7 @@ function update_ps1 () {
     fi
   fi
 
-  if [ -n "$VIRTUAL_ENV" ]; then
+  if [[ -n "$VIRTUAL_ENV" ]]; then
     oldbg=$bg
     bg=4
     fg=17
@@ -373,7 +373,7 @@ function update_ps1 () {
   oldbg=$bg
   bg=$PASSBG
   fg=$PASSFG
-  [ $err -ne 0 ] && bg=$FAILBG && fg=$FAILFG
+  [[ $err -ne 0 ]] && bg=$FAILBG && fg=$FAILFG
 
   # change the prompt mark depending on the repo type
   local mark="\$"
