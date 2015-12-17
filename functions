@@ -473,7 +473,10 @@ imsg() {
 }
 
 function vpn-connect {
-  echo -n "Connecting ${user} to vpn using DUO ${duo}..."
+  # Ask for the administrator password upfront
+  sudo -v -p "%u@%h's password:"
+
+  echo "Connecting ${user} to vpn using DUO ${duo}..."
   # hardcode the password here so that no variables hold the plain text
   printf "sfarley\n$(/usr/bin/security find-internet-password -w -a sfarley -s vpn.atlassian.com)\npush\n" | sudo openconnect vpn-us-east-1.atlassian.com
   echo "Done"
