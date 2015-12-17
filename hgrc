@@ -237,6 +237,8 @@ gll = log -G --pager=always -T sl
 
 gl = gll -r '.%(bookmark()-. or max(public()))^'
 
+gl. = gll -r ::.
+
 sl = log -G --pager=always -r smart -T sl
 
 nll = log -G --pager=always -T nl
