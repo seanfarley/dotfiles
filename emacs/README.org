@@ -3937,18 +3937,6 @@ render html email:
     (setq mu4e-html2text-command 'mu4e-shr2text))
 #+end_src
 
-Finally, let's use [[http://pablo.rauzy.name/dev/init.el.html][fancy unicode characters]]:
-
-#+begin_src emacs-lisp
-  (after-load 'mu4e
-    (setq
-       mu4e-use-fancy-chars t
-       mu4e-headers-new-mark            '("N" . "✉")
-       mu4e-headers-seen-mark           '("S" . "☑")
-       mu4e-headers-replied-mark        '("R" . "↵")
-       mu4e-headers-passed-mark         '("P" . "⇉")))
-#+end_src
-
 *** Thread Navigation
 
 These functions are copied from [[https://github.com/djcb/mu/blob/master/mu4e/mu4e-headers.el#L1434][mu4e-headers-next-unread]] and just changed to
