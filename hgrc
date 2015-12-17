@@ -12,6 +12,9 @@ publish = False
 bundle2-exp = True
 crecord = True
 
+[format]
+generaldelta = True
+
 [extensions]
 transplant =
 color =
