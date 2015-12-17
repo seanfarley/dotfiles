@@ -495,6 +495,13 @@
 		<key>TB Is Shown</key>
 		<integer>1</integer>
 	</dict>
+	<key>NSUserKeyEquivalents</key>
+	<dict>
+		<key>Select Pane Above</key>
+		<string>@^↑</string>
+		<key>Select Pane Below</key>
+		<string>@^↓</string>
+	</dict>
 	<key>NSWindow Frame Preferences</key>
 	<string>269 420 606 456 0 0 1440 900 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
@@ -1222,7 +1229,7 @@
 		</dict>
 	</array>
 	<key>NoSyncLastTipTime</key>
-	<real>467886841.363083</real>
+	<real>470663485.57215899</real>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1247,6 +1254,25 @@
 		<string>0006</string>
 		<string>0007</string>
 		<string>0008</string>
+		<string>0009</string>
+		<string>0010</string>
+		<string>0011</string>
+		<string>0012</string>
+		<string>0013</string>
+		<string>0014</string>
+		<string>0015</string>
+		<string>0016</string>
+		<string>0017</string>
+		<string>0018</string>
+		<string>0019</string>
+		<string>0020</string>
+		<string>0021</string>
+		<string>0022</string>
+		<string>0023</string>
+		<string>0024</string>
+		<string>0025</string>
+		<string>0026</string>
+		<string>0027</string>
 	</array>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
@@ -1312,11 +1338,13 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-10-30T08:34:05Z</date>
+	<date>2015-12-01T18:46:54Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
 	<false/>
+	<key>Secure Input</key>
+	<true/>
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowPaneTitles</key>
@@ -1356,6 +1384,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20151023-nightly</string>
+	<string>2.9.20151117-nightly</string>
 </dict>
 </plist>
