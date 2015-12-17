@@ -4,6 +4,7 @@
 
 ;; This file uses org-babel to load my literate configuration.
 
+(setq gc-cons-threshold 200000000)
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
