@@ -1,5 +1,6 @@
 KeepAlive yes
 ServerAliveInterval 60
+StrictHostKeyChecking no
 
 Host *.bitbucket.org
   User sfarley
