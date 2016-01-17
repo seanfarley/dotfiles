@@ -2974,6 +2974,8 @@ files.
 
 #+begin_src emacs-lisp
   (require-package 'dtrt-indent)
+  (require 'dtrt-indent)
+  (dtrt-indent-mode)
 #+end_src
 
 *** editorconfig
