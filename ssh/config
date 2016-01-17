@@ -15,6 +15,11 @@ Host *.ash-private.bitbucket.org *.ash1.bb-inf.net
   User sfarley
   ProxyCommand ssh -A -W %h:%p util01
 
+Host app01
+  User sfarley
+  HostName app01.ash1.bb-inf.net
+  ProxyCommand ssh -A -W %h:%p util01
+
 Host winxp
   HostName localhost
   Port 10722
