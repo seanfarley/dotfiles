@@ -4008,7 +4008,7 @@ use this to apply a mercurial patch to a working directory:
       "Import the hg [patch] message."
       (let ((path (read-directory-name "Target directory: " "~/projects/hg" nil nil nil) ))
         (shell-command
-         (format "cd %s; hg import %s"
+         (format "cd %s; hg import --obsolete --partial %s"
                  path
                  (mu4e-message-field msg :path)))))
 
