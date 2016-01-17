@@ -4,6 +4,13 @@
 import sys
 import mercurial
 import code
+from mercurial import (
+    cmdutil,
+    demandimport,
+)
+
+cmdtable = {}
+command = cmdutil.command(cmdtable)
 
 def pdb(ui, repo, msg, **opts):
     objects = {
@@ -20,9 +27,11 @@ def ipdb(ui, repo, msg, **opts):
 
     cl = repo.changelog
     mf = repo.manifest
+    cl, mf # use variables to appease pyflakes
 
     IPython.embed()
 
+@command('debugshell|dbsh', [])
 def debugshell(ui, repo, **opts):
     bannermsg = "loaded repo : %s\n" \
                 "using source: %s" % (repo.root,
@@ -39,14 +48,11 @@ def debugshell(ui, repo, **opts):
 
     # if IPython doesn't exist, fallback to code.interact
     try:
-        __import__(pdbmap[debugger])
+        with demandimport.deactivated():
+            __import__(pdbmap[debugger])
     except ImportError:
         ui.warn("%s debugger specified but %s module was not found\n"
                 % (debugger, pdbmap[debugger]))
         debugger = 'pdb'
 
     getattr(sys.modules[__name__], debugger)(ui, repo, bannermsg, **opts)
-
-cmdtable = {
-    "debugshell|dbsh|db": (debugshell, [])
-}
