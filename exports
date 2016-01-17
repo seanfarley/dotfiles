@@ -2,7 +2,7 @@
 export EDITOR="emacsclient -n -f $HOME/.emacs.d/server/server"
 # Don't clear the screen after quitting a manual page
 export MANPAGER="less -X"
-export LESS="--ignore-case --quit-if-one-screen --quit-on-intr FRSXQ"
+export LESS="--ignore-case --quit-if-one-screen --quit-on-intr FRXQ"
 
 # Have bash ignore the .DS_Store
 export FIGNORE=DS_Store
