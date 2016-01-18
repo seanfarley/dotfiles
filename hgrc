@@ -13,7 +13,7 @@ bundle2-exp = True
 crecord = True
 
 [format]
-generaldelta = True
+usegeneraldelta = True
 
 [extensions]
 transplant =
