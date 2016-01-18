@@ -15,6 +15,7 @@ emacs/workbench*
 emacs/srecode*
 emacs/ede*
 emacs/abbrev*
+emacs/.python-environments
 
 omnisharp-server
 
