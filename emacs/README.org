@@ -2895,6 +2895,7 @@ Now, we install elpy and enable it,
 
 #+begin_src emacs-lisp
   (require-package 'elpy)
+  (require-package 'company-jedi)
   (elpy-enable)
 #+end_src
 
@@ -2903,6 +2904,7 @@ indenting / de-indenting code. Let's change that,
 
 #+begin_src emacs-lisp
   (defun smf/elpy-hook ()
+    (add-to-list 'company-backends 'company-jedi)
     (define-key elpy-mode-map (kbd "<M-left>") nil)
     (define-key elpy-mode-map (kbd "<M-right>") nil)
     (define-key elpy-mode-map (kbd "<C-return>") nil)
