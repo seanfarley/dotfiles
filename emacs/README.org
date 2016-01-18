@@ -2897,6 +2897,7 @@ Now, we install elpy and enable it,
   (require-package 'elpy)
   (require-package 'company-jedi)
   (elpy-enable)
+  (elpy-use-ipython)
 #+end_src
 
 By default, elpy binds M-<left> and M-<right>, which I use for navigation, for
