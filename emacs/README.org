@@ -1780,13 +1780,6 @@ Also, diminish some built-in modes:
   (require-package 'paradox)
 #+end_src
 
-Force =paradox= into a [[fullframe]]:
-
-#+begin_src emacs-lisp
-  (after-load 'fullframe
-    (fullframe paradox-list-packages paradox-quit-and-close nil))
-#+end_src
-
 Automatically 'star' packages on GitHub after I install them (so I can easily
 follow changes to them):
 
@@ -1854,15 +1847,6 @@ Move =smex='s cache file out of the home directory:
 
 #+begin_src emacs-lisp
   (setq smex-save-file (expand-file-name ".smex-items" smf/tmp-local-dir))
-#+end_src
-
-*** fullframe
-
-[[https://github.com/tomterl/fullframe][fullframe]] is a minor mode which allows certain buffers to take over the full
-frame using advice.
-
-#+begin_src emacs-lisp
-  (require-package 'fullframe)
 #+end_src
 
 *** ido-ubiquitous
@@ -3196,16 +3180,6 @@ Always set the upstream when pushing:
 
 #+begin_src emacs-lisp
   (setq magit-push-arguments '("--set-upstream"))
-#+end_src
-
-**** Interaction with fullframe
-
-If =fullframe= is installed (see below), use it to make =magit-status= take over
-the entire frame:
-
-#+begin_src emacs-lisp
-  (after-load 'fullframe
-    (fullframe magit-status magit-mode-quit-window nil))
 #+end_src
 
 **** Load Magit
