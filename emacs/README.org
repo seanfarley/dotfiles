@@ -3019,6 +3019,7 @@ files.
   (require-package 'dtrt-indent)
   (require 'dtrt-indent)
   (dtrt-indent-mode)
+  (delq 'dtrt-indent-mode-line-info global-mode-string)
 #+end_src
 
 *** editorconfig
