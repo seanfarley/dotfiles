@@ -2156,6 +2156,14 @@ project name,
   (setq ggtags-mode-line-project-name nil)
 #+end_src
 
+Also, diminish this mode:
+
+#+begin_src emacs-lisp
+  (after-load 'ggtags
+    (after-load 'diminish
+      (diminish 'ggtags-mode)))
+#+end_src
+
 And, finally, load it for c-like modes,
 
 #+begin_src emacs-lisp
