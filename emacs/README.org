@@ -4010,3 +4010,53 @@ place:
 #+end_src
 
 (note that this works because =setq= returns the value it's set to)
+
+*** Bitbucket dev
+
+A simple function to start up bitbucket
+
+#+begin_src emacs-lisp
+  (defun smf/bitbucket-start-or-switch ()
+    "Start the bitbucket process or switch to the buffer"
+    (interactive)
+    (if (get-buffer "*bitbucket-shell*")
+        (switch-to-buffer "*bitbucket-shell*")
+      (progn
+        (shell)
+        (rename-buffer "*bitbucket-shell*")
+        (ipdb-track-mode)
+        (company-mode)
+        (process-send-string "*bitbucket-shell*"
+                             (concat "export LANG=en_US.UTF-8; "
+                                     "bb; "
+                                     "make clean; "
+                                     "kg gulp; "
+                                     "./manage.py flushcache; "
+                                     "BB_EMAIL_PASSWORD=$(/usr/bin/security find-internet-password -w -a bbtest@farley.io -s mail.farley.io) "
+                                     "HGRCPATH=./hgrc "
+                                     "HOME=$SANDBOX "
+                                     "GIT_CONFIG_NOSYSTEM=1 "
+                                     "PYTHONUNBUFFERED=1 "
+                                     "DEBUG=1 "
+                                     "CELERY_RDB_PORT=6900 "
+                                     "./manage.py gunserver -w 1;\n"))
+        (sit-for 0.3)
+        (shell)
+        (rename-buffer "*bitbucket-celeryd*")
+        (ipdb-track-mode)
+        (company-mode)
+        (process-send-string "*bitbucket-celeryd*"
+                             (concat "export LANG=en_US.UTF-8; "
+                                     "bb; "
+                                     "HGRCPATH=./hgrc "
+                                     "HOME=$SANDBOX "
+                                     "GIT_CONFIG_NOSYSTEM=1 "
+                                     "PYTHONUNBUFFERED=1 "
+                                     "DEBUG=1 "
+                                     "CELERY_RDB_PORT=6900 "
+                                     "./manage.py celeryd -l DEBUG;\n")))))
+
+  (smf/add-launcher "B" (lambda ()
+                          (interactive)
+                          (smf/bitbucket-start-or-switch)))
+#+end_src
