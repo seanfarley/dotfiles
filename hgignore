@@ -64,6 +64,7 @@ projectile-bookmarks.eld
 .python-eggs
 
 tags
+TAGS
 GTAGS
 GPATH
 GRTAGS
