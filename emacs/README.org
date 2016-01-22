@@ -2806,10 +2806,10 @@ indenting / de-indenting code. Let's change that,
 Add [[elpy]] to diminish,
 
 #+begin_src emacs-lisp
-    (defun smf/diminish-elpy-hook ()
-      (diminish 'highlight-indentation-mode)
-      (diminish 'elpy-mode))
-    (add-hook 'elpy-mode-hook 'smf/diminish-elpy-hook)
+  (defun smf/diminish-elpy-hook ()
+    (diminish 'highlight-indentation-mode)
+    (diminish 'elpy-mode))
+  (add-hook 'elpy-mode-hook 'smf/diminish-elpy-hook)
 #+end_src
 
 *** yasnippet
