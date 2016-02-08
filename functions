@@ -429,9 +429,9 @@ mpsearch() {
 ve() {
   [ ! -d "$WORKON_HOME" ] && mkdir -p "$WORKON_HOME"
   [ -z "$@" ] && return
-  if [ ! -d "$WORKON_HOME/$@" ]; then
-    mkvirtualenv "$@"
     mkdir -p $VIRTUAL_ENV/repos/bucket01 $VIRTUAL_ENV/repos/bucket02 $VIRTUAL_ENV/repos/bucket03
+  if [ ! -d "$WORKON_HOME/$1" ]; then
+    mkvirtualenv "$1" ${@:2}
     cat >$VIRTUAL_ENV/bin/postactivate <<EOF
 #!/opt/local/bin/bash
 # This hook is sourced after this virtualenv is activated.
@@ -443,9 +443,9 @@ export DJANGO_SETTINGS_MODULE="bitbucket.settings.dev"
 export PATH=\$PATH:\$PWD/node_modules/.bin
 EOF
     pip install --upgrade pip
-    deactivate "$@"
+    deactivate "$1"
   fi
-  workon "$@"
+  workon "$1"
 }
 
 bb() {
