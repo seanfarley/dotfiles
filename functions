@@ -456,7 +456,7 @@ bb() {
   ln -si $bdir /opt/python/domains/bitbucket.org/current
   ve bb
   rm -rf local/env
-  ln -si $VIRTUAL_ENV local/env
+  ln -sif $VIRTUAL_ENV local/env
 }
 
 imsg() {
