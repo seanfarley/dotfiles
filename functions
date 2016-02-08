@@ -427,11 +427,12 @@ mpsearch() {
 }
 
 ve() {
-    mkdir -p $VIRTUAL_ENV/repos/bucket01 $VIRTUAL_ENV/repos/bucket02 $VIRTUAL_ENV/repos/bucket03
   [[ ! -d "$WORKON_HOME" ]] && mkdir -p "$WORKON_HOME"
   [[ -z "$@" ]] && return
   if [ ! -d "$WORKON_HOME/$1" ]; then
     mkvirtualenv "$1" ${@:2}
+    mkdir -p $HOME/.bbrepos/bucket01 $HOME/.bbrepos/bucket02 $HOME/.bbrepos/bucket03
+    ln -sif $HOME/.bbrepos $VIRTUAL_ENV/repos
     cat >$VIRTUAL_ENV/bin/postactivate <<EOF
 #!/opt/local/bin/bash
 # This hook is sourced after this virtualenv is activated.
