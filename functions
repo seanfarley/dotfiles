@@ -427,9 +427,9 @@ mpsearch() {
 }
 
 ve() {
-  [ ! -d "$WORKON_HOME" ] && mkdir -p "$WORKON_HOME"
-  [ -z "$@" ] && return
     mkdir -p $VIRTUAL_ENV/repos/bucket01 $VIRTUAL_ENV/repos/bucket02 $VIRTUAL_ENV/repos/bucket03
+  [[ ! -d "$WORKON_HOME" ]] && mkdir -p "$WORKON_HOME"
+  [[ -z "$@" ]] && return
   if [ ! -d "$WORKON_HOME/$1" ]; then
     mkvirtualenv "$1" ${@:2}
     cat >$VIRTUAL_ENV/bin/postactivate <<EOF
