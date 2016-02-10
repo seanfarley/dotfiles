@@ -29,6 +29,7 @@ syntax:glob
 *.bin
 *.a
 *.dylib
+*.so
 *.tar
 *.mod
 *.elc
