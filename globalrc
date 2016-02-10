@@ -58,6 +58,7 @@ work/,\
 local/,\
 bower_components/,\
 node_modules/,\
+sourcetree/Dependencies/,\
 _build/,\
 _output/,\
 contrib/vim/,\
