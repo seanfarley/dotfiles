@@ -2123,6 +2123,14 @@ Add this function to any modes derived from =prog-mode=:
   (require 'company)
 #+end_src
 
+**** Enable flx matching
+
+#+begin_src emacs-lisp
+  (require-package 'company-flx)
+  (after-load 'company
+    (company-flx-mode))
+#+end_src
+
 *** flycheck
 
 [[https://github.com/flycheck/flycheck][flycheck]] is a modern, more easily customisable version of [[http://www.emacswiki.org/emacs/FlyMake][flymake]]. It's used to
