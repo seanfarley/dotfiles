@@ -2131,6 +2131,14 @@ Add this function to any modes derived from =prog-mode=:
     (company-flx-mode))
 #+end_src
 
+**** Emoji
+
+#+begin_src emacs-lisp
+  (require-package 'company-emoji)
+  (after-load 'company
+    (add-to-list 'company-backends 'company-emoji))
+#+end_src
+
 *** flycheck
 
 [[https://github.com/flycheck/flycheck][flycheck]] is a modern, more easily customisable version of [[http://www.emacswiki.org/emacs/FlyMake][flymake]]. It's used to
