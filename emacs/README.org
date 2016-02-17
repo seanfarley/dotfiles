@@ -3374,10 +3374,7 @@ but I do know it messes up erc-hl-nicks if I don't do it this way.
   (require-package 'erc-track-score)
   (require-package 'znc)
   (require-package 'cloud-to-butt-erc)
-  (require-package 'request)
-  (if (file-accessible-directory-p "~/projects/erc-hipchatify")
-      (smf/add-to-load-path "~/projects/erc-hipchatify"))
-  (require 'erc-hipchatify)
+  (require-package 'erc-hipchatify)
 #+end_src
 
 I use [[http://wiki.znc.in/ZNC][ZNC]] to always stay connected to IRC channels, so when I close a buffer I
