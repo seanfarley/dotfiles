@@ -2140,10 +2140,9 @@ perform on-the-fly syntax checking and linting.
 Also, we add some keymaps,
 
 #+begin_src emacs-lisp
-  (eval-after-load 'flycheck
-    '(progn
-       (define-key flycheck-mode-map (kbd "H->") 'flycheck-next-error)
-       (define-key flycheck-mode-map (kbd "H-<") 'flycheck-previous-error)))
+  (after-load 'flycheck
+    (define-key flycheck-mode-map (kbd "H->") 'flycheck-next-error)
+    (define-key flycheck-mode-map (kbd "H-<") 'flycheck-previous-error))
 #+end_src
 
 *** puppet-mode
