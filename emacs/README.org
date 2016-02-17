@@ -3548,9 +3548,15 @@ method so that takes care of most potential name conflicts.
     (interactive
      (list (completing-read "Nick: "
                             (append (smf/buffer-users "&bitlbee")
+                                    (smf/buffer-users "#mercurial")
                                     (smf/buffer-users "#bitbucket")))))
-    (if (member nick (smf/buffer-users "&bitlbee")) (set-buffer "&bitlbee")
-      (set-buffer "#bitbucket"))
+    (cond ((member nick (smf/buffer-users "&bitlbee"))
+           (set-buffer "&bitlbee"))
+          ((member nick (smf/buffer-users "#mercurial"))
+           (set-buffer "#mercurial"))
+          ((member nick (smf/buffer-users "#bitbucket"))
+           (set-buffer "#bitbucket")))
+
     (erc-cmd-QUERY nick))
 
   (smf/add-launcher "c" 'smf/erc-chat)
