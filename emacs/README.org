@@ -2185,6 +2185,14 @@ There's no official Markdown file extension, so support all the unofficial ones:
   (add-to-list 'auto-mode-alist '("\\.ft$" . markdown-mode)) ;; FoldingText
 #+end_src
 
+Rebind common keys,
+
+#+begin_src emacs-lisp
+  (after-load 'markdown-mode
+    (define-key markdown-mode-map (kbd "<M-left>") nil)
+    (define-key markdown-mode-map (kbd "<M-right>") nil))
+#+end_src
+
 *** web-mode
 
 [[https://github.com/fxbois/web-mode][web-mode]] is a major mode for editing templates and HTML. It supports a very
