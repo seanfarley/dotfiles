@@ -3495,6 +3495,12 @@ I want the same behavior when I receive all notices (from [[http://www.emacswiki
               (add-hook 'erc-server-NOTICE-hook 'erc-auto-query)))
 #+end_src
 
+Turn on =company-mode= by default for erc,
+
+#+begin_src emacs-lisp
+  (add-hook 'erc-mode-hook 'company-mode)
+#+end_src
+
 *** Switch to buffer or connect to znc
 
 If I haven't connected to my ZNC server, then we connect to it; otherwise, just
