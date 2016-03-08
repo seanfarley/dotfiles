@@ -4,6 +4,7 @@ ssh = ssh -C
 editor = ~/.edit.sh
 ignore = ~/.hgignore
 debugger = ipdb
+mergemarkers = detailed
 
 [phases]
 publish = False
