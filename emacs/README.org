@@ -4084,6 +4084,18 @@ Finally, add a keybinding to open our email client:
   (smf/add-launcher "e" 'smf/mu4e-start-or-switch)
 #+end_src
 
+*** mu4e-alert
+
+#+begin_src emacs-lisp
+  (require-package 'mu4e-alert)
+  (after-load 'mu4e
+    (mu4e-alert-set-default-style 'notifier)
+    (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+    (mu4e-alert-enable-notifications)
+    (mu4e-alert-enable-mode-line-display))
+#+end_src
+
+
 ** Local and custom configuration
 
 *** Local overrides
