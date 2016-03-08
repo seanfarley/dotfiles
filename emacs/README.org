@@ -1825,6 +1825,7 @@ easier to watch the video on that link than explain).
 
 #+begin_src emacs-lisp
   (require-package 'ace-jump-mode)
+  (require-package 'ace-isearch)
 #+end_src
 
 Bind it:
@@ -1834,6 +1835,8 @@ Bind it:
   (global-set-key (kbd "C-<return>") 'ace-jump-line-mode)
   (smf/add-launcher "j" 'ace-jump-char-mode)
   (smf/add-launcher "J" 'ace-jump-line-mode)
+  (after-load 'ace-isearch
+    (diminish 'ace-isearch-mode))
 #+end_src
 
 *** popwin
