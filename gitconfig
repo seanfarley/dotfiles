@@ -8,8 +8,8 @@
   quotepath = false
 
 [alias]
-  gl = log -10 --color=always --all --graph --topo-order --pretty='format: %Cgreen%h%Creset %s %C(yellow)%ad%Creset %Cred%d%Creset%n' --date=short
-  gll = log --color=always --all --graph --topo-order --pretty='format: %Cgreen%h%Creset %s %C(yellow)%ad%Creset %Cred%d%Creset%n' --date=short
+  gl = log -10 --color=always --graph --topo-order --pretty='format: %Cgreen%h%Creset %s %C(yellow)%ad%Creset %Cred%d%Creset%n' --date=short
+  gll = log --color=always --graph --topo-order --pretty='format: %Cgreen%h%Creset %s %C(yellow)%ad%Creset %Cred%d%Creset%n' --date=short
 
   pull = pull --ff-only
 
