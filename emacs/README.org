@@ -1830,7 +1830,7 @@ easier to watch the video on that link than explain).
 Bind it:
 
 #+begin_src emacs-lisp
-  (global-set-key (kbd "C-c SPC") 'ace-jump-char-mode)
+  (global-set-key (kbd "C-:") 'ace-jump-char-mode)
   (global-set-key (kbd "C-<return>") 'ace-jump-line-mode)
   (smf/add-launcher "j" 'ace-jump-char-mode)
   (smf/add-launcher "J" 'ace-jump-line-mode)
