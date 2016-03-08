@@ -2152,6 +2152,15 @@ Insert unicode math symbols based on the LaTeX command,
     (add-to-list 'company-backends 'company-emoji))
 #+end_src
 
+**** Quickhelp
+
+#+begin_src emacs-lisp
+  (require-package 'company-quickhelp)
+  (after-load 'company
+    (company-quickhelp-mode)
+    (define-key company-quickhelp-mode-map (kbd "M-h") nil))
+#+end_src
+
 *** flycheck
 
 [[https://github.com/flycheck/flycheck][flycheck]] is a modern, more easily customisable version of [[http://www.emacswiki.org/emacs/FlyMake][flymake]]. It's used to
