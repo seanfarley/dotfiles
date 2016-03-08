@@ -175,7 +175,9 @@ function _hg_info() {
   # fallback to branch name if bookmark isn't active
   if [[ -z "$br" ]]; then
     p1="$(head -c 20 $repo_dir/.hg/dirstate | xxd -p)"
+    [[ -z "$p1" ]] && p1="0000000"
     p2="$(head -c 40 $repo_dir/.hg/dirstate | xxd -p -s 20)"
+    [[ -z "$p2" ]] && p2="0000000"
     br="$(less $repo_dir/.hg/branch 2>/dev/null)"
     [[ -z "$br" ]] && br="default"
     # only display the branch name if it's a head
@@ -184,8 +186,8 @@ function _hg_info() {
     if [[ "$head" == "0" ]]; then
       p1="$(echo $p1 | head -c 7)"
       p2="$(echo $p2 | head -c 7)"
-      br="$p1"
-      [[ "$p2" != "0000000" ]] && br="$p1 $p2"
+      # br="$p1"
+      # [[ "$p2" != "0000000" ]] && br="$p1 $p2"
     fi
   fi
 
