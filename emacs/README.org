@@ -2134,6 +2134,16 @@ Add this function to any modes derived from =prog-mode=:
     (company-flx-mode))
 #+end_src
 
+*** Math symbols
+
+Insert unicode math symbols based on the LaTeX command,
+
+#+begin_src emacs-lisp
+  (after-load 'company
+    (add-to-list 'company-backends 'company-math-symbols-unicode))
+#+end_src
+
+
 **** Emoji
 
 #+begin_src emacs-lisp
