@@ -36,5 +36,8 @@ Host euclid
   ControlPath ~/.ssh/socket-%r@%h:%p
   AddressFamily inet
 
+Host *.amazonaws.com
+  User ec2-user
+
 Host *
   ForwardAgent yes
