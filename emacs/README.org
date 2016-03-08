@@ -2821,6 +2821,15 @@ and diminish the mode:
       (diminish 'rainbow-blocks-mode)))
 #+end_src
 
+*** python debugger
+
+#+begin_src emacs-lisp
+  (require-package 'realgud)
+  (require 'realgud)
+  (define-key realgud:shortkey-mode-map [mouse-3] 'realgud:tooltip-eval)
+  (define-key realgud-track-mode-map (kbd "C-c C-/") 'realgud:ipdb-foo)
+#+end_src
+
 *** elpy
 
 =elpy= is an Emacs package to bring powerful Python editing to Emacs. It
