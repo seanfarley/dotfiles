@@ -50,6 +50,7 @@ syntax:glob
 *.mdb
 *.zip
 venv
+rootmodules_cache
 
 .rope*
 output_*
