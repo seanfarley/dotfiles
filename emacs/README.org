@@ -4070,7 +4070,18 @@ We'll add bookmarks for common "views" of our mailbox:
 Finally, add a keybinding to open our email client:
 
 #+begin_src emacs-lisp
-  (smf/add-launcher "e" 'mu4e)
+  (defun smf/mu4e-start-or-switch ()
+    "Start the bitbucket process or switch to the buffer"
+    (interactive)
+    (if (get-buffer-process (get-buffer "*imapnotify*"))
+        (mu4e)
+      (progn
+        (mu4e)
+        (mu4e-update-mail-and-index t)
+        (start-process "imapnotify-process" "*imapnotify*" "imapnotify" "-c"
+                       (expand-file-name "~/.config/imapnotify.js")))))
+
+  (smf/add-launcher "e" 'smf/mu4e-start-or-switch)
 #+end_src
 
 ** Local and custom configuration
