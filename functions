@@ -444,6 +444,15 @@ export LDFLAGS="-L/opt/local/lib"
 export DJANGO_SETTINGS_MODULE="bitbucket.settings.dev"
 export PATH=\$PATH:\$PWD/node_modules/.bin
 EOF
+    cat >$VIRTUAL_ENV/bin/postdeactivate <<EOF
+#!/opt/local/bin/bash
+# This hook is sourced after this virtualenv is activated.
+
+unset ARCHFLAGS
+unset CPPFLAGS
+unset LDFLAGS
+unset DJANGO_SETTINGS_MODULE
+EOF
     pip install --upgrade pip
     deactivate "$1"
   fi
