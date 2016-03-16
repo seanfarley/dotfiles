@@ -3024,6 +3024,14 @@ Sure, why not.
   (setq json-reformat:indent-width 2)
 #+end_src
 
+*** go-mode
+
+Blergh.
+
+#+begin_src emacs-lisp
+  (require-package 'go-mode)
+#+end_src
+
 *** anzu
 
 [[https://github.com/syohex/emacs-anzu][anzu]] provides enhancements to =isearch= and related tasks, particularly
