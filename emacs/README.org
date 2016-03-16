@@ -3503,6 +3503,7 @@ Set the channel names (buffer names) for which to replace 'nick' with '@nick',
                                           "#bitbucket-support"
                                           "#bitbucket-bugfix"
                                           "#bitbucket-sf"
+                                          "#bitbucket-ops"
                                           "#sourcetree"))
 #+end_src
 
