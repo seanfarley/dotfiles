@@ -6,6 +6,8 @@ ignore = ~/.hgignore
 debugger = ipdb
 mergemarkers = detailed
 interface = curses
+graphstyle.grandparent = :
+graphstyle.missing =
 
 [phases]
 publish = False
