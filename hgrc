@@ -38,6 +38,9 @@ shelve =
 debugshell = ~/.debugshell.py
 evolve =
 
+[histedit]
+dropmissing = True
+
 [remotenames]
 alias.default = True
 suppressbranches = True
