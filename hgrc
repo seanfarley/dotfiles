@@ -5,13 +5,13 @@ editor = ~/.edit.sh
 ignore = ~/.hgignore
 debugger = ipdb
 mergemarkers = detailed
+interface = curses
 
 [phases]
 publish = False
 
 [experimental]
 bundle2-exp = True
-crecord = True
 
 [format]
 usegeneraldelta = True
