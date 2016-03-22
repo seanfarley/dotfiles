@@ -162,12 +162,14 @@ function _git_info() {
 # return 0 or 1 for dirty working directory
 function _hg_info() {
   local repo_dir="$1"
-  local br="$(less $repo_dir/.hg/bookmarks.current 2>/dev/null)"
+  local br="$(less $repo_dir/.hg/topic 2>/dev/null)"
   local st
   local remote
   local p1
   local p2
   local head
+
+  [[ -z "$br" ]] && br="$(less $repo_dir/.hg/bookmarks.current 2>/dev/null)"
 
   # if the dirstate doesn't exist, the repo is null, so just report 'default'
   [[ ! -f "$repo_dir/.hg/dirstate" ]] && br="default"
