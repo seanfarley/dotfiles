@@ -2,8 +2,8 @@ IMAPAccount mail
 Host mail.farley.io
 User sean@farley.io
 PassCmd "/usr/bin/security find-internet-password -w -a sean@farley.io -s mail.farley.io"
-RequireSSL yes
-UseTLSv1.2 yes
+SSLType IMAPS
+SSLVersions TLSv1.2
 CertificateFile ~/.mail.crt
 
 IMAPStore mail-remote
