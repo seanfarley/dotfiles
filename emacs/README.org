@@ -3051,6 +3051,14 @@ Blergh.
   (require-package 'go-mode)
 #+end_src
 
+*** groovy-mode
+
+Why.
+
+#+begin_src emacs-lisp
+  (require-package 'groovy-mode)
+#+end_src
+
 *** anzu
 
 [[https://github.com/syohex/emacs-anzu][anzu]] provides enhancements to =isearch= and related tasks, particularly
