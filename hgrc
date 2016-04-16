@@ -241,7 +241,9 @@ gl = gll -r '.%(bookmark()-. or max(public()))^'
 
 gl. = gll -fl 20
 
-sl = log -G --pager=always -r smart -T sl -l 20
+sll = log -G --pager=always -r smart -T sl
+
+sl = sll -fl 20
 
 nll = log -G --pager=always -T nl
 
