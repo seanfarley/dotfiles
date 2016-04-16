@@ -51,6 +51,7 @@ syntax:glob
 *.zip
 venv
 rootmodules_cache
+.dir-locals.el
 
 .rope*
 output_*
@@ -64,6 +65,7 @@ backup*
 tags-*
 projectile-bookmarks.eld
 .python-eggs
+.clang_complete
 
 tags
 TAGS
