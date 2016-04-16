@@ -18,6 +18,7 @@ emacs/abbrev*
 emacs/.python-environments
 
 omnisharp-server
+irony-server
 
 # ignores from nested git repos
 
