@@ -104,11 +104,6 @@ sourcetreemerge.executable=/Applications/SourceTree.app/Contents/Resources/opend
 sourcetreebulkmerge.premerge=False
 sourcetreebulkmerge.binary=True
 
-[hostfingerprints]
-bitbucket.org = 46:de:34:e7:9b:18:cd:7f:ae:fd:8b:e3:bc:f4:1a:5e:38:d7:ac:24
-svn.macports.org = 15:5e:21:55:fe:e3:26:ae:b2:f8:c6:6a:d2:1a:bf:82:74:dd:c9:14
-kallithea-scm.org = 53:de:4d:c5:f8:32:6f:26:36:9a:95:86:21:21:4b:6f:99:b2:e4:9a
-
 [email]
 method = smtp
 from = Sean Farley <sean@farley.io>
