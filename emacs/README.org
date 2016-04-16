@@ -1941,6 +1941,17 @@ Also define a convenience keyboard shortcut to switch between buffers from the s
     (smf/add-launcher "s" 'projectile-switch-project))
 #+end_src
 
+Some compiler output has ansi color, so let's escape that,
+
+#+begin_src emacs-lisp
+  (require 'ansi-color)
+  (defun colorize-compilation-buffer ()
+    (toggle-read-only)
+    (ansi-color-apply-on-region (point-min) (point-max))
+    (toggle-read-only))
+  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+#+end_src
+
 #+begin_src emacs-lisp
   (after-load 'projectile
     (diminish 'projectile-mode))
