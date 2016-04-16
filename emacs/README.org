@@ -2154,6 +2154,14 @@ Insert unicode math symbols based on the LaTeX command,
     (add-to-list 'company-backends 'company-math-symbols-unicode))
 #+end_src
 
+*** Xcode
+
+Remove this since it seems to be defunct
+
+#+begin_src emacs-lisp
+  (after-load 'company
+    (setq company-backends (remove 'company-xcode company-backends)))
+#+end_src
 
 **** Emoji
 
