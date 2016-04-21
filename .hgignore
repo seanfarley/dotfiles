@@ -16,6 +16,7 @@ emacs/srecode*
 emacs/ede*
 emacs/abbrev*
 emacs/.python-environments
+emacs/irony
 
 omnisharp-server
 irony-server
