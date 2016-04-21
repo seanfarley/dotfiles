@@ -52,6 +52,7 @@ syntax:glob
 venv
 rootmodules_cache
 .dir-locals.el
+compile_commands.json
 
 .rope*
 output_*
