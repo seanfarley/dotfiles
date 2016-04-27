@@ -245,7 +245,7 @@ gl. = gll -fl 20
 
 sll = log -G --pager=always -r smart -T sl
 
-sl = sll -fl 20
+sl = sll -l 20
 
 nll = log -G --pager=always -T nl
 
