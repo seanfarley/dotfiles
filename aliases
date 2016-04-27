@@ -36,7 +36,7 @@ alias gda="gdb --args"
 alias s="perl -pi -e"
 alias l="less"
 alias h="hg"
-alias lhg="$HOME/projects/hg/hg"
+alias lhg="HGDEMANDIMPORT=disable $HOME/projects/hg/hg"
 alias hg-git="hg --config extensions.hggit="
 
 # File size
