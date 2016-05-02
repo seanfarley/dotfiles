@@ -48,6 +48,7 @@ dropmissing = True
 [remotenames]
 alias.default = True
 suppressbranches = True
+pushanonheads = True
 
 [schemes]
 bb = ssh://hg@bitbucket.org/
