@@ -16,6 +16,7 @@ graphstyle.grandparent = :
 graphstyle.missing =
 graph-group-branches = True
 graph-group-branches.firstbranch = .
+histedit.autoverb = True
 
 [format]
 usegeneraldelta = True
