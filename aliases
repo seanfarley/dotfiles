@@ -12,9 +12,10 @@ alias la="ls -Gla"
 alias lsd='ls -l | grep "^d"'
 
 # IP addresses
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en1"
-alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+alias wanip="curl -s https://4.ifcfg.me"
+alias wanip6="curl -s https://6.ifcfg.me"
+alias localips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+alias localip="localips | grep -v 127.0.0.1"
 
 # Flush Directory Service cache
 alias flush="dscacheutil -flushcache"
