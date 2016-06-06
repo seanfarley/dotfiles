@@ -2094,13 +2094,6 @@ this I need a few characters before it'll show candidates:
     (setq company-minimum-prefix-length 0))
 #+end_src
 
-Show candidates immediately rather than waiting:
-
-#+begin_src emacs-lisp
-  (after-load 'company
-    (setq company-echo-delay 0))
-#+end_src
-
 Make the lighter shorter:
 
 #+begin_src emacs-lisp
