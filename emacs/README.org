@@ -3184,6 +3184,17 @@ Apparently, `flycheck-mode' for swift needs some lines commented out,
       :modes swift-mode))
 #+end_src
 
+*** xcode-mode
+
+#+begin_src emacs-lisp
+  (if (file-accessible-directory-p "~/sandbox/xcode-mode")
+      (progn
+        (smf/add-to-load-path "~/sandbox/xcode-mode")
+        (require-package 'ecukes)
+        (require-package 'espuds)
+        (require 'xcode-mode)))
+#+end_src
+
 *** aHg
 
 #+begin_src emacs-lisp
