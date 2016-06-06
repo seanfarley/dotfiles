@@ -3128,6 +3128,62 @@ Trying out irony mode
   (setq c-default-style "linux")
 #+end_src
 
+*** Swift
+
+#+begin_src emacs-lisp
+  (require-package 'swift-mode)
+  (require-package 'company-sourcekit)
+
+  (setq flycheck-swift-sdk-path
+        (smf/chomp
+         (shell-command-to-string "xcrun --show-sdk-path")))
+
+  (after-load 'company
+    (add-to-list 'company-backends 'company-sourcekit))
+
+#+end_src
+
+Apparently, `flycheck-mode' for swift needs some lines commented out,
+
+#+begin_src emacs-lisp
+  (after-load 'swift-mode
+    (add-to-list 'flycheck-checkers 'swift)
+    (flycheck-define-checker swift
+      "Flycheck plugin for for Apple's Swift programming language."
+      :command ("swift"
+                "-frontend" "-parse"
+                (option "-sdk" flycheck-swift-sdk-path)
+                (option-list "-F" flycheck-swift-framework-search-paths)
+                ;; Swift compiler will complain about redeclaration
+                ;; if we will include original file along with
+                ;; temporary source file created by flycheck.
+                ;; We also don't want a hidden emacs interlock files.
+                (eval
+                 (let (source file)
+                   (when flycheck-swift-linked-sources
+                     (setq source (car (flycheck-substitute-argument 'source 'swift)))
+                     (setq file (file-name-nondirectory source))
+                     (cl-remove-if-not
+                      #'(lambda (path)
+                          (and
+                           (eq (string-match ".#" path) nil)
+                           (eq (string-match file path) nil)))
+                      (file-expand-wildcards flycheck-swift-linked-sources)))))
+                ;; (option "-target" flycheck-swift-target)
+                ;; (option "-import-objc-header" flycheck-swift-import-objc-header)
+                (eval
+                 (cl-mapcan
+                  #'(lambda (path) (list "-Xcc" (concat "-I" path)))
+                  flycheck-swift-cc-include-search-paths))
+                "-primary-file" source)
+      :error-patterns
+      ((error line-start (file-name) ":" line ":" column ": "
+              "error: " (message) line-end)
+       (warning line-start (file-name) ":" line ":" column ": "
+                "warning: " (message) line-end))
+      :modes swift-mode))
+#+end_src
+
 *** aHg
 
 #+begin_src emacs-lisp
