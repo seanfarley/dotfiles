@@ -3100,9 +3100,13 @@ Trying out irony mode
   (require-package 'irony-eldoc)
   (require-package 'company-irony-c-headers)
   (require-package 'flycheck-irony)
+  (require-package 'rtags)
   (add-hook 'c++-mode-hook 'irony-mode)
   (add-hook 'c-mode-hook 'irony-mode)
   (add-hook 'objc-mode-hook 'irony-mode)
+  (add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
+  (add-hook 'c-mode-hook 'rtags-start-process-unless-running)
+  (add-hook 'objc-mode-hook 'rtags-start-process-unless-running)
 
   ;; replace the `completion-at-point' and `complete-symbol' bindings in
   ;; irony-mode's buffers by irony-mode's function
