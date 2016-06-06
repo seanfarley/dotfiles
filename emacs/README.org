@@ -297,6 +297,7 @@ govern encoding]], so we should set them all at once:
   (set-keyboard-coding-system 'utf-8) ; pretty
   (set-selection-coding-system 'utf-8) ; please
   (prefer-coding-system 'utf-8) ; with sugar on top
+  (setenv "LANG" "en_US.ut8") ; ensure subprocesses get the right env variable
 #+end_src
 
 *** Smart =beginning-of-line=
