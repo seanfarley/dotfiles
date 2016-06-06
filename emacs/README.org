@@ -3121,6 +3121,11 @@ Trying out irony mode
 
   (after-load 'company
     (add-to-list 'company-backends '(company-irony-c-headers company-irony)))
+
+  (eval-after-load 'flycheck
+    '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+
+  (setq c-default-style "linux")
 #+end_src
 
 *** aHg
