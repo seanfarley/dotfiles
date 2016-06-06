@@ -48,6 +48,10 @@ if [ -d /usr/local/cuda ]; then
   export PATH=/usr/local/cuda/bin:$PATH
 fi
 
+if [ -d $HOME/.cargo/bin ]; then
+  export PATH=$HOME/.cargo/bin:$PATH
+fi
+
 if [ -d $HOME/.local/lib/python ]; then
   export PYTHONPATH=$HOME/.local/lib/python/site-packages:$HOME/.local/lib/python:$PYTHONPATH
 fi
