@@ -4118,8 +4118,8 @@ We'll add bookmarks for common "views" of our mailbox:
 #+begin_src emacs-lisp
   (after-load 'mu4e
     (setq
-     mu4e-bookmarks '(("flag:unread"                      "Unread"    ?u)
-                      ("to:sean.michael.farley+self and not maildir:/phd and not maildir:/posterity"      "Notes"     ?n))))
+     mu4e-bookmarks '(("flag:unread AND NOT flag:trashed AND NOT maildir:/spam" "Unread" ?u)
+                      ("to:sean.michael.farley+self and not maildir:/phd and not maildir:/posterity" "Notes" ?n))))
 #+end_src
 
 *** Keybinding
