@@ -509,7 +509,7 @@
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1440 900 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>176 70 650 452 0 0 1440 900 </string>
+	<string>176 70 650 452 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_C1F2222A-6D3E-44B0-8F07-9EF1257810D0</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_C1F2222A-6D3E-44B0-8F07-9EF1257810D0_selection</key>
@@ -1216,6 +1216,8 @@
 			<true/>
 			<key>Use Canonical Parser</key>
 			<false/>
+			<key>Use HFS Plus Mapping</key>
+			<false/>
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Vertical Spacing</key>
@@ -1228,6 +1230,8 @@
 			<string>/Users/sean</string>
 		</dict>
 	</array>
+	<key>NoSyncInstallationId</key>
+	<string>67267103-50A0-47CA-B327-DC96870C0E66</string>
 	<key>NoSyncLastTipTime</key>
 	<real>475111034.43888497</real>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
@@ -1236,6 +1240,8 @@
 	<integer>0</integer>
 	<key>NoSyncPermissionToShowTip</key>
 	<true/>
+	<key>NoSyncTimeOfFirstLaunchForIncompatibilityWarnings</key>
+	<real>485453248.175699</real>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>465951912.29490101</real>
 	<key>NoSyncTimeOfLastPromo</key>
@@ -1374,11 +1380,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/nightly.xml</string>
+	<string>https://iterm2.com/appcasts/nightly.xml?shard=93</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-01-29T02:05:36Z</date>
+	<date>2016-05-25T16:56:15Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -1424,6 +1430,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20160126-nightly</string>
+	<string>2.9.20160519-nightly</string>
 </dict>
 </plist>
