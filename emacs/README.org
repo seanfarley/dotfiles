@@ -3544,12 +3544,6 @@ Button mode allows you to click on a nick and open a new query,
   (erc-button-mode 1)
 #+end_src
 
-Also, please rescale images to the 0.4 size of the window,
-
-#+begin_src emacs-lisp
-  (setq shr-max-image-proportion 0.4)
-#+end_src
-
 Set the token for HipChat api calls,
 
 #+begin_src emacs-lisp
