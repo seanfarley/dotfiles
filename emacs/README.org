@@ -2527,8 +2527,9 @@ its name,
 Change =powerline-buffer-id= to include modified and read-only status,
 
 #+begin_src emacs-lisp
+  (require-package 's)
   (defpowerline powerline-buffer-id
-    (let ((bname (powerline-trim (format-mode-line mode-line-buffer-identification))))
+    (let ((bname (s-trim (format-mode-line mode-line-buffer-identification))))
       (concat
        (concat
         (if (buffer-modified-p)
@@ -2548,8 +2549,8 @@ Add a new method that returns the projectile project name (or an empty string),
 
 #+begin_src emacs-lisp
   (defpowerline powerline-projectile-name
-    (let ((pname (powerline-trim (projectile-project-name)))
-          (bname (powerline-trim (format-mode-line mode-line-buffer-identification))))
+    (let ((pname (s-trim (projectile-project-name)))
+          (bname (s-trim (format-mode-line mode-line-buffer-identification))))
       (cond
        ((string= pname "-") "")
        ((smf/ignore-buffer bname) "")
@@ -2612,7 +2613,7 @@ bookmarks (falling back to named branches),
                           (smf/get-hg-branch-bookmark hgroot))))
             (format " %s %s"
                     (char-to-string #xe0a0)
-                    (powerline-trim branch)))))))
+                    (s-trim branch)))))))
 #+end_src
 
 To add more powerline sections, we need to define some more faces.
