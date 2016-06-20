@@ -559,28 +559,32 @@ Notmuch_State_To_Maildir__Remove_From_Maildir ()
 
     for THIS_MESSAGE_ID in $THESE_MESSAGE_IDS_TO_REMOVE; do
 
-        local THIS_MESSAGE_PATH="$(notmuch search --output=files "$THIS_MESSAGE_ID" | \
+        local THESE_MESSAGE_PATHS="$(notmuch search --output=files "$THIS_MESSAGE_ID" | \
             grep -e "^$THIS_MAILDIR_FULL_PATH")"
 
-        if [[ -e "$THIS_MESSAGE_PATH" ]]; then
+        while read THIS_MESSAGE_PATH; do
 
-            if $RUNCMD "rm \"$THIS_MESSAGE_PATH\""; then
-                echo -n "Removed untagged message from"
-                echo " $(Maildir_Account_Folder_From_Full_Path "$THIS_MAILDIR_FULL_PATH")"
+            if [[ -e "$THIS_MESSAGE_PATH" ]]; then
+
+                if $RUNCMD "rm \"$THIS_MESSAGE_PATH\""; then
+                    echo -n "Removed untagged message from"
+                    echo " $(Maildir_Account_Folder_From_Full_Path "$THIS_MAILDIR_FULL_PATH")"
+                else
+                    echo -e "\nWARNING: Failed to remove mail file (unknown error):"
+                    echo "ID:$THIS_MESSAGE_ID"
+                    echo "FOLDER:$THIS_NOTMUCH_FOLDER"
+                    echo -e "MESSAGE PATH:$THIS_MESSAGE_PATH\n"
+                fi
+
             else
-                echo -e "\nWARNING: Failed to remove mail file (unknown error):"
+
+                echo -e "\nWARNING: Unable to remove missing mail file:"
                 echo "ID:$THIS_MESSAGE_ID"
                 echo "FOLDER:$THIS_NOTMUCH_FOLDER"
                 echo -e "MESSAGE PATH:$THIS_MESSAGE_PATH\n"
             fi
 
-        else
-
-            echo -e "\nWARNING: Unable to remove missing mail file:"
-            echo "ID:$THIS_MESSAGE_ID"
-            echo "FOLDER:$THIS_NOTMUCH_FOLDER"
-            echo -e "MESSAGE PATH:$THIS_MESSAGE_PATH\n"
-        fi
+        done <<< "$THESE_MESSAGE_PATHS"
 
     done
 
