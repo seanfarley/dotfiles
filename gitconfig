@@ -22,6 +22,8 @@
   stat = status
   st = status
 
+  d = diff
+
   unstage = reset HEAD
   uns = reset HEAD
 
