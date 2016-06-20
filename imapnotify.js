@@ -11,8 +11,8 @@ exports.tls = true;
 exports.tlsOptions = { "rejectUnauthorized": false };
 exports.username = "sean@farley.io";
 exports.password = getStdout("/usr/bin/security find-internet-password -w -a sean@farley.io -s mail.farley.io");
-exports.onNewMail = "mbsync -a";
-exports.onNewMailPost = "emacsclient -f ~/.emacs.d/server/server -qne \"(progn (mu4e 't) (mu4e-update-index))\"";
+exports.onNewMail = "emacsclient -f ~/.emacs.d/server/server -qne \"(progn (offlineimap))\"";
+exports.onNewMailPost = "";
 exports.boxes = [ "INBOX" ];
 
-exports.onSIGHUP = "ps aux | grep -v grep | grep imap | awk '{print $2}' | xargs kill -9";
+exports.onSIGHUP = "ps aux | grep -v grep | grep imapnotify | awk '{print $2}' | xargs kill -9";
