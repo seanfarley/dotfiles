@@ -1,0 +1,27 @@
+[general]
+accounts = main
+pythonfile = ~/.offlineimap.py
+
+[Account main]
+localrepository = main-local
+remoterepository = main-remote
+status_backend = sqlite
+maxconnections = 3
+
+presynchook  = ~/.config/maildir-notmuch-sync.sh pre ~/.mail
+postsynchook = ~/.config/maildir-notmuch-sync.sh post ~/.mail
+
+[Repository main-local]
+type = Maildir
+localfolders = ~/.mail
+nametrans = lambda folder: folder if folder != 'inbox' else 'INBOX'
+
+[Repository main-remote]
+type = IMAP
+ssl = true
+remotehost = mail.farley.io
+remoteuser = sean@farley.io
+remotepasseval = get_keychain_pass(account="sean@farley.io", server="mail.farley.io")
+cert_fingerprint = 48f8b45422dbb711fbd158c74e6e4aecc68e3b0b
+nametrans = lambda folder: folder.lower()
+# folderfilter = lambda foldername: foldername not in ['archive']
