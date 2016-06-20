@@ -705,6 +705,8 @@ echo "ACCOUNT ROOT: $MAILDIR_ACCOUNT_ROOT"
 if [ "$SUBCMD" == "pre" ]; then
     for MAILBOX_FULL_PATH in $MAILBOXES_FULL_PATHS; do
         Notmuch_State_To_Maildir__Move_To_Maildir $MAILBOX_FULL_PATH
+    done
+    for MAILBOX_FULL_PATH in $MAILBOXES_FULL_PATHS; do
         Notmuch_State_To_Maildir__Remove_From_Maildir $MAILBOX_FULL_PATH
     done
 fi
