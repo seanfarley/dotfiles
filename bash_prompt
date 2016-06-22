@@ -149,7 +149,11 @@ function _git_info() {
     [[ -n "$(\git stash list 2>/dev/null)" ]] && br="$br+"
 
     st="$(git status 2> /dev/null)"
-    remote="$(echo "$st" | perl -lne 'print " $2$1" if /Your branch is (ahead|behind).*?(\d+) comm/' | perl -pe 's,behind,⇣,' | perl -pe 's,ahead,⇡,')"
+    if [[ "$st" == *"Your branch is"* ]]; then
+      remote="$(echo "$st" | perl -lne 'print " $2$1" if /Your branch is (ahead|behind).*?(\d+) comm/' | perl -pe 's,behind,⇣,' | perl -pe 's,ahead,⇡,')"
+    else
+      remote="$(echo "$st" | perl -lne 'print " $1⇡ $2⇣" if /and have (\d+) and (\d+) diff/')"
+    fi
     st="$(echo "$st" | tail -1 | grep -v 'nothing to commit')"
   fi
 
