@@ -3899,43 +3899,40 @@ Currently, this is a hack to test highlighting a nick with "'s" at the end.
                                            (erc-hl-nicks-make-face trimmed))))))))))))
 #+end_src
 
-** mu4e
+** notmuch
 
-[[http://www.djcbsoftware.nl/code/mu/][mu]] is a mail indexer and searching. It comes with an emacs client called [[mu4e]].
+[[https://notmuchmail.org][notmuch]] is a mail indexer and searching. It comes with an emacs client.
 We only load it if it exists on the system (by wrapping it with =after-load=).
 
 *** Setup
 
 #+begin_src emacs-lisp
-  (autoload 'mu4e "mu4e" t)
+  (require-package 'notmuch)
   (require 'smtpmail-async)
 #+end_src
 
 If available, let's use imagemagick.
 
 #+begin_src emacs-lisp
-  (after-load 'mu4e
+  (after-load 'notmuch
     (when (fboundp 'imagemagick-register-types)
       (imagemagick-register-types)))
 #+end_src
 
-I have many email addresses, so let's set them here:
+Set my main email address (others are set in notmuch-config),
 
 #+begin_src emacs-lisp
-  (after-load 'mu4e
+  (after-load 'notmuch
     (setq
-     mu4e-user-mail-address-list '("sean.michael.farley@gmail.com"
-                                   "sean@seanfarley.org"
-                                   "sean@mcs.anl.gov"
-                                   "sean@macports.org"
-                                   "sean@lsmsa.net"
-                                   "sean@farley.io"
-                                   "sfarley@atlassian.com"
-                                   "me@smf.io"
-                                   "sfarley@iit.edu")
-
      user-mail-address "sean@farley.io"
      user-full-name  "Sean Farley"))
+#+end_src
+
+*** Address completion
+
+#+begin_src emacs-lisp
+  (after-load 'notmuch
+    (setq notmuch-address-command "notmuch-addrlookup"))
 #+end_src
 
 *** Reply with custom from address
@@ -3945,128 +3942,102 @@ replying to an email sent to the MacPorts list then I want =sean@macports.org=
 to be used. To achieve this, I wrote a function to handle it:
 
 #+begin_src emacs-lisp
-  (after-load 'mu4e
-    (defun smf/mu4e-set-from-address ()
-      "Set the From address based on the To address of the original."
-      (let ((msg mu4e-compose-parent-message))
-            (setq user-mail-address
-                  (cond
-                   ((null msg) "sean@farley.io")
-                   ((mu4e-message-contact-field-matches msg :to "sean@seanfarley.org")
-                    "sean@seanfarley.org")
-                   ((mu4e-message-contact-field-matches msg :to "sean@mcs.anl.gov")
-                    "sean@farley.io")
-                   ((mu4e-message-contact-field-matches msg :to "sean@macports.org")
-                    "sean@macports.org")
-                   ((mu4e-message-contact-field-matches msg :to "sean@lsmsa.net")
-                    "sean@lsmsa.net")
-                   ((mu4e-message-contact-field-matches msg :to "sean@farley.io")
-                    "sean@farley.io")
-                   ((mu4e-message-contact-field-matches msg :to "me@smf.io")
-                    "me@smf.io")
-                   ((or
-                     (mu4e-message-contact-field-matches msg :from "macports")
-                     (mu4e-message-contact-field-matches msg :to "macports"))
-                    "sean@macports.org")
-                   ((or
-                     (mu4e-message-contact-field-matches msg :from "atlassian")
-                     (mu4e-message-contact-field-matches msg :to "atlassian"))
-                    "sfarley@atlassian.com")
-                   (t "sean@farley.io")))))
+  (after-load 'notmuch
+    (require-package 'gnus-alias)
 
-    (add-hook 'mu4e-compose-pre-hook 'smf/mu4e-set-from-address))
+    (setq
+
+     notmuch-always-prompt-for-sender 't
+     gnus-alias-identity-alist
+     '(("home"
+        nil ;; Does not refer to any other identity
+        "Sean Farley <sean@farley.io>" ;; Sender address
+        nil ;; No organization header
+        nil ;; No extra headers
+        nil ;; No extra body text
+        nil) ;; No signature)
+       ("macports"
+        nil
+        "Sean Farley <sean@macports.org>"
+        nil
+        nil
+        nil
+        nil)
+       ("atlassian"
+        nil
+        "Sean Farley <sfarley@atlassian.com>"
+        nil
+        nil
+        nil
+        nil)
+       ("lsmsa"
+        nil
+        "Sean Farley <sean@lsmsa.net>"
+        nil
+        nil
+        nil
+        nil))
+
+     gnus-alias-default-identity "home"
+
+     gnus-alias-identity-rules
+     '(
+       ("macports"  ("any" "macports" both) "macports")
+       ("lsmsa"  ("any" "lsmsa" both) "lsmsa")
+       ("atlassian"  ("any" "atlassian" both) "atlassian")
+       )
+     )
+
+    (add-hook 'message-setup-hook 'gnus-alias-determine-identity))
 #+end_src
 
 Also, when composing an email, turn on spellchecking:
 
 #+begin_src emacs-lisp
-  (after-load 'mu4e
-    (add-hook 'mu4e-compose-mode-hook (lambda () (flyspell-mode))))
+  (after-load 'notmuch
+    (add-hook 'notmuch-message-mode-hook (lambda ()
+                                           (auto-fill-mode)
+                                           (flyspell-mode))))
 #+end_src
 
 *** Miscellaneous setting
 
-It's an absolute must to sort the inbox with the date ascending. I would like to
-reverse this for searches but don't know if that's possible.
+Set =notmuch= as default emacs email program,
 
 #+begin_src emacs-lisp
-  (after-load 'mu4e
-    (setq mu4e-headers-sort-direction 'ascending))
+  (after-load 'notmuch
+    (setq mail-user-agent 'notmuch-user-agent))
 #+end_src
 
-Set the mail directories I have,
+Set =offlineimap= to be called for fetching new mail. This allows mail to be
+updated from within [[notmuch]] with keyboard shortcuts.
 
 #+begin_src emacs-lisp
-  (after-load 'mu4e
-    (setq
-       mu4e-maildir "~/.mail"
-       mu4e-attachment-dir  "~/Downloads"
-       mu4e-refile-folder "/archive"
-       mu4e-drafts-folder "/drafts"
-       mu4e-trash-folder "/trash"
-       mu4e-sent-folder "/sent"
+  (after-load 'notmuch
+    (require-package 'offlineimap)
+    (setq offlineimap-enable-mode-line-p t)
 
-       mu4e-maildir-shortcuts '(("/inbox"     . ?i)
-                                ("/archive"   . ?a)
-                                ("/drafts"    . ?d)
-                                ("/phd"       . ?p)
-                                ("/posterity" . ?t)
-                                ("/barryisms" . ?b)
-                                ("/spam"      . ?s))
-  ))
-#+end_src
+    ;; For some reason this causes the offlineimap-hook to display the
+    ;; notmuch-hello buffer
+    (setq notmuch-hello-auto-refresh 'nil)
 
-Set mu4e as default emacs email program,
+    ;; Add a hook to get news after offlineimap is finished
+    (add-hook 'offlineimap-event-hooks (lambda (msg-type &optional action)
+                                         (when (and (equal "finished\n" msg-type)
+                                                    (get-buffer "*notmuch-hello*"))
+                                           (notmuch-hello 't))))
 
-#+begin_src emacs-lisp
-  (after-load 'mu4e
-    (setq mail-user-agent 'mu4e-user-agent))
-#+end_src
-
-Set mbsync to be called for fetching new mail. This allows mail to be
-updated from within [[mu4e]] with keyboard shortcuts.
-
-#+begin_src emacs-lisp
-  (after-load 'mu4e
-    (setq mu4e-get-mail-command "mbsync -a"))
-#+end_src
-
-Update email every two minutes,
-
-#+begin_src emacs-lisp
-;;  (after-load 'mu4e
-;;       (setq mu4e-update-interval 120))
+    (define-key notmuch-hello-mode-map "G" 'offlineimap)
+    (define-key notmuch-search-mode-map "G" 'offlineimap))
 #+end_src
 
 Miscellaneous settings: these variable names speak for themselves,
 
 #+begin_src emacs-lisp
-  (after-load 'mu4e
+  (after-load 'notmuch
     (setq
-       mu4e-confirm-quit nil
-       mu4e-view-show-images t
-       mu4e-view-prefer-html nil
 
-       ;; show email address as well as name
-       mu4e-view-show-addresses t
-
-       ;; don't use a signature
-       mu4e-compose-signature-auto-include nil
-
-       mu4e-headers-date-format "%d %b %Y"
-       mu4e-headers-time-format "%H:%M"
-
-       ;; threading and duplicates
-       mu4e-headers-show-threads t
-       mu4e-headers-results-limit 500
-       mu4e-headers-skip-duplicates t
-       mu4e-headers-include-related t
-
-       ;; mbsync needs messages to be renamed
-       mu4e-change-filenames-when-moving t
-
-       ;; fields on message view
-       mu4e-view-fields '(:from :to :cc :subject :mailing-list :tags :flags :date :maildir :attachments :signature)
+       notmuch-archive-tags '("-inbox" "-unread" "+archive")
 
        ;; smtp mail setting
        send-mail-function    'async-smtpmail-send-it
@@ -4077,120 +4048,129 @@ Miscellaneous settings: these variable names speak for themselves,
        smtpmail-smtp-service 587
 
        ;; don't keep message buffers around
-       message-kill-buffer-on-exit t
-
-      ;; fields in list view
-      mu4e-headers-fields '((:human-date . 15)
-                            (:flags      .  5)
-                            (:from       . 30)
-                            (:subject    . nil))))
+       message-kill-buffer-on-exit t))
 #+end_src
 
 *** HTML emails
 
-[[http://ergoemacs.org/emacs/emacs24.4_features.html][Emacs 24]] comes with a built-in web browser called [[http://ergoemacs.org/emacs/emacs_eww_web_browser.html][eww]]. [[mu4e]] can use this to
-render html email:
-
-#+begin_src emacs-lisp
-  (after-load 'mu4e
-    (require 'mu4e-contrib)
-    (setq mu4e-html2text-command 'mu4e-shr2text))
-#+end_src
-
-*** Thread Navigation
-
-These functions are copied from [[https://github.com/djcb/mu/blob/master/mu4e/mu4e-headers.el#L1434][mu4e-headers-next-unread]] and just changed to
-check the thread level instead of the unread flag. We'll bind them to 'N' and
-'P'.
-
-#+begin_src emacs-lisp
-  (after-load 'mu4e
-    (defun smf/mu4e-headers-next-thread (&optional backwards)
-      "Move point to the next thread. If BACKWARDS is non-`nil',
-        move backwards."
-      (interactive "P")
-      (or (mu4e-headers-find-if-next
-           (lambda (msg)
-             (let ((thread (mu4e-message-field msg :thread)))
-               (eq (plist-get thread :level) 0)))
-           backwards)
-          (mu4e-message (format "No %s thread found"
-                                (if backwards "previous" "next")))))
-
-    (defun smf/mu4e-view-headers-next-thread (&optional backwards)
-      "Move point to the next or previous (when BACKWARDS is non-`nil')
-       unread message header in the headers buffer connected with this
-       message view. If this succeeds, return the new docid. Otherwise,
-       return nil."
-      (interactive "P")
-      (mu4e~view-in-headers-context
-       (smf/mu4e-headers-next-thread backwards))
-      (mu4e-select-other-view)
-      (mu4e-headers-view-message))
-
-    (define-key mu4e-headers-mode-map (kbd "N") 'smf/mu4e-headers-next-thread)
-    (define-key mu4e-view-mode-map (kbd "N") 'smf/mu4e-view-headers-next-thread)
-
-    ;; override default binding for "P"
-    (define-key mu4e-headers-mode-map (kbd "P")
-      (lambda() (interactive) (smf/mu4e-headers-next-thread t)))
-    (define-key mu4e-view-mode-map (kbd "P")
-      (lambda() (interactive) (smf/mu4e-view-headers-next-thread t))))
-#+end_src
-
-*** Custom marks
-
-[[mu4e]] has a way to apply arbitrary 'marks' to a message or thread. We will use
-these to override default behavior.
-
-#+begin_src emacs-lisp
-  (after-load 'mu4e
-      (setq mu4e-marks (delq (assoc 'refile mu4e-marks) mu4e-marks))
-
-      (add-to-list 'mu4e-marks
-                   '(refile
-                     :char       "r"
-                     :prompt     "refile"
-                     :dyn-target  (lambda (target msg) (mu4e-get-refile-folder msg))
-                     :action      (lambda (docid msg target)
-                                    (mu4e~proc-move docid
-                                      (mu4e~mark-check-target target) "+S-u-N")))))
-#+end_src
+[[http://ergoemacs.org/emacs/emacs24.4_features.html][Emacs 24]] comes with a built-in web browser called [[http://ergoemacs.org/emacs/emacs_eww_web_browser.html][eww]]. By default, =notmuch=
+uses this to render html email, so nothing needs to be done. This isn't always
+perfect, so to view the html part in an external view, just click on the
+text/html part and issue =. o=.
 
 *** Custom actions
+
+=notmuch= doesn't have a keybinding for deleting messages, so we add one:
+
+#+begin_src emacs-lisp
+  (after-load 'notmuch
+    ;; 'd' delete stuff in both search and show mode
+    (define-key notmuch-show-mode-map "d"
+      (lambda ()
+        "Move message to trash."
+        (interactive)
+        (notmuch-show-tag-all (list "+trash" "-inbox" "-unread" "-archive"))
+        (notmuch-show-next-thread t)))
+    (define-key notmuch-search-mode-map "d"
+      (lambda ()
+        "Move message to trash."
+        (interactive)
+        (notmuch-search-tag (list "+trash" "-inbox" "-unread" "-archive"))
+        (next-line))))
+#+end_src
+
+Also, let's add one for spam:
+
+#+begin_src emacs-lisp
+  (after-load 'notmuch
+    ;; 'S' delete stuff in both search and show mode
+    (define-key notmuch-show-mode-map "S"
+      (lambda ()
+        "Mark message as spam."
+        (interactive)
+        (notmuch-show-tag-all (list "+spam" "-inbox" "-unread" "-archive"))
+        (notmuch-show-next-thread t)))
+    (define-key notmuch-search-mode-map "S"
+      (lambda ()
+        "Mark message as spam."
+        (interactive)
+        (notmuch-search-tag (list "+spam" "-inbox" "-unread" "-archive"))
+        (next-line))))
+#+end_src
 
 Custom actions allow us to define arbitrary commands to run on a message. We'll
 use this to apply a mercurial patch to a working directory:
 
 #+begin_src emacs-lisp
-  (after-load 'mu4e
-    (defun smf/mu4e-action-hg-import-patch (msg)
-      "Import the hg [patch] message."
-      (let ((path (read-directory-name "Target directory: " "~/projects/hg" nil nil nil) ))
-        (shell-command
-         (format "cd %s; hg import --obsolete --partial %s"
-                 path
-                 (mu4e-message-field msg :path)))))
+  (after-load 'notmuch
 
-      (add-to-list 'mu4e-view-actions '("patch" . smf/mu4e-action-hg-import-patch) t))
+    ;; adapted from http://emacs.stackexchange.com/questions/3485/how-do-i-maintain-a-history-of-ido-read-filenames
+    (defun smf/patch-ido-read-directory-name (prompt)
+      (cl-letf (((symbol-function 'orig-ido-read-internal)
+                 (symbol-function 'ido-read-internal))
+                ((symbol-function 'ido-read-internal)
+                 (lambda (item prompt hist &optional default require-match initial)
+                   (orig-ido-read-internal item prompt 'smf/patch-ido-directory-history
+                                           default require-match initial))))
+        (ido-read-directory-name prompt)))
+
+    (defun smf/notmuch-show-import-patch ()
+      "Import the hg patch."
+      (interactive)
+      (let* ((path (smf/patch-ido-read-directory-name "Target directory: "))
+             (cmd (format "hg --cwd %s import -" path)))
+        (notmuch-show-pipe-message nil cmd)))
+
+    (define-key 'notmuch-show-mode-map "I" 'smf/notmuch-show-import-patch))
 #+end_src
 
-Taken from the manual, we'll also add an action to view an html message in the browser (in case the html fails to render within emacs).
-
 #+begin_src emacs-lisp
-  (after-load 'mu4e
-    (add-to-list 'mu4e-view-actions '("bView in browser" . mu4e-action-view-in-browser) t))
+  (after-load 'notmuch
+    (defun smf/notmuch-show-view-as-patch ()
+      "View the the current message as a patch."
+      (interactive)
+      (let* ((id (notmuch-show-get-message-id))
+             (subject (concat "Subject: " (notmuch-show-get-subject) "\n"))
+             (diff-default-read-only t)
+             (buf (get-buffer-create (concat "*notmuch-patch-" id "*")))
+             (part (notmuch-show-get-part-properties))
+             (map (make-sparse-keymap)))
+        (define-key map "q" 'notmuch-bury-or-kill-this-buffer)
+        (switch-to-buffer buf)
+        (let ((inhibit-read-only t))
+          (erase-buffer)
+          (insert subject)
+          (insert (plist-get part :content)))
+        (set-buffer-modified-p nil)
+        (diff-mode)
+        (lexical-let ((new-ro-bind (cons 'buffer-read-only map)))
+          (add-to-list 'minor-mode-overriding-map-alist new-ro-bind))
+        (goto-char (point-min))))
+
+
+    (define-key 'notmuch-show-mode-map "D" 'smf/notmuch-show-view-as-patch))
 #+end_src
 
-*** Bookmarks
-
-We'll add bookmarks for common "views" of our mailbox:
-
 #+begin_src emacs-lisp
-  (after-load 'mu4e
-    (setq
-     mu4e-bookmarks '(("flag:unread AND NOT flag:trashed AND NOT maildir:/spam" "Unread" ?u)
-                      ("to:sean.michael.farley+self and not maildir:/phd and not maildir:/posterity" "Notes" ?n))))
+  (after-load 'notmuch
+    (defun smf/notmuch-show-set-pre-reviewed ()
+      "Sets the patch in patchwork as pre-reviewed."
+      (interactive)
+      (let* ((msg-id (notmuch-show-get-message-id))
+             (pw-cmd (expand-file-name "~/.pwclient"))
+             (pw-id-list (process-lines pw-cmd "list"
+                                        "-m" (concat "<" (s-chop-prefix "id:" msg-id) ">")
+                                        "-n" "1"
+                                        "-f" "%{id}"))
+             (pw-id (nth 0 pw-id-list)))
+        (message "Updating patchwork for patch %s" pw-id)
+        (async-start-process "pwclient"
+                             pw-cmd
+                             (lambda (p)
+                               (message "Marked patch as pre-reviewed"))
+                             "update"
+                             "-s" "Pre-Reviewed"
+                             pw-id))))
 #+end_src
 
 *** Keybinding
@@ -4198,29 +4178,19 @@ We'll add bookmarks for common "views" of our mailbox:
 Finally, add a keybinding to open our email client:
 
 #+begin_src emacs-lisp
-  (defun smf/mu4e-start-or-switch ()
-    "Start the bitbucket process or switch to the buffer"
+  (defun smf/notmuch-start-or-switch ()
+    "Start the imapnotify process or switch to the notmuch buffer"
     (interactive)
     (if (get-buffer-process (get-buffer "*imapnotify*"))
-        (mu4e)
+        (notmuch)
       (progn
-        (mu4e)
-        (mu4e-update-mail-and-index t)
+        (notmuch)
+        (notmuch-refresh-this-buffer)
+        (offlineimap)
         (start-process "imapnotify-process" "*imapnotify*" "imapnotify" "-c"
                        (expand-file-name "~/.config/imapnotify.js")))))
 
-  (smf/add-launcher "e" 'smf/mu4e-start-or-switch)
-#+end_src
-
-*** mu4e-alert
-
-#+begin_src emacs-lisp
-  (require-package 'mu4e-alert)
-  (after-load 'mu4e
-    (mu4e-alert-set-default-style 'notifier)
-    (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
-    (mu4e-alert-enable-notifications)
-    (mu4e-alert-enable-mode-line-display))
+  (smf/add-launcher "e" 'smf/notmuch-start-or-switch)
 #+end_src
 
 
