@@ -11,7 +11,7 @@ exports.tls = true;
 exports.tlsOptions = { "rejectUnauthorized": false };
 exports.username = "sean@farley.io";
 exports.password = getStdout("/usr/bin/security find-internet-password -w -a sean@farley.io -s mail.farley.io");
-exports.onNewMail = "emacsclient -f ~/.emacs.d/server/server -qne \"(progn (offlineimap))\"";
+exports.onNewMail = "emacsclient -f ~/.emacs.d/server/server -qne \"(alert \\\"あなたのメールをチェック\\\" :title \\\"New Email\\\")\"";
 exports.onNewMailPost = "";
 exports.boxes = [ "INBOX" ];
 
