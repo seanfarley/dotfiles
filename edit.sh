@@ -54,4 +54,6 @@ fi
 # build the tramp filename or local filename also
 [[ $HOME != /Users/$USER ]] && FN="/$(whoami)@$HN:$FN"
 
-$ECHO eval "$ED $OPTS $FN"
+# fucking git
+[[ "$FN" == *"mergetool-emacsclient"* && "$FN" == *"eval ("* ]] && FN=$(echo $FN | sed 's,",\\",g' | sed 's,eval (,eval "(,' | sed 's,"),")",')
+$ECHO eval $ED $OPTS $FN
