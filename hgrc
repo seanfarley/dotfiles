@@ -198,8 +198,7 @@ l = log --pager=always
 p = pull -u
 pr = pull --rebase
 
-# by default, don't prompt for cc
-email = email --confirm --cc ' '
+email = email --confirm
 
 # Nudge: just push the current branch.
 nudge = push -r .
