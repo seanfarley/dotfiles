@@ -2402,41 +2402,6 @@ Use =racer= for autocompletion
   (add-hook 'racer-mode-hook #'eldoc-mode)
 #+end_src
 
-*** java
-
-After trying =jdee= and =malabar=, =eclim= was the only package that actually
-worked.
-
-#+begin_src emacs-lisp
-  (require-package 'emacs-eclim)
-  (require 'eclim)
-  (require 'eclimd)
-  (require 'company-emacs-eclim)
-  (after-load 'eclim
-    (custom-set-variables
-     '(eclim-eclipse-dirs '("/Applications/Eclipse.app"))
-     '(eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
-     '(eclimd-default-workspace "~/Documents/workspace"))
-    (global-eclim-mode)
-    (company-emacs-eclim-setup)
-    (after-load 'diminish
-      (diminish 'eclim-mode)
-      (diminish 'abbrev-mode)))
-#+end_src
-
-Also, install =flycheck-tip= which has =eclim= support.
-
-#+begin_src emacs-lisp
-  (require-package 'flycheck-tip)
-  (require 'flycheck-tip)
-  (require 'eclim-tip)
-  (after-load 'eclim-tip
-    (global-set-key (kbd "M-n") 'eclim-tip-cycle)
-    (global-set-key (kbd "M-p") (lambda ()
-                                  (interactive)
-                                  (eclim-tip-cycle -1))))
-#+end_src
-
 *** hideshowvis
 
 Enables collapsable regions and diminish the mode:
