@@ -3251,6 +3251,96 @@ Finally we can install Magit:
   (require-package 'magit)
 #+end_src
 
+*** hugme
+
+An experimental fork of magit for Mercurial. Most of the things here won't work.
+
+**** Keyboard shortcuts
+
+=hugme-status= is the main command to launch Magit. It's =autoloaded= so I don't
+need to load Magit first.
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-c h") 'hugme-status)
+#+end_src
+
+=hugme-grep= isn't =autoloaded=, so I need to explicitly load it before binding
+it:
+
+#+begin_src emacs-lisp
+  (autoload 'hugme-grep "hugme" "Grep for files" t)
+#+end_src
+
+**** Configuration
+
+When performing a [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Minibuffer-Completion.html][completing-read]] within Hugme, I'd like to use IDO:
+
+#+begin_src emacs-lisp
+  (setq hugme-completing-read-function 'hugme-ido-completing-read)
+#+end_src
+
+Open the =hugme-status= buffer in the same window as the current buffer:
+
+#+begin_src emacs-lisp
+  (setq hugme-status-buffer-switch-function 'switch-to-buffer)
+#+end_src
+
+Highlight individual word and letter changes when showing hunk diff overlays:
+
+#+begin_src emacs-lisp
+  (setq hugme-diff-refine-hunk t)
+#+end_src
+
+Don't tell me when Hugme reverts buffers:
+
+#+begin_src emacs-lisp
+  (setq hugme-revert-buffers 'silent)
+#+end_src
+
+When Hugme takes a while to call out to Git, pop the process buffer after 10
+seconds so I can look for issues:
+
+#+begin_src emacs-lisp
+  (setq hugme-process-popup-time 10)
+#+end_src
+
+Don't prompt me to confirm a canceled histedit,
+
+#+begin_src emacs-lisp
+  (setq hg-histedit-confirm-cancel nil)
+#+end_src
+
+Shelling out to hg is expensive, so until we use something like the command
+server, set a high-timeout for diffs:
+
+#+begin_src emacs-lisp
+  (setq hugme-diff-expansion-threshold 10.0)
+#+end_src
+
+Definitely need to enable debugging while writing this package,
+
+#+begin_src emacs-lisp
+  (setq hugme-hg-debug t)
+#+end_src
+
+Experimentally try to use chg, though it doesn't seem to improve the speed of
+shelling out,
+
+#+begin_src emacs-lisp
+  (setq hugme-hg-executable "chg")
+#+end_src
+
+**** Load Magit
+
+Finally we can load Hugme:
+
+#+begin_src emacs-lisp
+  (if (file-accessible-directory-p "~/projects/hugme/lisp")
+      (progn
+        (smf/add-to-load-path "~/projects/hugme/lisp")
+        (require 'hugme)))
+#+end_src
+
 *** Multiple Cursors
 
 #+begin_src emacs-lisp
