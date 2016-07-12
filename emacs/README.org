@@ -4225,6 +4225,8 @@ use this to apply a mercurial patch to a working directory:
 Finally, add a keybinding to open our email client:
 
 #+begin_src emacs-lisp
+  (require 'cl)
+  (require-package 's)
   (defun smf/notmuch-start-or-switch ()
     "Start the imapnotify process or switch to the notmuch buffer"
     (interactive)
