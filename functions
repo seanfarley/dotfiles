@@ -459,6 +459,12 @@ EOF
   workon "$1"
 }
 
+_ve() {
+  [[ ${COMP_WORDS[COMP_CWORD]} == $HOME/.env/* ]] || COMP_WORDS[COMP_CWORD]="$HOME/.env/${COMP_WORDS[COMP_CWORD]}"
+  COMPREPLY=( $(compgen -d ${COMP_WORDS[COMP_CWORD]} -- ${COMP_WORDS[COMP_CWORD]} | cut -b$(echo $HOME/.env/ | wc -c)- ) )
+}
+complete -o nospace -F _ve ve
+
 bb() {
   local bdir=$PROJECTS/bitbucket
   cd $bdir
