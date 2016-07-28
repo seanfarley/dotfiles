@@ -447,6 +447,8 @@
 	<integer>0</integer>
 	<key>HotkeyCode</key>
 	<integer>0</integer>
+	<key>HotkeyMigratedFromSingleToMulti</key>
+	<true/>
 	<key>HotkeyModifiers</key>
 	<integer>0</integer>
 	<key>IRMemory</key>
@@ -502,14 +504,18 @@
 		<key>Select Pane Below</key>
 		<string>@^↓</string>
 	</dict>
+	<key>NSWindow Frame NSFontPanel</key>
+	<string>925 215 445 77 0 0 1440 900 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>269 420 606 456 0 0 1440 900 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 382 620 392 0 0 1440 900 </string>
+	<key>NSWindow Frame SharedPreferences</key>
+	<string>238 263 918 495 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1440 900 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>176 70 650 452 0 0 1440 877 </string>
+	<string>176 70 650 452 0 0 1440 900 </string>
 	<key>NeverWarnAboutShortLivedSessions_C1F2222A-6D3E-44B0-8F07-9EF1257810D0</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_C1F2222A-6D3E-44B0-8F07-9EF1257810D0_selection</key>
@@ -1053,7 +1059,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>FiraCode-Regular 13</string>
+			<string>FiraCode-Light 13</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -1220,8 +1226,10 @@
 			<false/>
 			<key>Use Italic Font</key>
 			<true/>
+			<key>Use Non-ASCII Font</key>
+			<false/>
 			<key>Vertical Spacing</key>
-			<real>1.0475162267684937</real>
+			<real>1</real>
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
@@ -1230,6 +1238,8 @@
 			<string>/Users/sean</string>
 		</dict>
 	</array>
+	<key>NoSyncConfirmBeta</key>
+	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>67267103-50A0-47CA-B327-DC96870C0E66</string>
 	<key>NoSyncLastTipTime</key>
@@ -1384,7 +1394,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-05-25T16:56:15Z</date>
+	<date>2016-07-27T18:21:03Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -1430,6 +1440,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20160519-nightly</string>
+	<string>3.0.20160726-nightly</string>
 </dict>
 </plist>
