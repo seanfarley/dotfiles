@@ -2826,18 +2826,33 @@ Now, we install elpy and enable it,
   (elpy-use-ipython)
 #+end_src
 
+After a few levels of indirection, =elpy= has no hope of finding a symbol's
+definition, so it gives up. In this case, invoking `elpy-goto-definition' will
+do nothing and show a little error message in the echo area. When this happens,
+of course we still want to find what I'm looking for so we define this
+function:
+
+#+begin_src emacs-lisp
+(defun smf/goto-def-or-rgrep ()
+  "Go to definition of thing at point or do an rgrep in project if that fails"
+  (interactive)
+  (condition-case nil (elpy-goto-definition)
+    (error (elpy-rgrep-symbol (thing-at-point 'symbol)))))
+#+end_src
+
 By default, elpy binds M-<left> and M-<right>, which I use for navigation, for
 indenting / de-indenting code. Let's change that,
 
 #+begin_src emacs-lisp
-  (defun smf/elpy-hook ()
-    (add-to-list 'company-backends 'company-jedi)
-    (define-key elpy-mode-map (kbd "<M-left>") nil)
-    (define-key elpy-mode-map (kbd "<M-right>") nil)
-    (define-key elpy-mode-map (kbd "<C-return>") nil)
-    (define-key elpy-mode-map (kbd "<H-M-left>") 'elpy-nav-move-iblock-left)
-    (define-key elpy-mode-map (kbd "<H-M-right>") 'elpy-nav-move-iblock-right))
-  (add-hook 'elpy-mode-hook 'smf/elpy-hook)
+    (defun smf/elpy-hook ()
+      (add-to-list 'company-backends 'company-jedi)
+      (define-key elpy-mode-map (kbd "M-.") 'smf/goto-def-or-rgrep)
+      (define-key elpy-mode-map (kbd "<M-left>") nil)
+      (define-key elpy-mode-map (kbd "<M-right>") nil)
+      (define-key elpy-mode-map (kbd "<C-return>") nil)
+      (define-key elpy-mode-map (kbd "<H-M-left>") 'elpy-nav-move-iblock-left)
+      (define-key elpy-mode-map (kbd "<H-M-right>") 'elpy-nav-move-iblock-right))
+    (add-hook 'elpy-mode-hook 'smf/elpy-hook)
 #+end_src
 
 Add [[elpy]] to diminish,
