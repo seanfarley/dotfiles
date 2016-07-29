@@ -39,7 +39,8 @@ histedit =
 purge =
 strip =
 shelve =
-share=
+share =
+journal =
 # Third-party extensions
 debugshell = ~/.debugshell.py
 evolve =
