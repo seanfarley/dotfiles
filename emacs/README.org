@@ -3191,6 +3191,13 @@ A mode for Mercurial test files
 (require 'git-commit)
 #+end_src
 
+*** git-gutter
+
+#+begin_src emacs-lisp
+  (require-package 'git-gutter)
+  (global-git-gutter-mode +1)
+#+end_src
+
 *** magit
 
 [[https://github.com/magit/magit][Magit]] is an Emacs interface to Git. It's very feature-rich and I find it
