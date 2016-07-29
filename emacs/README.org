@@ -3370,6 +3370,14 @@ Finally we can load Hugme:
   (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 #+end_src
 
+** Docker
+
+#+begin_src emacs-lisp
+  (require-package 'docker)
+  (require-package 'dockerfile-mode)
+  (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+#+end_src
+
 ** LaTeX
 
 I love [[http://en.wikipedia.org/wiki/LaTeX][LaTex]]. It's the best way to typeset a document.
