@@ -5,20 +5,20 @@ StrictHostKeyChecking no
 Host *.bitbucket.org
   User sfarley
 
-Host util01
+Host bb-backend
   User sfarley
-  HostName util01.ash-private.bitbucket.org
+  HostName fabfile.aws.bb-inf.net
   CheckHostIP yes
   ProxyCommand none
 
 Host *.ash-private.bitbucket.org *.ash1.bb-inf.net
   User sfarley
-  ProxyCommand ssh -A -W %h:%p util01
+  ProxyCommand ssh -A -W %h:%p bb-backend
 
-Host app01
+Host bb
   User sfarley
-  HostName app01.ash1.bb-inf.net
-  ProxyCommand ssh -A -W %h:%p util01
+  HostName app-125.ash1.bb-inf.net
+  ProxyCommand ssh -A -W %h:%p bb-backend
 
 Host euclid
   HostName farley.in
