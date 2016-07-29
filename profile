@@ -1,4 +1,4 @@
-for file in exports bash_prompt aliases extra; do
+for file in exports bash_prompt aliases extra docker-bash; do
   file="$HOME/.$file"
   [ -e "$file" ] && source "$file"
 done
