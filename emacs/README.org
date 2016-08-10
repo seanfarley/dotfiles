@@ -3100,6 +3100,16 @@ Trying out irony mode
   (setq c-default-style "linux")
 #+end_src
 
+*** function-args
+
+GNU Emacs package for showing an inline arguments hint for the C/C++ function
+at point.
+
+#+begin_src emacs-lisp
+(require-package 'function-args)
+(fa-config-default)
+#+end_src emacs-lisp
+
 *** Swift
 
 #+begin_src emacs-lisp
