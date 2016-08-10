@@ -2535,6 +2535,16 @@ Define a tag so that we can inherit the same env variables
            ("VIRTUAL_ENV" ,(expand-file-name "~/.env/bb/"))))
 #+end_src
 
+#+begin_src emacs-lisp
+  (prodigy-define-service
+    :name "Bitbucket Celery"
+    :command "python"
+    :args '("manage.py" "celeryd" "-l" "DEBUG")
+    :tags '(bitbucket python)
+    :ready-message "Connected to amqp"
+    :kill-signal 'sigkill)
+#+end_src
+
 *** d-mode
 
 An Emacs major mode for editing D code.
