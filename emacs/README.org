@@ -4516,14 +4516,8 @@ Finally, add a keybinding to open our email client:
   (defun smf/notmuch-start-or-switch ()
     "Start the imapnotify process or switch to the notmuch buffer"
     (interactive)
-    (if (get-buffer-process (get-buffer "*imapnotify*"))
-        (notmuch)
-      (progn
-        (notmuch)
-        (notmuch-refresh-this-buffer)
-        (offlineimap)
-        (start-process "imapnotify-process" "*imapnotify*" "imapnotify" "-c"
-                       (expand-file-name "~/.config/imapnotify.js")))))
+    (prodigy-start-service (prodigy-find-service "OfflineIMAP"))
+    (notmuch))
 
   (smf/add-launcher "e" 'smf/notmuch-start-or-switch)
 #+end_src
