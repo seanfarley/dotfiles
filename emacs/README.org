@@ -1852,6 +1852,13 @@ Ivy-based interface to standard commands
   (global-set-key (kbd "C-c C-r") 'ivy-resume)
 #+end_src
 
+Let's use ivy for some common projects
+
+#+begin_src emacs-lisp
+  (setq magit-completing-read-function 'ivy-completing-read)
+  (setq projectile-completion-system 'ivy)
+#+end_src
+
 *** ace-jump-mode
 
 [[https://github.com/winterTTr/ace-jump-mode][ace-jump-mode]] allows one to jump around the buffer to named characters (it's
