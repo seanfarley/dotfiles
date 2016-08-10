@@ -3256,6 +3256,8 @@ A major mode for editing .gitconfig files.
 
 *** git-gutter
 
+Emacs port of GitGutter which is Sublime Text Plugin.
+
 #+begin_src emacs-lisp
   (require-package 'git-gutter)
   (global-git-gutter-mode +1)
