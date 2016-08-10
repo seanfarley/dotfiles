@@ -1868,6 +1868,13 @@ Fuzzy matching
         '((t . ivy--regex-fuzzy)))
 #+end_src
 
+**** ivy-view
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-c v") 'ivy-push-view)
+  (global-set-key (kbd "C-c V") 'ivy-pop-view)
+#+end_src
+
 *** ace-jump-mode
 
 [[https://github.com/winterTTr/ace-jump-mode][ace-jump-mode]] allows one to jump around the buffer to named characters (it's
