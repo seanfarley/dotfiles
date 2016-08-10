@@ -1859,6 +1859,15 @@ Let's use ivy for some common projects
   (setq projectile-completion-system 'ivy)
 #+end_src
 
+Fuzzy matching
+
+#+begin_src emacs-lisp
+  (require-package 'flx)
+  (setq ivy-initial-inputs-alist nil)     ; don't insert '^' into regex
+  (setq ivy-re-builders-alist
+        '((t . ivy--regex-fuzzy)))
+#+end_src
+
 *** ace-jump-mode
 
 [[https://github.com/winterTTr/ace-jump-mode][ace-jump-mode]] allows one to jump around the buffer to named characters (it's
