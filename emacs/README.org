@@ -2453,6 +2453,15 @@ functions to be an empty string so [[powerline]] looks even better.
 
 Alternately, I could prefix the function name with "ƒₓ" but I defer that for now.
 
+*** fic-mode
+
+Show FIXME/TODO/BUG(...) in special face only in comments and strings.
+
+#+begin_src emacs-lisp
+  (require-package 'fic-mode)
+  (add-hook 'prog-mode-hook 'fic-mode)
+#+end_src
+
 *** powerline
 
 I use [[https://github.com/milkypostman/powerline][powerline]] to format my modeline.
