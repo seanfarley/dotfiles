@@ -606,9 +606,8 @@ value to =t= forces it to pick the maximum available (also the default):
 Emacs doesn't display line numbers by the code by default. For that you want
 [[http://www.emacswiki.org/emacs/LineNumbers#toc1][Linum mode]].
 
-I want to display the current line number in the
-[[http://www.emacswiki.org/emacs/ModeLine][mode line]], and also the current
-column number:
+I want to display the current line number in the [[http://www.emacswiki.org/emacs/ModeLine][mode line]], and also the
+current column number:
 
 #+begin_src emacs-lisp
   (line-number-mode 1)
