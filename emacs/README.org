@@ -2332,6 +2332,17 @@ Global minor mode to highlight thing under point.
     (diminish 'highlight-thing-mode))
 #+end_src
 
+*** violatile highlights
+
+Minor mode for visual feedback on some operations in Emacs.
+
+#+begin_src emacs-lisp
+  (require-package 'volatile-highlights)
+  (volatile-highlights-mode t)
+  (after-load 'diminish
+    (diminish 'volatile-highlights-mode))
+#+end_src
+
 *** hungry-delete
 
 =hungry-delete= will delete all whitespace forward or backward.
