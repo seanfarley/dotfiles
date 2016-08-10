@@ -2485,6 +2485,20 @@ Manage external services from within Emacs.
   (smf/add-launcher "d" 'prodigy)
 #+end_src
 
+Let's start by defining a simple service to run the Mercurial website locally.
+
+#+begin_src emacs-lisp
+  (prodigy-define-service
+    :name "Mercurial Website"
+    :command "python"
+    :args '("hgwebsite.py")
+    :cwd "~/projects/hgwebsite"
+    :tags '(hg python)
+    :port 5000
+    :kill-signal 'sigkill
+    :kill-process-buffer-on-stop t)
+#+end_src
+
 *** d-mode
 
 An Emacs major mode for editing D code.
