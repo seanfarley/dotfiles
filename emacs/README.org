@@ -2499,6 +2499,20 @@ Let's start by defining a simple service to run the Mercurial website locally.
     :kill-process-buffer-on-stop t)
 #+end_src
 
+=imapnotify= is a node app that fires a program (in our case an elisp function)
+when new mail is received.
+
+#+begin_src emacs-lisp
+  (prodigy-define-service
+    :name "OfflineIMAP"
+    :command "imapnotify"
+    :args '("-c" "~/.config/imapnotify.js")
+    :tags '(mail node)
+    :kill-signal 'sigkill
+    :kill-process-buffer-on-stop t
+    :init 'offlineimap)
+#+end_src
+
 *** d-mode
 
 An Emacs major mode for editing D code.
