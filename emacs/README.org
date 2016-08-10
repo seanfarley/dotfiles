@@ -508,7 +508,7 @@ Most of the time I want the buffer to be reverted automatically:
   (global-auto-revert-mode t)
 #+end_src
 
-Use =ido-switch-buffer= instead of the feature-lacking =list-buffers= (and
+Use =ivy-switch-buffer= instead of the feature-lacking =list-buffers= (and
 include a common typo I make):
 
 #+begin_src emacs-lisp
