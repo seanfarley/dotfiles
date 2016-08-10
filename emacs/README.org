@@ -512,8 +512,8 @@ Use =ido-switch-buffer= instead of the feature-lacking =list-buffers= (and
 include a common typo I make):
 
 #+begin_src emacs-lisp
-  (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
-  (global-set-key (kbd "C-x C-n") 'ido-switch-buffer)
+  (global-set-key (kbd "C-x C-b") 'ivy-switch-buffer)
+  (global-set-key (kbd "C-x C-n") 'ivy-switch-buffer)
 #+end_src
 
 **** Increase / decrease font size
