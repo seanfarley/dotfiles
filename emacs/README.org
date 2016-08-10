@@ -2061,14 +2061,14 @@ modeline to be high contrast (reversed out):
 
 *** zenburn-theme
 
-I use the [[https://github.com/bbatsov/zenburn-emacs][zenburn-theme]] as my Emacs theme as it has excellent coloring
-(see [[Themes]]):
-
 #+begin_src emacs-lisp
   (require-package 'zenburn-theme)
 #+end_src
 
 *** moe-theme
+
+I use the [[https://github.com/kuanyui/moe-theme.el][moe-theme]] as my Emacs theme as it has excellent coloring (see
+[[Themes]]):
 
 #+begin_src emacs-lisp
   (require-package 'moe-theme)
