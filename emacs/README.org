@@ -2513,6 +2513,28 @@ when new mail is received.
     :init 'offlineimap)
 #+end_src
 
+Bitbucket awwwwww yeah
+
+Define a tag so that we can inherit the same env variables
+
+#+begin_src emacs-lisp
+  (prodigy-define-tag
+    :name 'bitbucket
+    :cwd "~/projects/bitbucket"
+    :path "~/.env/bb/bin"
+    :env `(("BB_EMAIL_PASSWORD"
+            ,(smf/get-keychain-password "bbtest@farley.io" "mail.farley.io"))
+           ("HGRCPATH" "./hgrc")
+           ("GIT_CONFIG_NOSYSTEM" "1")
+           ("PYTHONUNBUFFERED" "1")
+           ("DEBUG" "1")
+           ("CELERY_RDB_PORT" "6900")
+           ("DJANGO_SETTINGS_MODULE" "bitbucket.settings.dev")
+           ("LANG" "en_US.UTF-8")
+           ("PATH" ,(concat (expand-file-name "~/.env/bb/bin") ":" (getenv "PATH")))
+           ("VIRTUAL_ENV" ,(expand-file-name "~/.env/bb/"))))
+#+end_src
+
 *** d-mode
 
 An Emacs major mode for editing D code.
