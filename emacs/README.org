@@ -3246,6 +3246,14 @@ This package assists the user in writing good Git commit messages.
 (require 'git-commit)
 #+end_src
 
+*** gitconfig-mode
+
+A major mode for editing .gitconfig files.
+
+#+begin_src emacs-lisp
+  (require-package 'gitconfig-mode)
+#+end_src
+
 *** git-gutter
 
 #+begin_src emacs-lisp
