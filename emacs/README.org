@@ -2343,6 +2343,18 @@ Minor mode for visual feedback on some operations in Emacs.
     (diminish 'volatile-highlights-mode))
 #+end_src
 
+*** drag-stuff
+
+Drag stuff around in Emacs with convenient keybindings.
+
+#+begin_src emacs-lisp
+  (require-package 'drag-stuff)
+  (setq drag-stuff-modifier '(meta control))
+  (drag-stuff-global-mode 1)
+  (after-load 'diminish
+    (diminish 'drag-stuff-mode))
+#+end_src
+
 *** hungry-delete
 
 =hungry-delete= will delete all whitespace forward or backward.
