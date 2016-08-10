@@ -3239,6 +3239,8 @@ A mode for Mercurial test files
 
 *** git-commit
 
+This package assists the user in writing good Git commit messages.
+
 #+begin_src emacs-lisp
 (require-package 'git-commit)
 (require 'git-commit)
