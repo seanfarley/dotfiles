@@ -1810,7 +1810,7 @@ within Emacs so that =flx= can cache its candidate lists for longer (it's
 already set in init.el for early processing):
 
 #+begin_src emacs-lisp
-;;  (setq gc-cons-threshold 200000000)
+  (setq gc-cons-threshold 200000000)
 #+end_src
 
 Finally we cause =flx-ido-mode= to take over ido:
