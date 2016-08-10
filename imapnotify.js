@@ -14,5 +14,3 @@ exports.password = getStdout("/usr/bin/security find-internet-password -w -a sea
 exports.onNewMail = "emacsclient -f ~/.emacs.d/server/server -qne \"(let (open-notmuch) (loop for buffer being the buffers do (if (s-starts-with? \\\"*notmuch-saved-search-\\\" (buffer-name buffer)) (setq open-notmuch t))) (when (not open-notmuch) (offlineimap) (alert \\\"あなたのメールをチェック\\\" :title \\\"New Email\\\")))\"";
 exports.onNewMailPost = "";
 exports.boxes = [ "INBOX" ];
-
-exports.onSIGHUP = "ps aux | grep -v grep | grep imapnotify | awk '{print $2}' | xargs kill -9";
