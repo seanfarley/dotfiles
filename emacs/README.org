@@ -2476,6 +2476,15 @@ separate frame.
   (smf/add-launcher "n" 'sauron-toggle-hide-show)
 #+end_src
 
+*** prodigy
+
+Manage external services from within Emacs.
+
+#+begin_src emacs-lisp
+  (require-package 'prodigy)
+  (smf/add-launcher "d" 'prodigy)
+#+end_src
+
 *** d-mode
 
 An Emacs major mode for editing D code.
