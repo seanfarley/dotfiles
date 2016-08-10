@@ -1870,6 +1870,15 @@ Load [[popwin]] and configure keyboard shortcuts:
     (global-set-key (kbd "s-P") 'popwin:popup-last-buffer))
 #+end_src
 
+*** goto-chg
+
+Goto last change in current buffer.
+
+#+begin_src emacs-lisp
+  (require-package 'goto-chg)
+  (global-set-key (kbd "H-.") 'goto-last-change)
+#+end_src
+
 *** ag
 
 [[https://github.com/Wilfred/ag.el][ag]] is an Emacs frontend to [[https://github.com/ggreer/the_silver_searcher][the ag command]], a grep-like code-searching tool. It's
