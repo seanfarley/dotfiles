@@ -3426,6 +3426,15 @@ Finally we can load Hugme:
         (require 'hugme)))
 #+end_src
 
+*** emacs-git-messenger
+
+#+begin_src emacs-lisp
+  (require-package 'git-messenger)
+  (setq git-messenger:show-detail 't)
+  (after-load 'git-messenger
+      (smf/add-launcher "v" 'git-messenger:popup-message))
+#+end_src
+
 *** Multiple Cursors
 
 #+begin_src emacs-lisp
