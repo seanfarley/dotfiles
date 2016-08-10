@@ -1846,6 +1846,12 @@ Ivy-based interface to standard commands
   (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 #+end_src
 
+=ivy-resume= resumes the last Ivy-based completion.
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+#+end_src
+
 *** ace-jump-mode
 
 [[https://github.com/winterTTr/ace-jump-mode][ace-jump-mode]] allows one to jump around the buffer to named characters (it's
