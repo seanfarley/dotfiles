@@ -3671,6 +3671,13 @@ Taken from [[http://www.emacswiki.org/AUCTeX#toc19][EmacsWiki]] for automatic de
   (add-to-list 'company-backends 'company-math-symbols-unicode)
 #+end_src
 
+*** pdf-tools
+
+#+begin_src emacs-lisp
+  (require-package 'pdf-tools)
+  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+#+end_src
+
 ** Loading Themes
 
 On a GUI Emacs, I want to use the [[zenburn-theme]]. On a terminal I want to use the
