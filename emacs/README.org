@@ -1906,27 +1906,6 @@ with swiper, so disabling for now.
   ;;   (diminish 'ace-isearch-mode))
 #+end_src
 
-*** ace-jump-mode
-
-[[https://github.com/winterTTr/ace-jump-mode][ace-jump-mode]] allows one to jump around the buffer to named characters (it's
-easier to watch the video on that link than explain).
-
-#+begin_src emacs-lisp
-  (require-package 'ace-jump-mode)
-  (require-package 'ace-isearch)
-#+end_src
-
-Bind it:
-
-#+begin_src emacs-lisp
-  (global-set-key (kbd "H-<return>") 'ace-jump-char-mode)
-  (global-set-key (kbd "C-<return>") 'ace-jump-line-mode)
-  (smf/add-launcher "j" 'ace-jump-char-mode)
-  (smf/add-launcher "J" 'ace-jump-line-mode)
-  (after-load 'ace-isearch
-    (diminish 'ace-isearch-mode))
-#+end_src
-
 *** popwin
 
 [[https://github.com/m2ym/popwin-el][popwin]] is a popup window manager that helps make the behaviour of compilation
