@@ -2545,6 +2545,18 @@ Define a tag so that we can inherit the same env variables
     :kill-signal 'sigkill)
 #+end_src
 
+#+begin_src emacs-lisp
+  (prodigy-define-service
+    :name "Bitbucket Django"
+    :command "python"
+    :url "http://dev.bitbucket.org:8000"
+    :args '("manage.py" "gunserver" "--no-frontend-watch" "--no-frontend-build")
+    :path (expand-file-name "~/.env/bb/bin")
+    :tags '(bitbucket python)
+    :ready-message "Booting worker with pid"
+    :kill-signal 'sigkill)
+#+end_src
+
 *** d-mode
 
 An Emacs major mode for editing D code.
