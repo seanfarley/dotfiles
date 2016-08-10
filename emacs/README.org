@@ -1836,6 +1836,16 @@ Useful setting that adds =recentf= and =bookmarks= to =ivy-switch-buffer=
   (setq ivy-use-virtual-buffers t)
 #+end_src
 
+Ivy-based interface to standard commands
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-s") 'swiper)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+#+end_src
+
 *** ace-jump-mode
 
 [[https://github.com/winterTTr/ace-jump-mode][ace-jump-mode]] allows one to jump around the buffer to named characters (it's
