@@ -3978,6 +3978,32 @@ Currently, this is a hack to test highlighting a nick with "'s" at the end.
                                                (erc-hl-nicks-make-face trimmed))))))))))))
 #+end_src
 
+*** Mark buffer as read
+
+Whenever we're done reading a conversation, just hit =Esc=. The buffer will be
+buried, and next time we open it again everything we have read before will be
+marked in grey.
+
+#+begin_src emacs-lisp
+  (defun smf/mark-read ()
+    "Mark buffer as read up to current line."
+    (interactive)
+    (let ((inhibit-read-only t))
+      (put-text-property
+       (point-min) (line-beginning-position)
+       'face       'font-lock-comment-face)))
+
+  (defun smf/bury-buffer ()
+    "Bury buffer and maybe close its window."
+    (interactive)
+    (smf/mark-read)
+    (bury-buffer))
+
+  (after-load 'erc
+    (define-key erc-mode-map (kbd "<escape>") #'smf/bury-buffer)
+    (define-key erc-mode-map (kbd "C-'") 'smf/mark-read))
+#+end_src
+
 ** notmuch
 
 [[https://notmuchmail.org][notmuch]] is a mail indexer and searching. It comes with an emacs client.
