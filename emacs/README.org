@@ -1875,6 +1875,21 @@ Fuzzy matching
   (global-set-key (kbd "C-c V") 'ivy-pop-view)
 #+end_src
 
+*** avy
+
+I'm choosing =avy= over =ace-jump-mode= for tighter integration with
+=ivy-mode=.
+
+[[https://github.com/abo-abo/avy][avy]] allows one to jump around the buffer to named characters (it's easier to
+watch the video on that link than explain).
+
+#+begin_src emacs-lisp
+  (require-package 'avy)
+  (global-set-key (kbd "H-;") 'avy-goto-char)
+  (global-set-key (kbd "H-<return>") 'avy-goto-line)
+  (global-set-key (kbd "H-'") 'avy-goto-word-1)
+#+end_src
+
 *** ace-jump-mode
 
 [[https://github.com/winterTTr/ace-jump-mode][ace-jump-mode]] allows one to jump around the buffer to named characters (it's
