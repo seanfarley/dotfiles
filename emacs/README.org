@@ -3437,6 +3437,22 @@ Finally we can load Hugme:
       (smf/add-launcher "v" 'git-messenger:popup-message))
 #+end_src
 
+*** slime-nav
+
+Slime allows very convenient navigation to the symbol at point (using M-.), and
+the ability to pop back to previous marks (using =M-,=).
+
+This plugin provides similar navigation for Emacs Lisp, supporting navigation
+to the definitions of variables, functions, libraries and faces.
+
+#+begin_src emacs-lisp
+  (require-package 'elisp-slime-nav)
+  (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
+    (add-hook hook 'elisp-slime-nav-mode))
+  (after-load 'elisp-slime-nav
+    (diminish 'elisp-slime-nav-mode))
+#+end_src
+
 *** Multiple Cursors
 
 #+begin_src emacs-lisp
