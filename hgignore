@@ -67,6 +67,7 @@ tags-*
 projectile-bookmarks.eld
 .python-eggs
 .clang_complete
+*.egg-info
 
 tags
 TAGS
