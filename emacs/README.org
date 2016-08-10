@@ -1890,6 +1890,22 @@ watch the video on that link than explain).
   (global-set-key (kbd "H-'") 'avy-goto-word-1)
 #+end_src
 
+*** ace-isearch
+
+A seemless bridge between =avy-jump= and =ivy-isearch=. Doesn't seem to work
+with swiper, so disabling for now.
+
+#+begin_src emacs-lisp
+;;  (require-package 'ace-isearch)
+#+end_src
+
+#+begin_src emacs-lisp
+  ;; (after-load 'ace-isearch
+  ;;   (setq ace-isearch-function 'avy-goto-word-1)
+  ;;   (setq ace-isearch-function-from-isearch 'swiper)
+  ;;   (diminish 'ace-isearch-mode))
+#+end_src
+
 *** ace-jump-mode
 
 [[https://github.com/winterTTr/ace-jump-mode][ace-jump-mode]] allows one to jump around the buffer to named characters (it's
