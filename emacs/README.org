@@ -1818,6 +1818,18 @@ Finally we cause =flx-ido-mode= to take over ido:
   (flx-ido-mode 1)
 #+end_src
 
+*** swiper / ivy
+
+Ivy - a generic completion frontend for Emacs, Swiper - isearch with an
+overview, and more. [[http://oremacs.com/swiper][Oh, man!]]
+
+#+begin_src emacs-lisp
+  (require-package 'counsel)
+  (ivy-mode)
+  (after-load 'diminish
+    (diminish 'ivy-mode))
+#+end_src
+
 *** ace-jump-mode
 
 [[https://github.com/winterTTr/ace-jump-mode][ace-jump-mode]] allows one to jump around the buffer to named characters (it's
