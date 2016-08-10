@@ -2876,11 +2876,11 @@ of course we still want to find what I'm looking for so we define this
 function:
 
 #+begin_src emacs-lisp
-(defun smf/goto-def-or-rgrep ()
-  "Go to definition of thing at point or do an rgrep in project if that fails"
-  (interactive)
-  (condition-case nil (elpy-goto-definition)
-    (error (elpy-rgrep-symbol (thing-at-point 'symbol)))))
+  (defun smf/goto-def-or-rgrep ()
+    "Go to definition of thing at point or do an rgrep in project if that fails"
+    (interactive)
+    (condition-case nil (elpy-goto-definition)
+      (error (dumb-jump-go))))
 #+end_src
 
 By default, elpy binds M-<left> and M-<right>, which I use for navigation, for
