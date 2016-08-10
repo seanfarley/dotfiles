@@ -17,6 +17,7 @@ emacs/ede*
 emacs/abbrev*
 emacs/.python-environments
 emacs/irony
+emacs/anaconda-mode
 
 omnisharp-server
 irony-server
