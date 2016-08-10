@@ -2907,6 +2907,18 @@ Add [[elpy]] to diminish,
   (add-hook 'elpy-mode-hook 'smf/diminish-elpy-hook)
 #+end_src
 
+*** Dumb Jump
+
+Dumb Jump is an Emacs "jump to definition" package with support for multiple
+programming languages that favors "just working". This means minimal -- and
+ideally zero -- configuration with absolutely no stored indexes (TAGS) or
+persistent background processes. Dumb Jump requires at least GNU Emacs 24.4.
+
+#+begin_src emacs-lisp
+  (require-package 'dumb-jump)
+  (dumb-jump-mode)
+#+end_src
+
 *** yasnippet
 
 YASnippet is a template system for Emacs. It allows you to type an abbreviation
