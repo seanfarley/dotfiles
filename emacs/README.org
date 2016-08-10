@@ -1830,6 +1830,12 @@ overview, and more. [[http://oremacs.com/swiper][Oh, man!]]
     (diminish 'ivy-mode))
 #+end_src
 
+Useful setting that adds =recentf= and =bookmarks= to =ivy-switch-buffer=
+
+#+begin_src emacs-lisp
+  (setq ivy-use-virtual-buffers t)
+#+end_src
+
 *** ace-jump-mode
 
 [[https://github.com/winterTTr/ace-jump-mode][ace-jump-mode]] allows one to jump around the buffer to named characters (it's
