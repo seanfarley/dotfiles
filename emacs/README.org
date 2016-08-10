@@ -2321,6 +2321,17 @@ Always enable this mode and bind =C-|= to highlight the column
   (global-set-key (kbd "C-|") 'column-highlight-mode)
 #+end_src
 
+*** highlight-thing
+
+Global minor mode to highlight thing under point.
+
+#+begin_src emacs-lisp
+  (require-package 'highlight-thing)
+  (global-set-key (kbd "H-h") 'highlight-thing-mode)
+  (after-load 'diminish
+    (diminish 'highlight-thing-mode))
+#+end_src
+
 *** hungry-delete
 
 =hungry-delete= will delete all whitespace forward or backward.
