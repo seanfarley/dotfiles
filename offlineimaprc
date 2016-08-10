@@ -16,7 +16,7 @@ localfolders = ~/.mail
 nametrans = lambda folder: folder if folder != 'inbox' else 'INBOX'
 
 [Repository main-remote]
-maxconnections = 5
+maxconnections = 3
 type = IMAP
 ssl = true
 remotehost = mail.farley.io
