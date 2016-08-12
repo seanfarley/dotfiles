@@ -673,7 +673,7 @@ Maildir_State_To_Notmuch__Remove_Tags_From_Notmuch ()
 
 Notmuch_Cleanup ()
 {
-
+    local NEW_MSG
     # anything in sent mail should have the unread flag removed
     $RUNCMD "notmuch tag -\"$UNREAD_TAG\" -- folder:\"$SENT\""
 
@@ -683,6 +683,12 @@ Notmuch_Cleanup ()
     fi
 
     # remove "$NEW_TAG" tags, optionally converting to "$UNREAD_TAG"
+    NEW_MSG=$(notmuch search --format=text --output=summary --limit=3 --sort=newest-first tag:"$NEW_TAG" | sed 's/^[^;]*; //' | sed 's/ (.*)$//' | sed 's/^/• /')
+    if [[ -e "$(which terminal-notifier)" && ! -z "$NEW_MSG" ]]; then
+      terminal-notifier -sender com.apple.Mail -title 'New Mail' \
+                        -execute 'open /Applications/MacPorts/EmacsMac.app' \
+                        -message "$NEW_MSG"
+    fi
     case $MAKE_NEW_UNREAD in
         true|TRUE|yes|YES|y|Y)
             $RUNCMD "notmuch tag -\"$NEW_TAG\" +\"$UNREAD_TAG\" -- tag:\"$NEW_TAG\"" ;;
