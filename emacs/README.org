@@ -1859,7 +1859,9 @@ Fuzzy matching
   (require-package 'flx)
   (setq ivy-initial-inputs-alist nil)     ; don't insert '^' into regex
   (setq ivy-re-builders-alist
-        '((t . ivy--regex-fuzzy)))
+        '((t . ivy--regex-plus)))
+  ;; (setq ivy-re-builders-alist
+  ;;       '((t . ivy--regex-fuzzy)))
 #+end_src
 
 **** ivy-view
