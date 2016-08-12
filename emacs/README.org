@@ -2927,6 +2927,7 @@ straight copy from =moe-theme.el= but the 'dark 'blue colors are tweaked.
                                        (when (bound-and-true-p nyan-mode)
                                          (powerline-raw (list (nyan-create)) face4 'l))))
                             (rhs (list (powerline-raw global-mode-string face4 'r)
+                                       (powerline-raw (smf/notmuch-get-unread) face4 'r)
                                        (funcall separator-right face4 face3)
                                        (powerline-raw (concat
                                                        "%l:%c"
