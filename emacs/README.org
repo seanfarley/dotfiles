@@ -2769,6 +2769,18 @@ bookmarks (falling back to named branches),
                     (s-trim branch)))))))
 #+end_src
 
+Define a helper method that outputs the number of unread email.
+
+#+begin_src emacs-lisp
+  (defun smf/notmuch-get-unread ()
+    "Return output of 'notmuch count tag:unread without newline"
+    (let* (deactivate-mark)
+      (ignore-errors
+        (substring
+         (shell-command-to-string "notmuch count tag:unread")
+         0 -1))))
+#+end_src
+
 To add more powerline sections, we need to define some more faces.
 
 #+begin_src emacs-lisp
