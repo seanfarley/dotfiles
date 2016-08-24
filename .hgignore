@@ -19,6 +19,7 @@ emacs/.python-environments
 emacs/irony
 emacs/anaconda-mode
 emacs/.sx
+emacs/request
 
 omnisharp-server
 irony-server
