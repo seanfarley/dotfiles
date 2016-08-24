@@ -3653,6 +3653,16 @@ to the definitions of variables, functions, libraries and faces.
   (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 #+end_src
 
+*** Twitter
+
+=Twittering-mode=: a Twitter client for Emacs
+
+#+begin_src emacs-lisp
+  (require-package 'twittering-mode)
+  (setq twittering-icon-mode t)
+  (setq twittering-use-icon-storage t)
+#+end_src
+
 ** LaTeX
 
 I love [[http://en.wikipedia.org/wiki/LaTeX][LaTex]]. It's the best way to typeset a document.
