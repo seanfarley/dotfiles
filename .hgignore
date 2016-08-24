@@ -18,6 +18,7 @@ emacs/abbrev*
 emacs/.python-environments
 emacs/irony
 emacs/anaconda-mode
+emacs/.sx
 
 omnisharp-server
 irony-server
