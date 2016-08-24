@@ -4410,8 +4410,8 @@ Set =offlineimap= to be called for fetching new mail. This allows mail to be
 updated from within [[notmuch]] with keyboard shortcuts.
 
 #+begin_src emacs-lisp
-  (after-load 'notmuch
-    (require-package 'offlineimap)
+  (require-package 'offlineimap)
+  (after-load 'offlineimap
     (setq offlineimap-enable-mode-line-p t)
 
     ;; redefine this to not surround the status with '[' and ']'
@@ -4436,8 +4436,9 @@ updated from within [[notmuch]] with keyboard shortcuts.
              'mouse-face 'mode-line-highlight
              'help-echo "mouse-2: Go to OfflineIMAP buffer"
              'local-map offlineimap-mode-line-map))
-      (force-mode-line-update))
+      (force-mode-line-update)))
 
+  (after-load 'notmuch
     ;; For some reason this causes the offlineimap-hook to display the
     ;; notmuch-hello buffer
     (setq notmuch-hello-auto-refresh 'nil)
