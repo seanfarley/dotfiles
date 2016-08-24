@@ -38,12 +38,6 @@ _....() {
 }
 complete -o nospace -F _.... ....
 
-function my_cd {
-    \cd "$@" >/dev/null
-}
-alias cd='my_cd'
-complete -o nospace -F _cd my_cd
-
 ##################
 # helper functions
 ##################
