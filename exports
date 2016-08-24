@@ -65,6 +65,7 @@ if [ -d $HOME/.local/lib/python2.7 ]; then
 fi
 
 # for virtualenv
-mkdir -p "$HOME/.env"
-export WORKON_HOME="$HOME/.env"
+export VIRTUALENV_HOME="$HOME/.virtualenvs"
+mkdir -p "$VIRTUALENV_HOME"
+export WORKON_HOME="$VIRTUALENV_HOME"
 export VIRTUALENV_USE_DISTRIBUTE=1
