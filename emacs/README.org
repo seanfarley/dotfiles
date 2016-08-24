@@ -3645,7 +3645,7 @@ to the definitions of variables, functions, libraries and faces.
   (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 #+end_src
 
-** Docker
+*** Docker
 
 #+begin_src emacs-lisp
   (require-package 'docker)
