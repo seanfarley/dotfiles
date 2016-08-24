@@ -685,9 +685,11 @@ Notmuch_Cleanup ()
     # remove "$NEW_TAG" tags, optionally converting to "$UNREAD_TAG"
     NEW_MSG=$(notmuch search --format=text --output=summary --limit=3 --sort=newest-first tag:"$NEW_TAG" | sed 's/^[^;]*; //' | sed 's/ (.*)$//' | sed 's/^/• /')
     if [[ -e "$(which terminal-notifier)" && ! -z "$NEW_MSG" ]]; then
-      terminal-notifier -sender com.apple.Mail -title 'New Mail' \
-                        -execute 'open /Applications/MacPorts/EmacsMac.app' \
-                        -message "$NEW_MSG"
+      while read -r line; do
+        terminal-notifier -sender com.apple.Mail -title 'New Mail' \
+                          -execute 'open /Applications/MacPorts/EmacsMac.app' \
+                          -message "$line"
+      done <<< "$NEW_MSG"
     fi
     case $MAKE_NEW_UNREAD in
         true|TRUE|yes|YES|y|Y)
