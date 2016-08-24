@@ -460,8 +460,8 @@ EOF
 }
 
 _ve() {
-  [[ ${COMP_WORDS[COMP_CWORD]} == $HOME/.env/* ]] || COMP_WORDS[COMP_CWORD]="$HOME/.env/${COMP_WORDS[COMP_CWORD]}"
-  COMPREPLY=( $(compgen -d ${COMP_WORDS[COMP_CWORD]} -- ${COMP_WORDS[COMP_CWORD]} | cut -b$(echo $HOME/.env/ | wc -c)- ) )
+  [[ ${COMP_WORDS[COMP_CWORD]} == $VIRTUALENV_HOME/* ]] || COMP_WORDS[COMP_CWORD]="$VIRTUALENV_HOME/${COMP_WORDS[COMP_CWORD]}"
+  COMPREPLY=( $(compgen -d ${COMP_WORDS[COMP_CWORD]} -- ${COMP_WORDS[COMP_CWORD]} | cut -b$(echo $VIRTUALENV_HOME/ | wc -c)- ) )
 }
 complete -o nospace -F _ve ve
 
