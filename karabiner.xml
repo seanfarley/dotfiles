@@ -46,6 +46,11 @@
     <url type="file">/Applications/Messages.app</url>
   </vkopenurldef>
 
+  <vkopenurldef>
+    <name>KeyCode::VK_OPEN_URL_APP_Chrome</name>
+    <url type="file">/Applications/Google Chrome.app</url>
+  </vkopenurldef>
+
   <item>
     <name>Change left-command + ctrl + l to launch Calendar</name>
     <identifier>private.left_command_ctrl_l</identifier>
@@ -117,12 +122,12 @@
   </item>
 
   <item>
-    <name>Change left-command + ctrl + c to launch EmacsMac</name>
+    <name>Change left-command + ctrl + c to launch Chrome</name>
     <identifier>private.left_command_ctrl_c</identifier>
     <autogen>
       __KeyToKey__
       KeyCode::C, ModifierFlag::COMMAND_L, ModifierFlag::CONTROL_L,
-      KeyCode::VK_OPEN_URL_APP_EmacsMac,
+      KeyCode::VK_OPEN_URL_APP_Chrome,
     </autogen>
   </item>
 
