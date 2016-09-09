@@ -683,7 +683,7 @@ Notmuch_Cleanup ()
     fi
 
     # remove "$NEW_TAG" tags, optionally converting to "$UNREAD_TAG"
-    NEW_MSG=$(notmuch search --format=text --output=summary --limit=3 --sort=newest-first tag:"$NEW_TAG" | sed 's/^[^;]*; //' | sed 's/ (.*)$//' | sed 's/^/• /')
+    NEW_MSG=$(notmuch search --format=text --output=summary --limit=3 --sort=newest-first tag:"$NEW_TAG" and not tag:sent | sed 's/^[^;]*; //' | sed 's/ (.*)$//' | sed 's/^/• /')
     if [[ -e "$(which terminal-notifier)" && ! -z "$NEW_MSG" ]]; then
       while read -r line; do
         terminal-notifier -sender com.apple.Mail -title 'New Mail' \
