@@ -505,13 +505,13 @@
 		<string>@^↓</string>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>925 215 445 77 0 0 1440 900 </string>
+	<string>925 81 445 77 0 0 1440 900 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>269 420 606 456 0 0 1440 900 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 382 620 392 0 0 1440 900 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>238 263 918 495 0 0 1440 900 </string>
+	<string>238 195 918 507 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1440 900 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
@@ -1243,7 +1243,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>67267103-50A0-47CA-B327-DC96870C0E66</string>
 	<key>NoSyncLastTipTime</key>
-	<real>475111034.43888497</real>
+	<real>492977467.28166199</real>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1327,6 +1327,7 @@
 		<string>0063</string>
 		<string>0064</string>
 		<string>0065</string>
+		<string>0065</string>
 	</array>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
@@ -1340,6 +1341,8 @@
 	<false/>
 	<key>PasteFromClipboard</key>
 	<true/>
+	<key>PasteTabToStringTabStopSize</key>
+	<integer>4</integer>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -1394,7 +1397,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-07-27T18:21:03Z</date>
+	<date>2016-08-28T07:07:53Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -1440,6 +1443,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.0.20160726-nightly</string>
+	<string>3.0.20160823-nightly</string>
 </dict>
 </plist>
