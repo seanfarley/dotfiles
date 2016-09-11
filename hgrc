@@ -124,6 +124,36 @@ username = sean@farley.io
 tls = True
 local_hostname = farley.io
 
+[templatealias]
+smf_svn = "{if(svnrev, label('log.changeset', '[r{svnrev}] '))}"
+smf_ldesc = "{ifcontains(rev, revset(\".\"), \"desc.here\")}"
+smf_lmerge = "{ifcontains(rev, revset(\"merge()\"), \"changeset.merge\")}"
+smf_lobs = "{ifcontains(rev, revset(\"obsolete()\"), \"changeset.obsolete\")}"
+smf__cs(f) = "{label('log.changeset changeset.{phase} {smf_lmerge} {smf_lobs}', f)}"
+smf_cs = "{smf__cs(shortest(node))}"
+smf_rev = "{smf__cs('{rev}')}"
+smf_node = "{smf__cs('{node|short}')}"
+smf_cs_fill = "{smf__cs(pad(shortest(node), 7, ' ', True))}"
+smf_user = "{label('log.changeset', author|user)}"
+smf_person = "{label('log.user', author|person)}"
+smf_tags = "{tags % \"{ifeq(tag, 'tip', '', label('log.tag', ' {tag}'))}\"}"
+smf_branch = "{ifeq(branch, 'default', '', label('log.branch', ' {branch}'))}"
+smf_topic = "{label('log.topic', if(topics,' {topics}'))}"
+smf_bookmarks = "{label('log.bookmark', if(bookmarks,' {bookmarks}'))}"
+smf_remotenames = "{label('log.remotename', if(remotenames, ' {remotenames}'))}"
+smf_remotebookmarks = "{label('log.remotebookmark', if(remotebookmarks, '{remotebookmarks} '))}"
+smf_remotebranches = "{label('log.remotebranch', if(remotebranches, '{remotebranches} '))}"
+smf_remoterefs = "{label('log.remoteref', if(remoterefs, ' {remoterefs}'))}"
+smf_date = "{label('log.date', date|shortdate)}"
+smf_isodate = "{label('log.date', date|isodatesec)}"
+smf_summary = "{label('{smf_ldesc} {smf_lobs}', desc|firstline)}"
+smf_summary_fill = "{label('log.description', fill(desc|firstline|strip, '80')|firstline|strip)}"
+smf_desc = "{label('{smf_ldesc} {smf_lobs}', desc)}"
+smf_desc_fill = "{label('log.description', sub('^.*\n?\n?', '', '{fill(desc|firstline|strip, \"95\", \"\", sub(\"[0-9]\", \" \", \"        \"))}\n\n'))}"
+smf_file_mods = "{file_mods % \"{label('status.modified', 'M {file}')}\n\"}"
+smf_file_adds = "{file_adds % \"{label('status.added', 'A {file}')}\n\"}"
+smf_file_dels = "{file_dels % \"{label('status.removed', 'R {file}')}\n\"}"
+
 [templates]
 sl = "{if(svnrev, label('log.changeset', '[r{svnrev}] '))}{label('log.changeset changeset.{phase} {ifcontains(rev, revset(\"merge()\"), \"changeset.merge\")} {ifcontains(rev, revset(\"obsolete()\"), \"changeset.obsolete\")}', shortest(node))} {label('log.changeset', author|user)}{tags % \"{ifeq(tag,'tip','',label('log.tag', ' {tag}'))}\"}{ifeq(branch,'default','',label('log.branch', ' {branch}'))}{label('log.topic', if(topics,' {topics}'))}{label('log.bookmark', if(bookmarks,' {bookmarks}'))}{label('log.remotename', if(remotenames, ' {remotenames}'))}{label('log.remoteref', if(remoterefs, ' {remoterefs}'))}\n{label('{ifcontains(rev, revset(\".\"), \"desc.here\")} {ifcontains(rev, revset(\"obsolete()\"), \"changeset.obsolete\")}', desc|firstline)}"
 
