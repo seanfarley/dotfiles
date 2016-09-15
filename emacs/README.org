@@ -2727,18 +2727,19 @@ bookmarks (falling back to named branches),
   (defun smf/get-p1-from-dirstate (filePath)
     "Return the first 7 characters of p1 from Mercurial's dirstate"
     (let* (deactivate-mark)
-      (let* ((p1 (with-temp-buffer
-                   (set-buffer-multibyte nil)
-                   (setq buffer-file-coding-system 'binary)
-                   (insert-file-contents-literally filePath nil 0 4)
-                   (buffer-substring-no-properties (point-min) (point-max))
-                   ))
-             (bytes '()))
-        (dotimes (i (length p1))
-          (let ((next-byte (substring p1 i (1+ i))))
-            (push (format "%x" (string-to-char next-byte))
-                  bytes)))
-        (apply #'concat (reverse bytes)))))
+      (ignore-errors
+        (let* ((p1 (with-temp-buffer
+                     (set-buffer-multibyte nil)
+                     (setq buffer-file-coding-system 'binary)
+                     (insert-file-contents-literally filePath nil 0 4)
+                     (buffer-substring-no-properties (point-min) (point-max))
+                     ))
+               (bytes '()))
+          (dotimes (i (length p1))
+            (let ((next-byte (substring p1 i (1+ i))))
+              (push (format "%x" (string-to-char next-byte))
+                    bytes)))
+          (apply #'concat (reverse bytes))))))
 
   (defun smf/get-hg-branch-bookmark (root)
     (let ((book (smf/get-string-from-file
