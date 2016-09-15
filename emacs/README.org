@@ -2741,12 +2741,15 @@ bookmarks (falling back to named branches),
                     bytes)))
           (apply #'concat (reverse bytes))))))
 
-  (defun smf/get-hg-branch-bookmark (root)
+  (defun smf/get-hg-branch-bookmark-topic (root)
     (let ((book (smf/get-string-from-file
                  (concat root "/.hg/bookmarks.current")))
+          (topic (smf/get-string-from-file
+                  (concat root "/.hg/topic")))
           (p1 (smf/get-p1-from-dirstate
                (concat root "/.hg/dirstate"))))
       (cond
+       ((and topic (not (s-blank? topic))) topic)
        (book book)
        (p1 p1)
        ((not root) "")
@@ -2762,7 +2765,7 @@ bookmarks (falling back to named branches),
                       (error nil))))
         (when (or gitbranch hgroot)
           (let ((branch (if gitbranch gitbranch
-                          (smf/get-hg-branch-bookmark hgroot))))
+                          (smf/get-hg-branch-bookmark-topic hgroot))))
             (format " %s %s"
                     (char-to-string #xe0a0)
                     (s-trim branch)))))))
