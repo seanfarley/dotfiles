@@ -2667,6 +2667,7 @@ its name,
   (defun smf/ignore-buffer (bname)
     (cond
      ((string-match "^\\*.*\\*$" bname) t)
+     ((string-match "^:[a-zA-Z0-9]+" bname) t)
      ((string-match "freenode$" bname) t)
      ((string-match "BitlBee$" bname) t)
      ((string-match "nil$" bname) t)
