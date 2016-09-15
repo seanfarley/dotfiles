@@ -3993,6 +3993,12 @@ Set the token for HipChat api calls,
   (setq erc-hipchatify-token `,(smf/get-keychain-password "smf/token" "hipchat.com"))
 #+end_src
 
+Set the email for HipChat,
+
+#+begin_src emacs-lisp
+  (setq erc-hipchatify-email "sfarley@atlassian.com")
+#+end_src
+
 Set the channel names (buffer names) for which to replace 'nick' with '@nick',
 
 #+begin_src emacs-lisp
