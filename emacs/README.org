@@ -2524,8 +2524,8 @@ Define a tag so that we can inherit the same env variables
            ("CELERY_RDB_PORT" "6900")
            ("DJANGO_SETTINGS_MODULE" "bitbucket.settings.dev")
            ("LANG" "en_US.UTF-8")
-           ("PATH" ,(concat (expand-file-name "~/.env/bb/bin") ":" (getenv "PATH")))
-           ("VIRTUAL_ENV" ,(expand-file-name "~/.env/bb/"))))
+           ("PATH" ,(concat (expand-file-name "~/.virtualenvs/bb/bin") ":" (getenv "PATH")))
+           ("VIRTUAL_ENV" ,(expand-file-name "~/.virtualenvs/bb/"))))
 #+end_src
 
 #+begin_src emacs-lisp
