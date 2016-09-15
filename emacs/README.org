@@ -3660,6 +3660,7 @@ to the definitions of variables, functions, libraries and faces.
   (require-package 'twittering-mode)
   (setq twittering-icon-mode t)
   (setq twittering-use-icon-storage t)
+  (smf/add-launcher "t" 'twit)
 #+end_src
 
 ** LaTeX
