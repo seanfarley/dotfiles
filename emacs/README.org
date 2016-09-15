@@ -2239,9 +2239,6 @@ Remove this since it seems to be defunct
 
 #+begin_src emacs-lisp
   (require-package 'company-quickhelp)
-  (after-load 'company
-    (company-quickhelp-mode)
-    (define-key company-quickhelp-mode-map (kbd "M-h") nil))
 #+end_src
 
 *** flycheck
