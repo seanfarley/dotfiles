@@ -20,6 +20,7 @@ emacs/irony
 emacs/anaconda-mode
 emacs/.sx
 emacs/request
+emacs/network-security.data
 
 omnisharp-server
 irony-server
