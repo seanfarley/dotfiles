@@ -64,3 +64,5 @@
 	smudge = git-lfs smudge -- %f
 	required = true
 	clean = git-lfs clean -- %f
+[rebase]
+	autosquash = true
