@@ -75,13 +75,13 @@ if ! [ -d /Applications/Karabiner-Elements.app ]; then
   rm -f $PKG.dmg
 fi
 
-# Spectacle
-if ! [ -d /Applications/Spectacle.app ]; then
-  PKG=Spectacle+1.0.1.zip
-  curl -LO https://s3.amazonaws.com/spectacle/downloads/$PKG
+# Hammerspoon
+if ! [ -d /Applications/Hammerspoon.app ]; then
+  PKG=hammerspoon.zip
+  curl -L "$(gh_url Hammerspoon/hammerspoon)" > $PKG
   unzip $PKG
-  sudo mv Spectacle.app /Applications
-  rm -rf __MACOSX $PKG
+  sudo mv Hammerspoon.app /Applications
+  rm -f $PKG
 fi
 
 ###############################################################################
