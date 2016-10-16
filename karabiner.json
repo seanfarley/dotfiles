@@ -1,0 +1,13 @@
+{
+  "profiles": [
+    {
+      "name": "Default profile",
+      "selected": true,
+      "simple_modifications": {
+        "caps_lock": "left_control",
+        "left_shift": "left_alt",
+        "left_alt": "left_shift"
+      }
+    }
+  ]
+}

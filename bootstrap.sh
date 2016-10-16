@@ -18,6 +18,7 @@ mkdir -p ~/.ipython
 mkdir -p ~/.ssh
 mkdir -p ~/.config
 mkdir -p ~/.pastebin.d
+mkdir -p ~/.karabiner.d/configuration
 
 rm -f ~/.bootstrap.sh
 rm -f ~/.emacs
@@ -70,3 +71,4 @@ ensure_link "notmuch-config"
 ensure_link "vpnc-script" ".vpnc-script"
 ensure_link "pwclient"
 ensure_link "docker-bash"
+ensure_link "karabiner.json" ".karabiner.d/configuration/karabiner.json"
