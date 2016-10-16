@@ -3461,7 +3461,7 @@ intuitive.
 need to load Magit first.
 
 #+begin_src emacs-lisp
-  (global-set-key (kbd "C-c g") 'magit-status)
+  (smf/add-launcher "g" 'magit-status)
 #+end_src
 
 =magit-grep= isn't =autoloaded=, so I need to explicitly load it before binding
