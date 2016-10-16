@@ -3517,6 +3517,12 @@ Always set the upstream when pushing:
   (setq magit-push-arguments '("--set-upstream"))
 #+end_src
 
+Ugh, stupid git
+
+#+begin_src emacs-lisp
+  (setq git-commit-summary-max-length 72)
+#+end_src
+
 **** Load Magit
 
 Finally we can install Magit:
