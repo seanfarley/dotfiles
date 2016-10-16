@@ -199,6 +199,7 @@ log.remotename = red
 log.remotebookmark = red
 log.remoteref = red
 log.remotebranch = cyan
+log.troubles = bold red inverse
 changeset.public = blue
 changeset.draft = green
 changeset.secret = red bold
