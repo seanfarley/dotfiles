@@ -156,13 +156,13 @@ smf_file_dels = "{file_dels % \"{label('status.removed', 'R {file}')}\n\"}"
 smf_troubles = "{if(troubles, ' ')}{label('log.troubles', if(troubles, '{troubles}'))}"
 
 [templates]
-sl = "{smf_svn}{smf_cs} {smf_user}{smf_tags}{smf_branch}{smf_topic}{smf_bookmarks}{smf_remotenames}\n{smf_summary}"
+sl = "{smf_svn}{smf_cs} {smf_user}{smf_tags}{smf_branch}{smf_topic}{smf_bookmarks}{smf_remotenames}{smf_remoterefs}{smf_troubles}\n{smf_summary}"
 
-gl = "{smf_cs_fill} {smf_summary_fill}{smf_branch}{smf_topic}{smf_bookmarks}{smf_remotebookmarks}{smf_remoterefs}{smf_tags} {smf_date} by {smf_person}\n{smf_desc_fill}"
+gl = "{smf_cs_fill} {smf_summary_fill}{smf_branch}{smf_topic}{smf_bookmarks}{smf_remotebookmarks}{smf_remoterefs}{smf_tags} {smf_date} by {smf_person}{smf_troubles}\n{smf_desc_fill}"
 
-ll = "{smf_svn}{smf_rev}:{smf_node} {smf_summary}{smf_tags}{smf_branch}{smf_remotebranches}{smf_topic}{smf_bookmarks}{smf_remotebookmarks}{smf_remoterefs} {smf_date} by {smf_person}\n"
+ll = "{smf_svn}{smf_rev}:{smf_node} {smf_summary}{smf_tags}{smf_branch}{smf_remotebranches}{smf_topic}{smf_bookmarks}{smf_remotebookmarks}{smf_remoterefs} {smf_date} by {smf_person}{smf_troubles}\n"
 
-nl = "{smf_svn}{smf_rev}:{smf_node}{smf_tags}{smf_branch}{smf_remotebranches}{smf_topic}{smf_bookmarks}{smf_remotebookmarks}{smf_remoterefs} {smf_isodate} by {smf_person}\n{smf_desc}\n\n{smf_file_mods}{smf_file_adds}{smf_file_dels}\n"
+nl = "{smf_svn}{smf_rev}:{smf_node}{smf_tags}{smf_branch}{smf_remotebranches}{smf_topic}{smf_bookmarks}{smf_remotebookmarks}{smf_remoterefs} {smf_isodate} by {smf_person}{smf_troubles}\n{smf_desc}\n\n{smf_file_mods}{smf_file_adds}{smf_file_dels}\n"
 
 [color]
 desc.here = inverse
