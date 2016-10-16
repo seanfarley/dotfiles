@@ -2514,7 +2514,7 @@ Define a tag so that we can inherit the same env variables
   (prodigy-define-tag
     :name 'bitbucket
     :cwd "~/projects/bitbucket"
-    :path "~/.env/bb/bin"
+    :path "~/.virtualenvs/bb/bin"
     :env `(("BB_EMAIL_PASSWORD"
             ,(smf/get-keychain-password "bbtest@farley.io" "mail.farley.io"))
            ("HGRCPATH" "./hgrc")
