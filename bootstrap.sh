@@ -19,6 +19,7 @@ mkdir -p ~/.ssh
 mkdir -p ~/.config
 mkdir -p ~/.pastebin.d
 mkdir -p ~/.karabiner.d/configuration
+mkdir -p ~/.hammerspoon
 
 rm -f ~/.bootstrap.sh
 rm -f ~/.emacs
@@ -72,3 +73,4 @@ ensure_link "vpnc-script" ".vpnc-script"
 ensure_link "pwclient"
 ensure_link "docker-bash"
 ensure_link "karabiner.json" ".karabiner.d/configuration/karabiner.json"
+ensure_link "hammerspoon.lua" ".hammerspoon/init.lua"
