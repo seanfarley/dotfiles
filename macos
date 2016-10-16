@@ -30,7 +30,7 @@ fi
 
 # install macports
 if ! [ -d /opt/local/bin ]; then
-  PKG=MacPorts-2.3.4-10.11-ElCapitan.pkg
+  PKG=MacPorts-2.3.4-10.12-Sierra.pkg
   curl -O https://distfiles.macports.org/MacPorts/$PKG
   sudo installer -pkg ./$PKG -target /
   rm -f $PKG
