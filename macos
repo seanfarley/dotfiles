@@ -61,54 +61,14 @@ fi
 open fonts/*
 
 # karabiner
-if ! [ -d /Applications/Karabiner.app ]; then
-  PKG=Karabiner-10.9.0
-  curl -LO https://pqrs.org/osx/karabiner/files/$PKG.dmg
+if ! [ -d /Applications/Karabiner-Elements.app ]; then
+  PKG=karabiner-elements-latest
+  curl -LO https://pqrs.org/latest/karabiner-elements-latest.dmg
   sudo hdiutil attach $PKG.dmg
-  sudo installer -package /Volumes/$PKG/Karabiner*.pkg -target /
-  sudo umount /Volumes/$PKG
+  sudo installer -package /Volumes/Karabiner*/Karabiner*.pkg -target /
+  sudo umount /Volumes/Karabiner*
   rm -f $PKG.dmg
 fi
-
-mkdir -p ~/Library/Application\ Support/Karabiner
-cp karabiner.xml ~/Library/Application\ Support/Karabiner/private.xml
-cli=/Applications/Karabiner.app/Contents/Library/bin/karabiner
-
-$cli set option.emacsmode_controlD 1
-/bin/echo -n .
-$cli set option.emacsmode_controlV 1
-/bin/echo -n .
-$cli set private.left_command_ctrl_i 1
-/bin/echo -n .
-$cli set private.left_command_ctrl_p 1
-/bin/echo -n .
-$cli set private.left_command_ctrl_k 1
-/bin/echo -n .
-$cli set option.emacsmode_optionV 1
-/bin/echo -n .
-$cli set remap.optionL2shiftL 1
-/bin/echo -n .
-$cli set option.emacsmode_optionD 1
-/bin/echo -n .
-$cli set private.left_command_ctrl_e 1
-/bin/echo -n .
-$cli set passthrough.fnescape 1
-/bin/echo -n .
-$cli set option.emacsmode_optionBF 1
-/bin/echo -n .
-$cli set private.left_command_ctrl_c 1
-/bin/echo -n .
-$cli set private.left_command_ctrl_s 1
-/bin/echo -n .
-$cli set option.emacsmode_ex_controlG 1
-/bin/echo -n .
-$cli set private.left_command_ctrl_t 1
-/bin/echo -n .
-$cli set remap.shiftL2optionL 1
-/bin/echo -n .
-$cli set option.emacsmode_controlPNBF 1
-/bin/echo -n .
-/bin/echo
 
 # Spectacle
 if ! [ -d /Applications/Spectacle.app ]; then
