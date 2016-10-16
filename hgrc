@@ -153,6 +153,7 @@ smf_desc_fill = "{label('log.description', sub('^.*\n?\n?', '', '{fill(desc|firs
 smf_file_mods = "{file_mods % \"{label('status.modified', 'M {file}')}\n\"}"
 smf_file_adds = "{file_adds % \"{label('status.added', 'A {file}')}\n\"}"
 smf_file_dels = "{file_dels % \"{label('status.removed', 'R {file}')}\n\"}"
+smf_troubles = "{if(troubles, ' ')}{label('log.troubles', if(troubles, '{troubles}'))}"
 
 [templates]
 sl = "{smf_svn}{smf_cs} {smf_user}{smf_tags}{smf_branch}{smf_topic}{smf_bookmarks}{smf_remotenames}\n{smf_summary}"
