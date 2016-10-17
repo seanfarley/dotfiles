@@ -91,6 +91,12 @@ if ! [ -d /Applications/Hammerspoon.app ]; then
   rm -f $PKG
 fi
 
+# Adguard
+if ! [ -f "$HOME/Library/Safari/Extensions/Adguard AdBlocker.safariextz" ]; then
+  open https://safari-extensions.apple.com/details/?id=com.adguard.safari-N33TQXN8C7
+  read -p "Press enter to continue"
+fi
+
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
