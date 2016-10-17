@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# ~/.macos — https://mths.be/macos
+# -- modified by smf
+
 # Ask for the administrator password upfront
 sudo -v
 
