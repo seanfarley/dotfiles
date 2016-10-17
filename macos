@@ -105,7 +105,7 @@ sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.serve
 sudo pmset -a standbydelay 86400
 
 # Disable the sound effects on boot
-sudo nvram SystemAudioVolume=%00
+sudo nvram SystemAudioVolume=" "
 
 # Menu bar: hide the Volume, Bluetooth, and User icons
 for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
