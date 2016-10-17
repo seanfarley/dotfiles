@@ -97,6 +97,12 @@ if ! [ -f "$HOME/Library/Safari/Extensions/Adguard AdBlocker.safariextz" ]; then
   read -p "Press enter to continue"
 fi
 
+# Save to Pocket
+if ! [ -f "$HOME/Library/Safari/Extensions/Save to Pocket.safariextz" ]; then
+  open https://safari-extensions.apple.com/details/?id=com.ideashower.pocket.safari-ET279A6R5N
+  read -p "Press enter to continue"
+fi
+
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
