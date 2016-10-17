@@ -10,6 +10,11 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Bootstrapping                                                               #
 ###############################################################################
 
+# helper function to get the latest replease of a github repo
+gh_url() {
+  curl https://api.github.com/repos/$1/releases | grep browser_download_url | head -n 1 | cut -d '"' -f 4
+}
+
 # check for xcode
 if ! [ -d /Applications/Xcode.app ]; then
   echo "Please install Xcode through the App Store"
