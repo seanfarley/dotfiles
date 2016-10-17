@@ -180,9 +180,8 @@ sudo systemsetup -setcomputersleep Off > /dev/null
 # Check for software updates daily, not just once per week
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
-# Disable guest account (doesn't work on El Capitan)
-# sudo defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool NO
-# sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool NO
+# Disable guest account
+sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool NO
 
 ###############################################################################
 # SSD-specific tweaks                                                         #
