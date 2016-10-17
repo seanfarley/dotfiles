@@ -103,6 +103,14 @@ if ! [ -f "$HOME/Library/Safari/Extensions/Save to Pocket.safariextz" ]; then
   read -p "Press enter to continue"
 fi
 
+# JsonView
+if ! [ -f "$HOME/Library/Safari/Extensions/JsonView.safariextz" ]; then
+  PKG=jsonview.safariextz
+  curl -LO https://github.com/acrogenesis/jsonview-safari/raw/v1.7/$PKG
+  open $PKG
+  read -p "Press enter to continue"
+fi
+
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
