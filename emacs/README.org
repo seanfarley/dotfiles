@@ -4402,6 +4402,9 @@ to be used. To achieve this, I wrote a function to handle it:
         nil
         nil))
 
+     ;; prevent replies from showing up in the inbox
+     notmuch-fcc-dirs "sent -unread"
+
      gnus-alias-default-identity "home"
 
      gnus-alias-identity-rules
