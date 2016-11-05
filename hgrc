@@ -276,7 +276,7 @@ ll = log --pager=always -T ll
 
 gll = log -G --pager=always -T sl
 
-gl = gll -r '.%(bookmark()-. or max(public()))^'
+gl = gll -r 'branch(.)'
 
 gl. = gll -fl 20
 
