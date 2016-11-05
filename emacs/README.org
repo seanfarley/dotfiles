@@ -2560,6 +2560,18 @@ Define a tag so that we can inherit the same env variables
     :ready-message "HTTP management requests")
 #+end_src
 
+#+begin_src emacs-lisp
+  (prodigy-define-service
+    :name "Bitbucket Conqserver"
+    :command "gunicorn"
+    :args '("--config" "conf/gunicorn-conqserver.conf.py"
+            "--bind" "localhost:9006"
+            "conqserver:application")
+    :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_conqserver"))
+    :tags '(bitbucket)
+    :ready-message "Worker warmed up")
+#+end_src
+
 *** d-mode
 
 An Emacs major mode for editing D code.
