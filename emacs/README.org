@@ -2538,8 +2538,7 @@ Define a tag so that we can inherit the same env variables
     :command "python"
     :args '("manage.py" "celeryd" "-l" "DEBUG")
     :tags '(bitbucket python)
-    :ready-message "Connected to amqp"
-    :kill-signal 'sigkill)
+    :ready-message "Connected to amqp")
 #+end_src
 
 #+begin_src emacs-lisp
@@ -2549,8 +2548,7 @@ Define a tag so that we can inherit the same env variables
     :url "http://dev.bitbucket.org:8000"
     :args '("manage.py" "gunserver" "--no-frontend-watch" "--no-frontend-build")
     :tags '(bitbucket python)
-    :ready-message "Booting worker with pid"
-    :kill-signal 'sigkill)
+    :ready-message "Booting worker with pid")
 #+end_src
 
 *** d-mode
