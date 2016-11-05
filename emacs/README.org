@@ -2551,6 +2551,15 @@ Define a tag so that we can inherit the same env variables
     :ready-message "Booting worker with pid")
 #+end_src
 
+#+begin_src emacs-lisp
+  (prodigy-define-service
+    :name "Conker"
+    :command "conker"
+    :cwd "~/projects/bitbucket-conker"
+    :tags '(bitbucket)
+    :ready-message "HTTP management requests")
+#+end_src
+
 *** d-mode
 
 An Emacs major mode for editing D code.
