@@ -2548,7 +2548,6 @@ Define a tag so that we can inherit the same env variables
     :command "python"
     :url "http://dev.bitbucket.org:8000"
     :args '("manage.py" "gunserver" "--no-frontend-watch" "--no-frontend-build")
-    :path (expand-file-name "~/.env/bb/bin")
     :tags '(bitbucket python)
     :ready-message "Booting worker with pid"
     :kill-signal 'sigkill)
