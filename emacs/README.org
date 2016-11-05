@@ -2516,6 +2516,7 @@ Define a tag so that we can inherit the same env variables
     :cwd "~/projects/bitbucket"
     :path `(,(expand-file-name "~/.virtualenvs/bb/bin")
             ,(expand-file-name "~/.go/bin"))
+    :kill-signal 'sigkill
     :env `(("BB_EMAIL_PASSWORD"
             ,(smf/get-keychain-password "bbtest@farley.io" "mail.farley.io"))
            ("HGRCPATH" "./hgrc")
