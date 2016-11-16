@@ -2663,7 +2663,8 @@ functions to be an empty string so [[powerline]] looks even better.
   (setq which-func-unknown "")
 #+end_src
 
-Alternately, I could prefix the function name with "ƒₓ" but I defer that for now.
+Alternately, I could prefix the function name with "ƒₓ" but I defer that for
+now.
 
 *** fic-mode
 
