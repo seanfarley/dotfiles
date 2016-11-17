@@ -43,6 +43,9 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+(package-install 'org-plus-contrib)
+
+(require 'org)
 (require 'ob-tangle)
 
 (org-babel-load-file (expand-file-name "README.org" (file-name-directory
