@@ -1635,14 +1635,6 @@ I want to also add:
             ("elpy"         . "http://jorgenschaefer.github.io/packages/"))))
 #+end_src
 
-**** Initialise package manager
-
-Finally we initialise the package manager:
-
-#+begin_src emacs-lisp
-  (package-initialize)
-#+end_src
-
 *** diminish
 
 [[http://www.emacswiki.org/emacs/DiminishedModes][diminish]] removes or abbreviates the minor mode indicators that can clutter up
