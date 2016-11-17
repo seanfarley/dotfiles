@@ -1087,6 +1087,17 @@ Also, I like using shift+arrow keys to highlight, so let's set that:
   (setq org-support-shift-select 'always)
 #+end_src
 
+I use meta-arrow keys for navigation so let's stop org from using them to indent
+
+#+begin_src emacs-lisp
+  (eval-after-load "org"
+    '(progn
+       (define-key org-mode-map (kbd "<M-S-left>") nil)
+       (define-key org-mode-map (kbd "<M-S-right>") nil)
+       (define-key org-mode-map (kbd "<M-left>") nil)
+       (define-key org-mode-map (kbd "<M-right>") nil)))
+#+end_src
+
 *** ido
 
 [[http://www.emacswiki.org/emacs/InteractivelyDoThings][ido]] is a mode for narrowing candidates as you type. It has excellent
