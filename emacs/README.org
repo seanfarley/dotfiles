@@ -86,11 +86,7 @@ passed in directory to =load-path=:
 
 and a convenience function for making a proper path out of two strings:
 
-#+begin_src emacs-lisp
-  (defun smf/join-dirs (prefix suffix)
-    "Joins `prefix' and `suffix' into a directory"
-    (file-name-as-directory (concat prefix suffix)))
-#+end_src
+[[file:init.el::(defun%20smf/join-dirs%20(prefix%20suffix][see init.el for code]].
 
 *** Base load path
 
@@ -102,14 +98,7 @@ loaded:
 $ emacs -q -l ~/src/emacs/init.el
 #+end_src
 
-then =smf/dotfiles-dir= will be =~/src/emacs=.
-
-#+begin_src emacs-lisp
-  (defconst smf/dotfiles-dir
-    (file-name-directory
-     (or (buffer-file-name) load-file-name))
-    "Base path for customised Emacs configuration")
-#+end_src
+then =smf/dotfiles-dir= will be =~/src/emacs=. [[file:init.el::(defconst%20smf/dotfiles-dir][See init.el for code]].
 
 This variable is important because all other directories I load things from are
 relative to it, which means my Emacs config doesn't need to live in
@@ -1580,21 +1569,7 @@ automatically download and install any required packages at load time. This
 makes my configuration fully portable.
 
 First set up convenience function (borrowed from [[https://github.com/purcell/emacs.d/blob/aa789c9745b13612c4fea6e638d81d8ebbfecdf8/init-elpa.el#L63-L73][Steve Purcell's emacs config]])
-that installs a package if it's not already installed:
-
-#+begin_src emacs-lisp
-  (defun require-package (package &optional min-version no-refresh)
-    "Install given PACKAGE, optionally requiring MIN-VERSION.
-  If NO-REFRESH is non-nil, the available package lists will not be
-  re-downloaded in order to locate PACKAGE."
-    (if (package-installed-p package min-version)
-        t
-      (if (or (assoc package package-archive-contents) no-refresh)
-          (package-install package)
-        (progn
-          (package-refresh-contents)
-          (require-package package min-version t)))))
-#+end_src
+that installs a package if it's not already installed. [[file:init.el::(defun%20require-package%20(package%20&optional%20min-version%20no-refresh][See init.el for code]].
 
 *** Configure package manager
 
@@ -1609,11 +1584,7 @@ directory to the version of Emacs I'm using.
 
 Final result should be something like =~/.emacs.d/.elpa/24.3.93.1/=.
 
-#+begin_src emacs-lisp
-  (after-load 'package
-    (setq package-user-dir
-          (smf/join-dirs (smf/join-dirs smf/dotfiles-dir ".elpa") emacs-version)))
-#+end_src
+[[file:init.el::(setq%20package-user-dir][see init.el for code]].
 
 **** Customise package repositories to install from
 
@@ -1626,14 +1597,7 @@ I want to also add:
 - [[https://github.com/milkypostman/melpa#stable-packages][MELPA stable]] (like MELPA, but pinned to specific versions)
 - [[https://github.com/jorgenschaefer/elpy#quick-installation][Elpy]] (allows me to install the Elpy Python development environment)
 
-#+begin_src emacs-lisp
-  (after-load 'package
-    (setq package-archives
-          '(("gnu"          . "http://elpa.gnu.org/packages/")
-            ("melpa"        . "http://melpa.org/packages/")
-            ("melpa-stable" . "http://stable.melpa.org/packages/")
-            ("elpy"         . "http://jorgenschaefer.github.io/packages/"))))
-#+end_src
+[[file:init.el::(setq%20package-archives][see init.el for code]].
 
 *** diminish
 
