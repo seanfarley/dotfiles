@@ -1124,6 +1124,7 @@ So, we'll start with some basic settings,
 
   (setq org-log-done t)
   (setq org-agenda-persistent-filter t)
+  (setq org-agenda-sticky t)
   (setq org-enforce-todo-dependencies t)
   (setq org-cycle-separator-lines 0)
   (setq org-blank-before-new-entry (quote ((heading)
