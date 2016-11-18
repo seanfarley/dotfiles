@@ -1059,12 +1059,22 @@ Don't auto-fold my documents:
   (setq org-startup-folded nil)
 #+end_src
 
-When editing [[http://orgmode.org/manual/Working-With-Source-Code.html#Working-With-Source-Code][nested source code]], always accept Emacs Lisp:
+Add some sweet ipython with gnuplot integration,
+
+#+begin_src emacs-lisp
+  (require-package 'gnuplot)
+  (require-package 'ob-ipython)
+  (setq ob-ipython-command "jupyter-2.7")
+  (setq python-shell-prompt-detect-failure-warning nil)
+#+end_src
+
+When editing [[http://orgmode.org/manual/Working-With-Source-Code.html#Working-With-Source-Code][nested source code]], always accept Emacs Lisp and ipython:
 
 #+begin_src emacs-lisp
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((emacs-lisp . t)))
+   '((ipython . t)
+     (emacs-lisp . t)))
 #+end_src
 
 and automatically apply syntax highlighting:
@@ -1072,6 +1082,12 @@ and automatically apply syntax highlighting:
 #+begin_src emacs-lisp
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
+#+end_src
+
+and don't prompt
+
+#+begin_src emacs-lisp
+  (setq org-confirm-babel-evaluate nil)
 #+end_src
 
 When using [[http://www.emacswiki.org/emacs/ImenuMode][imenu]], make sure I can follow the outline to the full available
@@ -1090,12 +1106,113 @@ Also, I like using shift+arrow keys to highlight, so let's set that:
 I use meta-arrow keys for navigation so let's stop org from using them to indent
 
 #+begin_src emacs-lisp
-  (eval-after-load "org"
-    '(progn
-       (define-key org-mode-map (kbd "<M-S-left>") nil)
-       (define-key org-mode-map (kbd "<M-S-right>") nil)
-       (define-key org-mode-map (kbd "<M-left>") nil)
-       (define-key org-mode-map (kbd "<M-right>") nil)))
+  (after-load 'org
+    (define-key org-mode-map (kbd "<M-S-left>") nil)
+    (define-key org-mode-map (kbd "<M-S-right>") nil)
+    (define-key org-mode-map (kbd "<M-left>") nil)
+    (define-key org-mode-map (kbd "<M-right>") nil))
+#+end_src
+
+A great plugin for =org-mode= is =org-journal= to take daily and weekly notes.
+I was inspired by [[http://pages.sachachua.com/.emacs.d/Sacha.html#org5b9f9d2][Sacha Chau's setup]] (and her [[http://sachachua.com][great website]]) to also revamp my
+workflow to use =org-mode= even more better.
+
+So, we'll start with some basic settings,
+
+#+begin_src emacs-lisp
+  (require-package 'org-journal)
+
+  (setq org-log-done t)
+  (setq org-agenda-persistent-filter t)
+  (setq org-enforce-todo-dependencies t)
+  (setq org-cycle-separator-lines 0)
+  (setq org-blank-before-new-entry (quote ((heading)
+                                           (plain-list-item . auto))))
+
+  (setq org-use-fast-todo-selection t)
+  (setq org-log-into-drawer t)
+  (setq org-log-state-notes-insert-after-drawers nil)
+  (setq org-fast-tag-selection-single-key nil)
+  (setq org-return-follows-link t)
+  (setq org-confirm-babel-evaluate nil)
+
+  (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
+#+end_src
+
+I'll change the prefix for these function (instead of using smf/launcher) since
+they are so common,
+
+#+begin_src emacs-lisp
+  (define-key global-map "\C-cl" 'org-store-link)
+  (define-key global-map "\C-ca" 'org-agenda)
+  (global-set-key (kbd "C-c c") 'org-capture)
+#+end_src
+
+The org-protocol plugin is sweet awesomeness. It allows native apps to send
+capture notes to emacs,
+
+#+begin_src emacs-lisp
+   (require 'org-protocol)
+#+end_src
+
+Now, set the agenda files,
+
+#+begin_src emacs-lisp
+  (setq org-agenda-files (list "~/Documents/org/organizer.org"
+                               "~/Documents/org/bitbucket.org"
+                               "~/Documents/org/phd.org"
+                               "~/Documents/org/hg.org"
+                               "~/Documents/org/personal.org"))
+#+end_src
+
+Also, set the file for capturing todos and add a launcher key for it,
+
+#+begin_src emacs-lisp
+   (setq org-default-notes-file "~/Documents/org/organizer.org")
+
+   (smf/add-launcher "o" (lambda ()
+                           (interactive)
+                           (find-file "~/Documents/org/organizer.org")))
+#+end_src
+
+Add a nice, little template to use along with some shortcuts,
+
+#+begin_src emacs-lisp
+  (defvar smf/org-basic-task-template "* TODO %?
+      Captured %<%Y-%m-%d %H:%M>
+      %a
+
+      %i
+      " "Basic task data")
+
+  (setq org-capture-templates
+        `(("t" "Tasks" entry
+           (file+headline "~/Documents/org/organizer.org" "Inbox")
+           ,smf/org-basic-task-template)
+          ("i" "Interrupting task" entry
+           (file+headline "~/Documents/org/organizer.org" "Inbox")
+           "* STARTED %^{Task}"
+           :clock-in :clock-resume)
+
+          ))
+
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "|" "DONE(d)")))
+
+#+end_src
+
+Let's use pomodoro!
+
+#+begin_src emacs-lisp
+  (require-package 'org-pomodoro)
+  (setq org-pomodoro-play-sounds nil)
+#+end_src
+
+While we're at it, let's add notmuch and twitter bootstrap integration,
+
+#+begin_src emacs-lisp
+  (require 'org-notmuch)
+  (require-package 'ox-twbs)
 #+end_src
 
 *** ido
