@@ -512,3 +512,5 @@ c.TerminalInteractiveShell.confirm_exit = False
 # If True, any %store-d variables will be automatically restored when IPython
 # starts.
 # c.StoreMagics.autorestore = False
+
+c.InlineBackend.figure_formats = ['svg']
