@@ -2033,42 +2033,21 @@ Goto last change in current buffer.
   (global-set-key (kbd "H-.") 'goto-last-change)
 #+end_src
 
-*** ag
+*** ripgrep
 
-[[https://github.com/Wilfred/ag.el][ag]] is an Emacs frontend to [[https://github.com/ggreer/the_silver_searcher][the ag command]], a grep-like code-searching tool. It's
-installed via Homebrew on my Mac.
+[[https://github.com/nlamirault/ripgrep.el][ripgrep]] is an Emacs frontend to [[https://github.com/BurntSushi/ripgrep][the rg command]], a grep-like code-searching tool. It's
+installed via cargo on my Mac.
 
 #+begin_src emacs-lisp
-  (require-package 'ag)
+  (require-package 'ripgrep)
+  (require 'projectile-ripgrep)
 #+end_src
 
 Set up some key bindings:
 
 #+begin_src emacs-lisp
-  (global-set-key (kbd "C-c f") 'ag-project)
-  (global-set-key (kbd "C-c a") 'ag)
   (when (eq system-type 'darwin)
-    (global-set-key (kbd "s-F") 'ag-project)
-    (global-set-key (kbd "s-A") 'ag))
-  (smf/add-launcher "a" 'ag-project)
-  (smf/add-launcher "A" 'ag)
-#+end_src
-
-Make sure that we re-use the =ag= buffers - without this my buffer list is full
-of buffers named after the project root.
-
-#+begin_src emacs-lisp
-  (setq ag-reuse-buffers t)
-#+end_src
-
-Highlight search results using =isearch= highlight faces (otherwise it just
-copies them from the shell):
-
-#+begin_src emacs-lisp
-  (setq ag-highlight-search t)
-  (add-hook 'ag-mode-hook
-            (lambda ()
-              (copy-face 'lazy-highlight 'ag-match-face)))
+    (global-set-key (kbd "H-f") 'projectile-ripgrep))
 #+end_src
 
 *** projectile
