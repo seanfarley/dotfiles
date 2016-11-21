@@ -369,48 +369,31 @@ modify_resolvconf_generic() {
 # and will be overwritten by vpnc
 # as long as the above mark is intact"
 
-	# Remember the original value of CISCO_DEF_DOMAIN we need it later
-	CISCO_DEF_DOMAIN_ORIG="$CISCO_DEF_DOMAIN"
-	# Don't step on INTERNAL_IP4_DNS value, use a temporary variable
-	INTERNAL_IP4_DNS_TEMP="$INTERNAL_IP4_DNS"
+	DOMAINS="$CISCO_DEF_DOMAIN"
+
 	exec 6< "$RESOLV_CONF_BACKUP"
 	while read LINE <&6 ; do
 		case "$LINE" in
-			nameserver*)
-				if [ -n "$INTERNAL_IP4_DNS_TEMP" ]; then
-					read ONE_NAMESERVER INTERNAL_IP4_DNS_TEMP <<-EOF
-	$INTERNAL_IP4_DNS_TEMP
-EOF
-					LINE="nameserver $ONE_NAMESERVER"
-				else
-					LINE=""
-				fi
-				;;
-			search*)
-				if [ -n "$CISCO_DEF_DOMAIN" ]; then
-					LINE="$LINE $CISCO_DEF_DOMAIN"
-					CISCO_DEF_DOMAIN=""
-				fi
-				;;
-			domain*)
-				if [ -n "$CISCO_DEF_DOMAIN" ]; then
-					LINE="domain $CISCO_DEF_DOMAIN"
-					CISCO_DEF_DOMAIN=""
-				fi
-				;;
+			# omit; we will overwrite these
+			nameserver*) ;;
+			# extract listed domains and prepend to list
+			domain* | search*) DOMAINS="${LINE#* } $DOMAINS" ;;
+			# retain other lines
+			*) NEW_RESOLVCONF="$NEW_RESOLVCONF
+$LINE" ;;
 		esac
-		NEW_RESOLVCONF="$NEW_RESOLVCONF
-$LINE"
 	done
 	exec 6<&-
 
-	for i in $INTERNAL_IP4_DNS_TEMP ; do
+	for i in $INTERNAL_IP4_DNS ; do
 		NEW_RESOLVCONF="$NEW_RESOLVCONF
 nameserver $i"
 	done
-	if [ -n "$CISCO_DEF_DOMAIN" ]; then
+	# note that "search" is mutually exclusive with "domain";
+	# "search" allows multiple domains to be listed, so use that
+	if [ -n "$DOMAINS" ]; then
 		NEW_RESOLVCONF="$NEW_RESOLVCONF
-search $CISCO_DEF_DOMAIN"
+search $DOMAINS"
 	fi
 	echo "$NEW_RESOLVCONF" > /etc/resolv.conf
 
@@ -462,7 +445,7 @@ search $CISCO_DEF_DOMAIN"
 				# DNS matching when available.  When multiple DNS matching
 				# is present, anything reading the /etc/resolv.conf file
 				# directly will probably not work as intended.
-				#if [ -z "$CISCO_DEF_DOMAIN_ORIG" ]; then
+				#if [ -z "$CISCO_DEF_DOMAIN" ]; then
 					# Cannot use multiple DNS matching without a domain
 					OVERRIDE_PRIMARY='d.add OverridePrimary # 1'
 				#fi
@@ -480,13 +463,13 @@ search $CISCO_DEF_DOMAIN"
 					set State:/Network/Service/$TUNDEV/IPv4
 					close
 				EOF
-				if [ -n "$CISCO_DEF_DOMAIN_ORIG" ]; then
+				if [ -n "$CISCO_DEF_DOMAIN" ]; then
 					scutil >/dev/null 2>&1 <<-EOF
 						open
 						get State:/Network/Service/$TUNDEV/DNS
-						d.add DomainName $CISCO_DEF_DOMAIN_ORIG
-						d.add SearchDomains * $CISCO_DEF_DOMAIN_ORIG
-						d.add SupplementalMatchDomains * $CISCO_DEF_DOMAIN_ORIG
+						d.add DomainName $CISCO_DEF_DOMAIN
+						d.add SearchDomains * $CISCO_DEF_DOMAIN
+						d.add SupplementalMatchDomains * $CISCO_DEF_DOMAIN
 						set State:/Network/Service/$TUNDEV/DNS
 						close
 					EOF
