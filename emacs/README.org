@@ -1166,6 +1166,13 @@ Now, set the agenda files,
                                "~/Documents/org/personal.org"))
 #+end_src
 
+Please don't close and mess up my windows,
+
+#+begin_src emacs-lisp
+  (setq org-agenda-window-setup 'current-window)
+  (setq org-agenda-restore-windows-after-quit 't)
+#+end_src
+
 Also, set the file for capturing todos and add a launcher key for it,
 
 #+begin_src emacs-lisp
