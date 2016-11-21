@@ -2689,6 +2689,14 @@ Enables collapsable regions and diminish the mode:
   (add-hook 'prog-mode-hook 'smf/prog-mode-hook)
 #+end_src
 
+*** focus
+
+Dim the font color of text in surrounding paragraphs.
+
+#+begin_src emacs-lisp
+  (require-package 'focus)
+#+end_src
+
 *** smart-mode-line
 
 Really cool and useful plugin that changes your mode-line into a very readable
