@@ -404,16 +404,6 @@ search $DOMAINS"
 				;;
 			# 10.4 and later require use of scutil for DNS to work properly
 			*)
-				# Get the name of the primary network interface
-				IFACE=$( echo 'show State:/Network/Global/IPv4' | scutil | grep PrimaryInterface | cut -d: -f2 | xargs echo )
-				SERVICE_NAME=$( networksetup -listnetworkserviceorder | grep "$IFACE" | cut -d: -f2 | cut -d, -f1 | xargs echo )
-
-				# Backup the current DNS settings
-				networksetup -getdnsservers "$SERVICE_NAME" | grep -v "There are" > /var/run/vpnc/networksetup.dns-backup
-
-				# Append the DNS servers used by the VPN to the list we use
-				networksetup -setdnsservers "$SERVICE_NAME" $( cat /var/run/vpnc/networksetup.dns-backup ) $INTERNAL_IP4_DNS
-
 				OVERRIDE_PRIMARY=""
 				if [ -n "$CISCO_SPLIT_INC" ]; then
 					if [ $CISCO_SPLIT_INC -lt 1 ]; then
@@ -493,17 +483,6 @@ restore_resolvconf_generic() {
 				;;
 			# 10.4 and later require use of scutil for DNS to work properly
 			*)
-				# Get the name of the primary network interface
-				IFACE=$( echo 'show State:/Network/Global/IPv4' | scutil | grep PrimaryInterface | cut -d: -f2 | xargs echo )
-
-				SERVICE_NAME=$( networksetup -listnetworkserviceorder | grep "$IFACE" | cut -d: -f2 | cut -d, -f1 | xargs echo )
-
-				BACKUP_DNS=$( cat /var/run/vpnc/networksetup.dns-backup )
-				[ -z "$BACKUP_DNS" ] && BACKUP_DNS="Empty"
-				# Restore the previous DNS settings and remove the backup file
-				networksetup -setdnsservers "$SERVICE_NAME" "$BACKUP_DNS"
-				rm -f /var/run/vpnc/networksetup.dns-backup
-
 				scutil >/dev/null 2>&1 <<-EOF
 					open
 					remove State:/Network/Service/$TUNDEV/IPv4
