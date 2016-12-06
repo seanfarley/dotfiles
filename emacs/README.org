@@ -2331,7 +2331,8 @@ perform on-the-fly syntax checking and linting.
   (after-load 'flycheck
     (setq
      ;; don't show anything in the left fringe
-     flycheck-indication-mode nil))
+     flycheck-indication-mode nil)
+    (add-hook 'python-mode-hook 'flycheck-mode))
   (require 'flycheck)
 #+end_src
 
