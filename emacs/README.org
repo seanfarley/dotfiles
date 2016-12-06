@@ -3203,6 +3203,17 @@ functions and methods.
   (add-hook 'python-mode-hook 'sphinx-doc-mode)
 #+end_src
 
+*** pip
+
+This adds some basic features for requirements files, such as highlighting and
+auto-completion of names from PyPI.
+
+#+begin_src emacs-lisp
+  (require-package 'pip-requirements)
+  (add-to-list 'auto-mode-alist '("requirements.*\\.txt" .
+                                  pip-requirements-mode))
+#+end_src
+
 *** Dumb Jump
 
 Dumb Jump is an Emacs "jump to definition" package with support for multiple
