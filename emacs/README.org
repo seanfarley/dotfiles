@@ -2318,6 +2318,7 @@ Remove this since it seems to be defunct
 
 #+begin_src emacs-lisp
   (require-package 'company-quickhelp)
+  (company-quickhelp-mode t)
 #+end_src
 
 *** flycheck
