@@ -436,6 +436,7 @@ export ARCHFLAGS="-arch x86_64"
 export CPPFLAGS="-I/opt/local/include"
 export LDFLAGS="-L/opt/local/lib"
 export DJANGO_SETTINGS_MODULE="bitbucket.settings.dev"
+export APPDIR="\$PROJECTS/bitbucket"
 export PATH=\$PATH:\$PWD/node_modules/.bin
 EOF
     cat >$VIRTUAL_ENV/bin/postdeactivate <<EOF
@@ -446,6 +447,7 @@ unset ARCHFLAGS
 unset CPPFLAGS
 unset LDFLAGS
 unset DJANGO_SETTINGS_MODULE
+unset APPDIR
 EOF
     pip install --upgrade pip
     deactivate "$1"
