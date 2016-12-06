@@ -3193,6 +3193,16 @@ Add [[elpy]] to diminish,
   (add-hook 'elpy-mode-hook 'smf/diminish-elpy-hook)
 #+end_src
 
+*** sphinx-doc-mode
+
+[[https://github.com/naiquevin/sphinx-doc.el][sphinx-doc]] is an emacs minor mode for inserting docstring skeleton for Python
+functions and methods.
+
+#+begin_src emacs-lisp
+  (require-package 'sphinx-doc)
+  (add-hook 'python-mode-hook 'sphinx-doc-mode)
+#+end_src
+
 *** Dumb Jump
 
 Dumb Jump is an Emacs "jump to definition" package with support for multiple
