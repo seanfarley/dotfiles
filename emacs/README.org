@@ -1113,6 +1113,13 @@ I use meta-arrow keys for navigation so let's stop org from using them to indent
     (define-key org-mode-map (kbd "<M-right>") nil))
 #+end_src
 
+Also, turn on =auto-fill-mode= for org-mode,
+
+#+begin_src emacs-lisp
+  (after-load 'org
+    (add-hook 'org-mode-hook 'auto-fill-mode))
+#+end_src
+
 A great plugin for =org-mode= is =org-journal= to take daily and weekly notes.
 I was inspired by [[http://pages.sachachua.com/.emacs.d/Sacha.html#org5b9f9d2][Sacha Chau's setup]] (and her [[http://sachachua.com][great website]]) to also revamp my
 workflow to use =org-mode= even more better.
