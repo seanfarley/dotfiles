@@ -3598,6 +3598,7 @@ Emacs port of GitGutter which is Sublime Text Plugin.
 #+begin_src emacs-lisp
   (require-package 'git-gutter)
   (global-git-gutter-mode +1)
+  (diminish 'git-gutter-mode)
 #+end_src
 
 *** magit
