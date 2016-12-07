@@ -3120,9 +3120,16 @@ is enabled, company-anaconda will also be enabled.
 #+begin_src emacs-lisp
   (require-package 'anaconda-mode)
   (require-package 'company-anaconda)
-  (require-package 'highlight-indentation)
   (after-load 'company
     (add-to-list 'company-backends 'company-anaconda))
+#+end_src
+
+Showing the indentation by a vertical highlight line is quite handy for quickly
+determining the level of indentation,
+
+#+begin_src emacs-lisp
+  (require-package 'highlight-indentation)
+  (diminish 'highlight-indentation-mode)
 #+end_src
 
 After a few levels of indirection, =anaconda= has no hope of finding a symbol's
