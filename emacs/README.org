@@ -3130,67 +3130,82 @@ and diminish the mode:
   (define-key realgud-track-mode-map (kbd "C-c C-/") 'realgud:ipdb-foo)
 #+end_src
 
-*** elpy
+*** anaconda
 
-=elpy= is an Emacs package to bring powerful Python editing to Emacs. It
-combines a number of other packages, both written in Emacs Lisp as well as
-Python.
+=anaconda= is an Emacs package to bring powerful Python editing to Emacs. After
+trying other major packages (elpy and jedi) I’ve settled on anaconda-mode and
+virtualenvwrapper. It provides a nice mix of tweakability and convenience.
 
-To being with, we'll need the following dependecies installed,
-
-#+begin_src sh :tangle no
-  # Either of these
-  pip install rope
-  pip install jedi
-  # And flake8 for code checks
-  pip install flake8
-#+end_src
-
-Now, we install elpy and enable it,
+anaconda-mode provides code navigation and docs. Additionally, if company-mode
+is enabled, company-anaconda will also be enabled.
 
 #+begin_src emacs-lisp
-  (require-package 'elpy)
-  (require-package 'company-jedi)
-  (elpy-enable)
-  (elpy-use-ipython)
+  (require-package 'anaconda-mode)
+  (require-package 'company-anaconda)
+  (require-package 'highlight-indentation)
+  (after-load 'company
+    (add-to-list 'company-backends 'company-anaconda))
 #+end_src
 
-After a few levels of indirection, =elpy= has no hope of finding a symbol's
-definition, so it gives up. In this case, invoking `elpy-goto-definition' will
-do nothing and show a little error message in the echo area. When this happens,
-of course we still want to find what I'm looking for so we define this
-function:
+After a few levels of indirection, =anaconda= has no hope of finding a symbol's
+definition, so it gives up. In this case, invoking
+`anaconda-mode-find-defintions' will do nothing and show a little error message
+in the echo area. When this happens, of course we still want to find what I'm
+looking for so we define this function:
 
 #+begin_src emacs-lisp
-  (defun smf/goto-def-or-rgrep ()
-    "Go to definition of thing at point or do an rgrep in project if that fails"
+  (defun smf/goto-def-or-dumbjump ()
+    "Go to definition of thing at point or do a dumb-jump-go in
+    project if that fails"
     (interactive)
-    (condition-case nil (elpy-goto-definition)
-      (error (dumb-jump-go))))
+    (ring-insert find-tag-marker-ring (point-marker))
+    (anaconda-mode-call "goto_definitions"
+                        'smf/anaconda-mode-find-definitions-callback))
+
+  (defun smf/anaconda-mode-find-definitions-callback (result)
+    "Process find definitions RESULT."
+    (let ((old-buffer (current-buffer))
+          (old-point (point)))
+      (if result
+          (progn
+            (anaconda-mode-definitions-view result)
+            (when (and (eq old-point (point))
+                       (equal old-buffer (current-buffer)))
+              ;; if we didn't actually jump, then fallback to dumb-jump
+              (message nil)             ; clear any failed messages since we're
+                                          ; about to try a different jump
+              (dumb-jump-go)))
+        (dumb-jump-go))))
 #+end_src
 
-By default, elpy binds M-<left> and M-<right>, which I use for navigation, for
-indenting / de-indenting code. Let's change that,
+By default, anaconda binds =M-,= to finding assignments instead of popping the
+navigation stack (which changed in Emacs 25),
 
 #+begin_src emacs-lisp
-    (defun smf/elpy-hook ()
-      (add-to-list 'company-backends 'company-jedi)
-      (define-key elpy-mode-map (kbd "M-.") 'smf/goto-def-or-rgrep)
-      (define-key elpy-mode-map (kbd "<M-left>") nil)
-      (define-key elpy-mode-map (kbd "<M-right>") nil)
-      (define-key elpy-mode-map (kbd "<C-return>") nil)
-      (define-key elpy-mode-map (kbd "<H-M-left>") 'elpy-nav-move-iblock-left)
-      (define-key elpy-mode-map (kbd "<H-M-right>") 'elpy-nav-move-iblock-right))
-    (add-hook 'elpy-mode-hook 'smf/elpy-hook)
+  (defun smf/test ()
+    (interactive)
+    (anaconda-mode-find-definitions :async nil))
+
+  (defun smf/anaconda-hook ()
+    (define-key anaconda-mode-map (kbd "M-.") 'smf/goto-def-or-dumbjump)
+    (define-key anaconda-mode-map (kbd "M-,") nil))
+  (add-hook 'python-mode-hook 'smf/anaconda-hook)
 #+end_src
 
-Add [[elpy]] to diminish,
+Add [[anaconda]] to diminish,
 
 #+begin_src emacs-lisp
-  (defun smf/diminish-elpy-hook ()
+  (after-load 'anaconda-mode
     (diminish 'highlight-indentation-mode)
-    (diminish 'elpy-mode))
-  (add-hook 'elpy-mode-hook 'smf/diminish-elpy-hook)
+    (diminish 'anaconda-mode))
+#+end_src
+
+Now, load anaconda and friends,
+
+#+begin_src emacs-lisp
+  (add-hook 'python-mode-hook 'highlight-indentation-mode)
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (add-hook 'python-mode-hook 'eldoc-mode)
 #+end_src
 
 *** sphinx-doc-mode
