@@ -134,9 +134,6 @@ sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.serve
 # Set standby delay to 24 hours (default is 1 hour)
 sudo pmset -a standbydelay 86400
 
-# Disable the sound effects on boot
-sudo nvram SystemAudioVolume=" "
-
 # Menu bar: hide the Volume, Bluetooth, and User icons
 for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
 	defaults write "${domain}" dontAutoLoad -array \
