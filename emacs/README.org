@@ -1738,8 +1738,6 @@ or out of date, and they don't track GitHub repositories.
 I want to also add:
 
 - [[https://github.com/milkypostman/melpa#melpa][MELPA]] (tracks GitHub repositories, is much more comprehensive)
-- [[https://github.com/milkypostman/melpa#stable-packages][MELPA stable]] (like MELPA, but pinned to specific versions)
-- [[https://github.com/jorgenschaefer/elpy#quick-installation][Elpy]] (allows me to install the Elpy Python development environment)
 
 [[file:init.el::(setq%20package-archives][see init.el for code]].
 
