@@ -3248,6 +3248,7 @@ snippet syntax is inspired from [[http://manual.macromates.com/en/snippets][Text
 #+begin_src emacs-lisp
   (setq yas/root-directory (smf/join-dirs smf/dotfiles-dir "snippets"))
   (yas-global-mode 1)
+  (diminish 'yas-minor-mode)
 #+end_src
 
 *** smart-tabs-mode
