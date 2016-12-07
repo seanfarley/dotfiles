@@ -1767,7 +1767,8 @@ Also, diminish some built-in modes:
 #+begin_src emacs-lisp
   (after-load 'diminish
     (diminish 'overwrite-mode)
-    (diminish 'global-whitespace-mode))
+    (diminish 'global-whitespace-mode)
+    (diminish 'auto-fill-function))
 #+end_src
 
 *** paradox
@@ -3913,7 +3914,6 @@ Modes to load,
     (diminish 'iimage-mode)
     (diminish 'outline-minor-mode)
     (diminish 'smartparens-mode)
-    (diminish 'auto-fill-function)
     (diminish 'reftex-mode)
     (diminish 'abbrev-mode))
 
