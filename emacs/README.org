@@ -2305,12 +2305,13 @@ perform on-the-fly syntax checking and linting.
 
 #+begin_src emacs-lisp
   (require-package 'flycheck)
+  (require 'flycheck)
   (after-load 'flycheck
     (setq
      ;; don't show anything in the left fringe
      flycheck-indication-mode nil)
-    (add-hook 'python-mode-hook 'flycheck-mode))
-  (require 'flycheck)
+    (add-hook 'python-mode-hook 'flycheck-mode)
+    (diminish 'flycheck-mode))
 #+end_src
 
 Also, we add some keymaps,
