@@ -2000,13 +2000,6 @@ with swiper, so disabling for now.
   ;;   (diminish 'ace-isearch-mode))
 #+end_src
 
-*** ace-popup-menu
-
-#+begin_src emacs-lisp
-  (require-package 'ace-popup-menu)
-  (ace-popup-menu-mode 1)
-#+end_src
-
 *** popwin
 
 [[https://github.com/m2ym/popwin-el][popwin]] is a popup window manager that helps make the behaviour of compilation
