@@ -2593,7 +2593,7 @@ Define a tag so that we can inherit the same env variables
     :kill-signal 'sigkill
     :env `(("BB_EMAIL_PASSWORD"
             ,(smf/get-keychain-password "bbtest@farley.io" "mail.farley.io"))
-           ("HGRCPATH" "./hgrc")
+           ("HGRCPATH" ,(expand-file-name "~/projects/bitbucket/hgrc"))
            ("GIT_CONFIG_NOSYSTEM" "1")
            ("PYTHONUNBUFFERED" "1")
            ("DEBUG" "1")
@@ -2630,6 +2630,7 @@ Define a tag so that we can inherit the same env variables
     :name "Conker"
     :command "conker"
     :cwd "~/projects/bitbucket-conker"
+    :env `(("HGRCPATH" ,(expand-file-name "~/projects/bitbucket/hgrc")))
     :tags '(bitbucket)
     :ready-message "HTTP management requests")
 #+end_src
@@ -2641,7 +2642,8 @@ Define a tag so that we can inherit the same env variables
     :args '("--config" "conf/gunicorn-conqserver.conf.py"
             "--bind" "localhost:9006"
             "conqserver:application")
-    :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_conqserver"))
+    :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_conqserver")
+           ("HGRCPATH" ,(expand-file-name "~/projects/bitbucket/hgrc")))
     :tags '(bitbucket)
     :ready-message "Worker warmed up")
 #+end_src
