@@ -22,6 +22,6 @@ ssl = true
 remotehost = mail.farley.io
 remoteuser = sean@farley.io
 remotepasseval = get_keychain_pass(account="sean@farley.io", server="mail.farley.io")
-cert_fingerprint = 48f8b45422dbb711fbd158c74e6e4aecc68e3b0b
+sslcacertfile = /opt/local/share/curl/curl-ca-bundle.crt
 nametrans = lambda folder: folder.lower()
 # folderfilter = lambda foldername: foldername not in ['archive']
