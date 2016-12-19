@@ -48,12 +48,42 @@ if ! [ -d /opt/local/bin ]; then
   rm -f $PKG
 fi
 
+# ports that need variants
+sudo /opt/local/bin/port -v install python27 +readline
 sudo /opt/local/bin/port -v install mercurial-devel +bash_completion
-sudo /opt/local/bin/port -v install py27-hgevolve-devel
-sudo /opt/local/bin/port -v select python python27
+sudo /opt/local/bin/port -v install cairo +quartz -x11
+sudo /opt/local/bin/port -v install ImageMagick +pango -x11 +graphviz +rsvg
+sudo /opt/local/bin/port -v install emacs-mac-app +imagemagick +rsvg
+sudo /opt/local/bin/port -v install notmuch +emacs
 
-# install gnu tools
-sudo /opt/local/bin/port -v install coreutils findutils
+# ports that don't need variants
+sudo /opt/local/bin/port -v install py27-readline \
+     py27-hgevolve-devel \
+     py27-hgexperimental \
+     py27-flake8 \
+     py27-configparser \
+     py27-enum34 \
+     py27-virtualenvwrapper \
+     aspell \
+     aspell-dict-en \
+     watchman \
+     terminal-notifier \
+     notmuch-addrlookup \
+     offlineimap \
+     coreutils findutils
+
+# select the default versions
+sudo /opt/local/bin/port -v select cython cython27
+sudo /opt/local/bin/port -v select python python27
+sudo /opt/local/bin/port -v select python2 python27
+sudo /opt/local/bin/port -v select pycodestyle pycodestyle-py27
+sudo /opt/local/bin/port -v select pyflakes py27-pyflakes
+sudo /opt/local/bin/port -v select flake8 flake8-27
+sudo /opt/local/bin/port -v select virtualenv virtualenv27
+sudo /opt/local/bin/port -v select sphinx py27-sphinx
+
+# install modern looking icon for emacs
+curl -O https://s3.amazonaws.com/emacs-mac-port/Emacs.icns.modern && sudo mv Emacs.icns.modern /Applications/MacPorts/EmacsMac.app/Contents/Resources/Emacs.icns && sudo touch /Applications/MacPorts/EmacsMac.app/
 
 if ! grep -q "/opt/local/bin/bash" /etc/shells; then
   sudo sh -c "echo '/opt/local/bin/bash' >> /etc/shells"
