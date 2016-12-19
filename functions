@@ -467,7 +467,7 @@ bb() {
   mkdir -p /opt/python/domains/bitbucket.org/current
   rm -f /opt/python/domains/bitbucket.org/current/bitbucket
   ln -si $bdir /opt/python/domains/bitbucket.org/current
-  ve bb
+  ve bitbucket
   rm -rf local/env
   ln -sif $VIRTUAL_ENV local/env
 }

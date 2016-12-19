@@ -2585,7 +2585,7 @@ Define a tag so that we can inherit the same env variables
   (prodigy-define-tag
     :name 'bitbucket
     :cwd "~/projects/bitbucket"
-    :path `(,(expand-file-name "~/.virtualenvs/bb/bin")
+    :path `(,(expand-file-name "~/.virtualenvs/bitbucket/bin")
             ,(expand-file-name "~/.go/bin"))
     :kill-signal 'sigkill
     :env `(("BB_EMAIL_PASSWORD"
@@ -2598,9 +2598,9 @@ Define a tag so that we can inherit the same env variables
            ("DJANGO_SETTINGS_MODULE" "bitbucket.settings.dev")
            ("LANG" "en_US.UTF-8")
            ("PATH" ,(concat (expand-file-name "~/.go/bin") ":"
-                            (expand-file-name "~/.virtualenvs/bb/bin") ":"
+                            (expand-file-name "~/.virtualenvs/bitbucket/bin") ":"
                             (getenv "PATH")))
-           ("VIRTUAL_ENV" ,(expand-file-name "~/.virtualenvs/bb/"))))
+           ("VIRTUAL_ENV" ,(expand-file-name "~/.virtualenvs/bitbucket/"))))
 #+end_src
 
 #+begin_src emacs-lisp
