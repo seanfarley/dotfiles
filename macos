@@ -208,6 +208,9 @@ defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 # Disable guest account
 sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool NO
 
+# Auto hide the menu bar
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
+
 ###############################################################################
 # SSD-specific tweaks                                                         #
 ###############################################################################
