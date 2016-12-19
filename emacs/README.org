@@ -2097,10 +2097,14 @@ Some compiler output has ansi color, so let's escape that,
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 #+end_src
 
+As usual, diminish an always-on mode,
+
 #+begin_src emacs-lisp
   (after-load 'projectile
     (diminish 'projectile-mode))
 #+end_src
+
+Let's use caching,
 
 #+begin_src emacs-lisp
   (after-load 'projectile
