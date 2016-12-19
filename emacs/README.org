@@ -3201,7 +3201,8 @@ functions and methods.
 #+begin_src emacs-lisp
   (require-package 'sphinx-doc)
   (add-hook 'python-mode-hook 'sphinx-doc-mode)
-  (diminish 'sphinx-doc-mode)
+  (after-load 'sphinx-doc
+    (diminish 'sphinx-doc-mode))
 #+end_src
 
 *** pip
