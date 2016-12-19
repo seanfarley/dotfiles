@@ -94,7 +94,7 @@ if ! [ "$SHELL" == "/opt/local/bin/bash" ]; then
 fi
 
 if ! [ -d /Applications/iTerm.app ]; then
-  curl -L https://iterm2.com/nightly/latest > latest.zip
+  curl -L https://iterm2.com/stable/latest > latest.zip
   unzip latest.zip
   sudo mv iTerm.app /Applications
   rm -f latest.zip
