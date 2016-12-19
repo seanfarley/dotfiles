@@ -3129,7 +3129,8 @@ determining the level of indentation,
 
 #+begin_src emacs-lisp
   (require-package 'highlight-indentation)
-  (diminish 'highlight-indentation-mode)
+  (after-load 'highlight-indentation
+    (diminish 'highlight-indentation-mode))
 #+end_src
 
 After a few levels of indirection, =anaconda= has no hope of finding a symbol's
