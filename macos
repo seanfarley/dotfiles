@@ -48,6 +48,8 @@ if ! [ -d /opt/local/bin ]; then
   rm -f $PKG
 fi
 
+set -e
+
 # ports that need variants
 sudo /opt/local/bin/port -v install python27 +readline
 sudo /opt/local/bin/port -v install mercurial-devel +bash_completion
