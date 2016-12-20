@@ -650,6 +650,9 @@ defaults write com.apple.terminal StringEncodings -array 4
 # Install the dark base16 theme for iTerm
 open "base16-default.dark.256.itermcolors"
 
+# copy preferences (keybindings, etc)
+cp com.googlecode.iterm2.plist ~/Library/Preferences/
+
 ###############################################################################
 # Time Machine                                                                #
 ###############################################################################
