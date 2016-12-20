@@ -13,6 +13,11 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until `.macos` has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# make sure we are in the directory of the script so relative paths work
+cd "$DIR"
+
 ###############################################################################
 # Bootstrapping                                                               #
 ###############################################################################
