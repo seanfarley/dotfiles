@@ -243,6 +243,9 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -boo
 # Auto hide the menu bar
 defaults write NSGlobalDomain _HIHideMenuBar -bool true
 
+# Set the datetime to "Tue Dec 20 2:52 PM"
+defaults write com.apple.menuextra.clock DateFormat "EEE MMM d  h:mm a"
+
 ###############################################################################
 # SSD-specific tweaks                                                         #
 ###############################################################################
