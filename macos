@@ -50,6 +50,14 @@ fi
 
 set -e
 
+# check to make sure macports is using my local checkout
+LMP="file:///Users/sean/projects/macports"
+MP="/opt/local/etc/macports/sources.conf"
+if ! grep -q "$LMP" "$MP"; then
+  echo "$LMP missing from $MP"
+  exit 2
+fi
+
 # ports that need variants
 sudo /opt/local/bin/port -v install python27 +readline
 sudo /opt/local/bin/port -v install mercurial-devel +bash_completion
