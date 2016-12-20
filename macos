@@ -166,6 +166,16 @@ if ! [ -f "$HOME/Library/Safari/Extensions/CloudToButt.safariextz" ]; then
   rm -rf __MACOSX $PKG*
 fi
 
+# org-capture for safari
+if ! [ -f "$HOME/Library/Safari/Extensions/org-capture.safariextz" ]; then
+  PKG=org-capture-0.1.safariextz
+  curl -LO https://bitbucket.org/seanfarley/org-capture.safariextension/downloads/$PKG
+  open $PKG
+  read -p "Press enter to continue"
+  rm -rf __MACOSX $PKG*
+fi
+
+
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
