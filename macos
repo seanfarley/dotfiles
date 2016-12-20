@@ -281,6 +281,9 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCorner
 # Enable secondary click globally
 defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
 
+# Disable three finger swipe for full-screen app
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 0
+
 # Enable three finger drag
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
 
