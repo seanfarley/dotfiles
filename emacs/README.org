@@ -3211,6 +3211,16 @@ Now, load anaconda and friends,
   (add-hook 'python-mode-hook 'eldoc-mode)
 #+end_src
 
+*** python-switch-quotes
+
+Cycle between apostrophes and quotes in python strings. Converts strings like
+'this' to strings like "this".
+
+#+begin_src emacs-lisp
+  (require-package 'python-switch-quotes)
+  (define-key python-mode-map (kbd "C-c '") 'python-switch-quotes)
+#+end_src
+
 *** sphinx-doc-mode
 
 [[https://github.com/naiquevin/sphinx-doc.el][sphinx-doc]] is an emacs minor mode for inserting docstring skeleton for Python
