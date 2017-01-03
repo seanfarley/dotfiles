@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# make sure we are in the directory of the script so relative paths work
+cd "$DIR"
+
 function ensure_link {
   local DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   local NEW="$2"
