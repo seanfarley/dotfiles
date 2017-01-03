@@ -817,9 +817,9 @@ defaults write com.twitter.twitter-mac HideInBackground -bool true
 ###############################################################################
 
 for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
-	"Dock" "Finder" "Google Chrome" "Google Chrome Canary" "Mail" "Messages" \
-	"Opera" "Photos" "Safari" "SystemUIServer" "Terminal" \
-	"Transmission" "Tweetbot" "Twitter" "iCal"; do
-	killall "${app}" &> /dev/null || echo "Couldn't kill ${app}; moving on"
+  "Dock" "Finder" "Google Chrome" "Google Chrome Canary" "Mail" "Messages" \
+  "Opera" "Photos" "Safari" "SystemUIServer" "Terminal" \
+  "Transmission" "Tweetbot" "Twitter" "iCal"; do
+  killall "${app}" &> /dev/null || echo "Couldn't kill ${app}; moving on"
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
