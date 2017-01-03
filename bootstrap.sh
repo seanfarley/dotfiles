@@ -21,9 +21,8 @@ mkdir -p ~/projects
 mkdir -p ~/sandbox
 mkdir -p ~/.ipython
 mkdir -p ~/.ssh
-mkdir -p ~/.config
+mkdir -p ~/.config/karabiner
 mkdir -p ~/.pastebin.d
-mkdir -p ~/.karabiner.d/configuration
 mkdir -p ~/.hammerspoon
 
 rm -f ~/.bootstrap.sh
@@ -76,5 +75,5 @@ ensure_link "notmuch-config"
 ensure_link "vpnc-script" ".vpnc-script"
 ensure_link "pwclient"
 ensure_link "docker-bash"
-ensure_link "karabiner.json" ".karabiner.d/configuration/karabiner.json"
+ensure_link "karabiner.json" ".config/karabiner/karabiner.json"
 ensure_link "hammerspoon.lua" ".hammerspoon/init.lua"
