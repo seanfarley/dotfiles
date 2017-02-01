@@ -21,7 +21,7 @@ export PETSC_OPTIONS="-malloc_test"
 
 export CDPATH=.:$PROJECTS:$HOME
 
-export GOPATH=$HOME/.go
+export GOPATH=$PROJECTS/go
 
 ##
 # Paths, environment variables
@@ -54,8 +54,8 @@ if [ -d $HOME/.cargo/bin ]; then
   export PATH=$HOME/.cargo/bin:$PATH
 fi
 
-if [ -d $HOME/.go/bin ]; then
-  export PATH=$HOME/.go/bin:$PATH
+if [ -d $GOPATH/bin ]; then
+  export PATH=$GOPATH/bin:$PATH
 fi
 
 if [ -d $HOME/.local/lib/python ]; then
