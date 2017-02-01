@@ -17,6 +17,11 @@ graphstyle.missing =
 graph-group-branches = True
 graph-group-branches.firstbranch = .
 histedit.autoverb = True
+verbose-obsolescence-exchange = True
+extendedheader.similarity = True
+extendedheader.index = 7
+editortmpinhg = True
+spacemovesdown = True
 
 [format]
 usegeneraldelta = True
