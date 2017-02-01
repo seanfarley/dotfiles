@@ -49,8 +49,8 @@ PASSFG=15                       # white-ish
 FAILBG=161                      # pink/red
 FAILFG=15                       # white-ish
 
-HG="hg"
-[[ -n "$(which chg 2>/dev/null)" ]] && HG="chg"
+HG="$(which hg)"
+[[ -n "$(which chg 2>/dev/null)" ]] && HG="$(which chg)"
 
 MD5="md5"
 [[ -n "$(which md5sum 2>/dev/null)" ]] && MD5="md5sum"
