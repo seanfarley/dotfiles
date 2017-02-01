@@ -129,6 +129,20 @@ username = sean@farley.io
 tls = True
 local_hostname = farley.io
 
+[committemplate]
+changeset = {if(desc, "{desc}\n")}
+  HG: ------------------------ >8 ------------------------
+  HG: user: {author}\n{ifeq(p2rev, "-1", "",
+ "HG: branch merge\n")
+ }HG: branch {branch}\n{if(activebookmark,
+ "HG: bookmark {activebookmark}\n")   }{subrepos %
+ "HG: subrepo {subrepo}\n"              }{file_adds %
+ "HG: added {file}\n"                   }{file_mods %
+ "HG: changed {file}\n"                 }{file_dels %
+ "HG: removed {file}\n"                 }{if(files, "",
+ "HG: no files changed\n")}HG: ------------------------ >8 ------------------------
+  {diff()}
+
 [templatealias]
 smf_svn = "{if(svnrev, label('log.changeset', '[r{svnrev}] '))}"
 smf_ldesc = "{ifcontains(rev, revset(\".\"), \"desc.here\")}"
