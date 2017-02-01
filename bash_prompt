@@ -399,4 +399,4 @@ function update_ps1 () {
   export PS1="$prompt\[$RESET\]\[$(tput setaf $bg)\]\[$RESET\]"
 }
 
-export PROMPT_COMMAND="update_ps1"
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} update_ps1"
