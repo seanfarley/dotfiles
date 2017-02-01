@@ -66,3 +66,5 @@
 	clean = git-lfs clean -- %f
 [rebase]
 	autosquash = true
+[help]
+	autocorrect = 1
