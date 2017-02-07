@@ -2589,18 +2589,18 @@ Define a tag so that we can inherit the same env variables
     :name 'bitbucket
     :cwd "~/projects/bitbucket"
     :path `(,(expand-file-name "~/.virtualenvs/bitbucket/bin")
-            ,(expand-file-name "~/.go/bin"))
+            ,(expand-file-name "~/projects/go/bin"))
     :kill-signal 'sigkill
     :env `(("BB_EMAIL_PASSWORD"
             ,(smf/get-keychain-password "bbtest@farley.io" "mail.farley.io"))
-           ("HGRCPATH" ,(expand-file-name "~/projects/bitbucket/hgrc"))
+           ("HGRCPATH" ,(expand-file-name "~/projects/bitbucket-etc/hgrc"))
            ("GIT_CONFIG_NOSYSTEM" "1")
            ("PYTHONUNBUFFERED" "1")
            ("DEBUG" "1")
            ("CELERY_RDB_PORT" "6900")
            ("DJANGO_SETTINGS_MODULE" "bitbucket.settings.dev")
            ("LANG" "en_US.UTF-8")
-           ("PATH" ,(concat (expand-file-name "~/.go/bin") ":"
+           ("PATH" ,(concat (expand-file-name "~/projects/go/bin") ":"
                             (expand-file-name "~/.virtualenvs/bitbucket/bin") ":"
                             (getenv "PATH")))
            ("VIRTUAL_ENV" ,(expand-file-name "~/.virtualenvs/bitbucket/"))))
@@ -2611,8 +2611,7 @@ Define a tag so that we can inherit the same env variables
     :name "Bitbucket Celery"
     :command "python"
     :args '("manage.py" "celeryd" "-l" "DEBUG")
-    :tags '(bitbucket python)
-    :ready-message "Connected to amqp")
+    :tags '(bitbucket python))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -2620,19 +2619,32 @@ Define a tag so that we can inherit the same env variables
     :name "Bitbucket Django"
     :command "python"
     :url "http://dev.bitbucket.org:8000"
-    :args '("manage.py" "gunserver" "--no-frontend-watch" "--no-frontend-build")
-    :tags '(bitbucket python)
-    :ready-message "Booting worker with pid")
+    :args '("manage.py" "runserver")
+    :tags '(bitbucket python))
 #+end_src
 
 #+begin_src emacs-lisp
   (prodigy-define-service
-    :name "Conker"
-    :command "conker"
-    :cwd "~/projects/bitbucket-conker"
-    :env `(("HGRCPATH" ,(expand-file-name "~/projects/bitbucket/hgrc")))
-    :tags '(bitbucket)
-    :ready-message "HTTP management requests")
+    :name "Bitbucket Hgweb"
+    :command "gunicorn"
+    :args '("--config" "conf/gunicorn-bridgehgweb.conf.py"
+            "--bind" "localhost:8001"
+            "-w" "1"
+            "bridgehgweb:application")
+    :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_hgweb"))
+    :tags '(bitbucket python))
+#+end_src
+
+#+begin_src emacs-lisp
+  (prodigy-define-service
+    :name "Bitbucket Gitweb"
+    :command "gunicorn"
+    :args '("--config" "conf/gunicorn-gitweb.conf.py"
+            "--bind" "localhost:8002"
+            "-w" "1"
+            "gitweb:application")
+    :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_gitweb"))
+    :tags '(bitbucket python))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -2641,11 +2653,18 @@ Define a tag so that we can inherit the same env variables
     :command "gunicorn"
     :args '("--config" "conf/gunicorn-conqserver.conf.py"
             "--bind" "localhost:9006"
+            "-w" "1"
             "conqserver:application")
-    :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_conqserver")
-           ("HGRCPATH" ,(expand-file-name "~/projects/bitbucket/hgrc")))
-    :tags '(bitbucket)
-    :ready-message "Worker warmed up")
+    :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_conqserver"))
+    :tags '(bitbucket))
+#+end_src
+
+#+begin_src emacs-lisp
+  (prodigy-define-service
+    :name "Bitbucket Conker"
+    :command "conker"
+    :cwd "~/projects/go/src/bitbucket.org/bitbucket/conker"
+    :tags '(bitbucket))
 #+end_src
 
 *** d-mode
