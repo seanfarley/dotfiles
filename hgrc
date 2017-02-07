@@ -27,24 +27,17 @@ spacemovesdown = True
 usegeneraldelta = True
 
 [extensions]
-transplant =
 color =
 patchbomb =
-parentrevspec =
 schemes =
 progress =
-extdiff =
 rebase =
 convert =
-hgk =
-record =
 pager =
-churn =
 histedit =
 purge =
 strip =
 shelve =
-share =
 journal =
 # Third-party extensions
 debugshell = ~/.debugshell.py
