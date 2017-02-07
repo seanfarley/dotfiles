@@ -2042,7 +2042,7 @@ installed via cargo on my Mac.
 
 #+begin_src emacs-lisp
   (require-package 'ripgrep)
-  (require 'projectile-ripgrep)
+;;  (require 'projectile-ripgrep)
 #+end_src
 
 Set up some key bindings:
