@@ -2119,17 +2119,6 @@ Let's use caching,
     (setq projectile-enable-caching t))
 #+end_src
 
-*** moe-theme
-
-I use the [[https://github.com/kuanyui/moe-theme.el][moe-theme]] as my Emacs theme as it has excellent coloring (see
-[[Themes]]):
-
-#+begin_src emacs-lisp
-  (require-package 'moe-theme)
-  (require 'moe-theme)
-  (setq moe-theme-highlight-buffer-id t)
-#+end_src
-
 *** undo-tree
 
 [[http://www.dr-qubit.org/undo-tree/undo-tree.el][undo-tree-mode]], a mode which allows one to visualise their undo/redo history:
@@ -3941,15 +3930,6 @@ On a GUI Emacs, I want to use the [[zenburn-theme]]. On a terminal I want to use
 
 We need to load the theme after AUCTeX but before ERC. Why? I don't really know
 but I do know it messes up erc-hl-nicks if I don't do it this way.
-
-#+begin_src emacs-lisp
-  ;; (load-theme 'zenburn t)
-  ;; (enable-theme 'ample)
-  (moe-dark)
-  (powerline-moe-theme)
-  (moe-theme-set-color 'blue)
-#+end_src
-
 
 *** spaceline
 
