@@ -2130,15 +2130,6 @@ I use the [[https://github.com/kuanyui/moe-theme.el][moe-theme]] as my Emacs the
   (setq moe-theme-highlight-buffer-id t)
 #+end_src
 
-*** base16-theme
-
-The [[https://github.com/neil477/base16-emacs][base16]] themes are very compatible with terminals. I use the [[http://chriskempson.github.io/base16/#default][default]]
-theme.
-
-#+begin_src emacs-lisp
-  (require-package 'base16-theme)
-#+end_src
-
 *** undo-tree
 
 [[http://www.dr-qubit.org/undo-tree/undo-tree.el][undo-tree-mode]], a mode which allows one to visualise their undo/redo history:
