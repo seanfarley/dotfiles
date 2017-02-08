@@ -2729,40 +2729,6 @@ Dim the font color of text in surrounding paragraphs.
   (require-package 'focus)
 #+end_src
 
-*** smart-mode-line
-
-Really cool and useful plugin that changes your mode-line into a very readable
-information bar. It is unfortunate that this plugin has almost the same initials
-as me.
-
-#+begin_src emacs-lisp
-  (require-package 'smart-mode-line)
-  (require-package 'smart-mode-line-powerline-theme)
-#+end_src
-
-Here we set modes that I don't care about and want hidden,
-
-#+begin_src emacs-lisp
-  (setq sml/hidden-modes " \\(Projectile.*\\|hs\\|yas\\|Undo-Tree\\|Fly\\|Filladapt\\|WLR\\|AC\\|WS\\|MML\\)")
-#+end_src
-
-Also, I don't want to be prompted for trusting the theme to run lisp code,
-
-#+begin_src emacs-lisp
-  (setq sml/no-confirm-load-theme t)
-#+end_src
-
-I usually alternate between the 'powerline' theme and the 'respectful' theme.
-'powerline' has better delimiters but harsher colors. 'respectful' has better
-colors integrated with your current theme therefore I can look at it for longer
-periods of time.
-
-#+begin_src emacs-lisp
-;;  (sml/setup)
-;;  (sml/apply-theme 'powerline)
-;;  (sml/apply-theme 'respectful)
-#+end_src
-
 *** which-func
 
 =which-func= is a handy mode to display which function you're currently in. I
