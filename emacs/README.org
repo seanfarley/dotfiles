@@ -4114,6 +4114,66 @@ but I do know it messes up erc-hl-nicks if I don't do it this way.
   (moe-theme-set-color 'blue)
 #+end_src
 
+
+*** spaceline
+
+#+begin_src emacs-lisp
+  ;; (use-package powerline
+  ;;   :if window-system
+  ;;   :config (setq-default powerline-default-separator 'nil))
+
+  ;; (use-package spaceline-all-the-icons :after spaceline
+  ;;   :load-path "init")
+
+  ;;    (smf/add-to-load-path "~/.emacs.d/init")
+
+  (setq custom-safe-themes t)
+
+  (use-package powerline
+    :if window-system
+    :config (setq-default powerline-default-separator 'nil))
+
+  (use-package spaceline-custom
+    :after spaceline-colors
+    :demand
+    :load-path "init"
+    :init (add-hook 'after-init-hook 'spaceline-update-faces)
+    :config (advice-add 'load-theme :after 'spaceline-update-faces)
+    )
+
+  (use-package spaceline-colors
+    :after spaceline
+    :load-path "init"
+    :demand
+    )
+
+  (use-package spaceline
+    :after powerline
+    :demand
+    :ensure t
+    :config (setq-default mode-line-format
+                          '("%e" (:eval (spaceline-ml-ati)))))
+
+
+  ;; Themed with Spaceline
+  (use-package gruvbox-theme :ensure t :defer t)
+  (use-package creamsody-theme :ensure t)
+  (use-package suscolors-theme :ensure t :defer t)
+  (use-package atom-one-dark-theme :ensure t :defer t)
+  (use-package forest-blue-theme :ensure t :defer t)
+  (use-package liso-theme :ensure t :defer t)
+  (use-package peacock-theme :ensure t :defer t)
+  (use-package solarized-theme :ensure t :defer t)
+
+  (defun remove-mode-line-box (&rest args)
+    (set-face-attribute 'mode-line nil :box nil :underline nil)
+    (set-face-attribute 'mode-line-inactive nil :box nil :underline nil))
+
+  (when window-system
+    (remove-mode-line-box)
+    (load-theme 'creamsody))
+#+end_src
+
 ** ERC
 
 *** Setup
