@@ -2119,12 +2119,6 @@ Let's use caching,
     (setq projectile-enable-caching t))
 #+end_src
 
-*** zenburn-theme
-
-#+begin_src emacs-lisp
-  (require-package 'zenburn-theme)
-#+end_src
-
 *** moe-theme
 
 I use the [[https://github.com/kuanyui/moe-theme.el][moe-theme]] as my Emacs theme as it has excellent coloring (see
