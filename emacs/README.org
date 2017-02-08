@@ -88,6 +88,14 @@ and a convenience function for making a proper path out of two strings:
 
 [[file:init.el::(defun%20smf/join-dirs%20(prefix%20suffix][see init.el for code]].
 
+*** use-package
+
+I guess it's time to use this now.
+
+#+BEGIN_SRC emacs-lisp
+  (require-package 'use-package)
+#+end_src
+
 *** Base load path
 
 Define a base directory =smf/dotfiles-dir= that's relative to the currently
