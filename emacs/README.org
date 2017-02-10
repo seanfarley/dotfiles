@@ -2144,7 +2144,9 @@ Also, diminish this mode:
 #+begin_src emacs-lisp
   (require-package 'smartparens)
   (require 'smartparens-config)
-  (show-smartparens-global-mode 1)
+  (after-load 'smartparens
+    (require 'smartparens-config)
+    (add-hook 'prog-mode-hook #'smartparens-mode))
 #+end_src
 
 *** gtags
@@ -3668,7 +3670,6 @@ and initialize them,
 #+begin_src emacs-lisp
   (require-package 'auctex)
   (require-package 'auctex-latexmk)
-  (require-package 'smartparens)
 
   (auctex-latexmk-setup)
 #+end_src
@@ -3742,7 +3743,6 @@ Modes to load,
   (defun smf/latex-mode-hook ()
     (turn-on-auto-fill)
     (abbrev-mode +1)
-    (smartparens-mode +1)
     (LaTeX-math-mode 1)
     (outline-minor-mode 1)
     (magic-latex-buffer)
@@ -3750,7 +3750,6 @@ Modes to load,
     (diminish 'magic-latex-buffer)
     (diminish 'iimage-mode)
     (diminish 'outline-minor-mode)
-    (diminish 'smartparens-mode)
     (diminish 'reftex-mode)
     (diminish 'abbrev-mode))
 
