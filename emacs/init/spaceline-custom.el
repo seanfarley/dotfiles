@@ -297,6 +297,20 @@
     :tight t)
 
 (spaceline-define-segment
+    ati-offlineimap "Show the status of the offlineimap process. Requires offlineimap."
+  (propertize (if (featurep 'offlineimap)
+                  (replace-regexp-in-string " \\[\\(.\\)\\]"
+                                            "\\1 "
+                                            offlineimap-mode-line-string)
+                "⊙ ")
+              'face `(:height 0.9 :inherit)
+              'help-echo "Email"
+              'display '(raise 0.1)
+              'mouse-face '(:box 1)
+              'local-map (make-mode-line-mouse-map
+                          'mouse-1 (lambda () (interactive) (notmuch)))))
+
+(spaceline-define-segment
     ati-hud "Display position through buffer as an XPM image"
     (let ((color1 (face-foreground default-face))
           (height (or powerline-height (frame-char-height)))
