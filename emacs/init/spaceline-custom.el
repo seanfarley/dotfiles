@@ -429,10 +429,10 @@ the directions of the separator."
 (spaceline-compile
  "ati"
  '(
-   ((ati-modified ati-window-numbering ati-buffer-size) :face highlight-face :skip-alternate t)
+   ((ati-modified ati-window-numbering ati-projectile) :face highlight-face :skip-alternate t)
    ;; left-active-3
    ati-left-1-separator
-   ((ati-projectile ati-mode-icon ati-buffer-id) :face default-face)
+   ((ati-mode-icon ati-buffer-id) :face default-face)
    ati-left-2-separator
    ((ati-process  ati-position ati-region-info) :face highlight-face :separator " | ")
    ati-left-3-separator
