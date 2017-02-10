@@ -417,6 +417,7 @@ the directions of the separator."
 
 (define-separator "left-inactive" "right" 'powerline-inactive1 'powerline-inactive2 t)
 (define-separator "right-1-inactive" "left" 'powerline-inactive2 'mode-line-inactive t)
+(define-separator "right-2-inactive" "right" 'powerline-inactive2 'mode-line-inactive t)
 
 (define-separator "left-1" "right" 'spaceline-highlight-face 'powerline-active1)
 (define-separator "left-2" "right" 'powerline-active1 'spaceline-highlight-face)
