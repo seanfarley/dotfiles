@@ -4466,31 +4466,7 @@ updated from within [[notmuch]] with keyboard shortcuts.
 #+begin_src emacs-lisp
   (require-package 'offlineimap)
   (after-load 'offlineimap
-    (setq offlineimap-enable-mode-line-p t)
-
-    ;; redefine this to not surround the status with '[' and ']'
     (setq offlineimap-mode-line-text nil)
-    (defun offlineimap-update-mode-line (process)
-      "Update mode line information about OfflineIMAP PROCESS."
-      (setq offlineimap-mode-line-string
-            (propertize
-             (concat offlineimap-mode-line-text
-                     (let ((status (process-status process)))
-                       (if (eq status 'run)
-                           (let ((msg-type (process-get process :last-msg-type))
-                                 (action (process-get process :last-action)))
-                             (offlineimap-propertize-face msg-type action
-                                                          (if (eq offlineimap-mode-line-style 'text)
-                                                              action
-                                                            (cdr (assoc 'run offlineimap-mode-line-symbols)))))
-                         (propertize (or (and (eq offlineimap-mode-line-style 'symbol)
-                                              (cdr (assoc status offlineimap-mode-line-symbols)))
-                                         (symbol-name status))
-                                     'face 'offlineimap-error-face))))
-             'mouse-face 'mode-line-highlight
-             'help-echo "mouse-2: Go to OfflineIMAP buffer"
-             'local-map offlineimap-mode-line-map))
-      (force-mode-line-update)))
     (setq offlineimap-mode-line-symbols '((run . "⟲")
                                           (stop .  "↻")
                                           (exit .  "■")
