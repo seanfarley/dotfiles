@@ -416,7 +416,7 @@ the directions of the separator."
 (defvar spaceline-separator-type "slant")
 
 (define-separator "left-inactive" "right" 'powerline-inactive1 'powerline-inactive2 t)
-(define-separator "right-inactive" "left" 'powerline-inactive2 'mode-line-inactive t)
+(define-separator "right-1-inactive" "left" 'powerline-inactive2 'mode-line-inactive t)
 
 (define-separator "left-1" "right" 'spaceline-highlight-face 'powerline-active1)
 (define-separator "left-2" "right" 'powerline-active1 'spaceline-highlight-face)
@@ -443,7 +443,7 @@ the directions of the separator."
  '(ati-right-1-separator
    ((((ati-hud buffer-position) :separator " ") ati-suntime ati-weather) :separator " · " :face default-face)
    ati-right-2-separator
-   ati-right-inactive-separator
+   ati-right-1-inactive-separator
    ((ati-battery-status ati-time) :separator " | " :face default-face)
    ""))
 
