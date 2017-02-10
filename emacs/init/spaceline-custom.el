@@ -444,10 +444,7 @@ the directions of the separator."
  '(ati-right-1-separator
    ati-right-2-inactive-separator
    ((ati-erc-track ati-offlineimap) :separator " · " :face default-face)
-   ati-right-2-separator
-   ati-right-1-inactive-separator
-   ((ati-battery-status ati-time) :separator " | " :face default-face)
-   ""))
+   ))
 
 (provide 'spaceline-custom)
 ;;; spaceline-custom.el ends here
