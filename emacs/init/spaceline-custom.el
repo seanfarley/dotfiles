@@ -442,6 +442,7 @@ the directions of the separator."
    ati-left-4-separator)
 
  '(ati-right-1-separator
+   ati-right-2-inactive-separator
    ((ati-erc-track ati-offlineimap) :separator " · " :face default-face)
    ati-right-2-separator
    ati-right-1-inactive-separator
