@@ -435,7 +435,7 @@ the directions of the separator."
    ati-left-1-separator
    ((ati-mode-icon ati-buffer-id) :face default-face)
    ati-left-2-separator
-   ((ati-process  ati-position ati-region-info) :face highlight-face :separator " | ")
+   ((ati-position ati-region-info) :face highlight-face :separator " | ")
    ati-left-3-separator
    ati-left-inactive-separator
    ((ati-vc-icon ati-git-stats ati-flycheck-status ati-flycheck-info ati-package-updates purpose) :separator " · " :face other-face)
