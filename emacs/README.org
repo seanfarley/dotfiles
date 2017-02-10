@@ -4491,6 +4491,15 @@ updated from within [[notmuch]] with keyboard shortcuts.
              'help-echo "mouse-2: Go to OfflineIMAP buffer"
              'local-map offlineimap-mode-line-map))
       (force-mode-line-update)))
+    (setq offlineimap-mode-line-symbols '((run . "⟲")
+                                          (stop .  "↻")
+                                          (exit .  "■")
+                                          (signal . "⚑")
+                                          (open .  "⊙")
+                                          (listen . "⌥")
+                                          (closed . "●")
+                                          (connect . "…")
+                                          (failed . "⌁"))))
 
   (after-load 'notmuch
     ;; For some reason this causes the offlineimap-hook to display the
