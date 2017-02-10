@@ -3087,20 +3087,6 @@ auto-completion of names from PyPI.
                                   pip-requirements-mode))
 #+end_src
 
-*** virtualenvwrapper
-
-#+begin_src emacs-lisp
-  (require-package 'virtualenvwrapper)
-  (require 'virtualenvwrapper)
-  (venv-initialize-interactive-shells)
-  (venv-initialize-eshell)
-  (advice-add #'switch-to-buffer :after
-              (lambda (&rest arg-list)
-                (if (and (projectile-project-p)
-                         (venv-is-valid (projectile-project-name)))
-                    (venv-workon (projectile-project-name)))))
-#+end_src
-
 *** Dumb Jump
 
 Dumb Jump is an Emacs "jump to definition" package with support for multiple
