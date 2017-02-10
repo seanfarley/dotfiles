@@ -312,10 +312,7 @@
                 "⊙ ")
               'face `(:height 0.9 :inherit)
               'help-echo "Email"
-              'display '(raise 0.1)
-              'mouse-face '(:box 1)
-              'local-map (make-mode-line-mouse-map
-                          'mouse-1 (lambda () (interactive) (notmuch)))))
+              'display '(raise 0.1)))
 
 (spaceline-define-segment
     ati-erc-track "An `all-the-icons' segment for erc-track"
