@@ -192,7 +192,8 @@
 (spaceline-define-segment
     ati-vc-icon "An `all-the-icons' segment for the current Version Control icon"
     (when vc-mode
-      (cond ((string-match "Git[:-]" vc-mode) (spaceline---github-vc))
+      (cond ((string-match "Hg[:-]" vc-mode) (spaceline---hg-vc))
+            ((string-match "Git[:-]" vc-mode) (spaceline---github-vc))
             ((string-match "SVN-" vc-mode) (spaceline---svn-vc))
             (t (propertize (format "%s" vc-mode)))))
     :when active)
