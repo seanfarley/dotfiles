@@ -50,21 +50,16 @@
 
 (spaceline-define-segment
     ati-projectile "An `all-the-icons' segment for current `projectile' project"
-    (concat
-     (propertize "|" 'face '(:height 1.1 :inherit))
-     " "
-     (if (and (fboundp 'projectile-project-name)
-              (projectile-project-name))
-         (propertize (format "%s" (concat (projectile-project-name) ))
-                     'face '(:height 0.8 :inherit)
-                     'display '(raise 0.2)
-                     'help-echo "Switch Project"
-                     'mouse-face '(:box 1)
-                     'local-map (make-mode-line-mouse-map
-                                 'mouse-1 (lambda () (interactive) (projectile-switch-project))))
-       (propertize "×" 'face '(:height 0.8 :inherit)))
-     " "
-     (propertize "|" 'face '(:height 1.1 :inherit)))
+    (if (and (fboundp 'projectile-project-name)
+             (projectile-project-name))
+        (propertize (format "%s" (concat (projectile-project-name) ))
+                    'face '(:height 0.8 :inherit)
+                    'display '(raise 0.2)
+                    'help-echo "Switch Project"
+                    'mouse-face '(:box 1)
+                    'local-map (make-mode-line-mouse-map
+                                'mouse-1 (lambda () (interactive) (projectile-switch-project))))
+      (propertize "×" 'face '(:height 0.8 :inherit)))
     :tight t)
 
 (spaceline-define-segment
