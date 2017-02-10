@@ -121,6 +121,32 @@
 ;; Third Segement ;;
 ;;----------------;;
 
+(defun spaceline---hg-vc ()
+  "Function to return the Spaceline formatted SVN Version Control text."
+  (let* ((truename (file-truename (buffer-name)))
+         (root (vc-hg-root (file-truename (buffer-name))))
+         (current-branch-file (concat root ".hg/branch"))
+         (branch-raw (when (file-exists-p current-branch-file)
+                       (ignore-errors
+                         (with-temp-buffer
+                           (insert-file-contents current-branch-file)
+                           (buffer-substring-no-properties
+                            (point-min) (point-max))))))
+         (branch (replace-regexp-in-string (rx (* (any " \t\n")) eos)
+                                           ""
+                                           branch-raw)))
+    (concat
+     (propertize (format " %s" (all-the-icons-faicon "mercury"))
+                 'face `(:family ,(all-the-icons-faicon-family) :height 0.8 :inherit)
+                 'display '(raise 0.15))
+     (propertize " · ")
+     (propertize (format "%s" (all-the-icons-octicon "git-branch"))
+                 'face `(:family ,(all-the-icons-octicon-family) :height 1.0 :inherit)
+                 'display '(raise 0.1))
+     (propertize (format " %s" branch)
+                 'face `(:height 0.9)
+                 'display '(raise 0.15)))))
+
 (defun spaceline---github-vc ()
   "Function to return the Spaceline formatted GIT Version Control text."
   (let ((branch (mapconcat 'concat (cdr (split-string vc-mode "[:-]")) "-")))
