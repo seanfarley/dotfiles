@@ -25,6 +25,7 @@
 (require 'spaceline)
 (require 'spaceline-config)
 (require 'all-the-icons)
+(require 'notmuch)
 
 ;;---------------;;
 ;; First Segment ;;
@@ -294,9 +295,20 @@
 (spaceline-define-segment
     ati-offlineimap "Show the status of the offlineimap process. Requires offlineimap."
   (propertize (if (featurep 'offlineimap)
-                  (replace-regexp-in-string " \\[\\(.\\)\\]"
-                                            "\\1 "
-                                            offlineimap-mode-line-string)
+                  (let ((status (replace-regexp-in-string " \\[\\(.\\)\\]"
+                                                          "\\1 "
+                                                          offlineimap-mode-line-string))
+                        (unread (when (get-buffer "*notmuch-hello*")
+                                  (with-current-buffer "*notmuch-hello*"
+                                    (save-excursion
+                                      (goto-char (point-min))
+                                      (re-search-forward " \\([0-9]+\\) unread" nil t)
+                                      (match-string-no-properties 1))))))
+                    (if (and (string-match status "■ ") unread)
+                        ;; this tightly couples us to the actual value of
+                        ;; offlineimap's symbol list but oh well
+                        "⚑ "
+                      status))
                 "⊙ ")
               'face `(:height 0.9 :inherit)
               'help-echo "Email"
