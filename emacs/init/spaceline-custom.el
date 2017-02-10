@@ -442,7 +442,7 @@ the directions of the separator."
    ati-left-4-separator)
 
  '(ati-right-1-separator
-   ((((ati-hud buffer-position) :separator " ") ati-suntime ati-weather) :separator " · " :face default-face)
+   ((ati-erc-track ati-offlineimap) :separator " · " :face default-face)
    ati-right-2-separator
    ati-right-1-inactive-separator
    ((ati-battery-status ati-time) :separator " | " :face default-face)
