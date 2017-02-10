@@ -311,6 +311,24 @@
                           'mouse-1 (lambda () (interactive) (notmuch)))))
 
 (spaceline-define-segment
+    ati-erc-track "An `all-the-icons' segment for erc-track"
+    (when (bound-and-true-p erc-track-mode)
+      (mapcar (lambda (b)
+                (propertize
+                 (let ((name (buffer-name (car b))))
+                   (cond
+                    ((string-match "#mercurial" name)
+                     (all-the-icons-faicon "mercury" :v-adjust 0.1))
+
+                    ((string-match "#bitbucket" name)
+                     (all-the-icons-faicon "bitbucket" :v-adjust 0.1))
+
+                    (t name)))
+                 'face '(:height 0.9 :inherit)
+                 'help-echo "ERC"))
+              erc-modified-channels-alist)))
+
+(spaceline-define-segment
     ati-hud "Display position through buffer as an XPM image"
     (let ((color1 (face-foreground default-face))
           (height (or powerline-height (frame-char-height)))
