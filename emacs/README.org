@@ -3717,7 +3717,6 @@ but I do know it messes up erc-hl-nicks if I don't do it this way.
   (require 'erc-menu)
   (require-package 'erc-hl-nicks)
   (require-package 'erc-tweet)
-  (require-package 'erc-track-score)
   (require-package 'znc)
   (require-package 'cloud-to-butt-erc)
   (require-package 'erc-hipchatify)
@@ -3776,14 +3775,6 @@ While we're at it, let's enable [[http://www.emacswiki.org/emacs/ErcDCC][direct 
   (add-to-list 'erc-modules 'hipchatify)
   (add-to-list 'erc-modules 'tweet)
   (erc-update-modules)
-#+end_src
-
-Track mode allows notifications in the mode-line,
-
-#+begin_src emacs-lisp
-  (erc-track-mode t)
-  (erc-track-score-mode 1)
-  (setq erc-track-showcount t)
 #+end_src
 
 Spelling mode is exactly what it says it is,
