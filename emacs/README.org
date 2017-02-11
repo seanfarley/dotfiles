@@ -82,7 +82,7 @@ passed in directory to =load-path=:
   (defun smf/add-to-load-path (dir)
     "Adds `dir' to load-path"
     (add-to-list 'load-path dir))
-#+end_src
+#+END_SRC
 
 and a convenience function for making a proper path out of two strings:
 
@@ -94,7 +94,7 @@ I guess it's time to use this now.
 
 #+BEGIN_SRC emacs-lisp
   (require-package 'use-package)
-#+end_src
+#+END_SRC
 
 *** Base load path
 
@@ -102,9 +102,9 @@ Define a base directory =smf/dotfiles-dir= that's relative to the currently
 loading file (this file). This means if I deliberately start Emacs with a file
 loaded:
 
-#+begin_src
+#+BEGIN_SRC
 $ emacs -q -l ~/src/emacs/init.el
-#+end_src
+#+END_SRC
 
 then =smf/dotfiles-dir= will be =~/src/emacs=. [[file:init.el::(defconst%20smf/dotfiles-dir][See init.el for code]].
 
@@ -119,11 +119,11 @@ in =~= or =user-emacs-directory= - since my entire =~/.emacs.d= is versioned,
 I'd rather all temporary files were stored in a known place, =smf/tmp-local-dir=.
 This directory is created if it doesn't exist.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (make-directory
    (setq smf/tmp-local-dir
          (smf/join-dirs smf/dotfiles-dir ".tmp")) t)
-#+end_src
+#+END_SRC
 
 *** Backups
 
@@ -132,41 +132,41 @@ configuration isn't great though.
 
 First, set up some directories to keep backups:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (make-directory
    (setq smf/tmp-backups-dir
          (smf/join-dirs smf/tmp-local-dir "backups")) t)
   (make-directory
    (setq smf/tmp-autosaves-dir
          (smf/join-dirs smf/tmp-local-dir "autosaves")) t)
-#+end_src
+#+END_SRC
 
 Now use those directories for backups and autosave files:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq backup-directory-alist `((".*" . ,smf/tmp-backups-dir))
         auto-save-file-name-transforms `((".*" ,smf/tmp-autosaves-dir)))
-#+end_src
+#+END_SRC
 
 Always copy files when backing up to avoid breaking symlinks:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq backup-by-copying t)
-#+end_src
+#+END_SRC
 
 Delete old versions automatically, and keep a limited number around:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq delete-old-versions t
         kept-new-versions 2
         kept-old-versions 2)
-#+end_src
+#+END_SRC
 
 Finally, use version numbers in the filenames:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq version-control t)
-#+end_src
+#+END_SRC
 
 ** =after-load=
 
@@ -174,13 +174,13 @@ First let's define a convenient macro that wraps typical =eval-after-load= in
 such a way that we don't need to use =progn= to contain the callback logic. This
 macro was gotten from [[https://github.com/purcell/emacs.d/blob/aa789c9745b13612c4fea6e638d81d8ebbfecdf8/init-utils.el#L1-L5][Steve Purcell's emacs.d repo]]:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defmacro after-load (feature &rest body)
     "After FEATURE is loaded, evaluate BODY."
     (declare (indent defun))
     `(eval-after-load ,feature
        '(progn ,@body)))
-#+end_src
+#+END_SRC
 
 ** Client/server
 
@@ -191,12 +191,12 @@ Emacs has a [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Se
 We make sure the server is running, additionally guarded to check if the version
 of Emacs we're using supports the server package:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq server-use-tcp t)
   (when (require 'server nil t)
     (unless (server-running-p)
       (server-start)))
-#+end_src
+#+END_SRC
 
 ** Editing defaults
 
@@ -208,25 +208,25 @@ Emacs comes with a collection of strange defaults. See [[https://github.com/magn
 The default wrap width (known as [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Filling.html][filling]]) for Emacs is 70 characters. Modern
 conventions state that 80 characters is the standard:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default fill-column 79)
-#+end_src
+#+END_SRC
 
 I don't type double-space sentences, so make sure that Emacs doesn't look for
 double-spaces after periods to fill paragraphs correctly:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default sentence-end-double-space nil)
-#+end_src
+#+END_SRC
 
 *** Trailing whitespace
 
 Most UNIX tools work best when there's a trailing newline on all files. Enable
 that option:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq require-final-newline t)
-#+end_src
+#+END_SRC
 
 Emacs has lots of other options for [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Useless-Whitespace.html][managing superfluous whitespace]].
 
@@ -237,7 +237,7 @@ I don't use tabstops in files, and my default tab width is 4 characters.
 It's worth noting that Emacs can override either of those on a per-file/mode
 basis, so Makefiles, Ruby etc. will still get the correct indentation rules.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default
    indent-tabs-mode nil
    tab-width 2
@@ -249,7 +249,7 @@ basis, so Makefiles, Ruby etc. will still get the correct indentation rules.
    web-mode-markup-indent-offset 2
    web-mode-css-indent-offset 2
    web-mode-sql-indent-offset 2)
-#+end_src
+#+END_SRC
 
 **** Auto-indentation
 
@@ -257,7 +257,7 @@ basis, so Makefiles, Ruby etc. will still get the correct indentation rules.
 
 First we define convenience toggling functions we can use in a hook (or interactively):
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun smf/turn-on-electric-indent-mode ()
     "Turns on electric-indent-mode"
     (interactive)
@@ -267,21 +267,21 @@ First we define convenience toggling functions we can use in a hook (or interact
     "Turns off electric-indent-mode"
     (interactive)
     (electric-indent-mode -1))
-#+end_src
+#+END_SRC
 
 then we enable it for [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Program-Modes.html][the generic abstract programming mode =prog-mode=,
 introduced in Emacs 24.1]] ([[http://emacsredux.com/blog/2013/04/05/prog-mode-the-parent-of-all-programming-modes/][more about =prog-mode= on Emacs Redux]]):
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook 'smf/turn-on-electric-indent-mode)
-#+end_src
+#+END_SRC
 
 *** Encoding
 
 I want to have [[http://en.wikipedia.org/wiki/UTF-8][UTF-8]] by default. [[http://www.masteringemacs.org/articles/2012/08/09/working-coding-systems-unicode-emacs/][Emacs unfortunately has a few settings that
 govern encoding]], so we should set them all at once:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   ;; Utf-8 please
   (setq locale-coding-system 'utf-8) ; pretty
   (set-terminal-coding-system 'utf-8) ; pretty
@@ -289,7 +289,7 @@ govern encoding]], so we should set them all at once:
   (set-selection-coding-system 'utf-8) ; please
   (prefer-coding-system 'utf-8) ; with sugar on top
   (setenv "LANG" "en_US.ut8") ; ensure subprocesses get the right env variable
-#+end_src
+#+END_SRC
 
 *** Smart =beginning-of-line=
 
@@ -298,7 +298,7 @@ govern encoding]], so we should set them all at once:
 the point to the first non-whitespace character first, and then position 0, with
 extra presses toggling the position:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defadvice move-beginning-of-line (around smarter-bol activate)
     ;; Move to requested line if needed.
     (let ((arg (or (ad-get-arg 0) 1)))
@@ -309,7 +309,7 @@ extra presses toggling the position:
       (back-to-indentation)
       (when (= pos (point))
         ad-do-it)))
-#+end_src
+#+END_SRC
 
 This functionality uses the Emacs concept of [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Advising-Functions.html][advice]], which is a way of modifying
 existing functions in-place without redefining the entire thing.
@@ -319,64 +319,64 @@ existing functions in-place without redefining the entire thing.
 When changing focus to the minibuffer, stop allowing point to move over the
 prompt. Code taken from [[http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html][ergoemacs]].
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq minibuffer-prompt-properties (add-to-list 'minibuffer-prompt-properties 'minibuffer-avoid-prompt))
   (setq minibuffer-prompt-properties (add-to-list 'minibuffer-prompt-properties 'point-entered))
-#+end_src
+#+END_SRC
 
 While we're at it, let's allow recursive minibuffers.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq enable-recursive-minibuffers t)
-#+end_src
+#+END_SRC
 
 Also, let's save the minibuffer history between sessions. It's 2014. We have the
 technology.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (savehist-mode t)
   (setq history-length 1000)
-#+end_src
+#+END_SRC
 
 *** Deleting files
 
 Move files to the trash when deleting:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq delete-by-moving-to-trash t)
-#+end_src
+#+END_SRC
 
 *** Compressed files
 
 Transparently open compressed files:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (auto-compression-mode t)
-#+end_src
+#+END_SRC
 
 *** Active region
 
 Got these from [[https://github.com/magnars/.emacs.d/blob/master/sane-defaults.el][Magnar Sveen's =sane-defaults.el=]]. Show the active region,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (transient-mark-mode 1)
   (make-variable-buffer-local 'transient-mark-mode)
   (put 'transient-mark-mode 'permanent-local t)
   (setq-default transient-mark-mode t)
-#+end_src
+#+END_SRC
 
 Remove text in active region if inserting text,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (delete-selection-mode 1)
-#+end_src
+#+END_SRC
 
 *** Pop mark
 
 When popping the mark, continue popping until the cursor actually moves. Also,
 if the last command was a copy - skip past all the expand-region cruft.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defadvice pop-to-mark-command (around ensure-new-position activate)
     (let ((p (point)))
       (when (eq last-command 'save-region-or-current-line)
@@ -385,15 +385,15 @@ if the last command was a copy - skip past all the expand-region cruft.
         ad-do-it)
       (dotimes (i 10)
         (when (= p (point)) ad-do-it))))
-#+end_src
+#+END_SRC
 
 *** Window mark
 
 If this is true, then [[erc]]'s scrolling is broken.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq switch-to-buffer-preserve-window-point nil)
-#+end_src
+#+END_SRC
 
 ** Keyboard
 
@@ -404,28 +404,28 @@ If this is true, then [[erc]]'s scrolling is broken.
   =⌘= on OS X (by default). =Esc= also serves as =Meta= if it's not separately
   bound. On OS X I want to use left =⌥= for =Meta=, and leave right =⌥= alone:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-alternate-modifier 'meta)
     (setq mac-option-modifier 'meta)
     (setq ns-right-alternate-modifier nil))
-#+end_src
+#+END_SRC
 
 - =s-= means [[http://en.wikipedia.org/wiki/Super_key_(keyboard_button)][super key]]. On OS X I want this to be =⌘=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-command-modifier 'super)
     (setq mac-command-modifier 'super)) ;; for EmacsMac.app
-#+end_src
+#+END_SRC
 
 - =H-= means [[http://en.wikipedia.org/wiki/Hyper_key][hyper key]]. On OS X I want this to be =fn=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-function-modifier 'hyper)
     (setq mac-function-modifier 'hyper)) ;; for EmacsMac.app
-#+end_src
+#+END_SRC
 
 *** Basic remappings
 
@@ -438,10 +438,10 @@ things that are easier to type.
 As per [[https://sites.google.com/site/steveyegge2/effective-emacs#item2][Yegge's Item 2]]. This unmaps the difficult =M-x= (usually =Alt+x=) to =C-x
 m=, and then add a fat-finger combination of =C-x C-m=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x m") 'execute-extended-command)
   (global-set-key (kbd "C-x C-m") 'execute-extended-command)
-#+end_src
+#+END_SRC
 
 **** Prefer =backward-kill-word= over Backspace
 
@@ -449,7 +449,7 @@ As per [[https://sites.google.com/site/steveyegge2/effective-emacs#item3][Yegge'
 =backward-kill-word=. The command that used to live there (=kill-region=) is not
 needed since the backspace key works just fine in that case.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   ;; deletes backward until a space is hit
   (defun smf/backward-kill-word ()
     (interactive)
@@ -460,21 +460,21 @@ needed since the backspace key works just fine in that case.
         (delete-region (point) (save-excursion (skip-syntax-backward "^ ") (point))))))
 
   (global-set-key (kbd "C-w") 'smf/backward-kill-word)
-#+end_src
+#+END_SRC
 
 **** Quick window switching
 
 Usually one must type =C-x o= to switch between windows - make that quicker by
 also mapping =M-o=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "M-o") 'other-window)
   ;; Moving between windows
   (global-set-key (kbd "C-s-<up>") 'windmove-up)
   (global-set-key (kbd "C-s-<down>") 'windmove-down)
   (global-set-key (kbd "C-s-<right>") 'windmove-right)
   (global-set-key (kbd "C-s-<left>") 'windmove-left)
-#+end_src
+#+END_SRC
 
 **** Buffer management
 
@@ -482,40 +482,40 @@ Burying a buffer (removing it from the current window and sending it to the
 bottom of the stack) is very common for dismissing buffers. Add a mapping for
 it:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c y") 'bury-buffer)
-#+end_src
+#+END_SRC
 
 Add a key combination to revert the current buffer (re-read the contents from
 disk):
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c r") 'revert-buffer)
-#+end_src
+#+END_SRC
 
 Most of the time I want the buffer to be reverted automatically:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-auto-revert-mode t)
-#+end_src
+#+END_SRC
 
 Use =ivy-switch-buffer= instead of the feature-lacking =list-buffers= (and
 include a common typo I make):
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x C-b") 'ivy-switch-buffer)
   (global-set-key (kbd "C-x C-n") 'ivy-switch-buffer)
-#+end_src
+#+END_SRC
 
 **** Increase / decrease font size
 
 I never remember the keybindings for this:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "s-=") 'text-scale-increase)
   (global-set-key (kbd "s--") 'text-scale-decrease)
   (global-set-key (kbd "s-0") '(lambda () (interactive) (text-scale-adjust 0)))
-#+end_src
+#+END_SRC
 
 *** Launcher keymap
 
@@ -523,18 +523,18 @@ This trick I got from [[http://endlessparentheses.com/launcher-keymap-for-standa
 combo as =C-x C-l=, which is normally =downcase-region= - a command I use so
 infrequently I didn't even know there was a key binding for it.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (define-prefix-command 'smf/launcher-map)
   (define-key ctl-x-map (kbd "C-l") 'smf/launcher-map)
-#+end_src
+#+END_SRC
 
 rather than remembering that it's =smf/launcher-map=, just make a function:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun smf/add-launcher (key function)
     "Maps FUNCTION to KEY under the `smf/launcher-map' prefix"
     (define-key smf/launcher-map key function))
-#+end_src
+#+END_SRC
 
 ** Interface
 
@@ -544,34 +544,34 @@ To ensure that all scrollbars, toolbars etc. are turned off, we run this as
 early as possible.
 
 #+NAME: turn-off-chrome
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (dolist (mode '(tool-bar-mode scroll-bar-mode))
     (when (fboundp mode) (funcall mode -1)))
-#+end_src
+#+END_SRC
 
 *** Startup buffers
 
 Turn off the startup screen, and always show =*scratch*=.
 
 #+NAME: turn-off-startup
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   ;; inhibit startup screen
   (setq inhibit-startup-screen t
         ;; Show *scratch* on start
         initial-buffer-choice t)
-#+end_src
+#+END_SRC
 
 *** Font
 
 I use [[https://github.com/tonsky/FiraCode][Fira Code]] as my default coding font:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   ;; set the font
   (when (window-system)
     (set-default-font "Fira Code"))
   (if (fboundp 'mac-auto-operator-composition-mode)
       (mac-auto-operator-composition-mode))
-#+end_src
+#+END_SRC
 
 Uncomment the last line to generate the table of ligature codes.
 
@@ -581,16 +581,16 @@ Syntax highlighting in Emacs is called [[https://www.gnu.org/software/emacs/manu
 =font-lock-mode=. This turned on by default in modern Emacs systems, but it's
 worth keeping around:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-font-lock-mode t)
-#+end_src
+#+END_SRC
 
 Emacs also supports multiple levels of complexity for highlighting. Setting this
 value to =t= forces it to pick the maximum available (also the default):
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq font-lock-maximum-decoration t)
-#+end_src
+#+END_SRC
 
 *** Line and column numbers
 
@@ -600,39 +600,39 @@ Emacs doesn't display line numbers by the code by default. For that you want
 I want to display the current line number in the [[http://www.emacswiki.org/emacs/ModeLine][mode line]], and also the
 current column number:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (line-number-mode 1)
   (column-number-mode 1)
-#+end_src
+#+END_SRC
 
 *** Tooltips
 
 Emacs convention is to show help and other inline documentation in the [[https://www.gnu.org/software/emacs/manual/html_node/eintr/message.html][message
 area]]. Show help there instead of using an OS tooltip:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (display-graphic-p)
     (tooltip-mode -1))
-#+end_src
+#+END_SRC
 
 *** Dialogue boxes and windows
 
 Just don't show them. Use native Emacs controls:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (display-graphic-p)
     (setq use-dialog-box nil))
-#+end_src
+#+END_SRC
 
 Make the window title display the full path of the file I'm currently editing:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (display-graphic-p)
     (setq frame-title-format
           '((:eval (if (buffer-file-name)
                        (abbreviate-file-name (buffer-file-name))
                      "%b")))))
-#+end_src
+#+END_SRC
 
 Aside: Emacs calls OS windows [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Frames.html#Frames][frames]] and divisions within frames [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Windows.html#Windows][windows]]. [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Frame-Titles.html][More
 information on frame titles]].
@@ -641,15 +641,15 @@ information on frame titles]].
 
 I prefer a box, non-blinking cursor. So, turn off that blinking:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (display-graphic-p)
     (setq-default cursor-type 'box)
     (blink-cursor-mode (- (*) (*) (*))))
-#+end_src
+#+END_SRC
 
 Depending on the mode, let's [[http://www.emacswiki.org/emacs/ChangingCursorDynamically][change the cursor]].
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq smf/read-only-color       "gray")
   (setq smf/read-only-cursor-type 'hbar)
   (setq smf/overwrite-color       "red")
@@ -672,21 +672,21 @@ Depending on the mode, let's [[http://www.emacswiki.org/emacs/ChangingCursorDyna
       (setq cursor-type smf/normal-cursor-type))))
 
   (add-hook 'post-command-hook 'smf/set-cursor-according-to-mode)
-#+end_src
+#+END_SRC
 
 *** Typing
 
 Show the modifier combinations I just typed almost immediately:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq echo-keystrokes 0.1)
-#+end_src
+#+END_SRC
 
 Don't make me type =yes= or =no= to boolean interface questions:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
-#+end_src
+#+END_SRC
 
 *** Code commenting
 
@@ -694,7 +694,7 @@ A drop-in replacement for comment-dwim. If no region is selected and current
 line is not blank and we are not at the end of the line, then comment current
 line.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun comment-dwim-line (&optional arg)
     (interactive "*P")
     (comment-normalize-vars)
@@ -702,11 +702,11 @@ line.
         (comment-or-uncomment-region (line-beginning-position) (line-end-position))
       (comment-dwim arg)))
   (global-set-key (kbd "M-;") 'comment-dwim-line)
-#+end_src
+#+END_SRC
 
 Comment or uncomment the region or current line if no active region.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun comment-or-uncomment-region-or-line ()
     (interactive)
     (let (beg end)
@@ -715,21 +715,21 @@ Comment or uncomment the region or current line if no active region.
         (setq beg (line-beginning-position) end (line-end-position)))
       (comment-or-uncomment-region beg end)))
   (global-set-key (kbd "s-;") 'comment-or-uncomment-region-or-line)
-#+end_src
+#+END_SRC
 
 *** Bells
 
 Don't make a sound when [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Beeping.html][ringing a bell]] - flash a visual bell instead:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq visible-bell t)
-#+end_src
+#+END_SRC
 
 Override the =ring-bell-function= to conditionally ring the bell only when it's
 not a valid quit case like hitting =esc= or =C-g=. Generally this means the bell
 will only ring when there's actually an error raised somehow:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq ring-bell-function
         (lambda ()
           "Only rings the bell if it's not a valid quit case, e.g
@@ -737,7 +737,7 @@ will only ring when there's actually an error raised somehow:
           (unless (memq this-command
                         '(isearch-abort abort-recursive-edit exit-minibuffer keyboard-quit))
             (ding))))
-#+end_src
+#+END_SRC
 
 *** Buffer naming
 
@@ -749,10 +749,10 @@ respectively.
 We can use [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Uniquify.html][Uniquify]] library to name them =thing/init.el= and
 =other-thing/init.el=, which is much easier to make sense of.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'uniquify)
   (setq uniquify-buffer-name-style 'forward)
-#+end_src
+#+END_SRC
 
 ** OS X specific configuration
 
@@ -764,54 +764,54 @@ do on OS X. On OS X =system-type= is the symbol =darwin=.
 Typically OS X hosts are called things like =hostname.localconfig= or
 =hostname.local=. Make Emacs report that without the extra suffix:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (eq system-type 'darwin)
     (setq system-name (car (split-string system-name "\\."))))
-#+end_src
+#+END_SRC
 
 *** Spelling correction
 
 [[https://www.gnu.org/software/ispell/][ispell]] isn't generally available on OS X. [[http://aspell.net][aspell]] is available via [[https://github.com/Homebrew/homebrew/blob/master/Library/Formula/aspell.rb][Homebrew]], so
 let's use that if we can find it:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (and (eq system-type 'darwin) (executable-find "aspell"))
       (setq ispell-program-name (executable-find "aspell")))
-#+end_src
+#+END_SRC
 
 On the mac, the default mouse bindings are problematic since a two-finger click
 is =mouse-3= and not =mouse-2=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
     (after-load 'flyspell
       (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word)
       (define-key flyspell-mouse-map [mouse-3] #'undefined))
-#+end_src
+#+END_SRC
 
 Diminish [[flyspell]],
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'flyspell
     (after-load 'diminish
       (diminish 'flyspell-mode)))
-#+end_src
+#+END_SRC
 
 *** dired fixes
 
 OS X's bundled version of =ls= isn't the GNU one, so it doesn't support the
 =--dired= flag. Emacs caters for that use case:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq dired-use-ls-dired nil)
-#+end_src
+#+END_SRC
 
 *** sRGB display fixes
 
 As of Emacs 24.4, [[http://lists.gnu.org/archive/html/emacs-devel/2013-12/msg00741.html][Emacs natively supports proper sRGB]] values on OS X:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq ns-use-srgb-colorspace t)
-#+end_src
+#+END_SRC
 
 If you're not using Emacs 24.4 this variable setting will have no effect. See
 [[https://github.com/Homebrew/homebrew/blob/7446162e59fe548a0fde735d25b9913f8fa2ad4a/Library/Formula/emacs.rb#L10][Homebrew's Emacs recipe]] for details of how to get this behaviour in earlier
@@ -828,7 +828,7 @@ Obviously this doesn't work in the terminal, so we need to use the
 =interprogram-(cut|paste)-function= variables to copy/paste. Most of this code
 gotten from [[http://mindlev.wordpress.com/2011/06/13/emacs-in-a-terminal-on-osx/#comment-20][this blog comment]].
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (and (not (display-graphic-p)) (eq system-type 'darwin))
     (defun smf/copy-from-osx ()
       "Copies the current clipboard content using the `pbcopy` command"
@@ -843,20 +843,20 @@ gotten from [[http://mindlev.wordpress.com/2011/06/13/emacs-in-a-terminal-on-osx
 
     (setq interprogram-cut-function 'smf/paste-to-osx)
     (setq interprogram-paste-function 'smf/copy-from-osx))
-#+end_src
+#+END_SRC
 
 Also, allow pasting selection outside of Emacs:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq x-select-enable-clipboard t)
-#+end_src
+#+END_SRC
 
 *** Fullscreen support
 
 On Emacs 24.4 and above, Lion-style fullscreen display is supported but I
 dislike it. Define a method to toggle fullscreen pre-Lion.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (and (eq system-type 'darwin) (fboundp 'toggle-frame-fullscreen))
     (defun toggle-fullscreen ()
       "Toggle full screen"
@@ -865,27 +865,27 @@ dislike it. Define a method to toggle fullscreen pre-Lion.
                            (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
 
       (global-set-key (kbd "C-s-f") 'toggle-fullscreen))
-#+end_src
+#+END_SRC
 
 On the Yosemite beta, =ns-use-native-fullscreen= is =nil=.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (eq system-type 'darwin)
     (setq ns-use-native-fullscreen nil))
-#+end_src
+#+END_SRC
 
 Start emacs in fullscreen,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (toggle-fullscreen)
-#+end_src
+#+END_SRC
 
 *** OS X keybindings
 
 There are a lot of native OS X-isms that I would like to keep. Things such =⌘-a=
 to select the whole buffer, or =⌘-c= to copy.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (eq system-type 'darwin)
     (global-set-key (kbd "s-a") 'mark-whole-buffer)
     (global-set-key (kbd "s-v") 'yank)
@@ -908,14 +908,14 @@ to select the whole buffer, or =⌘-c= to copy.
     (global-set-key [(H right)] 'end-of-buffer)
     (global-set-key [(H down)] [?\C-v])
     (global-set-key [(H up)] [?\M-v]))
-#+end_src
+#+END_SRC
 
 The =⌘-backspace= deletes text from the current position to the beginning of the
 line.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key [s-backspace] [?\C- ?\C-a backspace])
-#+end_src
+#+END_SRC
 
 ** Utility functions
 
@@ -923,19 +923,19 @@ line.
 
 Renames the major-mode lighter in the modeline. Lifted from [[http://whattheemacsd.com/appearance.el-01.html][What the emacs.d]].
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defmacro rename-modeline (package-name mode new-name)
     `(eval-after-load ,package-name
        '(defadvice ,mode (after rename-modeline activate)
           (setq mode-name ,new-name))))
-#+end_src
+#+END_SRC
 
 *** Get keychain password
 
 If I'm on OS X, I can fetch passwords etc. from my Keychain. This is much more
 secure than storing them in configuration on disk:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun smf/chomp (str)
     "Chomp leading and tailing whitespace from `str'."
     (while (string-match "\\`\n+\\|^\\s-+\\|\\s-+$\\|\n+\\'" str)
@@ -952,14 +952,14 @@ secure than storing them in configuration on disk:
        "-password -wa "
        account-name
        (if server (concat " -s " server))))))
-#+end_src
+#+END_SRC
 
 Eventually, I'd like to use auth-source instead of custom methods for accessing
 the keychain, but erc is giving me problems currently.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq auth-sources '(macos-keychain-internet))
-#+end_src
+#+END_SRC
 
 *** Conditionally kill Emacs
 
@@ -967,7 +967,7 @@ When I'm in an emacsclient, I probably just want the client to die rather than
 the entire server. And, when I kill my server, I want Emacs to confirm this with
 me:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun smf/kill-emacs ()
     "If this buffer is a client, just kill it, otherwise confirm
   the quit."
@@ -976,18 +976,18 @@ me:
         (server-edit)
       (if (= (length (frame-list)) 1)
         (save-buffers-kill-terminal))))
-#+end_src
+#+END_SRC
 
 Enable this, and override the default command Emacs assigns to kill itself:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (define-key (current-global-map) [remap save-buffers-kill-terminal] 'smf/kill-emacs)
-#+end_src
+#+END_SRC
 
 Also, when using an emacsclient that is waiting, I don't want a prompt that asks
 if I really want to exit. So, we define our own function and bind it to =⌘-k=.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'server-switch-hook
             (lambda ()
               (local-set-key (kbd "s-k") '(lambda ()
@@ -995,14 +995,14 @@ if I really want to exit. So, we define our own function and bind it to =⌘-k=.
                                             (if server-buffer-clients
                                                 (server-edit)
                                               (kill-this-buffer))))))
-#+end_src
+#+END_SRC
 
 *** narrow-or-widen-dwim
 
 Taken from [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][here]], this function defines a handy way to narrow the buffer. We'll
 add a launcher for it bound to 'n'.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun smf/narrow-or-widen-dwim (p)
     "If the buffer is narrowed, it widens. Otherwise, it narrows intelligently.
   Intelligently means: region, org-src-block, org-subtree, or defun,
@@ -1027,14 +1027,14 @@ add a launcher for it bound to 'n'.
           (t (narrow-to-defun))))
 
   (global-set-key (kbd "H-n") 'smf/narrow-or-widen-dwim)
-#+end_src
+#+END_SRC
 
 *** Delete to end of buffer
 
 In emails (and sometimes other places, too) I frequently want to delete the rest
 of the buffer. We'll bind this to =C-M-d=
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun smf/delete-to-end-of-buffer (add-to-kill-ring-p)
     "Deletes from point to end of buffer. If prefix argument is
      given, kill the region, adding it to the kill ring."
@@ -1044,7 +1044,7 @@ of the buffer. We'll bind this to =C-M-d=
       (delete-region (point) (point-max))))
 
   (global-set-key (kbd "C-M-d") 'smf/delete-to-end-of-buffer)
-#+end_src
+#+END_SRC
 
 ** Other modes
 
@@ -1057,70 +1057,70 @@ are the ones I commonly use and have configured.
 
 Don't auto-fold my documents:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq org-startup-folded nil)
-#+end_src
+#+END_SRC
 
 Add some sweet ipython with gnuplot integration,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'gnuplot)
   (require-package 'ob-ipython)
   (setq ob-ipython-command "jupyter-2.7")
   (setq python-shell-prompt-detect-failure-warning nil)
-#+end_src
+#+END_SRC
 
 When editing [[http://orgmode.org/manual/Working-With-Source-Code.html#Working-With-Source-Code][nested source code]], always accept Emacs Lisp and ipython:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((ipython . t)
      (emacs-lisp . t)))
-#+end_src
+#+END_SRC
 
 and automatically apply syntax highlighting:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
-#+end_src
+#+END_SRC
 
 and don't prompt
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq org-confirm-babel-evaluate nil)
-#+end_src
+#+END_SRC
 
 When using [[http://www.emacswiki.org/emacs/ImenuMode][imenu]], make sure I can follow the outline to the full available
 depth:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq org-imenu-depth 6)
-#+end_src
+#+END_SRC
 
 Also, I like using shift+arrow keys to highlight, so let's set that:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq org-support-shift-select 'always)
-#+end_src
+#+END_SRC
 
 I use meta-arrow keys for navigation so let's stop org from using them to indent
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'org
     (define-key org-mode-map (kbd "<M-S-left>") nil)
     (define-key org-mode-map (kbd "<M-S-right>") nil)
     (define-key org-mode-map (kbd "<M-left>") nil)
     (define-key org-mode-map (kbd "<M-right>") nil))
-#+end_src
+#+END_SRC
 
 Also, turn on =auto-fill-mode= for org-mode,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'org
     (add-hook 'org-mode-hook 'auto-fill-mode))
-#+end_src
+#+END_SRC
 
 A great plugin for =org-mode= is =org-journal= to take daily and weekly notes.
 I was inspired by [[http://pages.sachachua.com/.emacs.d/Sacha.html#org5b9f9d2][Sacha Chau's setup]] (and her [[http://sachachua.com][great website]]) to also revamp my
@@ -1128,7 +1128,7 @@ workflow to use =org-mode= even more better.
 
 So, we'll start with some basic settings,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'org-journal)
 
   (setq org-log-done t)
@@ -1147,54 +1147,54 @@ So, we'll start with some basic settings,
   (setq org-confirm-babel-evaluate nil)
 
   (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
-#+end_src
+#+END_SRC
 
 I'll change the prefix for these function (instead of using smf/launcher) since
 they are so common,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (define-key global-map "\C-cl" 'org-store-link)
   (define-key global-map "\C-ca" 'org-agenda)
   (global-set-key (kbd "C-c c") 'org-capture)
-#+end_src
+#+END_SRC
 
 The org-protocol plugin is sweet awesomeness. It allows native apps to send
 capture notes to emacs,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
    (require 'org-protocol)
-#+end_src
+#+END_SRC
 
 Now, set the agenda files,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq org-agenda-files (list "~/Documents/org/organizer.org"
                                "~/Documents/org/bitbucket.org"
                                "~/Documents/org/phd.org"
                                "~/Documents/org/hg.org"
                                "~/Documents/org/personal.org"))
-#+end_src
+#+END_SRC
 
 Please don't close and mess up my windows,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq org-agenda-window-setup 'current-window)
   (setq org-agenda-restore-windows-after-quit 't)
-#+end_src
+#+END_SRC
 
 Also, set the file for capturing todos and add a launcher key for it,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
    (setq org-default-notes-file "~/Documents/org/organizer.org")
 
    (smf/add-launcher "o" (lambda ()
                            (interactive)
                            (find-file "~/Documents/org/organizer.org")))
-#+end_src
+#+END_SRC
 
 Add a nice, little template to use along with some shortcuts,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defvar smf/org-basic-task-template "* TODO %?
       Captured %<%Y-%m-%d %H:%M>
       %a
@@ -1216,21 +1216,21 @@ Add a nice, little template to use along with some shortcuts,
   (setq org-todo-keywords
         '((sequence "TODO(t)" "|" "DONE(d)")))
 
-#+end_src
+#+END_SRC
 
 Let's use pomodoro!
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'org-pomodoro)
   (setq org-pomodoro-play-sounds nil)
-#+end_src
+#+END_SRC
 
 While we're at it, let's add notmuch and twitter bootstrap integration,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'org-notmuch)
   (require-package 'ox-twbs)
-#+end_src
+#+END_SRC
 
 *** ido
 
@@ -1241,32 +1241,32 @@ guide to Ido]].
 First we enable =ido-mode= globally and enable =ido-everywhere=, which enables
 Ido for buffer and file reading:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'ido
     (ido-mode t)
     (ido-everywhere t))
-#+end_src
+#+END_SRC
 
 Force Ido to [[http://stackoverflow.com/a/11341239/61435][ignore Dropbox cruft]]:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'ido
     (add-to-list 'ido-ignore-files "Icon\n"))
-#+end_src
+#+END_SRC
 
 Also ignore certain extensions that I don't care about
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq completion-ignored-extensions
         '(".o" ".elc" "~" ".bin" ".bak" ".obj" ".map" ".a" ".ln" ".mod" ".gz"
           ".aux" ".tdo" ".fmt" ".swp" ".pdfsync" ".pdf" ".vrb" ".idx" ".ind"
           ".bbl" ".toc" ".blg" ".snm" ".ilg" ".log" ".out" ".pyc" ".DS_Store"
           "-blx.bib" ".run.xml" ".hi" ".fls" ".fdb_latexmk" ".bcf" ".rel"))
-#+end_src
+#+END_SRC
 
 Configure Ido (see comments for more information):
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'ido
     (setq
      ;; Speed up ido by using less candidates
@@ -1283,29 +1283,29 @@ Configure Ido (see comments for more information):
      ido-case-fold t
      ;; don't store old files as virtual buffers
      ido-use-virtual-buffers nil))
-#+end_src
+#+END_SRC
 
 Store =ido= temporary directory cache elsewhere:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq ido-save-directory-list-file (expand-file-name ".ido.last" smf/tmp-local-dir))
-#+end_src
+#+END_SRC
 
 Finally load Ido:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'ido)
-#+end_src
+#+END_SRC
 
 *** bookmarks
 
 Emacs has robust [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Bookmarks.html][bookmarking functionality]]. It uses a file to persit the list of
 bookmarks, so make sure that file is in my custom temporary directory:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'bookmark
     (setq bookmark-default-file (expand-file-name ".emacs.bmk" smf/tmp-local-dir)))
-#+end_src
+#+END_SRC
 
 *** eldoc-mode
 
@@ -1313,11 +1313,11 @@ bookmarks, so make sure that file is in my custom temporary directory:
 Emacs lisp (eg information about arity of functions). Enable that for
 =emacs-lisp-mode=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'prog-mode-hook 'turn-on-eldoc-mode)
-#+end_src
+#+END_SRC
 
 *** python-mode
 
@@ -1326,19 +1326,19 @@ As of 24.2, Emacs ships with a [[http://www.emacswiki.org/emacs/PythonProgrammin
 
 We can work around that using [[https://www.gnu.org/software/emacs/manual/html_node/ccmode/Subword-Movement.html#Subword-Movement][subword-mode]]:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'python-mode-hook (lambda () (subword-mode 1)))
-#+end_src
+#+END_SRC
 
 *** ruby-mode
 
 As of 24.4, Emacs comes with a much better [[http://www.masteringemacs.org/articles/2013/12/29/whats-new-in-emacs-24-4/][Ruby mode]]. However it doesn't come
 with =subword-mode= enabled by default:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'ruby-mode
     (add-hook 'ruby-mode-hook (lambda () (subword-mode 1))))
-#+end_src
+#+END_SRC
 
 *** hippie
 
@@ -1349,7 +1349,7 @@ open buffers.
 
 First we customise the types of things it looks for:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq hippie-expand-try-functions-list
         '(try-expand-dabbrev
           try-expand-dabbrev-all-buffers
@@ -1361,14 +1361,14 @@ First we customise the types of things it looks for:
           try-expand-line
           try-complete-lisp-symbol-partially
           try-complete-lisp-symbol))
-#+end_src
+#+END_SRC
 
 Then we override =dabbrev-expand='s keybinding to use =hippie-expand= instead
 (normally this is =M-/=):
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (define-key (current-global-map) [remap dabbrev-expand] 'hippie-expand)
-#+end_src
+#+END_SRC
 
 *** tramp mode
 
@@ -1386,10 +1386,10 @@ reasons for this choice:
 - =ssh= takes a port number as an argument, whereas =scp= doesn't
 - It's [[http://www.gnu.org/software/tramp/#Default-Method][apparently faster]] for smaller files
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'tramp
     (setq tramp-default-method "ssh"))
-#+end_src
+#+END_SRC
 
 We also want to alter the list of allowed proxies (tramp uses a whitelist for
 patterns that it can remotely access) so I can edit remote files as sudo, eg
@@ -1397,20 +1397,20 @@ patterns that it can remotely access) so I can edit remote files as sudo, eg
 
 I got this code from the [[http://www.gnu.org/software/tramp/#Multi_002dhops][Multi-hops section of the tramp manual]].
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'tramp
     (add-to-list 'tramp-default-proxies-alist
                  '(nil "\\`root\\'" "/ssh:%h:")))
-#+end_src
+#+END_SRC
 
 Also make sure we can edit local files as sudo - this is normally disallowed for
 security reasons:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'tramp
     (add-to-list 'tramp-default-proxies-alist
                  '((regexp-quote (system-name)) nil nil)))
-#+end_src
+#+END_SRC
 
 More on the last two incantations at [[http://emacs-fu.blogspot.co.uk/2009/10/editing-files-owned-by-root.html][emacs-fu's guide to editing files owned by root]].
 
@@ -1425,27 +1425,27 @@ There's a great guide to [[http://www.masteringemacs.org/articles/2010/12/13/com
 eshell has a directory where it stores bookmarks and other temporary cruft -
 move that out of the way:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq eshell-directory-name (smf/join-dirs smf/tmp-local-dir "eshell"))
-#+end_src
+#+END_SRC
 
 When using the =ssh= command (or =vagrant ssh=, which is really the same thing),
 we'll want to jump into something that's an actual terminal emulator like
 =ansi-term= (eshell won't be able to deal with the login on the remote machine):
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'esh-opt
     (require 'em-term)
     (add-to-list 'eshell-visual-commands "ssh")
     (when (fboundp 'eshell-visual-subcommands)
       (add-to-list 'eshell-visual-subcommands '("vagrant" "ssh"))))
-#+end_src
+#+END_SRC
 
 Define a keybinding to get an =eshell= buffer anywhere:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c C-t e") 'eshell)
-#+end_src
+#+END_SRC
 
 *** ansi-term
 
@@ -1454,22 +1454,22 @@ traditional terminal emulator than [[eshell]].
 
 Force ansi-term to be UTF-8 after it launches:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defadvice ansi-term (after smf/advise-ansi-term-coding-system activate)
     (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
-#+end_src
+#+END_SRC
 
 When exiting a terminal buffer (either with =exit= or =EOF=), automatically kill
 the buffer:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defadvice term-sentinel (around smf/advice-term-sentinel (proc msg) activate)
     (if (memq (process-status proc) '(signal exit))
         (let ((buffer (process-buffer proc)))
           ad-do-it
           (kill-buffer buffer))
       ad-do-it))
-#+end_src
+#+END_SRC
 
 *** recentf
 
@@ -1477,10 +1477,10 @@ the buffer:
 
 Never clean up the list:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'recentf
     (setq recentf-auto-cleanup 'never))
-#+end_src
+#+END_SRC
 
 The list of files contains any files Emacs has read, not just files I've
 explicitly opened. Clean that list to exclude Emacs metafiles, package cruft
@@ -1488,7 +1488,7 @@ etc.
 
 TODO: refactor to use =recentf-keep=: [[http://www.emacswiki.org/emacs/RecentFiles#toc18]]
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'recentf
     (add-to-list 'recentf-exclude "[/\\]\\.elpa/")
     (add-to-list 'recentf-exclude "[/\\]\\.ido\\.last\\'" )
@@ -1501,34 +1501,34 @@ TODO: refactor to use =recentf-keep=: [[http://www.emacswiki.org/emacs/RecentFil
     (add-to-list 'recentf-exclude ".*\\emacs.bmk\\'")
     (add-to-list 'recentf-exclude "README\\.el\\'")
     (add-to-list 'recentf-exclude "/custom\\.el\\'"))
-#+end_src
+#+END_SRC
 
 Save the most recent 100 items (this is manily to keep the list low for [[ido]]):
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'recentf
     (setq recentf-max-saved-items 100))
-#+end_src
+#+END_SRC
 
 Customise the place =recentf= persists its list of items:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'recentf
     (setq recentf-save-file (expand-file-name ".recentf" smf/tmp-local-dir)))
-#+end_src
+#+END_SRC
 
 Strip =$HOME= from the front of =recentf= candidate files:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'recentf
     (add-to-list 'recentf-filename-handlers 'abbreviate-file-name))
-#+end_src
+#+END_SRC
 
 I want easy access to my recent files, so define a function that lets me use [[ido]]
 to search over them. Bind this to =C-x C-r= (=C-c C-r= is used in modes like
 =org=mode):
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'recentf
     (after-load 'ido
       (defun smf/recentf-ido-find-file ()
@@ -1539,15 +1539,15 @@ to search over them. Bind this to =C-x C-r= (=C-c C-r= is used in modes like
             (find-file file))))
 
       (global-set-key (kbd "C-x C-r") 'smf/recentf-ido-find-file)))
-#+end_src
+#+END_SRC
 
 Now enable =recentf=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'recentf
     (recentf-mode 1))
   (require 'recentf)
-#+end_src
+#+END_SRC
 
 *** ediff
 
@@ -1555,31 +1555,31 @@ Now enable =recentf=:
 
 Make sure that the window split is always side-by-side:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq ediff-split-window-function 'split-window-horizontally)
-#+end_src
+#+END_SRC
 
 Ignore whitespace changes:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq ediff-diff-options "-w")
-#+end_src
+#+END_SRC
 
 Only ever use one set of windows in one frame:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-#+end_src
+#+END_SRC
 
 Don't keep ediff file instances around:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq ediff-keep-variants nil)
-#+end_src
+#+END_SRC
 
 Finally, we add customizations for using ediff with mercurial:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defvar ediff-after-quit-hooks nil
     "* Hooks to run after ediff or emerge is quit.")
 
@@ -1621,7 +1621,7 @@ Finally, we add customizations for using ediff with mercurial:
     (exit-recursive-edit))
 
   (add-hook 'ediff-after-quit-hooks 'hg-mergetool-emacsclient-ediff-after-quit-hook 'append)
-#+end_src
+#+END_SRC
 
 *** Persistent =*scratch*= buffer
 
@@ -1641,7 +1641,7 @@ warning when Emacs is closed. Today we'll modify the default behavior of Emacs
 so that it saves the scratch buffer to a file on exit and loads it back in on
 startup.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defcustom smf/persistent-scratch-file-name "~/.emacs.d/persistent-scratch"
     "Location of *scratch* file contents for persistent-scratch.")
 
@@ -1663,14 +1663,14 @@ startup.
   (push #'smf/save-persistent-scratch kill-emacs-hook)
 
   (run-with-idle-timer 300 t 'smf/save-persistent-scratch)
-#+end_src
+#+END_SRC
 
 *** Known config files
 
 I have a few files in my dotfiles repo that are known to be shell files, so
 let's add them:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq auto-mode-alist (cons '(".?aliases" . sh-mode) auto-mode-alist))
   (setq auto-mode-alist (cons '(".?bash_prompt" . sh-mode) auto-mode-alist))
   (setq auto-mode-alist (cons '(".?bashrc" . sh-mode) auto-mode-alist))
@@ -1679,42 +1679,42 @@ let's add them:
   (setq auto-mode-alist (cons '(".?osx" . sh-mode) auto-mode-alist))
   (setq auto-mode-alist (cons '(".?osx" . sh-mode) auto-mode-alist))
   (setq auto-mode-alist (cons '(".?profile" . sh-mode) auto-mode-alist))
-#+end_src
+#+END_SRC
 
 Same with conf-mode,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq auto-mode-alist (cons '(".?hgrc" . conf-mode) auto-mode-alist))
-#+end_src
+#+END_SRC
 
 *** whitespace-mode
 
 I like whitespace-mode for programming and text modes (including org),
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'whitespace)
   (global-whitespace-mode t)
   (setq whitespace-global-modes '(text-mode prog-mode org-mode))
-#+end_src
+#+END_SRC
 
 But most of the time, I only want to see tabs and trailing spaces,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq whitespace-style '(trailing face tabs tab-mark lines-tail))
   (setq whitespace-display-mappings '((space-mark 32 [183] [46])
                                       (newline-mark 10 [182 10])
                                       (tab-mark 9 [9655 9] [92 9])))
-#+end_src
+#+END_SRC
 
 *** Highlight C functions
 
 Taken from [[http://stackoverflow.com/questions/14715181/emacs-function-call-highlight][this StackOverflow]] question, we use it to highlight functions in C,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (font-lock-add-keywords
    'c-mode
    '(("\\<\\(\\sw+\\) ?(" 1 'font-lock-function-name-face)))
-#+end_src
+#+END_SRC
 
 ** Third-party packages
 
@@ -1758,13 +1758,13 @@ I want to also add:
 [[http://www.emacswiki.org/emacs/DiminishedModes][diminish]] removes or abbreviates the minor mode indicators that can clutter up
 one's modeline.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'diminish)
-#+end_src
+#+END_SRC
 
 Diminish =subword-mode=, =eldoc-mode=, and =auto-revert-mode=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'diminish
     (after-load 'subword
       (diminish 'subword-mode))
@@ -1772,46 +1772,46 @@ Diminish =subword-mode=, =eldoc-mode=, and =auto-revert-mode=:
       (diminish 'eldoc-mode))
     (after-load 'autorevert
       (diminish 'auto-revert-mode)))
-#+end_src
+#+END_SRC
 
 Also, diminish some built-in modes:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'diminish
     (diminish 'overwrite-mode)
     (diminish 'global-whitespace-mode)
     (diminish 'auto-fill-function))
-#+end_src
+#+END_SRC
 
 *** paradox
 
 [[https://github.com/Bruce-Connor/paradox][paradox]] is an advanced package.el frontend with GitHub integration.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'paradox)
-#+end_src
+#+END_SRC
 
 Automatically 'star' packages on GitHub after I install them (so I can easily
 follow changes to them):
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq paradox-automatically-star t)
-#+end_src
+#+END_SRC
 
 Add launch command:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (smf/add-launcher "p" 'paradox-list-packages)
-#+end_src
+#+END_SRC
 
 **** async mode
 
 Paradox now [[https://github.com/Bruce-Connor/paradox/commit/e341a900609974802ad92d5bb43083fcf83ef432#diff-2d43bf4d9c7b9686d0895974900dfd05R18][supports an asynchronous mode]] which requires the =async= package:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'async)
   (setq paradox-execute-asynchronously t)
-#+end_src
+#+END_SRC
 
 *** exec-path-from-shell
 
@@ -1826,161 +1826,161 @@ to the Emacs environment.
 
 I only want this to be installed and enabled on OS X.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (require-package 'exec-path-from-shell)
     (setq exec-path-from-shell-variables '("PATH"  "MANPATH" "SHELL"))
     (exec-path-from-shell-initialize))
-#+end_src
+#+END_SRC
 
 *** smex
 
 [[https://github.com/nonsequitur/smex][smex]] is an advanced completion mode for =execute-extended-command= (usually
 known as =M-x=).
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'smex)
-#+end_src
+#+END_SRC
 
 Replace =execute-extended-command='s keyboard shortcuts:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (define-key (current-global-map) [remap execute-extended-command] 'smex)
-#+end_src
+#+END_SRC
 
 Make sure we stop the annoying "click this menubar" advice in the buffer:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default smex-key-advice-ignore-menu-bar t)
-#+end_src
+#+END_SRC
 
 Move =smex='s cache file out of the home directory:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq smex-save-file (expand-file-name ".smex-items" smf/tmp-local-dir))
-#+end_src
+#+END_SRC
 
 *** ido-ubiquitous
 
 [[https://github.com/DarwinAwardWinner/ido-ubiquitous][ido-ubiquitous]] mode enables ido in many more places than the default ido setup:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'ido-ubiquitous)
   (ido-ubiquitous-mode 1)
-#+end_src
+#+END_SRC
 
 Unicode lists are much, much larger than the default max of 30,000 so we set to
 5,000,000.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq ido-ubiquitous-max-items 5000000)
-#+end_src
+#+END_SRC
 
 Also, let's add bringing up a unicode list to our launcher.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (smf/add-launcher "U" 'insert-char)
-#+end_src
+#+END_SRC
 
 *** ido-vertical
 
 [[https://github.com/gempesaw/ido-vertical-mode.el][ido-vertical]] mode renders the ido prompt vertically instead of horizontally. I
 find this easier to read.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'ido-vertical-mode)
   (ido-vertical-mode) ;; autoloaded
   (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)
-#+end_src
+#+END_SRC
 
 Because it's displayed vertically and I want to save screen real estate, I want
 to reduce the maximum number of candidates ido displays:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq ido-max-prospects 5)
-#+end_src
+#+END_SRC
 
 *** flx-ido
 
 [[https://github.com/lewang/flx][flx-ido]] is an advanced flex-matching algorithm that's significantly faster and
 more accurate than the built-in method.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'flx-ido)
-#+end_src
+#+END_SRC
 
 The =flx-ido= documentation suggests upping the threshold at which GC occurs
 within Emacs so that =flx= can cache its candidate lists for longer (it's
 already set in init.el for early processing):
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq gc-cons-threshold 200000000)
-#+end_src
+#+END_SRC
 
 Finally we cause =flx-ido-mode= to take over ido:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (flx-ido-mode 1)
-#+end_src
+#+END_SRC
 
 *** swiper / ivy
 
 Ivy - a generic completion frontend for Emacs, Swiper - isearch with an
 overview, and more. [[http://oremacs.com/swiper][Oh, man!]]
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'counsel)
   (ivy-mode)
   (after-load 'diminish
     (diminish 'ivy-mode))
-#+end_src
+#+END_SRC
 
 Useful setting that adds =recentf= and =bookmarks= to =ivy-switch-buffer=
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq ivy-use-virtual-buffers t)
-#+end_src
+#+END_SRC
 
 Ivy-based interface to standard commands
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-s") 'swiper)
   (global-set-key (kbd "M-x") 'counsel-M-x)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
   (global-set-key (kbd "<f1> f") 'counsel-describe-function)
   (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-#+end_src
+#+END_SRC
 
 =ivy-resume= resumes the last Ivy-based completion.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c C-r") 'ivy-resume)
-#+end_src
+#+END_SRC
 
 Let's use ivy for some common projects
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq magit-completing-read-function 'ivy-completing-read)
   (setq projectile-completion-system 'ivy)
-#+end_src
+#+END_SRC
 
 Fuzzy matching
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'flx)
   (setq ivy-initial-inputs-alist nil)     ; don't insert '^' into regex
   (setq ivy-re-builders-alist
         '((t . ivy--regex-plus)))
   ;; (setq ivy-re-builders-alist
   ;;       '((t . ivy--regex-fuzzy)))
-#+end_src
+#+END_SRC
 
 **** ivy-view
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c v") 'ivy-push-view)
   (global-set-key (kbd "C-c V") 'ivy-pop-view)
-#+end_src
+#+END_SRC
 
 *** avy
 
@@ -1990,143 +1990,143 @@ I'm choosing =avy= over =ace-jump-mode= for tighter integration with
 [[https://github.com/abo-abo/avy][avy]] allows one to jump around the buffer to named characters (it's easier to
 watch the video on that link than explain).
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'avy)
   (global-set-key (kbd "H-;") 'avy-goto-char)
   (global-set-key (kbd "H-<return>") 'avy-goto-line)
   (global-set-key (kbd "H-'") 'avy-goto-word-1)
-#+end_src
+#+END_SRC
 
 *** popwin
 
 [[https://github.com/m2ym/popwin-el][popwin]] is a popup window manager that helps make the behaviour of compilation
 buffers, search buffers etc. a bit more sane.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'popwin)
-#+end_src
+#+END_SRC
 
 As well as the defaults, I want [[ag]], [[flycheck]] and [[http://www.emacswiki.org/emacs/OccurMode][occur]] to 'pop'. I don't want to
 auto-select the =Compile-Log= process buffer as it's for information only.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'popwin
     (add-to-list 'popwin:special-display-config `"*ag search*")
     (add-to-list 'popwin:special-display-config `"*Flycheck errors*")
     (add-to-list 'popwin:special-display-config `"*Occur*")
     (add-to-list 'popwin:special-display-config `("*Compile-Log*" :noselect t)))
-#+end_src
+#+END_SRC
 
 Load [[popwin]] and configure keyboard shortcuts:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'popwin)
   (popwin-mode 1)
   (global-set-key (kbd "C-c P") 'popwin:popup-last-buffer)
   (when (eq system-type 'darwin)
     (global-set-key (kbd "s-P") 'popwin:popup-last-buffer))
-#+end_src
+#+END_SRC
 
 *** goto-chg
 
 Goto last change in current buffer.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'goto-chg)
   (global-set-key (kbd "H-.") 'goto-last-change)
-#+end_src
+#+END_SRC
 
 *** ripgrep
 
 [[https://github.com/nlamirault/ripgrep.el][ripgrep]] is an Emacs frontend to [[https://github.com/BurntSushi/ripgrep][the rg command]], a grep-like code-searching tool. It's
 installed via cargo on my Mac.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'ripgrep)
 ;;  (require 'projectile-ripgrep)
-#+end_src
+#+END_SRC
 
 Set up some key bindings:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (eq system-type 'darwin)
     (global-set-key (kbd "H-f") 'projectile-ripgrep))
-#+end_src
+#+END_SRC
 
 *** projectile
 
 [[https://github.com/bbatsov/projectile][projectile]] is a minor mode for performing commands over a single 'project' or
 grouping of files.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'projectile)
   (projectile-global-mode)
-#+end_src
+#+END_SRC
 
 I want my keyboard shortcuts to be the same in Projectile as in non-Projectile
 buffers, so do some remapping:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'projectile
     (define-key projectile-mode-map [remap ag-project] 'projectile-ag))
-#+end_src
+#+END_SRC
 
 Since I use =ag=, always use that instead of =grep=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'projectile
     (define-key projectile-mode-map [remap projectile-grep] 'projectile-ag))
-#+end_src
+#+END_SRC
 
 Also define a convenience keyboard shortcut to switch between buffers from the same project:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'projectile
     (global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
     (global-set-key (kbd "C-x 4 s-b") 'projectile-switch-to-buffer-other-window)
     (smf/add-launcher "s" 'projectile-switch-project))
-#+end_src
+#+END_SRC
 
 Some compiler output has ansi color, so let's escape that,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'ansi-color)
   (defun colorize-compilation-buffer ()
     (toggle-read-only)
     (ansi-color-apply-on-region (point-min) (point-max))
     (toggle-read-only))
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
-#+end_src
+#+END_SRC
 
 As usual, diminish an always-on mode,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'projectile
     (diminish 'projectile-mode))
-#+end_src
+#+END_SRC
 
 Let's use caching,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'projectile
     (setq projectile-enable-caching t))
-#+end_src
+#+END_SRC
 
 *** undo-tree
 
 [[http://www.dr-qubit.org/undo-tree/undo-tree.el][undo-tree-mode]], a mode which allows one to visualise their undo/redo history:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'undo-tree)
   (global-undo-tree-mode 1)
-#+end_src
+#+END_SRC
 
 Also, diminish this mode:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'undo-tree
     (diminish 'undo-tree-mode))
-#+end_src
+#+END_SRC
 
 *** smartparens
 
@@ -2134,45 +2134,45 @@ Also, diminish this mode:
 
 =show-smartparens-mode= is a replacement mode for =show-paren-mode=.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'smartparens)
   (require 'smartparens-config)
   (after-load 'smartparens
     (require 'smartparens-config)
     (add-hook 'prog-mode-hook #'smartparens-mode))
-#+end_src
+#+END_SRC
 
 *** gtags
 
 Experiment with gtags.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'ggtags)
-#+end_src
+#+END_SRC
 
 I already have the project name from [[projectile]] so let's remove the ggtags
 project name,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq ggtags-mode-line-project-name nil)
-#+end_src
+#+END_SRC
 
 Also, diminish this mode:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'ggtags
     (after-load 'diminish
       (diminish 'ggtags-mode)))
-#+end_src
+#+END_SRC
 
 And, finally, load it for c-like modes,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'c-mode-common-hook
             (lambda ()
               (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
                 (ggtags-mode 1))))
-#+end_src
+#+END_SRC
 
 *** company
 
@@ -2184,11 +2184,11 @@ has better code for integrating with).
 
 Make the lighter shorter:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'company
     (after-load 'diminish
       (diminish 'company-mode "com")))
-#+end_src
+#+END_SRC
 
 **** enable company mode in programming buffers only
 
@@ -2196,7 +2196,7 @@ Define a function to enable company-mode and overwrite [[hippie]]'s key binding 
 the local buffer only (this means I can use the same key binding for completion
 no matter which minor mode I'm using):
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun smf/enable-company-mode ()
     "Enables company-mode and overloads hippie-expand's binding"
     (company-mode 1)
@@ -2204,69 +2204,69 @@ no matter which minor mode I'm using):
     (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
     (setq company-tooltip-align-annotations t)
     (define-key (current-local-map) [remap dabbrev-expand] 'company-complete))
-#+end_src
+#+END_SRC
 
 Add this function to any modes derived from =prog-mode=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'company
     (add-hook 'prog-mode-hook 'smf/enable-company-mode))
-#+end_src
+#+END_SRC
 
 **** Install and load company
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'company)
   (require 'company)
-#+end_src
+#+END_SRC
 
 **** Enable flx matching
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'company-flx)
   (after-load 'company
     (company-flx-mode))
-#+end_src
+#+END_SRC
 
 *** Math symbols
 
 Insert unicode math symbols based on the LaTeX command,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'company
     (add-to-list 'company-backends 'company-math-symbols-unicode))
-#+end_src
+#+END_SRC
 
 *** Xcode
 
 Remove this since it seems to be defunct
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'company
     (setq company-backends (remove 'company-xcode company-backends)))
-#+end_src
+#+END_SRC
 
 **** Emoji
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'company-emoji)
   (after-load 'company
     (add-to-list 'company-backends 'company-emoji))
-#+end_src
+#+END_SRC
 
 **** Quickhelp
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'company-quickhelp)
   (company-quickhelp-mode t)
-#+end_src
+#+END_SRC
 
 *** flycheck
 
 [[https://github.com/flycheck/flycheck][flycheck]] is a modern, more easily customisable version of [[http://www.emacswiki.org/emacs/FlyMake][flymake]]. It's used to
 perform on-the-fly syntax checking and linting.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'flycheck)
   (require 'flycheck)
   (after-load 'flycheck
@@ -2275,207 +2275,207 @@ perform on-the-fly syntax checking and linting.
      flycheck-indication-mode nil)
     (add-hook 'python-mode-hook 'flycheck-mode)
     (diminish 'flycheck-mode))
-#+end_src
+#+END_SRC
 
 Also, we add some keymaps,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'flycheck
     (define-key flycheck-mode-map (kbd "H->") 'flycheck-next-error)
     (define-key flycheck-mode-map (kbd "H-<") 'flycheck-previous-error))
-#+end_src
+#+END_SRC
 
 *** puppet-mode
 
 [[https://github.com/lunaryorn/puppet-mode][puppet-mode]] is a major mode for editing =.pp= files.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'puppet-mode)
-#+end_src
+#+END_SRC
 
 *** markdown-mode
 
 [[http://melpa.milkbox.net/#/markdown-mode][markdown-mode]] is a major mode for editing Markdown files.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'markdown-mode)
-#+end_src
+#+END_SRC
 
 There's no official Markdown file extension, so support all the unofficial ones:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
   (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
   (add-to-list 'auto-mode-alist '("\\.ft$" . markdown-mode)) ;; FoldingText
-#+end_src
+#+END_SRC
 
 Rebind common keys,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'markdown-mode
     (define-key markdown-mode-map (kbd "<M-left>") nil)
     (define-key markdown-mode-map (kbd "<M-right>") nil))
-#+end_src
+#+END_SRC
 
 *** markdown-preview-mode
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'markdown-preview-mode)
   (after-load 'markdown-preview-mode
     (define-key markdown-mode-map (kbd "<M-left>") nil)
     (define-key markdown-mode-map (kbd "<M-right>") nil))
 
   (setq markdown-command "multimarkdown")
-#+end_src
+#+END_SRC
 
 *** web-mode
 
 [[https://github.com/fxbois/web-mode][web-mode]] is a major mode for editing templates and HTML. It supports a very
 broad range of template languages and is highly configurable.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'web-mode)
-#+end_src
+#+END_SRC
 
 [[http://jinja.pocoo.org/docs/][Jinja]] templates are mostly like [[https://docs.djangoproject.com/en/dev/topics/templates/][Django templates]], so just force them to behave
 like that:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'web-mode
     (setq web-mode-engines-alist
           '(("\\.jinja\\'" . "django"))))
-#+end_src
+#+END_SRC
 
 Enable [[web-mode]] by default for several common file extensions:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (dolist (alist '(("\\.html$'" . web-mode)
                    ("\\.html\\.erb$" . web-mode)
                    ("\\.mustache$" . web-mode)
                    ("\\.jinja$" . web-mode)
                    ("\\.php$" . web-mode)))
     (add-to-list 'auto-mode-alist alist))
-#+end_src
+#+END_SRC
 
 *** idomenu
 
 [[http://melpa.milkbox.net/#/idomenu][idomenu]] offers [[ido]] completion over [[http://www.emacswiki.org/emacs/ImenuMode][imenu]] candidates. It allows me to navigate
 through classes etc. using completion for methods.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'idomenu)
-#+end_src
+#+END_SRC
 
 Add it to my launcher:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (smf/add-launcher "i" 'idomenu)
-#+end_src
+#+END_SRC
 
 Automatically rescan the current file so =imenu= is up to date:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq imenu-auto-rescan t)
-#+end_src
+#+END_SRC
 
 *** yaml-mode
 
 Regrettably I need to occasionally edit [[http://www.yaml.org][YAML]].
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'yaml-mode)
-#+end_src
+#+END_SRC
 
 *** Whole line or region
 
 It's very convenient to select the whole line when no region is active.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'whole-line-or-region)
   (whole-line-or-region-mode)
-#+end_src
+#+END_SRC
 
 Also, diminish this mode:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'diminish
     (diminish 'whole-line-or-region-mode))
-#+end_src
+#+END_SRC
 
 *** crosshairs
 
 Highlights both the line and the column.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'crosshairs)
-#+end_src
+#+END_SRC
 
 Always enable this mode and bind =C-|= to highlight the column
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-hl-line-mode)
   (global-hl-line-highlight)
   (global-set-key (kbd "C-|") 'column-highlight-mode)
-#+end_src
+#+END_SRC
 
 *** highlight-thing
 
 Global minor mode to highlight thing under point.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'highlight-thing)
   (global-set-key (kbd "H-h") 'highlight-thing-mode)
   (after-load 'diminish
     (diminish 'highlight-thing-mode))
-#+end_src
+#+END_SRC
 
 *** violatile highlights
 
 Minor mode for visual feedback on some operations in Emacs.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'volatile-highlights)
   (volatile-highlights-mode t)
   (after-load 'diminish
     (diminish 'volatile-highlights-mode))
-#+end_src
+#+END_SRC
 
 *** drag-stuff
 
 Drag stuff around in Emacs with convenient keybindings.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'drag-stuff)
   (setq drag-stuff-modifier '(meta control))
   (drag-stuff-global-mode 1)
   (after-load 'diminish
     (diminish 'drag-stuff-mode))
-#+end_src
+#+END_SRC
 
 *** hungry-delete
 
 =hungry-delete= will delete all whitespace forward or backward.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'hungry-delete)
   (global-set-key (kbd "<H-backspace>") 'hungry-delete-backward)
   (global-set-key (kbd "H-d") 'hungry-delete-forward)
-#+end_src
+#+END_SRC
 
 *** alert
 
 A Growl-like alerts notifier for Emacs.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'alert)
-#+end_src
+#+END_SRC
 
 On the mac, we'll use the [[https://github.com/alloy/terminal-notifier][terminal-notifier]] to integrate with [[http://en.wikipedia.org/wiki/Notification_Center][Notification Center]].
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (eq system-type 'darwin)
     (setq alert-default-style 'notifier))
-#+end_src
+#+END_SRC
 
 *** sauron
 
@@ -2483,26 +2483,26 @@ Event log for emacs. We'll use =alert.el= as the backend so it's integrated with
 the host system. Also, we'll try to use sauron in a "pop-up" way, i.e. no
 separate frame.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'sauron)
   (add-hook 'sauron-event-added-functions 'sauron-alert-el-adapter)
   (setq sauron-separate-frame nil)
   (push #'sauron-start after-init-hook)
   (smf/add-launcher "n" 'sauron-toggle-hide-show)
-#+end_src
+#+END_SRC
 
 *** prodigy
 
 Manage external services from within Emacs.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'prodigy)
   (smf/add-launcher "d" 'prodigy)
-#+end_src
+#+END_SRC
 
 Let's start by defining a simple service to run the Mercurial website locally.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (prodigy-define-service
     :name "Mercurial Website"
     :command "python"
@@ -2512,12 +2512,12 @@ Let's start by defining a simple service to run the Mercurial website locally.
     :port 5000
     :kill-signal 'sigkill
     :kill-process-buffer-on-stop t)
-#+end_src
+#+END_SRC
 
 =imapnotify= is a node app that fires a program (in our case an elisp function)
 when new mail is received.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (prodigy-define-service
     :name "OfflineIMAP"
     :command "imapnotify"
@@ -2526,13 +2526,13 @@ when new mail is received.
     :kill-signal 'sigkill
     :kill-process-buffer-on-stop t
     :init 'offlineimap)
-#+end_src
+#+END_SRC
 
 Bitbucket awwwwww yeah
 
 Define a tag so that we can inherit the same env variables
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (prodigy-define-tag
     :name 'bitbucket
     :cwd "~/projects/bitbucket"
@@ -2552,26 +2552,26 @@ Define a tag so that we can inherit the same env variables
                             (expand-file-name "~/.virtualenvs/bitbucket/bin") ":"
                             (getenv "PATH")))
            ("VIRTUAL_ENV" ,(expand-file-name "~/.virtualenvs/bitbucket/"))))
-#+end_src
+#+END_SRC
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (prodigy-define-service
     :name "Bitbucket Celery"
     :command "python"
     :args '("manage.py" "celeryd" "-l" "DEBUG")
     :tags '(bitbucket python))
-#+end_src
+#+END_SRC
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (prodigy-define-service
     :name "Bitbucket Django"
     :command "python"
     :url "http://dev.bitbucket.org:8000"
     :args '("manage.py" "runserver")
     :tags '(bitbucket python))
-#+end_src
+#+END_SRC
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (prodigy-define-service
     :name "Bitbucket Hgweb"
     :command "gunicorn"
@@ -2581,9 +2581,9 @@ Define a tag so that we can inherit the same env variables
             "bridgehgweb:application")
     :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_hgweb"))
     :tags '(bitbucket python))
-#+end_src
+#+END_SRC
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (prodigy-define-service
     :name "Bitbucket Gitweb"
     :command "gunicorn"
@@ -2593,9 +2593,9 @@ Define a tag so that we can inherit the same env variables
             "gitweb:application")
     :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_gitweb"))
     :tags '(bitbucket python))
-#+end_src
+#+END_SRC
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (prodigy-define-service
     :name "Bitbucket Conqserver"
     :command "gunicorn"
@@ -2605,69 +2605,69 @@ Define a tag so that we can inherit the same env variables
             "conqserver:application")
     :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_conqserver"))
     :tags '(bitbucket))
-#+end_src
+#+END_SRC
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (prodigy-define-service
     :name "Bitbucket Conker"
     :command "conker"
     :cwd "~/projects/go/src/bitbucket.org/bitbucket/conker"
     :tags '(bitbucket))
-#+end_src
+#+END_SRC
 
 *** d-mode
 
 An Emacs major mode for editing D code.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'd-mode)
   (add-to-list 'auto-mode-alist '("\\.d[i]?\\'" . d-mode))
-#+end_src
+#+END_SRC
 
 Follow-up with a company backend,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'company-dcd)
   (add-hook 'd-mode-hook 'company-dcd-mode)
-#+end_src
+#+END_SRC
 
 *** rust-mode
 
 =rust-mode= makes editing Rust code with Emacs enjoyable.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'rust-mode)
   (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
-#+end_src
+#+END_SRC
 
 Use =racer= for autocompletion
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'racer)
   (setq racer-rust-src-path "/opt/local/share/rust/src/")
   (add-hook 'rust-mode-hook #'racer-mode)
   (add-hook 'racer-mode-hook #'eldoc-mode)
-#+end_src
+#+END_SRC
 
 *** hideshowvis
 
 Enables collapsable regions and diminish the mode:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'hideshowvis)
   (defun smf/prog-mode-hook ()
     (hideshowvis-enable)
     (diminish 'hs-minor-mode))
   (add-hook 'prog-mode-hook 'smf/prog-mode-hook)
-#+end_src
+#+END_SRC
 
 *** focus
 
 Dim the font color of text in surrounding paragraphs.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'focus)
-#+end_src
+#+END_SRC
 
 *** which-func
 
@@ -2675,10 +2675,10 @@ Dim the font color of text in surrounding paragraphs.
 don't like the '[' and ']' brackets around the function, and also like unknown
 functions to be an empty string so [[powerline]] looks even better.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (which-function-mode)
   (setq which-func-unknown "")
-#+end_src
+#+END_SRC
 
 Alternately, I could prefix the function name with "ƒₓ" but I defer that for
 now.
@@ -2687,82 +2687,82 @@ now.
 
 Show FIXME/TODO/BUG(...) in special face only in comments and strings.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'fic-mode)
   (add-hook 'prog-mode-hook 'fic-mode)
-#+end_src
+#+END_SRC
 
 *** rainbow-mode
 
 =rainbow-mode= is a minor mode for Emacs which displays strings representing
 colors with the color they represent as background.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'rainbow-mode)
-#+end_src
+#+END_SRC
 
 =rainbow-mode= doesn't have a global method, so we'll add a css hook for it,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'css-mode-hook 'rainbow-mode)
-#+end_src
+#+END_SRC
 
 *** less-css-mode
 
 =less-css-mode= is a major mode for Emacs which displays strings representing
 colors with the color they represent as background.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'less-css-mode)
-#+end_src
+#+END_SRC
 
 *** rainbow-delimiters
 
 =rainbow-delimiters= is a "rainbow parentheses"-like mode which highlights
 delimiters such as parentheses, brackets or braces according to their depth.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'rainbow-delimiters)
-#+end_src
+#+END_SRC
 
 Add =rainbow-delimiters= to all programming modes,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-#+end_src
+#+END_SRC
 
 *** rainbow-blocks
 
 =rainbow-blocks= is an Emacs mode that highlights blocks made of parentheses,
 brackets, and braces according to their depth.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'rainbow-blocks)
-#+end_src
+#+END_SRC
 
 Add =rainbow-blocks= to programming modes,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'emacs-lisp-mode-hook 'rainbow-blocks-mode)
   (add-hook 'lisp-interaction-mode-hook 'rainbow-blocks-mode)
-#+end_src
+#+END_SRC
 
 and diminish the mode:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'rainbow-blocks
     (after-load 'diminish
       (diminish 'rainbow-blocks-mode)))
-#+end_src
+#+END_SRC
 
 *** python debugger
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'realgud)
   (require 'realgud)
   (define-key realgud:shortkey-mode-map [mouse-3] 'realgud:tooltip-eval)
   (define-key realgud-track-mode-map (kbd "C-c C-/") 'realgud:ipdb-foo)
-#+end_src
+#+END_SRC
 
 *** anaconda
 
@@ -2773,21 +2773,21 @@ virtualenvwrapper. It provides a nice mix of tweakability and convenience.
 anaconda-mode provides code navigation and docs. Additionally, if company-mode
 is enabled, company-anaconda will also be enabled.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'anaconda-mode)
   (require-package 'company-anaconda)
   (after-load 'company
     (add-to-list 'company-backends 'company-anaconda))
-#+end_src
+#+END_SRC
 
 Showing the indentation by a vertical highlight line is quite handy for quickly
 determining the level of indentation,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'highlight-indentation)
   (after-load 'highlight-indentation
     (diminish 'highlight-indentation-mode))
-#+end_src
+#+END_SRC
 
 After a few levels of indirection, =anaconda= has no hope of finding a symbol's
 definition, so it gives up. In this case, invoking
@@ -2795,7 +2795,7 @@ definition, so it gives up. In this case, invoking
 in the echo area. When this happens, of course we still want to find what I'm
 looking for so we define this function:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun smf/goto-def-or-dumbjump ()
     "Go to definition of thing at point or do a dumb-jump-go in
     project if that fails"
@@ -2818,12 +2818,12 @@ looking for so we define this function:
                                           ; about to try a different jump
               (dumb-jump-go)))
         (dumb-jump-go))))
-#+end_src
+#+END_SRC
 
 By default, anaconda binds =M-,= to finding assignments instead of popping the
 navigation stack (which changed in Emacs 25),
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun smf/test ()
     (interactive)
     (anaconda-mode-find-definitions :async nil))
@@ -2832,56 +2832,56 @@ navigation stack (which changed in Emacs 25),
     (define-key anaconda-mode-map (kbd "M-.") 'smf/goto-def-or-dumbjump)
     (define-key anaconda-mode-map (kbd "M-,") nil))
   (add-hook 'python-mode-hook 'smf/anaconda-hook)
-#+end_src
+#+END_SRC
 
 Add [[anaconda]] to diminish,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'anaconda-mode
     (diminish 'highlight-indentation-mode)
     (diminish 'anaconda-mode))
-#+end_src
+#+END_SRC
 
 Now, load anaconda and friends,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'python-mode-hook 'highlight-indentation-mode)
   (add-hook 'python-mode-hook 'anaconda-mode)
   (add-hook 'python-mode-hook 'eldoc-mode)
-#+end_src
+#+END_SRC
 
 *** python-switch-quotes
 
 Cycle between apostrophes and quotes in python strings. Converts strings like
 'this' to strings like "this".
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'python-switch-quotes)
   (define-key python-mode-map (kbd "C-c '") 'python-switch-quotes)
-#+end_src
+#+END_SRC
 
 *** sphinx-doc-mode
 
 [[https://github.com/naiquevin/sphinx-doc.el][sphinx-doc]] is an emacs minor mode for inserting docstring skeleton for Python
 functions and methods.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'sphinx-doc)
   (add-hook 'python-mode-hook 'sphinx-doc-mode)
   (after-load 'sphinx-doc
     (diminish 'sphinx-doc-mode))
-#+end_src
+#+END_SRC
 
 *** pip
 
 This adds some basic features for requirements files, such as highlighting and
 auto-completion of names from PyPI.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'pip-requirements)
   (add-to-list 'auto-mode-alist '("requirements.*\\.txt" .
                                   pip-requirements-mode))
-#+end_src
+#+END_SRC
 
 *** Dumb Jump
 
@@ -2890,11 +2890,11 @@ programming languages that favors "just working". This means minimal -- and
 ideally zero -- configuration with absolutely no stored indexes (TAGS) or
 persistent background processes. Dumb Jump requires at least GNU Emacs 24.4.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'dumb-jump)
   (dumb-jump-mode)
   (setq dumb-jump-selector 'ivy)
-#+end_src
+#+END_SRC
 
 *** yasnippet
 
@@ -2903,15 +2903,15 @@ and automatically expand it into function templates. Bundled language templates
 include: C, C++, C#, Perl, Python, Ruby, SQL, LaTeX, HTML, CSS and more. The
 snippet syntax is inspired from [[http://manual.macromates.com/en/snippets][TextMate's]] syntax.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'yasnippet)
-#+end_src
+#+END_SRC
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq yas/root-directory (smf/join-dirs smf/dotfiles-dir "snippets"))
   (yas-global-mode 1)
   (diminish 'yas-minor-mode)
-#+end_src
+#+END_SRC
 
 *** smart-tabs-mode
 
@@ -2921,59 +2921,59 @@ inserted automatically. You can still use all spaces if you prefer, of course;
 the code merely ensures that if you enable tabs (maybe when maintaining legacy
 code), the tab size does not matter.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'smart-tabs-mode)
-#+end_src
+#+END_SRC
 
 Enable smart-tabs-mode automatically for C and Javascript,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (smart-tabs-insinuate 'c 'javascript)
-#+end_src
+#+END_SRC
 
 *** guide-key
 
 [[https://github.com/kai2nenobu/guide-key][guide-key]] shows a popup help window after a pressing defined keys for a short
 delay.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'guide-key)
-#+end_src
+#+END_SRC
 
 Enable it for my [[Launcher keymap]] prefix:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq guide-key/guide-key-sequence '("C-x C-l" "C-c p" "C-x 4"))
   (guide-key-mode 1)
-#+end_src
+#+END_SRC
 
 [[diminish]] =guide-key-mode=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'diminish
     (diminish 'guide-key-mode))
-#+end_src
+#+END_SRC
 
 *** browse-kill-ring
 
 [[https://github.com/browse-kill-ring/browse-kill-ring][browse-kill-ring]] allows one to browse the kill ring history when yanking.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'browse-kill-ring)
-#+end_src
+#+END_SRC
 
 remap =yank-pop=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (define-key (current-global-map) [remap yank-pop] 'browse-kill-ring)
-#+end_src
+#+END_SRC
 
 make =browse-kill-ring= act like =yank-pop= by overwriting the previous yank:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'browse-kill-ring
     (setq browse-kill-ring-replace-yank t))
-#+end_src
+#+END_SRC
 
 *** narrow-indirect
 
@@ -2981,9 +2981,9 @@ make =browse-kill-ring= act like =yank-pop= by overwriting the previous yank:
 another window, editing it separately from its original context ([[http://demonastery.org/2013/04/emacs-narrow-to-region-indirect/][a better
 description of this workflow]]).
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'narrow-indirect)
-#+end_src
+#+END_SRC
 
 *** dtrt-indent
 
@@ -2992,124 +2992,124 @@ originally used for creating source code files and transparently adjusts the
 corresponding settings in Emacs, making it more convenient to edit foreign
 files.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'dtrt-indent)
   (require 'dtrt-indent)
   (dtrt-indent-mode)
   (delq 'dtrt-indent-mode-line-info global-mode-string)
-#+end_src
+#+END_SRC
 
 *** editorconfig
 
 [[https://github.com/editorconfig/editorconfig-core-c][EditorConfig]] makes it easy to maintain the correct coding style when switching
 between different text editors and between different projects.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'editorconfig)
-#+end_src
+#+END_SRC
 
 *** js2-mode
 
 Improved JavaScript editing mode for GNU Emacs.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq js2-basic-offset 2)
   (setq js-indent-level 2)
   (require-package 'js2-mode)
-#+end_src
+#+END_SRC
 
 *** skewer-mode
 
 [[https://github.com/skeeto/skewer-mode][Skewer]]: live web development with Emacs.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'skewer-mode)
-#+end_src
+#+END_SRC
 
 *** impatient-mode
 
 See the effect of your HTML as you type it.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'impatient-mode)
-#+end_src
+#+END_SRC
 
 *** json-mode
 
 Sure, why not.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'json-mode)
   (setq json-reformat:indent-width 2)
-#+end_src
+#+END_SRC
 
 *** go-mode
 
 Blergh.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'go-mode)
-#+end_src
+#+END_SRC
 
 *** groovy-mode
 
 Why.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'groovy-mode)
-#+end_src
+#+END_SRC
 
 *** lua-mode
 
 Dear god.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'company-lua)
-#+end_src
+#+END_SRC
 
 *** anzu
 
 [[https://github.com/syohex/emacs-anzu][anzu]] provides enhancements to =isearch= and related tasks, particularly
 providing counts and better replacement visualisation.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'anzu)
   (require 'anzu)
-#+end_src
+#+END_SRC
 
 Enable [[anzu]] globally,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-anzu-mode +1)
-#+end_src
+#+END_SRC
 
 Use [[anzu]]'s better =query-replace= and =query-replace-regexp=:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
     (define-key (current-global-map) [remap query-replace] 'anzu-query-replace)
     (define-key (current-global-map) [remap query-replace-regexp]
       'anzu-query-replace-regexp)
-#+end_src
+#+END_SRC
 
 Hide [[anzu]]'s mode,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'diminish
     (diminish 'anzu-mode))
-#+end_src
+#+END_SRC
 
 *** move-text
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'move-text)
   (move-text-default-bindings)
-#+end_src
+#+END_SRC
 
 *** C/C++/ObjC
 
 Trying out irony mode
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'irony-eldoc)
   (require-package 'company-irony)
   (require-package 'company-irony-c-headers)
@@ -3140,73 +3140,73 @@ Trying out irony mode
     '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
   (setq c-default-style "linux")
-#+end_src
+#+END_SRC
 
 *** function-args
 
 GNU Emacs package for showing an inline arguments hint for the C/C++ function
 at point.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (require-package 'function-args)
 (fa-config-default)
-#+end_src emacs-lisp
+#+END_SRC emacs-lisp
 
 *** xcode-mode
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (if (file-accessible-directory-p "~/sandbox/xcode-mode")
       (progn
         (smf/add-to-load-path "~/sandbox/xcode-mode")
         (require-package 'ecukes)
         (require-package 'espuds)
         (require 'xcode-mode)))
-#+end_src
+#+END_SRC
 
 *** aHg
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (if (file-accessible-directory-p "~/projects/ahg")
       (smf/add-to-load-path "~/projects/ahg")
     (require-package 'ahg))
   (require 'ahg)
-#+end_src
+#+END_SRC
 
 *** hg-test-mode
 
 A mode for Mercurial test files
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (load "~/.emacs.d/hg-test-mode")
-#+end_src
+#+END_SRC
 
 *** git-commit
 
 This package assists the user in writing good Git commit messages.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (require-package 'git-commit)
 (require 'git-commit)
-#+end_src
+#+END_SRC
 
 *** gitconfig-mode
 
 A major mode for editing .gitconfig files.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'gitconfig-mode)
-#+end_src
+#+END_SRC
 
 *** git-gutter
 
 Emacs port of GitGutter which is Sublime Text Plugin.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'git-gutter)
   (setq git-gutter:handled-backends '(git hg))
   (global-git-gutter-mode +1)
   (diminish 'git-gutter-mode)
-#+end_src
+#+END_SRC
 
 *** magit
 
@@ -3218,76 +3218,76 @@ intuitive.
 =magit-status= is the main command to launch Magit. It's =autoloaded= so I don't
 need to load Magit first.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (smf/add-launcher "g" 'magit-status)
-#+end_src
+#+END_SRC
 
 =magit-grep= isn't =autoloaded=, so I need to explicitly load it before binding
 it:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (autoload 'magit-grep "magit" "Grep for files" t)
   (global-set-key (kbd "C-c f") 'magit-grep)
-#+end_src
+#+END_SRC
 
 **** Configuration
 
 When performing a [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Minibuffer-Completion.html][completing-read]] within Magit, I'd like to use IDO:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq magit-completing-read-function 'magit-ido-completing-read)
-#+end_src
+#+END_SRC
 
 Open the =magit-status= buffer in the same window as the current buffer:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq magit-status-buffer-switch-function 'switch-to-buffer)
-#+end_src
+#+END_SRC
 
 Highlight individual word and letter changes when showing hunk diff overlays:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq magit-diff-refine-hunk t)
-#+end_src
+#+END_SRC
 
 Don't tell me when Magit reverts buffers:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq magit-revert-buffers 'silent)
-#+end_src
+#+END_SRC
 
 When Magit takes a while to call out to Git, pop the process buffer after 10
 seconds so I can look for issues:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq magit-process-popup-time 10)
-#+end_src
+#+END_SRC
 
 Always show the =verbose= diff in commit windows:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq magit-commit-arguments '("--verbose"))
-#+end_src
+#+END_SRC
 
 Always set the upstream when pushing:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq magit-push-arguments '("--set-upstream"))
-#+end_src
+#+END_SRC
 
 Ugh, stupid git
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq git-commit-summary-max-length 72)
-#+end_src
+#+END_SRC
 
 **** Load Magit
 
 Finally we can install Magit:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'magit)
-#+end_src
+#+END_SRC
 
 *** hugme
 
@@ -3298,95 +3298,95 @@ An experimental fork of magit for Mercurial. Most of the things here won't work.
 =hugme-status= is the main command to launch Magit. It's =autoloaded= so I don't
 need to load Magit first.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c h") 'hugme-status)
-#+end_src
+#+END_SRC
 
 =hugme-grep= isn't =autoloaded=, so I need to explicitly load it before binding
 it:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (autoload 'hugme-grep "hugme" "Grep for files" t)
-#+end_src
+#+END_SRC
 
 **** Configuration
 
 When performing a [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Minibuffer-Completion.html][completing-read]] within Hugme, I'd like to use IDO:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq hugme-completing-read-function 'hugme-ido-completing-read)
-#+end_src
+#+END_SRC
 
 Open the =hugme-status= buffer in the same window as the current buffer:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq hugme-status-buffer-switch-function 'switch-to-buffer)
-#+end_src
+#+END_SRC
 
 Highlight individual word and letter changes when showing hunk diff overlays:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq hugme-diff-refine-hunk t)
-#+end_src
+#+END_SRC
 
 Don't tell me when Hugme reverts buffers:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq hugme-revert-buffers 'silent)
-#+end_src
+#+END_SRC
 
 When Hugme takes a while to call out to Git, pop the process buffer after 10
 seconds so I can look for issues:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq hugme-process-popup-time 10)
-#+end_src
+#+END_SRC
 
 Don't prompt me to confirm a canceled histedit,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq hg-histedit-confirm-cancel nil)
-#+end_src
+#+END_SRC
 
 Shelling out to hg is expensive, so until we use something like the command
 server, set a high-timeout for diffs:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq hugme-diff-expansion-threshold 10.0)
-#+end_src
+#+END_SRC
 
 Definitely need to enable debugging while writing this package,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq hugme-hg-debug t)
-#+end_src
+#+END_SRC
 
 Experimentally try to use chg, though it doesn't seem to improve the speed of
 shelling out,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq hugme-hg-executable "chg")
-#+end_src
+#+END_SRC
 
 **** Load Magit
 
 Finally we can load Hugme:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (if (file-accessible-directory-p "~/projects/hugme/lisp")
       (progn
         (smf/add-to-load-path "~/projects/hugme/lisp")
         (require 'hugme)))
-#+end_src
+#+END_SRC
 
 *** emacs-git-messenger
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'git-messenger)
   (setq git-messenger:show-detail 't)
   (after-load 'git-messenger
       (smf/add-launcher "v" 'git-messenger:popup-message))
-#+end_src
+#+END_SRC
 
 *** slime-nav
 
@@ -3396,39 +3396,39 @@ the ability to pop back to previous marks (using =M-,=).
 This plugin provides similar navigation for Emacs Lisp, supporting navigation
 to the definitions of variables, functions, libraries and faces.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'elisp-slime-nav)
   (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
     (add-hook hook 'elisp-slime-nav-mode))
   (after-load 'elisp-slime-nav
     (diminish 'elisp-slime-nav-mode))
-#+end_src
+#+END_SRC
 
 *** Multiple Cursors
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'multiple-cursors)
   (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
-#+end_src
+#+END_SRC
 
 *** Docker
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'docker)
   (require-package 'dockerfile-mode)
   (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
-#+end_src
+#+END_SRC
 
 *** Twitter
 
 =Twittering-mode=: a Twitter client for Emacs
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'twittering-mode)
   (setq twittering-icon-mode t)
   (setq twittering-use-icon-storage t)
   (smf/add-launcher "t" 'twit)
-#+end_src
+#+END_SRC
 
 ** LaTeX
 
@@ -3439,64 +3439,64 @@ I love [[http://en.wikipedia.org/wiki/LaTeX][LaTex]]. It's the best way to types
 Let's start by installing some LaTeX specific plugins (mostly AucTex-related)
 and initialize them,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'auctex)
   (require-package 'auctex-latexmk)
 
   (auctex-latexmk-setup)
-#+end_src
+#+END_SRC
 
 A few basic settings,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
   (setq LaTeX-item-indent 0)
   (setq TeX-clean-confirm nil) ;; don't ask me to clean
-#+end_src
+#+END_SRC
 
 Who uses dvi?
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq TeX-PDF-mode t)
-#+end_src
+#+END_SRC
 
 *** SyncTeX
 
 [[http://mactex-wiki.tug.org/wiki/index.php/SyncTeX][SyncTeX]] enables synchronization between source TeX files and the resulting pdf
 file.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq TeX-source-correlate-method 'synctex)
   (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
-#+end_src
+#+END_SRC
 
 *** Latexmk
 
 [[http://users.phys.psu.edu/~collins/software/latexmk-jcc/][Latexmk]] is a handy way to compile the TeX source the correct number of times.
 So, we'll create a convenient binding for that,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (defun smf/latexmk-compile ()
       (interactive)
       (save-buffer)
       (TeX-command "LatexMk" 'TeX-master-file -1))
-#+end_src
+#+END_SRC
 
 *** =magic-latex-buffer=
 
 Magical syntax highlighting for LaTeX-mode buffers.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'magic-latex-buffer)
   (require 'magic-latex-buffer)
-#+end_src
+#+END_SRC
 
 *** OS X
 
 Sensible defaults for OS X, other OSes should be covered out-of-the-box,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (eq system-type 'darwin)
     (setq TeX-view-program-selection
           '((output-dvi "DVI Viewer")
@@ -3507,11 +3507,11 @@ Sensible defaults for OS X, other OSes should be covered out-of-the-box,
           '(("DVI Viewer" "$HOME/.edit.sh -n %o")
             ("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b %n %o %b")
             ("HTML Viewer" "open %o"))))
-#+end_src
+#+END_SRC
 
 Modes to load,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun smf/latex-mode-hook ()
     (turn-on-auto-fill)
     (abbrev-mode +1)
@@ -3529,21 +3529,21 @@ Modes to load,
   (add-hook 'LaTeX-mode-hook 'reftex-mode)
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
   (add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
-#+end_src
+#+END_SRC
 
 *** RefTeX
 
 You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html][RefTeX]].
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (autoload 'reftex-mode "reftex" "RefTeX Minor Mode" t)
   (autoload 'reftex-citation "reftex-cite" "Make citation" nil)
   (autoload 'reftex-index-phrase-mode "reftex-index" "Phrase mode" t)
-#+end_src
+#+END_SRC
 
 These settings were randomly found,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq reftex-enable-partial-scans t)
   (setq reftex-save-parse-info t)
   (setq reftex-use-multiple-selection-buffers t)
@@ -3569,11 +3569,11 @@ These settings were randomly found,
         reftex-enable-partial-scans t
         reftex-save-parse-info t
         reftex-use-multiple-selection-buffers t)
-#+end_src
+#+END_SRC
 
 *** Folding
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq outline-minor-mode-prefix (kbd "\C-co"))
 
   (setq TeX-fold-env-spec-list
@@ -3587,13 +3587,13 @@ These settings were randomly found,
                 ("[tabularx]" ("tabularx"))
                 ("[code]" ("code"))
                 ("[shell]" ("shell")))))
-#+end_src
+#+END_SRC
 
 *** Guessing the master TeX file
 
 Taken from [[http://www.emacswiki.org/AUCTeX#toc19][EmacsWiki]] for automatic detection of the master file,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun smf/guess-TeX-master (filename)
      "Guess the master file for FILENAME from currently open .tex files."
      (let ((candidate nil)
@@ -3617,24 +3617,24 @@ Taken from [[http://www.emacswiki.org/AUCTeX#toc19][EmacsWiki]] for automatic de
  (add-hook 'LaTeX-mode-hook
   '(lambda ()
     (setq TeX-master (smf/guess-TeX-master (buffer-file-name)))))
-#+end_src
+#+END_SRC
 
 *** company-math
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'company-auctex)
   (require-package 'company-math)
 
   (company-auctex-init)
   (add-to-list 'company-backends 'company-math-symbols-unicode)
-#+end_src
+#+END_SRC
 
 *** pdf-tools
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'pdf-tools)
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
-#+end_src
+#+END_SRC
 
 ** Loading Themes
 
@@ -3648,7 +3648,7 @@ but I do know it messes up erc-hl-nicks if I don't do it this way.
 
 *** spaceline
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   ;; (use-package powerline
   ;;   :if window-system
   ;;   :config (setq-default powerline-default-separator 'nil))
@@ -3703,7 +3703,7 @@ but I do know it messes up erc-hl-nicks if I don't do it this way.
   (when window-system
     (remove-mode-line-box)
     (load-theme 'creamsody))
-#+end_src
+#+END_SRC
 
 ** ERC
 
@@ -3711,7 +3711,7 @@ but I do know it messes up erc-hl-nicks if I don't do it this way.
 
 [[http://en.wikipedia.org/wiki/Internet_Relay_Chat][IRC]] is still popular, so we'll use Emacs IRC.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'tls)
   (require 'erc)
   (require 'erc-join)
@@ -3721,13 +3721,13 @@ but I do know it messes up erc-hl-nicks if I don't do it this way.
   (require-package 'znc)
   (require-package 'cloud-to-butt-erc)
   (require-package 'erc-hipchatify)
-#+end_src
+#+END_SRC
 
 I use [[http://wiki.znc.in/ZNC][ZNC]] to always stay connected to IRC channels, so when I close a buffer I
 don't want to quit the channel, just detach from my server. Also, we use the
 keychain method defined above to get our password.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq
    znc-detatch-on-kill t
    znc-servers `(
@@ -3735,11 +3735,11 @@ keychain method defined above to get our password.
                                                ,(smf/get-keychain-password "smf" "smf.io"))))
                  ("smf.io" "6697" t ((bitlbee "smf/bitlbee"
                                               ,(smf/get-keychain-password "smf" "smf.io"))))))
-#+end_src
+#+END_SRC
 
 Some basic settings about my IRC setup,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq
    erc-prompt ">"
    erc-email-userid "sean.michael.farley@gmail.com"
@@ -3754,59 +3754,59 @@ Some basic settings about my IRC setup,
 
    ;; this changed in emacs 25 ... I still prefer monospaced fonts
    shr-use-fonts nil)
-#+end_src
+#+END_SRC
 
 I found when having a flaky connection that ERC would attempt to reconnect ad
 infinitum, so we turn that off,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq erc-server-auto-reconnect nil)
-#+end_src
+#+END_SRC
 
 The following makes colors look nice with [[zenburn]].
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq erc-hl-nicks-color-contrast-strategy '(invert contrast))
-#+end_src
+#+END_SRC
 
 While we're at it, let's enable [[http://www.emacswiki.org/emacs/ErcDCC][direct client-to-client]],
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-to-list 'erc-modules 'dcc)
   (add-to-list 'erc-modules 'hipchatify)
   (add-to-list 'erc-modules 'tweet)
   (erc-update-modules)
-#+end_src
+#+END_SRC
 
 Spelling mode is exactly what it says it is,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (erc-spelling-mode 1)
-#+end_src
+#+END_SRC
 
 *** Query behavior
 
 Button mode allows you to click on a nick and open a new query,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (erc-button-mode 1)
-#+end_src
+#+END_SRC
 
 Set the token for HipChat api calls,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq erc-hipchatify-token `,(smf/get-keychain-password "smf/token" "hipchat.com"))
-#+end_src
+#+END_SRC
 
 Set the email for HipChat,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq erc-hipchatify-email "sfarley@atlassian.com")
-#+end_src
+#+END_SRC
 
 Set the channel names (buffer names) for which to replace 'nick' with '@nick',
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq erc-hipchatify-mention-channels '("smf"
                                           "#bitbucket-social"
                                           "#bitbucket-cloud"
@@ -3815,37 +3815,37 @@ Set the channel names (buffer names) for which to replace 'nick' with '@nick',
                                           "#bitbucket-sf"
                                           "#bitbucket-ops"
                                           "#sourcetree"))
-#+end_src
+#+END_SRC
 
 When people send me a message (called 'query' in IRC speak), I want the buffer
 to pop up and notify me,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq erc-auto-query 'buffer)
   (setq erc-query-display 'buffer)
-#+end_src
+#+END_SRC
 
 As a default, only private messages trigger automatic creation of query buffers.
 I want the same behavior when I receive all notices (from [[http://www.emacswiki.org/emacs/ErcAutoQuery][EmacsWiki]]),
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'erc-after-connect
             (lambda (server nick)
               (add-hook 'erc-server-NOTICE-hook 'erc-auto-query)))
-#+end_src
+#+END_SRC
 
 Turn on =company-mode= by default for erc,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'erc-mode-hook 'company-mode)
-#+end_src
+#+END_SRC
 
 *** Switch to buffer or connect to znc
 
 If I haven't connected to my ZNC server, then we connect to it; otherwise, just
 switch to the buffer.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun smf/erc-start-or-switch (channel)
     "Connect to ERC, or switch to given channel"
     (interactive)
@@ -3878,7 +3878,7 @@ switch to the buffer.
     (define-key smf/launcher-map "m" 'smf/mercurial)
     (message "Enabled ERC/ZNC"))
   (smf/enable-chat)
-#+end_src
+#+END_SRC
 
 *** Query any user
 
@@ -3887,7 +3887,7 @@ nicks in all channels because that is simple and hasn't been a problem for me
 yet. My [[http://www.bitlbee.org][BitlBee]] server appends "|fb" or "|gtalk" for the corresponding chat
 method so that takes care of most potential name conflicts.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun smf/user-keys (erc-channel-users)
   "Convert the ERC-CHANNEL-USERS hash into an equivalent list-based form."
   (let ((alist '()))
@@ -3918,13 +3918,13 @@ method so that takes care of most potential name conflicts.
     (erc-cmd-QUERY nick))
 
   (smf/add-launcher "c" 'smf/erc-chat)
-#+end_src
+#+END_SRC
 
 *** Better ERC Scrolling
 
 Deniz Dogan [[http://lists.gnu.org/archive/html/bug-gnu-emacs/2012-06/msg00360.html][saves the day]] with some awesome improvements to scrolling.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun erc-display-line-1 (string buffer)
     "Display STRING in `erc-mode' BUFFER.
   Auxiliary function used in `erc-display-line'.  The line gets filtered to
@@ -3996,13 +3996,13 @@ Deniz Dogan [[http://lists.gnu.org/archive/html/bug-gnu-emacs/2012-06/msg00360.h
                (>= (point) erc-input-marker))
       (recenter -1)))
   (add-hook 'window-configuration-change-hook 'smf/window-configuration-change-hook)
-#+end_src
+#+END_SRC
 
 *** highlight possessive form
 
 Currently, this is a hack to test highlighting a nick with "'s" at the end.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'erc-hl-nicks
     (defun erc-hl-nicks ()
       "Retrieves a list of usernames from the server and highlights them"
@@ -4027,7 +4027,7 @@ Currently, this is a hack to test highlighting a nick with "'s" at the end.
                                            'erc-nick-default-face)
                       (erc-button-add-face (car bounds) endpt
                                            (erc-hl-nicks-make-face trimmed))))))))))))
-#+end_src
+#+END_SRC
 
 *** Mark buffer as read
 
@@ -4035,7 +4035,7 @@ Whenever we're done reading a conversation, just hit =Esc=. The buffer will be
 buried, and next time we open it again everything we have read before will be
 marked in grey.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun smf/mark-read ()
     "Mark buffer as read up to current line."
     (interactive)
@@ -4053,7 +4053,7 @@ marked in grey.
   (after-load 'erc
     (define-key erc-mode-map (kbd "<escape>") #'smf/bury-buffer)
     (define-key erc-mode-map (kbd "C-'") 'smf/mark-read))
-#+end_src
+#+END_SRC
 
 ** notmuch
 
@@ -4062,34 +4062,34 @@ We only load it if it exists on the system (by wrapping it with =after-load=).
 
 *** Setup
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'notmuch)
   (require 'smtpmail-async)
-#+end_src
+#+END_SRC
 
 If available, let's use imagemagick.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'notmuch
     (when (fboundp 'imagemagick-register-types)
       (imagemagick-register-types)))
-#+end_src
+#+END_SRC
 
 Set my main email address (others are set in notmuch-config),
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'notmuch
     (setq
      user-mail-address "sean@farley.io"
      user-full-name  "Sean Farley"))
-#+end_src
+#+END_SRC
 
 *** Address completion
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'notmuch
     (setq notmuch-address-command "notmuch-addrlookup"))
-#+end_src
+#+END_SRC
 
 *** Reply with custom from address
 
@@ -4097,7 +4097,7 @@ By default, I want my reply email to be the correct one. For example, if I am
 replying to an email sent to the MacPorts list then I want =sean@macports.org=
 to be used. To achieve this, I wrote a function to handle it:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'notmuch
     (require-package 'gnus-alias)
 
@@ -4148,30 +4148,30 @@ to be used. To achieve this, I wrote a function to handle it:
      )
 
     (add-hook 'message-setup-hook 'gnus-alias-determine-identity))
-#+end_src
+#+END_SRC
 
 Also, when composing an email, turn on spellchecking:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'notmuch
     (add-hook 'notmuch-message-mode-hook (lambda ()
                                            (auto-fill-mode)
                                            (flyspell-mode))))
-#+end_src
+#+END_SRC
 
 *** Miscellaneous setting
 
 Set =notmuch= as default emacs email program,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'notmuch
     (setq mail-user-agent 'notmuch-user-agent))
-#+end_src
+#+END_SRC
 
 Set =offlineimap= to be called for fetching new mail. This allows mail to be
 updated from within [[notmuch]] with keyboard shortcuts.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'offlineimap)
   (after-load 'offlineimap
     (setq offlineimap-mode-line-text nil)
@@ -4198,11 +4198,11 @@ updated from within [[notmuch]] with keyboard shortcuts.
 
     (define-key notmuch-hello-mode-map "G" 'offlineimap)
     (define-key notmuch-search-mode-map "G" 'offlineimap))
-#+end_src
+#+END_SRC
 
 Miscellaneous settings: these variable names speak for themselves,
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'notmuch
     (setq
 
@@ -4218,7 +4218,7 @@ Miscellaneous settings: these variable names speak for themselves,
 
        ;; don't keep message buffers around
        message-kill-buffer-on-exit t))
-#+end_src
+#+END_SRC
 
 *** HTML emails
 
@@ -4231,7 +4231,7 @@ text/html part and issue =. o=.
 
 =notmuch= doesn't have a keybinding for deleting messages, so we add one:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'notmuch
     ;; 'd' delete stuff in both search and show mode
     (define-key notmuch-show-mode-map "d"
@@ -4246,11 +4246,11 @@ text/html part and issue =. o=.
         (interactive)
         (notmuch-search-tag (list "+trash" "-inbox" "-unread" "-archive"))
         (next-line))))
-#+end_src
+#+END_SRC
 
 Also, let's add one for spam:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'notmuch
     ;; 'S' delete stuff in both search and show mode
     (define-key notmuch-show-mode-map "S"
@@ -4265,12 +4265,12 @@ Also, let's add one for spam:
         (interactive)
         (notmuch-search-tag (list "+spam" "-inbox" "-unread" "-archive"))
         (next-line))))
-#+end_src
+#+END_SRC
 
 Custom actions allow us to define arbitrary commands to run on a message. We'll
 use this to apply a mercurial patch to a working directory:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'notmuch
 
     ;; adapted from http://emacs.stackexchange.com/questions/3485/how-do-i-maintain-a-history-of-ido-read-filenames
@@ -4291,9 +4291,9 @@ use this to apply a mercurial patch to a working directory:
         (notmuch-show-pipe-message nil cmd)))
 
     (define-key 'notmuch-show-mode-map "I" 'smf/notmuch-show-import-patch))
-#+end_src
+#+END_SRC
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'notmuch
     (defun smf/notmuch-show-view-as-patch ()
       "View the the current message as a patch."
@@ -4318,9 +4318,9 @@ use this to apply a mercurial patch to a working directory:
 
 
     (define-key 'notmuch-show-mode-map "D" 'smf/notmuch-show-view-as-patch))
-#+end_src
+#+END_SRC
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (after-load 'notmuch
     (defun smf/notmuch-show-set-pre-reviewed ()
       "Sets the patch in patchwork as pre-reviewed."
@@ -4340,13 +4340,13 @@ use this to apply a mercurial patch to a working directory:
                              "update"
                              "-s" "Pre-Reviewed"
                              pw-id))))
-#+end_src
+#+END_SRC
 
 *** Keybinding
 
 Finally, add a keybinding to open our email client:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'cl)
   (require-package 's)
   (defun smf/notmuch-start-or-switch ()
@@ -4357,7 +4357,7 @@ Finally, add a keybinding to open our email client:
       (notmuch)))
 
   (smf/add-launcher "e" 'smf/notmuch-start-or-switch)
-#+end_src
+#+END_SRC
 
 
 ** Local and custom configuration
@@ -4369,35 +4369,35 @@ some configuration.
 
 First set up a directory to hold the files:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq smf/local-dotfiles-dir (smf/join-dirs smf/dotfiles-dir "local"))
-#+end_src
+#+END_SRC
 
 Now try to load a file named after the current user:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (load (concat smf/local-dotfiles-dir user-login-name ".el") t)
-#+end_src
+#+END_SRC
 
 and try to load a file named after the local system:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (load (concat smf/local-dotfiles-dir system-name ".el") t)
-#+end_src
+#+END_SRC
 
 Finally, try loading a default file:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (load (concat smf/local-dotfiles-dir "local-overrides.el") t)
-#+end_src
+#+END_SRC
 
 *** =Customize=-d configuration
 
 Make sure anything saved using =customize= goes into a consistent (and ignored)
 place:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (load (setq custom-file (concat smf/dotfiles-dir "custom.el")) t)
-#+end_src
+#+END_SRC
 
 (note that this works because =setq= returns the value it's set to)
