@@ -1490,7 +1490,17 @@ TODO: refactor to use =recentf-keep=: [[http://www.emacswiki.org/emacs/RecentFil
 
 #+begin_src emacs-lisp
   (after-load 'recentf
-    (setq recentf-exclude '("[/\\]\\.elpa/" "[/\\]\\.ido\\.last\\'" "[/\\]\\.git/" ".*\\.gz\\'" ".*-autoloads\\.el\\'" "[/\\]archive-contents\\'" "[/\\]\\.loaddefs\\.el\\'" "url/cookies" ".*\\emacs.bmk\\'")))
+    (add-to-list 'recentf-exclude "[/\\]\\.elpa/")
+    (add-to-list 'recentf-exclude "[/\\]\\.ido\\.last\\'" )
+    (add-to-list 'recentf-exclude "[/\\]\\.git/")
+    (add-to-list 'recentf-exclude ".*\\.gz\\'")
+    (add-to-list 'recentf-exclude ".*-autoloads\\.el\\'")
+    (add-to-list 'recentf-exclude "[/\\]archive-contents\\'")
+    (add-to-list 'recentf-exclude "[/\\]\\.loaddefs\\.el\\'")
+    (add-to-list 'recentf-exclude "url/cookies")
+    (add-to-list 'recentf-exclude ".*\\emacs.bmk\\'")
+    (add-to-list 'recentf-exclude "README\\.el\\'")
+    (add-to-list 'recentf-exclude "/custom\\.el\\'"))
 #+end_src
 
 Save the most recent 100 items (this is manily to keep the list low for [[ido]]):
