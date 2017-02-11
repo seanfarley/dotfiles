@@ -3857,14 +3857,27 @@ switch to the buffer.
             (znc-all)))                  ;; no: start ERC
       (znc-all)))                        ;; no: start ERC
 
-  (smf/add-launcher "b" (lambda ()
-                          (interactive)
-                          (smf/erc-start-or-switch "#bitbucket")))
+  (defun smf/bitbucket ()
+    (interactive)
+    (smf/erc-start-or-switch "#bitbucket"))
 
-  (smf/add-launcher "m" (lambda ()
-                          (interactive)
-                          (smf/erc-start-or-switch "#mercurial")))
+  (defun smf/mercurial ()
+    (interactive)
+    (smf/erc-start-or-switch "#mercurial"))
 
+  (defun smf/disable-chat ()
+    (interactive)
+    (znc-all t)
+    (define-key smf/launcher-map "b" nil)
+    (define-key smf/launcher-map "m" nil)
+    (message "Disabled ERC/ZNC"))
+
+  (defun smf/enable-chat ()
+    (interactive)
+    (define-key smf/launcher-map "b" 'smf/bitbucket)
+    (define-key smf/launcher-map "m" 'smf/mercurial)
+    (message "Enabled ERC/ZNC"))
+  (smf/enable-chat)
 #+end_src
 
 *** Query any user
