@@ -1030,8 +1030,8 @@ of the buffer. We'll bind this to =C-M-d=
 
 ** Other modes
 
-Emacs comes with hundreds of major and minor modes to do many many things. These
-are the ones I commonly use and have configured.
+Emacs comes with hundreds of major and minor modes to do many, many things.
+These are the ones I commonly use and have configured.
 
 *** org
 
