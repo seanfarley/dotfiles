@@ -905,8 +905,8 @@ to select the whole buffer, or =⌘-c= to copy.
     (global-set-key (kbd "s-g") 'isearch-repeat-forward)
     (global-set-key [(H left)]  'beginning-of-buffer)
     (global-set-key [(H right)] 'end-of-buffer)
-    (global-set-key [(H down)] [?\C-v])
-    (global-set-key [(H up)] [?\M-v]))
+    (global-set-key [(H down)]  [?\C-v])
+    (global-set-key [(H up)]    [?\M-v]))
 #+END_SRC
 
 The =⌘-backspace= deletes text from the current position to the beginning of the
