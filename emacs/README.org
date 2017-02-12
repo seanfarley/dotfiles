@@ -732,8 +732,8 @@ We can use [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Uniquify.
 =other-thing/init.el=, which is much easier to make sense of.
 
 #+BEGIN_SRC emacs-lisp
-  (require 'uniquify)
-  (setq uniquify-buffer-name-style 'forward)
+  (use-package uniquify
+    :config (setq uniquify-buffer-name-style 'forward))
 #+END_SRC
 
 ** OS X specific configuration
