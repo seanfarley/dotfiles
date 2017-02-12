@@ -41,6 +41,9 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+(require-package 'benchmark-init)
+(benchmark-init/activate)
+
 (package-install 'org-plus-contrib)
 
 (require 'org)
