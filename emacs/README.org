@@ -1192,11 +1192,11 @@ capture notes to emacs,
 Now, set the agenda files,
 
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files (list "~/Documents/org/organizer.org"
-                               "~/Documents/org/bitbucket.org"
-                               "~/Documents/org/phd.org"
-                               "~/Documents/org/hg.org"
-                               "~/Documents/org/personal.org"))
+  (setq org-agenda-files (list "~/Dropbox/org/organizer.org"
+                               "~/Dropbox/org/bitbucket.org"
+                               "~/Dropbox/org/phd.org"
+                               "~/Dropbox/org/hg.org"
+                               "~/Dropbox/org/personal.org"))
 #+END_SRC
 
 Please don't close and mess up my windows,
@@ -1209,11 +1209,11 @@ Please don't close and mess up my windows,
 Also, set the file for capturing todos and add a launcher key for it,
 
 #+BEGIN_SRC emacs-lisp
-   (setq org-default-notes-file "~/Documents/org/organizer.org")
+   (setq org-default-notes-file "~/Dropbox/org/organizer.org")
 
    (smf/add-launcher "o" (lambda ()
                            (interactive)
-                           (find-file "~/Documents/org/organizer.org")))
+                           (find-file "~/Dropbox/org/organizer.org")))
 #+END_SRC
 
 Add a nice, little template to use along with some shortcuts,
@@ -1228,10 +1228,10 @@ Add a nice, little template to use along with some shortcuts,
 
   (setq org-capture-templates
         `(("t" "Tasks" entry
-           (file+headline "~/Documents/org/organizer.org" "Inbox")
+           (file+headline "~/Dropbox/org/organizer.org" "Inbox")
            ,smf/org-basic-task-template)
           ("i" "Interrupting task" entry
-           (file+headline "~/Documents/org/organizer.org" "Inbox")
+           (file+headline "~/Dropbox/org/organizer.org" "Inbox")
            "* STARTED %^{Task}"
            :clock-in :clock-resume)
 
