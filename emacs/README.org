@@ -468,14 +468,6 @@ also mapping =M-o=:
 
 **** Buffer management
 
-Burying a buffer (removing it from the current window and sending it to the
-bottom of the stack) is very common for dismissing buffers. Add a mapping for
-it:
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c y") 'bury-buffer)
-#+END_SRC
-
 Add a key combination to revert the current buffer (re-read the contents from
 disk):
 
