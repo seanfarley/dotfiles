@@ -21,6 +21,7 @@ emacs/anaconda-mode
 emacs/.sx
 emacs/request
 emacs/network-security.data
+emacs/.org-id-locations
 
 omnisharp-server
 irony-server
