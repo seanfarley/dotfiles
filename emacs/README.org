@@ -433,16 +433,6 @@ The below are some remappings I got from [[https://sites.google.com/site/steveye
 They're designed to map some slightly difficult but very common mappings to
 things that are easier to type.
 
-**** Invoke =M-x= without the Alt key
-
-As per [[https://sites.google.com/site/steveyegge2/effective-emacs#item2][Yegge's Item 2]]. This unmaps the difficult =M-x= (usually =Alt+x=) to =C-x
-m=, and then add a fat-finger combination of =C-x C-m=:
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-x m") 'execute-extended-command)
-  (global-set-key (kbd "C-x C-m") 'execute-extended-command)
-#+END_SRC
-
 **** Prefer =backward-kill-word= over Backspace
 
 As per [[https://sites.google.com/site/steveyegge2/effective-emacs#item3][Yegge's Item 3]]. This emulates readline =C-w= command to
