@@ -1043,24 +1043,6 @@ Don't auto-fold my documents:
   (setq org-startup-folded nil)
 #+END_SRC
 
-Add some sweet ipython with gnuplot integration,
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'gnuplot)
-  (require-package 'ob-ipython)
-  (setq ob-ipython-command "jupyter-2.7")
-  (setq python-shell-prompt-detect-failure-warning nil)
-#+END_SRC
-
-When editing [[http://orgmode.org/manual/Working-With-Source-Code.html#Working-With-Source-Code][nested source code]], always accept Emacs Lisp and ipython:
-
-#+BEGIN_SRC emacs-lisp
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((ipython . t)
-     (emacs-lisp . t)))
-#+END_SRC
-
 and automatically apply syntax highlighting:
 
 #+BEGIN_SRC emacs-lisp
