@@ -795,10 +795,6 @@ As of Emacs 24.4, [[http://lists.gnu.org/archive/html/emacs-devel/2013-12/msg007
   (setq ns-use-srgb-colorspace t)
 #+END_SRC
 
-If you're not using Emacs 24.4 this variable setting will have no effect. See
-[[https://github.com/Homebrew/homebrew/blob/7446162e59fe548a0fde735d25b9913f8fa2ad4a/Library/Formula/emacs.rb#L10][Homebrew's Emacs recipe]] for details of how to get this behaviour in earlier
-Emacs versions.
-
 *** Terminal integration
 
 Using this configuration, Emacs runs best in [[http://iterm2.com][iTerm2]].
