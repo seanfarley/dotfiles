@@ -1464,20 +1464,15 @@ I have a few files in my dotfiles repo that are known to be shell files, so
 let's add them:
 
 #+BEGIN_SRC emacs-lisp
-  (setq auto-mode-alist (cons '(".?aliases" . sh-mode) auto-mode-alist))
-  (setq auto-mode-alist (cons '(".?bash_prompt" . sh-mode) auto-mode-alist))
-  (setq auto-mode-alist (cons '(".?bashrc" . sh-mode) auto-mode-alist))
-  (setq auto-mode-alist (cons '(".?exports" . sh-mode) auto-mode-alist))
-  (setq auto-mode-alist (cons '(".?functions" . sh-mode) auto-mode-alist))
-  (setq auto-mode-alist (cons '(".?osx" . sh-mode) auto-mode-alist))
-  (setq auto-mode-alist (cons '(".?osx" . sh-mode) auto-mode-alist))
-  (setq auto-mode-alist (cons '(".?profile" . sh-mode) auto-mode-alist))
-#+END_SRC
-
-Same with conf-mode,
-
-#+BEGIN_SRC emacs-lisp
-  (setq auto-mode-alist (cons '(".?hgrc" . conf-mode) auto-mode-alist))
+  (use-package sh-script
+    :mode ((".?aliases" . sh-mode)
+           (".?bash_prompt" . sh-mode)
+           (".?bashrc" . sh-mode)
+           (".?exports" . sh-mode)
+           (".?functions" . sh-mode)
+           (".?osx" . sh-mode)
+           (".?profile" . sh-mode)
+           (".?hgrc" . conf-mode)))
 #+END_SRC
 
 *** whitespace-mode
