@@ -1281,7 +1281,11 @@ As of 24.2, Emacs ships with a [[http://www.emacswiki.org/emacs/PythonProgrammin
 We can work around that using [[https://www.gnu.org/software/emacs/manual/html_node/ccmode/Subword-Movement.html#Subword-Movement][subword-mode]]:
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'python-mode-hook (lambda () (subword-mode 1)))
+  (use-package python
+    :mode ("\\.py\\'" . python-mode)
+    :interpreter ("python" . python-mode)
+    :config
+    (add-hook 'python-mode-hook #'subword-mode))
 #+END_SRC
 
 *** ruby-mode
