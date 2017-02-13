@@ -1099,6 +1099,8 @@ some basic settings and personal tweaks,
     (add-hook 'org-mode-hook 'auto-fill-mode))
 #+END_SRC
 
+**** org-journal
+
 A great plugin for =org-mode= is =org-journal= to take daily and weekly notes.
 I was inspired by [[http://pages.sachachua.com/.emacs.d/Sacha.html#org5b9f9d2][Sacha Chau's setup]] (and her [[http://sachachua.com][great website]]) to also revamp my
 workflow to use =org-mode= even more better.
@@ -1106,24 +1108,27 @@ workflow to use =org-mode= even more better.
 So, we'll start with some basic settings,
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'org-journal)
+  (use-package org-journal
+    :after org
+    :ensure t
+    :defer t
+    :config
+    (setq org-log-done t
+          org-agenda-persistent-filter t
+          org-agenda-sticky t
+          org-enforce-todo-dependencies t
+          org-cycle-separator-lines 0
+          org-blank-before-new-entry (quote ((heading)
+                                             (plain-list-item . auto)))
 
-  (setq org-log-done t)
-  (setq org-agenda-persistent-filter t)
-  (setq org-agenda-sticky t)
-  (setq org-enforce-todo-dependencies t)
-  (setq org-cycle-separator-lines 0)
-  (setq org-blank-before-new-entry (quote ((heading)
-                                           (plain-list-item . auto))))
+          org-use-fast-todo-selection t
+          org-log-into-drawer t
+          org-log-state-notes-insert-after-drawers nil
+          org-fast-tag-selection-single-key nil
+          org-return-follows-link t
+          org-confirm-babel-evaluate nil
 
-  (setq org-use-fast-todo-selection t)
-  (setq org-log-into-drawer t)
-  (setq org-log-state-notes-insert-after-drawers nil)
-  (setq org-fast-tag-selection-single-key nil)
-  (setq org-return-follows-link t)
-  (setq org-confirm-babel-evaluate nil)
-
-  (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
+          org-refile-targets '((org-agenda-files . (:maxlevel . 6)))))
 #+END_SRC
 
 I'll change the prefix for these function (instead of using smf/launcher) since
