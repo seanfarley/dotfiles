@@ -1264,9 +1264,13 @@ Emacs lisp (eg information about arity of functions). Enable that for
 =emacs-lisp-mode=:
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-  (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
-  (add-hook 'prog-mode-hook 'turn-on-eldoc-mode)
+  (use-package lisp-mode
+    :bind (:map emacs-lisp-mode-map
+                ("C-c C-b" . eval-buffer))
+    :config
+    (add-hook 'emacs-lisp-mode-hook #'turn-on-eldoc-mode)
+    (add-hook 'lisp-interaction-mode-hook #'turn-on-eldoc-mode)
+    (add-hook 'prog-mode-hook #'turn-on-eldoc-mode))
 #+END_SRC
 
 *** python-mode
