@@ -20,6 +20,11 @@ Host bb
   HostName app-125.ash1.bb-inf.net
   ProxyCommand ssh -A -W %h:%p bb-backend
 
+Host smf.io
+  ControlMaster auto
+  ControlPersist yes
+  ControlPath ~/.ssh/socket-%r@%h:%p
+
 Host euclid
   HostName farley.in
   ControlMaster auto
