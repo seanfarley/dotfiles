@@ -1343,63 +1343,6 @@ I got this code from the [[http://www.gnu.org/software/tramp/#Multi_002dhops][Mu
 
 More on the last two incantations at [[http://emacs-fu.blogspot.co.uk/2009/10/editing-files-owned-by-root.html][emacs-fu's guide to editing files owned by root]].
 
-*** eshell
-
-[[http://www.gnu.org/software/emacs/manual/html_node/eshell/][eshell]] is a shell-like command interpreter built with Emacs lisp. It integrates
-well with Emacs, and can be a convenient way to get a shell without invoking
-bash or similar (provided you don't want any interactive commands).
-
-There's a great guide to [[http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/][mastering eshell]] on [[http://www.masteringemacs.org][Mastering Emacs]].
-
-eshell has a directory where it stores bookmarks and other temporary cruft -
-move that out of the way:
-
-#+BEGIN_SRC emacs-lisp
-  (setq eshell-directory-name (smf/join-dirs smf/tmp-local-dir "eshell"))
-#+END_SRC
-
-When using the =ssh= command (or =vagrant ssh=, which is really the same thing),
-we'll want to jump into something that's an actual terminal emulator like
-=ansi-term= (eshell won't be able to deal with the login on the remote machine):
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'esh-opt
-    (require 'em-term)
-    (add-to-list 'eshell-visual-commands "ssh")
-    (when (fboundp 'eshell-visual-subcommands)
-      (add-to-list 'eshell-visual-subcommands '("vagrant" "ssh"))))
-#+END_SRC
-
-Define a keybinding to get an =eshell= buffer anywhere:
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c C-t e") 'eshell)
-#+END_SRC
-
-*** ansi-term
-
-[[http://www.emacswiki.org/emacs/AnsiTerm][ansi-term]] is a terminal emulator written in Emacs Lisp. It's more like a
-traditional terminal emulator than [[eshell]].
-
-Force ansi-term to be UTF-8 after it launches:
-
-#+BEGIN_SRC emacs-lisp
-  (defadvice ansi-term (after smf/advise-ansi-term-coding-system activate)
-    (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
-#+END_SRC
-
-When exiting a terminal buffer (either with =exit= or =EOF=), automatically kill
-the buffer:
-
-#+BEGIN_SRC emacs-lisp
-  (defadvice term-sentinel (around smf/advice-term-sentinel (proc msg) activate)
-    (if (memq (process-status proc) '(signal exit))
-        (let ((buffer (process-buffer proc)))
-          ad-do-it
-          (kill-buffer buffer))
-      ad-do-it))
-#+END_SRC
-
 *** recentf
 
 [[http://www.emacswiki.org/emacs/RecentFiles][recentf]] stores a list of recently opened files.
