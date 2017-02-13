@@ -1379,23 +1379,6 @@ exclude Emacs metafiles, package cruft etc.
     (recentf-mode))
 #+END_SRC
 
-I want easy access to my recent files, so define a function that lets me use [[ido]]
-to search over them. Bind this to =C-x C-r= (=C-c C-r= is used in modes like
-=org=mode):
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'recentf
-    (after-load 'ido
-      (defun smf/recentf-ido-find-file ()
-        "Find a recent file using ido."
-        (interactive)
-        (let ((file (ido-completing-read "Recently: " recentf-list nil t)))
-          (when file
-            (find-file file))))
-
-      (global-set-key (kbd "C-x C-r") 'smf/recentf-ido-find-file)))
-#+END_SRC
-
 *** ediff
 
 [[https://www.gnu.org/software/emacs/manual/html_mono/ediff.html][ediff]] is a full-featured visual diff and merge tool, built into Emacs.
