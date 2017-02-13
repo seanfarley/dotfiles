@@ -1044,21 +1044,28 @@ some basic settings and personal tweaks,
   (use-package org :ensure t
     :defer t
     :mode ("\\.org"  . org-mode)
-    :bind (:map org-mode-map
-                ;; I use meta-arrow keys for navigation so let's stop org from
-                ;; using them to indent
-                ("<M-S-left>" . nil)
-                ("<M-left>" . nil)
-                ("<M-right>" . nil)
-                ;; since I commonly mistype =C-c C-'= instead of =C-c '=, let's
-                ;; add that keybinding,
-                ("C-c C-'" . org-edit-special)
-                :map org-src-mode-map
-                ("C-c C-'" . org-edit-src-exit)
-                ;; I find it infuriating that my muscle memory =⌘+s= in
-                ;; =org-src-mode= will save the buffer as a new file. Instead,
-                ;; let's make it do the same thing as =C-c '=
-                ("s-s" . org-edit-src-exit))
+    :bind (;; I'll change the prefix for these function (instead of using
+           ;; smf/launcher) since they are so common
+           ("C-c l" . org-store-link)
+           ("C-c a" . org-agenda)
+           ("C-c c" . org-capture)
+
+           :map org-mode-map
+           ;; I use meta-arrow keys for navigation so let's stop org from
+           ;; using them to indent
+           ("<M-S-left>" . nil)
+           ("<M-left>" . nil)
+           ("<M-right>" . nil)
+           ;; since I commonly mistype =C-c C-'= instead of =C-c '=, let's
+           ;; add that keybinding,
+           ("C-c C-'" . org-edit-special)
+
+           :map org-src-mode-map
+           ("C-c C-'" . org-edit-src-exit)
+           ;; I find it infuriating that my muscle memory =⌘+s= in
+           ;; =org-src-mode= will save the buffer as a new file. Instead,
+           ;; let's make it do the same thing as =C-c '=
+           ("s-s" . org-edit-src-exit))
     :config
     ;; don't auto-fold my documents:
     (setq org-startup-folded nil
@@ -1129,15 +1136,6 @@ So, we'll start with some basic settings,
           org-confirm-babel-evaluate nil
 
           org-refile-targets '((org-agenda-files . (:maxlevel . 6)))))
-#+END_SRC
-
-I'll change the prefix for these function (instead of using smf/launcher) since
-they are so common,
-
-#+BEGIN_SRC emacs-lisp
-  (define-key global-map "\C-cl" 'org-store-link)
-  (define-key global-map "\C-ca" 'org-agenda)
-  (global-set-key (kbd "C-c c") 'org-capture)
 #+END_SRC
 
 The org-protocol plugin is sweet awesomeness. It allows native apps to send
