@@ -1202,62 +1202,47 @@ integration with buffer switching and finding files. [[http://www.masteringemacs
 guide to Ido]].
 
 First we enable =ido-mode= globally and enable =ido-everywhere=, which enables
-Ido for buffer and file reading:
+Ido for buffer and file reading. Also, we force Ido to [[http://stackoverflow.com/a/11341239/61435][ignore Dropbox cruft]],
 
 #+BEGIN_SRC emacs-lisp
-  (after-load 'ido
+  (use-package ido
+    :ensure t
+    :config
+    (add-to-list 'ido-ignore-files "Icon\n")
+
+    ;; also ignore certain extensions that I don't care about
+    (setq completion-ignored-extensions
+          '(".o" ".elc" "~" ".bin" ".bak" ".obj" ".map" ".a" ".ln" ".mod" ".gz"
+            ".aux" ".tdo" ".fmt" ".swp" ".pdfsync" ".pdf" ".vrb" ".idx" ".ind"
+            ".bbl" ".toc" ".blg" ".snm" ".ilg" ".log" ".out" ".pyc" ".DS_Store"
+            "-blx.bib" ".run.xml" ".hi" ".fls" ".fdb_latexmk" ".bcf" ".rel")
+
+          ;; Speed up ido by using less candidates
+          ido-max-prospects 10
+
+          ;; Match arbitrary points in strings
+          ido-enable-prefix nil
+
+          ;; Match across entire string
+          ido-enable-flex-matching t
+
+          ;; Create a new buffer if there's no match candidate
+          ido-create-new-buffer 'always
+
+          ;; Don't try and guess if the string under point is a file
+          ido-use-filename-at-point nil
+
+          ;; case-insensitive matching
+          ido-case-fold t
+
+          ;; don't store old files as virtual buffers
+          ido-use-virtual-buffers nil
+
+          ;; store ido temporary directory cache elsewhere:
+          ido-save-directory-list-file (expand-file-name ".ido.last" smf/tmp-local-dir))
+
     (ido-mode t)
     (ido-everywhere t))
-#+END_SRC
-
-Force Ido to [[http://stackoverflow.com/a/11341239/61435][ignore Dropbox cruft]]:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'ido
-    (add-to-list 'ido-ignore-files "Icon\n"))
-#+END_SRC
-
-Also ignore certain extensions that I don't care about
-
-#+BEGIN_SRC emacs-lisp
-  (setq completion-ignored-extensions
-        '(".o" ".elc" "~" ".bin" ".bak" ".obj" ".map" ".a" ".ln" ".mod" ".gz"
-          ".aux" ".tdo" ".fmt" ".swp" ".pdfsync" ".pdf" ".vrb" ".idx" ".ind"
-          ".bbl" ".toc" ".blg" ".snm" ".ilg" ".log" ".out" ".pyc" ".DS_Store"
-          "-blx.bib" ".run.xml" ".hi" ".fls" ".fdb_latexmk" ".bcf" ".rel"))
-#+END_SRC
-
-Configure Ido (see comments for more information):
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'ido
-    (setq
-     ;; Speed up ido by using less candidates
-     ido-max-prospects 10
-     ;; Match arbitrary points in strings
-     ido-enable-prefix nil
-     ;; Match across entire string
-     ido-enable-flex-matching t
-     ;; Create a new buffer if there's no match candidate
-     ido-create-new-buffer 'always
-     ;; Don't try and guess if the string under point is a file
-     ido-use-filename-at-point nil
-     ;; case-insensitive matching
-     ido-case-fold t
-     ;; don't store old files as virtual buffers
-     ido-use-virtual-buffers nil))
-#+END_SRC
-
-Store =ido= temporary directory cache elsewhere:
-
-#+BEGIN_SRC emacs-lisp
-  (setq ido-save-directory-list-file (expand-file-name ".ido.last" smf/tmp-local-dir))
-#+END_SRC
-
-Finally load Ido:
-
-#+BEGIN_SRC emacs-lisp
-  (require 'ido)
 #+END_SRC
 
 *** bookmarks
