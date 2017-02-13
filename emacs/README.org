@@ -1035,86 +1035,67 @@ These are the ones I commonly use and have configured.
 
 *** org
 
-[[http://orgmode.org][org-mode]] is a plain text system for organising information and notes.
+**** init
 
-Don't auto-fold my documents:
-
-#+BEGIN_SRC emacs-lisp
-  (setq org-startup-folded nil)
-#+END_SRC
-
-and automatically apply syntax highlighting:
+[[http://orgmode.org][org-mode]] is a plain text system for organising information and notes. We'll set
+some basic settings and personal tweaks,
 
 #+BEGIN_SRC emacs-lisp
-  (setq org-src-fontify-natively t)
-  (setq org-src-tab-acts-natively t)
-#+END_SRC
+  (use-package org :ensure t
+    :defer t
+    :mode ("\\.org"  . org-mode)
+    :bind (:map org-mode-map
+                ;; I use meta-arrow keys for navigation so let's stop org from
+                ;; using them to indent
+                ("<M-S-left>" . nil)
+                ("<M-left>" . nil)
+                ("<M-right>" . nil)
+                ;; since I commonly mistype =C-c C-'= instead of =C-c '=, let's
+                ;; add that keybinding,
+                ("C-c C-'" . org-edit-special)
+                :map org-src-mode-map
+                ("C-c C-'" . org-edit-src-exit)
+                ;; I find it infuriating that my muscle memory =⌘+s= in
+                ;; =org-src-mode= will save the buffer as a new file. Instead,
+                ;; let's make it do the same thing as =C-c '=
+                ("s-s" . org-edit-src-exit))
+    :config
+    ;; don't auto-fold my documents:
+    (setq org-startup-folded nil
 
-and don't prompt
+          ;; automatically apply syntax highlighting:
+          org-src-fontify-natively t
+          org-src-tab-acts-natively t
 
-#+BEGIN_SRC emacs-lisp
-  (setq org-confirm-babel-evaluate nil)
-#+END_SRC
+          ;; and don't prompt
+          org-confirm-babel-evaluate nil
 
-When using [[http://www.emacswiki.org/emacs/ImenuMode][imenu]], make sure I can follow the outline to the full available
-depth:
+          ;; when using imenu, make sure I can follow the outline to the full available
+          ;; depth
+          org-imenu-depth 6
 
-#+BEGIN_SRC emacs-lisp
-  (setq org-imenu-depth 6)
-#+END_SRC
+          ;; also, I like using shift+arrow keys to highlight, so let's set that
+          org-support-shift-select 'always
 
-Also, I like using shift+arrow keys to highlight, so let's set that:
+          ;; set up MobileOrg (which is sweet!)
+          org-directory "~/Dropbox/org"
 
-#+BEGIN_SRC emacs-lisp
-  (setq org-support-shift-select 'always)
-#+END_SRC
+          ;; also, set the file for capturing todos
+          smf/org-input "~/Dropbox/org/organizer.org"
 
-Set up MobileOrg (which is sweet!)
+          org-default-notes-file smf/org-input
 
-#+BEGIN_SRC emacs-lisp
-  (setq org-directory "~/Dropbox/org")
-  ;; Set to the name of the file where new notes will be stored
-  (setq org-mobile-inbox-for-pull smf/org-input)
+          ;; set to the name of the file where new notes will be stored
+          org-mobile-inbox-for-pull smf/org-input
 
-  (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
-#+END_SRC
+          org-mobile-directory "~/Dropbox/Apps/MobileOrg")
 
-I use meta-arrow keys for navigation so let's stop org from using them to indent
+    ;; shortcut to launch file for refiling
+    (smf/add-launcher "o" (lambda ()
+                            (interactive)
+                            (find-file smf/org-input)))
 
-#+BEGIN_SRC emacs-lisp
-  (after-load 'org
-    (define-key org-mode-map (kbd "<M-S-left>") nil)
-    (define-key org-mode-map (kbd "<M-S-right>") nil)
-    (define-key org-mode-map (kbd "<M-left>") nil)
-    (define-key org-mode-map (kbd "<M-right>") nil))
-#+END_SRC
-
-Since I commonly mistype =C-c C-'= instead of =C-c '=, let's add that
-keybinding,
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'org-mode-hook
-            (lambda () (define-key org-mode-map (kbd "C-c C-'")
-                        'org-edit-special)))
-
-  (add-hook 'org-src-mode-hook
-            (lambda () (define-key org-src-mode-map (kbd "C-c C-'")
-                         'org-edit-src-exit)))
-#+END_SRC
-
-I find it infuriating that my muscle memory =⌘+s= in =org-src-mode= will save
-the buffer as a new file. Instead, let's make it do the same thing as =C-c '=
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'org-src-mode-hook
-            (lambda () (define-key org-src-mode-map (kbd "s-s")
-                         'org-edit-src-exit)))
-#+END_SRC
-
-Also, let's turn on =auto-fill-mode= for org-mode,
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'org
+    ;; also, let's turn on auto-fill-mode
     (add-hook 'org-mode-hook 'auto-fill-mode))
 #+END_SRC
 
@@ -1177,18 +1158,6 @@ Please don't close and mess up my windows,
   (setq org-agenda-window-setup 'current-window)
   (setq org-agenda-restore-windows-after-quit 't)
 #+END_SRC
-
-Also, set the file for capturing todos and add a launcher key for it,
-
-#+BEGIN_SRC emacs-lisp
-  (setq smf/org-input "~/Dropbox/org/organizer.org")
-  (setq org-default-notes-file smf/org-input)
-
-  (smf/add-launcher "o" (lambda ()
-                          (interactive)
-                          (find-file smf/org-input)))
-#+END_SRC
-
 Add a nice, little template to use along with some shortcuts,
 
 #+BEGIN_SRC emacs-lisp
