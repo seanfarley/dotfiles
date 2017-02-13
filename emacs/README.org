@@ -1345,23 +1345,25 @@ More on the last two incantations at [[http://emacs-fu.blogspot.co.uk/2009/10/ed
 
 *** recentf
 
-[[http://www.emacswiki.org/emacs/RecentFiles][recentf]] stores a list of recently opened files.
-
-Never clean up the list:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'recentf
-    (setq recentf-auto-cleanup 'never))
-#+END_SRC
-
-The list of files contains any files Emacs has read, not just files I've
-explicitly opened. Clean that list to exclude Emacs metafiles, package cruft
-etc.
-
-TODO: refactor to use =recentf-keep=: [[http://www.emacswiki.org/emacs/RecentFiles#toc18]]
+[[http://www.emacswiki.org/emacs/RecentFiles][recentf]] stores a list of recently opened files. The list of files contains any
+files Emacs has read, not just files I've explicitly opened. Clean that list to
+exclude Emacs metafiles, package cruft etc.
 
 #+BEGIN_SRC emacs-lisp
-  (after-load 'recentf
+  (use-package recentf
+    :config
+    ;; never clean up the list:
+    (setq recentf-auto-cleanup 'never
+          recentf-max-saved-items 500
+          recentf-max-menu-items 15
+
+          ;; customize the place =recentf= persists its list of items:
+          recentf-save-file (expand-file-name ".recentf"
+                                              smf/tmp-local-dir))
+
+    ;; strip =$HOME= from the front of =recentf= candidate files
+    (add-to-list 'recentf-filename-handlers 'abbreviate-file-name)
+
     (add-to-list 'recentf-exclude "[/\\]\\.elpa/")
     (add-to-list 'recentf-exclude "[/\\]\\.ido\\.last\\'" )
     (add-to-list 'recentf-exclude "[/\\]\\.git/")
@@ -1372,28 +1374,9 @@ TODO: refactor to use =recentf-keep=: [[http://www.emacswiki.org/emacs/RecentFil
     (add-to-list 'recentf-exclude "url/cookies")
     (add-to-list 'recentf-exclude ".*\\emacs.bmk\\'")
     (add-to-list 'recentf-exclude "README\\.el\\'")
-    (add-to-list 'recentf-exclude "/custom\\.el\\'"))
-#+END_SRC
+    (add-to-list 'recentf-exclude "/custom\\.el\\'")
 
-Save the most recent 100 items (this is manily to keep the list low for [[ido]]):
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'recentf
-    (setq recentf-max-saved-items 100))
-#+END_SRC
-
-Customise the place =recentf= persists its list of items:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'recentf
-    (setq recentf-save-file (expand-file-name ".recentf" smf/tmp-local-dir)))
-#+END_SRC
-
-Strip =$HOME= from the front of =recentf= candidate files:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'recentf
-    (add-to-list 'recentf-filename-handlers 'abbreviate-file-name))
+    (recentf-mode))
 #+END_SRC
 
 I want easy access to my recent files, so define a function that lets me use [[ido]]
@@ -1411,14 +1394,6 @@ to search over them. Bind this to =C-x C-r= (=C-c C-r= is used in modes like
             (find-file file))))
 
       (global-set-key (kbd "C-x C-r") 'smf/recentf-ido-find-file)))
-#+END_SRC
-
-Now enable =recentf=:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'recentf
-    (recentf-mode 1))
-  (require 'recentf)
 #+END_SRC
 
 *** ediff
