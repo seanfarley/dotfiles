@@ -1301,36 +1301,6 @@ with =subword-mode= enabled by default:
     (add-hook 'ruby-mode-hook #'subword-mode))
 #+END_SRC
 
-*** hippie
-
-[[http://www.emacswiki.org/emacs/HippieExpand][Hippie expand]] is a more feature complete completion engine than the default
-[[http://www.emacswiki.org/emacs/DynamicAbbreviations][dabbrev]] engine. The main feature I use over =dabbrev= is that it supports a wide
-range of backends for finding completions - =dabbrev= only looks at currently
-open buffers.
-
-First we customise the types of things it looks for:
-
-#+BEGIN_SRC emacs-lisp
-  (setq hippie-expand-try-functions-list
-        '(try-expand-dabbrev
-          try-expand-dabbrev-all-buffers
-          try-expand-dabbrev-from-kill
-          try-complete-file-name-partially
-          try-complete-file-name
-          try-expand-all-abbrevs
-          try-expand-list
-          try-expand-line
-          try-complete-lisp-symbol-partially
-          try-complete-lisp-symbol))
-#+END_SRC
-
-Then we override =dabbrev-expand='s keybinding to use =hippie-expand= instead
-(normally this is =M-/=):
-
-#+BEGIN_SRC emacs-lisp
-  (define-key (current-global-map) [remap dabbrev-expand] 'hippie-expand)
-#+END_SRC
-
 *** tramp mode
 
 =tramp-mode= is a package that provides [[https://www.gnu.org/software/emacs/manual/html_node/tramp/index.html#Top][remote file editing]], eg =find-file
