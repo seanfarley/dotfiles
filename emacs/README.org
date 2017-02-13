@@ -1163,10 +1163,11 @@ So, we'll start with some basic settings,
 #+END_SRC
 
 The org-protocol plugin is sweet awesomeness. It allows native apps to send
-capture notes to emacs,
+capture notes to Emacs,
 
 #+BEGIN_SRC emacs-lisp
-   (require 'org-protocol)
+  (use-package org-protocol
+    :after org)
 #+END_SRC
 
 Let's use pomodoro!
