@@ -1095,7 +1095,30 @@ some basic settings and personal tweaks,
           ;; set to the name of the file where new notes will be stored
           org-mobile-inbox-for-pull smf/org-input
 
-          org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+          org-mobile-directory "~/Dropbox/Apps/MobileOrg"
+
+          ;; now, set the agenda files,
+          org-agenda-files (list "~/Dropbox/org/organizer.org"
+                                 "~/Dropbox/org/bitbucket.org"
+                                 "~/Dropbox/org/phd.org"
+                                 "~/Dropbox/org/hg.org"
+                                 "~/Dropbox/org/personal.org")
+
+          ;; please don't close and mess up my windows,
+          org-agenda-window-setup 'current-window
+          org-agenda-restore-windows-after-quit 't
+
+          ;; add a nice, little template to use along with some shortcuts
+          org-capture-templates
+          `(("t" "Tasks" entry
+             (file+headline "~/Dropbox/org/organizer.org" "Inbox")
+             "* TODO %?\nCaptured %<%Y-%m-%d %H:%M>\n%a\n\n%i" "Basic task2 data")
+            ("i" "Interrupting task" entry
+             (file+headline "~/Dropbox/org/organizer.org" "Inbox")
+             "* STARTED %^{Task}"
+             :clock-in :clock-resume))
+
+          org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
 
     ;; shortcut to launch file for refiling
     (smf/add-launcher "o" (lambda ()
@@ -1143,48 +1166,6 @@ capture notes to emacs,
 
 #+BEGIN_SRC emacs-lisp
    (require 'org-protocol)
-#+END_SRC
-
-Now, set the agenda files,
-
-#+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files (list "~/Dropbox/org/organizer.org"
-                               "~/Dropbox/org/bitbucket.org"
-                               "~/Dropbox/org/phd.org"
-                               "~/Dropbox/org/hg.org"
-                               "~/Dropbox/org/personal.org"))
-#+END_SRC
-
-Please don't close and mess up my windows,
-
-#+BEGIN_SRC emacs-lisp
-  (setq org-agenda-window-setup 'current-window)
-  (setq org-agenda-restore-windows-after-quit 't)
-#+END_SRC
-Add a nice, little template to use along with some shortcuts,
-
-#+BEGIN_SRC emacs-lisp
-  (defvar smf/org-basic-task-template "* TODO %?
-      Captured %<%Y-%m-%d %H:%M>
-      %a
-
-      %i
-      " "Basic task data")
-
-  (setq org-capture-templates
-        `(("t" "Tasks" entry
-           (file+headline "~/Dropbox/org/organizer.org" "Inbox")
-           ,smf/org-basic-task-template)
-          ("i" "Interrupting task" entry
-           (file+headline "~/Dropbox/org/organizer.org" "Inbox")
-           "* STARTED %^{Task}"
-           :clock-in :clock-resume)
-
-          ))
-
-  (setq org-todo-keywords
-        '((sequence "TODO(t)" "|" "DONE(d)")))
-
 #+END_SRC
 
 Let's use pomodoro!
