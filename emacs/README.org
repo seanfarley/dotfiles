@@ -1294,8 +1294,11 @@ As of 24.4, Emacs comes with a much better [[http://www.masteringemacs.org/artic
 with =subword-mode= enabled by default:
 
 #+BEGIN_SRC emacs-lisp
-  (after-load 'ruby-mode
-    (add-hook 'ruby-mode-hook (lambda () (subword-mode 1))))
+  (use-package ruby-mode
+    :mode "\\.rb\\'"
+    :interpreter "ruby"
+    :config
+    (add-hook 'ruby-mode-hook #'subword-mode))
 #+END_SRC
 
 *** hippie
