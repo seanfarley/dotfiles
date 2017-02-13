@@ -2853,8 +2853,12 @@ Cycle between apostrophes and quotes in python strings. Converts strings like
 'this' to strings like "this".
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'python-switch-quotes)
-  (define-key python-mode-map (kbd "C-c '") 'python-switch-quotes)
+  (use-package python-switch-quotes
+    :after python
+    :ensure t
+    :defer t
+    :bind (:map python-mode-map
+                ("C-c '" . python-switch-quotes)))
 #+END_SRC
 
 *** sphinx-doc-mode
