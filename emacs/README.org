@@ -1317,11 +1317,6 @@ reasons for this choice:
 - =ssh= takes a port number as an argument, whereas =scp= doesn't
 - It's [[http://www.gnu.org/software/tramp/#Default-Method][apparently faster]] for smaller files
 
-#+BEGIN_SRC emacs-lisp
-  (after-load 'tramp
-    (setq tramp-default-method "ssh"))
-#+END_SRC
-
 We also want to alter the list of allowed proxies (tramp uses a whitelist for
 patterns that it can remotely access) so I can edit remote files as sudo, eg
 =find-file /sudo:example.com/etc/something-owned-by-root=.
@@ -1329,18 +1324,21 @@ patterns that it can remotely access) so I can edit remote files as sudo, eg
 I got this code from the [[http://www.gnu.org/software/tramp/#Multi_002dhops][Multi-hops section of the tramp manual]].
 
 #+BEGIN_SRC emacs-lisp
-  (after-load 'tramp
+  (use-package tramp
+    :defer t
+    :config
     (add-to-list 'tramp-default-proxies-alist
-                 '(nil "\\`root\\'" "/ssh:%h:")))
-#+END_SRC
+                 '(nil "\\`root\\'" "/ssh:%h:"))
 
-Also make sure we can edit local files as sudo - this is normally disallowed for
-security reasons:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'tramp
+    ;; also make sure we can edit local files as sudo - this is normally
+    ;; disallowed for security reasons
     (add-to-list 'tramp-default-proxies-alist
-                 '((regexp-quote (system-name)) nil nil)))
+                 '((regexp-quote (system-name)) nil nil))
+
+    (setq tramp-default-method "ssh"
+          tramp-ssh-controlmaster-options (concat "-o ControlPath=/tmp/tramp.%%r@%%h:%%p "
+                                                  "-o ControlMaster=auto "
+                                                  "-o ControlPersist=no")))
 #+END_SRC
 
 More on the last two incantations at [[http://emacs-fu.blogspot.co.uk/2009/10/editing-files-owned-by-root.html][emacs-fu's guide to editing files owned by root]].
