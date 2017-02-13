@@ -1184,8 +1184,13 @@ Let's use pomodoro!
 While we're at it, let's add notmuch and twitter bootstrap integration,
 
 #+BEGIN_SRC emacs-lisp
-  (require 'org-notmuch)
-  (require-package 'ox-twbs)
+  (use-package org-notmuch
+    :after notmuch
+    :defer t)
+  (use-package ox-twbs
+    :after org
+    :defer
+    :ensure t)
 #+END_SRC
 
 *** ido
