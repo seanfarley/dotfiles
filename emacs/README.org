@@ -1170,6 +1170,8 @@ capture notes to Emacs,
     :after org)
 #+END_SRC
 
+**** misc org
+
 Let's use pomodoro!
 
 #+BEGIN_SRC emacs-lisp
