@@ -785,19 +785,16 @@ On the mac, the default mouse bindings are problematic since a two-finger click
 is =mouse-3= and not =mouse-2=:
 
 #+BEGIN_SRC emacs-lisp
-  (use-package flyspell :after diminish
+  (use-package flyspell
     :ensure t
     :defer t
+    :diminish flyspell-mode
     :init
-    (progn
-      (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-      (add-hook 'text-mode-hook 'flyspell-mode)
-      )
+    (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+    (add-hook 'text-mode-hook 'flyspell-mode)
     :config
     ;; Sets flyspell correction to use two-finger mouse click
-    (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word)
-    (diminish 'flyspell-mode)
-    )
+    (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word))
 #+END_SRC
 
 *** dired fixes
