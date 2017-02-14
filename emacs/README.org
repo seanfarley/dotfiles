@@ -2645,10 +2645,11 @@ Cycle between apostrophes and quotes in python strings. Converts strings like
 functions and methods.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'sphinx-doc)
-  (add-hook 'python-mode-hook 'sphinx-doc-mode)
-  (after-load 'sphinx-doc
-    (diminish 'sphinx-doc-mode))
+  (use-package sphinx-doc
+    :ensure t
+    :diminish sphinx-doc-mode
+    :config
+    (add-hook 'python-mode-hook 'sphinx-doc-mode))
 #+END_SRC
 
 *** pip
