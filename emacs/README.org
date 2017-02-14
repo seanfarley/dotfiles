@@ -3012,7 +3012,8 @@ at point.
 A mode for Mercurial test files
 
 #+BEGIN_SRC emacs-lisp
-  (load "~/.emacs.d/hg-test-mode")
+  (use-package hg-test-mode
+    :load-path "lisp")
 #+END_SRC
 
 *** git-commit
