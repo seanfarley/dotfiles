@@ -3144,10 +3144,13 @@ need to load Magit first.
 *** emacs-git-messenger
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'git-messenger)
-  (setq git-messenger:show-detail 't)
-  (after-load 'git-messenger
-      (smf/add-launcher "v" 'git-messenger:popup-message))
+  (use-package git-messenger
+    :ensure t
+    :commands git-messenger:popup-message
+    :init
+    (smf/add-launcher "v" 'git-messenger:popup-message)
+    :config
+    (setq git-messenger:show-detail 't))
 #+END_SRC
 
 *** slime-nav
