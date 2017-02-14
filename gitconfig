@@ -68,3 +68,5 @@
 	autosquash = true
 [help]
 	autocorrect = 1
+[commit]
+	verbose = true
