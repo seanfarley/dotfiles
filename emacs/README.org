@@ -2686,13 +2686,13 @@ include: C, C++, C#, Perl, Python, Ruby, SQL, LaTeX, HTML, CSS and more. The
 snippet syntax is inspired from [[http://manual.macromates.com/en/snippets][TextMate's]] syntax.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'yasnippet)
-#+END_SRC
+  (use-package yasnippet
+    :ensure t
+    :diminish yas-minor-mode
+    :config
+    (setq yas/root-directory (smf/join-dirs smf/dotfiles-dir "snippets"))
+    (yas-global-mode))
 
-#+BEGIN_SRC emacs-lisp
-  (setq yas/root-directory (smf/join-dirs smf/dotfiles-dir "snippets"))
-  (yas-global-mode 1)
-  (diminish 'yas-minor-mode)
 #+END_SRC
 
 *** smart-tabs-mode
