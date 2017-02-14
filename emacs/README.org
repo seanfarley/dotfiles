@@ -2704,13 +2704,11 @@ the code merely ensures that if you enable tabs (maybe when maintaining legacy
 code), the tab size does not matter.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'smart-tabs-mode)
-#+END_SRC
-
-Enable smart-tabs-mode automatically for C and Javascript,
-
-#+BEGIN_SRC emacs-lisp
-  (smart-tabs-insinuate 'c 'javascript)
+  (use-package smart-tabs-mode
+    :ensure t
+    ;; enable smart-tabs-mode automatically for C and Javascript
+    :config
+    (smart-tabs-insinuate 'c 'javascript))
 #+END_SRC
 
 *** guide-key
