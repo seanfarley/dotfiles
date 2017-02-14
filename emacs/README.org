@@ -3016,15 +3016,6 @@ A mode for Mercurial test files
     :load-path "lisp")
 #+END_SRC
 
-*** git-commit
-
-This package assists the user in writing good Git commit messages.
-
-#+BEGIN_SRC emacs-lisp
-(require-package 'git-commit)
-(require 'git-commit)
-#+END_SRC
-
 *** gitconfig-mode
 
 A major mode for editing .gitconfig files.
