@@ -2671,9 +2671,11 @@ ideally zero -- configuration with absolutely no stored indexes (TAGS) or
 persistent background processes. Dumb Jump requires at least GNU Emacs 24.4.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'dumb-jump)
-  (dumb-jump-mode)
-  (setq dumb-jump-selector 'ivy)
+  (use-package dumb-jump
+    :ensure t
+    :config
+    (setq dumb-jump-selector 'ivy)
+    (dumb-jump-mode))
 #+END_SRC
 
 *** yasnippet
