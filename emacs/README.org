@@ -2824,7 +2824,9 @@ Improved JavaScript editing mode for GNU Emacs.
 [[https://github.com/skeeto/skewer-mode][Skewer]]: live web development with Emacs.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'skewer-mode)
+  (use-package skewer-mode
+    :ensure t
+    :defer t)
 #+END_SRC
 
 *** impatient-mode
