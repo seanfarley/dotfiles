@@ -2745,7 +2745,8 @@ another window, editing it separately from its original context ([[http://demona
 description of this workflow]]).
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'narrow-indirect)
+  (use-package narrow-indirect
+    :ensure t)
 #+END_SRC
 
 *** dtrt-indent
