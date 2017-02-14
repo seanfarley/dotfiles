@@ -2783,9 +2783,19 @@ between different text editors and between different projects.
 Improved JavaScript editing mode for GNU Emacs.
 
 #+BEGIN_SRC emacs-lisp
-  (setq js2-basic-offset 2)
-  (setq js-indent-level 2)
-  (require-package 'js2-mode)
+  (use-package js2-mode
+    :ensure t
+    :defer t
+    :mode "\\.js\\'"
+    :config
+    (setq js2-basic-offset 2)
+    (when (fboundp 'flycheck-mode)
+      (set-face-attribute 'js2-error nil
+                          :inherit 'flycheck-error-list-error
+                          :underline '(:color foreground-color :style wave))
+      (set-face-attribute 'js2-warning nil
+                          :inherit 'flycheck-error-list-warning
+                          :underline '(:color foreground-color :style wave))))
 #+END_SRC
 
 *** skewer-mode
