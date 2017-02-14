@@ -2658,9 +2658,9 @@ This adds some basic features for requirements files, such as highlighting and
 auto-completion of names from PyPI.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'pip-requirements)
-  (add-to-list 'auto-mode-alist '("requirements.*\\.txt" .
-                                  pip-requirements-mode))
+  (use-package pip-requirements
+    :ensure t
+    :mode (("requirements.*\\.txt" . pip-requirements-mode)))
 #+END_SRC
 
 *** Dumb Jump
