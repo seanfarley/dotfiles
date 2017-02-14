@@ -3060,74 +3060,37 @@ intuitive.
 need to load Magit first.
 
 #+BEGIN_SRC emacs-lisp
-  (smf/add-launcher "g" 'magit-status)
-#+END_SRC
+  (use-package magit
+    :init
+    (smf/add-launcher "g" 'magit-status)
+    :config
+    (add-hook 'git-commit-mode-hook 'magit-commit-mode-init)
 
-=magit-grep= isn't =autoloaded=, so I need to explicitly load it before binding
-it:
+    ;; magit settings
+    (setq
+     ;; use ido to look for branches
+     magit-completing-read-function 'magit-ido-completing-read
 
-#+BEGIN_SRC emacs-lisp
-  (autoload 'magit-grep "magit" "Grep for files" t)
-  (global-set-key (kbd "C-c f") 'magit-grep)
-#+END_SRC
+     ;; open the =magit-status= buffer in the same window as the current buffer
+     magit-status-buffer-switch-function 'switch-to-buffer
 
-**** Configuration
+     ;; highlight individual word and letter changes when showing hunk diff overlays
+     magit-diff-refine-hunk t
 
-When performing a [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Minibuffer-Completion.html][completing-read]] within Magit, I'd like to use IDO:
+     ;; don't tell me when Magit reverts buffers
+     magit-revert-buffers 'silent
 
-#+BEGIN_SRC emacs-lisp
-  (setq magit-completing-read-function 'magit-ido-completing-read)
-#+END_SRC
+     ;; pop the process buffer if we're taking a while to complete
+     magit-process-popup-time 10
 
-Open the =magit-status= buffer in the same window as the current buffer:
+     ;; ugh, stupid git
+     git-commit-summary-max-length 72
 
-#+BEGIN_SRC emacs-lisp
-  (setq magit-status-buffer-switch-function 'switch-to-buffer)
-#+END_SRC
+     ;; ask me if I want a tracking upstream
+     magit-set-upstream-on-push 'askifnotset
 
-Highlight individual word and letter changes when showing hunk diff overlays:
-
-#+BEGIN_SRC emacs-lisp
-  (setq magit-diff-refine-hunk t)
-#+END_SRC
-
-Don't tell me when Magit reverts buffers:
-
-#+BEGIN_SRC emacs-lisp
-  (setq magit-revert-buffers 'silent)
-#+END_SRC
-
-When Magit takes a while to call out to Git, pop the process buffer after 10
-seconds so I can look for issues:
-
-#+BEGIN_SRC emacs-lisp
-  (setq magit-process-popup-time 10)
-#+END_SRC
-
-Always show the =verbose= diff in commit windows:
-
-#+BEGIN_SRC emacs-lisp
-  (setq magit-commit-arguments '("--verbose"))
-#+END_SRC
-
-Always set the upstream when pushing:
-
-#+BEGIN_SRC emacs-lisp
-  (setq magit-push-arguments '("--set-upstream"))
-#+END_SRC
-
-Ugh, stupid git
-
-#+BEGIN_SRC emacs-lisp
-  (setq git-commit-summary-max-length 72)
-#+END_SRC
-
-**** Load Magit
-
-Finally we can install Magit:
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'magit)
+     ;; always show the diff in commit window
+     magit-commit-arguments '("--verbose")))
 #+END_SRC
 
 *** hugme
