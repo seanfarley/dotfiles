@@ -2991,9 +2991,12 @@ GNU Emacs package for showing an inline arguments hint for the C/C++ function
 at point.
 
 #+BEGIN_SRC emacs-lisp
-(require-package 'function-args)
-(fa-config-default)
-#+END_SRC emacs-lisp
+  (use-package function-args
+    :ensure t
+    :defer t
+    :config
+    (fa-config-default))
+#+END_SRC
 
 *** xcode-mode
 
