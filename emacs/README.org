@@ -3041,10 +3041,12 @@ A major mode for editing .gitignore files.
 Emacs port of GitGutter which is Sublime Text Plugin.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'git-gutter)
-  (setq git-gutter:handled-backends '(git hg))
-  (global-git-gutter-mode +1)
-  (diminish 'git-gutter-mode)
+  (use-package git-gutter
+    :ensure t
+    :diminish git-gutter-mode
+    :config
+    (setq git-gutter:handled-backends '(git hg))
+    (global-git-gutter-mode))
 #+END_SRC
 
 *** magit
