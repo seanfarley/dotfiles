@@ -3021,7 +3021,9 @@ A mode for Mercurial test files
 A major mode for editing .gitconfig files.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'gitconfig-mode)
+  (use-package gitconfig-mode
+    :ensure t
+    :defer t)
 #+END_SRC
 
 *** git-gutter
