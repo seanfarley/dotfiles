@@ -2888,7 +2888,15 @@ Why.
 Dear god.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'company-lua)
+  (use-package lua-mode
+    :ensure t
+    :defer t
+    :mode "\\.lua\\'")
+
+  (use-package company-lua
+    :after lua
+    :ensure t
+    :defer t)
 #+END_SRC
 
 *** anzu
