@@ -2757,10 +2757,12 @@ corresponding settings in Emacs, making it more convenient to edit foreign
 files.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'dtrt-indent)
-  (require 'dtrt-indent)
-  (dtrt-indent-mode)
-  (delq 'dtrt-indent-mode-line-info global-mode-string)
+  (use-package dtrt-indent
+    :ensure t
+    :defer t
+    :diminish dtrt-indent-mode
+    :config
+    (dtrt-indent-mode))
 #+END_SRC
 
 *** editorconfig
