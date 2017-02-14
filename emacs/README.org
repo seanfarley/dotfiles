@@ -2771,7 +2771,11 @@ files.
 between different text editors and between different projects.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'editorconfig)
+  (use-package editorconfig
+    :ensure t
+    :diminish editorconfig-mode
+    :config
+    (editorconfig-mode))
 #+END_SRC
 
 *** js2-mode
