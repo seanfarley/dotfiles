@@ -3001,10 +3001,10 @@ at point.
 *** aHg
 
 #+BEGIN_SRC emacs-lisp
-  (if (file-accessible-directory-p "~/projects/ahg")
-      (smf/add-to-load-path "~/projects/ahg")
-    (require-package 'ahg))
-  (require 'ahg)
+  (use-package ahg
+    :commands ahg-status
+    ;; :ensure t)
+    :load-path "~/projects/ahg")
 #+END_SRC
 
 *** hg-test-mode
