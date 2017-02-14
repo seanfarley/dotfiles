@@ -3173,8 +3173,14 @@ to the definitions of variables, functions, libraries and faces.
 *** Multiple Cursors
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'multiple-cursors)
-  (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
+  (use-package multiple-cursors
+    :ensure t
+    :bind ("H-n" . mc/mark-next-like-this)
+          ;; ("s-n" . mc/skip-to-next-like-this)
+          ("H-p" . mc/mark-previous-like-this)
+          ;; ("s-p" . mc/skip-to-previous-like-this)
+          ("H-l" . mc/mark-all-symbols-like-this)
+          ("C-S-<mouse-1>" . mc/add-cursor-on-click))
 #+END_SRC
 
 *** Docker
