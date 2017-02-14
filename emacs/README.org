@@ -3186,9 +3186,14 @@ to the definitions of variables, functions, libraries and faces.
 *** Docker
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'docker)
-  (require-package 'dockerfile-mode)
-  (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+  (use-package docker
+    :ensure t
+    :defer t)
+
+  (use-package dockerfile-mode
+    :after docker
+    :ensure t
+    :mode "Dockerfile\\'")
 #+END_SRC
 
 *** Twitter
