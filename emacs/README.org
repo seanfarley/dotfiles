@@ -2730,19 +2730,11 @@ delay. We'll also enable it for my [[Launcher keymap]] prefix.
 [[https://github.com/browse-kill-ring/browse-kill-ring][browse-kill-ring]] allows one to browse the kill ring history when yanking.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'browse-kill-ring)
-#+END_SRC
-
-remap =yank-pop=:
-
-#+BEGIN_SRC emacs-lisp
-  (define-key (current-global-map) [remap yank-pop] 'browse-kill-ring)
-#+END_SRC
-
-make =browse-kill-ring= act like =yank-pop= by overwriting the previous yank:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'browse-kill-ring
+  (use-package browse-kill-ring
+    :ensure t
+    :bind (([remap yank-pop] . browse-kill-ring))
+    :config
+    ;; make browse-kill-ring act like yank-pop by overwriting the previous yank
     (setq browse-kill-ring-replace-yank t))
 #+END_SRC
 
