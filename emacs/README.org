@@ -2998,17 +2998,6 @@ at point.
     (fa-config-default))
 #+END_SRC
 
-*** xcode-mode
-
-#+BEGIN_SRC emacs-lisp
-  (if (file-accessible-directory-p "~/sandbox/xcode-mode")
-      (progn
-        (smf/add-to-load-path "~/sandbox/xcode-mode")
-        (require-package 'ecukes)
-        (require-package 'espuds)
-        (require 'xcode-mode)))
-#+END_SRC
-
 *** aHg
 
 #+BEGIN_SRC emacs-lisp
