@@ -2905,29 +2905,16 @@ Dear god.
 providing counts and better replacement visualisation.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'anzu)
-  (require 'anzu)
-#+END_SRC
-
-Enable [[anzu]] globally,
-
-#+BEGIN_SRC emacs-lisp
-  (global-anzu-mode +1)
-#+END_SRC
-
-Use [[anzu]]'s better =query-replace= and =query-replace-regexp=:
-
-#+BEGIN_SRC emacs-lisp
-    (define-key (current-global-map) [remap query-replace] 'anzu-query-replace)
-    (define-key (current-global-map) [remap query-replace-regexp]
-      'anzu-query-replace-regexp)
-#+END_SRC
-
-Hide [[anzu]]'s mode,
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'diminish
-    (diminish 'anzu-mode))
+  (use-package anzu
+    :ensure t
+    :demand
+    :diminish anzu-mode
+    :bind (([remap query-replace] . anzu-query-replace)
+           ([remap query-replace-regexp] . anzu-query-replace-regexp))
+    :config
+    (when (fboundp 'spaceline-install)
+      (setq anzu-cons-mode-line-p nil))
+    (global-anzu-mode))
 #+END_SRC
 
 *** move-text
