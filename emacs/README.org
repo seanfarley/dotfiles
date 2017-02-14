@@ -2829,14 +2829,6 @@ Improved JavaScript editing mode for GNU Emacs.
     :defer t)
 #+END_SRC
 
-*** impatient-mode
-
-See the effect of your HTML as you type it.
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'impatient-mode)
-#+END_SRC
-
 *** json-mode
 
 Sure, why not.
