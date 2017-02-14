@@ -96,6 +96,26 @@ I guess it's time to use this now.
   (require-package 'use-package)
 #+END_SRC
 
+*** diminish
+
+[[http://www.emacswiki.org/emacs/DiminishedModes][diminish]] removes or abbreviates the minor mode indicators that can clutter up
+one's modeline. Since =use-package= utilizes this, we put this right after
+installing =use-package=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package diminish
+    :ensure t
+    :demand t
+    :diminish subword-mode
+    :diminish eldoc-mode
+    :diminish auto-revert-mode
+    :diminish hs-minor-mode
+    :diminish abbrev-mode
+    :diminish overwrite-mode
+    :diminish global-whitespace-mode
+    :diminish auto-fill-function)
+#+END_SRC
+
 *** Base load path
 
 Define a base directory =smf/dotfiles-dir= that's relative to the currently
@@ -1540,36 +1560,6 @@ I want to also add:
 - [[https://github.com/milkypostman/melpa#melpa][MELPA]] (tracks GitHub repositories, is much more comprehensive)
 
 [[file:init.el::(setq%20package-archives][see init.el for code]].
-
-*** diminish
-
-[[http://www.emacswiki.org/emacs/DiminishedModes][diminish]] removes or abbreviates the minor mode indicators that can clutter up
-one's modeline.
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'diminish)
-#+END_SRC
-
-Diminish =subword-mode=, =eldoc-mode=, and =auto-revert-mode=:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'diminish
-    (after-load 'subword
-      (diminish 'subword-mode))
-    (after-load 'eldoc
-      (diminish 'eldoc-mode))
-    (after-load 'autorevert
-      (diminish 'auto-revert-mode)))
-#+END_SRC
-
-Also, diminish some built-in modes:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'diminish
-    (diminish 'overwrite-mode)
-    (diminish 'global-whitespace-mode)
-    (diminish 'auto-fill-function))
-#+END_SRC
 
 *** paradox
 
