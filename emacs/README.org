@@ -2798,6 +2798,27 @@ Improved JavaScript editing mode for GNU Emacs.
                           :underline '(:color foreground-color :style wave))))
 #+END_SRC
 
+*** tern
+
+=tern= is a js navigation package which extends js-mode.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package tern
+    :ensure t
+    :defer t
+    :diminish tern-mode
+    :config
+    (add-hook 'js-mode-hook (lambda () (tern-mode t))))
+
+  (use-package company-tern
+    :after (tern company-mode)
+    :ensure t
+    :defer t
+    :config
+    (add-to-list 'company-backends 'company-tern)
+    (setq company-tern-property-marker ""))
+#+END_SRC
+
 *** skewer-mode
 
 [[https://github.com/skeeto/skewer-mode][Skewer]]: live web development with Emacs.
