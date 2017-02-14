@@ -3026,6 +3026,16 @@ A major mode for editing .gitconfig files.
     :defer t)
 #+END_SRC
 
+*** gitignore-mode
+
+A major mode for editing .gitignore files.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package gitignore-mode
+    :ensure t
+    :defer t)
+#+END_SRC
+
 *** git-gutter
 
 Emacs port of GitGutter which is Sublime Text Plugin.
