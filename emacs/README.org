@@ -2714,24 +2714,15 @@ code), the tab size does not matter.
 *** guide-key
 
 [[https://github.com/kai2nenobu/guide-key][guide-key]] shows a popup help window after a pressing defined keys for a short
-delay.
+delay. We'll also enable it for my [[Launcher keymap]] prefix.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'guide-key)
-#+END_SRC
-
-Enable it for my [[Launcher keymap]] prefix:
-
-#+BEGIN_SRC emacs-lisp
-  (setq guide-key/guide-key-sequence '("C-x C-l" "C-c p" "C-x 4"))
-  (guide-key-mode 1)
-#+END_SRC
-
-[[diminish]] =guide-key-mode=:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'diminish
-    (diminish 'guide-key-mode))
+  (use-package guide-key
+    :ensure t
+    :diminish guide-key-mode
+    :config
+    (setq guide-key/guide-key-sequence '("C-x C-l" "C-c p" "C-x 4"))
+    (guide-key-mode))
 #+END_SRC
 
 *** browse-kill-ring
