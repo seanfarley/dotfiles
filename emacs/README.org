@@ -2877,7 +2877,10 @@ Blergh.
 Why.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'groovy-mode)
+  (use-package groovy-mode
+    :ensure t
+    :defer t
+    :mode "\\.groovy\\'\\|\\.gradle\\'")
 #+END_SRC
 
 *** lua-mode
