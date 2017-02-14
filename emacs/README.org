@@ -2834,8 +2834,12 @@ Improved JavaScript editing mode for GNU Emacs.
 Sure, why not.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'json-mode)
-  (setq json-reformat:indent-width 2)
+  (use-package json-mode
+    :ensure t
+    :defer t
+    :mode "\\.json\\'"
+    :config
+    (setq json-reformat:indent-width 2))
 #+END_SRC
 
 *** go-mode
