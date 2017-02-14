@@ -3201,10 +3201,15 @@ to the definitions of variables, functions, libraries and faces.
 =Twittering-mode=: a Twitter client for Emacs
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'twittering-mode)
-  (setq twittering-icon-mode t)
-  (setq twittering-use-icon-storage t)
-  (smf/add-launcher "t" 'twit)
+  (use-package twittering-mode
+    :ensure t
+    :defer t
+    :commands twit
+    :init
+    (smf/add-launcher "t" 'twit)
+    :config
+    (setq twittering-icon-mode t)
+    (setq twittering-use-icon-storage t))
 #+END_SRC
 
 ** LaTeX
