@@ -3103,84 +3103,42 @@ An experimental fork of magit for Mercurial. Most of the things here won't work.
 need to load Magit first.
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c h") 'hugme-status)
-#+END_SRC
+  (use-package hugme
+    :after magit
+    :load-path "~/projects/hugme/lisp"
+    :init
+    (smf/add-launcher "h" 'hugme-status)
+    :config
+    ;; hugme settings
+    (setq
+     ;; use ido for completion
+     hugme-completing-read-function 'hugme-ido-completing-read
 
-=hugme-grep= isn't =autoloaded=, so I need to explicitly load it before binding
-it:
+     ;; open hugme status in same window as current buffer
+     hugme-status-buffer-switch-function 'switch-to-buffer
 
-#+BEGIN_SRC emacs-lisp
-  (autoload 'hugme-grep "hugme" "Grep for files" t)
-#+END_SRC
+     ;; highlight word/letter changes in hunk diffs
+     hugme-diff-refine-hunk t
 
-**** Configuration
+     ;; don't tell me when Magit reverts buffers
+     hugme-revert-buffers 'silent
 
-When performing a [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Minibuffer-Completion.html][completing-read]] within Hugme, I'd like to use IDO:
+     ;; pop the process buffer if we're taking a while to complete
+     hugme-process-popup-time 10
 
-#+BEGIN_SRC emacs-lisp
-  (setq hugme-completing-read-function 'hugme-ido-completing-read)
-#+END_SRC
+     ;; don't prompt me to confirm a canceled histedit
+     hg-histedit-confirm-cancel nil
 
-Open the =hugme-status= buffer in the same window as the current buffer:
+     ;; shelling out to hg is expensive, so until we use something like the command
+     ;; server, set a high-timeout for diffs
+     hugme-diff-expansion-threshold 10.0
 
-#+BEGIN_SRC emacs-lisp
-  (setq hugme-status-buffer-switch-function 'switch-to-buffer)
-#+END_SRC
+     ;; definitely need to enable debugging while writing this package
+     hugme-hg-debug t
 
-Highlight individual word and letter changes when showing hunk diff overlays:
-
-#+BEGIN_SRC emacs-lisp
-  (setq hugme-diff-refine-hunk t)
-#+END_SRC
-
-Don't tell me when Hugme reverts buffers:
-
-#+BEGIN_SRC emacs-lisp
-  (setq hugme-revert-buffers 'silent)
-#+END_SRC
-
-When Hugme takes a while to call out to Git, pop the process buffer after 10
-seconds so I can look for issues:
-
-#+BEGIN_SRC emacs-lisp
-  (setq hugme-process-popup-time 10)
-#+END_SRC
-
-Don't prompt me to confirm a canceled histedit,
-
-#+BEGIN_SRC emacs-lisp
-  (setq hg-histedit-confirm-cancel nil)
-#+END_SRC
-
-Shelling out to hg is expensive, so until we use something like the command
-server, set a high-timeout for diffs:
-
-#+BEGIN_SRC emacs-lisp
-  (setq hugme-diff-expansion-threshold 10.0)
-#+END_SRC
-
-Definitely need to enable debugging while writing this package,
-
-#+BEGIN_SRC emacs-lisp
-  (setq hugme-hg-debug t)
-#+END_SRC
-
-Experimentally try to use chg, though it doesn't seem to improve the speed of
-shelling out,
-
-#+BEGIN_SRC emacs-lisp
-  (setq hugme-hg-executable "chg")
-#+END_SRC
-
-**** Load Magit
-
-Finally we can load Hugme:
-
-#+BEGIN_SRC emacs-lisp
-  (if (file-accessible-directory-p "~/projects/hugme/lisp")
-      (progn
-        (smf/add-to-load-path "~/projects/hugme/lisp")
-        (require 'hugme)))
+     ;; experimentally try to use chg, though it doesn't seem to improve the
+     ;; speed of shelling out
+     hugme-hg-executable "chg"))
 #+END_SRC
 
 *** emacs-git-messenger
