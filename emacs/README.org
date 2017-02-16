@@ -3387,8 +3387,13 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
 *** pdf-tools
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'pdf-tools)
-  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+  (use-package pdf-tools
+      :ensure t
+      :config
+      (pdf-tools-install)
+      (setq-default pdf-view-display-size 'fit-page)
+      (add-hook 'TeX-after-compilation-finished-functions
+                #'TeX-revert-document-buffer))
 #+END_SRC
 
 ** Loading Themes
