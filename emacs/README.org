@@ -3237,20 +3237,11 @@ and the resulting pdf file.
           LaTeX-item-indent 0
           TeX-clean-confirm nil ; don't ask me to clean
           TeX-PDF-mode t        ; who uses dvi?
+          outline-minor-mode-prefix (kbd "C-c o")
           TeX-source-correlate-method 'synctex
-          outline-minor-mode-prefix (kbd "\C-co"))
-
-    ;; sensible defaults for OS X, other OSes should be covered out-of-the-box
-    (when (eq system-type 'darwin)
-      (setq TeX-view-program-selection
-            '((output-dvi "DVI Viewer")
-              (output-pdf "PDF Viewer")
-              (output-html "HTML Viewer")))
-
-      (setq TeX-view-program-list
-            '(("DVI Viewer" "$HOME/.edit.sh -n %o")
-              ("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b %n %o %b")
-              ("HTML Viewer" "open %o"))))
+          TeX-source-correlate-start-server t
+          TeX-view-program-selection '((output-pdf "PDF Tools"))
+          TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view)))
 
     ;; taken from http://www.emacswiki.org/AUCTeX for automatic detection of the
     ;; master file
