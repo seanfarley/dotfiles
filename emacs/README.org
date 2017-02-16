@@ -3675,37 +3675,6 @@ method so that takes care of most potential name conflicts.
   (smf/add-launcher "c" 'smf/erc-chat)
 #+END_SRC
 
-*** highlight possessive form
-
-Currently, this is a hack to test highlighting a nick with "'s" at the end.
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'erc-hl-nicks
-    (defun erc-hl-nicks ()
-      "Retrieves a list of usernames from the server and highlights them"
-      (save-excursion
-        (with-syntax-table erc-button-syntax-table
-          (let ((inhibit-field-text-motion t))
-            (goto-char (point-min))
-            (while (forward-word 1)
-              (let ((word (word-at-point)))
-                (when word
-                  (let* ((bounds (bounds-of-thing-at-point 'word))
-                         (endpt (cdr bounds))
-                         (word (if (string-match-p "'s$" word)
-                                   (progn
-                                     (setq endpt (- endpt 2))
-                                     (replace-regexp-in-string "\\('s\\)$" "" word))
-                                 word))
-                         (trimmed (erc-hl-nicks-trim-irc-nick word))
-                         (inhibit-read-only t))
-                    (when (erc-hl-nicks-highlight-p word trimmed bounds)
-                      (erc-button-add-face (car bounds) endpt
-                                           'erc-nick-default-face)
-                      (erc-button-add-face (car bounds) endpt
-                                           (erc-hl-nicks-make-face trimmed))))))))))))
-#+END_SRC
-
 *** Mark buffer as read
 
 Whenever we're done reading a conversation, just hit =Esc=. The buffer will be
