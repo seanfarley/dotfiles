@@ -3372,11 +3372,16 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
 *** company-math
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'company-auctex)
-  (require-package 'company-math)
-
-  (company-auctex-init)
-  (add-to-list 'company-backends 'company-math-symbols-unicode)
+  (use-package company-auctex
+    :ensure t
+    :after auctex
+    :config
+    (company-auctex-init))
+  (use-package company-math
+    :ensure t
+    :after auctex
+    :config
+    (add-to-list 'company-backends 'company-math-symbols-unicode))
 #+END_SRC
 
 *** pdf-tools
