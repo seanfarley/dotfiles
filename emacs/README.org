@@ -1527,20 +1527,6 @@ exclude Emacs metafiles, package cruft etc.
     (add-hook 'ediff-after-quit-hooks 'hg-mergetool-emacsclient-ediff-after-quit-hook 'append))
 #+END_SRC
 
-*** Persistent =*scratch*= buffer
-
-Emacs has a handy, but sometimes decried, feature called the "scratch" buffer.
-One problem with =*scratch*= is that its tempting to put significant bits of
-code (and other information) into it.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package persistent-scratch
-    :ensure t
-    :config
-    (persistent-scratch-setup-default)
-    (persistent-scratch-autosave-mode))
-#+END_SRC
-
 *** Known config files
 
 I have a few files in my dotfiles repo that are known to be shell files, so
@@ -2981,6 +2967,24 @@ providing counts and better replacement visualisation.
     (when (fboundp 'spaceline-install)
       (setq anzu-cons-mode-line-p nil))
     (global-anzu-mode))
+#+END_SRC
+
+*** Persistent =*scratch*= buffer
+
+Emacs has a handy, but sometimes decried, feature called the "scratch" buffer.
+One problem with =*scratch*= is that its tempting to put significant bits of
+code (and other information) into it.
+
+For some reason, this needs to be loaded after anzu else the =*scratch*= buffer
+will have whitespace symbols.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package persistent-scratch
+    :after anzu
+    :ensure t
+    :config
+    (persistent-scratch-setup-default)
+    (persistent-scratch-autosave-mode))
 #+END_SRC
 
 *** move-text
