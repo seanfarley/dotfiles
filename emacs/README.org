@@ -3461,135 +3461,138 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
 
 *** Setup
 
-[[http://en.wikipedia.org/wiki/Internet_Relay_Chat][IRC]] is still popular, so we'll use Emacs IRC.
+[[http://en.wikipedia.org/wiki/Internet_Relay_Chat][IRC]] will [[https://xkcd.com/1782/][always be popular]], so we'll use Emacs IRC.
 
 #+BEGIN_SRC emacs-lisp
-  (require 'tls)
-  (require 'erc)
-  (require 'erc-join)
-  (require 'erc-menu)
-  (require-package 'erc-hl-nicks)
-  (require-package 'erc-tweet)
-  (require-package 'znc)
-  (require-package 'cloud-to-butt-erc)
-  (require-package 'erc-hipchatify)
+  (use-package tls)
+  (use-package erc-join)
+  (use-package erc-menu)
+  (use-package erc
+    :after company
+    :commands erc
+    :init
+    (setq
+     erc-prompt ">"
+     erc-email-userid "sean.michael.farley@gmail.com"
+     erc-autojoin-channels-alist '((".*smf.io.*" "&bitlbee" "#bitbucket"))
+     erc-prompt-for-password nil
+     erc-prompt-for-nickserv-password nil
+     erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
+                               "324" "329" "332" "333" "353" "477")
+     erc-hide-list '("JOIN" "PART" "QUIT")
+     erc-quit-reason 'erc-quit-reason-normal
+     erc-track-exclude-server-buffer t
+
+     ;; this changed in emacs 25 ... I still prefer monospaced fonts
+     shr-use-fonts nil
+
+     ;; when having a flaky connection erc attempts to reconnect ad infinitum,
+     ;; so let's turn that off
+
+     erc-server-auto-reconnect nil
+
+     ;; when people send me a message (called 'query' in IRC speak), I want the
+     ;; buffer to pop up and notify me,
+     erc-auto-query 'buffer
+     erc-query-display 'buffer
+
+     erc-scroll-to-bottom -2)
+
+    ;; let's enable some convenient modules
+    (add-to-list 'erc-modules 'dcc)
+    (add-to-list 'erc-modules 'scrolltobottom)
+
+    ;; enable shit
+    (erc-spelling-mode 1)
+    (erc-scrolltobottom-mode 1)
+
+    ;; As a default, only private messages trigger automatic creation of query
+    ;; buffers. I want the same behavior when I receive all notices
+    (add-hook 'erc-after-connect
+              (lambda (server nick)
+                (add-hook 'erc-server-NOTICE-hook 'erc-auto-query)))
+
+    (add-hook 'erc-mode-hook 'company-mode))
 #+END_SRC
+
+*** ZNC
 
 I use [[http://wiki.znc.in/ZNC][ZNC]] to always stay connected to IRC channels, so when I close a buffer I
 don't want to quit the channel, just detach from my server. Also, we use the
 keychain method defined above to get our password.
 
 #+BEGIN_SRC emacs-lisp
-  (setq
-   znc-detatch-on-kill t
-   znc-servers `(
-                 ("smf.io" "6697" t ((freenode "smf/freenode"
-                                               ,(smf/get-keychain-password "smf" "smf.io"))))
-                 ("smf.io" "6697" t ((bitlbee "smf/bitlbee"
-                                              ,(smf/get-keychain-password "smf" "smf.io"))))))
+  (use-package znc
+    :after erc
+    :ensure t
+    :config
+    (setq
+     znc-detatch-on-kill t
+     znc-servers `(
+                   ("smf.io" "6697" t ((freenode "smf/freenode"
+                                                 ,(smf/get-keychain-password "smf" "smf.io"))))
+                   ("smf.io" "6697" t ((bitlbee "smf/bitlbee"
+                                                ,(smf/get-keychain-password "smf" "smf.io")))))))
 #+END_SRC
 
-Some basic settings about my IRC setup,
+*** erc-tweet
+
+Put the actual tweet into the buffer.
 
 #+BEGIN_SRC emacs-lisp
-  (setq
-   erc-prompt ">"
-   erc-email-userid "sean.michael.farley@gmail.com"
-   erc-autojoin-channels-alist '((".*smf.io.*" "&bitlbee" "#bitbucket"))
-   erc-prompt-for-password nil
-   erc-prompt-for-nickserv-password nil
-   erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
-                             "324" "329" "332" "333" "353" "477")
-   erc-hide-list '("JOIN" "PART" "QUIT")
-   erc-quit-reason 'erc-quit-reason-normal
-   erc-track-exclude-server-buffer t
-
-   ;; this changed in emacs 25 ... I still prefer monospaced fonts
-   shr-use-fonts nil)
+  (use-package erc-tweet
+    :after erc
+    :ensure t
+    :config
+    (add-to-list 'erc-modules 'tweet))
 #+END_SRC
 
-I found when having a flaky connection that ERC would attempt to reconnect ad
-infinitum, so we turn that off,
+*** highlight nicknames
 
 #+BEGIN_SRC emacs-lisp
-  (setq erc-server-auto-reconnect nil)
+  (use-package erc-hl-nicks
+    :after erc
+    :ensure t
+    :config
+    ;; this makes colors look nice with darker themes
+    (setq erc-hl-nicks-color-contrast-strategy '(invert contrast)))
 #+END_SRC
 
-The following makes colors look nice with [[zenburn]].
+*** cloud-to-butt
+
+This will never get old.
 
 #+BEGIN_SRC emacs-lisp
-  (setq erc-hl-nicks-color-contrast-strategy '(invert contrast))
+  (use-package cloud-to-butt-erc
+    :after erc
+    :ensure t)
 #+END_SRC
 
-While we're at it, let's enable [[http://www.emacswiki.org/emacs/ErcDCC][direct client-to-client]],
+*** hipchat
+
+A package I wrote to help connect to hipchat and display things like (awyeah).
 
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'erc-modules 'dcc)
-  (add-to-list 'erc-modules 'hipchatify)
-  (add-to-list 'erc-modules 'tweet)
-  (erc-update-modules)
-#+END_SRC
+  (use-package erc-hipchatify
+    :after erc
+    :ensure t
+    :config
+    (setq erc-hipchatify-token `,(smf/get-keychain-password "smf/token" "hipchat.com")
+          erc-hipchatify-email "sfarley@atlassian.com"
 
-Spelling mode is exactly what it says it is,
+          ;; set the channel names (buffer names) for which to replace 'nick'
+          ;; with '@nick'
+          erc-hipchatify-mention-channels '("smf"
+                                            "#bitbucket-social"
+                                            "#bitbucket-cloud"
+                                            "#bitbucket-support"
+                                            "#bitbucket-bugfix"
+                                            "#bitbucket-sf"
+                                            "#bitbucket-ops"
+                                            "#sourcetree"))
 
-#+BEGIN_SRC emacs-lisp
-  (erc-spelling-mode 1)
-#+END_SRC
-
-*** Query behavior
-
-Button mode allows you to click on a nick and open a new query,
-
-#+BEGIN_SRC emacs-lisp
-  (erc-button-mode 1)
-#+END_SRC
-
-Set the token for HipChat api calls,
-
-#+BEGIN_SRC emacs-lisp
-  (setq erc-hipchatify-token `,(smf/get-keychain-password "smf/token" "hipchat.com"))
-#+END_SRC
-
-Set the email for HipChat,
-
-#+BEGIN_SRC emacs-lisp
-  (setq erc-hipchatify-email "sfarley@atlassian.com")
-#+END_SRC
-
-Set the channel names (buffer names) for which to replace 'nick' with '@nick',
-
-#+BEGIN_SRC emacs-lisp
-  (setq erc-hipchatify-mention-channels '("smf"
-                                          "#bitbucket-social"
-                                          "#bitbucket-cloud"
-                                          "#bitbucket-support"
-                                          "#bitbucket-bugfix"
-                                          "#bitbucket-sf"
-                                          "#bitbucket-ops"
-                                          "#sourcetree"))
-#+END_SRC
-
-When people send me a message (called 'query' in IRC speak), I want the buffer
-to pop up and notify me,
-
-#+BEGIN_SRC emacs-lisp
-  (setq erc-auto-query 'buffer)
-  (setq erc-query-display 'buffer)
-#+END_SRC
-
-As a default, only private messages trigger automatic creation of query buffers.
-I want the same behavior when I receive all notices (from [[http://www.emacswiki.org/emacs/ErcAutoQuery][EmacsWiki]]),
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'erc-after-connect
-            (lambda (server nick)
-              (add-hook 'erc-server-NOTICE-hook 'erc-auto-query)))
-#+END_SRC
-
-Turn on =company-mode= by default for erc,
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'erc-mode-hook 'company-mode)
+    (add-to-list 'erc-modules 'hipchatify)
+    (erc-update-modules))
 #+END_SRC
 
 *** Switch to buffer or connect to znc
