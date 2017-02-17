@@ -2185,22 +2185,6 @@ Manage external services from within Emacs.
       :tags '(bitbucket)))
 #+END_SRC
 
-*** d-mode
-
-An Emacs major mode for editing D code.
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'd-mode)
-  (add-to-list 'auto-mode-alist '("\\.d[i]?\\'" . d-mode))
-#+END_SRC
-
-Follow-up with a company backend,
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'company-dcd)
-  (add-hook 'd-mode-hook 'company-dcd-mode)
-#+END_SRC
-
 *** rust-mode
 
 =rust-mode= makes editing Rust code with Emacs enjoyable.
