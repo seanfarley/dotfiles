@@ -1756,6 +1756,7 @@ buffers, search buffers etc. a bit more sane.
     :config
     ;; also add ag, flycheck, and occur to pop
     (add-to-list 'popwin:special-display-config `"*ag search*")
+    (add-to-list 'popwin:special-display-config `"*ripgrep-search*")
     (add-to-list 'popwin:special-display-config `"*Flycheck errors*")
     (add-to-list 'popwin:special-display-config `"*Occur*")
 
