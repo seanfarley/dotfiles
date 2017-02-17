@@ -1901,8 +1901,11 @@ has better code for integrating with).
 **** Quickhelp
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'company-quickhelp)
-  (company-quickhelp-mode t)
+  (use-package company-quickhelp
+    :after company
+    :ensure t
+    :config
+    (company-quickhelp-mode t))
 #+END_SRC
 
 *** flycheck
