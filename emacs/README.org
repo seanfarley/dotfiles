@@ -1669,33 +1669,6 @@ I only want this to be installed and enabled on OS X.
     (exec-path-from-shell-initialize))
 #+END_SRC
 
-*** smex
-
-[[https://github.com/nonsequitur/smex][smex]] is an advanced completion mode for =execute-extended-command= (usually
-known as =M-x=).
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'smex)
-#+END_SRC
-
-Replace =execute-extended-command='s keyboard shortcuts:
-
-#+BEGIN_SRC emacs-lisp
-  (define-key (current-global-map) [remap execute-extended-command] 'smex)
-#+END_SRC
-
-Make sure we stop the annoying "click this menubar" advice in the buffer:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default smex-key-advice-ignore-menu-bar t)
-#+END_SRC
-
-Move =smex='s cache file out of the home directory:
-
-#+BEGIN_SRC emacs-lisp
-  (setq smex-save-file (expand-file-name ".smex-items" smf/tmp-local-dir))
-#+END_SRC
-
 *** ido-ubiquitous
 
 [[https://github.com/DarwinAwardWinner/ido-ubiquitous][ido-ubiquitous]] mode enables ido in many more places than the default ido setup:
