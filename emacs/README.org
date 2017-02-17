@@ -1805,32 +1805,16 @@ Set up some key bindings:
 grouping of files.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'projectile)
-  (projectile-global-mode)
-#+END_SRC
-
-I want my keyboard shortcuts to be the same in Projectile as in non-Projectile
-buffers, so do some remapping:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'projectile
-    (define-key projectile-mode-map [remap ag-project] 'projectile-ag))
-#+END_SRC
-
-Since I use =ag=, always use that instead of =grep=:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'projectile
-    (define-key projectile-mode-map [remap projectile-grep] 'projectile-ag))
-#+END_SRC
-
-Also define a convenience keyboard shortcut to switch between buffers from the same project:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'projectile
-    (global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
-    (global-set-key (kbd "C-x 4 s-b") 'projectile-switch-to-buffer-other-window)
-    (smf/add-launcher "s" 'projectile-switch-project))
+  (use-package projectile
+    :after ivy
+    :ensure t
+    :diminish projectile-mode
+    :init
+    (smf/add-launcher "s" 'projectile-switch-project)
+    :config
+    (setq projectile-completion-system 'ivy
+          projectile-enable-caching t)
+    (projectile-global-mode))
 #+END_SRC
 
 Some compiler output has ansi color, so let's escape that,
@@ -1842,21 +1826,6 @@ Some compiler output has ansi color, so let's escape that,
     (ansi-color-apply-on-region (point-min) (point-max))
     (toggle-read-only))
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
-#+END_SRC
-
-As usual, diminish an always-on mode,
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'projectile
-    (diminish 'projectile-mode))
-#+END_SRC
-
-Let's use caching,
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'projectile
-    (setq projectile-completion-system 'ivy)
-    (setq projectile-enable-caching t))
 #+END_SRC
 
 *** undo-tree
