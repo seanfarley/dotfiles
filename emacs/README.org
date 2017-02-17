@@ -1891,8 +1891,10 @@ has better code for integrating with).
 **** Emoji
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'company-emoji)
-  (after-load 'company
+  (use-package company-emoji
+    :after company
+    :ensure t
+    :config
     (add-to-list 'company-backends 'company-emoji))
 #+END_SRC
 
