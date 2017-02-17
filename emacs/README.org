@@ -1881,14 +1881,6 @@ has better code for integrating with).
     (global-company-mode))
 #+END_SRC
 
-**** Enable flx matching
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'company-flx)
-  (after-load 'company
-    (company-flx-mode))
-#+END_SRC
-
 *** Math symbols
 
 Insert unicode math symbols based on the LaTeX command,
