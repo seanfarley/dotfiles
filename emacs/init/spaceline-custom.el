@@ -209,7 +209,7 @@
                            "✔ No Issues"))
               (`running     "⟲ Running")
               (`no-checker  "⚠ No Checker")
-              (`not-checked "✖ Disabled")
+              (`not-checked "✖")
               (`errored     "⚠ Error")
               (`interrupted "⛔ Interrupted")
               (`suspicious  "")))
