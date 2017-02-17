@@ -2086,123 +2086,103 @@ A Growl-like alerts notifier for Emacs.
 Manage external services from within Emacs.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'prodigy)
-  (smf/add-launcher "d" 'prodigy)
-#+END_SRC
+  (use-package prodigy
+    :ensure t
+    :init
+    (smf/add-launcher "d" 'prodigy)
+    :commands (prodigy-start-service prodigy-find-service)
+    :config
+    ;; start by defining a simple service to run the Mercurial website
+    (prodigy-define-service
+      :name "Mercurial Website"
+      :command "python"
+      :args '("hgwebsite.py")
+      :cwd "~/projects/hgwebsite"
+      :tags '(hg python)
+      :port 5000
+      :kill-signal 'sigkill
+      :kill-process-buffer-on-stop t)
 
-Let's start by defining a simple service to run the Mercurial website locally.
+    ;; imapnotify is a node app that fires a program (in our case an elisp
+    ;; function) when new mail is received
+    (prodigy-define-service
+      :name "OfflineIMAP"
+      :command "imapnotify"
+      :args '("-c" "~/.config/imapnotify.js")
+      :tags '(mail node)
+      :kill-signal 'sigkill
+      :kill-process-buffer-on-stop t
+      :init 'offlineimap)
 
-#+BEGIN_SRC emacs-lisp
-  (prodigy-define-service
-    :name "Mercurial Website"
-    :command "python"
-    :args '("hgwebsite.py")
-    :cwd "~/projects/hgwebsite"
-    :tags '(hg python)
-    :port 5000
-    :kill-signal 'sigkill
-    :kill-process-buffer-on-stop t)
-#+END_SRC
+    ;; bitbucket awwwwww yeah
+    (prodigy-define-tag
+      :name 'bitbucket
+      :cwd "~/projects/bitbucket"
+      :path `(,(expand-file-name "~/.virtualenvs/bitbucket/bin")
+              ,(expand-file-name "~/projects/go/bin"))
+      :kill-signal 'sigkill
+      :env `(("BB_EMAIL_PASSWORD"
+              ,(smf/get-keychain-password "bbtest@farley.io" "mail.farley.io"))
+             ("HGRCPATH" ,(expand-file-name "~/projects/bitbucket-etc/hgrc"))
+             ("GIT_CONFIG_NOSYSTEM" "1")
+             ("PYTHONUNBUFFERED" "1")
+             ("DEBUG" "1")
+             ("CELERY_RDB_PORT" "6900")
+             ("DJANGO_SETTINGS_MODULE" "bitbucket.settings.dev")
+             ("LANG" "en_US.UTF-8")
+             ("PATH" ,(concat (expand-file-name "~/projects/go/bin") ":"
+                              (expand-file-name "~/.virtualenvs/bitbucket/bin") ":"
+                              (getenv "PATH")))
+             ("VIRTUAL_ENV" ,(expand-file-name "~/.virtualenvs/bitbucket/"))))
 
-=imapnotify= is a node app that fires a program (in our case an elisp function)
-when new mail is received.
+    (prodigy-define-service
+      :name "Bitbucket Celery"
+      :command "python"
+      :args '("manage.py" "celeryd" "-l" "DEBUG")
+      :tags '(bitbucket python))
 
-#+BEGIN_SRC emacs-lisp
-  (prodigy-define-service
-    :name "OfflineIMAP"
-    :command "imapnotify"
-    :args '("-c" "~/.config/imapnotify.js")
-    :tags '(mail node)
-    :kill-signal 'sigkill
-    :kill-process-buffer-on-stop t
-    :init 'offlineimap)
-#+END_SRC
+    (prodigy-define-service
+      :name "Bitbucket Django"
+      :command "python"
+      :url "http://dev.bitbucket.org:8000"
+      :args '("manage.py" "runserver")
+      :tags '(bitbucket python))
 
-Bitbucket awwwwww yeah
+    (prodigy-define-service
+      :name "Bitbucket Hgweb"
+      :command "gunicorn"
+      :args '("--config" "conf/gunicorn-bridgehgweb.conf.py"
+              "--bind" "localhost:8001"
+              "-w" "1"
+              "bridgehgweb:application")
+      :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_hgweb"))
+      :tags '(bitbucket python))
 
-Define a tag so that we can inherit the same env variables
+    (prodigy-define-service
+      :name "Bitbucket Gitweb"
+      :command "gunicorn"
+      :args '("--config" "conf/gunicorn-gitweb.conf.py"
+              "--bind" "localhost:8002"
+              "-w" "1"
+              "gitweb:application")
+      :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_gitweb"))
+      :tags '(bitbucket python))
 
-#+BEGIN_SRC emacs-lisp
-  (prodigy-define-tag
-    :name 'bitbucket
-    :cwd "~/projects/bitbucket"
-    :path `(,(expand-file-name "~/.virtualenvs/bitbucket/bin")
-            ,(expand-file-name "~/projects/go/bin"))
-    :kill-signal 'sigkill
-    :env `(("BB_EMAIL_PASSWORD"
-            ,(smf/get-keychain-password "bbtest@farley.io" "mail.farley.io"))
-           ("HGRCPATH" ,(expand-file-name "~/projects/bitbucket-etc/hgrc"))
-           ("GIT_CONFIG_NOSYSTEM" "1")
-           ("PYTHONUNBUFFERED" "1")
-           ("DEBUG" "1")
-           ("CELERY_RDB_PORT" "6900")
-           ("DJANGO_SETTINGS_MODULE" "bitbucket.settings.dev")
-           ("LANG" "en_US.UTF-8")
-           ("PATH" ,(concat (expand-file-name "~/projects/go/bin") ":"
-                            (expand-file-name "~/.virtualenvs/bitbucket/bin") ":"
-                            (getenv "PATH")))
-           ("VIRTUAL_ENV" ,(expand-file-name "~/.virtualenvs/bitbucket/"))))
-#+END_SRC
+    (prodigy-define-service
+      :name "Bitbucket Conqserver"
+      :command "gunicorn"
+      :args '("--config" "conf/gunicorn-conqserver.conf.py"
+              "--bind" "localhost:9006"
+              "-w" "1"
+              "conqserver:application")
+      :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_conqserver"))
+      :tags '(bitbucket))
 
-#+BEGIN_SRC emacs-lisp
-  (prodigy-define-service
-    :name "Bitbucket Celery"
-    :command "python"
-    :args '("manage.py" "celeryd" "-l" "DEBUG")
-    :tags '(bitbucket python))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (prodigy-define-service
-    :name "Bitbucket Django"
-    :command "python"
-    :url "http://dev.bitbucket.org:8000"
-    :args '("manage.py" "runserver")
-    :tags '(bitbucket python))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (prodigy-define-service
-    :name "Bitbucket Hgweb"
-    :command "gunicorn"
-    :args '("--config" "conf/gunicorn-bridgehgweb.conf.py"
-            "--bind" "localhost:8001"
-            "-w" "1"
-            "bridgehgweb:application")
-    :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_hgweb"))
-    :tags '(bitbucket python))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (prodigy-define-service
-    :name "Bitbucket Gitweb"
-    :command "gunicorn"
-    :args '("--config" "conf/gunicorn-gitweb.conf.py"
-            "--bind" "localhost:8002"
-            "-w" "1"
-            "gitweb:application")
-    :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_gitweb"))
-    :tags '(bitbucket python))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (prodigy-define-service
-    :name "Bitbucket Conqserver"
-    :command "gunicorn"
-    :args '("--config" "conf/gunicorn-conqserver.conf.py"
-            "--bind" "localhost:9006"
-            "-w" "1"
-            "conqserver:application")
-    :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_conqserver"))
-    :tags '(bitbucket))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (prodigy-define-service
-    :name "Bitbucket Conker"
-    :command "conker"
-    :cwd "~/projects/go/src/bitbucket.org/bitbucket/conker"
-    :tags '(bitbucket))
+    (prodigy-define-service
+      :name "Bitbucket Conker"
+      :command "conker"
+      :cwd "~/projects/go/src/bitbucket.org/bitbucket/conker"
+      :tags '(bitbucket)))
 #+END_SRC
 
 *** d-mode
