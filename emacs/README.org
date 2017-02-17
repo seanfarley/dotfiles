@@ -1964,6 +1964,18 @@ broad range of template languages and is highly configurable.
           web-mode-code-indent-offset 2))
 #+END_SRC
 
+*** emmet-mode
+
+Not going to lie. Totally ripped this from [[https://github.com/belak/dotfiles][Kaleb]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package emmet-mode
+    :after web-mode
+    :ensure t
+    :config
+    (add-hook 'web-mode-hook 'emmet-mode))
+#+END_SRC
+
 *** idomenu
 
 [[http://melpa.milkbox.net/#/idomenu][idomenu]] offers [[ido]] completion over [[http://www.emacswiki.org/emacs/ImenuMode][imenu]] candidates. It allows me to navigate
