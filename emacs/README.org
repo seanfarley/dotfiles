@@ -1661,8 +1661,10 @@ to the Emacs environment.
 I only want this to be installed and enabled on OS X.
 
 #+BEGIN_SRC emacs-lisp
-  (when (and (eq system-type 'darwin) (display-graphic-p))
-    (require-package 'exec-path-from-shell)
+  (use-package exec-path-from-shell
+    :if (eq system-type 'darwin)
+    :ensure t
+    :config
     (setq exec-path-from-shell-variables '("PATH"  "MANPATH" "SHELL"))
     (exec-path-from-shell-initialize))
 #+END_SRC
