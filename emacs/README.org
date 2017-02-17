@@ -1624,20 +1624,13 @@ I want to also add:
 [[https://github.com/Bruce-Connor/paradox][paradox]] is an advanced package.el frontend with GitHub integration.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'paradox)
-#+END_SRC
-
-Automatically 'star' packages on GitHub after I install them (so I can easily
-follow changes to them):
-
-#+BEGIN_SRC emacs-lisp
-  (setq paradox-automatically-star t)
-#+END_SRC
-
-Add launch command:
-
-#+BEGIN_SRC emacs-lisp
-  (smf/add-launcher "p" 'paradox-list-packages)
+  (use-package paradox
+    :ensure t
+    :commands paradox-list-packages
+    :init
+    (smf/add-launcher "p" 'paradox-list-packages)
+    :config
+    (setq paradox-automatically-star t))
 #+END_SRC
 
 **** async mode
