@@ -2004,15 +2004,12 @@ It's very convenient to select the whole line when no region is active.
 Highlights both the line and the column.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'crosshairs)
-#+END_SRC
-
-Always enable this mode and bind =C-|= to highlight the column
-
-#+BEGIN_SRC emacs-lisp
-  (global-hl-line-mode)
-  (global-hl-line-highlight)
-  (global-set-key (kbd "C-|") 'column-highlight-mode)
+  (use-package crosshairs
+    :ensure t
+    :bind (("C-|" . column-highlight-mode))
+    :init
+    (global-hl-line-mode)
+    (global-hl-line-highlight))
 #+END_SRC
 
 *** highlight-thing
