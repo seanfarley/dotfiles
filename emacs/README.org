@@ -1817,15 +1817,20 @@ grouping of files.
     (projectile-global-mode))
 #+END_SRC
 
+*** colorize compile buffer
+
 Some compiler output has ansi color, so let's escape that,
 
 #+BEGIN_SRC emacs-lisp
-  (require 'ansi-color)
-  (defun colorize-compilation-buffer ()
-    (toggle-read-only)
-    (ansi-color-apply-on-region (point-min) (point-max))
-    (toggle-read-only))
-  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+  (use-package ansi-color
+    :init
+    (defun smf/colorize-compilation ()
+      "Colorize from `compilation-filter-start' to `point'."
+      (let ((inhibit-read-only t))
+        (ansi-color-apply-on-region
+         compilation-filter-start (point))))
+
+    (add-hook 'compilation-filter-hook 'smf/colorize-compilation))
 #+END_SRC
 
 *** undo-tree
