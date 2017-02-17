@@ -1914,22 +1914,12 @@ has better code for integrating with).
 perform on-the-fly syntax checking and linting.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'flycheck)
-  (require 'flycheck)
-  (after-load 'flycheck
-    (setq
-     ;; don't show anything in the left fringe
-     flycheck-indication-mode nil)
-    (add-hook 'python-mode-hook 'flycheck-mode)
-    (diminish 'flycheck-mode))
-#+END_SRC
-
-Also, we add some keymaps,
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'flycheck
-    (define-key flycheck-mode-map (kbd "H->") 'flycheck-next-error)
-    (define-key flycheck-mode-map (kbd "H-<") 'flycheck-previous-error))
+  (use-package flycheck
+    :ensure t
+    :diminish flycheck-mode
+    :config
+    (defalias 'flycheck-show-error-at-point-soon 'flycheck-show-error-at-point)
+    (global-flycheck-mode))
 #+END_SRC
 
 *** puppet-mode
