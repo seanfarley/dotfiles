@@ -2043,9 +2043,10 @@ Drag stuff around in Emacs with convenient keybindings.
 =hungry-delete= will delete all whitespace forward or backward.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'hungry-delete)
-  (global-set-key (kbd "<H-backspace>") 'hungry-delete-backward)
-  (global-set-key (kbd "H-d") 'hungry-delete-forward)
+  (use-package hungry-delete
+    :ensure t
+    :bind (("H-<backspace>" . hungry-delete-backward)
+           ("H-d" . hungry-delete-forward)))
 #+END_SRC
 
 *** alert
