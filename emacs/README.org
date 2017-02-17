@@ -1727,13 +1727,6 @@ Note: swiper <- {counsel, ivy}
     (ivy-mode))
 #+END_SRC
 
-**** ivy-view
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c v") 'ivy-push-view)
-  (global-set-key (kbd "C-c V") 'ivy-pop-view)
-#+END_SRC
-
 *** avy
 
 I'm choosing =avy= over =ace-jump-mode= for tighter integration with
