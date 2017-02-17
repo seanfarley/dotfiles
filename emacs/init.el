@@ -4,8 +4,6 @@
 
 ;; This file uses org-babel to load my literate configuration.
 
-(setq gc-cons-threshold 200000000)
-
 (defun smf/join-dirs (prefix suffix)
   "Joins `prefix' and `suffix' into a directory"
   (file-name-as-directory (concat prefix suffix)))
