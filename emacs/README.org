@@ -1619,6 +1619,16 @@ I want to also add:
 
 [[file:init.el::(setq%20package-archives][see init.el for code]].
 
+**** async mode
+
+Very much needed. smtp and paradox (among others) will take advantage of this
+package.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package async
+    :ensure t)
+#+END_SRC
+
 *** paradox
 
 [[https://github.com/Bruce-Connor/paradox][paradox]] is an advanced package.el frontend with GitHub integration. Paradox
@@ -1633,14 +1643,8 @@ this after async.
     :init
     (smf/add-launcher "p" 'paradox-list-packages)
     :config
-    (setq paradox-automatically-star t))
-#+END_SRC
-
-**** async mode
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'async)
-  (setq paradox-execute-asynchronously t)
+    (setq paradox-automatically-star t
+          paradox-execute-asynchronously t))
 #+END_SRC
 
 *** exec-path-from-shell
