@@ -1727,17 +1727,6 @@ Note: swiper <- {counsel, ivy}
     (ivy-mode))
 #+END_SRC
 
-Fuzzy matching
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'flx)
-  (setq ivy-initial-inputs-alist nil)     ; don't insert '^' into regex
-  (setq ivy-re-builders-alist
-        '((t . ivy--regex-plus)))
-  ;; (setq ivy-re-builders-alist
-  ;;       '((t . ivy--regex-fuzzy)))
-#+END_SRC
-
 **** ivy-view
 
 #+BEGIN_SRC emacs-lisp
