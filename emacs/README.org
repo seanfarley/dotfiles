@@ -2081,20 +2081,6 @@ A Growl-like alerts notifier for Emacs.
                                 'growl)))
 #+END_SRC
 
-*** sauron
-
-Event log for emacs. We'll use =alert.el= as the backend so it's integrated with
-the host system. Also, we'll try to use sauron in a "pop-up" way, i.e. no
-separate frame.
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'sauron)
-  (add-hook 'sauron-event-added-functions 'sauron-alert-el-adapter)
-  (setq sauron-separate-frame nil)
-  (push #'sauron-start after-init-hook)
-  (smf/add-launcher "n" 'sauron-toggle-hide-show)
-#+END_SRC
-
 *** prodigy
 
 Manage external services from within Emacs.
