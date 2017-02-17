@@ -1682,24 +1682,6 @@ I only want this to be installed and enabled on OS X.
     (ido-ubiquitous-mode))
 #+END_SRC
 
-*** ido-vertical
-
-[[https://github.com/gempesaw/ido-vertical-mode.el][ido-vertical]] mode renders the ido prompt vertically instead of horizontally. I
-find this easier to read.
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'ido-vertical-mode)
-  (ido-vertical-mode) ;; autoloaded
-  (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)
-#+END_SRC
-
-Because it's displayed vertically and I want to save screen real estate, I want
-to reduce the maximum number of candidates ido displays:
-
-#+BEGIN_SRC emacs-lisp
-  (setq ido-max-prospects 5)
-#+END_SRC
-
 *** flx-ido
 
 [[https://github.com/lewang/flx][flx-ido]] is an advanced flex-matching algorithm that's significantly faster and
