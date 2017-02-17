@@ -1927,7 +1927,9 @@ perform on-the-fly syntax checking and linting.
 [[https://github.com/lunaryorn/puppet-mode][puppet-mode]] is a major mode for editing =.pp= files.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'puppet-mode)
+  (use-package puppet-mode
+    :ensure t
+    :disabled)
 #+END_SRC
 
 *** markdown-mode
