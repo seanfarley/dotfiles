@@ -3854,54 +3854,49 @@ replying to an email sent to the MacPorts list then I want =sean@macports.org=
 to be used. To achieve this, I wrote a function to handle it:
 
 #+BEGIN_SRC emacs-lisp
-  (after-load 'notmuch
-    (require-package 'gnus-alias)
+  (use-package gnus-alias
+    :after notmuch
+    :ensure t
+    :config
+    (setq gnus-alias-identity-alist
+          '(("home"
+             nil ;; Does not refer to any other identity
+             "Sean Farley <sean@farley.io>" ;; Sender address
+             nil ;; No organization header
+             nil ;; No extra headers
+             nil ;; No extra body text
+             nil) ;; No signature)
+            ("macports"
+             nil
+             "Sean Farley <sean@macports.org>"
+             nil
+             nil
+             nil
+             nil)
+            ("atlassian"
+             nil
+             "Sean Farley <sfarley@atlassian.com>"
+             nil
+             nil
+             nil
+             nil)
+            ("lsmsa"
+             nil
+             "Sean Farley <sean@lsmsa.net>"
+             nil
+             nil
+             nil
+             nil))
 
-    (setq
+          gnus-alias-default-identity "home"
 
-     notmuch-always-prompt-for-sender 't
-     gnus-alias-identity-alist
-     '(("home"
-        nil ;; Does not refer to any other identity
-        "Sean Farley <sean@farley.io>" ;; Sender address
-        nil ;; No organization header
-        nil ;; No extra headers
-        nil ;; No extra body text
-        nil) ;; No signature)
-       ("macports"
-        nil
-        "Sean Farley <sean@macports.org>"
-        nil
-        nil
-        nil
-        nil)
-       ("atlassian"
-        nil
-        "Sean Farley <sfarley@atlassian.com>"
-        nil
-        nil
-        nil
-        nil)
-       ("lsmsa"
-        nil
-        "Sean Farley <sean@lsmsa.net>"
-        nil
-        nil
-        nil
-        nil))
-
-     ;; prevent replies from showing up in the inbox
-     notmuch-fcc-dirs "sent -unread"
-
-     gnus-alias-default-identity "home"
-
-     gnus-alias-identity-rules
-     '(
-       ("macports"  ("any" "macports" both) "macports")
-       ("lsmsa"  ("any" "lsmsa" both) "lsmsa")
-       ("atlassian"  ("any" "atlassian" both) "atlassian")
-       )
-     )
+          gnus-alias-identity-rules
+          '(
+            ("macports"  ("any" "macports" both) "macports")
+            ("lsmsa"  ("any" "lsmsa" both) "lsmsa")
+            ("atlassian"  ("any" "atlassian" both) "atlassian")
+            )
+          )
 
     (add-hook 'message-setup-hook 'gnus-alias-determine-identity))
 #+END_SRC
