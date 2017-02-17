@@ -1945,17 +1945,6 @@ perform on-the-fly syntax checking and linting.
     (define-key markdown-mode-map (kbd "<M-right>") nil))
 #+END_SRC
 
-*** markdown-preview-mode
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'markdown-preview-mode)
-  (after-load 'markdown-preview-mode
-    (define-key markdown-mode-map (kbd "<M-left>") nil)
-    (define-key markdown-mode-map (kbd "<M-right>") nil))
-
-  (setq markdown-command "multimarkdown")
-#+END_SRC
-
 *** web-mode
 
 [[https://github.com/fxbois/web-mode][web-mode]] is a major mode for editing templates and HTML. It supports a very
