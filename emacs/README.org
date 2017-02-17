@@ -1671,24 +1671,15 @@ I only want this to be installed and enabled on OS X.
 
 *** ido-ubiquitous
 
-[[https://github.com/DarwinAwardWinner/ido-ubiquitous][ido-ubiquitous]] mode enables ido in many more places than the default ido setup:
+[[https://github.com/DarwinAwardWinner/ido-ubiquitous][ido-ubiquitous]] mode enables ido in many more places than the default ido setup.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'ido-ubiquitous)
-  (ido-ubiquitous-mode 1)
-#+END_SRC
-
-Unicode lists are much, much larger than the default max of 30,000 so we set to
-5,000,000.
-
-#+BEGIN_SRC emacs-lisp
-  (setq ido-ubiquitous-max-items 5000000)
-#+END_SRC
-
-Also, let's add bringing up a unicode list to our launcher.
-
-#+BEGIN_SRC emacs-lisp
-  (smf/add-launcher "U" 'insert-char)
+  (use-package ido-ubiquitous
+    :ensure t
+    :config
+    (ido-mode)
+    (ido-everywhere)
+    (ido-ubiquitous-mode))
 #+END_SRC
 
 *** ido-vertical
