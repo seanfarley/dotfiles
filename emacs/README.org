@@ -3907,10 +3907,12 @@ Set =offlineimap= to be called for fetching new mail. This allows mail to be
 updated from within [[notmuch]] with keyboard shortcuts.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'offlineimap)
-  (after-load 'offlineimap
-    (setq offlineimap-mode-line-text nil)
-    (setq offlineimap-mode-line-symbols '((run . "⟲")
+  (use-package offlineimap
+    :after notmuch
+    :ensure t
+    :config
+    (setq offlineimap-mode-line-text nil
+          offlineimap-mode-line-symbols '((run . "⟲")
                                           (stop .  "↻")
                                           (exit .  "■")
                                           (signal . "⚑")
@@ -3918,9 +3920,8 @@ updated from within [[notmuch]] with keyboard shortcuts.
                                           (listen . "⌥")
                                           (closed . "●")
                                           (connect . "…")
-                                          (failed . "⌁"))))
+                                          (failed . "⌁")))
 
-  (after-load 'notmuch
     ;; Add a hook to get news after offlineimap is finished
     (add-hook 'offlineimap-event-hooks (lambda (msg-type &optional action)
                                          (when (and (equal "finished\n" msg-type)
