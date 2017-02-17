@@ -2029,11 +2029,13 @@ Minor mode for visual feedback on some operations in Emacs.
 Drag stuff around in Emacs with convenient keybindings.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'drag-stuff)
-  (setq drag-stuff-modifier '(meta control))
-  (drag-stuff-global-mode 1)
-  (after-load 'diminish
-    (diminish 'drag-stuff-mode))
+  (use-package drag-stuff
+    :ensure t
+    :bind (("M-N" . drag-stuff-down)
+           ("M-P" . drag-stuff-up))
+    :diminish drag-stuff-mode
+    :config
+    (drag-stuff-global-mode))
 #+END_SRC
 
 *** hungry-delete
