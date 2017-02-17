@@ -1866,44 +1866,19 @@ Some compiler output has ansi color, so let's escape that,
 people use is [[http://www.emacswiki.org/emacs/AutoComplete][autocomplete]]. I chose =company= because it's well-maintained and
 has better code for integrating with).
 
-**** configuration
-
-Make the lighter shorter:
-
 #+BEGIN_SRC emacs-lisp
-  (after-load 'company
-    (after-load 'diminish
-      (diminish 'company-mode "com")))
-#+END_SRC
-
-**** enable company mode in programming buffers only
-
-Define a function to enable company-mode and overwrite [[hippie]]'s key binding for
-the local buffer only (this means I can use the same key binding for completion
-no matter which minor mode I'm using):
-
-#+BEGIN_SRC emacs-lisp
-  (defun smf/enable-company-mode ()
-    "Enables company-mode and overloads hippie-expand's binding"
-    (company-mode 1)
-    (diminish 'company-mode)
-    (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
-    (setq company-tooltip-align-annotations t)
-    (define-key (current-local-map) [remap dabbrev-expand] 'company-complete))
-#+END_SRC
-
-Add this function to any modes derived from =prog-mode=:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'company
-    (add-hook 'prog-mode-hook 'smf/enable-company-mode))
-#+END_SRC
-
-**** Install and load company
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'company)
-  (require 'company)
+  (use-package company
+    :ensure t
+    :diminish company-mode
+    :config
+    (setq company-tooltip-limit 20
+          company-idle-delay 0
+          company-echo-delay 0
+          company-minimum-prefix-length 1
+          company-selection-wrap-around t
+          company-show-numbers t
+          company-tooltip-align-annotations t)
+    (global-company-mode))
 #+END_SRC
 
 **** Enable flx matching
