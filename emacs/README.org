@@ -1771,8 +1771,9 @@ buffers, search buffers etc. a bit more sane.
 Goto last change in current buffer.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'goto-chg)
-  (global-set-key (kbd "H-.") 'goto-last-change)
+  (use-package goto-chg
+    :ensure t
+    :bind (("H-." . goto-last-change)))
 #+END_SRC
 
 *** ripgrep
