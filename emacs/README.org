@@ -1982,7 +1982,9 @@ Not going to lie. Totally ripped this from [[https://github.com/belak/dotfiles][
 Regrettably I need to occasionally edit [[http://www.yaml.org][YAML]].
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'yaml-mode)
+  (use-package yaml-mode
+    :ensure t
+    :mode "\\.yml\\'")
 #+END_SRC
 
 *** Whole line or region
