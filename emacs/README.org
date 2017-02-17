@@ -1688,21 +1688,10 @@ I only want this to be installed and enabled on OS X.
 more accurate than the built-in method.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'flx-ido)
-#+END_SRC
-
-The =flx-ido= documentation suggests upping the threshold at which GC occurs
-within Emacs so that =flx= can cache its candidate lists for longer (it's
-already set in init.el for early processing):
-
-#+BEGIN_SRC emacs-lisp
-  (setq gc-cons-threshold 200000000)
-#+END_SRC
-
-Finally we cause =flx-ido-mode= to take over ido:
-
-#+BEGIN_SRC emacs-lisp
-  (flx-ido-mode 1)
+  (use-package flx-ido
+    :ensure t
+    :config
+    (flx-ido-mode))
 #+END_SRC
 
 *** swiper / ivy
