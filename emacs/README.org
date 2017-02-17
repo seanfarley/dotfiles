@@ -2017,10 +2017,11 @@ Highlights both the line and the column.
 Minor mode for visual feedback on some operations in Emacs.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'volatile-highlights)
-  (volatile-highlights-mode t)
-  (after-load 'diminish
-    (diminish 'volatile-highlights-mode))
+  (use-package volatile-highlights
+    :ensure t
+    :diminish volatile-highlights-mode
+    :config
+    (volatile-highlights-mode))
 #+END_SRC
 
 *** drag-stuff
