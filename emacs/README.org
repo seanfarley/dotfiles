@@ -1621,10 +1621,13 @@ I want to also add:
 
 *** paradox
 
-[[https://github.com/Bruce-Connor/paradox][paradox]] is an advanced package.el frontend with GitHub integration.
+[[https://github.com/Bruce-Connor/paradox][paradox]] is an advanced package.el frontend with GitHub integration. Paradox
+[[https://github.com/Bruce-Connor/paradox/commit/e341a900609974802ad92d5bb43083fcf83ef432#diff-2d43bf4d9c7b9686d0895974900dfd05R18][supports an asynchronous mode]] which requires the =async= package, so we'll load
+this after async.
 
 #+BEGIN_SRC emacs-lisp
   (use-package paradox
+    :after async
     :ensure t
     :commands paradox-list-packages
     :init
@@ -1634,8 +1637,6 @@ I want to also add:
 #+END_SRC
 
 **** async mode
-
-Paradox now [[https://github.com/Bruce-Connor/paradox/commit/e341a900609974802ad92d5bb43083fcf83ef432#diff-2d43bf4d9c7b9686d0895974900dfd05R18][supports an asynchronous mode]] which requires the =async= package:
 
 #+BEGIN_SRC emacs-lisp
   (require-package 'async)
