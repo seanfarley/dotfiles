@@ -1736,10 +1736,12 @@ I'm choosing =avy= over =ace-jump-mode= for tighter integration with
 watch the video on that link than explain).
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'avy)
-  (global-set-key (kbd "H-;") 'avy-goto-char)
-  (global-set-key (kbd "H-<return>") 'avy-goto-line)
-  (global-set-key (kbd "H-'") 'avy-goto-word-1)
+  (use-package avy
+    :after ivy
+    :ensure t
+    :bind (("H-;" . avy-goto-char)
+           ("H-<return>" . avy-goto-line)
+           ("H-'" . avy-goto-word-1)))
 #+END_SRC
 
 *** popwin
