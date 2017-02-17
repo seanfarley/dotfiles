@@ -3722,6 +3722,8 @@ We only load it if it exists on the system (by wrapping it with =after-load=).
     :ensure t
     :after (async prodigy)
     :commands smf/notmuch-start-or-switch
+    :bind (:map notmuch-hello-mode-map
+                ("q" . bury-buffer))
     :init
     (smf/add-launcher "e" 'smf/notmuch-start-or-switch)
     :config
