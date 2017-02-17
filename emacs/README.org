@@ -2054,14 +2054,31 @@ Drag stuff around in Emacs with convenient keybindings.
 A Growl-like alerts notifier for Emacs.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'alert)
-#+END_SRC
+  (use-package alert
+    :ensure t
+    :config
+    ;; copied from jwiegly's alert.el / erc example
+    (alert-add-rule :status   '(buried visible idle)
+                    :severity '(moderate high urgent)
+                    :mode     'erc-mode
+                    :predicate
+                    #'(lambda (info)
+                        (string-match (concat "\\`[^&].*@BitlBee\\'")
+                                      (erc-format-target-and/or-network)))
+                    :persistent
+                    #'(lambda (info)
+                        ;; If the buffer is buried, or the user has been
+                        ;; idle for `alert-reveal-idle-time' seconds,
+                        ;; make this alert persistent.  Normally, alerts
+                        ;; become persistent after
+                        ;; `alert-persist-idle-time' seconds.
+                        (memq (plist-get info :status) '(buried idle)))
+                    :style 'fringe
+                    :continue t)
 
-On the mac, we'll use the [[https://github.com/alloy/terminal-notifier][terminal-notifier]] to integrate with [[http://en.wikipedia.org/wiki/Notification_Center][Notification Center]].
-
-#+BEGIN_SRC emacs-lisp
-  (when (eq system-type 'darwin)
-    (setq alert-default-style 'notifier))
+    (setq alert-default-style (if (file-executable-p alert-notifier-command)
+                                  'notifier
+                                'growl)))
 #+END_SRC
 
 *** sauron
