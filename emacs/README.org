@@ -2012,17 +2012,6 @@ Highlights both the line and the column.
     (global-hl-line-highlight))
 #+END_SRC
 
-*** highlight-thing
-
-Global minor mode to highlight thing under point.
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'highlight-thing)
-  (global-set-key (kbd "H-h") 'highlight-thing-mode)
-  (after-load 'diminish
-    (diminish 'highlight-thing-mode))
-#+END_SRC
-
 *** violatile highlights
 
 Minor mode for visual feedback on some operations in Emacs.
