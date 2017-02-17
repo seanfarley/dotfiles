@@ -1782,15 +1782,20 @@ Goto last change in current buffer.
 installed via cargo on my Mac.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'ripgrep)
-;;  (require 'projectile-ripgrep)
+  (use-package ripgrep
+    :ensure t
+    :if (executable-find "rg"))
 #+END_SRC
+
+*** projectile ripgrep
 
 Set up some key bindings:
 
 #+BEGIN_SRC emacs-lisp
-  (when (eq system-type 'darwin)
-    (global-set-key (kbd "H-f") 'projectile-ripgrep))
+  (use-package projectile-ripgrep
+    :after (ripgrep projectile)
+    :ensure t
+    :bind (([remap projectile-grep] . projectile-ripgrep)))
 #+END_SRC
 
 *** projectile
