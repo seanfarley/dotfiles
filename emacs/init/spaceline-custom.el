@@ -321,7 +321,7 @@
 
 (spaceline-define-segment
     ati-offlineimap "Show the status of the offlineimap process. Requires offlineimap."
-  (propertize (if (featurep 'offlineimap)
+  (propertize (if (and (featurep 'offlineimap) offlineimap-mode-line-string)
                   (let ((status (replace-regexp-in-string " \\[\\(.\\)\\]"
                                                           "\\1 "
                                                           offlineimap-mode-line-string))
