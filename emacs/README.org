@@ -3718,32 +3718,133 @@ We only load it if it exists on the system (by wrapping it with =after-load=).
 *** Setup
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'notmuch)
-  (require 'smtpmail-async)
+  (use-package notmuch
+    :ensure t
+    :after (async prodigy)
+    :commands smf/notmuch-start-or-switch
+    :init
+    (smf/add-launcher "e" 'smf/notmuch-start-or-switch)
+    :config
+    (setq user-mail-address "sean@farley.io"
+          user-full-name  "Sean Farley"
+
+          notmuch-archive-tags '("-inbox" "-unread" "+archive")
+
+          ;; don't keep message buffers around
+          message-kill-buffer-on-exit t
+
+          ;; address completion via an extra package
+          notmuch-address-command "notmuch-addrlookup"
+
+          ;; always prompt for sender (handled later by gnus-alias)
+          notmuch-always-prompt-for-sender 't
+
+          ;; prevent replies from showing up in the inbox
+          notmuch-fcc-dirs "sent -unread"
+
+          ;; set notmuch as default emacs email program
+          mail-user-agent 'notmuch-user-agent
+
+          ;; manually refresh; not a big deal since we use imap idle
+          notmuch-hello-auto-refresh 'nil)
+
+    ;; when composing an email, turn on spellchecking and autofill
+    (add-hook 'notmuch-message-mode-hook #'auto-fill-mode)
+    (add-hook 'notmuch-message-mode-hook #'flyspell-mode)
+
+    ;; function for launching notmuch along with prodigy service
+    (defun smf/notmuch-start-or-switch ()
+      "Start the imapnotify process or switch to the notmuch buffer"
+      (interactive)
+      ;; switch to the scratch buffer so cwd isn't in a project
+      (with-current-buffer (get-buffer "*scratch*")
+        (prodigy-start-service (prodigy-find-service "OfflineIMAP"))
+        (notmuch)))
+
+    ;; function for importing a patch from mercurial
+    (defun smf/notmuch-show-import-patch ()
+      "Import the hg patch.
+
+         If the `default-directory' matches the most recent history
+         entry don't bother asking for the git tree again (useful
+         for bulk actions)."
+      (interactive)
+      (let* ((cwd (car ido-work-directory-list)))
+
+        (unless (and (stringp cwd) (string= default-directory cwd))
+          (setq cwd (ido-read-directory-name "Target directory: "
+                                             cwd
+                                             "~/" t))
+          (setf ido-work-directory-list
+                (cons cwd (delete cwd ido-work-directory-list))))
+
+        (notmuch-show-pipe-message nil (format "hg --cwd %s import -" cwd))))
+
+    ;; mark the email as pre-reviewed
+    (defun smf/notmuch-show-set-pre-reviewed ()
+      "Sets the patch in patchwork as pre-reviewed."
+      (interactive)
+      (let* ((msg-id (notmuch-show-get-message-id))
+             (pw-cmd (expand-file-name "~/.pwclient"))
+             (pw-id-list (process-lines pw-cmd "list"
+                                        "-m" (concat "<" (s-chop-prefix "id:" msg-id) ">")
+                                        "-n" "1"
+                                        "-f" "%{id}"))
+             (pw-id (nth 0 pw-id-list)))
+        (message "Updating patchwork for patch %s" pw-id)
+        (async-start-process "pwclient"
+                             pw-cmd
+                             (lambda (p)
+                               (message "Marked patch as pre-reviewed"))
+                             "update"
+                             "-s" "Pre-Reviewed"
+                             pw-id)))
+
+    ;; 'd' delete stuff in both search and show mode
+    (define-key notmuch-show-mode-map "d"
+      (lambda ()
+        "Move message to trash."
+        (interactive)
+        (notmuch-show-tag-all (list "+trash" "-inbox" "-unread" "-archive"))
+        (notmuch-show-next-thread t)))
+    (define-key notmuch-search-mode-map "d"
+      (lambda ()
+        "Move message to trash."
+        (interactive)
+        (notmuch-search-tag (list "+trash" "-inbox" "-unread" "-archive"))
+        (next-line)))
+
+    ;; 'S' delete stuff in both search and show mode
+    (define-key notmuch-show-mode-map "S"
+      (lambda ()
+        "Mark message as spam."
+        (interactive)
+        (notmuch-show-tag-all (list "+spam" "-inbox" "-unread" "-archive"))
+        (notmuch-show-next-thread t)))
+    (define-key notmuch-search-mode-map "S"
+      (lambda ()
+        "Mark message as spam."
+        (interactive)
+        (notmuch-search-tag (list "+spam" "-inbox" "-unread" "-archive"))
+        (next-line)))
+
+    (define-key 'notmuch-show-mode-map "I" 'smf/notmuch-show-import-patch)
+    (define-key 'notmuch-show-mode-map "J" 'smf/notmuch-show-set-pre-reviewed))
 #+END_SRC
 
-If available, let's use imagemagick.
+*** sendmail async
 
 #+BEGIN_SRC emacs-lisp
-  (after-load 'notmuch
-    (when (fboundp 'imagemagick-register-types)
-      (imagemagick-register-types)))
-#+END_SRC
+  (use-package smtpmail-async
+    :after (notmuch async)
+    :config
+    (setq send-mail-function           'async-smtpmail-send-it
+          message-send-mail-function   'async-smtpmail-send-it
+          smtpmail-default-smtp-server "mail.farley.io"
+          smtpmail-smtp-server         "mail.farley.io"
+          smtpmail-stream-type         'starttls
+          smtpmail-smtp-service        587))
 
-Set my main email address (others are set in notmuch-config),
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'notmuch
-    (setq
-     user-mail-address "sean@farley.io"
-     user-full-name  "Sean Farley"))
-#+END_SRC
-
-*** Address completion
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'notmuch
-    (setq notmuch-address-command "notmuch-addrlookup"))
 #+END_SRC
 
 *** Reply with custom from address
@@ -3805,23 +3906,7 @@ to be used. To achieve this, I wrote a function to handle it:
     (add-hook 'message-setup-hook 'gnus-alias-determine-identity))
 #+END_SRC
 
-Also, when composing an email, turn on spellchecking:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'notmuch
-    (add-hook 'notmuch-message-mode-hook (lambda ()
-                                           (auto-fill-mode)
-                                           (flyspell-mode))))
-#+END_SRC
-
 *** Miscellaneous setting
-
-Set =notmuch= as default emacs email program,
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'notmuch
-    (setq mail-user-agent 'notmuch-user-agent))
-#+END_SRC
 
 Set =offlineimap= to be called for fetching new mail. This allows mail to be
 updated from within [[notmuch]] with keyboard shortcuts.
@@ -3841,10 +3926,6 @@ updated from within [[notmuch]] with keyboard shortcuts.
                                           (failed . "⌁"))))
 
   (after-load 'notmuch
-    ;; For some reason this causes the offlineimap-hook to display the
-    ;; notmuch-hello buffer
-    (setq notmuch-hello-auto-refresh 'nil)
-
     ;; Add a hook to get news after offlineimap is finished
     (add-hook 'offlineimap-event-hooks (lambda (msg-type &optional action)
                                          (when (and (equal "finished\n" msg-type)
@@ -3853,165 +3934,6 @@ updated from within [[notmuch]] with keyboard shortcuts.
 
     (define-key notmuch-hello-mode-map "G" 'offlineimap)
     (define-key notmuch-search-mode-map "G" 'offlineimap))
-#+END_SRC
-
-Miscellaneous settings: these variable names speak for themselves,
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'notmuch
-    (setq
-
-       notmuch-archive-tags '("-inbox" "-unread" "+archive")
-
-       ;; smtp mail setting
-       send-mail-function    'async-smtpmail-send-it
-       message-send-mail-function 'async-smtpmail-send-it
-       smtpmail-default-smtp-server "mail.farley.io"
-       smtpmail-smtp-server  "mail.farley.io"
-       smtpmail-stream-type  'starttls
-       smtpmail-smtp-service 587
-
-       ;; don't keep message buffers around
-       message-kill-buffer-on-exit t))
-#+END_SRC
-
-*** HTML emails
-
-[[http://ergoemacs.org/emacs/emacs24.4_features.html][Emacs 24]] comes with a built-in web browser called [[http://ergoemacs.org/emacs/emacs_eww_web_browser.html][eww]]. By default, =notmuch=
-uses this to render html email, so nothing needs to be done. This isn't always
-perfect, so to view the html part in an external view, just click on the
-text/html part and issue =. o=.
-
-*** Custom actions
-
-=notmuch= doesn't have a keybinding for deleting messages, so we add one:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'notmuch
-    ;; 'd' delete stuff in both search and show mode
-    (define-key notmuch-show-mode-map "d"
-      (lambda ()
-        "Move message to trash."
-        (interactive)
-        (notmuch-show-tag-all (list "+trash" "-inbox" "-unread" "-archive"))
-        (notmuch-show-next-thread t)))
-    (define-key notmuch-search-mode-map "d"
-      (lambda ()
-        "Move message to trash."
-        (interactive)
-        (notmuch-search-tag (list "+trash" "-inbox" "-unread" "-archive"))
-        (next-line))))
-#+END_SRC
-
-Also, let's add one for spam:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'notmuch
-    ;; 'S' delete stuff in both search and show mode
-    (define-key notmuch-show-mode-map "S"
-      (lambda ()
-        "Mark message as spam."
-        (interactive)
-        (notmuch-show-tag-all (list "+spam" "-inbox" "-unread" "-archive"))
-        (notmuch-show-next-thread t)))
-    (define-key notmuch-search-mode-map "S"
-      (lambda ()
-        "Mark message as spam."
-        (interactive)
-        (notmuch-search-tag (list "+spam" "-inbox" "-unread" "-archive"))
-        (next-line))))
-#+END_SRC
-
-Custom actions allow us to define arbitrary commands to run on a message. We'll
-use this to apply a mercurial patch to a working directory:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'notmuch
-
-    ;; adapted from http://emacs.stackexchange.com/questions/3485/how-do-i-maintain-a-history-of-ido-read-filenames
-    (defun smf/patch-ido-read-directory-name (prompt)
-      (cl-letf (((symbol-function 'orig-ido-read-internal)
-                 (symbol-function 'ido-read-internal))
-                ((symbol-function 'ido-read-internal)
-                 (lambda (item prompt hist &optional default require-match initial)
-                   (orig-ido-read-internal item prompt 'smf/patch-ido-directory-history
-                                           default require-match initial))))
-        (ido-read-directory-name prompt)))
-
-    (defun smf/notmuch-show-import-patch ()
-      "Import the hg patch."
-      (interactive)
-      (let* ((path (smf/patch-ido-read-directory-name "Target directory: "))
-             (cmd (format "hg --cwd %s import -" path)))
-        (notmuch-show-pipe-message nil cmd)))
-
-    (define-key 'notmuch-show-mode-map "I" 'smf/notmuch-show-import-patch))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'notmuch
-    (defun smf/notmuch-show-view-as-patch ()
-      "View the the current message as a patch."
-      (interactive)
-      (let* ((id (notmuch-show-get-message-id))
-             (subject (concat "Subject: " (notmuch-show-get-subject) "\n"))
-             (diff-default-read-only t)
-             (buf (get-buffer-create (concat "*notmuch-patch-" id "*")))
-             (part (notmuch-show-get-part-properties))
-             (map (make-sparse-keymap)))
-        (define-key map "q" 'notmuch-bury-or-kill-this-buffer)
-        (switch-to-buffer buf)
-        (let ((inhibit-read-only t))
-          (erase-buffer)
-          (insert subject)
-          (insert (plist-get part :content)))
-        (set-buffer-modified-p nil)
-        (diff-mode)
-        (lexical-let ((new-ro-bind (cons 'buffer-read-only map)))
-          (add-to-list 'minor-mode-overriding-map-alist new-ro-bind))
-        (goto-char (point-min))))
-
-
-    (define-key 'notmuch-show-mode-map "D" 'smf/notmuch-show-view-as-patch))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'notmuch
-    (defun smf/notmuch-show-set-pre-reviewed ()
-      "Sets the patch in patchwork as pre-reviewed."
-      (interactive)
-      (let* ((msg-id (notmuch-show-get-message-id))
-             (pw-cmd (expand-file-name "~/.pwclient"))
-             (pw-id-list (process-lines pw-cmd "list"
-                                        "-m" (concat "<" (s-chop-prefix "id:" msg-id) ">")
-                                        "-n" "1"
-                                        "-f" "%{id}"))
-             (pw-id (nth 0 pw-id-list)))
-        (message "Updating patchwork for patch %s" pw-id)
-        (async-start-process "pwclient"
-                             pw-cmd
-                             (lambda (p)
-                               (message "Marked patch as pre-reviewed"))
-                             "update"
-                             "-s" "Pre-Reviewed"
-                             pw-id))))
-#+END_SRC
-
-*** Keybinding
-
-Finally, add a keybinding to open our email client:
-
-#+BEGIN_SRC emacs-lisp
-  (require 'cl)
-  (require-package 's)
-  (defun smf/notmuch-start-or-switch ()
-    "Start the imapnotify process or switch to the notmuch buffer"
-    (interactive)
-    (with-current-buffer (get-buffer "*scratch*")
-      (prodigy-start-service (prodigy-find-service "OfflineIMAP"))
-      (notmuch)))
-
-  (smf/add-launcher "e" 'smf/notmuch-start-or-switch)
 #+END_SRC
 
 
