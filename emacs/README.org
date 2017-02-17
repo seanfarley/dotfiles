@@ -1878,25 +1878,14 @@ has better code for integrating with).
           company-selection-wrap-around t
           company-show-numbers t
           company-tooltip-align-annotations t)
+
+    ;; remove xcode since that seems to be defunct
+    (setq company-backends (delete 'company-xcode company-backends))
+
+    ;; insert unicode math symbols based on the LaTeX command
+    (add-to-list 'company-backends 'company-math-symbols-unicode)
+
     (global-company-mode))
-#+END_SRC
-
-*** Math symbols
-
-Insert unicode math symbols based on the LaTeX command,
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'company
-    (add-to-list 'company-backends 'company-math-symbols-unicode))
-#+END_SRC
-
-*** Xcode
-
-Remove this since it seems to be defunct
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'company
-    (setq company-backends (remove 'company-xcode company-backends)))
 #+END_SRC
 
 **** Emoji
