@@ -1714,7 +1714,8 @@ Note: swiper <- {counsel, ivy}
            ("<f1> f" . counsel-describe-function)
            ("<f1> v" . counsel-describe-variable))
     :init
-    (smf/add-launcher "U" 'counsel-unicode-char))
+    (smf/add-launcher "U" 'counsel-unicode-char)
+    (smf/add-launcher "i" 'counsel-imenu))
 
   (use-package ivy
     :after counsel
@@ -1974,27 +1975,6 @@ Not going to lie. Totally ripped this from [[https://github.com/belak/dotfiles][
     :ensure t
     :config
     (add-hook 'web-mode-hook 'emmet-mode))
-#+END_SRC
-
-*** idomenu
-
-[[http://melpa.milkbox.net/#/idomenu][idomenu]] offers [[ido]] completion over [[http://www.emacswiki.org/emacs/ImenuMode][imenu]] candidates. It allows me to navigate
-through classes etc. using completion for methods.
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'idomenu)
-#+END_SRC
-
-Add it to my launcher:
-
-#+BEGIN_SRC emacs-lisp
-  (smf/add-launcher "i" 'idomenu)
-#+END_SRC
-
-Automatically rescan the current file so =imenu= is up to date:
-
-#+BEGIN_SRC emacs-lisp
-  (setq imenu-auto-rescan t)
 #+END_SRC
 
 *** yaml-mode
