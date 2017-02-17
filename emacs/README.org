@@ -1860,38 +1860,6 @@ Some compiler output has ansi color, so let's escape that,
     (add-hook 'prog-mode-hook #'smartparens-mode))
 #+END_SRC
 
-*** gtags
-
-Experiment with gtags.
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'ggtags)
-#+END_SRC
-
-I already have the project name from [[projectile]] so let's remove the ggtags
-project name,
-
-#+BEGIN_SRC emacs-lisp
-  (setq ggtags-mode-line-project-name nil)
-#+END_SRC
-
-Also, diminish this mode:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'ggtags
-    (after-load 'diminish
-      (diminish 'ggtags-mode)))
-#+END_SRC
-
-And, finally, load it for c-like modes,
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'c-mode-common-hook
-            (lambda ()
-              (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-                (ggtags-mode 1))))
-#+END_SRC
-
 *** company
 
 [[https://github.com/company-mode/company-mode][company-mode]] is a modern and modular completion framework (the other one Emacs
