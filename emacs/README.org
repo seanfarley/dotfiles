@@ -1699,40 +1699,32 @@ more accurate than the built-in method.
 Ivy - a generic completion frontend for Emacs, Swiper - isearch with an
 overview, and more. [[http://oremacs.com/swiper][Oh, man!]]
 
-#+BEGIN_SRC emacs-lisp
-  (require-package 'counsel)
-  (ivy-mode)
-  (after-load 'diminish
-    (diminish 'ivy-mode))
-#+END_SRC
-
-Useful setting that adds =recentf= and =bookmarks= to =ivy-switch-buffer=
+Note: swiper <- {counsel, ivy}
 
 #+BEGIN_SRC emacs-lisp
-  (setq ivy-use-virtual-buffers t)
-#+END_SRC
+  (use-package swiper
+    :ensure t
+    :bind (("C-s" . swiper)))
 
-Ivy-based interface to standard commands
+  (use-package counsel
+    :after swiper
+    :ensure t
+    :bind (("M-x" . counsel-M-x)
+           ("C-x C-f" . counsel-find-file)
+           ("<f1> f" . counsel-describe-function)
+           ("<f1> v" . counsel-describe-variable))
+    :init
+    (smf/add-launcher "U" 'counsel-unicode-char))
 
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-s") 'swiper)
-  (global-set-key (kbd "M-x") 'counsel-M-x)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-#+END_SRC
-
-=ivy-resume= resumes the last Ivy-based completion.
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c C-r") 'ivy-resume)
-#+END_SRC
-
-Let's use ivy for some common projects
-
-#+BEGIN_SRC emacs-lisp
-  (setq magit-completing-read-function 'ivy-completing-read)
-  (setq projectile-completion-system 'ivy)
+  (use-package ivy
+    :after counsel
+    :ensure t
+    :diminish ivy-mode
+    :bind (("C-c C-r" . ivy-resume)) ; resumes the last Ivy-based completion
+    :config
+    (setq ivy-wrap t                      ; wraps around the buffer
+          ivy-use-virtual-buffers t)
+    (ivy-mode))
 #+END_SRC
 
 Fuzzy matching
@@ -1880,6 +1872,7 @@ Let's use caching,
 
 #+BEGIN_SRC emacs-lisp
   (after-load 'projectile
+    (setq projectile-completion-system 'ivy)
     (setq projectile-enable-caching t))
 #+END_SRC
 
@@ -3075,6 +3068,7 @@ need to load Magit first.
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit
+    :after ivy
     :init
     (smf/add-launcher "g" 'magit-status)
     :config
@@ -3104,7 +3098,10 @@ need to load Magit first.
      magit-set-upstream-on-push 'askifnotset
 
      ;; always show the diff in commit window
-     magit-commit-arguments '("--verbose")))
+     magit-commit-arguments '("--verbose")
+
+     ;; use ivy for completing things
+     magit-completing-read-function 'ivy-completing-read))
 #+END_SRC
 
 *** hugme
