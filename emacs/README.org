@@ -577,6 +577,15 @@ I use [[https://github.com/tonsky/FiraCode][Fira Code]] as my default coding fon
 
 Uncomment the last line to generate the table of ligature codes.
 
+*** ImageMagick
+
+If available, let's use imagemagick.
+
+#+BEGIN_SRC emacs-lisp
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types))
+#+END_SRC
+
 *** Syntax highlighting
 
 Syntax highlighting in Emacs is called [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Font-Lock.html][font locking]]. It's enabled by
