@@ -1951,27 +1951,17 @@ perform on-the-fly syntax checking and linting.
 broad range of template languages and is highly configurable.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'web-mode)
-#+END_SRC
-
-[[http://jinja.pocoo.org/docs/][Jinja]] templates are mostly like [[https://docs.djangoproject.com/en/dev/topics/templates/][Django templates]], so just force them to behave
-like that:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'web-mode
-    (setq web-mode-engines-alist
-          '(("\\.jinja\\'" . "django"))))
-#+END_SRC
-
-Enable [[web-mode]] by default for several common file extensions:
-
-#+BEGIN_SRC emacs-lisp
-  (dolist (alist '(("\\.html$'" . web-mode)
-                   ("\\.html\\.erb$" . web-mode)
-                   ("\\.mustache$" . web-mode)
-                   ("\\.jinja$" . web-mode)
-                   ("\\.php$" . web-mode)))
-    (add-to-list 'auto-mode-alist alist))
+  (use-package web-mode
+    :ensure t
+    :mode
+    "\\.erb\\'"
+    "\\.html\\'"
+    "\\.jinja\\'"
+    "\\.mustache\\'"
+    :config
+    (setq web-mode-markup-indent-offset 2
+          web-mode-css-indent-offset 2
+          web-mode-code-indent-offset 2))
 #+END_SRC
 
 *** idomenu
