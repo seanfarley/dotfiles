@@ -1852,9 +1852,10 @@ Some compiler output has ansi color, so let's escape that,
 =show-smartparens-mode= is a replacement mode for =show-paren-mode=.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'smartparens)
-  (require 'smartparens-config)
-  (after-load 'smartparens
+  (use-package smartparens
+    :ensure t
+    :diminish smartparens-mode
+    :config
     (require 'smartparens-config)
     (add-hook 'prog-mode-hook #'smartparens-mode))
 #+END_SRC
