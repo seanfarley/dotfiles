@@ -2190,17 +2190,27 @@ Manage external services from within Emacs.
 =rust-mode= makes editing Rust code with Emacs enjoyable.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'rust-mode)
-  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
-#+END_SRC
+  (use-package rust-mode
+    :ensure t
+    :mode "\\.rs\\'")
 
-Use =racer= for autocompletion
+  (use-package racer
+    :after rust-mode
+    :ensure t
+    :config
+    (setq racer-rust-src-path "/opt/local/share/rust/src/")
+    (add-hook 'rust-mode-hook #'racer-mode)
+    (add-hook 'racer-mode-hook #'eldoc-mode))
 
-#+BEGIN_SRC emacs-lisp
-  (require-package 'racer)
-  (setq racer-rust-src-path "/opt/local/share/rust/src/")
-  (add-hook 'rust-mode-hook #'racer-mode)
-  (add-hook 'racer-mode-hook #'eldoc-mode)
+  (use-package flycheck-rust
+    :after (rust-mode flycheck-mode)
+    :ensure t
+    :config
+    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+
+  (use-package rustfmt
+    :after rust
+    :bind (("C-c C-f" . rustfmt-format-buffer)))
 #+END_SRC
 
 *** hideshowvis
