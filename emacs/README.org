@@ -2291,22 +2291,12 @@ delimiters such as parentheses, brackets or braces according to their depth.
 brackets, and braces according to their depth.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'rainbow-blocks)
-#+END_SRC
-
-Add =rainbow-blocks= to programming modes,
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'emacs-lisp-mode-hook 'rainbow-blocks-mode)
-  (add-hook 'lisp-interaction-mode-hook 'rainbow-blocks-mode)
-#+END_SRC
-
-and diminish the mode:
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'rainbow-blocks
-    (after-load 'diminish
-      (diminish 'rainbow-blocks-mode)))
+  (use-package rainbow-blocks
+    :ensure t
+    :diminish rainbow-blocks-mode
+    :config
+    (add-hook 'emacs-lisp-mode-hook 'rainbow-blocks-mode)
+    (add-hook 'lisp-interaction-mode-hook 'rainbow-blocks-mode))
 #+END_SRC
 
 *** python debugger
