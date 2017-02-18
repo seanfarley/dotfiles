@@ -2218,11 +2218,11 @@ Manage external services from within Emacs.
 Enables collapsable regions and diminish the mode:
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'hideshowvis)
-  (defun smf/prog-mode-hook ()
-    (hideshowvis-enable)
-    (diminish 'hs-minor-mode))
-  (add-hook 'prog-mode-hook 'smf/prog-mode-hook)
+  (use-package hideshowvis
+    :ensure t
+    :diminish hs-minor-mode
+    :config
+    (add-hook 'prog-mode-hook #'hideshowvis-enable))
 #+END_SRC
 
 *** focus
