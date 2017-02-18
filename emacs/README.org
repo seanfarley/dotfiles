@@ -2230,7 +2230,8 @@ Enables collapsable regions and diminish the mode:
 Dim the font color of text in surrounding paragraphs.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'focus)
+  (use-package focus
+    :ensure t)
 #+END_SRC
 
 *** which-func
