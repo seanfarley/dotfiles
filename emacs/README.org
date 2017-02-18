@@ -2302,10 +2302,13 @@ brackets, and braces according to their depth.
 *** python debugger
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'realgud)
-  (require 'realgud)
-  (define-key realgud:shortkey-mode-map [mouse-3] 'realgud:tooltip-eval)
-  (define-key realgud-track-mode-map (kbd "C-c C-/") 'realgud:ipdb-foo)
+  (use-package realgud
+    :ensure t
+    :disabled t
+    :bind (:map realgud:shortkey-mode-map
+                ([mouse-3] . realgud:tooltip-eval)
+                :map realgud-track-mode-map
+                ("C-c C-/" . realgud:ipdb-foo)))
 #+END_SRC
 
 *** anaconda
