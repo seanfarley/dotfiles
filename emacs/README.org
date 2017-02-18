@@ -2279,13 +2279,10 @@ colors with the color they represent as background.
 delimiters such as parentheses, brackets or braces according to their depth.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'rainbow-delimiters)
-#+END_SRC
-
-Add =rainbow-delimiters= to all programming modes,
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  (use-package rainbow-delimiters
+    :ensure t
+    :config
+    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 #+END_SRC
 
 *** rainbow-blocks
