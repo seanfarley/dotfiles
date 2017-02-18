@@ -2321,19 +2321,29 @@ anaconda-mode provides code navigation and docs. Additionally, if company-mode
 is enabled, company-anaconda will also be enabled.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'anaconda-mode)
-  (require-package 'company-anaconda)
-  (after-load 'company
-    (add-to-list 'company-backends 'company-anaconda))
+  (use-package anaconda-mode
+    :ensure t
+    :diminish anaconda-mode
+    :config
+    (add-hook 'python-mode-hook 'anaconda-mode)
+    (add-hook 'python-mode-hook 'eldoc-mode))
+
+  (use-package company-anaconda
+    :after (anaconda-mode company-mode)
+    :ensure t
+    :config (add-to-list 'company-backends 'company-anaconda))
 #+END_SRC
 
 Showing the indentation by a vertical highlight line is quite handy for quickly
 determining the level of indentation,
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'highlight-indentation)
-  (after-load 'highlight-indentation
-    (diminish 'highlight-indentation-mode))
+  (use-package highlight-indentation
+    :after anaconda
+    :ensure t
+    :diminish highlight-identation-mode
+    :config
+    (add-hook 'python-mode-hook 'highlight-indentation-mode))
 #+END_SRC
 
 After a few levels of indirection, =anaconda= has no hope of finding a symbol's
@@ -2379,22 +2389,6 @@ navigation stack (which changed in Emacs 25),
     (define-key anaconda-mode-map (kbd "M-.") 'smf/goto-def-or-dumbjump)
     (define-key anaconda-mode-map (kbd "M-,") nil))
   (add-hook 'python-mode-hook 'smf/anaconda-hook)
-#+END_SRC
-
-Add [[anaconda]] to diminish,
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'anaconda-mode
-    (diminish 'highlight-indentation-mode)
-    (diminish 'anaconda-mode))
-#+END_SRC
-
-Now, load anaconda and friends,
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'python-mode-hook 'highlight-indentation-mode)
-  (add-hook 'python-mode-hook 'anaconda-mode)
-  (add-hook 'python-mode-hook 'eldoc-mode)
 #+END_SRC
 
 *** python-switch-quotes
