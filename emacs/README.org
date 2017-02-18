@@ -2234,13 +2234,21 @@ Dim the font color of text in surrounding paragraphs.
     :ensure t)
 #+END_SRC
 
-*** fic-mode
+*** hl-mode
 
-Show FIXME/TODO/BUG(...) in special face only in comments and strings.
+I originally used fic-mode, but it appears that hl-todo is a little better and
+is updated more frequently. This lets us highlight TODO, FIXME, XXX, and other
+similar keywords.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'fic-mode)
-  (add-hook 'prog-mode-hook 'fic-mode)
+  (use-package hl-todo
+    :ensure t
+    :config
+    (setq hl-todo-keyword-faces '(("FIXME" . hl-todo)
+                                  ("TODO"  . hl-todo)
+                                  ("XXX"   . hl-todo)))
+    (hl-todo-set-regexp)
+    (global-hl-todo-mode))
 #+END_SRC
 
 *** rainbow-mode
