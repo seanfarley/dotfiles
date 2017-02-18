@@ -2257,13 +2257,9 @@ similar keywords.
 colors with the color they represent as background.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'rainbow-mode)
-#+END_SRC
-
-=rainbow-mode= doesn't have a global method, so we'll add a css hook for it,
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'css-mode-hook 'rainbow-mode)
+  (use-package rainbow-mode
+    :ensure t
+    :commands rainbow-mode)
 #+END_SRC
 
 *** less-css-mode
