@@ -88,34 +88,6 @@ and a convenience function for making a proper path out of two strings:
 
 [[file:init.el::(defun%20smf/join-dirs%20(prefix%20suffix][see init.el for code]].
 
-*** use-package
-
-I guess it's time to use this now.
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'use-package)
-#+END_SRC
-
-*** diminish
-
-[[http://www.emacswiki.org/emacs/DiminishedModes][diminish]] removes or abbreviates the minor mode indicators that can clutter up
-one's modeline. Since =use-package= utilizes this, we put this right after
-installing =use-package=.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package diminish
-    :ensure t
-    :demand t
-    :diminish subword-mode
-    :diminish eldoc-mode
-    :diminish auto-revert-mode
-    :diminish hs-minor-mode
-    :diminish abbrev-mode
-    :diminish overwrite-mode
-    :diminish global-whitespace-mode
-    :diminish auto-fill-function)
-#+END_SRC
-
 *** Base load path
 
 Define a base directory =smf/dotfiles-dir= that's relative to the currently
@@ -186,6 +158,100 @@ Finally, use version numbers in the filenames:
 
 #+BEGIN_SRC emacs-lisp
   (setq version-control t)
+#+END_SRC
+
+*** Launcher keymap
+
+This trick I got from [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][a blog post on launcher keymaps]]. I define my launcher
+combo as =C-x C-l=, which is normally =downcase-region= - a command I use so
+infrequently I didn't even know there was a key binding for it.
+
+#+BEGIN_SRC emacs-lisp
+  (define-prefix-command 'smf/launcher-map)
+  (define-key ctl-x-map (kbd "C-l") 'smf/launcher-map)
+#+END_SRC
+
+rather than remembering that it's =smf/launcher-map=, just make a function:
+
+#+BEGIN_SRC emacs-lisp
+  (defun smf/add-launcher (key function)
+    "Maps FUNCTION to KEY under the `smf/launcher-map' prefix"
+    (define-key smf/launcher-map key function))
+#+END_SRC
+
+** package manager
+
+Emacs has a built-in [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Packaging.html#Packaging][package manager]].
+
+Rather than using Git submodules or similar my Emacs configuration is set up to
+automatically download and install any required packages at load time. This
+makes my configuration fully portable.
+
+First set up convenience function (borrowed from [[https://github.com/purcell/emacs.d/blob/aa789c9745b13612c4fea6e638d81d8ebbfecdf8/init-elpa.el#L63-L73][Steve Purcell's emacs config]])
+that installs a package if it's not already installed. [[file:init.el::(defun%20require-package%20(package%20&optional%20min-version%20no-refresh][See init.el for code]].
+
+*** Configure package manager
+
+**** Custom package install location
+
+The default value for =package-user-dir= is =~/.emacs.d/elpa= - since these are
+third-party packages that are dynamically installed I'd prefer them to be in a
+[[http://en.wikipedia.org/wiki/Dot-file][hidden directory]].
+
+Packages are also [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Byte-Compilation.html#Byte-Compilation][byte compiled]] upon installation, so namespace the install
+directory to the version of Emacs I'm using.
+
+Final result should be something like =~/.emacs.d/.elpa/24.3.93.1/=.
+
+[[file:init.el::(setq%20package-user-dir][see init.el for code]].
+
+**** Customise package repositories to install from
+
+By default Emacs only installs files from [[http://www.gnu.org/software/emacs/manual/html_node/efaq/Packages-that-do-not-come-with-Emacs.html#Packages-that-do-not-come-with-Emacs][ELPA]]. Some of these packages are old
+or out of date, and they don't track GitHub repositories.
+
+I want to also add:
+
+- [[https://github.com/milkypostman/melpa#melpa][MELPA]] (tracks GitHub repositories, is much more comprehensive)
+
+[[file:init.el::(setq%20package-archives][see init.el for code]].
+
+*** use-package
+
+I guess it's time to use this now.
+
+#+BEGIN_SRC emacs-lisp
+  (require-package 'use-package)
+#+END_SRC
+
+*** async mode
+
+Very much needed. smtp and paradox (among others) will take advantage of this
+package.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package async
+    :ensure t)
+#+END_SRC
+
+*** diminish
+
+[[http://www.emacswiki.org/emacs/DiminishedModes][diminish]] removes or abbreviates the minor mode indicators that can clutter up
+one's modeline. Since =use-package= utilizes this, we put this right after
+installing =use-package=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package diminish
+    :ensure t
+    :demand t
+    :diminish subword-mode
+    :diminish eldoc-mode
+    :diminish auto-revert-mode
+    :diminish hs-minor-mode
+    :diminish abbrev-mode
+    :diminish overwrite-mode
+    :diminish global-whitespace-mode
+    :diminish auto-fill-function)
 #+END_SRC
 
 ** =after-load=
@@ -517,25 +583,6 @@ I never remember the keybindings for this:
   (global-set-key (kbd "s-=") 'text-scale-increase)
   (global-set-key (kbd "s--") 'text-scale-decrease)
   (global-set-key (kbd "s-0") '(lambda () (interactive) (text-scale-adjust 0)))
-#+END_SRC
-
-*** Launcher keymap
-
-This trick I got from [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][a blog post on launcher keymaps]]. I define my launcher
-combo as =C-x C-l=, which is normally =downcase-region= - a command I use so
-infrequently I didn't even know there was a key binding for it.
-
-#+BEGIN_SRC emacs-lisp
-  (define-prefix-command 'smf/launcher-map)
-  (define-key ctl-x-map (kbd "C-l") 'smf/launcher-map)
-#+END_SRC
-
-rather than remembering that it's =smf/launcher-map=, just make a function:
-
-#+BEGIN_SRC emacs-lisp
-  (defun smf/add-launcher (key function)
-    "Maps FUNCTION to KEY under the `smf/launcher-map' prefix"
-    (define-key smf/launcher-map key function))
 #+END_SRC
 
 ** Interface
@@ -1287,6 +1334,24 @@ While we're at it, let's add notmuch and twitter bootstrap integration,
     :ensure t)
 #+END_SRC
 
+*** paradox
+
+[[https://github.com/Bruce-Connor/paradox][paradox]] is an advanced package.el frontend with GitHub integration. Paradox
+[[https://github.com/Bruce-Connor/paradox/commit/e341a900609974802ad92d5bb43083fcf83ef432#diff-2d43bf4d9c7b9686d0895974900dfd05R18][supports an asynchronous mode]] which requires the =async= package, so we'll load
+this after async.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package paradox
+    :after async
+    :ensure t
+    :commands paradox-list-packages
+    :init
+    (smf/add-launcher "p" 'paradox-list-packages)
+    :config
+    (setq paradox-automatically-star t
+          paradox-execute-asynchronously t))
+#+END_SRC
+
 *** ido
 
 [[http://www.emacswiki.org/emacs/InteractivelyDoThings][ido]] is a mode for narrowing candidates as you type. It has excellent
@@ -1580,71 +1645,6 @@ Taken from [[http://stackoverflow.com/questions/14715181/emacs-function-call-hig
   (font-lock-add-keywords
    'c-mode
    '(("\\<\\(\\sw+\\) ?(" 1 'font-lock-function-name-face)))
-#+END_SRC
-
-** Third-party packages
-
-Emacs has a built-in [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Packaging.html#Packaging][package manager]].
-
-Rather than using Git submodules or similar my Emacs configuration is set up to
-automatically download and install any required packages at load time. This
-makes my configuration fully portable.
-
-First set up convenience function (borrowed from [[https://github.com/purcell/emacs.d/blob/aa789c9745b13612c4fea6e638d81d8ebbfecdf8/init-elpa.el#L63-L73][Steve Purcell's emacs config]])
-that installs a package if it's not already installed. [[file:init.el::(defun%20require-package%20(package%20&optional%20min-version%20no-refresh][See init.el for code]].
-
-*** Configure package manager
-
-**** Custom package install location
-
-The default value for =package-user-dir= is =~/.emacs.d/elpa= - since these are
-third-party packages that are dynamically installed I'd prefer them to be in a
-[[http://en.wikipedia.org/wiki/Dot-file][hidden directory]].
-
-Packages are also [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Byte-Compilation.html#Byte-Compilation][byte compiled]] upon installation, so namespace the install
-directory to the version of Emacs I'm using.
-
-Final result should be something like =~/.emacs.d/.elpa/24.3.93.1/=.
-
-[[file:init.el::(setq%20package-user-dir][see init.el for code]].
-
-**** Customise package repositories to install from
-
-By default Emacs only installs files from [[http://www.gnu.org/software/emacs/manual/html_node/efaq/Packages-that-do-not-come-with-Emacs.html#Packages-that-do-not-come-with-Emacs][ELPA]]. Some of these packages are old
-or out of date, and they don't track GitHub repositories.
-
-I want to also add:
-
-- [[https://github.com/milkypostman/melpa#melpa][MELPA]] (tracks GitHub repositories, is much more comprehensive)
-
-[[file:init.el::(setq%20package-archives][see init.el for code]].
-
-**** async mode
-
-Very much needed. smtp and paradox (among others) will take advantage of this
-package.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package async
-    :ensure t)
-#+END_SRC
-
-*** paradox
-
-[[https://github.com/Bruce-Connor/paradox][paradox]] is an advanced package.el frontend with GitHub integration. Paradox
-[[https://github.com/Bruce-Connor/paradox/commit/e341a900609974802ad92d5bb43083fcf83ef432#diff-2d43bf4d9c7b9686d0895974900dfd05R18][supports an asynchronous mode]] which requires the =async= package, so we'll load
-this after async.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package paradox
-    :after async
-    :ensure t
-    :commands paradox-list-packages
-    :init
-    (smf/add-launcher "p" 'paradox-list-packages)
-    :config
-    (setq paradox-automatically-star t
-          paradox-execute-asynchronously t))
 #+END_SRC
 
 *** exec-path-from-shell
