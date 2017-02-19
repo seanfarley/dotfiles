@@ -187,9 +187,6 @@ Rather than using Git submodules or similar my Emacs configuration is set up to
 automatically download and install any required packages at load time. This
 makes my configuration fully portable.
 
-First set up convenience function (borrowed from [[https://github.com/purcell/emacs.d/blob/aa789c9745b13612c4fea6e638d81d8ebbfecdf8/init-elpa.el#L63-L73][Steve Purcell's emacs config]])
-that installs a package if it's not already installed. [[file:init.el::(defun%20require-package%20(package%20&optional%20min-version%20no-refresh][See init.el for code]].
-
 *** Configure package manager
 
 **** Custom package install location
