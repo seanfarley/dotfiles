@@ -216,6 +216,19 @@ I want to also add:
 
 [[file:init.el::(setq%20package-archives][see init.el for code]].
 
+*** benchmarking
+
+A bit useless while packages are installing but we'll use this for profiling a
+regular start-up (i.e. one where we didn't change this config file and nothing
+has to install)
+
+#+BEGIN_SRC emacs-lisp
+  (use-package benchmark-init
+    :ensure t
+    :config
+    (benchmark-init/activate))
+#+END_SRC
+
 *** async mode
 
 Very much needed. smtp and paradox (among others) will take advantage of this

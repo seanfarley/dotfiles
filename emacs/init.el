@@ -66,9 +66,6 @@
   (defvar use-package-verbose t)
   (require 'use-package))
 
-(require-package 'benchmark-init)
-(benchmark-init/activate)
-
 (package-install 'org-plus-contrib)
 
 (require 'org)
