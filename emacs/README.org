@@ -913,6 +913,72 @@ line.
   (global-set-key [s-backspace] [?\C- ?\C-a backspace])
 #+END_SRC
 
+** Loading Themes
+
+Yay, themes!
+
+*** spaceline
+
+Pretty impressed by spacelines + all-the-icons integration.
+
+#+BEGIN_SRC emacs-lisp
+  (setq custom-safe-themes t)             ; don't ask about installing themes
+
+  (use-package all-the-icons
+    :ensure t
+    :if window-system)
+
+  (use-package powerline
+    :after all-the-icons
+    :ensure t
+    :if window-system
+    :config (setq-default powerline-default-separator 'nil))
+
+  (use-package spaceline
+    :after powerline
+    :demand
+    :ensure t
+    :config (setq-default mode-line-format
+                          '("%e" (:eval (spaceline-ml-ati)))))
+
+  (use-package spaceline-custom
+    :after spaceline-colors
+    :demand
+    :load-path "init"
+    :init (add-hook 'after-init-hook 'spaceline-update-faces)
+    :config (advice-add 'load-theme :after 'spaceline-update-faces))
+
+  (use-package spaceline-colors
+    :after spaceline
+    :load-path "init"
+    :demand)
+#+END_SRC
+
+*** themes
+
+Some basic themes that work with =spaceline= and =all-the-icons=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package creamsody-theme :ensure t)
+
+  ;; deferred for now
+  (use-package gruvbox-theme :ensure t :defer t)
+  (use-package suscolors-theme :ensure t :defer t)
+  (use-package atom-one-dark-theme :ensure t :defer t)
+  (use-package forest-blue-theme :ensure t :defer t)
+  (use-package liso-theme :ensure t :defer t)
+  (use-package peacock-theme :ensure t :defer t)
+  (use-package solarized-theme :ensure t :defer t)
+
+  (defun remove-mode-line-box (&rest args)
+    (set-face-attribute 'mode-line nil :box nil :underline nil)
+    (set-face-attribute 'mode-line-inactive nil :box nil :underline nil))
+
+  (when window-system
+    (remove-mode-line-box)
+    (load-theme 'creamsody))
+#+END_SRC
+
 ** Utility functions
 
 *** Rename modeline
@@ -3385,75 +3451,6 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
       (setq-default pdf-view-display-size 'fit-page)
       (add-hook 'TeX-after-compilation-finished-functions
                 #'TeX-revert-document-buffer))
-#+END_SRC
-
-** Loading Themes
-
-On a GUI Emacs, I want to use the [[zenburn-theme]]. On a terminal I want to use the
-[[base16-theme]].
-
-*CAVEAT*
-
-We need to load the theme after AUCTeX but before ERC. Why? I don't really know
-but I do know it messes up erc-hl-nicks if I don't do it this way.
-
-*** spaceline
-
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package powerline
-  ;;   :if window-system
-  ;;   :config (setq-default powerline-default-separator 'nil))
-
-  ;; (use-package spaceline-all-the-icons :after spaceline
-  ;;   :load-path "init")
-
-  ;;    (smf/add-to-load-path "~/.emacs.d/init")
-
-  (setq custom-safe-themes t)
-
-  (use-package powerline
-    :if window-system
-    :config (setq-default powerline-default-separator 'nil))
-
-  (use-package spaceline-custom
-    :after spaceline-colors
-    :demand
-    :load-path "init"
-    :init (add-hook 'after-init-hook 'spaceline-update-faces)
-    :config (advice-add 'load-theme :after 'spaceline-update-faces)
-    )
-
-  (use-package spaceline-colors
-    :after spaceline
-    :load-path "init"
-    :demand
-    )
-
-  (use-package spaceline
-    :after powerline
-    :demand
-    :ensure t
-    :config (setq-default mode-line-format
-                          '("%e" (:eval (spaceline-ml-ati)))))
-
-
-  ;; Themed with Spaceline
-  (use-package gruvbox-theme :ensure t :defer t)
-  (use-package creamsody-theme :ensure t)
-  (use-package suscolors-theme :ensure t :defer t)
-  (use-package atom-one-dark-theme :ensure t :defer t)
-  (use-package forest-blue-theme :ensure t :defer t)
-  (use-package liso-theme :ensure t :defer t)
-  (use-package peacock-theme :ensure t :defer t)
-  (use-package solarized-theme :ensure t :defer t)
-
-  (defun remove-mode-line-box (&rest args)
-    (set-face-attribute 'mode-line nil :box nil :underline nil)
-    (set-face-attribute 'mode-line-inactive nil :box nil :underline nil))
-
-  (when window-system
-    (remove-mode-line-box)
-    (load-theme 'creamsody))
 #+END_SRC
 
 ** ERC
