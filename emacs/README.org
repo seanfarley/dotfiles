@@ -1293,6 +1293,7 @@ So, we'll start with some basic settings,
           org-blank-before-new-entry (quote ((heading)
                                              (plain-list-item . auto)))
 
+          org-journal-dir "~/Dropbox/journal"
           org-use-fast-todo-selection t
           org-log-into-drawer t
           org-log-state-notes-insert-after-drawers nil
