@@ -39,6 +39,33 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+;; Set the initial state to non-refreshed. This can also be set back
+;; to nil if we want to run a refresh on the next install.
+(defvar smf/refreshed-package-list nil)
+
+(defun smf/ensure-refreshed ()
+  "Ensure the package list has been refreshed this startup."
+  (unless smf/refreshed-package-list
+    (package-refresh-contents)
+    (setq smf/refreshed-package-list t)))
+
+(defun smf/package-ensure-installed (package)
+  "Install a missing PACKAGE if it isn't already."
+  (unless (package-installed-p package)
+    (package-install package)))
+
+;; Now that we have some helpers defined, we wrap package-install to make sure
+;; that the first install of each session will refresh the package list.
+(advice-add 'package-install
+            :before
+            (lambda (&rest args)
+              (smf/ensure-refreshed)))
+
+(smf/package-ensure-installed 'use-package)
+(eval-when-compile
+  (defvar use-package-verbose t)
+  (require 'use-package))
+
 (require-package 'benchmark-init)
 (benchmark-init/activate)
 

@@ -216,14 +216,6 @@ I want to also add:
 
 [[file:init.el::(setq%20package-archives][see init.el for code]].
 
-*** use-package
-
-I guess it's time to use this now.
-
-#+BEGIN_SRC emacs-lisp
-  (require-package 'use-package)
-#+END_SRC
-
 *** async mode
 
 Very much needed. smtp and paradox (among others) will take advantage of this
