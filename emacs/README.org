@@ -1182,8 +1182,8 @@ These are the ones I commonly use and have configured.
 some basic settings and personal tweaks,
 
 #+BEGIN_SRC emacs-lisp
-  (use-package org :ensure t
-    :defer t
+  (use-package org
+    :ensure org-plus-contrib
     :mode ("\\.org"  . org-mode)
     :bind (;; I'll change the prefix for these function (instead of using
            ;; smf/launcher) since they are so common
