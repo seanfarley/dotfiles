@@ -1310,9 +1310,8 @@ Let's use pomodoro!
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-pomodoro
-    :after org
     :ensure t
-    :defer t
+    :commands org-pomodoro
     :config
     (setq org-pomodoro-play-sounds nil))
 #+END_SRC
