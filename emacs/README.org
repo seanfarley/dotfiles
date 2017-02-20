@@ -3227,6 +3227,14 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
     (add-hook 'erc-mode-hook 'company-mode))
 #+END_SRC
 
+*** erc alerts
+
+#+BEGIN_SRC emacs-lisp
+  (use-package erc-alert
+    :after erc
+    :load-path "lisp")
+#+END_SRC
+
 *** ZNC
 
 I use [[http://wiki.znc.in/ZNC][ZNC]] to always stay connected to IRC channels, so when I close a buffer I
