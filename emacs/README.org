@@ -1333,7 +1333,6 @@ this after async.
 
 #+BEGIN_SRC emacs-lisp
   (use-package paradox
-    :after async
     :ensure t
     :commands paradox-list-packages
     :init
