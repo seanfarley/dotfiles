@@ -3165,12 +3165,13 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
 
 #+BEGIN_SRC emacs-lisp
   (use-package pdf-tools
-      :ensure t
-      :config
-      (pdf-tools-install)
-      (setq-default pdf-view-display-size 'fit-page)
-      (add-hook 'TeX-after-compilation-finished-functions
-                #'TeX-revert-document-buffer))
+    :ensure t
+    :mode (("\\.pdf\\'" . pdf-view-mode))
+    :config
+    (pdf-tools-install)
+    (setq-default pdf-view-display-size 'fit-page)
+    (add-hook 'TeX-after-compilation-finished-functions
+              #'TeX-revert-document-buffer))
 #+END_SRC
 
 ** ERC
