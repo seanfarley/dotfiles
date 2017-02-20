@@ -1809,6 +1809,9 @@ has better code for integrating with).
     ;; remove xcode since that seems to be defunct
     (setq company-backends (delete 'company-xcode company-backends))
 
+    ;; remove eclim
+    (setq company-backends (delete 'company-eclim company-backends))
+
     ;; insert unicode math symbols based on the LaTeX command
     (add-to-list 'company-backends 'company-math-symbols-unicode)
 
