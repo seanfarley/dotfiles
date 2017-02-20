@@ -569,14 +569,6 @@ Most of the time I want the buffer to be reverted automatically:
   (global-auto-revert-mode t)
 #+END_SRC
 
-Use =ivy-switch-buffer= instead of the feature-lacking =list-buffers= (and
-include a common typo I make):
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-x C-b") 'ivy-switch-buffer)
-  (global-set-key (kbd "C-x C-n") 'ivy-switch-buffer)
-#+END_SRC
-
 **** Increase / decrease font size
 
 I never remember the keybindings for this:
@@ -1724,9 +1716,13 @@ Note: swiper <- {counsel, ivy}
     :after counsel
     :ensure t
     :diminish ivy-mode
-    :bind (("C-c C-r" . ivy-resume)) ; resumes the last Ivy-based completion
+    :bind (("C-c C-r" . ivy-resume)         ; resumes the last Ivy-based completion
+           ("C-x b" . ivy-switch-buffer)    ; use this instead of the lackluster
+                                            ; `list-buffers'
+           ("C-x C-b" . ivy-switch-buffer)  ; common typo
+           ("C-x C-n" . ivy-switch-buffer)) ; common typo
     :config
-    (setq ivy-wrap t                      ; wraps around the buffer
+    (setq ivy-wrap t                        ; wraps around the buffer
           ivy-use-virtual-buffers t)
     (ivy-mode))
 #+END_SRC
