@@ -1383,74 +1383,65 @@ exclude Emacs metafiles, package cruft etc.
 
 [[https://www.gnu.org/software/emacs/manual/html_mono/ediff.html][ediff]] is a full-featured visual diff and merge tool, built into Emacs.
 
-Make sure that the window split is always side-by-side:
-
 #+BEGIN_SRC emacs-lisp
-  (setq ediff-split-window-function 'split-window-horizontally)
-#+END_SRC
+  (use-package ediff
+    :commands hg-mergetool-emacsclient-ediff
+    :config
+    ;; Make sure that the window split is always side-by-side:
+    (setq ediff-split-window-function 'split-window-horizontally
 
-Ignore whitespace changes:
+          ;; ignore whitespace changes
+          ediff-diff-options "-w"
 
-#+BEGIN_SRC emacs-lisp
-  (setq ediff-diff-options "-w")
-#+END_SRC
+          ;; only ever use one set of windows in one frame
+          ediff-window-setup-function 'ediff-setup-windows-plain
 
-Only ever use one set of windows in one frame:
+          ;; don't keep ediff file instances around
+          ediff-keep-variants nil
 
-#+BEGIN_SRC emacs-lisp
-  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-#+END_SRC
+          ;; finally, we add customizations for using ediff with mercurial
+          hg-mergetool-emacsclient-ediff-active nil)
 
-Don't keep ediff file instances around:
+    (defvar ediff-after-quit-hooks nil
+      "* Hooks to run after ediff or emerge is quit.")
 
-#+BEGIN_SRC emacs-lisp
-  (setq ediff-keep-variants nil)
-#+END_SRC
+    (defadvice ediff-quit (after edit-after-quit-hooks activate)
+      (run-hooks 'ediff-after-quit-hooks))
 
-Finally, we add customizations for using ediff with mercurial:
 
-#+BEGIN_SRC emacs-lisp
-  (defvar ediff-after-quit-hooks nil
-    "* Hooks to run after ediff or emerge is quit.")
+    (defun local-ediff-before-setup-hook ()
+      (setq local-ediff-saved-frame-configuration (current-frame-configuration))
+      (setq local-ediff-saved-window-configuration (current-window-configuration))
+      (global-auto-revert-mode 0)
+      ;; (local-ediff-frame-maximize)
+      (if hg-mergetool-emacsclient-ediff-active
+          (raise-frame)))
 
-  (defadvice ediff-quit (after edit-after-quit-hooks activate)
-    (run-hooks 'ediff-after-quit-hooks))
+    (defun local-ediff-quit-hook ()
+      (set-frame-configuration local-ediff-saved-frame-configuration)
+      (set-window-configuration local-ediff-saved-window-configuration))
 
-  (setq hg-mergetool-emacsclient-ediff-active nil)
+    (defun local-ediff-suspend-hook ()
+      (set-frame-configuration local-ediff-saved-frame-configuration)
+      (set-window-configuration local-ediff-saved-window-configuration))
 
-  (defun local-ediff-before-setup-hook ()
-    (setq local-ediff-saved-frame-configuration (current-frame-configuration))
-    (setq local-ediff-saved-window-configuration (current-window-configuration))
-    (global-auto-revert-mode 0)
-    ;; (local-ediff-frame-maximize)
-    (if hg-mergetool-emacsclient-ediff-active
-        (raise-frame)))
+    (add-hook 'ediff-before-setup-hook 'local-ediff-before-setup-hook)
+    (add-hook 'ediff-quit-hook 'local-ediff-quit-hook 'append)
+    (add-hook 'ediff-suspend-hook 'local-ediff-suspend-hook 'append)
 
-  (defun local-ediff-quit-hook ()
-    (set-frame-configuration local-ediff-saved-frame-configuration)
-    (set-window-configuration local-ediff-saved-window-configuration))
+    ;; Useful for ediff merge from emacsclient.
+    (defun hg-mergetool-emacsclient-ediff (local remote base merged)
+      (setq hg-mergetool-emacsclient-ediff-active t)
+      (if (file-readable-p base)
+          (ediff-merge-files-with-ancestor local remote base nil merged)
+        (ediff-merge-files local remote nil merged))
+      (recursive-edit))
 
-  (defun local-ediff-suspend-hook ()
-    (set-frame-configuration local-ediff-saved-frame-configuration)
-    (set-window-configuration local-ediff-saved-window-configuration))
+    (defun hg-mergetool-emacsclient-ediff-after-quit-hook ()
+      (global-auto-revert-mode t)
+      (exit-recursive-edit))
 
-  (add-hook 'ediff-before-setup-hook 'local-ediff-before-setup-hook)
-  (add-hook 'ediff-quit-hook 'local-ediff-quit-hook 'append)
-  (add-hook 'ediff-suspend-hook 'local-ediff-suspend-hook 'append)
-
-  ;; Useful for ediff merge from emacsclient.
-  (defun hg-mergetool-emacsclient-ediff (local remote base merged)
-    (setq hg-mergetool-emacsclient-ediff-active t)
-    (if (file-readable-p base)
-        (ediff-merge-files-with-ancestor local remote base nil merged)
-      (ediff-merge-files local remote nil merged))
-    (recursive-edit))
-
-  (defun hg-mergetool-emacsclient-ediff-after-quit-hook ()
-    (global-auto-revert-mode t)
-    (exit-recursive-edit))
-
-  (add-hook 'ediff-after-quit-hooks 'hg-mergetool-emacsclient-ediff-after-quit-hook 'append)
+    (add-hook 'ediff-after-quit-hooks 'hg-mergetool-emacsclient-ediff-after-quit-hook 'append))
 #+END_SRC
 
 *** Persistent =*scratch*= buffer
