@@ -1342,56 +1342,6 @@ this after async.
           paradox-execute-asynchronously t))
 #+END_SRC
 
-*** ido
-
-[[http://www.emacswiki.org/emacs/InteractivelyDoThings][ido]] is a mode for narrowing candidates as you type. It has excellent
-integration with buffer switching and finding files. [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][Mastering Emacs has a good
-guide to Ido]].
-
-First we enable =ido-mode= globally and enable =ido-everywhere=, which enables
-Ido for buffer and file reading. Also, we force Ido to [[http://stackoverflow.com/a/11341239/61435][ignore Dropbox cruft]],
-
-#+BEGIN_SRC emacs-lisp
-  (use-package ido
-    :ensure t
-    :config
-    (add-to-list 'ido-ignore-files "Icon\n")
-
-    ;; also ignore certain extensions that I don't care about
-    (setq completion-ignored-extensions
-          '(".o" ".elc" "~" ".bin" ".bak" ".obj" ".map" ".a" ".ln" ".mod" ".gz"
-            ".aux" ".tdo" ".fmt" ".swp" ".pdfsync" ".pdf" ".vrb" ".idx" ".ind"
-            ".bbl" ".toc" ".blg" ".snm" ".ilg" ".log" ".out" ".pyc" ".DS_Store"
-            "-blx.bib" ".run.xml" ".hi" ".fls" ".fdb_latexmk" ".bcf" ".rel")
-
-          ;; Speed up ido by using less candidates
-          ido-max-prospects 10
-
-          ;; Match arbitrary points in strings
-          ido-enable-prefix nil
-
-          ;; Match across entire string
-          ido-enable-flex-matching t
-
-          ;; Create a new buffer if there's no match candidate
-          ido-create-new-buffer 'always
-
-          ;; Don't try and guess if the string under point is a file
-          ido-use-filename-at-point nil
-
-          ;; case-insensitive matching
-          ido-case-fold t
-
-          ;; don't store old files as virtual buffers
-          ido-use-virtual-buffers nil
-
-          ;; store ido temporary directory cache elsewhere:
-          ido-save-directory-list-file (expand-file-name ".ido.last" smf/tmp-local-dir))
-
-    (ido-mode t)
-    (ido-everywhere t))
-#+END_SRC
-
 *** bookmarks
 
 Emacs has robust [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Bookmarks.html][bookmarking functionality]]. It uses a file to persit the list of
@@ -1657,31 +1607,6 @@ I only want this to be installed and enabled on OS X.
     :config
     (setq exec-path-from-shell-variables '("PATH"  "MANPATH" "SHELL"))
     (exec-path-from-shell-initialize))
-#+END_SRC
-
-*** ido-ubiquitous
-
-[[https://github.com/DarwinAwardWinner/ido-ubiquitous][ido-ubiquitous]] mode enables ido in many more places than the default ido setup.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package ido-ubiquitous
-    :ensure t
-    :config
-    (ido-mode)
-    (ido-everywhere)
-    (ido-ubiquitous-mode))
-#+END_SRC
-
-*** flx-ido
-
-[[https://github.com/lewang/flx][flx-ido]] is an advanced flex-matching algorithm that's significantly faster and
-more accurate than the built-in method.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package flx-ido
-    :ensure t
-    :config
-    (flx-ido-mode))
 #+END_SRC
 
 *** swiper / ivy
