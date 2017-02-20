@@ -2248,7 +2248,6 @@ is enabled, company-anaconda will also be enabled.
 
 #+BEGIN_SRC emacs-lisp
   (use-package anaconda-mode
-    :after dumb-jump
     :ensure t
     :diminish anaconda-mode
     :commands smf/goto-def-of-dumbjump
