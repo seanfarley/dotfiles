@@ -1985,6 +1985,7 @@ A Growl-like alerts notifier for Emacs.
 #+BEGIN_SRC emacs-lisp
   (use-package alert
     :ensure t
+    :commands alert
     :config
     ;; copied from jwiegly's alert.el / erc example
     (alert-add-rule :status   '(buried visible idle)
