@@ -1701,8 +1701,15 @@ Note: swiper <- {counsel, ivy}
     :ensure t
     :bind (("C-s" . swiper)))
 
+  (use-package smex
+    :ensure t
+    :init
+    (setq smex-history-length 32
+          smex-save-file (expand-file-name ".smex-items"
+                                           smf/tmp-local-dir)))
+
   (use-package counsel
-    :after swiper
+    :after (smex swiper)
     :ensure t
     :bind (("M-x" . counsel-M-x)
            ("C-x C-f" . counsel-find-file)
