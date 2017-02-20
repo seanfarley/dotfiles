@@ -3180,13 +3180,13 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
 [[http://en.wikipedia.org/wiki/Internet_Relay_Chat][IRC]] will [[https://xkcd.com/1782/][always be popular]], so we'll use Emacs IRC.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package tls)
-  (use-package erc-join)
-  (use-package erc-menu)
+  (use-package tls :defer t)
+  (use-package erc-join :after erc)
+  (use-package erc-menu :after erc)
   (use-package erc
-    :after company
-    :commands erc
-    :init
+    :after (company tls)
+    :commands (erc erc-tls)
+    :config
     (setq
      erc-prompt ">"
      erc-email-userid "sean.michael.farley@gmail.com"
@@ -3253,6 +3253,7 @@ keychain method defined above to get our password.
   (use-package znc
     :after erc
     :ensure t
+    :commands znc-all
     :config
     (setq
      znc-detatch-on-kill t
@@ -3271,6 +3272,7 @@ Put the actual tweet into the buffer.
   (use-package erc-tweet
     :after erc
     :ensure t
+    :defer t
     :config
     (add-to-list 'erc-modules 'tweet))
 #+END_SRC
@@ -3281,6 +3283,7 @@ Put the actual tweet into the buffer.
   (use-package erc-hl-nicks
     :after erc
     :ensure t
+    :defer t
     :config
     ;; this makes colors look nice with darker themes
     (setq erc-hl-nicks-color-contrast-strategy '(invert contrast)))
@@ -3293,7 +3296,8 @@ This will never get old.
 #+BEGIN_SRC emacs-lisp
   (use-package cloud-to-butt-erc
     :after erc
-    :ensure t)
+    :ensure t
+    :defer t)
 #+END_SRC
 
 *** hipchat
@@ -3304,6 +3308,7 @@ A package I wrote to help connect to hipchat and display things like (awyeah).
   (use-package erc-hipchatify
     :after erc
     :ensure t
+    :defer t
     :config
     (setq erc-hipchatify-token `,(smf/get-keychain-password "smf/token" "hipchat.com")
           erc-hipchatify-email "sfarley@atlassian.com"
