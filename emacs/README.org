@@ -1834,10 +1834,12 @@ perform on-the-fly syntax checking and linting.
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
     :ensure t
+    :commands flycheck-mode
     :diminish flycheck-mode
+    :init
+    (add-hook 'prog-mode-hook #'flycheck-mode)
     :config
-    (defalias 'flycheck-show-error-at-point-soon 'flycheck-show-error-at-point)
-    (global-flycheck-mode))
+    (defalias 'flycheck-show-error-at-point-soon 'flycheck-show-error-at-point))
 #+END_SRC
 
 *** puppet-mode
