@@ -2370,11 +2370,13 @@ snippet syntax is inspired from [[http://manual.macromates.com/en/snippets][Text
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
     :ensure t
+    :commands (yas-global-mode yas-minor-mode)
     :diminish yas-minor-mode
+    :init
+    (add-hook 'prog-mode-hook #'yas-minor-mode)
     :config
     (setq yas/root-directory (smf/join-dirs smf/dotfiles-dir "snippets"))
-    (yas-global-mode))
-
+    (yas-reload-all))
 #+END_SRC
 
 *** smart-tabs-mode
