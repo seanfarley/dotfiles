@@ -1716,6 +1716,7 @@ Note: swiper <- {counsel, ivy}
     :after counsel
     :ensure t
     :diminish ivy-mode
+    :demand t
     :bind (("C-c C-r" . ivy-resume)         ; resumes the last Ivy-based completion
            ("C-x b" . ivy-switch-buffer)    ; use this instead of the lackluster
                                             ; `list-buffers'
