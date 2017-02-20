@@ -1341,18 +1341,6 @@ this after async.
           paradox-execute-asynchronously t))
 #+END_SRC
 
-*** bookmarks
-
-Emacs has robust [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Bookmarks.html][bookmarking functionality]]. It uses a file to persit the list of
-bookmarks, so make sure that file is in my custom temporary directory:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package bookmark
-    :config
-    (setq bookmark-default-file
-          (expand-file-name ".emacs.bmk" smf/tmp-local-dir)))
-#+END_SRC
-
 *** eldoc-mode
 
 [[http://www.emacswiki.org/emacs/ElDoc][eldoc-mode]] is a minor mode that displays context-sensitive help when editing
