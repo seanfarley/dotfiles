@@ -25,7 +25,6 @@
 (require 'spaceline)
 (require 'spaceline-config)
 (require 'all-the-icons)
-(require 'notmuch)
 
 ;;---------------;;
 ;; First Segment ;;
