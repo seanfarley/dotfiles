@@ -3637,6 +3637,7 @@ updated from within [[notmuch]] with keyboard shortcuts.
   (use-package offlineimap
     :after notmuch
     :ensure t
+    :commands offlineimap
     :config
     (setq offlineimap-mode-line-text nil
           offlineimap-mode-line-symbols '((run . "⟲")
