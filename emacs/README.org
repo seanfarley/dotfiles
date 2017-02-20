@@ -3223,10 +3223,14 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
     (add-hook 'erc-mode-hook 'company-mode))
 #+END_SRC
 
-*** erc alerts
+*** erc patches from jwiegly
 
 #+BEGIN_SRC emacs-lisp
   (use-package erc-alert
+    :after erc
+    :load-path "lisp")
+
+  (use-package erc-patch
     :after erc
     :load-path "lisp")
 #+END_SRC
