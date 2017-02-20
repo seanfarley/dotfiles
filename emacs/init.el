@@ -62,14 +62,11 @@
               (smf/ensure-refreshed)))
 
 (smf/package-ensure-installed 'use-package)
+(smf/package-ensure-installed 'org-plus-contrib)
 (eval-when-compile
   (defvar use-package-verbose t)
-  (require 'use-package))
-
-(package-install 'org-plus-contrib)
-
-(require 'org)
-(require 'ob-tangle)
+  (require 'use-package)
+  (require 'org))
 
 (org-babel-load-file (expand-file-name "README.org" (file-name-directory
-                                                    (or (buffer-file-name) load-file-name))))
+                                                     (or (buffer-file-name) load-file-name))))
