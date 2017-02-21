@@ -1670,6 +1670,26 @@ I only want this to be installed and enabled on OS X.
     (exec-path-from-shell-initialize))
 #+END_SRC
 
+*** smex
+
+#+BEGIN_SRC emacs-lisp
+  (use-package smex
+    :commands (smex
+               smex-update
+               smex-initialize)
+    :config (progn
+              (setq smex-key-advice-ignore-menu-bar t
+                    smex-auto-update nil)
+              (defun smex-update-after-load (_unused)
+                (if (boundp 'smex-cache)
+                    (smex-update)))
+              (add-hook 'after-load-functions 'smex-update-after-load))
+    :init
+    (setq smex-history-length 32
+          smex-save-file (expand-file-name ".smex-items"
+                                           smf/tmp-local-dir)))
+#+END_SRC
+
 *** swiper / ivy
 
 Ivy - a generic completion frontend for Emacs, Swiper - isearch with an
@@ -1682,14 +1702,6 @@ Note: swiper <- {counsel, ivy}
     :ensure t
     :bind (("C-s" . swiper)
            ("s-f" . swiper)))
-
-  (use-package smex
-    :ensure t
-    :commands smex-initialize
-    :init
-    (setq smex-history-length 32
-          smex-save-file (expand-file-name ".smex-items"
-                                           smf/tmp-local-dir)))
 
   (use-package counsel
     :ensure t
