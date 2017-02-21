@@ -944,7 +944,6 @@ to select the whole buffer, or =⌘-c= to copy.
     (global-set-key (kbd "s-r") 'recompile)
     (global-set-key (kbd "s-}") 'forward-paragraph)
     (global-set-key (kbd "s-{") 'backward-paragraph)
-    (global-set-key (kbd "s-f") 'swiper)
     (global-set-key (kbd "s-g") 'isearch-repeat-forward)
     (global-set-key [(H left)]  'beginning-of-buffer)
     (global-set-key [(H right)] 'end-of-buffer)
@@ -1602,7 +1601,8 @@ Note: swiper <- {counsel, ivy}
 #+BEGIN_SRC emacs-lisp
   (use-package swiper
     :ensure t
-    :bind (("C-s" . swiper)))
+    :bind (("C-s" . swiper)
+           ("s-f" . swiper)))
 
   (use-package smex
     :ensure t
