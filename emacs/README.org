@@ -2204,7 +2204,8 @@ delimiters such as parentheses, brackets or braces according to their depth.
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
     :ensure t
-    :config
+    :commands rainbow-delimiters-mode
+    :init
     (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 #+END_SRC
 
