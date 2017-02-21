@@ -1648,7 +1648,6 @@ watch the video on that link than explain).
 
 #+BEGIN_SRC emacs-lisp
   (use-package avy
-    :after ivy
     :ensure t
     :bind (("H-;" . avy-goto-char)
            ("H-<return>" . avy-goto-line)
