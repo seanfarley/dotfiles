@@ -385,37 +385,6 @@ pc() {
   eval ./configure $extra $libs
 }
 
-emacs-compile-plugins() {
-  local i j k includes
-
-  for i in plugins; do
-    includes=$(for k in $(ls ~/.emacs.d/$i); do printf "'-'L ~/.emacs.d/plugins/$k "; done | perl -pe "s,'-',-,g")
-  done
-
-  for i in plugins themes; do
-    for j in $(ls ~/.emacs.d/$i | grep -v cedet); do
-      cd ~/.emacs.d/$i/$j
-      for k in *.el; do emacs -L . $includes -L ../nxhtml/util --batch --eval "(byte-compile-file \"$k\")"; done
-      cd -
-    done
-  done
-}
-
-emacs-pull-plugins() {
-  local i j
-
-  for j in plugins themes; do
-    for i in $(ls ~/.emacs.d/$j); do
-      if [ -d ~/.emacs.d/$j/$i/.git ]; then
-        cd ~/.emacs.d/$j/$i
-        printf "Pulling $i: "
-        git pull
-        cd -
-      fi
-    done
-  done
-}
-
 mpsearch() {
   csearch -f Portfile "$@" | less
 }
