@@ -1613,8 +1613,9 @@ Note: swiper <- {counsel, ivy}
                                            smf/tmp-local-dir)))
 
   (use-package counsel
-    :after (smex swiper)
     :ensure t
+    :commands (counsel-M-x counsel-find-file counsel-describe-function
+               counsel-describe-variable counsel-unicode-char)
     :bind (("M-x" . counsel-M-x)
            ("C-x C-f" . counsel-find-file)
            ("<f1> f" . counsel-describe-function)
