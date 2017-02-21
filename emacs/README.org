@@ -1545,18 +1545,18 @@ let's add them:
 I like whitespace-mode for programming and text modes (including org),
 
 #+BEGIN_SRC emacs-lisp
-  (require 'whitespace)
-  (global-whitespace-mode t)
-  (setq whitespace-global-modes '(text-mode prog-mode org-mode))
-#+END_SRC
-
-But most of the time, I only want to see tabs and trailing spaces,
-
-#+BEGIN_SRC emacs-lisp
-  (setq whitespace-style '(trailing face tabs tab-mark lines-tail))
-  (setq whitespace-display-mappings '((space-mark 32 [183] [46])
-                                      (newline-mark 10 [182 10])
-                                      (tab-mark 9 [9655 9] [92 9])))
+  (use-package whitespace
+    :commands whitespace-mode
+    :init
+    (add-hook 'text-mode-hook #'whitespace-mode)
+    (add-hook 'prog-mode-hook #'whitespace-mode)
+    (add-hook 'org-mode-hook #'whitespace-mode)
+    :config
+    ;; most of the time we only want to see tabs and trailing spaces
+    (setq whitespace-style '(trailing face tabs tab-mark lines-tail))
+    (setq whitespace-display-mappings '((space-mark 32 [183] [46])
+                                        (newline-mark 10 [182 10])
+                                        (tab-mark 9 [9655 9] [92 9]))))
 #+END_SRC
 
 *** Highlight C functions
