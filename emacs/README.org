@@ -2600,7 +2600,6 @@ will have whitespace symbols.
 
 #+BEGIN_SRC emacs-lisp
   (use-package persistent-scratch
-    :after anzu
     :ensure t
     :config
     (persistent-scratch-setup-default)
