@@ -2151,7 +2151,10 @@ Dim the font color of text in surrounding paragraphs.
 
 #+BEGIN_SRC emacs-lisp
   (use-package focus
-    :ensure t)
+    :ensure t
+    :commands focus-mode
+    :init
+    (smf/add-launcher "f" #'focus-mode))
 #+END_SRC
 
 *** hl-mode
