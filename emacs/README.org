@@ -2218,7 +2218,8 @@ brackets, and braces according to their depth.
   (use-package rainbow-blocks
     :ensure t
     :diminish rainbow-blocks-mode
-    :config
+    :commands rainbow-blocks-mode
+    :init
     (add-hook 'emacs-lisp-mode-hook 'rainbow-blocks-mode)
     (add-hook 'lisp-interaction-mode-hook 'rainbow-blocks-mode))
 #+END_SRC
