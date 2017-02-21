@@ -1750,28 +1750,20 @@ watch the video on that link than explain).
 buffers, search buffers etc. a bit more sane.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'popwin)
-#+END_SRC
-
-As well as the defaults, I want [[ag]], [[flycheck]] and [[http://www.emacswiki.org/emacs/OccurMode][occur]] to 'pop'. I don't want to
-auto-select the =Compile-Log= process buffer as it's for information only.
-
-#+BEGIN_SRC emacs-lisp
-  (after-load 'popwin
+  (use-package popwin
+    :ensure t
+    :bind (("C-c P" . popwin:popup-last-buffer))
+    :config
+    ;; also add ag, flycheck, and occur to pop
     (add-to-list 'popwin:special-display-config `"*ag search*")
     (add-to-list 'popwin:special-display-config `"*Flycheck errors*")
     (add-to-list 'popwin:special-display-config `"*Occur*")
-    (add-to-list 'popwin:special-display-config `("*Compile-Log*" :noselect t)))
-#+END_SRC
 
-Load [[popwin]] and configure keyboard shortcuts:
+    ;; don't auto-select the compile process buffer as it's only for information
+    (add-to-list 'popwin:special-display-config `("*Compile-Log*" :noselect t))
 
-#+BEGIN_SRC emacs-lisp
-  (require 'popwin)
-  (popwin-mode 1)
-  (global-set-key (kbd "C-c P") 'popwin:popup-last-buffer)
-  (when (eq system-type 'darwin)
-    (global-set-key (kbd "s-P") 'popwin:popup-last-buffer))
+    ;; enable
+    (popwin-mode))
 #+END_SRC
 
 *** goto-chg
