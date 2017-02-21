@@ -1766,9 +1766,11 @@ Some compiler output has ansi color, so let's escape that,
   (use-package smartparens
     :ensure t
     :diminish smartparens-mode
+    :commands smartparens-mode
+    :init
+    (add-hook 'prog-mode-hook #'smartparens-mode)
     :config
-    (require 'smartparens-config)
-    (add-hook 'prog-mode-hook #'smartparens-mode))
+    (use-package smartparens-config))
 #+END_SRC
 
 *** company
