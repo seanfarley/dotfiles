@@ -1606,6 +1606,7 @@ Note: swiper <- {counsel, ivy}
 
   (use-package smex
     :ensure t
+    :commands smex-initialize
     :init
     (setq smex-history-length 32
           smex-save-file (expand-file-name ".smex-items"
