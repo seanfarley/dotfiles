@@ -1559,16 +1559,6 @@ I like whitespace-mode for programming and text modes (including org),
                                         (tab-mark 9 [9655 9] [92 9]))))
 #+END_SRC
 
-*** Highlight C functions
-
-Taken from [[http://stackoverflow.com/questions/14715181/emacs-function-call-highlight][this StackOverflow]] question, we use it to highlight functions in C,
-
-#+BEGIN_SRC emacs-lisp
-  (font-lock-add-keywords
-   'c-mode
-   '(("\\<\\(\\sw+\\) ?(" 1 'font-lock-function-name-face)))
-#+END_SRC
-
 *** exec-path-from-shell
 
 OS X doesn't use the environment variables available in a shell in a GUI
