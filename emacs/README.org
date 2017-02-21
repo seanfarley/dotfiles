@@ -1625,10 +1625,9 @@ Note: swiper <- {counsel, ivy}
     (smf/add-launcher "i" 'counsel-imenu))
 
   (use-package ivy
-    :after counsel
     :ensure t
     :diminish ivy-mode
-    :demand t
+    :commands (ivy-resume ivy-switch-buffer)
     :bind (("C-c C-r" . ivy-resume)         ; resumes the last Ivy-based completion
            ("C-x b" . ivy-switch-buffer)    ; use this instead of the lackluster
                                             ; `list-buffers'
@@ -1636,8 +1635,7 @@ Note: swiper <- {counsel, ivy}
            ("C-x C-n" . ivy-switch-buffer)) ; common typo
     :config
     (setq ivy-wrap t                        ; wraps around the buffer
-          ivy-use-virtual-buffers t)
-    (ivy-mode))
+          ivy-use-virtual-buffers t))
 #+END_SRC
 
 *** avy
