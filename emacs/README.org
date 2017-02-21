@@ -3352,13 +3352,15 @@ switch to the buffer.
   (defun smf/erc-start-or-switch (channel)
     "Connect to ERC, or switch to given channel"
     (interactive)
-    (if (get-buffer "*irc-freenode*") ;; ERC already active?
-        (progn
-          (set-buffer "*irc-freenode*")
-          (if (erc-server-process-alive)
-              (switch-to-buffer channel) ;; yes: switch to #channel
-            (znc-all)))                  ;; no: start ERC
-      (znc-all)))                        ;; no: start ERC
+    ;; switch to the scratch buffer so cwd isn't in a project
+    (with-current-buffer (get-buffer "*scratch*")
+      (if (get-buffer "*irc-freenode*") ;; ERC already active?
+          (progn
+            (set-buffer "*irc-freenode*")
+            (if (erc-server-process-alive)
+                (switch-to-buffer channel) ;; yes: switch to #channel
+              (znc-all)))                  ;; no: start ERC
+        (znc-all))))                       ;; no: start ERC
 
   (defun smf/bitbucket ()
     (interactive)
