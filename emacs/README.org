@@ -823,26 +823,22 @@ Typically OS X hosts are called things like =hostname.localconfig= or
 
 *** Spelling correction
 
-[[https://www.gnu.org/software/ispell/][ispell]] isn't generally available on OS X. [[http://aspell.net][aspell]] is available via [[https://github.com/macports/macports-ports/blob/master/textproc/aspell/Portfile][MacPorts]], so
-let's use that if we can find it:
-
-#+BEGIN_SRC emacs-lisp
-  (when (and (eq system-type 'darwin) (executable-find "aspell"))
-      (setq ispell-program-name (executable-find "aspell")))
-#+END_SRC
-
 On the mac, the default mouse bindings are problematic since a two-finger click
 is =mouse-3= and not =mouse-2=:
 
 #+BEGIN_SRC emacs-lisp
   (use-package flyspell
     :ensure t
-    :defer t
     :diminish flyspell-mode
+    :commands (flyspell-mode flyspell-prog-mode flyspell-correct-word)
     :init
     (add-hook 'prog-mode-hook 'flyspell-prog-mode)
     (add-hook 'text-mode-hook 'flyspell-mode)
     :config
+    ;; ispell isn't generally available on macos so let's use aspell
+    (when (executable-find "aspell")
+      (setq ispell-program-name (executable-find "aspell")))
+
     ;; Sets flyspell correction to use two-finger mouse click
     (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word))
 #+END_SRC
