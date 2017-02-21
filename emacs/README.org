@@ -1695,6 +1695,7 @@ installed via cargo on my Mac.
 #+BEGIN_SRC emacs-lisp
   (use-package ripgrep
     :ensure t
+    :commands ripgrep-regexp
     :if (executable-find "rg"))
 #+END_SRC
 
@@ -1704,7 +1705,6 @@ Set up some key bindings:
 
 #+BEGIN_SRC emacs-lisp
   (use-package projectile-ripgrep
-    :after (ripgrep projectile)
     :ensure t
     :bind (([remap projectile-grep] . projectile-ripgrep)))
 #+END_SRC
