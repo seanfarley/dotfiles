@@ -1716,15 +1716,15 @@ grouping of files.
 
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
-    :after ivy
     :ensure t
     :diminish projectile-mode
+    :defer 4
     :init
     (smf/add-launcher "s" 'projectile-switch-project)
     :config
     (setq projectile-completion-system 'ivy
           projectile-enable-caching t)
-    (projectile-global-mode))
+    (projectile-mode))
 #+END_SRC
 
 *** colorize compile buffer
