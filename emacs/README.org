@@ -42,8 +42,8 @@ install it:
 
 ***** Required iTerm 2 Configuration
 
-     - Re-map left =option= key to =+Esc=
-     - Untick =Smart cursor color=
+- Re-map left =option= key to =+Esc=
+- Untick =Smart cursor color=
 
 *** Included libraries
 
