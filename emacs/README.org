@@ -223,6 +223,25 @@ directory to the version of Emacs I'm using.
 
 Final result should be something like =~/.emacs.d/.elpa/24.3.93.1/=.
 
+**** Ensure package list is refereshed
+
+#+BEGIN_SRC emacs-lisp
+  ;; Set the initial state to non-refreshed. This can also be set back
+  ;; to nil if we want to run a refresh on the next install.
+  (defvar smf/refreshed-package-list nil)
+
+  (defun smf/ensure-refreshed ()
+    "Ensure the package list has been refreshed this startup."
+    (unless smf/refreshed-package-list
+      (package-refresh-contents)
+      (setq smf/refreshed-package-list t)))
+
+  (advice-add 'package-install
+              :before
+              (lambda (&rest args)
+                (smf/ensure-refreshed)))
+#+END_SRC
+
 **** Customise package repositories to install from
 
 By default Emacs only installs files from [[http://www.gnu.org/software/emacs/manual/html_node/efaq/Packages-that-do-not-come-with-Emacs.html#Packages-that-do-not-come-with-Emacs][ELPA]]. Some of these packages are old
