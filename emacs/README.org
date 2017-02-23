@@ -3225,17 +3225,13 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
      ;; when people send me a message (called 'query' in IRC speak), I want the
      ;; buffer to pop up and notify me,
      erc-auto-query 'buffer
-     erc-query-display 'buffer
-
-     erc-scroll-to-bottom -2)
+     erc-query-display 'buffer)
 
     ;; let's enable some convenient modules
     (add-to-list 'erc-modules 'dcc)
-    (add-to-list 'erc-modules 'scrolltobottom)
 
     ;; enable shit
     (erc-spelling-mode 1)
-    (erc-scrolltobottom-mode 1)
 
     ;; As a default, only private messages trigger automatic creation of query
     ;; buffers. I want the same behavior when I receive all notices
@@ -3250,10 +3246,6 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
 
 #+BEGIN_SRC emacs-lisp
   (use-package erc-alert
-    :after erc
-    :load-path "lisp")
-
-  (use-package erc-patch
     :after erc
     :load-path "lisp")
 #+END_SRC
