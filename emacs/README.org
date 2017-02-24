@@ -2876,12 +2876,12 @@ need to load Magit first.
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit
-    :after ivy
+    :ensure t
+    :commands (magit-status magit-commit magit-log-mode)
+    :mode ("COMMIT_EDITMSG" . git-commit-mode)
     :init
     (smf/add-launcher "g" 'magit-status)
     :config
-    (add-hook 'git-commit-mode-hook 'magit-commit-mode-init)
-
     ;; magit settings
     (setq
      ;; use ido to look for branches
