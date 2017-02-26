@@ -96,7 +96,7 @@ If the buffer is currently not visible, makes it sticky."
    :predicate #'erc-alert-important-p
    :style (if (file-executable-p alert-notifier-command)
               'notifier
-            'growl)
+            'osx-notifier)
    :append t)
 
   (alert-add-rule

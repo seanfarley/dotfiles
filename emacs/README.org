@@ -2112,7 +2112,7 @@ A Growl-like alerts notifier for Emacs.
 
     (setq alert-default-style (if (file-executable-p alert-notifier-command)
                                   'notifier
-                                'growl)))
+                                'osx-notifier)))
 #+END_SRC
 
 *** prodigy
