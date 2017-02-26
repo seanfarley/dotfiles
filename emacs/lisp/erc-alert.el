@@ -74,11 +74,13 @@ If the buffer is currently not visible, makes it sticky."
    :mode     'erc-mode
    :predicate
    #'(lambda (info)
-       (and (not (eq (current-buffer) (plist-get info :buffer)))
             (or (string-match "smf:" (plist-get info :message))
                 (string-match (concat "\\`[^&]" erc-priority-people-regexp
-                                      "@BitlBee\\'")
-                              (erc-format-target-and/or-network)))))
+                                      "@BitlBee\\'") (erc-format-target-and/or-network))
+                (string-match (concat "\\`[^&]" erc-priority-people-regexp
+                                      "|GTalk\\'") (erc-format-target-and/or-network))
+                (string-match (concat "\\`[^&]" erc-priority-people-regexp
+                                      "|FB\\'") (erc-format-target-and/or-network))))
    :persistent
    #'(lambda (info)
        ;; If the buffer is buried, or the user has been idle for
