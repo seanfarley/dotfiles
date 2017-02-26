@@ -86,7 +86,9 @@ If the buffer is currently not visible, makes it sticky."
        ;; persistent.  Normally, alerts become persistent after
        ;; `alert-persist-idle-time' seconds.
        (memq (plist-get info :status) '(buried idle)))
-   :style 'fringe
+   :style (if (file-executable-p alert-notifier-command)
+              'notifier
+            'osx-notifier)
    :continue t)
 
   ;; If the ERC buffer is not visible, tell the user through Growl
