@@ -1742,8 +1742,8 @@ Note: swiper <- {counsel, ivy}
 
   (use-package ivy
     :ensure t
+    :demand t
     :diminish ivy-mode
-    :commands (ivy-resume ivy-switch-buffer)
     :bind (("C-c C-r" . ivy-resume)         ; resumes the last Ivy-based completion
            ("C-x b" . ivy-switch-buffer)    ; use this instead of the lackluster
                                             ; `list-buffers'
@@ -1751,7 +1751,8 @@ Note: swiper <- {counsel, ivy}
            ("C-x C-n" . ivy-switch-buffer)) ; common typo
     :config
     (setq ivy-wrap t                        ; wraps around the buffer
-          ivy-use-virtual-buffers t))
+          ivy-use-virtual-buffers t)
+    (ivy-mode))
 #+END_SRC
 
 *** avy
