@@ -2906,6 +2906,8 @@ need to load Magit first.
   (use-package hugme
     :after magit
     :load-path "~/projects/hugme/lisp"
+    :mode (("hg-editor-.*\\.txt" . hg-commit-mode)
+           ("hg-histedit-.*\\.txt" . hg-histedit-mode))
     :init
     (smf/add-launcher "h" 'hugme-status)
     :config
