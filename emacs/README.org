@@ -3692,7 +3692,7 @@ Now try to load a file named after the current user:
 and try to load a file named after the local system:
 
 #+BEGIN_SRC emacs-lisp
-  (load (concat smf/local-dotfiles-dir system-name ".el") t)
+  (load (concat smf/local-dotfiles-dir (system-name) ".el") t)
 #+END_SRC
 
 Finally, try loading a default file:
