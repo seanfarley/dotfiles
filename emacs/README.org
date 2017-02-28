@@ -3542,7 +3542,7 @@ We only load it if it exists on the system (by wrapping it with =after-load=).
         "Move message to trash."
         (interactive)
         (notmuch-search-tag (list "+trash" "-inbox" "-unread" "-archive"))
-        (next-line)))
+        (forward-line)))
 
     ;; 'S' delete stuff in both search and show mode
     (define-key notmuch-show-mode-map "S"
@@ -3556,7 +3556,7 @@ We only load it if it exists on the system (by wrapping it with =after-load=).
         "Mark message as spam."
         (interactive)
         (notmuch-search-tag (list "+spam" "-inbox" "-unread" "-archive"))
-        (next-line)))
+        (forward-line)))
 
     (define-key 'notmuch-show-mode-map "I" 'smf/notmuch-show-import-patch)
     (define-key 'notmuch-show-mode-map "J" 'smf/notmuch-show-set-pre-reviewed))
