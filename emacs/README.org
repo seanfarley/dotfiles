@@ -954,7 +954,7 @@ gotten from [[http://mindlev.wordpress.com/2011/06/13/emacs-in-a-terminal-on-osx
 Also, allow pasting selection outside of Emacs:
 
 #+BEGIN_SRC emacs-lisp
-  (setq x-select-enable-clipboard t)
+  (setq select-enable-clipboard t)
 #+END_SRC
 
 *** Fullscreen support
