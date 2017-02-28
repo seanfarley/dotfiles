@@ -3025,16 +3025,16 @@ and the resulting pdf file.
     :bind (:map LaTeX-mode-map
                 ("C-c C-a" . smf/latexmk-compile))
     :config
-    (setq TeX-auto-save t
-          TeX-parse-self t
-          LaTeX-item-indent 0
-          TeX-clean-confirm nil ; don't ask me to clean
-          TeX-PDF-mode t        ; who uses dvi?
-          outline-minor-mode-prefix (kbd "C-c o")
-          TeX-source-correlate-method 'synctex
-          TeX-source-correlate-start-server t
-          TeX-view-program-selection '((output-pdf "PDF Tools"))
-          TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view)))
+    (setq-default TeX-auto-save t
+                  TeX-parse-self t
+                  LaTeX-item-indent 0
+                  TeX-clean-confirm nil ; don't ask me to clean
+                  TeX-PDF-mode t        ; who uses dvi?
+                  outline-minor-mode-prefix (kbd "C-c o")
+                  TeX-source-correlate-method 'synctex
+                  TeX-source-correlate-start-server t
+                  TeX-view-program-selection '((output-pdf "PDF Tools"))
+                  TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view)))
 
     ;; taken from http://www.emacswiki.org/AUCTeX for automatic detection of the
     ;; master file
@@ -3108,48 +3108,48 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
     :init
     (setq reftex-plug-into-AUCTeX t)
     :config
-    (setq reftex-enable-partial-scans t
-          reftex-save-parse-info t
-          reftex-use-multiple-selection-buffers t
-          reftex-plug-into-AUCTeX t
+    (setq-default reftex-enable-partial-scans t
+                  reftex-save-parse-info t
+                  reftex-use-multiple-selection-buffers t
+                  reftex-plug-into-AUCTeX t
 
-          reftex-cite-prompt-optional-args nil
-          reftex-cite-cleanup-optional-args t
+                  reftex-cite-prompt-optional-args nil
+                  reftex-cite-cleanup-optional-args t
 
-          reftex-section-levels '(("part" . 0)
-                                  ("chapter" . 1)
-                                  ("section" . 2)
-                                  ("subsection" . 3)
-                                  ("frametitle" . 4)
-                                  ("subsubsection" . 4)
-                                  ("paragraph" . 5)
-                                  ("subparagraph" . 6)
-                                  ("addchap" . -1)
-                                  ("addsec" . -2))
+                  reftex-section-levels '(("part" . 0)
+                                          ("chapter" . 1)
+                                          ("section" . 2)
+                                          ("subsection" . 3)
+                                          ("frametitle" . 4)
+                                          ("subsubsection" . 4)
+                                          ("paragraph" . 5)
+                                          ("subparagraph" . 6)
+                                          ("addchap" . -1)
+                                          ("addsec" . -2))
 
-          reftex-plug-into-AUCTeX t
-          reftex-extra-bindings t
-          reftex-bibfile-ignore-list nil
-          reftex-guess-label-type t
-          reftex-revisit-to-follow t
-          reftex-use-fonts t              ; make colorful toc
-          reftex-toc-follow-mode nil      ; don't follow other toc(s)
-          reftex-toc-split-windows-horizontally t
-          reftex-auto-recenter-toc t
-          reftex-enable-partial-scans t
-          reftex-save-parse-info t
-          reftex-use-multiple-selection-buffers t
+                  reftex-plug-into-AUCTeX t
+                  reftex-extra-bindings t
+                  reftex-bibfile-ignore-list nil
+                  reftex-guess-label-type t
+                  reftex-revisit-to-follow t
+                  reftex-use-fonts t              ; make colorful toc
+                  reftex-toc-follow-mode nil      ; don't follow other toc(s)
+                  reftex-toc-split-windows-horizontally t
+                  reftex-auto-recenter-toc t
+                  reftex-enable-partial-scans t
+                  reftex-save-parse-info t
+                  reftex-use-multiple-selection-buffers t
 
-          TeX-fold-env-spec-list '(("[comment]" ("comment"))
-                                   ("[figure]" ("figure"))
-                                   ("[table]" ("table"))
-                                   ("[itemize]" ("itemize"))
-                                   ("[enumerate]" ("enumerate"))
-                                   ("[description]" ("description"))
-                                   ("[overpic]" ("overpic"))
-                                   ("[tabularx]" ("tabularx"))
-                                   ("[code]" ("code"))
-                                   ("[shell]" ("shell")))))
+                  TeX-fold-env-spec-list '(("[comment]" ("comment"))
+                                           ("[figure]" ("figure"))
+                                           ("[table]" ("table"))
+                                           ("[itemize]" ("itemize"))
+                                           ("[enumerate]" ("enumerate"))
+                                           ("[description]" ("description"))
+                                           ("[overpic]" ("overpic"))
+                                           ("[tabularx]" ("tabularx"))
+                                           ("[code]" ("code"))
+                                           ("[shell]" ("shell")))))
 #+END_SRC
 
 *** company-math
