@@ -3200,7 +3200,7 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
     :after (company tls)
     :commands (erc erc-tls)
     :config
-    (setq
+    (setq-default
      erc-prompt ">"
      erc-email-userid "sean.michael.farley@gmail.com"
      erc-autojoin-channels-alist '((".*smf.io.*" "&bitlbee" "#bitbucket"))
