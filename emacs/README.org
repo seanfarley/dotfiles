@@ -2344,6 +2344,8 @@ is enabled, company-anaconda will also be enabled.
                                ; stack (which changed in Emacs 25)
                 ("M-." . smf/goto-def-or-dumbjump))
     :config
+    ;; need to load this for the xref call in our function below
+    (use-package xref)
 
     ;; After a few levels of indirection, =anaconda= has no hope of finding a symbol's
     ;; definition, so it gives up. In this case, invoking
@@ -2354,7 +2356,7 @@ is enabled, company-anaconda will also be enabled.
       "Go to definition of thing at point or do a dumb-jump-go in
       project if that fails"
       (interactive)
-      (ring-insert find-tag-marker-ring (point-marker))
+      (xref-push-marker-stack)
       (anaconda-mode-call "goto_definitions"
                           'smf/anaconda-mode-find-definitions-callback))
 
