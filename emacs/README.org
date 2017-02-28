@@ -3011,6 +3011,9 @@ and initialize them. [[http://mactex-wiki.tug.org/wiki/index.php/SyncTeX][SyncTe
 and the resulting pdf file.
 
 #+BEGIN_SRC emacs-lisp
+  ;; define map to silence byte compiler
+  (defvar LaTeX-mode-map)
+
   (use-package tex
     :ensure auctex
     :mode ("\\.tex\\'" . latex-mode)
