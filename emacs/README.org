@@ -3219,50 +3219,89 @@ I love [[http://en.wikipedia.org/wiki/LaTeX][LaTex]]. It's the best way to types
 *** AucTeX
 
 Let's start by installing some LaTeX specific plugins (mostly AucTex-related)
-and initialize them,
+and initialize them. [[http://mactex-wiki.tug.org/wiki/index.php/SyncTeX][SyncTeX]] enables synchronization between source TeX files
+and the resulting pdf file.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'auctex)
-  (require-package 'auctex-latexmk)
+  (use-package tex
+    :ensure auctex
+    :mode ("\\.tex\\'" . latex-mode)
+    :commands (latex-mode LaTeX-mode plain-tex-mode)
+    :diminish iimage-mode
+    :diminish outline-minor-mode
+    :diminish reftex-mode
+    :diminish abbrev-mode
+    :config
+    (setq TeX-auto-save t
+          TeX-parse-self t
+          LaTeX-item-indent 0
+          TeX-clean-confirm nil ; don't ask me to clean
+          TeX-PDF-mode t        ; who uses dvi?
+          TeX-source-correlate-method 'synctex
+          outline-minor-mode-prefix (kbd "\C-co"))
 
-  (auctex-latexmk-setup)
-#+END_SRC
+    ;; sensible defaults for OS X, other OSes should be covered out-of-the-box
+    (when (eq system-type 'darwin)
+      (setq TeX-view-program-selection
+            '((output-dvi "DVI Viewer")
+              (output-pdf "PDF Viewer")
+              (output-html "HTML Viewer")))
 
-A few basic settings,
+      (setq TeX-view-program-list
+            '(("DVI Viewer" "$HOME/.edit.sh -n %o")
+              ("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b %n %o %b")
+              ("HTML Viewer" "open %o"))))
 
-#+BEGIN_SRC emacs-lisp
-  (setq TeX-auto-save t)
-  (setq TeX-parse-self t)
-  (setq LaTeX-item-indent 0)
-  (setq TeX-clean-confirm nil) ;; don't ask me to clean
-#+END_SRC
+    ;; taken from http://www.emacswiki.org/AUCTeX for automatic detection of the
+    ;; master file
 
-Who uses dvi?
+    (defun smf/guess-TeX-master (filename)
+      "Guess the master file for FILENAME from currently open .tex files."
+      (let ((candidate nil)
+            (filename (file-name-nondirectory filename)))
+        (save-excursion
+          (dolist (buffer (buffer-list))
+            (with-current-buffer buffer
+              (let ((name (buffer-name))
+                    (file buffer-file-name))
+                (if (and file (string-match "\\.tex$" file))
+                    (progn
+                      (goto-char (point-min))
+                      (if (re-search-forward (concat "\\\\input{" filename "}") nil t)
+                          (setq candidate file))
+                      (if (re-search-forward (concat "\\\\include{" (file-name-sans-extension filename) "}") nil t)
+                          (setq candidate file))))))))
+        (if candidate
+            (message "TeX master document: %s" (file-name-nondirectory candidate)))
+        candidate))
 
-#+BEGIN_SRC emacs-lisp
-  (setq TeX-PDF-mode t)
-#+END_SRC
-
-*** SyncTeX
-
-[[http://mactex-wiki.tug.org/wiki/index.php/SyncTeX][SyncTeX]] enables synchronization between source TeX files and the resulting pdf
-file.
-
-#+BEGIN_SRC emacs-lisp
-  (setq TeX-source-correlate-method 'synctex)
-  (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
-#+END_SRC
-
-*** Latexmk
-
-[[http://users.phys.psu.edu/~collins/software/latexmk-jcc/][Latexmk]] is a handy way to compile the TeX source the correct number of times.
-So, we'll create a convenient binding for that,
-
-#+BEGIN_SRC emacs-lisp
-(defun smf/latexmk-compile ()
+    ;; latexmk is a handy way to compile the TeX source the correct number of
+    ;; times, so we'll create a convenient binding for that
+    (defun smf/latexmk-compile ()
       (interactive)
       (save-buffer)
       (TeX-command "LatexMk" 'TeX-master-file -1))
+
+    (defun smf/latex-mode-hook ()
+      (turn-on-auto-fill)
+      (abbrev-mode)
+      (LaTeX-math-mode)
+      (outline-minor-mode)
+      (magic-latex-buffer)
+      (setq TeX-master (smf/guess-TeX-master (buffer-file-name)))
+      (define-key LaTeX-mode-map (kbd "C-c C-a") 'smf/latexmk-compile))
+
+    ;; add synctex hook
+    (add-hook 'LaTeX-mode-hook #'TeX-source-correlate-mode)
+    (add-hook 'LaTeX-mode-hook #'smf/latex-mode-hook)
+    (add-hook 'LaTeX-mode-hook #'reftex-mode)
+    (add-hook 'LaTeX-mode-hook #'turn-on-reftex))
+
+  (use-package auctex-latexmk
+    :after auctex
+    :ensure t
+    :config
+    (auctex-latexmk-setup))
 #+END_SRC
 
 *** =magic-latex-buffer=
@@ -3270,47 +3309,10 @@ So, we'll create a convenient binding for that,
 Magical syntax highlighting for LaTeX-mode buffers.
 
 #+BEGIN_SRC emacs-lisp
-  (require-package 'magic-latex-buffer)
-  (require 'magic-latex-buffer)
-#+END_SRC
-
-*** OS X
-
-Sensible defaults for OS X, other OSes should be covered out-of-the-box,
-
-#+BEGIN_SRC emacs-lisp
-  (when (eq system-type 'darwin)
-    (setq TeX-view-program-selection
-          '((output-dvi "DVI Viewer")
-            (output-pdf "PDF Viewer")
-            (output-html "HTML Viewer")))
-
-    (setq TeX-view-program-list
-          '(("DVI Viewer" "$HOME/.edit.sh -n %o")
-            ("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b %n %o %b")
-            ("HTML Viewer" "open %o"))))
-#+END_SRC
-
-Modes to load,
-
-#+BEGIN_SRC emacs-lisp
-  (defun smf/latex-mode-hook ()
-    (turn-on-auto-fill)
-    (abbrev-mode +1)
-    (LaTeX-math-mode 1)
-    (outline-minor-mode 1)
-    (magic-latex-buffer)
-    (define-key LaTeX-mode-map (kbd "C-c C-a") 'smf/latexmk-compile)
-    (diminish 'magic-latex-buffer)
-    (diminish 'iimage-mode)
-    (diminish 'outline-minor-mode)
-    (diminish 'reftex-mode)
-    (diminish 'abbrev-mode))
-
-  (add-hook 'LaTeX-mode-hook 'smf/latex-mode-hook)
-  (add-hook 'LaTeX-mode-hook 'reftex-mode)
-  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
-  (add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
+  (use-package magic-latex-buffer
+    :ensure t
+    :defer t
+    :diminish magic-latex-buffer)
 #+END_SRC
 
 *** RefTeX
@@ -3318,87 +3320,53 @@ Modes to load,
 You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html][RefTeX]].
 
 #+BEGIN_SRC emacs-lisp
-  (autoload 'reftex-mode "reftex" "RefTeX Minor Mode" t)
-  (autoload 'reftex-citation "reftex-cite" "Make citation" nil)
-  (autoload 'reftex-index-phrase-mode "reftex-index" "Phrase mode" t)
-#+END_SRC
+  (use-package reftex
+    :commands turn-on-reftex
+    :init
+    (setq reftex-plug-into-AUCTeX t)
+    :config
+    (setq reftex-enable-partial-scans t
+          reftex-save-parse-info t
+          reftex-use-multiple-selection-buffers t
+          reftex-plug-into-AUCTeX t
 
-These settings were randomly found,
+          reftex-cite-prompt-optional-args nil
+          reftex-cite-cleanup-optional-args t
 
-#+BEGIN_SRC emacs-lisp
-  (setq reftex-enable-partial-scans t)
-  (setq reftex-save-parse-info t)
-  (setq reftex-use-multiple-selection-buffers t)
-  (setq reftex-plug-into-AUCTeX t)
+          reftex-section-levels '(("part" . 0)
+                                  ("chapter" . 1)
+                                  ("section" . 2)
+                                  ("subsection" . 3)
+                                  ("frametitle" . 4)
+                                  ("subsubsection" . 4)
+                                  ("paragraph" . 5)
+                                  ("subparagraph" . 6)
+                                  ("addchap" . -1)
+                                  ("addsec" . -2))
 
-  (setq reftex-cite-prompt-optional-args nil)
-  (setq reftex-cite-cleanup-optional-args t)
+          reftex-plug-into-AUCTeX t
+          reftex-extra-bindings t
+          reftex-bibfile-ignore-list nil
+          reftex-guess-label-type t
+          reftex-revisit-to-follow t
+          reftex-use-fonts t              ; make colorful toc
+          reftex-toc-follow-mode nil      ; don't follow other toc(s)
+          reftex-toc-split-windows-horizontally t
+          reftex-auto-recenter-toc t
+          reftex-enable-partial-scans t
+          reftex-save-parse-info t
+          reftex-use-multiple-selection-buffers t
 
-  (setq reftex-section-levels
-   '(("part" . 0) ("chapter" . 1) ("section" . 2) ("subsection" . 3)
-     ("frametitle" . 4) ("subsubsection" . 4) ("paragraph" . 5)
-     ("subparagraph" . 6) ("addchap" . -1) ("addsec" . -2)))
-
-  (setq reftex-plug-into-AUCTeX t
-        reftex-extra-bindings t
-        reftex-bibfile-ignore-list nil
-        reftex-guess-label-type t
-        reftex-revisit-to-follow t
-        reftex-use-fonts t   ; make colorful toc
-        reftex-toc-follow-mode nil ; don't follow other toc(s)
-        reftex-toc-split-windows-horizontally t
-        reftex-auto-recenter-toc t
-        reftex-enable-partial-scans t
-        reftex-save-parse-info t
-        reftex-use-multiple-selection-buffers t)
-#+END_SRC
-
-*** Folding
-
-#+BEGIN_SRC emacs-lisp
-  (setq outline-minor-mode-prefix (kbd "\C-co"))
-
-  (setq TeX-fold-env-spec-list
-        (quote (("[comment]" ("comment"))
-                ("[figure]" ("figure"))
-                ("[table]" ("table"))
-                ("[itemize]" ("itemize"))
-                ("[enumerate]" ("enumerate"))
-                ("[description]" ("description"))
-                ("[overpic]" ("overpic"))
-                ("[tabularx]" ("tabularx"))
-                ("[code]" ("code"))
-                ("[shell]" ("shell")))))
-#+END_SRC
-
-*** Guessing the master TeX file
-
-Taken from [[http://www.emacswiki.org/AUCTeX#toc19][EmacsWiki]] for automatic detection of the master file,
-
-#+BEGIN_SRC emacs-lisp
-  (defun smf/guess-TeX-master (filename)
-     "Guess the master file for FILENAME from currently open .tex files."
-     (let ((candidate nil)
-           (filename (file-name-nondirectory filename)))
-       (save-excursion
-         (dolist (buffer (buffer-list))
-           (with-current-buffer buffer
-             (let ((name (buffer-name))
-                   (file buffer-file-name))
-               (if (and file (string-match "\\.tex$" file))
-                   (progn
-                     (goto-char (point-min))
-                     (if (re-search-forward (concat "\\\\input{" filename "}") nil t)
-                         (setq candidate file))
-                     (if (re-search-forward (concat "\\\\include{" (file-name-sans-extension filename) "}") nil t)
-                         (setq candidate file))))))))
-       (if candidate
-           (message "TeX master document: %s" (file-name-nondirectory candidate)))
-       candidate))
-
- (add-hook 'LaTeX-mode-hook
-  '(lambda ()
-    (setq TeX-master (smf/guess-TeX-master (buffer-file-name)))))
+          TeX-fold-env-spec-list '(("[comment]" ("comment"))
+                                   ("[figure]" ("figure"))
+                                   ("[table]" ("table"))
+                                   ("[itemize]" ("itemize"))
+                                   ("[enumerate]" ("enumerate"))
+                                   ("[description]" ("description"))
+                                   ("[overpic]" ("overpic"))
+                                   ("[tabularx]" ("tabularx"))
+                                   ("[code]" ("code"))
+                                   ("[shell]" ("shell")))))
 #+END_SRC
 
 *** company-math
