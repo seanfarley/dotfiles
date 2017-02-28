@@ -567,25 +567,25 @@ If this is true, then [[erc]]'s scrolling is broken.
 
 #+BEGIN_SRC emacs-lisp
   (when (and (eq system-type 'darwin) (display-graphic-p))
-    (setq ns-alternate-modifier 'meta)
-    (setq mac-option-modifier 'meta)
-    (setq ns-right-alternate-modifier nil))
+    (setq-default ns-alternate-modifier 'meta)
+    (setq-default mac-option-modifier 'meta)
+    (setq-default ns-right-alternate-modifier nil))
 #+END_SRC
 
 - =s-= means [[http://en.wikipedia.org/wiki/Super_key_(keyboard_button)][super key]]. On OS X I want this to be =⌘=:
 
 #+BEGIN_SRC emacs-lisp
   (when (and (eq system-type 'darwin) (display-graphic-p))
-    (setq ns-command-modifier 'super)
-    (setq mac-command-modifier 'super)) ;; for EmacsMac.app
+    (setq-default ns-command-modifier 'super)
+    (setq-default mac-command-modifier 'super))
 #+END_SRC
 
 - =H-= means [[http://en.wikipedia.org/wiki/Hyper_key][hyper key]]. On OS X I want this to be =fn=:
 
 #+BEGIN_SRC emacs-lisp
   (when (and (eq system-type 'darwin) (display-graphic-p))
-    (setq ns-function-modifier 'hyper)
-    (setq mac-function-modifier 'hyper)) ;; for EmacsMac.app
+    (setq-default ns-function-modifier 'hyper)
+    (setq-default mac-function-modifier 'hyper))
 #+END_SRC
 
 *** Basic remappings
@@ -920,7 +920,7 @@ OS X's bundled version of =ls= isn't the GNU one, so it doesn't support the
 As of Emacs 24.4, [[http://lists.gnu.org/archive/html/emacs-devel/2013-12/msg00741.html][Emacs natively supports proper sRGB]] values on OS X:
 
 #+BEGIN_SRC emacs-lisp
-  (setq ns-use-srgb-colorspace t)
+  (setq-default ns-use-srgb-colorspace t)
 #+END_SRC
 
 *** Terminal integration
@@ -977,7 +977,7 @@ On the Yosemite beta, =ns-use-native-fullscreen= is =nil=.
 
 #+BEGIN_SRC emacs-lisp
   (when (eq system-type 'darwin)
-    (setq ns-use-native-fullscreen nil))
+    (setq-default ns-use-native-fullscreen nil))
 #+END_SRC
 
 Start emacs in fullscreen,
@@ -1261,8 +1261,11 @@ some basic settings and personal tweaks,
            ;; let's make it do the same thing as =C-c '=
            ("s-s" . org-edit-src-exit))
     :config
+    ;; set the file for capturing todos
+    (defvar smf/org-input "~/Dropbox/org/organizer.org")
+
     ;; don't auto-fold my documents:
-    (setq org-startup-folded nil
+    (setq-default org-startup-folded nil
 
           ;; automatically apply syntax highlighting:
           org-src-fontify-natively t
@@ -1281,9 +1284,6 @@ some basic settings and personal tweaks,
 
           ;; set up MobileOrg (which is sweet!)
           org-directory "~/Dropbox/org"
-
-          ;; also, set the file for capturing todos
-          smf/org-input "~/Dropbox/org/organizer.org"
 
           org-default-notes-file smf/org-input
 
@@ -1384,23 +1384,23 @@ So, we'll start with some basic settings,
     :ensure t
     :defer t
     :config
-    (setq org-log-done t
-          org-agenda-persistent-filter t
-          org-agenda-sticky t
-          org-enforce-todo-dependencies t
-          org-cycle-separator-lines 0
-          org-blank-before-new-entry (quote ((heading)
-                                             (plain-list-item . auto)))
+    (setq-default org-log-done t
+                  org-agenda-persistent-filter t
+                  org-agenda-sticky t
+                  org-enforce-todo-dependencies t
+                  org-cycle-separator-lines 0
+                  org-blank-before-new-entry (quote ((heading)
+                                                     (plain-list-item . auto)))
 
-          org-journal-dir "~/Dropbox/journal"
-          org-use-fast-todo-selection t
-          org-log-into-drawer t
-          org-log-state-notes-insert-after-drawers nil
-          org-fast-tag-selection-single-key nil
-          org-return-follows-link t
-          org-confirm-babel-evaluate nil
+                  org-journal-dir "~/Dropbox/journal"
+                  org-use-fast-todo-selection t
+                  org-log-into-drawer t
+                  org-log-state-notes-insert-after-drawers nil
+                  org-fast-tag-selection-single-key nil
+                  org-return-follows-link t
+                  org-confirm-babel-evaluate nil
 
-          org-refile-targets '((org-agenda-files . (:maxlevel . 6)))))
+                  org-refile-targets '((org-agenda-files . (:maxlevel . 6)))))
 #+END_SRC
 
 The org-protocol plugin is sweet awesomeness. It allows native apps to send
