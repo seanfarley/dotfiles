@@ -22,6 +22,7 @@ emacs/.sx
 emacs/request
 emacs/network-security.data
 emacs/.org-id-locations
+emacs/init.el
 
 omnisharp-server
 irony-server

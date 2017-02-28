@@ -77,3 +77,16 @@ ensure_link "pwclient"
 ensure_link "docker-bash"
 ensure_link "karabiner.json" ".config/karabiner/karabiner.json"
 ensure_link "hammerspoon.lua" ".hammerspoon/init.lua"
+
+if [[ ! -f emacs/init.el ]]
+then
+   echo "Tangling init"
+   emacs --batch --eval "(progn
+(setq vc-follow-symlinks nil)
+(find-file \"emacs/README.org\")
+(require 'ob-tangle)
+(org-babel-tangle nil \"init.el\")
+(byte-compile-file \"init.el\")
+)"
+   echo "Finished tangling"
+fi

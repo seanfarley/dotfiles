@@ -1,3 +1,9 @@
+#+TITLE: Emacs Configuration for Sean Farley
+#+OPTIONS: ^:nil
+#+PROPERTY: results silent
+#+PROPERTY: eval no-export
+#+PROPERTY: header-args :comments link
+
 * Sean Farley's Emacs Configuration
 
 ** Preamble
@@ -86,7 +92,11 @@ passed in directory to =load-path=:
 
 and a convenience function for making a proper path out of two strings:
 
-[[file:init.el::(defun%20smf/join-dirs%20(prefix%20suffix][see init.el for code]].
+#+BEGIN_SRC emacs-lisp
+  (defun smf/join-dirs (prefix suffix)
+    "Joins `prefix' and `suffix' into a directory"
+    (file-name-as-directory (concat prefix suffix)))
+#+END_SRC
 
 *** Base load path
 
@@ -98,7 +108,14 @@ loaded:
 $ emacs -q -l ~/src/emacs/init.el
 #+END_SRC
 
-then =smf/dotfiles-dir= will be =~/src/emacs=. [[file:init.el::(defconst%20smf/dotfiles-dir][See init.el for code]].
+then =smf/dotfiles-dir= will be =~/src/emacs=.
+
+#+BEGIN_SRC emacs-lisp
+  (defconst smf/dotfiles-dir
+    (file-name-directory
+     (or (buffer-file-name) load-file-name))
+    "Base path for customised Emacs configuration")
+#+END_SRC
 
 This variable is important because all other directories I load things from are
 relative to it, which means my Emacs config doesn't need to live in
@@ -200,8 +217,6 @@ directory to the version of Emacs I'm using.
 
 Final result should be something like =~/.emacs.d/.elpa/24.3.93.1/=.
 
-[[file:init.el::(setq%20package-user-dir][see init.el for code]].
-
 **** Customise package repositories to install from
 
 By default Emacs only installs files from [[http://www.gnu.org/software/emacs/manual/html_node/efaq/Packages-that-do-not-come-with-Emacs.html#Packages-that-do-not-come-with-Emacs][ELPA]]. Some of these packages are old
@@ -210,8 +225,36 @@ or out of date, and they don't track GitHub repositories.
 I want to also add:
 
 - [[https://github.com/milkypostman/melpa#melpa][MELPA]] (tracks GitHub repositories, is much more comprehensive)
+- [[https://orgmode.org][Org]] (tracks recent releases of org-mode)
 
-[[file:init.el::(setq%20package-archives][see init.el for code]].
+#+BEGIN_SRC emacs-lisp
+  (eval-and-compile
+    (setq package-user-dir (concat "~/.emacs.d/.elpa/" emacs-version))
+
+    (setq package-archives
+          '(("gnu"          . "http://elpa.gnu.org/packages/")
+            ("melpa"        . "http://melpa.org/packages/")
+            ("org"          . "http://orgmode.org/elpa/")))
+
+    (package-initialize)
+    (unless (package-installed-p 'use-package)
+      (package-refresh-contents)
+      (package-install 'use-package)))
+  (unless (featurep 'use-package)
+    (require 'diminish)
+    (require 'bind-key)
+    (use-package use-package
+      :commands (use-package-autoload-keymap)
+      :defer 5))
+  (eval-when-compile (require 'use-package))
+#+END_SRC
+
+I like seeing the package loading and installing in the message bar, so let's
+enable that
+
+#+BEGIN_SRC emacs-lisp
+  (setq use-package-verbose t)
+#+END_SRC
 
 *** benchmarking
 
@@ -1256,6 +1299,52 @@ some basic settings and personal tweaks,
 
     ;; also, let's turn on auto-fill-mode
     (add-hook 'org-mode-hook 'auto-fill-mode))
+#+END_SRC
+
+**** tangling
+
+Straight-up stolen from [[https://git.alanpearce.uk/alan/dotfiles/src/master/tag-emacs/emacs.d/init.org][alan/dotfiles]].
+
+We can use =C-c C-v t= to run =org-babel-tangle=, which extracts the code
+blocks from the current file into a source-specific file (in this case a
+=.el=-file).
+
+To avoid doing this each time a change is made we can add a function to the
+=after-save-hook= ensuring to always tangle and byte-compile the =org=-document
+after changes.
+
+#+BEGIN_SRC emacs-lisp
+  (defun smf/tangle-if-init ()
+    "If the current buffer is 'README.org' the code-blocks are
+      tangled, and the tangled file is compiled."
+
+    (when (string-suffix-p "README.org" (buffer-file-name))
+      (smf/tangle-init)))
+
+  (defun smf/tangle-init-sync ()
+    (interactive)
+    (message "Tangling init")
+    ;; Avoid running hooks when tangling.
+    (let ((prog-mode-hook nil)
+          (src  (expand-file-name "README.org" user-emacs-directory))
+          (dest (expand-file-name "init.el"  user-emacs-directory)))
+      (require 'ob-tangle)
+      (org-babel-tangle-file src dest)
+      (if (byte-compile-file dest)
+          (byte-compile-dest-file dest)
+        (with-current-buffer byte-compile-log-buffer
+          (buffer-string)))))
+
+  (defun smf/tangle-init ()
+    "Tangle README.org asynchronously."
+    (interactive)
+    (message "Tangling init")
+    (async-start
+     (symbol-function #'smf/tangle-init-sync)
+     (lambda (result)
+       (message "Init tangling completed: %s" result))))
+
+  (add-hook 'after-save-hook #'smf/tangle-if-init)
 #+END_SRC
 
 **** org-journal

@@ -1,5 +1,5 @@
 -emacs/.elpa
 -emacs/elpa
 -emacs/.tmp
--emacs/README.el
 -emacs/custom.el
+-emacs/init.el
