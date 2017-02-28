@@ -879,16 +879,6 @@ We can use [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Uniquify.
 Besides the keyboard configuration above, there are some other specific things I
 do on OS X. On OS X =system-type= is the symbol =darwin=.
 
-*** Host name mangling
-
-Typically OS X hosts are called things like =hostname.localconfig= or
-=hostname.local=. Make Emacs report that without the extra suffix:
-
-#+BEGIN_SRC emacs-lisp
-  (when (eq system-type 'darwin)
-    (setq system-name (car (split-string system-name "\\."))))
-#+END_SRC
-
 *** Spelling correction
 
 On the mac, the default mouse bindings are problematic since a two-finger click
