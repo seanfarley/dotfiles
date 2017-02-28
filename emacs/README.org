@@ -3674,7 +3674,7 @@ some configuration.
 First set up a directory to hold the files:
 
 #+BEGIN_SRC emacs-lisp
-  (setq smf/local-dotfiles-dir (smf/join-dirs smf/dotfiles-dir "local"))
+  (defvar smf/local-dotfiles-dir (smf/join-dirs smf/dotfiles-dir "local"))
 #+END_SRC
 
 Now try to load a file named after the current user:
