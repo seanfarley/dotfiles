@@ -135,6 +135,7 @@ I'd rather all temporary files were stored in a known place, =smf/tmp-local-dir=
 This directory is created if it doesn't exist.
 
 #+BEGIN_SRC emacs-lisp
+  (defvar smf/tmp-local-dir)
   (make-directory
    (setq smf/tmp-local-dir
          (smf/join-dirs smf/dotfiles-dir ".tmp")) t)
@@ -148,6 +149,8 @@ configuration isn't great though.
 First, set up some directories to keep backups:
 
 #+BEGIN_SRC emacs-lisp
+  (defvar smf/tmp-backups-dir)
+  (defvar smf/tmp-autosaves-dir)
   (make-directory
    (setq smf/tmp-backups-dir
          (smf/join-dirs smf/tmp-local-dir "backups")) t)
@@ -190,6 +193,7 @@ combo as =C-x C-l=, which is normally =downcase-region= - a command I use so
 infrequently I didn't even know there was a key binding for it.
 
 #+BEGIN_SRC emacs-lisp
+  (defvar smf/launcher-map)
   (define-prefix-command 'smf/launcher-map)
   (define-key ctl-x-map (kbd "C-l") 'smf/launcher-map)
 #+END_SRC
@@ -771,12 +775,12 @@ I prefer a box, non-blinking cursor. So, turn off that blinking:
 Depending on the mode, let's [[http://www.emacswiki.org/emacs/ChangingCursorDynamically][change the cursor]].
 
 #+BEGIN_SRC emacs-lisp
-  (setq smf/read-only-color       "gray")
-  (setq smf/read-only-cursor-type 'hbar)
-  (setq smf/overwrite-color       "red")
-  (setq smf/overwrite-cursor-type 'box)
-  (setq smf/normal-color          "gray")
-  (setq smf/normal-cursor-type    'box)
+  (defvar smf/read-only-color       "gray")
+  (defvar smf/read-only-cursor-type 'hbar)
+  (defvar smf/overwrite-color       "red")
+  (defvar smf/overwrite-cursor-type 'box)
+  (defvar smf/normal-color          "gray")
+  (defvar smf/normal-cursor-type    'box)
 
   (defun smf/set-cursor-according-to-mode ()
     "change cursor color and type according to some minor modes."
