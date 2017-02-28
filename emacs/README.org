@@ -3017,11 +3017,13 @@ and the resulting pdf file.
   (use-package tex
     :ensure auctex
     :mode ("\\.tex\\'" . latex-mode)
-    :commands (latex-mode LaTeX-mode plain-tex-mode)
+    :commands (latex-mode LaTeX-mode plain-tex-mode smf/latexmk-compile)
     :diminish iimage-mode
     :diminish outline-minor-mode
     :diminish reftex-mode
     :diminish abbrev-mode
+    :bind (:map LaTeX-mode-map
+                ("C-c C-a" . smf/latexmk-compile))
     :config
     (setq TeX-auto-save t
           TeX-parse-self t
@@ -3070,8 +3072,7 @@ and the resulting pdf file.
       (LaTeX-math-mode)
       (outline-minor-mode)
       (magic-latex-buffer)
-      (setq TeX-master (smf/guess-TeX-master (buffer-file-name)))
-      (define-key LaTeX-mode-map (kbd "C-c C-a") 'smf/latexmk-compile))
+      (setq TeX-master (smf/guess-TeX-master (buffer-file-name))))
 
     ;; add synctex hook
     (add-hook 'LaTeX-mode-hook #'TeX-source-correlate-mode)
