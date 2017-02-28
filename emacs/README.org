@@ -2219,10 +2219,6 @@ Manage external services from within Emacs.
     :ensure t
     :config
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
-
-  (use-package rustfmt
-    :after rust
-    :bind (("C-c C-f" . rustfmt-format-buffer)))
 #+END_SRC
 
 *** hideshowvis
