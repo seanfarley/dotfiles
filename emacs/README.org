@@ -3190,6 +3190,12 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
   (use-package tls :defer t)
   (use-package erc-join :after erc)
   (use-package erc-menu :after erc)
+  (use-package shr
+    :commands shr-render-region
+    :config
+    ;; this changed in emacs 25 ... I still prefer monospaced fonts
+    (setq shr-use-fonts nil))
+
   (use-package erc
     :after (company tls)
     :commands (erc erc-tls)
@@ -3205,9 +3211,6 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
      erc-hide-list '("JOIN" "PART" "QUIT")
      erc-quit-reason 'erc-quit-reason-normal
      erc-track-exclude-server-buffer t
-
-     ;; this changed in emacs 25 ... I still prefer monospaced fonts
-     shr-use-fonts nil
 
      ;; when having a flaky connection erc attempts to reconnect ad infinitum,
      ;; so let's turn that off
