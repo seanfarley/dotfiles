@@ -2859,18 +2859,12 @@ need to load Magit first.
     (smf/add-launcher "g" 'magit-status)
     :config
     ;; magit settings
-    (setq
-     ;; use ido to look for branches
-     magit-completing-read-function 'magit-ido-completing-read
-
+    (setq-default
      ;; open the =magit-status= buffer in the same window as the current buffer
      magit-status-buffer-switch-function 'switch-to-buffer
 
      ;; highlight individual word and letter changes when showing hunk diff overlays
      magit-diff-refine-hunk t
-
-     ;; don't tell me when Magit reverts buffers
-     magit-revert-buffers 'silent
 
      ;; pop the process buffer if we're taking a while to complete
      magit-process-popup-time 10
