@@ -1698,16 +1698,13 @@ I only want this to be installed and enabled on OS X.
 
 #+BEGIN_SRC emacs-lisp
   (use-package smex
-    :commands (smex
-               smex-update
-               smex-initialize)
-    :config (progn
-              (setq smex-key-advice-ignore-menu-bar t
-                    smex-auto-update nil)
-              (defun smex-update-after-load (_unused)
-                (if (boundp 'smex-cache)
-                    (smex-update)))
-              (add-hook 'after-load-functions 'smex-update-after-load))
+    :commands (smex smex-update smex-initialize)
+    :config
+    (setq smex-auto-update nil)
+    (defun smex-update-after-load (_unused)
+      (if (boundp 'smex-cache)
+          (smex-update)))
+    (add-hook 'after-load-functions 'smex-update-after-load)
     :init
     (setq smex-history-length 32
           smex-save-file (expand-file-name ".smex-items"
