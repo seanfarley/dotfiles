@@ -2901,18 +2901,12 @@ need to load Magit first.
     (smf/add-launcher "h" 'hugme-status)
     :config
     ;; hugme settings
-    (setq
-     ;; use ido for completion
-     hugme-completing-read-function 'hugme-ido-completing-read
-
+    (setq-default
      ;; open hugme status in same window as current buffer
      hugme-status-buffer-switch-function 'switch-to-buffer
 
      ;; highlight word/letter changes in hunk diffs
      hugme-diff-refine-hunk t
-
-     ;; don't tell me when Magit reverts buffers
-     hugme-revert-buffers 'silent
 
      ;; pop the process buffer if we're taking a while to complete
      hugme-process-popup-time 10
@@ -2926,6 +2920,9 @@ need to load Magit first.
 
      ;; definitely need to enable debugging while writing this package
      hugme-hg-debug t
+
+     ;; use ivy for completing things
+     hugme-completing-read-function 'ivy-completing-read
 
      ;; experimentally try to use chg, though it doesn't seem to improve the
      ;; speed of shelling out
