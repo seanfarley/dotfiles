@@ -1001,7 +1001,6 @@ to select the whole buffer, or =⌘-c= to copy.
     (global-set-key (kbd "s-l") 'goto-line)
     (global-set-key (kbd "s-w") 'delete-window)
     (global-set-key (kbd "s-z") 'undo)
-    (global-set-key (kbd "s-Z") 'undo-tree-redo)
     (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
     (global-set-key (kbd "s-k") 'kill-this-buffer)
     (global-set-key (kbd "s-r") 'recompile)
@@ -1865,7 +1864,8 @@ Some compiler output has ansi color, so let's escape that,
   (use-package undo-tree
     :ensure t
     :diminish undo-tree-mode
-    :bind (("C-x u" . undo-tree-visualize))
+    :bind (("C-x u" . undo-tree-visualize)
+           ("s-Z" . undo-tree-redo))
     :config
     (global-undo-tree-mode))
 #+END_SRC
