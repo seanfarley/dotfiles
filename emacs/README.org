@@ -1128,7 +1128,10 @@ Eventually, I'd like to use auth-source instead of custom methods for accessing
 the keychain, but erc is giving me problems currently.
 
 #+BEGIN_SRC emacs-lisp
-  (setq auth-sources '(macos-keychain-internet))
+  (use-package auth-source
+    :defer t
+    :config
+    (setq auth-sources '(macos-keychain-internet)))
 #+END_SRC
 
 *** Conditionally kill Emacs
