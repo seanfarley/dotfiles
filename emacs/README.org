@@ -1130,6 +1130,18 @@ the keychain, but erc is giving me problems currently.
   (use-package auth-source
     :defer t
     :config
+    ;; define a helper method to search auth-source and get a password; mostly
+    ;; needed due to lack of integration of znc and hipchat with auth-source
+    (defun smf/auth-source-pass (user server)
+      (let* ((found (nth 0 (auth-source-search :user user
+                                               :host server
+                                               :max 1))))
+        (if found
+            (let ((secret (plist-get found :secret)))
+              (if (functionp secret)
+                  (funcall secret)
+                secret)))))
+
     (setq auth-sources '(macos-keychain-internet)))
 #+END_SRC
 
