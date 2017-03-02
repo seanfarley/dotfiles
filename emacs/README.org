@@ -3263,19 +3263,49 @@ I use [[http://wiki.znc.in/ZNC][ZNC]] to always stay connected to IRC channels, 
 don't want to quit the channel, just detach from my server. Also, we use the
 keychain method defined above to get our password.
 
+The =auth-source= could below is borrowed from [[http://doc.rix.si/cce/cce-irc.html][rrix]].
+
 #+BEGIN_SRC emacs-lisp
   (use-package znc
     :after erc
     :ensure t
     :commands znc-all
     :config
+    (defun smf/znc-add-server (server port user networks)
+      "Add a server to the list of ZNC servers.
+
+  We use SSL unconditionally. Moreover, we don't store the password
+  but put nil instead. Also, we tweak the username to contain the
+  network name later, this will be separated again."
+      (add-to-list 'znc-servers
+                   (list server port t
+                         (mapcar
+                          (function
+                           (lambda (slug)
+                             (list slug (format "%s/%s" user slug) nil)))
+                          networks))))
+
+    (defun smf/znc-erc-ssl-connector (&rest R)
+      "Connect to ERC using SSL and retrieve password with `auth-source-search'.
+
+  Moreover, handle multiple networks by sending the password with
+  the appropriate network slug that we extract from the nick."
+      (let* ((user (nth 0 (split-string (plist-get R :nick) "/")))
+             (slug (nth 1 (split-string (plist-get R :nick) "/")))
+             (pass (smf/auth-source-pass user (plist-get R :server))))
+        (when pass
+          (plist-put R :password (format "%s/%s:%s" user slug pass))
+          (plist-put R :nick user)
+          (apply 'erc-tls R))))
+
     (setq
+     ;; use our new connector instead of the default one
+     znc-erc-ssl-connector #'smf/znc-erc-ssl-connector
+
      znc-detatch-on-kill t
-     znc-servers `(
-                   ("smf.io" "6697" t ((freenode "smf/freenode"
-                                                 ,(smf/get-keychain-password "smf" "smf.io"))))
-                   ("smf.io" "6697" t ((bitlbee "smf/bitlbee"
-                                                ,(smf/get-keychain-password "smf" "smf.io")))))))
+     znc-servers nil)
+
+    (smf/znc-add-server "smf.io" 6697 "smf" '(freenode bitlbee)))
 #+END_SRC
 
 *** erc-tweet
