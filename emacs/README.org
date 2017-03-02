@@ -550,7 +550,7 @@ if the last command was a copy - skip past all the expand-region cruft.
 
 *** Window mark
 
-If this is true, then [[erc]]'s scrolling is broken.
+If this is true, then =erc='s scrolling is broken.
 
 #+BEGIN_SRC emacs-lisp
   (setq switch-to-buffer-preserve-window-point nil)
@@ -1861,7 +1861,7 @@ Some compiler output has ansi color, so let's escape that,
 
 *** smartparens
 
-[[https://github.com/Fuco1/smartparens][smartparens]] is a [[paredit]] like minor-mode for many more things than just Lisp.
+[[https://github.com/Fuco1/smartparens][smartparens]] is a =paredit= like minor-mode for many more things than just Lisp.
 
 =show-smartparens-mode= is a replacement mode for =show-paren-mode=.
 
