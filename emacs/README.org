@@ -3324,7 +3324,7 @@ A package I wrote to help connect to hipchat and display things like (awyeah).
     :ensure t
     :defer t
     :config
-    (setq erc-hipchatify-token `,(smf/get-keychain-password "smf/token" "hipchat.com")
+    (setq erc-hipchatify-token `,(smf/auth-source-pass "smf/token" "hipchat.com")
           erc-hipchatify-email "sfarley@atlassian.com"
 
           ;; set the channel names (buffer names) for which to replace 'nick'
