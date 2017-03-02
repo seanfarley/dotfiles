@@ -40,7 +40,6 @@ strip =
 shelve =
 journal =
 # Third-party extensions
-debugshell = ~/.debugshell.py
 evolve =
 
 [histedit]
