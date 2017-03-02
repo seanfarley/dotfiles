@@ -2146,7 +2146,7 @@ Manage external services from within Emacs.
               ,(expand-file-name "~/projects/go/bin"))
       :kill-signal 'sigkill
       :env `(("BB_EMAIL_PASSWORD"
-              ,(smf/get-keychain-password "bbtest@farley.io" "mail.farley.io"))
+              ,(smf/auth-source-pass "bbtest@farley.io" "mail.farley.io"))
              ("HGRCPATH" ,(expand-file-name "~/projects/bitbucket-etc/hgrc"))
              ("GIT_CONFIG_NOSYSTEM" "1")
              ("PYTHONUNBUFFERED" "1")
