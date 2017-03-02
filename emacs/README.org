@@ -1101,30 +1101,7 @@ Renames the major-mode lighter in the modeline. Lifted from [[http://whattheemac
 
 *** Get keychain password
 
-If I'm on OS X, I can fetch passwords etc. from my Keychain. This is much more
-secure than storing them in configuration on disk:
-
-#+BEGIN_SRC emacs-lisp
-  (defun smf/chomp (str)
-    "Chomp leading and tailing whitespace from `str'."
-    (while (string-match "\\`\n+\\|^\\s-+\\|\\s-+$\\|\n+\\'" str)
-      (setq str (replace-match "" t t str))) str)
-
-  (defun smf/get-keychain-password (account-name &optional server)
-    "Get `account-name' keychain password from OS X Keychain"
-    (interactive "sAccount name: ")
-    (smf/chomp
-     (shell-command-to-string
-      (concat
-       "security find-"
-       (if server "internet" "generic")
-       "-password -wa "
-       account-name
-       (if server (concat " -s " server))))))
-#+END_SRC
-
-Eventually, I'd like to use auth-source instead of custom methods for accessing
-the keychain, but erc is giving me problems currently.
+Use =auth-source= for all the things!
 
 #+BEGIN_SRC emacs-lisp
   (use-package auth-source
