@@ -3446,6 +3446,7 @@ Note: swiper <- {counsel, ivy}
            ("C-x C-n" . ivy-switch-buffer)) ; common typo
     :config
     (setq ivy-wrap t                        ; wraps around the buffer
+          ivy-initial-inputs-alist nil      ; don't insert '^'
           ivy-use-virtual-buffers t)
     (ivy-mode))
 #+END_SRC
