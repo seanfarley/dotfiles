@@ -3168,6 +3168,9 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
   (use-package erc
     :after (company tls)
     :commands (erc erc-tls)
+    :bind (:map erc-mode-map
+                ("<escape>" . smf/bury-buffer)
+                ("C-'" . smf/mark-read))
     :config
     (setq-default
      erc-prompt ">"
@@ -3203,7 +3206,21 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
               (lambda (server nick)
                 (add-hook 'erc-server-NOTICE-hook 'erc-auto-query)))
 
-    (add-hook 'erc-mode-hook 'company-mode))
+    (add-hook 'erc-mode-hook 'company-mode)
+
+    (defun smf/mark-read ()
+      "Mark buffer as read up to current line by coloring the text gray."
+      (interactive)
+      (let ((inhibit-read-only t))
+        (put-text-property
+         (point-min) (line-beginning-position)
+         'face       'font-lock-comment-face)))
+
+    (defun smf/bury-buffer ()
+      "Bury buffer and maybe close its window."
+      (interactive)
+      (smf/mark-read)
+      (bury-buffer)))
 #+END_SRC
 
 *** erc patches from jwiegly
@@ -3409,32 +3426,6 @@ method so that takes care of most potential name conflicts.
     (erc-cmd-QUERY nick))
 
   (smf/add-launcher "c" 'smf/erc-chat)
-#+END_SRC
-
-*** Mark buffer as read
-
-Whenever we're done reading a conversation, just hit =Esc=. The buffer will be
-buried, and next time we open it again everything we have read before will be
-marked in grey.
-
-#+BEGIN_SRC emacs-lisp
-  (defun smf/mark-read ()
-    "Mark buffer as read up to current line."
-    (interactive)
-    (let ((inhibit-read-only t))
-      (put-text-property
-       (point-min) (line-beginning-position)
-       'face       'font-lock-comment-face)))
-
-  (defun smf/bury-buffer ()
-    "Bury buffer and maybe close its window."
-    (interactive)
-    (smf/mark-read)
-    (bury-buffer))
-
-  (after-load 'erc
-    (define-key erc-mode-map (kbd "<escape>") #'smf/bury-buffer)
-    (define-key erc-mode-map (kbd "C-'") 'smf/mark-read))
 #+END_SRC
 
 ** notmuch
