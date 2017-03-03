@@ -43,16 +43,6 @@ mkdir -p ~/.config/karabiner
 mkdir -p ~/.pastebin.d
 mkdir -p ~/.hammerspoon
 
-rm -f ~/.bootstrap.sh
-rm -f ~/.emacs
-rm -f ~/.emacs.sh
-rm -f ~/.eudc-options
-rm -f ~/.hgfilter.py*
-rm -f ~/.install.sh
-rm -f ~/.sudo-batch.sh
-rm -f ~/.notmuch-config
-rm -f ~/.tmux.conf
-
 ensure_link "aliases"
 ensure_link "aspell.en.prepl"
 ensure_link "aspell.en.pws"
