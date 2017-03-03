@@ -1068,17 +1068,6 @@ Some basic themes that work with =spaceline= and =all-the-icons=.
 
 ** Utility functions
 
-*** Rename modeline
-
-Renames the major-mode lighter in the modeline. Lifted from [[http://whattheemacsd.com/appearance.el-01.html][What the emacs.d]].
-
-#+BEGIN_SRC emacs-lisp
-  (defmacro rename-modeline (package-name mode new-name)
-    `(eval-after-load ,package-name
-       '(defadvice ,mode (after rename-modeline activate)
-          (setq mode-name ,new-name))))
-#+END_SRC
-
 *** Get keychain password
 
 Use =auth-source= for all the things!
