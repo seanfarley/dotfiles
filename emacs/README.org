@@ -1165,357 +1165,7 @@ of the buffer. We'll bind this to =C-M-d=
   (global-set-key (kbd "C-M-d") 'smf/delete-to-end-of-buffer)
 #+END_SRC
 
-** Other modes
-
-Emacs comes with hundreds of major and minor modes to do many, many things.
-These are the ones I commonly use and have configured.
-
-*** org
-
-**** init
-
-[[http://orgmode.org][org-mode]] is a plain text system for organising information and notes. We'll set
-some basic settings and personal tweaks,
-
-#+BEGIN_SRC emacs-lisp
-  (use-package org
-    :ensure org-plus-contrib
-    :mode ("\\.org"  . org-mode)
-    :bind (;; I'll change the prefix for these function (instead of using
-           ;; smf/launcher) since they are so common
-           ("C-c l" . org-store-link)
-           ("C-c a" . org-agenda)
-           ("C-c c" . org-capture)
-
-           :map org-mode-map
-           ;; I use meta-arrow keys for navigation so let's stop org from
-           ;; using them to indent
-           ("<M-S-left>" . nil)
-           ("<M-left>" . nil)
-           ("<M-right>" . nil)
-           ;; since I commonly mistype =C-c C-'= instead of =C-c '=, let's
-           ;; add that keybinding,
-           ("C-c C-'" . org-edit-special)
-
-           :map org-src-mode-map
-           ("C-c C-'" . org-edit-src-exit)
-           ;; I find it infuriating that my muscle memory =⌘+s= in
-           ;; =org-src-mode= will save the buffer as a new file. Instead,
-           ;; let's make it do the same thing as =C-c '=
-           ("s-s" . org-edit-src-exit))
-    :config
-    ;; set the file for capturing todos
-    (defvar smf/org-input "~/Dropbox/org/organizer.org")
-
-    ;; don't auto-fold my documents:
-    (setq-default org-startup-folded nil
-
-          ;; automatically apply syntax highlighting:
-          org-src-fontify-natively t
-          org-src-tab-acts-natively t
-          org-ellipsis "⤵"
-
-          ;; and don't prompt
-          org-confirm-babel-evaluate nil
-
-          ;; when using imenu, make sure I can follow the outline to the full available
-          ;; depth
-          org-imenu-depth 6
-
-          ;; also, I like using shift+arrow keys to highlight, so let's set that
-          org-support-shift-select 'always
-
-          ;; set up MobileOrg (which is sweet!)
-          org-directory "~/Dropbox/org"
-
-          org-default-notes-file smf/org-input
-
-          ;; set to the name of the file where new notes will be stored
-          org-mobile-inbox-for-pull smf/org-input
-
-          org-mobile-directory "~/Dropbox/Apps/MobileOrg"
-
-          ;; now, set the agenda files,
-          org-agenda-files (list "~/Dropbox/org/organizer.org"
-                                 "~/Dropbox/org/bitbucket.org"
-                                 "~/Dropbox/org/phd.org"
-                                 "~/Dropbox/org/hg.org"
-                                 "~/Dropbox/org/personal.org")
-
-          ;; please don't close and mess up my windows,
-          org-agenda-window-setup 'current-window
-          org-agenda-restore-windows-after-quit 't
-
-          ;; add a nice, little template to use along with some shortcuts
-          org-capture-templates
-          `(("t" "Tasks" entry
-             (file+headline "~/Dropbox/org/organizer.org" "Inbox")
-             "* TODO %?\nCaptured %<%Y-%m-%d %H:%M>\n%a\n\n%i" "Basic task2 data")
-            ("i" "Interrupting task" entry
-             (file+headline "~/Dropbox/org/organizer.org" "Inbox")
-             "* STARTED %^{Task}"
-             :clock-in :clock-resume))
-
-          org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
-
-    ;; shortcut to launch file for refiling
-    (smf/add-launcher "o" (lambda ()
-                            (interactive)
-                            (find-file smf/org-input)))
-
-    ;; also, let's turn on auto-fill-mode
-    (add-hook 'org-mode-hook 'auto-fill-mode))
-
-  ;; needed for colorizing src blocks
-  (use-package htmlize
-    :after org
-    :ensure t)
-#+END_SRC
-
-**** tangling
-
-Straight-up stolen from [[https://git.alanpearce.uk/alan/dotfiles/src/master/tag-emacs/emacs.d/init.org][alan/dotfiles]].
-
-We can use =C-c C-v t= to run =org-babel-tangle=, which extracts the code
-blocks from the current file into a source-specific file (in this case a
-=.el=-file).
-
-To avoid doing this each time a change is made we can add a function to the
-=after-save-hook= ensuring to always tangle and byte-compile the =org=-document
-after changes.
-
-#+BEGIN_SRC emacs-lisp
-  (defun smf/tangle-if-init ()
-    "If the current buffer is 'README.org' the code-blocks are
-      tangled, and the tangled file is compiled."
-
-    (when (string-suffix-p "README.org" (buffer-file-name))
-      (smf/tangle-init)))
-
-  (defun smf/tangle-init-sync ()
-    (interactive)
-    (message "Tangling init")
-    ;; Avoid running hooks when tangling.
-    (let ((prog-mode-hook nil)
-          (src  (expand-file-name "README.org" user-emacs-directory))
-          (dest (expand-file-name "init.el"  user-emacs-directory)))
-      (require 'ob-tangle)
-      (org-babel-tangle-file src dest)
-      (if (byte-compile-file dest)
-          (byte-compile-dest-file dest)
-        (with-current-buffer byte-compile-log-buffer
-          (buffer-string)))))
-
-  (defun smf/tangle-init ()
-    "Tangle README.org asynchronously."
-    (interactive)
-    (message "Tangling init")
-    (async-start
-     (symbol-function #'smf/tangle-init-sync)
-     (lambda (result)
-       (message "Init tangling completed: %s" result))))
-
-  (add-hook 'after-save-hook #'smf/tangle-if-init)
-#+END_SRC
-
-**** org-journal
-
-A great plugin for =org-mode= is =org-journal= to take daily and weekly notes.
-I was inspired by [[http://pages.sachachua.com/.emacs.d/Sacha.html#org5b9f9d2][Sacha Chau's setup]] (and her [[http://sachachua.com][great website]]) to also revamp my
-workflow to use =org-mode= even more better.
-
-So, we'll start with some basic settings,
-
-#+BEGIN_SRC emacs-lisp
-  (use-package org-journal
-    :after org
-    :ensure t
-    :defer t
-    :config
-    (setq-default org-log-done t
-                  org-agenda-persistent-filter t
-                  org-agenda-sticky t
-                  org-enforce-todo-dependencies t
-                  org-cycle-separator-lines 0
-                  org-blank-before-new-entry (quote ((heading)
-                                                     (plain-list-item . auto)))
-
-                  org-journal-dir "~/Dropbox/journal"
-                  org-use-fast-todo-selection t
-                  org-log-into-drawer t
-                  org-log-state-notes-insert-after-drawers nil
-                  org-fast-tag-selection-single-key nil
-                  org-return-follows-link t
-                  org-confirm-babel-evaluate nil
-
-                  org-refile-targets '((org-agenda-files . (:maxlevel . 6)))))
-#+END_SRC
-
-The org-protocol plugin is sweet awesomeness. It allows native apps to send
-capture notes to Emacs,
-
-#+BEGIN_SRC emacs-lisp
-  (use-package org-protocol
-    :commands (org-protocol-capture org-protocol-create))
-#+END_SRC
-
-**** misc org
-
-Let's use pomodoro!
-
-#+BEGIN_SRC emacs-lisp
-  (use-package org-pomodoro
-    :ensure t
-    :commands org-pomodoro
-    :config
-    (setq org-pomodoro-play-sounds nil))
-#+END_SRC
-
-While we're at it, let's add notmuch and twitter bootstrap integration,
-
-#+BEGIN_SRC emacs-lisp
-  (use-package org-notmuch
-    :after notmuch
-    :defer t)
-#+END_SRC
-
-*** paradox
-
-[[https://github.com/Bruce-Connor/paradox][paradox]] is an advanced package.el frontend with GitHub integration. Paradox
-[[https://github.com/Bruce-Connor/paradox/commit/e341a900609974802ad92d5bb43083fcf83ef432#diff-2d43bf4d9c7b9686d0895974900dfd05R18][supports an asynchronous mode]] which requires the =async= package, so we'll load
-this after async.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package paradox
-    :ensure t
-    :commands paradox-list-packages
-    :init
-    (smf/add-launcher "p" 'paradox-list-packages)
-    :config
-    (setq paradox-automatically-star t
-          paradox-execute-asynchronously t))
-#+END_SRC
-
-*** eldoc-mode
-
-[[http://www.emacswiki.org/emacs/ElDoc][eldoc-mode]] is a minor mode that displays context-sensitive help when editing
-Emacs lisp (eg information about arity of functions). Enable that for
-=emacs-lisp-mode=:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package lisp-mode
-    :bind (:map emacs-lisp-mode-map
-                ("C-c C-b" . eval-buffer))
-    :config
-    (add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
-    (add-hook 'lisp-interaction-mode-hook #'eldoc-mode)
-    (add-hook 'prog-mode-hook #'eldoc-mode))
-#+END_SRC
-
-*** python-mode
-
-As of 24.2, Emacs ships with a [[http://www.emacswiki.org/emacs/PythonProgrammingInEmacs#toc1][robust Python mode]]. However, when navigating
-=SnakeCase= words (eg class names), =forward-word= etc don't work correctly.
-
-We can work around that using [[https://www.gnu.org/software/emacs/manual/html_node/ccmode/Subword-Movement.html#Subword-Movement][subword-mode]]:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package python
-    :mode ("\\.py\\'" . python-mode)
-    :interpreter ("python" . python-mode)
-    :config
-    (add-hook 'python-mode-hook #'subword-mode))
-#+END_SRC
-
-*** ruby-mode
-
-As of 24.4, Emacs comes with a much better [[http://www.masteringemacs.org/articles/2013/12/29/whats-new-in-emacs-24-4/][Ruby mode]]. However it doesn't come
-with =subword-mode= enabled by default:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package ruby-mode
-    :mode "\\.rb\\'"
-    :interpreter "ruby"
-    :config
-    (add-hook 'ruby-mode-hook #'subword-mode))
-#+END_SRC
-
-*** tramp mode
-
-=tramp-mode= is a package that provides [[https://www.gnu.org/software/emacs/manual/html_node/tramp/index.html#Top][remote file editing]], eg =find-file
-/user@host:file=. This allows one to edit files on other servers using your
-local Emacs (rather than the Vim user's equivalent of editing the file on the
-server).
-
-First we set the default mode to be =ssh= (it's normally =scp=). There are two
-reasons for this choice:
-
-- =ssh= takes a port number as an argument, whereas =scp= doesn't
-- It's [[http://www.gnu.org/software/tramp/#Default-Method][apparently faster]] for smaller files
-
-We also want to alter the list of allowed proxies (tramp uses a whitelist for
-patterns that it can remotely access) so I can edit remote files as sudo, eg
-=find-file /sudo:example.com/etc/something-owned-by-root=.
-
-I got this code from the [[http://www.gnu.org/software/tramp/#Multi_002dhops][Multi-hops section of the tramp manual]].
-
-#+BEGIN_SRC emacs-lisp
-  (use-package tramp
-    :defer t
-    :config
-    (add-to-list 'tramp-default-proxies-alist
-                 '(nil "\\`root\\'" "/ssh:%h:"))
-
-    ;; also make sure we can edit local files as sudo - this is normally
-    ;; disallowed for security reasons
-    (add-to-list 'tramp-default-proxies-alist
-                 '((regexp-quote (system-name)) nil nil))
-
-    (setq tramp-default-method "ssh"
-          tramp-ssh-controlmaster-options (concat "-o ControlPath=/tmp/tramp.%%r@%%h:%%p "
-                                                  "-o ControlMaster=auto "
-                                                  "-o ControlPersist=no")))
-#+END_SRC
-
-More on the last two incantations at [[http://emacs-fu.blogspot.co.uk/2009/10/editing-files-owned-by-root.html][emacs-fu's guide to editing files owned by root]].
-
-*** recentf
-
-[[http://www.emacswiki.org/emacs/RecentFiles][recentf]] stores a list of recently opened files. The list of files contains any
-files Emacs has read, not just files I've explicitly opened. Clean that list to
-exclude Emacs metafiles, package cruft etc.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package recentf
-    :config
-    ;; never clean up the list:
-    (setq recentf-auto-cleanup 'never
-          recentf-max-saved-items 500
-          recentf-max-menu-items 15
-
-          ;; customize the place =recentf= persists its list of items:
-          recentf-save-file (expand-file-name ".recentf"
-                                              smf/tmp-local-dir))
-
-    ;; strip =$HOME= from the front of =recentf= candidate files
-    (add-to-list 'recentf-filename-handlers 'abbreviate-file-name)
-
-    (add-to-list 'recentf-exclude "[/\\]\\.elpa/")
-    (add-to-list 'recentf-exclude "[/\\]\\.ido\\.last\\'" )
-    (add-to-list 'recentf-exclude "[/\\]\\.git/")
-    (add-to-list 'recentf-exclude ".*\\.gz\\'")
-    (add-to-list 'recentf-exclude ".*-autoloads\\.el\\'")
-    (add-to-list 'recentf-exclude "[/\\]archive-contents\\'")
-    (add-to-list 'recentf-exclude "[/\\]\\.loaddefs\\.el\\'")
-    (add-to-list 'recentf-exclude "url/cookies")
-    (add-to-list 'recentf-exclude ".*\\emacs.bmk\\'")
-    (add-to-list 'recentf-exclude "README\\.el\\'")
-    (add-to-list 'recentf-exclude "/custom\\.el\\'")
-
-    (recentf-mode))
-#+END_SRC
-
-*** ediff
+** ediff
 
 [[https://www.gnu.org/software/emacs/manual/html_mono/ediff.html][ediff]] is a full-featured visual diff and merge tool, built into Emacs.
 
@@ -1579,1551 +1229,6 @@ exclude Emacs metafiles, package cruft etc.
     (add-hook 'ediff-before-setup-hook 'smf/local-ediff-before-setup-hook)
     (add-hook 'ediff-quit-hook 'smf/local-ediff-quit-hook 'append)
     (add-hook 'ediff-suspend-hook 'smf/local-ediff-suspend-hook 'append)
-#+END_SRC
-
-*** Known config files
-
-I have a few files in my dotfiles repo that are known to be shell files, so
-let's add them:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package sh-script
-    :mode ((".?aliases" . sh-mode)
-           (".?bash_prompt" . sh-mode)
-           (".?bashrc" . sh-mode)
-           (".?exports" . sh-mode)
-           (".?functions" . sh-mode)
-           (".?osx" . sh-mode)
-           (".?profile" . sh-mode)
-           (".?hgrc" . conf-mode)))
-#+END_SRC
-
-*** whitespace-mode
-
-I like whitespace-mode for programming and text modes (including org),
-
-#+BEGIN_SRC emacs-lisp
-  (use-package whitespace
-    :commands whitespace-mode
-    :init
-    (add-hook 'text-mode-hook #'whitespace-mode)
-    (add-hook 'prog-mode-hook #'whitespace-mode)
-    (add-hook 'org-mode-hook #'whitespace-mode)
-    :config
-    ;; most of the time we only want to see tabs and trailing spaces
-    (setq whitespace-style '(trailing face tabs tab-mark lines-tail))
-    (setq whitespace-display-mappings '((space-mark 32 [183] [46])
-                                        (newline-mark 10 [182 10])
-                                        (tab-mark 9 [9655 9] [92 9]))))
-#+END_SRC
-
-*** exec-path-from-shell
-
-OS X doesn't use the environment variables available in a shell in a GUI
-environment ([[https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPRuntimeConfig/Articles/EnvironmentVars.html][more here]]).
-
-Since Emacs runs shell commands regularly it's important that the same =PATH= is
-available to my editor as [[https://www.macports.org][MacPorts]] etc. set and use.
-
-[[https://github.com/purcell/exec-path-from-shell][exec-path-from-shell]] is a package that copies across =PATH= and other variables
-to the Emacs environment.
-
-I only want this to be installed and enabled on OS X.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package exec-path-from-shell
-    :if (eq system-type 'darwin)
-    :ensure t
-    :config
-    (setq exec-path-from-shell-variables '("PATH"  "MANPATH" "SHELL"))
-    (exec-path-from-shell-initialize))
-#+END_SRC
-
-*** smex
-
-#+BEGIN_SRC emacs-lisp
-  (use-package smex
-    :commands (smex smex-update smex-initialize)
-    :config
-    (setq smex-auto-update nil)
-    (defun smex-update-after-load (_unused)
-      (if (boundp 'smex-cache)
-          (smex-update)))
-    (add-hook 'after-load-functions 'smex-update-after-load)
-    :init
-    (setq smex-history-length 32
-          smex-save-file (expand-file-name ".smex-items"
-                                           smf/tmp-local-dir)))
-#+END_SRC
-
-*** swiper / ivy
-
-Ivy - a generic completion frontend for Emacs, Swiper - isearch with an
-overview, and more. [[http://oremacs.com/swiper][Oh, man!]]
-
-Note: swiper <- {counsel, ivy}
-
-#+BEGIN_SRC emacs-lisp
-  (use-package swiper
-    :ensure t
-    :bind (("C-s" . swiper)
-           ("s-f" . swiper)))
-
-  (use-package counsel
-    :ensure t
-    :commands (counsel-M-x counsel-find-file counsel-describe-function
-               counsel-describe-variable counsel-unicode-char)
-    :bind (("M-x" . counsel-M-x)
-           ("C-x C-f" . counsel-find-file)
-           ("<f1> f" . counsel-describe-function)
-           ("<f1> v" . counsel-describe-variable)
-           ("M-y" . counsel-yank-pop))
-    :init
-    (smf/add-launcher "U" 'counsel-unicode-char)
-    (smf/add-launcher "i" 'counsel-imenu))
-
-  (use-package ivy
-    :ensure t
-    :demand t
-    :diminish ivy-mode
-    :bind (("C-c C-r" . ivy-resume)         ; resumes the last Ivy-based completion
-           ("C-x b" . ivy-switch-buffer)    ; use this instead of the lackluster
-                                            ; `list-buffers'
-           ("C-x C-b" . ivy-switch-buffer)  ; common typo
-           ("C-x C-n" . ivy-switch-buffer)) ; common typo
-    :config
-    (setq ivy-wrap t                        ; wraps around the buffer
-          ivy-use-virtual-buffers t)
-    (ivy-mode))
-#+END_SRC
-
-*** avy
-
-I'm choosing =avy= over =ace-jump-mode= for tighter integration with
-=ivy-mode=.
-
-[[https://github.com/abo-abo/avy][avy]] allows one to jump around the buffer to named characters (it's easier to
-watch the video on that link than explain).
-
-#+BEGIN_SRC emacs-lisp
-  (use-package avy
-    :ensure t
-    :bind (("H-;" . avy-goto-char)
-           ("H-<return>" . avy-goto-line)
-           ("H-'" . avy-goto-word-1)))
-#+END_SRC
-
-*** popwin
-
-[[https://github.com/m2ym/popwin-el][popwin]] is a popup window manager that helps make the behaviour of compilation
-buffers, search buffers etc. a bit more sane.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package popwin
-    :ensure t
-    :bind (("C-c P" . popwin:popup-last-buffer))
-    :config
-    ;; also add ag, flycheck, and occur to pop
-    (add-to-list 'popwin:special-display-config `"*ag search*")
-    (add-to-list 'popwin:special-display-config `"*ripgrep-search*")
-    (add-to-list 'popwin:special-display-config `"*Flycheck errors*")
-    (add-to-list 'popwin:special-display-config `"*Occur*")
-
-    ;; don't auto-select the compile process buffer as it's only for information
-    (add-to-list 'popwin:special-display-config `("*Compile-Log*" :noselect t))
-
-    ;; enable
-    (popwin-mode))
-#+END_SRC
-
-*** goto-chg
-
-Goto last change in current buffer.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package goto-chg
-    :ensure t
-    :bind (("H-." . goto-last-change)))
-#+END_SRC
-
-*** ripgrep
-
-[[https://github.com/nlamirault/ripgrep.el][ripgrep]] is an Emacs frontend to [[https://github.com/BurntSushi/ripgrep][the rg command]], a grep-like code-searching tool. It's
-installed via cargo on my Mac.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package ripgrep
-    :ensure t
-    :commands ripgrep-regexp
-    :if (executable-find "rg"))
-#+END_SRC
-
-*** projectile ripgrep
-
-Set up some key bindings:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package projectile-ripgrep
-    :ensure t
-    :bind (([remap projectile-grep] . projectile-ripgrep)))
-#+END_SRC
-
-*** projectile
-
-[[https://github.com/bbatsov/projectile][projectile]] is a minor mode for performing commands over a single 'project' or
-grouping of files.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package projectile
-    :ensure t
-    :diminish projectile-mode
-    :defer 4
-    :init
-    (smf/add-launcher "s" 'projectile-switch-project)
-    :config
-    (setq projectile-completion-system 'ivy
-          projectile-enable-caching t)
-    (projectile-mode))
-#+END_SRC
-
-*** colorize compile buffer
-
-Some compiler output has ansi color, so let's escape that,
-
-#+BEGIN_SRC emacs-lisp
-  (use-package ansi-color
-    :init
-    (defun smf/colorize-compilation ()
-      "Colorize from `compilation-filter-start' to `point'."
-      (let ((inhibit-read-only t))
-        (ansi-color-apply-on-region
-         compilation-filter-start (point))))
-
-    (add-hook 'compilation-filter-hook 'smf/colorize-compilation))
-#+END_SRC
-
-*** undo-tree
-
-[[http://www.dr-qubit.org/undo-tree/undo-tree.el][undo-tree-mode]], a mode which allows one to visualise their undo/redo history:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package undo-tree
-    :ensure t
-    :diminish undo-tree-mode
-    :bind (("C-x u" . undo-tree-visualize)
-           ("s-Z" . undo-tree-redo))
-    :config
-    (global-undo-tree-mode))
-#+END_SRC
-
-*** smartparens
-
-[[https://github.com/Fuco1/smartparens][smartparens]] is a =paredit= like minor-mode for many more things than just Lisp.
-
-=show-smartparens-mode= is a replacement mode for =show-paren-mode=.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package smartparens
-    :ensure t
-    :diminish smartparens-mode
-    :commands smartparens-mode
-    :init
-    (add-hook 'prog-mode-hook #'smartparens-mode)
-    :config
-    (use-package smartparens-config))
-#+END_SRC
-
-*** company
-
-[[https://github.com/company-mode/company-mode][company-mode]] is a modern and modular completion framework (the other one Emacs
-people use is [[http://www.emacswiki.org/emacs/AutoComplete][autocomplete]]. I chose =company= because it's well-maintained and
-has better code for integrating with).
-
-#+BEGIN_SRC emacs-lisp
-  (use-package company
-    :ensure t
-    :diminish company-mode
-    :config
-    (setq company-tooltip-limit 20
-          company-idle-delay 0
-          company-echo-delay 0
-          company-minimum-prefix-length 1
-          company-selection-wrap-around t
-          company-show-numbers t
-          company-tooltip-align-annotations t)
-
-    ;; remove xcode since that seems to be defunct
-    (setq company-backends (delete 'company-xcode company-backends))
-
-    ;; remove eclim
-    (setq company-backends (delete 'company-eclim company-backends))
-
-    ;; insert unicode math symbols based on the LaTeX command
-    (add-to-list 'company-backends 'company-math-symbols-unicode)
-
-    (global-company-mode))
-#+END_SRC
-
-**** Emoji
-
-#+BEGIN_SRC emacs-lisp
-  (use-package company-emoji
-    :after company
-    :ensure t
-    :config
-    (add-to-list 'company-backends 'company-emoji))
-#+END_SRC
-
-**** Quickhelp
-
-#+BEGIN_SRC emacs-lisp
-  (use-package company-quickhelp
-    :after company
-    :ensure t
-    :config
-    (company-quickhelp-mode t))
-#+END_SRC
-
-*** flycheck
-
-[[https://github.com/flycheck/flycheck][flycheck]] is a modern, more easily customisable version of [[http://www.emacswiki.org/emacs/FlyMake][flymake]]. It's used to
-perform on-the-fly syntax checking and linting.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package flycheck
-    :ensure t
-    :commands flycheck-mode
-    :diminish flycheck-mode
-    :init
-    (add-hook 'prog-mode-hook #'flycheck-mode)
-    :config
-    (defalias 'flycheck-show-error-at-point-soon 'flycheck-show-error-at-point))
-#+END_SRC
-
-*** puppet-mode
-
-[[https://github.com/lunaryorn/puppet-mode][puppet-mode]] is a major mode for editing =.pp= files.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package puppet-mode
-    :ensure t
-    :disabled)
-#+END_SRC
-
-*** markdown-mode
-
-[[http://melpa.milkbox.net/#/markdown-mode][markdown-mode]] is a major mode for editing Markdown files.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package markdown-mode
-    :ensure t
-    :mode ("\\.md\\'" . gfm-mode)
-    :config
-    (define-key markdown-mode-map (kbd "<M-left>") nil)
-    (define-key markdown-mode-map (kbd "<M-right>") nil))
-#+END_SRC
-
-*** web-mode
-
-[[https://github.com/fxbois/web-mode][web-mode]] is a major mode for editing templates and HTML. It supports a very
-broad range of template languages and is highly configurable.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package web-mode
-    :ensure t
-    :mode
-    "\\.erb\\'"
-    "\\.html\\'"
-    "\\.jinja\\'"
-    "\\.mustache\\'"
-    :config
-    (setq web-mode-markup-indent-offset 2
-          web-mode-css-indent-offset 2
-          web-mode-code-indent-offset 2))
-#+END_SRC
-
-*** emmet-mode
-
-Not going to lie. Totally ripped this from [[https://github.com/belak/dotfiles][Kaleb]].
-
-#+BEGIN_SRC emacs-lisp
-  (use-package emmet-mode
-    :after web-mode
-    :ensure t
-    :config
-    (add-hook 'web-mode-hook 'emmet-mode))
-#+END_SRC
-
-*** yaml-mode
-
-Regrettably I need to occasionally edit [[http://www.yaml.org][YAML]].
-
-#+BEGIN_SRC emacs-lisp
-  (use-package yaml-mode
-    :ensure t
-    :mode "\\.yml\\'")
-#+END_SRC
-
-*** Whole line or region
-
-It's very convenient to select the whole line when no region is active.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package whole-line-or-region
-    :ensure t
-    :diminish whole-line-or-region-mode
-    :config
-    (whole-line-or-region-mode))
-#+END_SRC
-
-*** crosshairs
-
-Highlights both the line and the column.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package crosshairs
-    :ensure t
-    :bind (("C-|" . column-highlight-mode))
-    :init
-    (global-hl-line-mode)
-    (global-hl-line-highlight))
-#+END_SRC
-
-*** violatile highlights
-
-Minor mode for visual feedback on some operations in Emacs.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package volatile-highlights
-    :ensure t
-    :diminish volatile-highlights-mode
-    :config
-    (volatile-highlights-mode))
-#+END_SRC
-
-*** drag-stuff
-
-Drag stuff around in Emacs with convenient keybindings.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package drag-stuff
-    :ensure t
-    :bind (("M-N" . drag-stuff-down)
-           ("M-P" . drag-stuff-up))
-    :diminish drag-stuff-mode
-    :config
-    (drag-stuff-global-mode))
-#+END_SRC
-
-*** hungry-delete
-
-=hungry-delete= will delete all whitespace forward or backward.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package hungry-delete
-    :ensure t
-    :bind (("H-<backspace>" . hungry-delete-backward)
-           ("H-d" . hungry-delete-forward)))
-#+END_SRC
-
-*** alert
-
-A Growl-like alerts notifier for Emacs.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package alert
-    :ensure t
-    :config
-    (setq alert-default-style (if (file-executable-p alert-notifier-command)
-                                  'notifier
-                                'osx-notifier)))
-#+END_SRC
-
-*** prodigy
-
-Manage external services from within Emacs.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package prodigy
-    :ensure t
-    :init
-    (smf/add-launcher "d" 'prodigy)
-    :commands (prodigy-start-service prodigy-find-service)
-    :config
-    ;; start by defining a simple service to run the Mercurial website
-    (prodigy-define-service
-      :name "Mercurial Website"
-      :command "python"
-      :args '("hgwebsite.py")
-      :cwd "~/projects/hgwebsite"
-      :tags '(hg python)
-      :port 5000
-      :kill-signal 'sigkill
-      :kill-process-buffer-on-stop t)
-
-    ;; imapnotify is a node app that fires a program (in our case an elisp
-    ;; function) when new mail is received
-    (prodigy-define-service
-      :name "OfflineIMAP"
-      :command "imapnotify"
-      :args '("-c" "~/.config/imapnotify.js")
-      :tags '(mail node)
-      :kill-signal 'sigkill
-      :kill-process-buffer-on-stop t
-      :init 'offlineimap)
-
-    ;; bitbucket awwwwww yeah
-    (prodigy-define-tag
-      :name 'bitbucket
-      :cwd "~/projects/bitbucket"
-      :path `(,(expand-file-name "~/.virtualenvs/bitbucket/bin")
-              ,(expand-file-name "~/projects/go/bin"))
-      :kill-signal 'sigkill
-      :env `(("BB_EMAIL_PASSWORD"
-              ,(smf/auth-source-pass "bbtest@farley.io" "mail.farley.io"))
-             ("HGRCPATH" ,(expand-file-name "~/projects/bitbucket-etc/hgrc"))
-             ("GIT_CONFIG_NOSYSTEM" "1")
-             ("PYTHONUNBUFFERED" "1")
-             ("DEBUG" "1")
-             ("CELERY_RDB_PORT" "6900")
-             ("DJANGO_SETTINGS_MODULE" "bitbucket.settings.dev")
-             ("LANG" "en_US.UTF-8")
-             ("PATH" ,(concat (expand-file-name "~/projects/go/bin") ":"
-                              (expand-file-name "~/.virtualenvs/bitbucket/bin") ":"
-                              (getenv "PATH")))
-             ("VIRTUAL_ENV" ,(expand-file-name "~/.virtualenvs/bitbucket/"))))
-
-    (prodigy-define-service
-      :name "Bitbucket Celery"
-      :command "python"
-      :args '("manage.py" "celeryd" "-l" "DEBUG")
-      :tags '(bitbucket python))
-
-    (prodigy-define-service
-      :name "Bitbucket Django"
-      :command "python"
-      :url "http://dev.bitbucket.org:8000"
-      :args '("manage.py" "runserver")
-      :tags '(bitbucket python))
-
-    (prodigy-define-service
-      :name "Bitbucket Hgweb"
-      :command "gunicorn"
-      :args '("--config" "conf/gunicorn-bridgehgweb.conf.py"
-              "--bind" "localhost:8001"
-              "-w" "1"
-              "bridgehgweb:application")
-      :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_hgweb"))
-      :tags '(bitbucket python))
-
-    (prodigy-define-service
-      :name "Bitbucket Gitweb"
-      :command "gunicorn"
-      :args '("--config" "conf/gunicorn-gitweb.conf.py"
-              "--bind" "localhost:8002"
-              "-w" "1"
-              "gitweb:application")
-      :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_gitweb"))
-      :tags '(bitbucket python))
-
-    (prodigy-define-service
-      :name "Bitbucket Conqserver"
-      :command "gunicorn"
-      :args '("--config" "conf/gunicorn-conqserver.conf.py"
-              "--bind" "localhost:9006"
-              "-w" "1"
-              "conqserver:application")
-      :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_conqserver"))
-      :tags '(bitbucket))
-
-    (prodigy-define-service
-      :name "Bitbucket Conker"
-      :command "conker"
-      :cwd "~/projects/go/src/bitbucket.org/bitbucket/conker"
-      :tags '(bitbucket)))
-#+END_SRC
-
-*** rust-mode
-
-=rust-mode= makes editing Rust code with Emacs enjoyable.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package rust-mode
-    :ensure t
-    :mode "\\.rs\\'")
-
-  (use-package racer
-    :after rust-mode
-    :ensure t
-    :config
-    (setq racer-rust-src-path "/opt/local/share/rust/src/")
-    (add-hook 'rust-mode-hook #'racer-mode)
-    (add-hook 'racer-mode-hook #'eldoc-mode))
-
-  (use-package flycheck-rust
-    :after (rust-mode flycheck-mode)
-    :ensure t
-    :config
-    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
-#+END_SRC
-
-*** hideshowvis
-
-Enables collapsable regions and diminish the mode:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package hideshowvis
-    :ensure t
-    :diminish hs-minor-mode
-    :config
-    (add-hook 'prog-mode-hook #'hideshowvis-enable))
-#+END_SRC
-
-*** focus
-
-Dim the font color of text in surrounding paragraphs.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package focus
-    :ensure t
-    :commands focus-mode
-    :init
-    (smf/add-launcher "f" #'focus-mode))
-#+END_SRC
-
-*** hl-mode
-
-I originally used fic-mode, but it appears that hl-todo is a little better and
-is updated more frequently. This lets us highlight TODO, FIXME, XXX, and other
-similar keywords.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package hl-todo
-    :ensure t
-    :config
-    (setq hl-todo-keyword-faces '(("FIXME" . hl-todo)
-                                  ("TODO"  . hl-todo)
-                                  ("XXX"   . hl-todo)))
-    (hl-todo-set-regexp)
-    (global-hl-todo-mode))
-#+END_SRC
-
-*** rainbow-mode
-
-=rainbow-mode= is a minor mode for Emacs which displays strings representing
-colors with the color they represent as background.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package rainbow-mode
-    :ensure t
-    :commands rainbow-mode)
-#+END_SRC
-
-*** less-css-mode
-
-=less-css-mode= is a major mode for Emacs which displays strings representing
-colors with the color they represent as background.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package less-css-mode
-    :ensure t
-    :commands less-css-mode)
-#+END_SRC
-
-*** rainbow-delimiters
-
-=rainbow-delimiters= is a "rainbow parentheses"-like mode which highlights
-delimiters such as parentheses, brackets or braces according to their depth.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package rainbow-delimiters
-    :ensure t
-    :commands rainbow-delimiters-mode
-    :init
-    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-#+END_SRC
-
-*** rainbow-blocks
-
-=rainbow-blocks= is an Emacs mode that highlights blocks made of parentheses,
-brackets, and braces according to their depth.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package rainbow-blocks
-    :ensure t
-    :diminish rainbow-blocks-mode
-    :commands rainbow-blocks-mode
-    :init
-    (add-hook 'emacs-lisp-mode-hook 'rainbow-blocks-mode)
-    (add-hook 'lisp-interaction-mode-hook 'rainbow-blocks-mode))
-#+END_SRC
-
-*** python debugger
-
-#+BEGIN_SRC emacs-lisp
-  (use-package realgud
-    :ensure t
-    :disabled t
-    :bind (:map realgud:shortkey-mode-map
-                ([mouse-3] . realgud:tooltip-eval)
-                :map realgud-track-mode-map
-                ("C-c C-/" . realgud:ipdb-foo)))
-#+END_SRC
-
-*** anaconda
-
-=anaconda= is an Emacs package to bring powerful Python editing to Emacs. After
-trying other major packages (elpy and jedi) I’ve settled on anaconda-mode and
-virtualenvwrapper. It provides a nice mix of tweakability and convenience.
-
-anaconda-mode provides code navigation and docs. Additionally, if company-mode
-is enabled, company-anaconda will also be enabled.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package anaconda-mode
-    :ensure t
-    :diminish anaconda-mode
-    :commands smf/goto-def-of-dumbjump
-    :bind (:map anaconda-mode-map
-                ("M-," . nil)  ; By default, anaconda binds =M-,= to finding
-                               ; assignments instead of popping the navigation
-                               ; stack (which changed in Emacs 25)
-                ("M-." . smf/goto-def-or-dumbjump))
-    :config
-    ;; need to load this for the xref call in our function below
-    (use-package xref)
-
-    ;; After a few levels of indirection, =anaconda= has no hope of finding a symbol's
-    ;; definition, so it gives up. In this case, invoking
-    ;; `anaconda-mode-find-defintions' will do nothing and show a little error message
-    ;; in the echo area. When this happens, of course we still want to find what I'm
-    ;; looking for so we define this function:
-    (defun smf/goto-def-or-dumbjump ()
-      "Go to definition of thing at point or do a dumb-jump-go in
-      project if that fails"
-      (interactive)
-      (xref-push-marker-stack)
-      (anaconda-mode-call "goto_definitions"
-                          'smf/anaconda-mode-find-definitions-callback))
-
-    (defun smf/anaconda-mode-find-definitions-callback (result)
-      "Process find definitions RESULT."
-      (let ((old-buffer (current-buffer))
-            (old-point (point)))
-        (if result
-            (progn
-              (anaconda-mode-definitions-view result)
-              (when (and (eq old-point (point))
-                         (equal old-buffer (current-buffer)))
-                ;; if we didn't actually jump, then fallback to dumb-jump
-                (message nil)             ; clear any failed messages since we're
-                                          ; about to try a different jump
-                (dumb-jump-go)))
-          (dumb-jump-go))))
-
-    (add-hook 'python-mode-hook 'anaconda-mode)
-    (add-hook 'python-mode-hook 'eldoc-mode))
-
-  (use-package company-anaconda
-    :after (anaconda-mode company-mode)
-    :ensure t
-    :config (add-to-list 'company-backends 'company-anaconda))
-#+END_SRC
-
-Showing the indentation by a vertical highlight line is quite handy for quickly
-determining the level of indentation,
-
-#+BEGIN_SRC emacs-lisp
-  (use-package highlight-indentation
-    :after anaconda
-    :ensure t
-    :diminish highlight-identation-mode
-    :config
-    (add-hook 'python-mode-hook 'highlight-indentation-mode))
-#+END_SRC
-
-*** python-switch-quotes
-
-Cycle between apostrophes and quotes in python strings. Converts strings like
-'this' to strings like "this".
-
-#+BEGIN_SRC emacs-lisp
-  (use-package python-switch-quotes
-    :after python
-    :ensure t
-    :defer t
-    :bind (:map python-mode-map
-                ("C-c '" . python-switch-quotes)))
-#+END_SRC
-
-*** sphinx-doc-mode
-
-[[https://github.com/naiquevin/sphinx-doc.el][sphinx-doc]] is an emacs minor mode for inserting docstring skeleton for Python
-functions and methods.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package sphinx-doc
-    :ensure t
-    :diminish sphinx-doc-mode
-    :config
-    (add-hook 'python-mode-hook 'sphinx-doc-mode))
-#+END_SRC
-
-*** pip
-
-This adds some basic features for requirements files, such as highlighting and
-auto-completion of names from PyPI.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package pip-requirements
-    :ensure t
-    :mode (("requirements.*\\.txt" . pip-requirements-mode)))
-#+END_SRC
-
-*** Dumb Jump
-
-Dumb Jump is an Emacs "jump to definition" package with support for multiple
-programming languages that favors "just working". This means minimal -- and
-ideally zero -- configuration with absolutely no stored indexes (TAGS) or
-persistent background processes. Dumb Jump requires at least GNU Emacs 24.4.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package dumb-jump
-    :ensure t
-    :commands dumb-jump-mode
-    :init
-    (add-hook 'prog-mode-hook #'dumb-jump-mode)
-    :config
-    (setq dumb-jump-selector 'ivy))
-#+END_SRC
-
-*** yasnippet
-
-YASnippet is a template system for Emacs. It allows you to type an abbreviation
-and automatically expand it into function templates. Bundled language templates
-include: C, C++, C#, Perl, Python, Ruby, SQL, LaTeX, HTML, CSS and more. The
-snippet syntax is inspired from [[http://manual.macromates.com/en/snippets][TextMate's]] syntax.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package yasnippet
-    :ensure t
-    :commands (yas-global-mode yas-minor-mode)
-    :diminish yas-minor-mode
-    :init
-    (add-hook 'prog-mode-hook #'yas-minor-mode)
-    :config
-    (setq yas/root-directory (smf/join-dirs smf/dotfiles-dir "snippets"))
-    (yas-reload-all))
-#+END_SRC
-
-*** smart-tabs-mode
-
-This mode provides code which improves on Emacs’ auto-indenting, so that
-whenever you press the <tab> key, the appropriate amount of tabs and spaces is
-inserted automatically. You can still use all spaces if you prefer, of course;
-the code merely ensures that if you enable tabs (maybe when maintaining legacy
-code), the tab size does not matter.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package smart-tabs-mode
-    :ensure t
-    ;; enable smart-tabs-mode automatically for C and Javascript
-    :config
-    (smart-tabs-insinuate 'c 'javascript))
-#+END_SRC
-
-*** guide-key
-
-[[https://github.com/kai2nenobu/guide-key][guide-key]] shows a popup help window after a pressing defined keys for a short
-delay. We'll also enable it for my [[Launcher keymap]] prefix.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package guide-key
-    :ensure t
-    :diminish guide-key-mode
-    :config
-    (setq guide-key/guide-key-sequence '("C-x C-l" "C-c p" "C-x 4"))
-    (guide-key-mode))
-#+END_SRC
-
-*** browse-kill-ring
-
-[[https://github.com/browse-kill-ring/browse-kill-ring][browse-kill-ring]] allows one to browse the kill ring history when yanking.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package browse-kill-ring
-    :ensure t
-    :bind (([remap yank-pop] . browse-kill-ring))
-    :config
-    ;; make browse-kill-ring act like yank-pop by overwriting the previous yank
-    (setq browse-kill-ring-replace-yank t))
-#+END_SRC
-
-*** narrow-indirect
-
-[[http://www.emacswiki.org/emacs/narrow-indirect.el][narrow-indirect]] allows one to focus a buffer onto some particular code in
-another window, editing it separately from its original context ([[http://demonastery.org/2013/04/emacs-narrow-to-region-indirect/][a better
-description of this workflow]]).
-
-#+BEGIN_SRC emacs-lisp
-  (use-package narrow-indirect
-    :ensure t)
-#+END_SRC
-
-*** dtrt-indent
-
-[[https://github.com/jscheid/dtrt-indent][dtrt-indent]] is an Emacs minor mode that guesses the indentation offset
-originally used for creating source code files and transparently adjusts the
-corresponding settings in Emacs, making it more convenient to edit foreign
-files.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package dtrt-indent
-    :ensure t
-    :defer t
-    :diminish dtrt-indent-mode
-    :config
-    (dtrt-indent-mode))
-#+END_SRC
-
-*** editorconfig
-
-[[https://github.com/editorconfig/editorconfig-core-c][EditorConfig]] makes it easy to maintain the correct coding style when switching
-between different text editors and between different projects.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package editorconfig
-    :ensure t
-    :diminish editorconfig-mode
-    :config
-    (editorconfig-mode))
-#+END_SRC
-
-*** js2-mode
-
-Improved JavaScript editing mode for GNU Emacs.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package js2-mode
-    :ensure t
-    :defer t
-    :mode "\\.js\\'"
-    :config
-    (setq js2-basic-offset 2)
-    (when (fboundp 'flycheck-mode)
-      (set-face-attribute 'js2-error nil
-                          :inherit 'flycheck-error-list-error
-                          :underline '(:color foreground-color :style wave))
-      (set-face-attribute 'js2-warning nil
-                          :inherit 'flycheck-error-list-warning
-                          :underline '(:color foreground-color :style wave))))
-#+END_SRC
-
-*** tern
-
-=tern= is a js navigation package which extends js-mode.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package tern
-    :ensure t
-    :defer t
-    :diminish tern-mode
-    :config
-    (add-hook 'js-mode-hook (lambda () (tern-mode t))))
-
-  (use-package company-tern
-    :after (tern company-mode)
-    :ensure t
-    :defer t
-    :config
-    (add-to-list 'company-backends 'company-tern)
-    (setq company-tern-property-marker ""))
-#+END_SRC
-
-*** skewer-mode
-
-[[https://github.com/skeeto/skewer-mode][Skewer]]: live web development with Emacs.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package skewer-mode
-    :ensure t
-    :defer t)
-#+END_SRC
-
-*** json-mode
-
-Sure, why not.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package json-mode
-    :ensure t
-    :defer t
-    :mode "\\.json\\'"
-    :config
-    (setq json-reformat:indent-width 2))
-#+END_SRC
-
-*** go-mode
-
-Blergh.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package go-mode
-    :ensure t
-    :defer t
-    :mode "\\.go\\'"
-    :bind (:map go-mode-map
-                ("M-." . go-guru-definition)
-                ("C-c o" . go-guru-map)))
-
-  (use-package company-go
-    :after (go-mode company-mode)
-    :ensure t
-    :defer t
-    :config
-    (setq company-go-show-annotation t)
-    (add-hook 'go-mode-hook (lambda ()
-                              (set (make-local-variable 'company-backends) '(company-go))
-                              (company-mode))))
-
-  (use-package go-eldoc
-    :ensure t
-    :defer
-    :init
-    (add-hook 'go-mode-hook 'go-eldoc-setup))
-#+END_SRC
-
-*** groovy-mode
-
-Why.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package groovy-mode
-    :ensure t
-    :defer t
-    :mode "\\.groovy\\'\\|\\.gradle\\'")
-#+END_SRC
-
-*** lua-mode
-
-Dear god.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package lua-mode
-    :ensure t
-    :defer t
-    :mode "\\.lua\\'")
-
-  (use-package company-lua
-    :after lua
-    :ensure t
-    :defer t)
-#+END_SRC
-
-*** anzu
-
-[[https://github.com/syohex/emacs-anzu][anzu]] provides enhancements to =isearch= and related tasks, particularly
-providing counts and better replacement visualisation.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package anzu
-    :ensure t
-    :diminish anzu-mode
-    :bind (([remap query-replace] . anzu-query-replace)
-           ([remap query-replace-regexp] . anzu-query-replace-regexp))
-    :config
-    (when (fboundp 'spaceline-install)
-      (setq anzu-cons-mode-line-p nil))
-    (global-anzu-mode))
-#+END_SRC
-
-*** Persistent =*scratch*= buffer
-
-Emacs has a handy, but sometimes decried, feature called the "scratch" buffer.
-One problem with =*scratch*= is that its tempting to put significant bits of
-code (and other information) into it.
-
-For some reason, this needs to be loaded after anzu else the =*scratch*= buffer
-will have whitespace symbols.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package persistent-scratch
-    :ensure t
-    :config
-    (persistent-scratch-setup-default)
-    (persistent-scratch-autosave-mode))
-#+END_SRC
-
-*** move-text
-
-#+BEGIN_SRC emacs-lisp
-  (use-package move-text
-    :ensure t
-    :config
-    (move-text-default-bindings))
-#+END_SRC
-
-*** C/C++/ObjC
-
-Trying out irony mode
-
-#+BEGIN_SRC emacs-lisp
-  (use-package irony
-    :ensure t
-    :defer t
-    :config
-    (setq c-default-style "linux")
-
-    (add-hook 'c++-mode-hook 'irony-mode)
-    (add-hook 'c-mode-hook 'irony-mode)
-    (add-hook 'objc-mode-hook 'irony-mode)
-    (add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
-    (add-hook 'c-mode-hook 'rtags-start-process-unless-running)
-    (add-hook 'objc-mode-hook 'rtags-start-process-unless-running)
-
-    ;; replace the `completion-at-point' and `complete-symbol' bindings in
-    ;; irony-mode's buffers by irony-mode's function
-    (defun smf/irony-mode-hook ()
-      (define-key irony-mode-map [remap completion-at-point]
-        'irony-completion-at-point-async)
-      (define-key irony-mode-map [remap complete-symbol]
-        'irony-completion-at-point-async))
-
-    (add-hook 'irony-mode-hook 'smf/irony-mode-hook)
-    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
-
-  (use-package company-irony
-    :after (company irony)
-    :ensure t
-    :defer t
-    :config
-    (add-to-list 'company-backends '(company-irony-c-headers company-irony)))
-
-  (use-package company-irony-c-headers
-    :after company-irony
-    :ensure t
-    :defer t)
-
-  (use-package irony-eldoc
-    :after irony
-    :ensure t
-    :defer t)
-
-  (use-package flycheck-irony
-    :after (flycheck irony)
-    :ensure t
-    :defer t
-    :config
-    (add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
-
-  (use-package rtags
-    :after irony
-    :ensure t
-    :defer t)
-#+END_SRC
-
-*** function-args
-
-GNU Emacs package for showing an inline arguments hint for the C/C++ function
-at point.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package function-args
-    :ensure t
-    :defer t
-    :config
-    (fa-config-default))
-#+END_SRC
-
-*** aHg
-
-#+BEGIN_SRC emacs-lisp
-  (use-package ahg
-    :commands ahg-status
-    ;; :ensure t)
-    :load-path "~/projects/ahg")
-#+END_SRC
-
-*** hg-test-mode
-
-A mode for Mercurial test files
-
-#+BEGIN_SRC emacs-lisp
-  (use-package hg-test-mode
-    :load-path "lisp")
-#+END_SRC
-
-*** gitconfig-mode
-
-A major mode for editing .gitconfig files.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package gitconfig-mode
-    :ensure t
-    :defer t)
-#+END_SRC
-
-*** gitignore-mode
-
-A major mode for editing .gitignore files.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package gitignore-mode
-    :ensure t
-    :defer t)
-#+END_SRC
-
-*** git-gutter
-
-Emacs port of GitGutter which is Sublime Text Plugin.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package git-gutter
-    :ensure t
-    :diminish git-gutter-mode
-    :config
-    (setq git-gutter:handled-backends '(git hg))
-    (global-git-gutter-mode))
-#+END_SRC
-
-*** magit
-
-[[https://github.com/magit/magit][Magit]] is an Emacs interface to Git. It's very feature-rich and I find it
-intuitive.
-
-**** Keyboard shortcuts
-
-=magit-status= is the main command to launch Magit. It's =autoloaded= so I don't
-need to load Magit first.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package magit
-    :ensure t
-    :commands (magit-status magit-commit magit-log-mode)
-    :mode ("COMMIT_EDITMSG" . git-commit-mode)
-    :init
-    (smf/add-launcher "g" 'magit-status)
-    :config
-    ;; magit settings
-    (setq-default
-     ;; open the =magit-status= buffer in the same window as the current buffer
-     magit-status-buffer-switch-function 'switch-to-buffer
-
-     ;; highlight individual word and letter changes when showing hunk diff overlays
-     magit-diff-refine-hunk t
-
-     ;; pop the process buffer if we're taking a while to complete
-     magit-process-popup-time 10
-
-     ;; ugh, stupid git
-     git-commit-summary-max-length 72
-
-     ;; ask me if I want a tracking upstream
-     magit-set-upstream-on-push 'askifnotset
-
-     ;; always show the diff in commit window
-     magit-commit-arguments '("--verbose")
-
-     ;; use ivy for completing things
-     magit-completing-read-function 'ivy-completing-read))
-#+END_SRC
-
-*** hugme
-
-An experimental fork of magit for Mercurial. Most of the things here won't work.
-
-**** Keyboard shortcuts
-
-=hugme-status= is the main command to launch Magit. It's =autoloaded= so I don't
-need to load Magit first.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package hugme
-    :after magit
-    :load-path "~/projects/hugme/lisp"
-    :mode (("hg-editor-.*\\.txt" . hg-commit-mode)
-           ("hg-histedit-.*\\.txt" . hg-histedit-mode))
-    :init
-    (smf/add-launcher "h" 'hugme-status)
-    :config
-    ;; hugme settings
-    (setq-default
-     ;; open hugme status in same window as current buffer
-     hugme-status-buffer-switch-function 'switch-to-buffer
-
-     ;; highlight word/letter changes in hunk diffs
-     hugme-diff-refine-hunk t
-
-     ;; pop the process buffer if we're taking a while to complete
-     hugme-process-popup-time 10
-
-     ;; don't prompt me to confirm a canceled histedit
-     hg-histedit-confirm-cancel nil
-
-     ;; shelling out to hg is expensive, so until we use something like the command
-     ;; server, set a high-timeout for diffs
-     hugme-diff-expansion-threshold 10.0
-
-     ;; definitely need to enable debugging while writing this package
-     hugme-hg-debug t
-
-     ;; use ivy for completing things
-     hugme-completing-read-function 'ivy-completing-read
-
-     ;; experimentally try to use chg, though it doesn't seem to improve the
-     ;; speed of shelling out
-     hugme-hg-executable "chg"))
-#+END_SRC
-
-*** emacs-git-messenger
-
-#+BEGIN_SRC emacs-lisp
-  (use-package git-messenger
-    :ensure t
-    :commands git-messenger:popup-message
-    :init
-    (smf/add-launcher "v" 'git-messenger:popup-message)
-    :config
-    (setq git-messenger:show-detail 't))
-#+END_SRC
-
-*** slime-nav
-
-Slime allows very convenient navigation to the symbol at point (using M-.), and
-the ability to pop back to previous marks (using =M-,=).
-
-This plugin provides similar navigation for Emacs Lisp, supporting navigation
-to the definitions of variables, functions, libraries and faces.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package elisp-slime-nav
-    :ensure t
-    :diminish elisp-slime-nav-mode
-    :init
-    (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
-    (add-hook 'ielm-mode-hook 'elisp-slime-nav-mode))
-#+END_SRC
-
-*** Multiple Cursors
-
-#+BEGIN_SRC emacs-lisp
-  (use-package multiple-cursors
-    :ensure t
-    :bind ("H-n" . mc/mark-next-like-this)
-          ;; ("s-n" . mc/skip-to-next-like-this)
-          ("H-p" . mc/mark-previous-like-this)
-          ;; ("s-p" . mc/skip-to-previous-like-this)
-          ("H-l" . mc/mark-all-symbols-like-this)
-          ("C-S-<mouse-1>" . mc/add-cursor-on-click))
-#+END_SRC
-
-*** Docker
-
-#+BEGIN_SRC emacs-lisp
-  (use-package docker
-    :ensure t
-    :defer t)
-
-  (use-package dockerfile-mode
-    :after docker
-    :ensure t
-    :mode "Dockerfile\\'")
-#+END_SRC
-
-*** Twitter
-
-=Twittering-mode=: a Twitter client for Emacs
-
-#+BEGIN_SRC emacs-lisp
-  (use-package twittering-mode
-    :ensure t
-    :defer t
-    :commands twit
-    :init
-    (smf/add-launcher "t" 'twit)
-    :config
-    (setq twittering-icon-mode t)
-    (setq twittering-use-icon-storage t))
-#+END_SRC
-
-** LaTeX
-
-I love [[http://en.wikipedia.org/wiki/LaTeX][LaTex]]. It's the best way to typeset a document.
-
-*** AucTeX
-
-Let's start by installing some LaTeX specific plugins (mostly AucTex-related)
-and initialize them. [[http://mactex-wiki.tug.org/wiki/index.php/SyncTeX][SyncTeX]] enables synchronization between source TeX files
-and the resulting pdf file.
-
-#+BEGIN_SRC emacs-lisp
-  ;; define map to silence byte compiler
-  (defvar LaTeX-mode-map)
-
-  (use-package tex
-    :ensure auctex
-    :mode ("\\.tex\\'" . latex-mode)
-    :commands (latex-mode LaTeX-mode plain-tex-mode smf/latexmk-compile)
-    :diminish iimage-mode
-    :diminish outline-minor-mode
-    :diminish reftex-mode
-    :diminish abbrev-mode
-    :bind (:map LaTeX-mode-map
-                ("C-c C-a" . smf/latexmk-compile))
-    :config
-    (setq-default TeX-auto-save t
-                  TeX-parse-self t
-                  LaTeX-item-indent 0
-                  TeX-clean-confirm nil ; don't ask me to clean
-                  TeX-PDF-mode t        ; who uses dvi?
-                  outline-minor-mode-prefix (kbd "C-c o")
-                  TeX-source-correlate-method 'synctex
-                  TeX-source-correlate-start-server t
-                  TeX-view-program-selection '((output-pdf "PDF Tools"))
-                  TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view)))
-
-    ;; taken from http://www.emacswiki.org/AUCTeX for automatic detection of the
-    ;; master file
-
-    (defun smf/guess-TeX-master (filename)
-      "Guess the master file for FILENAME from currently open .tex files."
-      (let ((candidate nil)
-            (filename (file-name-nondirectory filename)))
-        (save-excursion
-          (dolist (buffer (buffer-list))
-            (with-current-buffer buffer
-              (let ((name (buffer-name))
-                    (file buffer-file-name))
-                (if (and file (string-match "\\.tex$" file))
-                    (progn
-                      (goto-char (point-min))
-                      (if (re-search-forward (concat "\\\\input{" filename "}") nil t)
-                          (setq candidate file))
-                      (if (re-search-forward (concat "\\\\include{" (file-name-sans-extension filename) "}") nil t)
-                          (setq candidate file))))))))
-        (if candidate
-            (message "TeX master document: %s" (file-name-nondirectory candidate)))
-        candidate))
-
-    ;; latexmk is a handy way to compile the TeX source the correct number of
-    ;; times, so we'll create a convenient binding for that
-    (defun smf/latexmk-compile ()
-      (interactive)
-      (save-buffer)
-      (TeX-command "LatexMk" 'TeX-master-file -1))
-
-    (defun smf/latex-mode-hook ()
-      (turn-on-auto-fill)
-      (abbrev-mode)
-      (LaTeX-math-mode)
-      (outline-minor-mode)
-      (magic-latex-buffer)
-      (setq TeX-master (smf/guess-TeX-master (buffer-file-name))))
-
-    ;; add synctex hook
-    (add-hook 'LaTeX-mode-hook #'TeX-source-correlate-mode)
-    (add-hook 'LaTeX-mode-hook #'smf/latex-mode-hook)
-    (add-hook 'LaTeX-mode-hook #'reftex-mode)
-    (add-hook 'LaTeX-mode-hook #'turn-on-reftex))
-
-  (use-package auctex-latexmk
-    :after auctex
-    :ensure t
-    :config
-    (auctex-latexmk-setup))
-#+END_SRC
-
-*** =magic-latex-buffer=
-
-Magical syntax highlighting for LaTeX-mode buffers.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package magic-latex-buffer
-    :ensure t
-    :defer t
-    :diminish magic-latex-buffer)
-#+END_SRC
-
-*** RefTeX
-
-You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html][RefTeX]].
-
-#+BEGIN_SRC emacs-lisp
-  (use-package reftex
-    :commands turn-on-reftex
-    :init
-    (setq reftex-plug-into-AUCTeX t)
-    :config
-    (setq-default reftex-enable-partial-scans t
-                  reftex-save-parse-info t
-                  reftex-use-multiple-selection-buffers t
-                  reftex-plug-into-AUCTeX t
-
-                  reftex-cite-prompt-optional-args nil
-                  reftex-cite-cleanup-optional-args t
-
-                  reftex-section-levels '(("part" . 0)
-                                          ("chapter" . 1)
-                                          ("section" . 2)
-                                          ("subsection" . 3)
-                                          ("frametitle" . 4)
-                                          ("subsubsection" . 4)
-                                          ("paragraph" . 5)
-                                          ("subparagraph" . 6)
-                                          ("addchap" . -1)
-                                          ("addsec" . -2))
-
-                  reftex-plug-into-AUCTeX t
-                  reftex-extra-bindings t
-                  reftex-bibfile-ignore-list nil
-                  reftex-guess-label-type t
-                  reftex-revisit-to-follow t
-                  reftex-use-fonts t              ; make colorful toc
-                  reftex-toc-follow-mode nil      ; don't follow other toc(s)
-                  reftex-toc-split-windows-horizontally t
-                  reftex-auto-recenter-toc t
-                  reftex-enable-partial-scans t
-                  reftex-save-parse-info t
-                  reftex-use-multiple-selection-buffers t
-
-                  TeX-fold-env-spec-list '(("[comment]" ("comment"))
-                                           ("[figure]" ("figure"))
-                                           ("[table]" ("table"))
-                                           ("[itemize]" ("itemize"))
-                                           ("[enumerate]" ("enumerate"))
-                                           ("[description]" ("description"))
-                                           ("[overpic]" ("overpic"))
-                                           ("[tabularx]" ("tabularx"))
-                                           ("[code]" ("code"))
-                                           ("[shell]" ("shell")))))
-#+END_SRC
-
-*** company-math
-
-#+BEGIN_SRC emacs-lisp
-  (use-package company-auctex
-    :ensure t
-    :after auctex
-    :config
-    (company-auctex-init))
-  (use-package company-math
-    :ensure t
-    :after auctex
-    :config
-    (add-to-list 'company-backends 'company-math-symbols-unicode))
-#+END_SRC
-
-*** pdf-tools
-
-#+BEGIN_SRC emacs-lisp
-  (use-package pdf-tools
-    :ensure t
-    :mode (("\\.pdf\\'" . pdf-view-mode))
-    :config
-    (pdf-tools-install)
-    (setq-default pdf-view-display-size 'fit-page)
-    (add-hook 'TeX-after-compilation-finished-functions
-              #'TeX-revert-document-buffer))
 #+END_SRC
 
 ** ERC
@@ -3405,6 +1510,186 @@ method so that takes care of most potential name conflicts.
   (smf/add-launcher "c" 'smf/erc-chat)
 #+END_SRC
 
+** LaTeX
+
+I love [[http://en.wikipedia.org/wiki/LaTeX][LaTex]]. It's the best way to typeset a document.
+
+*** AucTeX
+
+Let's start by installing some LaTeX specific plugins (mostly AucTex-related)
+and initialize them. [[http://mactex-wiki.tug.org/wiki/index.php/SyncTeX][SyncTeX]] enables synchronization between source TeX files
+and the resulting pdf file.
+
+#+BEGIN_SRC emacs-lisp
+  ;; define map to silence byte compiler
+  (defvar LaTeX-mode-map)
+
+  (use-package tex
+    :ensure auctex
+    :mode ("\\.tex\\'" . latex-mode)
+    :commands (latex-mode LaTeX-mode plain-tex-mode smf/latexmk-compile)
+    :diminish iimage-mode
+    :diminish outline-minor-mode
+    :diminish reftex-mode
+    :diminish abbrev-mode
+    :bind (:map LaTeX-mode-map
+                ("C-c C-a" . smf/latexmk-compile))
+    :config
+    (setq-default TeX-auto-save t
+                  TeX-parse-self t
+                  LaTeX-item-indent 0
+                  TeX-clean-confirm nil ; don't ask me to clean
+                  TeX-PDF-mode t        ; who uses dvi?
+                  outline-minor-mode-prefix (kbd "C-c o")
+                  TeX-source-correlate-method 'synctex
+                  TeX-source-correlate-start-server t
+                  TeX-view-program-selection '((output-pdf "PDF Tools"))
+                  TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view)))
+
+    ;; taken from http://www.emacswiki.org/AUCTeX for automatic detection of the
+    ;; master file
+
+    (defun smf/guess-TeX-master (filename)
+      "Guess the master file for FILENAME from currently open .tex files."
+      (let ((candidate nil)
+            (filename (file-name-nondirectory filename)))
+        (save-excursion
+          (dolist (buffer (buffer-list))
+            (with-current-buffer buffer
+              (let ((name (buffer-name))
+                    (file buffer-file-name))
+                (if (and file (string-match "\\.tex$" file))
+                    (progn
+                      (goto-char (point-min))
+                      (if (re-search-forward (concat "\\\\input{" filename "}") nil t)
+                          (setq candidate file))
+                      (if (re-search-forward (concat "\\\\include{" (file-name-sans-extension filename) "}") nil t)
+                          (setq candidate file))))))))
+        (if candidate
+            (message "TeX master document: %s" (file-name-nondirectory candidate)))
+        candidate))
+
+    ;; latexmk is a handy way to compile the TeX source the correct number of
+    ;; times, so we'll create a convenient binding for that
+    (defun smf/latexmk-compile ()
+      (interactive)
+      (save-buffer)
+      (TeX-command "LatexMk" 'TeX-master-file -1))
+
+    (defun smf/latex-mode-hook ()
+      (turn-on-auto-fill)
+      (abbrev-mode)
+      (LaTeX-math-mode)
+      (outline-minor-mode)
+      (magic-latex-buffer)
+      (setq TeX-master (smf/guess-TeX-master (buffer-file-name))))
+
+    ;; add synctex hook
+    (add-hook 'LaTeX-mode-hook #'TeX-source-correlate-mode)
+    (add-hook 'LaTeX-mode-hook #'smf/latex-mode-hook)
+    (add-hook 'LaTeX-mode-hook #'reftex-mode)
+    (add-hook 'LaTeX-mode-hook #'turn-on-reftex))
+
+  (use-package auctex-latexmk
+    :after auctex
+    :ensure t
+    :config
+    (auctex-latexmk-setup))
+#+END_SRC
+
+*** =magic-latex-buffer=
+
+Magical syntax highlighting for LaTeX-mode buffers.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package magic-latex-buffer
+    :ensure t
+    :defer t
+    :diminish magic-latex-buffer)
+#+END_SRC
+
+*** RefTeX
+
+You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html][RefTeX]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package reftex
+    :commands turn-on-reftex
+    :init
+    (setq reftex-plug-into-AUCTeX t)
+    :config
+    (setq-default reftex-enable-partial-scans t
+                  reftex-save-parse-info t
+                  reftex-use-multiple-selection-buffers t
+                  reftex-plug-into-AUCTeX t
+
+                  reftex-cite-prompt-optional-args nil
+                  reftex-cite-cleanup-optional-args t
+
+                  reftex-section-levels '(("part" . 0)
+                                          ("chapter" . 1)
+                                          ("section" . 2)
+                                          ("subsection" . 3)
+                                          ("frametitle" . 4)
+                                          ("subsubsection" . 4)
+                                          ("paragraph" . 5)
+                                          ("subparagraph" . 6)
+                                          ("addchap" . -1)
+                                          ("addsec" . -2))
+
+                  reftex-plug-into-AUCTeX t
+                  reftex-extra-bindings t
+                  reftex-bibfile-ignore-list nil
+                  reftex-guess-label-type t
+                  reftex-revisit-to-follow t
+                  reftex-use-fonts t              ; make colorful toc
+                  reftex-toc-follow-mode nil      ; don't follow other toc(s)
+                  reftex-toc-split-windows-horizontally t
+                  reftex-auto-recenter-toc t
+                  reftex-enable-partial-scans t
+                  reftex-save-parse-info t
+                  reftex-use-multiple-selection-buffers t
+
+                  TeX-fold-env-spec-list '(("[comment]" ("comment"))
+                                           ("[figure]" ("figure"))
+                                           ("[table]" ("table"))
+                                           ("[itemize]" ("itemize"))
+                                           ("[enumerate]" ("enumerate"))
+                                           ("[description]" ("description"))
+                                           ("[overpic]" ("overpic"))
+                                           ("[tabularx]" ("tabularx"))
+                                           ("[code]" ("code"))
+                                           ("[shell]" ("shell")))))
+#+END_SRC
+
+*** company-math
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company-auctex
+    :ensure t
+    :after auctex
+    :config
+    (company-auctex-init))
+  (use-package company-math
+    :ensure t
+    :after auctex
+    :config
+    (add-to-list 'company-backends 'company-math-symbols-unicode))
+#+END_SRC
+
+*** pdf-tools
+
+#+BEGIN_SRC emacs-lisp
+  (use-package pdf-tools
+    :ensure t
+    :mode (("\\.pdf\\'" . pdf-view-mode))
+    :config
+    (pdf-tools-install)
+    (setq-default pdf-view-display-size 'fit-page)
+    (add-hook 'TeX-after-compilation-finished-functions
+              #'TeX-revert-document-buffer))
+#+END_SRC
+
 ** notmuch
 
 [[https://notmuchmail.org][notmuch]] is a mail indexer and searching. It comes with an emacs client.
@@ -3629,6 +1914,1722 @@ updated from within [[notmuch]] with keyboard shortcuts.
     (define-key notmuch-search-mode-map "G" 'offlineimap))
 #+END_SRC
 
+** org
+
+**** init
+
+[[http://orgmode.org][org-mode]] is a plain text system for organising information and notes. We'll set
+some basic settings and personal tweaks,
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org
+    :ensure org-plus-contrib
+    :mode ("\\.org"  . org-mode)
+    :bind (;; I'll change the prefix for these function (instead of using
+           ;; smf/launcher) since they are so common
+           ("C-c l" . org-store-link)
+           ("C-c a" . org-agenda)
+           ("C-c c" . org-capture)
+
+           :map org-mode-map
+           ;; I use meta-arrow keys for navigation so let's stop org from
+           ;; using them to indent
+           ("<M-S-left>" . nil)
+           ("<M-left>" . nil)
+           ("<M-right>" . nil)
+           ;; since I commonly mistype =C-c C-'= instead of =C-c '=, let's
+           ;; add that keybinding,
+           ("C-c C-'" . org-edit-special)
+
+           :map org-src-mode-map
+           ("C-c C-'" . org-edit-src-exit)
+           ;; I find it infuriating that my muscle memory =⌘+s= in
+           ;; =org-src-mode= will save the buffer as a new file. Instead,
+           ;; let's make it do the same thing as =C-c '=
+           ("s-s" . org-edit-src-exit))
+    :config
+    ;; set the file for capturing todos
+    (defvar smf/org-input "~/Dropbox/org/organizer.org")
+
+    ;; don't auto-fold my documents:
+    (setq-default org-startup-folded nil
+
+          ;; automatically apply syntax highlighting:
+          org-src-fontify-natively t
+          org-src-tab-acts-natively t
+          org-ellipsis "⤵"
+
+          ;; and don't prompt
+          org-confirm-babel-evaluate nil
+
+          ;; when using imenu, make sure I can follow the outline to the full available
+          ;; depth
+          org-imenu-depth 6
+
+          ;; also, I like using shift+arrow keys to highlight, so let's set that
+          org-support-shift-select 'always
+
+          ;; set up MobileOrg (which is sweet!)
+          org-directory "~/Dropbox/org"
+
+          org-default-notes-file smf/org-input
+
+          ;; set to the name of the file where new notes will be stored
+          org-mobile-inbox-for-pull smf/org-input
+
+          org-mobile-directory "~/Dropbox/Apps/MobileOrg"
+
+          ;; now, set the agenda files,
+          org-agenda-files (list "~/Dropbox/org/organizer.org"
+                                 "~/Dropbox/org/bitbucket.org"
+                                 "~/Dropbox/org/phd.org"
+                                 "~/Dropbox/org/hg.org"
+                                 "~/Dropbox/org/personal.org")
+
+          ;; please don't close and mess up my windows,
+          org-agenda-window-setup 'current-window
+          org-agenda-restore-windows-after-quit 't
+
+          ;; add a nice, little template to use along with some shortcuts
+          org-capture-templates
+          `(("t" "Tasks" entry
+             (file+headline "~/Dropbox/org/organizer.org" "Inbox")
+             "* TODO %?\nCaptured %<%Y-%m-%d %H:%M>\n%a\n\n%i" "Basic task2 data")
+            ("i" "Interrupting task" entry
+             (file+headline "~/Dropbox/org/organizer.org" "Inbox")
+             "* STARTED %^{Task}"
+             :clock-in :clock-resume))
+
+          org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
+
+    ;; shortcut to launch file for refiling
+    (smf/add-launcher "o" (lambda ()
+                            (interactive)
+                            (find-file smf/org-input)))
+
+    ;; also, let's turn on auto-fill-mode
+    (add-hook 'org-mode-hook 'auto-fill-mode))
+
+  ;; needed for colorizing src blocks
+  (use-package htmlize
+    :after org
+    :ensure t)
+#+END_SRC
+
+**** tangling
+
+Straight-up stolen from [[https://git.alanpearce.uk/alan/dotfiles/src/master/tag-emacs/emacs.d/init.org][alan/dotfiles]].
+
+We can use =C-c C-v t= to run =org-babel-tangle=, which extracts the code
+blocks from the current file into a source-specific file (in this case a
+=.el=-file).
+
+To avoid doing this each time a change is made we can add a function to the
+=after-save-hook= ensuring to always tangle and byte-compile the =org=-document
+after changes.
+
+#+BEGIN_SRC emacs-lisp
+  (defun smf/tangle-if-init ()
+    "If the current buffer is 'README.org' the code-blocks are
+      tangled, and the tangled file is compiled."
+
+    (when (string-suffix-p "README.org" (buffer-file-name))
+      (smf/tangle-init)))
+
+  (defun smf/tangle-init-sync ()
+    (interactive)
+    (message "Tangling init")
+    ;; Avoid running hooks when tangling.
+    (let ((prog-mode-hook nil)
+          (src  (expand-file-name "README.org" user-emacs-directory))
+          (dest (expand-file-name "init.el"  user-emacs-directory)))
+      (require 'ob-tangle)
+      (org-babel-tangle-file src dest)
+      (if (byte-compile-file dest)
+          (byte-compile-dest-file dest)
+        (with-current-buffer byte-compile-log-buffer
+          (buffer-string)))))
+
+  (defun smf/tangle-init ()
+    "Tangle README.org asynchronously."
+    (interactive)
+    (message "Tangling init")
+    (async-start
+     (symbol-function #'smf/tangle-init-sync)
+     (lambda (result)
+       (message "Init tangling completed: %s" result))))
+
+  (add-hook 'after-save-hook #'smf/tangle-if-init)
+#+END_SRC
+
+**** org-journal
+
+A great plugin for =org-mode= is =org-journal= to take daily and weekly notes.
+I was inspired by [[http://pages.sachachua.com/.emacs.d/Sacha.html#org5b9f9d2][Sacha Chau's setup]] (and her [[http://sachachua.com][great website]]) to also revamp my
+workflow to use =org-mode= even more better.
+
+So, we'll start with some basic settings,
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-journal
+    :after org
+    :ensure t
+    :defer t
+    :config
+    (setq-default org-log-done t
+                  org-agenda-persistent-filter t
+                  org-agenda-sticky t
+                  org-enforce-todo-dependencies t
+                  org-cycle-separator-lines 0
+                  org-blank-before-new-entry (quote ((heading)
+                                                     (plain-list-item . auto)))
+
+                  org-journal-dir "~/Dropbox/journal"
+                  org-use-fast-todo-selection t
+                  org-log-into-drawer t
+                  org-log-state-notes-insert-after-drawers nil
+                  org-fast-tag-selection-single-key nil
+                  org-return-follows-link t
+                  org-confirm-babel-evaluate nil
+
+                  org-refile-targets '((org-agenda-files . (:maxlevel . 6)))))
+#+END_SRC
+
+The org-protocol plugin is sweet awesomeness. It allows native apps to send
+capture notes to Emacs,
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-protocol
+    :commands (org-protocol-capture org-protocol-create))
+#+END_SRC
+
+**** misc org
+
+Let's use pomodoro!
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-pomodoro
+    :ensure t
+    :commands org-pomodoro
+    :config
+    (setq org-pomodoro-play-sounds nil))
+#+END_SRC
+
+While we're at it, let's add notmuch and twitter bootstrap integration,
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-notmuch
+    :after notmuch
+    :defer t)
+#+END_SRC
+
+** prodigy
+
+Manage external services from within Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package prodigy
+    :ensure t
+    :init
+    (smf/add-launcher "d" 'prodigy)
+    :commands (prodigy-start-service prodigy-find-service)
+    :config
+    ;; start by defining a simple service to run the Mercurial website
+    (prodigy-define-service
+      :name "Mercurial Website"
+      :command "python"
+      :args '("hgwebsite.py")
+      :cwd "~/projects/hgwebsite"
+      :tags '(hg python)
+      :port 5000
+      :kill-signal 'sigkill
+      :kill-process-buffer-on-stop t)
+
+    ;; imapnotify is a node app that fires a program (in our case an elisp
+    ;; function) when new mail is received
+    (prodigy-define-service
+      :name "OfflineIMAP"
+      :command "imapnotify"
+      :args '("-c" "~/.config/imapnotify.js")
+      :tags '(mail node)
+      :kill-signal 'sigkill
+      :kill-process-buffer-on-stop t
+      :init 'offlineimap)
+
+    ;; bitbucket awwwwww yeah
+    (prodigy-define-tag
+      :name 'bitbucket
+      :cwd "~/projects/bitbucket"
+      :path `(,(expand-file-name "~/.virtualenvs/bitbucket/bin")
+              ,(expand-file-name "~/projects/go/bin"))
+      :kill-signal 'sigkill
+      :env `(("BB_EMAIL_PASSWORD"
+              ,(smf/auth-source-pass "bbtest@farley.io" "mail.farley.io"))
+             ("HGRCPATH" ,(expand-file-name "~/projects/bitbucket-etc/hgrc"))
+             ("GIT_CONFIG_NOSYSTEM" "1")
+             ("PYTHONUNBUFFERED" "1")
+             ("DEBUG" "1")
+             ("CELERY_RDB_PORT" "6900")
+             ("DJANGO_SETTINGS_MODULE" "bitbucket.settings.dev")
+             ("LANG" "en_US.UTF-8")
+             ("PATH" ,(concat (expand-file-name "~/projects/go/bin") ":"
+                              (expand-file-name "~/.virtualenvs/bitbucket/bin") ":"
+                              (getenv "PATH")))
+             ("VIRTUAL_ENV" ,(expand-file-name "~/.virtualenvs/bitbucket/"))))
+
+    (prodigy-define-service
+      :name "Bitbucket Celery"
+      :command "python"
+      :args '("manage.py" "celeryd" "-l" "DEBUG")
+      :tags '(bitbucket python))
+
+    (prodigy-define-service
+      :name "Bitbucket Django"
+      :command "python"
+      :url "http://dev.bitbucket.org:8000"
+      :args '("manage.py" "runserver")
+      :tags '(bitbucket python))
+
+    (prodigy-define-service
+      :name "Bitbucket Hgweb"
+      :command "gunicorn"
+      :args '("--config" "conf/gunicorn-bridgehgweb.conf.py"
+              "--bind" "localhost:8001"
+              "-w" "1"
+              "bridgehgweb:application")
+      :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_hgweb"))
+      :tags '(bitbucket python))
+
+    (prodigy-define-service
+      :name "Bitbucket Gitweb"
+      :command "gunicorn"
+      :args '("--config" "conf/gunicorn-gitweb.conf.py"
+              "--bind" "localhost:8002"
+              "-w" "1"
+              "gitweb:application")
+      :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_gitweb"))
+      :tags '(bitbucket python))
+
+    (prodigy-define-service
+      :name "Bitbucket Conqserver"
+      :command "gunicorn"
+      :args '("--config" "conf/gunicorn-conqserver.conf.py"
+              "--bind" "localhost:9006"
+              "-w" "1"
+              "conqserver:application")
+      :env `(("DJANGO_SETTINGS_MODULE" "bitbucket.settings.django_conqserver"))
+      :tags '(bitbucket))
+
+    (prodigy-define-service
+      :name "Bitbucket Conker"
+      :command "conker"
+      :cwd "~/projects/go/src/bitbucket.org/bitbucket/conker"
+      :tags '(bitbucket)))
+#+END_SRC
+
+** Other modes
+
+Emacs comes with hundreds of major and minor modes to do many, many things.
+These are the ones I commonly use and have configured.
+
+*** aHg
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ahg
+    :commands ahg-status
+    ;; :ensure t)
+    :load-path "~/projects/ahg")
+#+END_SRC
+
+*** alert
+
+A Growl-like alerts notifier for Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package alert
+    :ensure t
+    :config
+    (setq alert-default-style (if (file-executable-p alert-notifier-command)
+                                  'notifier
+                                'osx-notifier)))
+#+END_SRC
+
+*** anaconda
+
+=anaconda= is an Emacs package to bring powerful Python editing to Emacs. After
+trying other major packages (elpy and jedi) I’ve settled on anaconda-mode and
+virtualenvwrapper. It provides a nice mix of tweakability and convenience.
+
+anaconda-mode provides code navigation and docs. Additionally, if company-mode
+is enabled, company-anaconda will also be enabled.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package anaconda-mode
+    :ensure t
+    :diminish anaconda-mode
+    :commands smf/goto-def-of-dumbjump
+    :bind (:map anaconda-mode-map
+                ("M-," . nil)  ; By default, anaconda binds =M-,= to finding
+                               ; assignments instead of popping the navigation
+                               ; stack (which changed in Emacs 25)
+                ("M-." . smf/goto-def-or-dumbjump))
+    :config
+    ;; need to load this for the xref call in our function below
+    (use-package xref)
+
+    ;; After a few levels of indirection, =anaconda= has no hope of finding a symbol's
+    ;; definition, so it gives up. In this case, invoking
+    ;; `anaconda-mode-find-defintions' will do nothing and show a little error message
+    ;; in the echo area. When this happens, of course we still want to find what I'm
+    ;; looking for so we define this function:
+    (defun smf/goto-def-or-dumbjump ()
+      "Go to definition of thing at point or do a dumb-jump-go in
+      project if that fails"
+      (interactive)
+      (xref-push-marker-stack)
+      (anaconda-mode-call "goto_definitions"
+                          'smf/anaconda-mode-find-definitions-callback))
+
+    (defun smf/anaconda-mode-find-definitions-callback (result)
+      "Process find definitions RESULT."
+      (let ((old-buffer (current-buffer))
+            (old-point (point)))
+        (if result
+            (progn
+              (anaconda-mode-definitions-view result)
+              (when (and (eq old-point (point))
+                         (equal old-buffer (current-buffer)))
+                ;; if we didn't actually jump, then fallback to dumb-jump
+                (message nil)             ; clear any failed messages since we're
+                                          ; about to try a different jump
+                (dumb-jump-go)))
+          (dumb-jump-go))))
+
+    (add-hook 'python-mode-hook 'anaconda-mode)
+    (add-hook 'python-mode-hook 'eldoc-mode))
+
+  (use-package company-anaconda
+    :after (anaconda-mode company-mode)
+    :ensure t
+    :config (add-to-list 'company-backends 'company-anaconda))
+#+END_SRC
+
+Showing the indentation by a vertical highlight line is quite handy for quickly
+determining the level of indentation,
+
+#+BEGIN_SRC emacs-lisp
+  (use-package highlight-indentation
+    :after anaconda
+    :ensure t
+    :diminish highlight-identation-mode
+    :config
+    (add-hook 'python-mode-hook 'highlight-indentation-mode))
+#+END_SRC
+
+*** anzu
+
+[[https://github.com/syohex/emacs-anzu][anzu]] provides enhancements to =isearch= and related tasks, particularly
+providing counts and better replacement visualisation.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package anzu
+    :ensure t
+    :diminish anzu-mode
+    :bind (([remap query-replace] . anzu-query-replace)
+           ([remap query-replace-regexp] . anzu-query-replace-regexp))
+    :config
+    (when (fboundp 'spaceline-install)
+      (setq anzu-cons-mode-line-p nil))
+    (global-anzu-mode))
+#+END_SRC
+
+*** avy
+
+I'm choosing =avy= over =ace-jump-mode= for tighter integration with
+=ivy-mode=.
+
+[[https://github.com/abo-abo/avy][avy]] allows one to jump around the buffer to named characters (it's easier to
+watch the video on that link than explain).
+
+#+BEGIN_SRC emacs-lisp
+  (use-package avy
+    :ensure t
+    :bind (("H-;" . avy-goto-char)
+           ("H-<return>" . avy-goto-line)
+           ("H-'" . avy-goto-word-1)))
+#+END_SRC
+
+*** browse-kill-ring
+
+[[https://github.com/browse-kill-ring/browse-kill-ring][browse-kill-ring]] allows one to browse the kill ring history when yanking.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package browse-kill-ring
+    :ensure t
+    :bind (([remap yank-pop] . browse-kill-ring))
+    :config
+    ;; make browse-kill-ring act like yank-pop by overwriting the previous yank
+    (setq browse-kill-ring-replace-yank t))
+#+END_SRC
+
+
+*** c, c++, and objc
+
+Unfortunately, I don't do as much C programming as I would like but [[https://github.com/Sarcasm/irony-mode][irony-mode]]
+seems like it would have been really helpful in the past.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package irony
+    :ensure t
+    :defer t
+    :config
+    (setq c-default-style "linux")
+
+    (add-hook 'c++-mode-hook 'irony-mode)
+    (add-hook 'c-mode-hook 'irony-mode)
+    (add-hook 'objc-mode-hook 'irony-mode)
+    (add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
+    (add-hook 'c-mode-hook 'rtags-start-process-unless-running)
+    (add-hook 'objc-mode-hook 'rtags-start-process-unless-running)
+
+    ;; replace the `completion-at-point' and `complete-symbol' bindings in
+    ;; irony-mode's buffers by irony-mode's function
+    (defun smf/irony-mode-hook ()
+      (define-key irony-mode-map [remap completion-at-point]
+        'irony-completion-at-point-async)
+      (define-key irony-mode-map [remap complete-symbol]
+        'irony-completion-at-point-async))
+
+    (add-hook 'irony-mode-hook 'smf/irony-mode-hook)
+    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+
+  (use-package company-irony
+    :after (company irony)
+    :ensure t
+    :defer t
+    :config
+    (add-to-list 'company-backends '(company-irony-c-headers company-irony)))
+
+  (use-package company-irony-c-headers
+    :after company-irony
+    :ensure t
+    :defer t)
+
+  (use-package irony-eldoc
+    :after irony
+    :ensure t
+    :defer t)
+
+  (use-package flycheck-irony
+    :after (flycheck irony)
+    :ensure t
+    :defer t
+    :config
+    (add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+
+  (use-package rtags
+    :after irony
+    :ensure t
+    :defer t)
+#+END_SRC
+
+*** colorize compile buffer
+
+Some compiler output has ansi color, so let's escape that,
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ansi-color
+    :init
+    (defun smf/colorize-compilation ()
+      "Colorize from `compilation-filter-start' to `point'."
+      (let ((inhibit-read-only t))
+        (ansi-color-apply-on-region
+         compilation-filter-start (point))))
+
+    (add-hook 'compilation-filter-hook 'smf/colorize-compilation))
+#+END_SRC
+
+*** company
+
+[[https://github.com/company-mode/company-mode][company-mode]] is a modern and modular completion framework (the other one Emacs
+people use is [[http://www.emacswiki.org/emacs/AutoComplete][autocomplete]]. I chose =company= because it's well-maintained and
+has better code for integrating with).
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    :diminish company-mode
+    :config
+    (setq company-tooltip-limit 20
+          company-idle-delay 0
+          company-echo-delay 0
+          company-minimum-prefix-length 1
+          company-selection-wrap-around t
+          company-show-numbers t
+          company-tooltip-align-annotations t)
+
+    ;; remove xcode since that seems to be defunct
+    (setq company-backends (delete 'company-xcode company-backends))
+
+    ;; remove eclim
+    (setq company-backends (delete 'company-eclim company-backends))
+
+    ;; insert unicode math symbols based on the LaTeX command
+    (add-to-list 'company-backends 'company-math-symbols-unicode)
+
+    (global-company-mode))
+#+END_SRC
+
+**** Emoji
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company-emoji
+    :after company
+    :ensure t
+    :config
+    (add-to-list 'company-backends 'company-emoji))
+#+END_SRC
+
+**** Quickhelp
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company-quickhelp
+    :after company
+    :ensure t
+    :config
+    (company-quickhelp-mode t))
+#+END_SRC
+
+*** crosshairs
+
+Highlights both the line and the column.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package crosshairs
+    :ensure t
+    :bind (("C-|" . column-highlight-mode))
+    :init
+    (global-hl-line-mode)
+    (global-hl-line-highlight))
+#+END_SRC
+
+*** docker
+
+#+BEGIN_SRC emacs-lisp
+  (use-package docker
+    :ensure t
+    :defer t)
+
+  (use-package dockerfile-mode
+    :after docker
+    :ensure t
+    :mode "Dockerfile\\'")
+#+END_SRC
+
+*** drag-stuff
+
+Drag stuff around in Emacs with convenient keybindings.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package drag-stuff
+    :ensure t
+    :bind (("M-N" . drag-stuff-down)
+           ("M-P" . drag-stuff-up))
+    :diminish drag-stuff-mode
+    :config
+    (drag-stuff-global-mode))
+#+END_SRC
+
+*** dtrt-indent
+
+[[https://github.com/jscheid/dtrt-indent][dtrt-indent]] is an Emacs minor mode that guesses the indentation offset
+originally used for creating source code files and transparently adjusts the
+corresponding settings in Emacs, making it more convenient to edit foreign
+files.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dtrt-indent
+    :ensure t
+    :defer t
+    :diminish dtrt-indent-mode
+    :config
+    (dtrt-indent-mode))
+#+END_SRC
+
+*** dumb jump
+
+Dumb Jump is an Emacs "jump to definition" package with support for multiple
+programming languages that favors "just working". This means minimal -- and
+ideally zero -- configuration with absolutely no stored indexes (TAGS) or
+persistent background processes. Dumb Jump requires at least GNU Emacs 24.4.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dumb-jump
+    :ensure t
+    :commands dumb-jump-mode
+    :init
+    (add-hook 'prog-mode-hook #'dumb-jump-mode)
+    :config
+    (setq dumb-jump-selector 'ivy))
+#+END_SRC
+
+*** editorconfig
+
+[[https://github.com/editorconfig/editorconfig-core-c][EditorConfig]] makes it easy to maintain the correct coding style when switching
+between different text editors and between different projects.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package editorconfig
+    :ensure t
+    :diminish editorconfig-mode
+    :config
+    (editorconfig-mode))
+#+END_SRC
+
+*** eldoc-mode
+
+[[http://www.emacswiki.org/emacs/ElDoc][eldoc-mode]] is a minor mode that displays context-sensitive help when editing
+Emacs lisp (eg information about arity of functions). Enable that for
+=emacs-lisp-mode=:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package lisp-mode
+    :bind (:map emacs-lisp-mode-map
+                ("C-c C-b" . eval-buffer))
+    :config
+    (add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
+    (add-hook 'lisp-interaction-mode-hook #'eldoc-mode)
+    (add-hook 'prog-mode-hook #'eldoc-mode))
+#+END_SRC
+
+*** emacs-git-messenger
+
+#+BEGIN_SRC emacs-lisp
+  (use-package git-messenger
+    :ensure t
+    :commands git-messenger:popup-message
+    :init
+    (smf/add-launcher "v" 'git-messenger:popup-message)
+    :config
+    (setq git-messenger:show-detail 't))
+#+END_SRC
+
+*** emmet-mode
+
+Not going to lie. Totally ripped this from [[https://github.com/belak/dotfiles][Kaleb]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package emmet-mode
+    :after web-mode
+    :ensure t
+    :config
+    (add-hook 'web-mode-hook 'emmet-mode))
+#+END_SRC
+
+*** exec-path-from-shell
+
+OS X doesn't use the environment variables available in a shell in a GUI
+environment ([[https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPRuntimeConfig/Articles/EnvironmentVars.html][more here]]).
+
+Since Emacs runs shell commands regularly it's important that the same =PATH= is
+available to my editor as [[https://www.macports.org][MacPorts]] etc. set and use.
+
+[[https://github.com/purcell/exec-path-from-shell][exec-path-from-shell]] is a package that copies across =PATH= and other variables
+to the Emacs environment.
+
+I only want this to be installed and enabled on OS X.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package exec-path-from-shell
+    :if (eq system-type 'darwin)
+    :ensure t
+    :config
+    (setq exec-path-from-shell-variables '("PATH"  "MANPATH" "SHELL"))
+    (exec-path-from-shell-initialize))
+#+END_SRC
+
+*** flycheck
+
+[[https://github.com/flycheck/flycheck][flycheck]] is a modern, more easily customisable version of [[http://www.emacswiki.org/emacs/FlyMake][flymake]]. It's used to
+perform on-the-fly syntax checking and linting.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :ensure t
+    :commands flycheck-mode
+    :diminish flycheck-mode
+    :init
+    (add-hook 'prog-mode-hook #'flycheck-mode)
+    :config
+    (defalias 'flycheck-show-error-at-point-soon 'flycheck-show-error-at-point))
+#+END_SRC
+
+*** focus
+
+Dim the font color of text in surrounding paragraphs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package focus
+    :ensure t
+    :commands focus-mode
+    :init
+    (smf/add-launcher "f" #'focus-mode))
+#+END_SRC
+
+*** function-args
+
+GNU Emacs package for showing an inline arguments hint for the C/C++ function
+at point.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package function-args
+    :ensure t
+    :defer t
+    :config
+    (fa-config-default))
+#+END_SRC
+
+*** git-gutter
+
+Emacs port of GitGutter which is Sublime Text Plugin.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package git-gutter
+    :ensure t
+    :diminish git-gutter-mode
+    :config
+    (setq git-gutter:handled-backends '(git hg))
+    (global-git-gutter-mode))
+#+END_SRC
+
+*** gitconfig-mode
+
+A major mode for editing .gitconfig files.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package gitconfig-mode
+    :ensure t
+    :defer t)
+#+END_SRC
+
+*** gitignore-mode
+
+A major mode for editing .gitignore files.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package gitignore-mode
+    :ensure t
+    :defer t)
+#+END_SRC
+
+*** go-mode
+
+Blergh.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package go-mode
+    :ensure t
+    :defer t
+    :mode "\\.go\\'"
+    :bind (:map go-mode-map
+                ("M-." . go-guru-definition)
+                ("C-c o" . go-guru-map)))
+
+  (use-package company-go
+    :after (go-mode company-mode)
+    :ensure t
+    :defer t
+    :config
+    (setq company-go-show-annotation t)
+    (add-hook 'go-mode-hook (lambda ()
+                              (set (make-local-variable 'company-backends) '(company-go))
+                              (company-mode))))
+
+  (use-package go-eldoc
+    :ensure t
+    :defer
+    :init
+    (add-hook 'go-mode-hook 'go-eldoc-setup))
+#+END_SRC
+
+*** goto-chg
+
+Go to last change in current buffer.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package goto-chg
+    :ensure t
+    :bind (("H-." . goto-last-change)))
+#+END_SRC
+
+*** groovy-mode
+
+Why.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package groovy-mode
+    :ensure t
+    :defer t
+    :mode "\\.groovy\\'\\|\\.gradle\\'")
+#+END_SRC
+
+*** guide-key
+
+[[https://github.com/kai2nenobu/guide-key][guide-key]] shows a popup help window after a pressing defined keys for a short
+delay. We'll also enable it for my [[Launcher keymap]] prefix.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package guide-key
+    :ensure t
+    :diminish guide-key-mode
+    :config
+    (setq guide-key/guide-key-sequence '("C-x C-l" "C-c p" "C-x 4"))
+    (guide-key-mode))
+#+END_SRC
+
+*** hg-test-mode
+
+A mode for Mercurial test files
+
+#+BEGIN_SRC emacs-lisp
+  (use-package hg-test-mode
+    :load-path "lisp")
+#+END_SRC
+
+*** hideshowvis
+
+Enables collapsable regions and diminish the mode:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package hideshowvis
+    :ensure t
+    :diminish hs-minor-mode
+    :config
+    (add-hook 'prog-mode-hook #'hideshowvis-enable))
+#+END_SRC
+
+*** hl-mode
+
+I originally used fic-mode, but it appears that hl-todo is a little better and
+is updated more frequently. This lets us highlight TODO, FIXME, XXX, and other
+similar keywords.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package hl-todo
+    :ensure t
+    :config
+    (setq hl-todo-keyword-faces '(("FIXME" . hl-todo)
+                                  ("TODO"  . hl-todo)
+                                  ("XXX"   . hl-todo)))
+    (hl-todo-set-regexp)
+    (global-hl-todo-mode))
+#+END_SRC
+
+*** hugme
+
+An experimental fork of magit for Mercurial. Most of the things here won't work.
+
+**** Keyboard shortcuts
+
+=hugme-status= is the main command to launch Magit. It's =autoloaded= so I don't
+need to load Magit first.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package hugme
+    :after magit
+    :load-path "~/projects/hugme/lisp"
+    :mode (("hg-editor-.*\\.txt" . hg-commit-mode)
+           ("hg-histedit-.*\\.txt" . hg-histedit-mode))
+    :init
+    (smf/add-launcher "h" 'hugme-status)
+    :config
+    ;; hugme settings
+    (setq-default
+     ;; open hugme status in same window as current buffer
+     hugme-status-buffer-switch-function 'switch-to-buffer
+
+     ;; highlight word/letter changes in hunk diffs
+     hugme-diff-refine-hunk t
+
+     ;; pop the process buffer if we're taking a while to complete
+     hugme-process-popup-time 10
+
+     ;; don't prompt me to confirm a canceled histedit
+     hg-histedit-confirm-cancel nil
+
+     ;; shelling out to hg is expensive, so until we use something like the command
+     ;; server, set a high-timeout for diffs
+     hugme-diff-expansion-threshold 10.0
+
+     ;; definitely need to enable debugging while writing this package
+     hugme-hg-debug t
+
+     ;; use ivy for completing things
+     hugme-completing-read-function 'ivy-completing-read
+
+     ;; experimentally try to use chg, though it doesn't seem to improve the
+     ;; speed of shelling out
+     hugme-hg-executable "chg"))
+#+END_SRC
+
+*** hungry-delete
+
+=hungry-delete= will delete all whitespace forward or backward.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package hungry-delete
+    :ensure t
+    :bind (("H-<backspace>" . hungry-delete-backward)
+           ("H-d" . hungry-delete-forward)))
+#+END_SRC
+
+*** js2-mode
+
+Improved JavaScript editing mode for GNU Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package js2-mode
+    :ensure t
+    :defer t
+    :mode "\\.js\\'"
+    :config
+    (setq js2-basic-offset 2)
+    (when (fboundp 'flycheck-mode)
+      (set-face-attribute 'js2-error nil
+                          :inherit 'flycheck-error-list-error
+                          :underline '(:color foreground-color :style wave))
+      (set-face-attribute 'js2-warning nil
+                          :inherit 'flycheck-error-list-warning
+                          :underline '(:color foreground-color :style wave))))
+#+END_SRC
+
+*** json-mode
+
+Sure, why not.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package json-mode
+    :ensure t
+    :defer t
+    :mode "\\.json\\'"
+    :config
+    (setq json-reformat:indent-width 2))
+#+END_SRC
+
+*** less-css-mode
+
+=less-css-mode= is a major mode for Emacs which displays strings representing
+colors with the color they represent as background.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package less-css-mode
+    :ensure t
+    :commands less-css-mode)
+#+END_SRC
+
+*** lua-mode
+
+Dear god.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package lua-mode
+    :ensure t
+    :defer t
+    :mode "\\.lua\\'")
+
+  (use-package company-lua
+    :after lua
+    :ensure t
+    :defer t)
+#+END_SRC
+
+*** magit
+
+[[https://github.com/magit/magit][Magit]] is an Emacs interface to Git. It's very feature-rich and I find it
+intuitive.
+
+**** Keyboard shortcuts
+
+=magit-status= is the main command to launch Magit. It's =autoloaded= so I don't
+need to load Magit first.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :ensure t
+    :commands (magit-status magit-commit magit-log-mode)
+    :mode ("COMMIT_EDITMSG" . git-commit-mode)
+    :init
+    (smf/add-launcher "g" 'magit-status)
+    :config
+    ;; magit settings
+    (setq-default
+     ;; open the =magit-status= buffer in the same window as the current buffer
+     magit-status-buffer-switch-function 'switch-to-buffer
+
+     ;; highlight individual word and letter changes when showing hunk diff overlays
+     magit-diff-refine-hunk t
+
+     ;; pop the process buffer if we're taking a while to complete
+     magit-process-popup-time 10
+
+     ;; ugh, stupid git
+     git-commit-summary-max-length 72
+
+     ;; ask me if I want a tracking upstream
+     magit-set-upstream-on-push 'askifnotset
+
+     ;; always show the diff in commit window
+     magit-commit-arguments '("--verbose")
+
+     ;; use ivy for completing things
+     magit-completing-read-function 'ivy-completing-read))
+#+END_SRC
+
+*** markdown-mode
+
+[[http://melpa.milkbox.net/#/markdown-mode][markdown-mode]] is a major mode for editing Markdown files.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode
+    :ensure t
+    :mode ("\\.md\\'" . gfm-mode)
+    :config
+    (define-key markdown-mode-map (kbd "<M-left>") nil)
+    (define-key markdown-mode-map (kbd "<M-right>") nil))
+#+END_SRC
+
+*** move-text
+
+#+BEGIN_SRC emacs-lisp
+  (use-package move-text
+    :ensure t
+    :config
+    (move-text-default-bindings))
+#+END_SRC
+
+*** multiple cursors
+
+#+BEGIN_SRC emacs-lisp
+  (use-package multiple-cursors
+    :ensure t
+    :bind ("H-n" . mc/mark-next-like-this)
+          ;; ("s-n" . mc/skip-to-next-like-this)
+          ("H-p" . mc/mark-previous-like-this)
+          ;; ("s-p" . mc/skip-to-previous-like-this)
+          ("H-l" . mc/mark-all-symbols-like-this)
+          ("C-S-<mouse-1>" . mc/add-cursor-on-click))
+#+END_SRC
+
+*** narrow-indirect
+
+[[http://www.emacswiki.org/emacs/narrow-indirect.el][narrow-indirect]] allows one to focus a buffer onto some particular code in
+another window, editing it separately from its original context ([[http://demonastery.org/2013/04/emacs-narrow-to-region-indirect/][a better
+description of this workflow]]).
+
+#+BEGIN_SRC emacs-lisp
+  (use-package narrow-indirect
+    :ensure t)
+#+END_SRC
+
+*** paradox
+
+[[https://github.com/Bruce-Connor/paradox][paradox]] is an advanced package.el frontend with GitHub integration. Paradox
+[[https://github.com/Bruce-Connor/paradox/commit/e341a900609974802ad92d5bb43083fcf83ef432#diff-2d43bf4d9c7b9686d0895974900dfd05R18][supports an asynchronous mode]] which requires the =async= package, so we'll load
+this after async.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package paradox
+    :ensure t
+    :commands paradox-list-packages
+    :init
+    (smf/add-launcher "p" 'paradox-list-packages)
+    :config
+    (setq paradox-automatically-star t
+          paradox-execute-asynchronously t))
+#+END_SRC
+
+*** persistent =*scratch*= buffer
+
+Emacs has a handy, but sometimes decried, feature called the "scratch" buffer.
+One problem with =*scratch*= is that its tempting to put significant bits of
+code (and other information) into it.
+
+For some reason, this needs to be loaded after anzu else the =*scratch*= buffer
+will have whitespace symbols.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package persistent-scratch
+    :ensure t
+    :config
+    (persistent-scratch-setup-default)
+    (persistent-scratch-autosave-mode))
+#+END_SRC
+
+*** pip
+
+This adds some basic features for requirements files, such as highlighting and
+auto-completion of names from PyPI.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package pip-requirements
+    :ensure t
+    :mode (("requirements.*\\.txt" . pip-requirements-mode)))
+#+END_SRC
+
+*** popwin
+
+[[https://github.com/m2ym/popwin-el][popwin]] is a popup window manager that helps make the behaviour of compilation
+buffers, search buffers etc. a bit more sane.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package popwin
+    :ensure t
+    :bind (("C-c P" . popwin:popup-last-buffer))
+    :config
+    ;; also add ag, flycheck, and occur to pop
+    (add-to-list 'popwin:special-display-config `"*ag search*")
+    (add-to-list 'popwin:special-display-config `"*ripgrep-search*")
+    (add-to-list 'popwin:special-display-config `"*Flycheck errors*")
+    (add-to-list 'popwin:special-display-config `"*Occur*")
+
+    ;; don't auto-select the compile process buffer as it's only for information
+    (add-to-list 'popwin:special-display-config `("*Compile-Log*" :noselect t))
+
+    ;; enable
+    (popwin-mode))
+#+END_SRC
+
+*** projectile
+
+[[https://github.com/bbatsov/projectile][projectile]] is a minor mode for performing commands over a single 'project' or
+grouping of files.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :ensure t
+    :diminish projectile-mode
+    :defer 4
+    :init
+    (smf/add-launcher "s" 'projectile-switch-project)
+    :config
+    (setq projectile-completion-system 'ivy
+          projectile-enable-caching t)
+    (projectile-mode))
+#+END_SRC
+
+*** projectile ripgrep
+
+Set up some key bindings:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile-ripgrep
+    :ensure t
+    :bind (([remap projectile-grep] . projectile-ripgrep)))
+#+END_SRC
+
+*** puppet-mode
+
+[[https://github.com/lunaryorn/puppet-mode][puppet-mode]] is a major mode for editing =.pp= files.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package puppet-mode
+    :ensure t
+    :disabled)
+#+END_SRC
+
+*** python debugger
+
+#+BEGIN_SRC emacs-lisp
+  (use-package realgud
+    :ensure t
+    :disabled t
+    :bind (:map realgud:shortkey-mode-map
+                ([mouse-3] . realgud:tooltip-eval)
+                :map realgud-track-mode-map
+                ("C-c C-/" . realgud:ipdb-foo)))
+#+END_SRC
+
+*** python-mode
+
+As of 24.2, Emacs ships with a [[http://www.emacswiki.org/emacs/PythonProgrammingInEmacs#toc1][robust Python mode]]. However, when navigating
+=SnakeCase= words (eg class names), =forward-word= etc don't work correctly.
+
+We can work around that using [[https://www.gnu.org/software/emacs/manual/html_node/ccmode/Subword-Movement.html#Subword-Movement][subword-mode]]:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package python
+    :mode ("\\.py\\'" . python-mode)
+    :interpreter ("python" . python-mode)
+    :config
+    (add-hook 'python-mode-hook #'subword-mode))
+#+END_SRC
+
+*** python-switch-quotes
+
+Cycle between apostrophes and quotes in python strings. Converts strings like
+'this' to strings like "this".
+
+#+BEGIN_SRC emacs-lisp
+  (use-package python-switch-quotes
+    :after python
+    :ensure t
+    :defer t
+    :bind (:map python-mode-map
+                ("C-c '" . python-switch-quotes)))
+#+END_SRC
+
+*** rainbow-blocks
+
+=rainbow-blocks= is an Emacs mode that highlights blocks made of parentheses,
+brackets, and braces according to their depth.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-blocks
+    :ensure t
+    :diminish rainbow-blocks-mode
+    :commands rainbow-blocks-mode
+    :init
+    (add-hook 'emacs-lisp-mode-hook 'rainbow-blocks-mode)
+    (add-hook 'lisp-interaction-mode-hook 'rainbow-blocks-mode))
+#+END_SRC
+
+*** rainbow-delimiters
+
+=rainbow-delimiters= is a "rainbow parentheses"-like mode which highlights
+delimiters such as parentheses, brackets or braces according to their depth.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t
+    :commands rainbow-delimiters-mode
+    :init
+    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+#+END_SRC
+
+*** rainbow-mode
+
+=rainbow-mode= is a minor mode for Emacs which displays strings representing
+colors with the color they represent as background.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-mode
+    :ensure t
+    :commands rainbow-mode)
+#+END_SRC
+
+*** recentf
+
+[[http://www.emacswiki.org/emacs/RecentFiles][recentf]] stores a list of recently opened files. The list of files contains any
+files Emacs has read, not just files I've explicitly opened. Clean that list to
+exclude Emacs metafiles, package cruft etc.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package recentf
+    :config
+    ;; never clean up the list:
+    (setq recentf-auto-cleanup 'never
+          recentf-max-saved-items 500
+          recentf-max-menu-items 15
+
+          ;; customize the place =recentf= persists its list of items:
+          recentf-save-file (expand-file-name ".recentf"
+                                              smf/tmp-local-dir))
+
+    ;; strip =$HOME= from the front of =recentf= candidate files
+    (add-to-list 'recentf-filename-handlers 'abbreviate-file-name)
+
+    (add-to-list 'recentf-exclude "[/\\]\\.elpa/")
+    (add-to-list 'recentf-exclude "[/\\]\\.ido\\.last\\'" )
+    (add-to-list 'recentf-exclude "[/\\]\\.git/")
+    (add-to-list 'recentf-exclude ".*\\.gz\\'")
+    (add-to-list 'recentf-exclude ".*-autoloads\\.el\\'")
+    (add-to-list 'recentf-exclude "[/\\]archive-contents\\'")
+    (add-to-list 'recentf-exclude "[/\\]\\.loaddefs\\.el\\'")
+    (add-to-list 'recentf-exclude "url/cookies")
+    (add-to-list 'recentf-exclude ".*\\emacs.bmk\\'")
+    (add-to-list 'recentf-exclude "README\\.el\\'")
+    (add-to-list 'recentf-exclude "/custom\\.el\\'")
+
+    (recentf-mode))
+#+END_SRC
+
+*** ripgrep
+
+[[https://github.com/nlamirault/ripgrep.el][ripgrep]] is an Emacs frontend to [[https://github.com/BurntSushi/ripgrep][the rg command]], a grep-like code-searching tool. It's
+installed via cargo on my Mac.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ripgrep
+    :ensure t
+    :commands ripgrep-regexp
+    :if (executable-find "rg"))
+#+END_SRC
+
+*** ruby-mode
+
+As of 24.4, Emacs comes with a much better [[http://www.masteringemacs.org/articles/2013/12/29/whats-new-in-emacs-24-4/][Ruby mode]]. However it doesn't come
+with =subword-mode= enabled by default:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ruby-mode
+    :mode "\\.rb\\'"
+    :interpreter "ruby"
+    :config
+    (add-hook 'ruby-mode-hook #'subword-mode))
+#+END_SRC
+
+*** rust-mode
+
+=rust-mode= makes editing Rust code with Emacs enjoyable.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rust-mode
+    :ensure t
+    :mode "\\.rs\\'")
+
+  (use-package racer
+    :after rust-mode
+    :ensure t
+    :config
+    (setq racer-rust-src-path "/opt/local/share/rust/src/")
+    (add-hook 'rust-mode-hook #'racer-mode)
+    (add-hook 'racer-mode-hook #'eldoc-mode))
+
+  (use-package flycheck-rust
+    :after (rust-mode flycheck-mode)
+    :ensure t
+    :config
+    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+#+END_SRC
+
+*** sh-script
+
+I have a few files in my dotfiles repo that are known to be shell files, so
+let's add them:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package sh-script
+    :mode ((".?aliases" . sh-mode)
+           (".?bash_prompt" . sh-mode)
+           (".?bashrc" . sh-mode)
+           (".?exports" . sh-mode)
+           (".?functions" . sh-mode)
+           (".?osx" . sh-mode)
+           (".?profile" . sh-mode)
+           (".?hgrc" . conf-mode)))
+#+END_SRC
+
+*** skewer-mode
+
+[[https://github.com/skeeto/skewer-mode][Skewer]]: live web development with Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package skewer-mode
+    :ensure t
+    :defer t)
+#+END_SRC
+
+*** slime-nav
+
+Slime allows very convenient navigation to the symbol at point (using M-.), and
+the ability to pop back to previous marks (using =M-,=).
+
+This plugin provides similar navigation for Emacs Lisp, supporting navigation
+to the definitions of variables, functions, libraries and faces.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package elisp-slime-nav
+    :ensure t
+    :diminish elisp-slime-nav-mode
+    :init
+    (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
+    (add-hook 'ielm-mode-hook 'elisp-slime-nav-mode))
+#+END_SRC
+
+*** smart-tabs-mode
+
+This mode provides code which improves on Emacs’ auto-indenting, so that
+whenever you press the <tab> key, the appropriate amount of tabs and spaces is
+inserted automatically. You can still use all spaces if you prefer, of course;
+the code merely ensures that if you enable tabs (maybe when maintaining legacy
+code), the tab size does not matter.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package smart-tabs-mode
+    :ensure t
+    ;; enable smart-tabs-mode automatically for C and Javascript
+    :config
+    (smart-tabs-insinuate 'c 'javascript))
+#+END_SRC
+
+*** smartparens
+
+[[https://github.com/Fuco1/smartparens][smartparens]] is a =paredit= like minor-mode for many more things than just Lisp.
+
+=show-smartparens-mode= is a replacement mode for =show-paren-mode=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package smartparens
+    :ensure t
+    :diminish smartparens-mode
+    :commands smartparens-mode
+    :init
+    (add-hook 'prog-mode-hook #'smartparens-mode)
+    :config
+    (use-package smartparens-config))
+#+END_SRC
+
+*** smex
+
+#+BEGIN_SRC emacs-lisp
+  (use-package smex
+    :commands (smex smex-update smex-initialize)
+    :config
+    (setq smex-auto-update nil)
+    (defun smex-update-after-load (_unused)
+      (if (boundp 'smex-cache)
+          (smex-update)))
+    (add-hook 'after-load-functions 'smex-update-after-load)
+    :init
+    (setq smex-history-length 32
+          smex-save-file (expand-file-name ".smex-items"
+                                           smf/tmp-local-dir)))
+#+END_SRC
+
+*** sphinx-doc-mode
+
+[[https://github.com/naiquevin/sphinx-doc.el][sphinx-doc]] is an emacs minor mode for inserting docstring skeleton for Python
+functions and methods.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package sphinx-doc
+    :ensure t
+    :diminish sphinx-doc-mode
+    :config
+    (add-hook 'python-mode-hook 'sphinx-doc-mode))
+#+END_SRC
+
+*** swiper / ivy
+
+Ivy - a generic completion frontend for Emacs, Swiper - isearch with an
+overview, and more. [[http://oremacs.com/swiper][Oh, man!]]
+
+Note: swiper <- {counsel, ivy}
+
+#+BEGIN_SRC emacs-lisp
+  (use-package swiper
+    :ensure t
+    :bind (("C-s" . swiper)
+           ("s-f" . swiper)))
+
+  (use-package counsel
+    :ensure t
+    :commands (counsel-M-x counsel-find-file counsel-describe-function
+               counsel-describe-variable counsel-unicode-char)
+    :bind (("M-x" . counsel-M-x)
+           ("C-x C-f" . counsel-find-file)
+           ("<f1> f" . counsel-describe-function)
+           ("<f1> v" . counsel-describe-variable)
+           ("M-y" . counsel-yank-pop))
+    :init
+    (smf/add-launcher "U" 'counsel-unicode-char)
+    (smf/add-launcher "i" 'counsel-imenu))
+
+  (use-package ivy
+    :ensure t
+    :demand t
+    :diminish ivy-mode
+    :bind (("C-c C-r" . ivy-resume)         ; resumes the last Ivy-based completion
+           ("C-x b" . ivy-switch-buffer)    ; use this instead of the lackluster
+                                            ; `list-buffers'
+           ("C-x C-b" . ivy-switch-buffer)  ; common typo
+           ("C-x C-n" . ivy-switch-buffer)) ; common typo
+    :config
+    (setq ivy-wrap t                        ; wraps around the buffer
+          ivy-use-virtual-buffers t)
+    (ivy-mode))
+#+END_SRC
+
+*** tern
+
+=tern= is a js navigation package which extends js-mode.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package tern
+    :ensure t
+    :defer t
+    :diminish tern-mode
+    :config
+    (add-hook 'js-mode-hook (lambda () (tern-mode t))))
+
+  (use-package company-tern
+    :after (tern company-mode)
+    :ensure t
+    :defer t
+    :config
+    (add-to-list 'company-backends 'company-tern)
+    (setq company-tern-property-marker ""))
+#+END_SRC
+
+*** tramp mode
+
+=tramp-mode= is a package that provides [[https://www.gnu.org/software/emacs/manual/html_node/tramp/index.html#Top][remote file editing]], eg =find-file
+/user@host:file=. This allows one to edit files on other servers using your
+local Emacs (rather than the Vim user's equivalent of editing the file on the
+server).
+
+First we set the default mode to be =ssh= (it's normally =scp=). There are two
+reasons for this choice:
+
+- =ssh= takes a port number as an argument, whereas =scp= doesn't
+- It's [[http://www.gnu.org/software/tramp/#Default-Method][apparently faster]] for smaller files
+
+We also want to alter the list of allowed proxies (tramp uses a whitelist for
+patterns that it can remotely access) so I can edit remote files as sudo, eg
+=find-file /sudo:example.com/etc/something-owned-by-root=.
+
+I got this code from the [[http://www.gnu.org/software/tramp/#Multi_002dhops][Multi-hops section of the tramp manual]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package tramp
+    :defer t
+    :config
+    (add-to-list 'tramp-default-proxies-alist
+                 '(nil "\\`root\\'" "/ssh:%h:"))
+
+    ;; also make sure we can edit local files as sudo - this is normally
+    ;; disallowed for security reasons
+    (add-to-list 'tramp-default-proxies-alist
+                 '((regexp-quote (system-name)) nil nil))
+
+    (setq tramp-default-method "ssh"
+          tramp-ssh-controlmaster-options (concat "-o ControlPath=/tmp/tramp.%%r@%%h:%%p "
+                                                  "-o ControlMaster=auto "
+                                                  "-o ControlPersist=no")))
+#+END_SRC
+
+More on the last two incantations at [[http://emacs-fu.blogspot.co.uk/2009/10/editing-files-owned-by-root.html][emacs-fu's guide to editing files owned by root]].
+
+*** twitter
+
+=Twittering-mode=: a Twitter client for Emacs
+
+#+BEGIN_SRC emacs-lisp
+  (use-package twittering-mode
+    :ensure t
+    :defer t
+    :commands twit
+    :init
+    (smf/add-launcher "t" 'twit)
+    :config
+    (setq twittering-icon-mode t)
+    (setq twittering-use-icon-storage t))
+#+END_SRC
+
+*** undo-tree
+
+[[http://www.dr-qubit.org/undo-tree/undo-tree.el][undo-tree-mode]], a mode which allows one to visualise their undo/redo history:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+    :ensure t
+    :diminish undo-tree-mode
+    :bind (("C-x u" . undo-tree-visualize)
+           ("s-Z" . undo-tree-redo))
+    :config
+    (global-undo-tree-mode))
+#+END_SRC
+
+*** volatile highlights
+
+Minor mode for visual feedback on some operations in Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package volatile-highlights
+    :ensure t
+    :diminish volatile-highlights-mode
+    :config
+    (volatile-highlights-mode))
+#+END_SRC
+
+*** web-mode
+
+[[https://github.com/fxbois/web-mode][web-mode]] is a major mode for editing templates and HTML. It supports a very
+broad range of template languages and is highly configurable.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package web-mode
+    :ensure t
+    :mode
+    "\\.erb\\'"
+    "\\.html\\'"
+    "\\.jinja\\'"
+    "\\.mustache\\'"
+    :config
+    (setq web-mode-markup-indent-offset 2
+          web-mode-css-indent-offset 2
+          web-mode-code-indent-offset 2))
+#+END_SRC
+
+*** whitespace-mode
+
+I like whitespace-mode for programming and text modes (including org),
+
+#+BEGIN_SRC emacs-lisp
+  (use-package whitespace
+    :commands whitespace-mode
+    :init
+    (add-hook 'text-mode-hook #'whitespace-mode)
+    (add-hook 'prog-mode-hook #'whitespace-mode)
+    (add-hook 'org-mode-hook #'whitespace-mode)
+    :config
+    ;; most of the time we only want to see tabs and trailing spaces
+    (setq whitespace-style '(trailing face tabs tab-mark lines-tail))
+    (setq whitespace-display-mappings '((space-mark 32 [183] [46])
+                                        (newline-mark 10 [182 10])
+                                        (tab-mark 9 [9655 9] [92 9]))))
+#+END_SRC
+
+*** whole line or region
+
+It's very convenient to select the whole line when no region is active.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package whole-line-or-region
+    :ensure t
+    :diminish whole-line-or-region-mode
+    :config
+    (whole-line-or-region-mode))
+#+END_SRC
+
+*** yaml-mode
+
+Regrettably I need to occasionally edit [[http://www.yaml.org][YAML]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package yaml-mode
+    :ensure t
+    :mode "\\.yml\\'")
+#+END_SRC
+
+*** yasnippet
+
+YASnippet is a template system for Emacs. It allows you to type an abbreviation
+and automatically expand it into function templates. Bundled language templates
+include: C, C++, C#, Perl, Python, Ruby, SQL, LaTeX, HTML, CSS and more. The
+snippet syntax is inspired from [[http://manual.macromates.com/en/snippets][TextMate's]] syntax.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :commands (yas-global-mode yas-minor-mode)
+    :diminish yas-minor-mode
+    :init
+    (add-hook 'prog-mode-hook #'yas-minor-mode)
+    :config
+    (setq yas/root-directory (smf/join-dirs smf/dotfiles-dir "snippets"))
+    (yas-reload-all))
+#+END_SRC
 
 ** Local and custom configuration
 
