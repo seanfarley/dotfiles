@@ -28,28 +28,7 @@ and is contained entirely in this file.
 Just check it out straight to the right directory, and use Make to
 install it:
 
-: cd ~/Projects/emacs.d && make
-
-*** Platform specific configuration
-
-**** OS X desktop (Emacs.app)
-
-- Left =option= key is remapped to =M-=
-- We use the [[https://github.com/bbatsov/solarized-emacs][Solarized Dark]] theme
-- Font is [[https://github.com/Lokaltog/powerline-fonts/tree/master/SourceCodePro][Source (Sauce) Code Pro]]
-
-**** OS X CLI in iTerm2
-
-- When the [[https://github.com/altercation/solarized/blob/master/iterm2-colors-solarized/Solarized%20Dark.itermcolors][Solarized Dark iTerm2 theme]] is installed, we use the
-  =solarized-dark= color theme
-- Cut/paste are made to write/read from the clipboard (via =pbcopy=
-  and =pbpaste=)
-- Mouse highlighting works via xTerm capabilities
-
-***** Required iTerm 2 Configuration
-
-- Re-map left =option= key to =+Esc=
-- Untick =Smart cursor color=
+: cd ~/Projects/emacs.d && ./bootstrap
 
 *** Included libraries
 
