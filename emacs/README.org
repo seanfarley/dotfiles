@@ -2267,12 +2267,15 @@ is enabled, company-anaconda will also be enabled.
   (use-package anaconda-mode
     :ensure t
     :diminish anaconda-mode
-    :commands smf/goto-def-of-dumbjump
+    :commands (anaconda-mode anaconda-eldoc-mode)
     :bind (:map anaconda-mode-map
                 ("M-," . nil)  ; By default, anaconda binds =M-,= to finding
                                ; assignments instead of popping the navigation
                                ; stack (which changed in Emacs 25)
                 ("M-." . smf/goto-def-or-dumbjump))
+    :init
+    (add-hook 'python-mode-hook 'anaconda-mode)
+    (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
     :config
     ;; need to load this for the xref call in our function below
     (use-package xref)
@@ -2303,10 +2306,7 @@ is enabled, company-anaconda will also be enabled.
                 (message nil)             ; clear any failed messages since we're
                                           ; about to try a different jump
                 (dumb-jump-go)))
-          (dumb-jump-go))))
-
-    (add-hook 'python-mode-hook 'anaconda-mode)
-    (add-hook 'python-mode-hook 'eldoc-mode))
+          (dumb-jump-go)))))
 
   (use-package company-anaconda
     :after (anaconda-mode company-mode)
