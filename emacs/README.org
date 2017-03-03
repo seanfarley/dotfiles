@@ -307,20 +307,6 @@ installing =use-package=.
     :diminish auto-fill-function)
 #+END_SRC
 
-** =after-load=
-
-First let's define a convenient macro that wraps typical =eval-after-load= in
-such a way that we don't need to use =progn= to contain the callback logic. This
-macro was gotten from [[https://github.com/purcell/emacs.d/blob/aa789c9745b13612c4fea6e638d81d8ebbfecdf8/init-utils.el#L1-L5][Steve Purcell's emacs.d repo]]:
-
-#+BEGIN_SRC emacs-lisp
-  (defmacro after-load (feature &rest body)
-    "After FEATURE is loaded, evaluate BODY."
-    (declare (indent defun))
-    `(eval-after-load ,feature
-       '(progn ,@body)))
-#+END_SRC
-
 ** Client/server
 
 Emacs has a [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html#Emacs-Server][client/server]] model for editing. The client is invoked via [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Invoking-emacsclient.html][the
@@ -1455,9 +1441,6 @@ with =subword-mode= enabled by default:
 /user@host:file=. This allows one to edit files on other servers using your
 local Emacs (rather than the Vim user's equivalent of editing the file on the
 server).
-
-All of the below are wrapped in an =after-load= construct because =tramp-mode=
-isn't loaded by default on older versions of Emacs.
 
 First we set the default mode to be =ssh= (it's normally =scp=). There are two
 reasons for this choice:
@@ -3420,7 +3403,6 @@ method so that takes care of most potential name conflicts.
 ** notmuch
 
 [[https://notmuchmail.org][notmuch]] is a mail indexer and searching. It comes with an emacs client.
-We only load it if it exists on the system (by wrapping it with =after-load=).
 
 *** Setup
 
