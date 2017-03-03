@@ -1056,12 +1056,12 @@ Some basic themes that work with =spaceline= and =all-the-icons=.
   (use-package peacock-theme :ensure t :defer t)
   (use-package solarized-theme :ensure t :defer t)
 
-  (defun remove-mode-line-box (&rest args)
+  (defun smf/remove-mode-line-box (&rest args)
     (set-face-attribute 'mode-line nil :box nil :underline nil)
     (set-face-attribute 'mode-line-inactive nil :box nil :underline nil))
 
   (when window-system
-    (remove-mode-line-box)
+    (smf/remove-mode-line-box)
     (load-theme 'creamsody))
 #+END_SRC
 
