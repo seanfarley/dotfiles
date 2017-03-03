@@ -9,8 +9,26 @@ cd "$DIR"
 function ensure_link {
   local DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   local NEW="$2"
+  local is_diff=0
   test -z "$NEW" && NEW=".$1"
-  rm -f "$HOME/$NEW"
+
+  if [[ -f "$HOME/$NEW" ]]; then
+    diff -u "$DIR/$1" "$HOME/$NEW" || is_diff=1
+    if [[ is_diff -ne 0 ]]
+    then
+      cat <<-EOF
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Please check the diff! Either remove the target file $HOME/$NEW or copy the changes to the dotfiles repo.
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+EOF
+      exit 2
+    else
+      rm -f "$HOME/$NEW"
+    fi
+  fi
+
   test -d "$HOME/$NEW" && rm -r "$HOME/$NEW"
   test -L "$HOME/$NEW" || ln -s "$DIR/$1" "$HOME/$NEW"
 }
