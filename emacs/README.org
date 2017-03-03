@@ -1265,6 +1265,11 @@ some basic settings and personal tweaks,
 
     ;; also, let's turn on auto-fill-mode
     (add-hook 'org-mode-hook 'auto-fill-mode))
+
+  ;; needed for colorizing src blocks
+  (use-package htmlize
+    :after org
+    :ensure t)
 #+END_SRC
 
 **** tangling
