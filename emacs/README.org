@@ -1045,9 +1045,10 @@ Pretty impressed by spacelines + all-the-icons integration.
 Some basic themes that work with =spaceline= and =all-the-icons=.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package creamsody-theme :ensure t)
+  (use-package moe-theme :ensure t)
 
   ;; deferred for now
+  (use-package creamsody-theme :ensure t :defer t)
   (use-package gruvbox-theme :ensure t :defer t)
   (use-package suscolors-theme :ensure t :defer t)
   (use-package atom-one-dark-theme :ensure t :defer t)
@@ -1062,7 +1063,7 @@ Some basic themes that work with =spaceline= and =all-the-icons=.
 
   (when window-system
     (smf/remove-mode-line-box)
-    (load-theme 'creamsody))
+    (load-theme 'moe-dark))
 #+END_SRC
 
 ** Utility functions
