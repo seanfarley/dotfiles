@@ -943,13 +943,13 @@ dislike it. Define a method to toggle fullscreen pre-Lion.
 
 #+BEGIN_SRC emacs-lisp
   (when (and (eq system-type 'darwin) (fboundp 'toggle-frame-fullscreen))
-    (defun toggle-fullscreen ()
+    (defun smf/toggle-fullscreen ()
       "Toggle full screen"
       (interactive)
       (set-frame-parameter nil 'fullscreen
                            (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
 
-      (global-set-key (kbd "C-s-f") 'toggle-fullscreen))
+      (global-set-key (kbd "C-s-f") #'smf/toggle-fullscreen))
 #+END_SRC
 
 On the Yosemite beta, =ns-use-native-fullscreen= is =nil=.
@@ -962,7 +962,7 @@ On the Yosemite beta, =ns-use-native-fullscreen= is =nil=.
 Start emacs in fullscreen,
 
 #+BEGIN_SRC emacs-lisp
-  (toggle-fullscreen)
+  (smf/toggle-fullscreen)
 #+END_SRC
 
 *** OS X keybindings
