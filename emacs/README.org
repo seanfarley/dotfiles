@@ -2440,6 +2440,8 @@ Some compiler output has ansi color, so let's escape that,
 #+BEGIN_SRC emacs-lisp
   (use-package ansi-color
     :init
+    (setq compilation-scroll-output 't)   ; yes plz
+
     (defun smf/colorize-compilation ()
       "Colorize from `compilation-filter-start' to `point'."
       (let ((inhibit-read-only t))
