@@ -965,7 +965,6 @@ to select the whole buffer, or =⌘-c= to copy.
     (global-set-key (kbd "s-s") 'save-buffer)
     (global-set-key (kbd "s-l") 'goto-line)
     (global-set-key (kbd "s-w") 'delete-window)
-    (global-set-key (kbd "s-z") 'undo)
     (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
     (global-set-key (kbd "s-k") 'kill-this-buffer)
     (global-set-key (kbd "s-r") 'recompile)
@@ -3538,6 +3537,7 @@ More on the last two incantations at [[http://emacs-fu.blogspot.co.uk/2009/10/ed
     :ensure t
     :diminish undo-tree-mode
     :bind (("C-x u" . undo-tree-visualize)
+           ("s-z" . undo-tree-undo)
            ("s-Z" . undo-tree-redo))
     :config
     (global-undo-tree-mode))
