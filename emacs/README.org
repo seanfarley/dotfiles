@@ -2629,6 +2629,17 @@ Emacs lisp (eg information about arity of functions). Enable that for
     (setq git-messenger:show-detail 't))
 #+END_SRC
 
+*** embrace
+
+This package is heavily inspired by the vim plugin surround.vim which I use to
+rely on quite heavily.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package embrace
+    :ensure t
+    :bind ("C-," . embrace-commander))
+#+END_SRC
+
 *** emmet-mode
 
 Not going to lie. Totally ripped this from [[https://github.com/belak/dotfiles][Kaleb]].
