@@ -3112,6 +3112,16 @@ Shamelessly stolen from [[https://git.alanpearce.uk/alan/dotfiles/src/master/tag
                         (face-attribute 'default :family))))
 #+END_SRC
 
+*** orgit
+
+Support for Org links to Magit buffers.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package orgit
+    :ensure t
+    :after (org magit))
+#+END_SRC
+
 *** paradox
 
 [[https://github.com/Bruce-Connor/paradox][paradox]] is an advanced package.el frontend with GitHub integration. Paradox
