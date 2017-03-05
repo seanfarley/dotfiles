@@ -1741,6 +1741,10 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
         (prodigy-start-service (prodigy-find-service "OfflineIMAP"))
         (notmuch)))
 
+    ;; variable to hold patch directory history
+    (defvar smf/recent-patch-dirs '("~/projects/hg")
+      "List of recent directories used to apply patches.")
+
     ;; function for importing a patch from mercurial
     (defun smf/notmuch-show-import-patch ()
       "Import the hg patch.
@@ -1749,16 +1753,13 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
          entry don't bother asking for the git tree again (useful
          for bulk actions)."
       (interactive)
-      (let* ((cwd (car ido-work-directory-list)))
-
-        (unless (and (stringp cwd) (string= default-directory cwd))
-          (setq cwd (ido-read-directory-name "Target directory: "
-                                             cwd
-                                             "~/" t))
-          (setf ido-work-directory-list
-                (cons cwd (delete cwd ido-work-directory-list))))
-
-        (notmuch-show-pipe-message nil (format "hg --cwd %s import -" cwd))))
+      (ivy-read "Target directory: "
+                'read-file-name-internal
+                :matcher #'smf/find-dir-matcher
+                :history 'smf/recent-patch-dirs
+                :action (lambda (d)
+                          (notmuch-show-pipe-message
+                           nil (format "hg --cwd %s import -" d)))))
 
     ;; mark the email as pre-reviewed
     (defun smf/notmuch-show-set-pre-reviewed ()
