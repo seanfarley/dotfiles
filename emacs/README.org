@@ -431,6 +431,7 @@ While we're at it, let's allow recursive minibuffers.
 
 #+BEGIN_SRC emacs-lisp
   (setq enable-recursive-minibuffers t)
+  (minibuffer-depth-indicate-mode t)
 #+END_SRC
 
 Also, let's save the minibuffer history between sessions. It's 2014. We have the
