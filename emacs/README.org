@@ -499,6 +499,19 @@ If this is true, then =erc='s scrolling is broken.
   (setq switch-to-buffer-preserve-window-point nil)
 #+END_SRC
 
+*** defadvice warnings
+
+As I have been tweaking my Emacs configuration, I noticed that I was getting
+warnings like the following in =*Messages*= during Emacs startup:
+
+: ad-handle-definition: `tramp-read-passwd' got redefined
+
+Most of the time, I don't care about these messages, so let's suppress them
+
+#+BEGIN_SRC emacs-lisp
+  (setq ad-redefinition-action 'accept)
+#+END_SRC
+
 ** Keyboard
 
 *** Modifier keys
