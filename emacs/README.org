@@ -2338,6 +2338,20 @@ watch the video on that link than explain).
            ("H-'" . avy-goto-word-1)))
 #+END_SRC
 
+*** beacon-mode
+
+This package highlights the cursor every time it jumps abruptedly from a place
+to another (e.g. when changing windows and so on).
+
+#+BEGIN_SRC emacs-lisp
+  (use-package beacon
+    :ensure t
+    :defer 2
+    :diminish beacon-mode
+    :config
+    (beacon-mode))
+#+END_SRC
+
 *** browse-kill-ring
 
 [[https://github.com/browse-kill-ring/browse-kill-ring][browse-kill-ring]] allows one to browse the kill ring history when yanking.
