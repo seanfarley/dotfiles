@@ -3190,8 +3190,8 @@ brackets, and braces according to their depth.
     :diminish rainbow-blocks-mode
     :commands rainbow-blocks-mode
     :init
-    (add-hook 'emacs-lisp-mode-hook 'rainbow-blocks-mode)
-    (add-hook 'lisp-interaction-mode-hook 'rainbow-blocks-mode))
+    (add-hook 'emacs-lisp-mode-hook #'rainbow-blocks-mode)
+    (add-hook 'lisp-interaction-mode-hook #'rainbow-blocks-mode))
 #+END_SRC
 
 *** rainbow-delimiters
@@ -3215,7 +3215,9 @@ colors with the color they represent as background.
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-mode
     :ensure t
-    :commands rainbow-mode)
+    :commands rainbow-mode
+    :init
+    (add-hook 'prog-mode-hook #'rainbow-mode))
 #+END_SRC
 
 *** recentf
