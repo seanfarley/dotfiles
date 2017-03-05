@@ -2472,6 +2472,20 @@ Some compiler output has ansi color, so let's escape that,
     (add-hook 'compilation-filter-hook 'smf/colorize-compilation))
 #+END_SRC
 
+*** counsel-projectile
+
+[[https://github.com/bbatsov/projectile][Projectile]] has native support for using [[https://github.com/abo-abo/swiper][ivy]] as its completion system.
+[[https://github.com/ericdanan/counsel-projectile][Counsel-projectile]] provides further ivy integration into projectile by taking
+advantage of ivy's mechanism to select from a list of actions and/or apply an
+action without leaving the completion session.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel-projectile
+    :ensure t
+    :config
+    (counsel-projectile-on))
+#+END_SRC
+
 *** company
 
 [[https://github.com/company-mode/company-mode][company-mode]] is a modern and modular completion framework (the other one Emacs
