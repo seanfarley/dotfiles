@@ -2528,6 +2528,17 @@ custom functionality I had lying around.
            ("C-c s" . crux-ispell-word-then-abbrev)))
 #+END_SRC
 
+*** discover-my-major
+
+A nicer way to browse keybindings for major modes.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package discover-my-major
+    :ensure t
+    :bind (("C-h C-m" . discover-my-major)
+           ("C-h M-m" . discover-my-mode)))
+#+END_SRC
+
 *** docker
 
 #+BEGIN_SRC emacs-lisp
