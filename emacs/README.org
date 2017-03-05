@@ -1434,7 +1434,8 @@ switch to the buffer.
 
   (defun smf/disable-chat ()
     (interactive)
-    (znc-all t)
+    (if (get-buffer "*irc-freenode*") ;; ERC already active?
+        (znc-all t))
     (define-key smf/launcher-map "b" nil)
     (define-key smf/launcher-map "m" nil)
     (message "Disabled ERC/ZNC"))
