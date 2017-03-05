@@ -3535,6 +3535,7 @@ functions and methods.
 
 #+BEGIN_SRC emacs-lisp
   (use-package sphinx-doc
+    :after anaconda-mode
     :ensure t
     :diminish sphinx-doc-mode
     :config
