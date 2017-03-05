@@ -3452,6 +3452,15 @@ Note: swiper <- {counsel, ivy}
     (setq ivy-wrap t                        ; wraps around the buffer
           ivy-initial-inputs-alist nil      ; don't insert '^'
           ivy-use-virtual-buffers t)
+
+    ;; helper method to filter matches in ivy
+    (defun smf/find-dir-matcher (regexp candidates)
+      "Return REGEXP-matching CANDIDATES that are directories."
+      (cl-remove-if-not (lambda (x)
+                          (file-directory-p (expand-file-name x
+                                                              ivy--directory)))
+                        (counsel--find-file-matcher regexp candidates)))
+
     (ivy-mode))
 #+END_SRC
 
