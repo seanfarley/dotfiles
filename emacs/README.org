@@ -3386,6 +3386,7 @@ code), the tab size does not matter.
 
 #+BEGIN_SRC emacs-lisp
   (use-package smex
+    :ensure t
     :commands (smex smex-update smex-initialize)
     :config
     (setq smex-auto-update nil)
