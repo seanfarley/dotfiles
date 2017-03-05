@@ -3190,20 +3190,6 @@ We can work around that using [[https://www.gnu.org/software/emacs/manual/html_n
     (add-hook 'python-mode-hook #'subword-mode))
 #+END_SRC
 
-*** python-switch-quotes
-
-Cycle between apostrophes and quotes in python strings. Converts strings like
-'this' to strings like "this".
-
-#+BEGIN_SRC emacs-lisp
-  (use-package python-switch-quotes
-    :after python
-    :ensure t
-    :defer t
-    :bind (:map python-mode-map
-                ("C-c '" . python-switch-quotes)))
-#+END_SRC
-
 *** rainbow-blocks
 
 =rainbow-blocks= is an Emacs mode that highlights blocks made of parentheses,
