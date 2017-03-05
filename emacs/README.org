@@ -3311,6 +3311,30 @@ exclude Emacs metafiles, package cruft etc.
     (recentf-mode))
 #+END_SRC
 
+*** restclient
+
+Restclient is really nice. It’s like a scratchpad for HTTP api calls. Feels a
+bit like using =org-babel=. I wonder if there’s an integration between the two
+yet.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package restclient
+    :ensure t
+    :mode ("\\.api\\'" . restclient-mode)
+    :config
+    (defun imenu-restclient-sections ()
+      (setq imenu-prev-index-position-function nil)
+      (add-to-list 'imenu-generic-expression '("Services" "^## ?\\(.+\\)$" 1) t)
+      (add-to-list 'imenu-generic-expression '("Calls" "^# ?\\(.+\\)$" 1) t))
+    (add-hook 'restclient-mode-hook #'imenu-restclient-sections))
+
+  (use-package company-restclient
+    :ensure t
+    :after (company restclient)
+    :config
+    (add-to-list 'company-backends #'company-restclient t))
+#+END_SRC
+
 *** ripgrep
 
 [[https://github.com/nlamirault/ripgrep.el][ripgrep]] is an Emacs frontend to [[https://github.com/BurntSushi/ripgrep][the rg command]], a grep-like code-searching tool. It's
