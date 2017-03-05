@@ -2989,6 +2989,18 @@ need to load Magit first.
            ("H-d" . hungry-delete-forward)))
 #+END_SRC
 
+*** jade
+
+JavaScript Awesome Development Environment (in Emacs).
+
+#+BEGIN_SRC emacs-lisp
+  (use-package jade
+    :ensure t
+    :commands jade-connect-to-chrome
+    :config
+    (setq jade-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"))
+#+END_SRC
+
 *** js2-mode
 
 Improved JavaScript editing mode for GNU Emacs.
