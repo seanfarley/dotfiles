@@ -2831,6 +2831,18 @@ Blergh.
     (add-hook 'go-mode-hook 'go-eldoc-setup))
 #+END_SRC
 
+*** golden-ratio
+
+Give the working window more screen estate.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package golden-ratio
+    :ensure t
+    :diminish golden-ratio-mode
+    :config
+    (golden-ratio-mode))
+#+END_SRC
+
 *** goto-chg
 
 Go to last change in current buffer.
