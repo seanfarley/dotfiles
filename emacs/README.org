@@ -2382,7 +2382,7 @@ seems like it would have been really helpful in the past.
     :ensure t
     :defer t
     :config
-    (setq c-default-style "linux")
+    (setq-default c-default-style "linux")
 
     (add-hook 'c++-mode-hook 'irony-mode)
     (add-hook 'c-mode-hook 'irony-mode)
