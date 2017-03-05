@@ -2686,6 +2686,17 @@ I only want this to be installed and enabled on OS X.
     (exec-path-from-shell-initialize))
 #+END_SRC
 
+*** expand-region
+
+Expanding the region by semantic units is quite nice. As always, there’s a mode
+for that.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package expand-region
+    :bind ("C-=" . er/expand-region)
+    :config (setq expand-region-fast-keys-enabled nil))
+#+END_SRC
+
 *** flycheck
 
 [[https://github.com/flycheck/flycheck][flycheck]] is a modern, more easily customisable version of [[http://www.emacswiki.org/emacs/FlyMake][flymake]]. It's used to
