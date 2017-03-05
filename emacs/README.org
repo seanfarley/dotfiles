@@ -3717,6 +3717,23 @@ It's very convenient to select the whole line when no region is active.
     (whole-line-or-region-mode))
 #+END_SRC
 
+*** writeroom
+
+Writeroom-mode: distraction-free writing for Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package writeroom-mode
+    :ensure t
+    :commands (writeroom-mode)
+    :config
+    (setq writeroom-restore-window-config t
+          writeroom-width 100)
+
+    ;; turn off chat when entering writeroom
+    (advice-add 'writeroom--enable :before #'smf/disable-chat)
+    (advice-add 'writeroom--disable :before #'smf/enable-chat))
+#+END_SRC
+
 *** yaml-mode
 
 Regrettably I need to occasionally edit [[http://www.yaml.org][YAML]].
