@@ -3011,6 +3011,17 @@ need to load Magit first.
      magit-completing-read-function 'ivy-completing-read))
 #+END_SRC
 
+*** magithub
+
+Magit interfaces for GitHub.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package magithub
+    :after magit
+    :ensure t
+    :config (magithub-feature-autoinject t))
+#+END_SRC
+
 *** markdown-mode
 
 [[http://melpa.milkbox.net/#/markdown-mode][markdown-mode]] is a major mode for editing Markdown files.
