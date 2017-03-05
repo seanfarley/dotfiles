@@ -2466,6 +2466,7 @@ has better code for integrating with).
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :ensure t
+    :defer 10
     :diminish company-mode
     :config
     (setq company-tooltip-limit 20
@@ -2774,6 +2775,7 @@ Emacs port of GitGutter which is Sublime Text Plugin.
   (use-package git-gutter
     :ensure t
     :diminish git-gutter-mode
+    :defer 5
     :config
     (setq git-gutter:handled-backends '(git hg))
     (global-git-gutter-mode))
@@ -3635,7 +3637,7 @@ I got this code from the [[http://www.gnu.org/software/tramp/#Multi_002dhops][Mu
 
 #+BEGIN_SRC emacs-lisp
   (use-package tramp
-    :defer t
+    :defer 7
     :config
     (add-to-list 'tramp-default-proxies-alist
                  '(nil "\\`root\\'" "/ssh:%h:"))
@@ -3691,6 +3693,7 @@ Minor mode for visual feedback on some operations in Emacs.
 #+BEGIN_SRC emacs-lisp
   (use-package volatile-highlights
     :ensure t
+    :defer 10
     :diminish volatile-highlights-mode
     :config
     (volatile-highlights-mode))
