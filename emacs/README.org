@@ -2335,6 +2335,21 @@ providing counts and better replacement visualisation.
     (global-anzu-mode))
 #+END_SRC
 
+*** artbollocks-mode
+
+Prevent usage of passive voice, weasel words and other common grammatical mistakes.
+
+Pro tip: [[http://www.jethrokuan.com/init.html][Jethro Kuan]] has an awesome emacs config.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package artbollocks-mode
+    :ensure t
+    :commands artbollocks-mode
+    :init
+    (smf/add-launcher "a" 'artbollocks-mode)
+    (add-hook 'text-mode-hook 'artbollocks-mode))
+#+END_SRC
+
 *** avy
 
 I'm choosing =avy= over =ace-jump-mode= for tighter integration with
