@@ -3068,6 +3068,27 @@ description of this workflow]]).
     :ensure t)
 #+END_SRC
 
+*** page breaks
+
+By default, Emacs displays page breaks as =^L=. Lines look much nicer. On
+Windows, Emacs incorrectly detects that =U+2500= (Box Drawings Light
+Horizontal) can only be displayed with a different font, which is not correct.
+
+Shamelessly stolen from [[https://git.alanpearce.uk/alan/dotfiles/src/master/tag-emacs/emacs.d/init.org][Alan Pearce]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package page-break-lines
+    :ensure t
+    :defer 5
+    :diminish page-break-lines-mode
+    :config
+    (global-page-break-lines-mode)
+    (unless (eq (char-displayable-p ?─) (char-displayable-p ?a))
+      (set-fontset-font "fontset-default"
+                        (cons page-break-lines-char page-break-lines-char)
+                        (face-attribute 'default :family))))
+#+END_SRC
+
 *** paradox
 
 [[https://github.com/Bruce-Connor/paradox][paradox]] is an advanced package.el frontend with GitHub integration. Paradox
