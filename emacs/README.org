@@ -3921,6 +3921,18 @@ snippet syntax is inspired from [[http://manual.macromates.com/en/snippets][Text
     (yas-reload-all))
 #+END_SRC
 
+*** ztree
+
+ztree-dir is a simple text-mode directory tree for Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ztree
+    :ensure t
+    :commands (ztree-dir ztree-diff)
+    :config
+    (setq ztree-dir-move-focus t))
+#+END_SRC
+
 ** Local and custom configuration
 
 *** Local overrides
