@@ -2883,6 +2883,17 @@ Give the working window more screen estate.
     (golden-ratio-mode))
 #+END_SRC
 
+*** google-this
+
+A set of emacs functions and bindings to google under point.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package google-this
+    :ensure t
+    :diminish google-this-mode
+    :bind-keymap ("C-x g" . google-this-mode-submap))
+#+END_SRC
+
 *** goto-chg
 
 Go to last change in current buffer.
