@@ -2938,6 +2938,20 @@ Enables collapsable regions and diminish the mode:
     (add-hook 'prog-mode-hook #'hideshowvis-enable))
 #+END_SRC
 
+*** highlight-symbol
+
+This package is pretty simple. It adds functionality to highlight the current
+word or symbol and navigate to other instances.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package highlight-symbol
+    :ensure t
+    :bind (("M-n" . highlight-symbol-next)
+           ("M-p" . highlight-symbol-prev))
+    :config
+    (highlight-symbol-nav-mode))
+#+END_SRC
+
 *** hl-mode
 
 I originally used fic-mode, but it appears that hl-todo is a little better and
