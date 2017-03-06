@@ -2361,9 +2361,19 @@ watch the video on that link than explain).
 #+BEGIN_SRC emacs-lisp
   (use-package avy
     :ensure t
-    :bind (("H-;" . avy-goto-char)
-           ("H-<return>" . avy-goto-line)
+    :bind (("H-<return>" . avy-goto-line)
            ("H-'" . avy-goto-word-1)))
+#+END_SRC
+
+*** avy-flycheck
+
+Jump to and fix syntax errors using flycheck with avy interface.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package avy-flycheck
+    :after (avy flycheck)
+    :ensure t
+    :bind ("H-;" . avy-flycheck-goto-error))
 #+END_SRC
 
 *** beacon-mode
