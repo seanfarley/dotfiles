@@ -904,7 +904,8 @@ gotten from [[http://mindlev.wordpress.com/2011/06/13/emacs-in-a-terminal-on-osx
           (process-send-eof proc))))
 
     (setq interprogram-cut-function 'smf/paste-to-osx)
-    (setq interprogram-paste-function 'smf/copy-from-osx))
+    (setq interprogram-paste-function 'smf/copy-from-osx)
+    (setq save-interprogram-paste-before-kill t))
 #+END_SRC
 
 Also, allow pasting selection outside of Emacs:
