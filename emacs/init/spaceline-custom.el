@@ -473,7 +473,7 @@ the directions of the separator."
    ((ati-position ati-region-info) :face highlight-face :separator " | ")
    ati-left-3-separator
    ati-left-inactive-separator
-   ((ati-vc-icon ati-git-stats ati-flycheck-status ati-flycheck-info ati-package-updates purpose) :separator " · " :face other-face)
+   ((ati-vc-icon ati-git-stats ati-flycheck-status ati-flycheck-info purpose) :separator " · " :face other-face)
    ati-left-4-separator)
 
  '(ati-right-1-separator
