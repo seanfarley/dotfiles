@@ -1301,7 +1301,9 @@ of the buffer. We'll bind this to =C-M-d=
 #+BEGIN_SRC emacs-lisp
   (use-package erc-alert
     :after erc
-    :load-path "lisp")
+    :load-path "lisp"
+    :config
+    (my-erc-define-alerts))
 #+END_SRC
 
 *** ZNC

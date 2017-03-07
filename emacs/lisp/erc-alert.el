@@ -118,8 +118,6 @@ If the buffer is currently not visible, makes it sticky."
 
   (alert-add-rule :mode 'erc-mode :style 'ignore :append t))
 
-(add-hook 'erc-connect-pre-hook 'my-erc-define-alerts)
-
 (provide 'erc-alert)
 
 ;;; erc-alert.el ends here
