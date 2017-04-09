@@ -3259,6 +3259,15 @@ description of this workflow]]).
     :ensure t)
 #+END_SRC
 
+*** org-preview-html-mode
+
+Automatically uses eww to preview the current org-file when saved.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-preview-html
+    :ensure t)
+#+END_SRC
+
 *** page breaks
 
 By default, Emacs displays page breaks as =^L=. Lines look much nicer. On
