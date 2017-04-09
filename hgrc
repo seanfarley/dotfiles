@@ -87,7 +87,7 @@ opts.wdiff = --diff --ab
 
 [merge-tools]
 emacsclient.executable = ~/.edit.sh
-emacsclient.args = "-q --eval '(hg-mergetool-emacsclient-ediff \"$local\" \"$other\" \"$base\" \"$output\")'"
+emacsclient.args = "-q --eval '(smf/hg-mergetool-emacsclient-ediff \"$local\" \"$other\" \"$base\" \"$output\")'"
 emacsclient.premerge = keep
 emacsclient.priority = 1
 
