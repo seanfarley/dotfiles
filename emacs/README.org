@@ -3221,7 +3221,9 @@ Magit interfaces for GitHub.
     :mode ("\\.md\\'" . gfm-mode)
     :config
     (define-key markdown-mode-map (kbd "<M-left>") nil)
-    (define-key markdown-mode-map (kbd "<M-right>") nil))
+    (define-key markdown-mode-map (kbd "<M-right>") nil)
+
+    (setq markdown-command "multimarkdown"))
 #+END_SRC
 
 *** move-text
