@@ -920,7 +920,7 @@ On Emacs 24.4 and above, Lion-style fullscreen display is supported but I
 dislike it. Define a method to toggle fullscreen pre-Lion.
 
 #+BEGIN_SRC emacs-lisp
-  (when (and (eq system-type 'darwin) (fboundp 'toggle-frame-fullscreen))
+  (when (fboundp 'toggle-frame-fullscreen)
     (defun smf/toggle-fullscreen ()
       "Toggle full screen"
       (interactive)
