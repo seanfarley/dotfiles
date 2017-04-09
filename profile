@@ -15,7 +15,10 @@ if [ -n "$PS1" ]; then
   [ -d $HOME/.ssh/connections ] || mkdir $HOME/.ssh/connections
 
   # load keys from keychain
-  [ -f /usr/bin/security ] && ssh-add -K &> /dev/null
+  if [[ -f /usr/bin/security ]]; then
+    ssh-add -K &> /dev/null
+    export SSH_KEY="$(/usr/bin/security find-generic-password -w -a /Users/sean/.ssh/id_rsa | openssl rsa -in ~/.ssh/id_rsa -passin stdin 2> /dev/null)"
+  fi
 
   [[ BASH_VERSINFO -ge 4 ]] && shopt -s globstar
 
