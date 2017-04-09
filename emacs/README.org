@@ -2944,6 +2944,18 @@ delay. We'll also enable it for my [[Launcher keymap]] prefix.
     (guide-key-mode))
 #+END_SRC
 
+*** habitica
+
+Emacs extension for Habitica, a RPG style habit tracker and todo list.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package habitica
+    :ensure t
+    :commands habitica-tasks
+    :config
+    (setq habitica-turn-on-highlighting t))
+#+END_SRC
+
 *** hg-test-mode
 
 A mode for Mercurial test files
