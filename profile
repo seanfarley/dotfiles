@@ -49,6 +49,8 @@ if [ -n "$PS1" ]; then
   complete -o bashdefault -o default -o nospace -F _hg lhg \
       || complete -o default -o nospace -F _hg lhg
 
+  [[ -f $HOME/.npmrc ]] && export NPMRC="$(cat ~/.npmrc)"
+
 fi
 
 if [[ -z "$SSH_CLIENT" && -d /cygdrive/c ]]; then
