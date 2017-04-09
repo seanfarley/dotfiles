@@ -2892,6 +2892,7 @@ Give the working window more screen estate.
 #+BEGIN_SRC emacs-lisp
   (use-package golden-ratio
     :ensure t
+    :disabled
     :diminish golden-ratio-mode
     :config
     (golden-ratio-mode))
