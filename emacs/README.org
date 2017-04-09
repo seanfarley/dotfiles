@@ -3008,51 +3008,51 @@ similar keywords.
     (global-hl-todo-mode))
 #+END_SRC
 
-*** hugme
+*** mahgic
 
 An experimental fork of magit for Mercurial. Most of the things here won't work.
 
 **** Keyboard shortcuts
 
-=hugme-status= is the main command to launch Magit. It's =autoloaded= so I don't
+=mahgic-status= is the main command to launch Magit. It's =autoloaded= so I don't
 need to load Magit first.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package hugme
+  (use-package mahgic
     :after magit
-    :load-path "~/projects/hugme/lisp"
+    :load-path "~/projects/mahgic/lisp"
     :mode (("hg-editor-.*\\.txt" . hg-commit-mode)
            ("hg-histedit-.*\\.txt" . hg-histedit-mode))
     :init
-    (smf/add-launcher "h" 'hugme-status)
+    (smf/add-launcher "h" 'mahgic-status)
     :config
-    ;; hugme settings
+    ;; mahgic settings
     (setq-default
-     ;; open hugme status in same window as current buffer
-     hugme-status-buffer-switch-function 'switch-to-buffer
+     ;; open mahgic status in same window as current buffer
+     mahgic-status-buffer-switch-function 'switch-to-buffer
 
      ;; highlight word/letter changes in hunk diffs
-     hugme-diff-refine-hunk t
+     mahgic-diff-refine-hunk t
 
      ;; pop the process buffer if we're taking a while to complete
-     hugme-process-popup-time 10
+     mahgic-process-popup-time 10
 
      ;; don't prompt me to confirm a canceled histedit
      hg-histedit-confirm-cancel nil
 
      ;; shelling out to hg is expensive, so until we use something like the command
      ;; server, set a high-timeout for diffs
-     hugme-diff-expansion-threshold 10.0
+     mahgic-diff-expansion-threshold 10.0
 
      ;; definitely need to enable debugging while writing this package
-     hugme-hg-debug t
+     mahgic-hg-debug t
 
      ;; use ivy for completing things
-     hugme-completing-read-function 'ivy-completing-read
+     mahgic-completing-read-function 'ivy-completing-read
 
      ;; experimentally try to use chg, though it doesn't seem to improve the
      ;; speed of shelling out
-     hugme-hg-executable "chg"))
+     mahgic-hg-executable "chg"))
 #+END_SRC
 
 *** hungry-delete
