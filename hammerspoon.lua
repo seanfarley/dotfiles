@@ -115,3 +115,12 @@ end)
 hs.hotkey.bind({"ctrl"}, "n", function()
       hs.eventtap.keyStroke({}, "down")
 end)
+
+-- map ctrl-g to esc in chrome (so as not to mess with emacs)
+local chrome = hs.window.filter.new{'Google Chrome'}
+local esc = hs.hotkey.new({"ctrl"}, "g", function()
+      hs.eventtap.keyStroke({}, "escape")
+end)
+
+chrome:subscribe(hs.window.filter.windowFocused, function () esc:enable() end)
+chrome:subscribe(hs.window.filter.windowUnfocused, function() esc:disable() end)
