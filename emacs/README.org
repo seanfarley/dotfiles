@@ -2355,8 +2355,7 @@ Pro tip: [[http://www.jethrokuan.com/init.html][Jethro Kuan]] has an awesome ema
     :ensure t
     :commands artbollocks-mode
     :init
-    (smf/add-launcher "a" 'artbollocks-mode)
-    (add-hook 'text-mode-hook 'artbollocks-mode))
+    (smf/add-launcher "a" 'artbollocks-mode))
 #+END_SRC
 
 *** avy
