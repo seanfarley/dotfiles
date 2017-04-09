@@ -3702,6 +3702,7 @@ Note: swiper <- {counsel, ivy}
            ("C-x b" . ivy-switch-buffer)    ; use this instead of the lackluster
                                             ; `list-buffers'
            ("C-x C-b" . ivy-switch-buffer)  ; common typo
+           ("C-x <left>" . ivy-switch-buffer)  ; common typo
            ("C-x C-n" . ivy-switch-buffer)) ; common typo
     :config
     (setq ivy-wrap t                        ; wraps around the buffer
