@@ -23,6 +23,7 @@ emacs/request
 emacs/network-security.data
 emacs/.org-id-locations
 emacs/init.el
+emacs/emojis
 
 omnisharp-server
 irony-server

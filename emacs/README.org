@@ -2540,10 +2540,16 @@ has better code for integrating with).
 
 #+BEGIN_SRC emacs-lisp
   (use-package company-emoji
+    :disabled
     :after company
     :ensure t
     :config
     (add-to-list 'company-backends 'company-emoji))
+
+  (use-package emojify
+    :ensure t
+    :config
+    (add-hook 'after-init-hook #'global-emojify-mode))
 #+END_SRC
 
 **** Quickhelp
