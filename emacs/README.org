@@ -2679,7 +2679,8 @@ persistent background processes. Dumb Jump requires at least GNU Emacs 24.4.
     :init
     (add-hook 'prog-mode-hook #'dumb-jump-mode)
     :config
-    (setq dumb-jump-selector 'ivy))
+    (setq dumb-jump-selector 'ivy
+          dumb-jump-searcher "rg"))
 #+END_SRC
 
 *** editorconfig
