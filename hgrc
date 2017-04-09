@@ -33,7 +33,6 @@ schemes =
 progress =
 rebase =
 convert =
-pager =
 histedit =
 purge =
 strip =
@@ -233,7 +232,7 @@ st = st ""
 # equivalent to the qdiff command for mq
 
 # diff
-pdiff = diff --pager=always --rev .^
+pdiff = diff --rev .^
 
 # status
 pstatus = status --rev .^
@@ -243,7 +242,7 @@ odiff = diff --rev 'limit(precursors(.),1)' --rev .
 n = !$HG next || $HG evolve && $HG --color=always show .
 
 he = histedit
-l = log --pager=always
+l = log
 p = pull -u
 pr = pull --rebase
 
@@ -279,31 +278,31 @@ takelocal = !"$HG" revert --rev 'p1()' $@ && "$HG" resolve -m $@
 takeother = !"$HG" revert --rev 'p2()' $@ && "$HG" resolve -m $@
 
 # Run a colored diff and pipe it to less.
-d = diff -p --pager=always
+d = diff -p
 gd = d
 
 # Log shortcuts --------------------------------------------------------------------
 
 # Simple log commands that don't look bad
 
-ll = log --pager=always -T ll
+ll = log -T ll
 
-gll = log -G --pager=always -T sl
+gll = log -G -T sl
 
 gl = gll -r 'branch(.)'
 
 gl. = gll -fl 20
 
-sll = log -G --pager=always -r smart -T sl
+sll = log -G -r smart -T sl
 
 sl = sll -l 20
 
-nll = log -G --pager=always -T nl
+nll = log -G -T nl
 
 nl = nll -r '.%(bookmark()-. or max(public()))^'
 
 # hg show .  -- show a summary of rev . with diff.
-show = log --pager=always --stat --hidden -T nl -vpr
+show = log --stat --hidden -T nl -vpr
 
 # Make a new repo with some sensible defaults.
 mkrepo = !$HG init $1 && cd $1 && \
