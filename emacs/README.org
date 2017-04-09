@@ -1720,12 +1720,18 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
           ;; set notmuch as default emacs email program
           mail-user-agent 'notmuch-user-agent
 
+          ;; verify signed emails by default
+          notmuch-crypto-process-mime t
+
           ;; manually refresh; not a big deal since we use imap idle
           notmuch-hello-auto-refresh 'nil)
 
     ;; when composing an email, turn on spellchecking and autofill
     (add-hook 'notmuch-message-mode-hook #'auto-fill-mode)
     (add-hook 'notmuch-message-mode-hook #'flyspell-mode)
+
+    ;; Sign messages by default.
+    (add-hook 'message-setup-hook #'mml-secure-sign-pgpmime)
 
     ;; function for launching notmuch along with prodigy service
     (defun smf/notmuch-start-or-switch ()
