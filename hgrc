@@ -64,6 +64,9 @@ nativerevs = True
 [git]
 use_namespaces = True
 
+[hggit]
+usephases = True
+
 [diff]
 git = True
 showfunc = True
