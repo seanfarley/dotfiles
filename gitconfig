@@ -46,7 +46,7 @@
   tool = ediff
 
 [mergetool "ediff"]
-  cmd = ~/.edit.sh -q --eval \"(hg-mergetool-emacsclient-ediff \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" \\\"$MERGED\\\")\"
+  cmd = ~/.edit.sh -q --eval \"(smf/hg-mergetool-emacsclient-ediff \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" \\\"$MERGED\\\")\"
   trustExitCode = true
 
 [mergetool]
