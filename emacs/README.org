@@ -3268,6 +3268,16 @@ Automatically uses eww to preview the current org-file when saved.
     :ensure t)
 #+END_SRC
 
+*** orgit
+
+Support for Org links to Magit buffers.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package orgit
+    :ensure t
+    :after (org magit))
+#+END_SRC
+
 *** page breaks
 
 By default, Emacs displays page breaks as =^L=. Lines look much nicer. On
@@ -3287,16 +3297,6 @@ Shamelessly stolen from [[https://git.alanpearce.uk/alan/dotfiles/src/master/tag
       (set-fontset-font "fontset-default"
                         (cons page-break-lines-char page-break-lines-char)
                         (face-attribute 'default :family))))
-#+END_SRC
-
-*** orgit
-
-Support for Org links to Magit buffers.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package orgit
-    :ensure t
-    :after (org magit))
 #+END_SRC
 
 *** paradox
