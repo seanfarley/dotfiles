@@ -1726,7 +1726,11 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
           notmuch-crypto-process-mime t
 
           ;; manually refresh; not a big deal since we use imap idle
-          notmuch-hello-auto-refresh 'nil)
+          notmuch-hello-auto-refresh 'nil
+
+          ;; only mail-archive works for me consistently
+          notmuch-show-stash-mlarchive-link-alist
+          '(("Mail Archive, The" . "http://mid.mail-archive.com/")))
 
     ;; when composing an email, turn on spellchecking and autofill
     (add-hook 'notmuch-message-mode-hook #'auto-fill-mode)
