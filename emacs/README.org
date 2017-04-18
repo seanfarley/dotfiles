@@ -3316,6 +3316,17 @@ this after async.
           paradox-execute-asynchronously t))
 #+END_SRC
 
+*** password store
+
+A major-mode to manage your [[https://www.passwordstore.org/][password-store]] (pass) keychain. The keychain
+entries are displayed in a directory-like structure.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package pass
+    :ensure t
+    :defer 5)
+#+END_SRC
+
 *** persistent =*scratch*= buffer
 
 Emacs has a handy, but sometimes decried, feature called the "scratch" buffer.
