@@ -320,6 +320,8 @@ of Emacs we're using supports the server package:
   (use-package server
     :config
     (setq server-use-tcp t)
+    (setq server-window 'pop-to-buffer)   ; open in another window instead of the
+                                          ; current one
     (unless (server-running-p)
       (server-start)))
 #+END_SRC
