@@ -3066,6 +3066,18 @@ need to load Magit first.
            ("H-d" . hungry-delete-forward)))
 #+END_SRC
 
+*** indium
+
+JavaScript Awesome Development Environment (in Emacs).
+
+#+BEGIN_SRC emacs-lisp
+  (use-package indium
+    :ensure t
+    :commands indium-connect-to-chrome
+    :config
+    (setq indium-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"))
+#+END_SRC
+
 *** ivy-rich
 
 More friendly interface for ivy.
@@ -3084,18 +3096,6 @@ More friendly interface for ivy.
     ;; abbreviate paths using abbreviate-file-name (e.g. replace “/home/username”
     ;; with “~”)
     (setq ivy-rich-abbreviate-paths t))
-#+END_SRC
-
-*** jade
-
-JavaScript Awesome Development Environment (in Emacs).
-
-#+BEGIN_SRC emacs-lisp
-  (use-package jade
-    :ensure t
-    :commands jade-connect-to-chrome
-    :config
-    (setq jade-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"))
 #+END_SRC
 
 *** js2-mode
