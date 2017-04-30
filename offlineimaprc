@@ -5,7 +5,6 @@ pythonfile = ~/.offlineimap.py
 [Account main]
 localrepository = main-local
 remoterepository = main-remote
-status_backend = sqlite
 
 presynchook  = ~/.config/maildir-notmuch-sync.sh pre ~/.mail
 postsynchook = ~/.config/maildir-notmuch-sync.sh post ~/.mail
