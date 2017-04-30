@@ -431,7 +431,7 @@ _ve() {
 complete -o nospace -F _ve ve
 
 bb() {
-  local bdir=$PROJECTS/bitbucket
+  local bdir=$PROJECTS/bitbucket-docker/bitbucket
   cd $bdir
   mkdir -p /opt/python/domains/bitbucket.org/current
   rm -f /opt/python/domains/bitbucket.org/current/bitbucket
