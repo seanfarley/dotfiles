@@ -2,10 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AboutToPasteTabsWithCancel</key>
+	<true/>
+	<key>AboutToPasteTabsWithCancel_selection</key>
+	<integer>2</integer>
 	<key>AdjustWindowForFontSizeChange</key>
 	<true/>
 	<key>AllowClipboardAccess</key>
 	<false/>
+	<key>AlternateMouseScroll</key>
+	<true/>
 	<key>AnimateDimming</key>
 	<false/>
 	<key>AppleAntiAliasingThreshold</key>
@@ -509,6 +515,10 @@
 		<string>@^↑</string>
 		<key>Select Pane Below</key>
 		<string>@^↓</string>
+		<key>Select Pane Left</key>
+		<string>@^←</string>
+		<key>Select Pane Right</key>
+		<string>@^→</string>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>925 81 445 77 0 0 1440 900 </string>
@@ -517,11 +527,11 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 382 620 392 0 0 1440 900 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>238 225 796 473 0 0 1440 900 </string>
+	<string>284 342 937 465 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1440 900 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>176 86 650 427 0 0 1440 900 </string>
+	<string>0 7 1231 335 0 0 1440 900 </string>
 	<key>NeverWarnAboutShortLivedSessions_C1F2222A-6D3E-44B0-8F07-9EF1257810D0</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_C1F2222A-6D3E-44B0-8F07-9EF1257810D0_selection</key>
@@ -1409,7 +1419,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-12-19T02:43:01Z</date>
+	<date>2017-04-27T23:48:21Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -1455,6 +1465,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.0.13</string>
+	<string>3.0.15</string>
 </dict>
 </plist>
