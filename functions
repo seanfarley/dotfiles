@@ -459,7 +459,7 @@ function vpn-connect {
   # hardcode the password here so that no variables hold the plain text
   pass="$(/usr/bin/security find-internet-password -w -a sfarley -s vpn.atlassian.com 2>/dev/null)"
   [[ -z "$pass" ]] && read -sp "VPN password:" pass
-  printf "sfarley\n$pass\npush\n" | sudo openconnect vpn.atlassian.com
+  printf "sfarley\n%s\npush\n" "$pass" | sudo openconnect vpn.atlassian.com
   echo "Done"
 }
 
