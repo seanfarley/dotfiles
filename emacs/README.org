@@ -3274,6 +3274,22 @@ Automatically uses eww to preview the current org-file when saved.
     :ensure t)
 #+END_SRC
 
+*** org-sticky-header
+
+This package displays in the header-line the Org heading for the node that’s at
+the top of the window. This way, if the heading for the text at the top of the
+window is beyond the top of the window, you don’t forget which heading the text
+belongs to.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-sticky-header
+    :ensure t
+    :commands org-sticky-header-mode
+    :init
+    (setq-default org-sticky-header-full-path 'full)
+    (add-hook 'org-mode-hook #'org-sticky-header-mode))
+#+END_SRC
+
 *** orgit
 
 Support for Org links to Magit buffers.
