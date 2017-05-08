@@ -2796,6 +2796,8 @@ perform on-the-fly syntax checking and linting.
     :ensure t
     :commands flycheck-mode
     :diminish flycheck-mode
+    :bind (("C-c C-n" . flycheck-next-error)
+           ("C-c C-p" . flycheck-previous-error))
     :init
     (add-hook 'prog-mode-hook #'flycheck-mode)
     :config
