@@ -3726,6 +3726,16 @@ functions and methods.
     (add-hook 'python-mode-hook 'sphinx-doc-mode))
 #+END_SRC
 
+*** stickyfunc-enhance
+
+#+BEGIN_SRC emacs-lisp
+  (use-package stickyfunc-enhance
+    :ensure t
+    :config
+    (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+    (semantic-mode))
+#+END_SRC
+
 *** swiper / ivy
 
 Ivy - a generic completion frontend for Emacs, Swiper - isearch with an
