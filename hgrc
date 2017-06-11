@@ -349,4 +349,6 @@ sub = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | grep "$1" | tr -d '\n ' | xa
 pss = !chg status --no-status --clean --modified --added --print0 . | xargs pss $@
 wgrep = !chg status --no-status --clean --modified --added --print0 . | xargs -0 grep --binary-files=without-match $@
 
+ei = !$HG export $@ | $HG import --no-commit -
+
 %include .hgrc.local
