@@ -1484,8 +1484,9 @@ method so that takes care of most potential name conflicts.
 
   (defun smf/buffer-users (buffer)
     "Return users for a given ERC buffer"
-    (set-buffer buffer)
-    (smf/user-keys erc-channel-users))
+    (when (get-buffer buffer)
+      (set-buffer buffer)
+      (smf/user-keys erc-channel-users)))
 
   (defun smf/erc-chat (nick)
     "Start a query with nick"
