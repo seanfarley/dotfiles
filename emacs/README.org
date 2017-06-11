@@ -3869,6 +3869,16 @@ More on the last two incantations at [[http://emacs-fu.blogspot.co.uk/2009/10/ed
     (global-undo-tree-mode))
 #+END_SRC
 
+*** unfill
+
+Functions providing the inverse of Emacs' fill-paragraph and fill-region.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package unfill
+    :ensure t
+    :bind (("M-Q" . unfill-paragraph)))
+#+END_SRC
+
 *** volatile highlights
 
 Minor mode for visual feedback on some operations in Emacs.
