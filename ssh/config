@@ -35,13 +35,6 @@ Host euclid
   ControlPersist yes
   ControlPath ~/.ssh/socket-%r@%h:%p
 
-Host euclid4
-  HostName farley.in
-  ControlMaster auto
-  ControlPersist yes
-  ControlPath ~/.ssh/socket-%r@%h:%p
-  ProxyCommand ssh -A -W %h:%p smf.io
-
 Host *.amazonaws.com
   User ec2-user
 
