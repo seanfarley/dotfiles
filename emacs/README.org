@@ -1475,12 +1475,12 @@ method so that takes care of most potential name conflicts.
 
 #+BEGIN_SRC emacs-lisp
   (defun smf/user-keys (erc-channel-users)
-  "Convert the ERC-CHANNEL-USERS hash into an equivalent list-based form."
-  (let ((alist '()))
-    (maphash (lambda (key value)
-               (push (erc-server-user-nickname (car value)) alist))
-             erc-channel-users)
-    alist))
+    "Convert the ERC-CHANNEL-USERS hash into an equivalent list-based form."
+    (let ((alist '()))
+      (maphash (lambda (key value)
+                 (push (erc-server-user-nickname (car value)) alist))
+               erc-channel-users)
+      alist))
 
   (defun smf/buffer-users (buffer)
     "Return users for a given ERC buffer"
