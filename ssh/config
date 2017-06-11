@@ -38,5 +38,8 @@ Host euclid
 Host *.amazonaws.com
   User ec2-user
 
+Host micros
+  HostName jumpbox.domain.dev.atl-inf.io
+
 Host *
   ForwardAgent yes
