@@ -1775,7 +1775,7 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
                 :history 'smf/recent-patch-dirs
                 :action (lambda (d)
                           (notmuch-show-pipe-message
-                           nil (format "hg --cwd %s import -" d)))))
+                           nil (format "hg --cwd %s import --obsolete -" d)))))
 
     ;; mark the email as pre-reviewed
     (defun smf/notmuch-show-set-pre-reviewed ()
