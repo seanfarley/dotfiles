@@ -1912,9 +1912,9 @@ updated from within [[notmuch]] with keyboard shortcuts.
     (setq offlineimap-mode-line-text nil
           offlineimap-mode-line-symbols '((run . "⟲")
                                           (stop .  "↻")
-                                          (exit .  "■")
+                                          (exit .  "⊙")
                                           (signal . "⚑")
-                                          (open .  "⊙")
+                                          (open .  "■")
                                           (listen . "⌥")
                                           (closed . "●")
                                           (connect . "…")

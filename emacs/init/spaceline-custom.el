@@ -330,12 +330,12 @@
                                       (goto-char (point-min))
                                       (re-search-forward " \\([0-9]+\\) unread" nil t)
                                       (match-string-no-properties 1))))))
-                    (if (and (string-match status "■ ") unread)
+                    (if (and (string-match status "⊙ ") unread)
                         ;; this tightly couples us to the actual value of
                         ;; offlineimap's symbol list but oh well
                         "⚑ "
                       status))
-                "⊙ ")
+                "■ ")
               'face `(:height 0.9 :inherit)
               'help-echo "Email"
               'display '(raise 0.1)))
