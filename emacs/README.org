@@ -3473,7 +3473,11 @@ We can work around that using [[https://www.gnu.org/software/emacs/manual/html_n
     :mode ("\\.py\\'" . python-mode)
     :interpreter ("python" . python-mode)
     :config
-    (add-hook 'python-mode-hook #'subword-mode))
+    (defun smf/python-mode ()
+      (local-unset-key (kbd "C-c C-p")))  ; unbind run-python
+
+    (add-hook 'python-mode-hook #'subword-mode)
+    (add-hook 'python-mode-hook #'smf/python-mode))
 #+END_SRC
 
 *** rainbow-blocks
