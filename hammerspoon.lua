@@ -103,24 +103,43 @@ hs.hotkey.bind({"cmd", "ctrl"}, "I", function()
       hs.application.launchOrFocus("iTunes")
 end)
 
-hs.hotkey.bind({"ctrl"}, "b", function()
-      hs.eventtap.keyStroke({}, "left")
-end)
-hs.hotkey.bind({"ctrl"}, "f", function()
-      hs.eventtap.keyStroke({}, "right")
-end)
-hs.hotkey.bind({"ctrl"}, "p", function()
-      hs.eventtap.keyStroke({}, "up")
-end)
-hs.hotkey.bind({"ctrl"}, "n", function()
-      hs.eventtap.keyStroke({}, "down")
-end)
-
--- map ctrl-g to esc in chrome (so as not to mess with emacs)
-local chrome = hs.window.filter.new{'Google Chrome'}
+-- map emacs keybindings in everything but the emacs app
 local esc = hs.hotkey.new({"ctrl"}, "g", function()
       hs.eventtap.keyStroke({}, "escape")
 end)
 
-chrome:subscribe(hs.window.filter.windowFocused, function () esc:enable() end)
-chrome:subscribe(hs.window.filter.windowUnfocused, function() esc:disable() end)
+local left = hs.hotkey.bind({"ctrl"}, "b", function()
+      hs.eventtap.keyStroke({}, "left")
+end)
+
+local right = hs.hotkey.bind({"ctrl"}, "f", function()
+      hs.eventtap.keyStroke({}, "right")
+end)
+
+local up = hs.hotkey.bind({"ctrl"}, "p", function()
+      hs.eventtap.keyStroke({}, "up")
+end)
+
+local down = hs.hotkey.bind({"ctrl"}, "n", function()
+      hs.eventtap.keyStroke({}, "down")
+end)
+
+function applicationWatcher(appName, eventType, appObject)
+   if (eventType == hs.application.watcher.activated) then
+      if (appName == "Emacs") then
+         esc:disable()
+         left:disable()
+         right:disable()
+         up:disable()
+         down:disable()
+      else
+         esc:enable()
+         left:enable()
+         right:enable()
+         up:enable()
+         down:enable()
+      end
+   end
+end
+appWatcher = hs.application.watcher.new(applicationWatcher)
+appWatcher:start()
