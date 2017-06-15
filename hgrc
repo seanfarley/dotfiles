@@ -22,6 +22,8 @@ extendedheader.similarity = True
 extendedheader.index = 7
 editortmpinhg = True
 spacemovesdown = True
+obshashrange = yes
+obshashrange.warm-cache = no
 
 [format]
 usegeneraldelta = True
