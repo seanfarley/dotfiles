@@ -41,5 +41,8 @@ Host *.amazonaws.com
 Host micros
   HostName jumpbox.domain.dev.atl-inf.io
 
+Host *.fsffrance.org
+  User smf
+
 Host *
   ForwardAgent yes
