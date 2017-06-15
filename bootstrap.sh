@@ -30,7 +30,14 @@ EOF
   fi
 
   test -d "$HOME/$NEW" && rm -r "$HOME/$NEW"
-  test -L "$HOME/$NEW" || ln -s "$DIR/$1" "$HOME/$NEW"
+  # special-case authorized_keys because some systems don't like it being a
+  # symlink; but we keep it in this function so we can check the diff
+  if [[ "$NEW" != ".ssh/authorized_keys" ]]; then
+    test -L "$HOME/$NEW" || ln -s "$DIR/$1" "$HOME/$NEW"
+  else
+    cp "$DIR/$1" "$HOME/$NEW"
+    chmod 600 "$HOME/$NEW"
+  fi
 }
 
 test -d $HOME/.hg && echo "$HOME is still a repo, please check and remove" && exit 1
