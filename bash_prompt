@@ -56,16 +56,16 @@ MD5="md5"
 [[ -n "$(which md5sum 2>/dev/null)" ]] && MD5="md5sum"
 
 COLORS=(
-  $PURPLE
-  $PINK
-  $WHITE
-  $YELLOW
   $MAGENTA
   $YELLOW
   $MAGENTA
   $WHITE
   $PINK
   $PURPLE
+  $PURPLE
+  $PINK
+  $WHITE
+  $YELLOW
 )
 
 function pretty_dir () {
