@@ -44,5 +44,8 @@ Host micros
 Host *.fsffrance.org
   User smf
 
+Host *.osuosl.org
+  User smf
+
 Host *
   ForwardAgent yes
