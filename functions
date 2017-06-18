@@ -91,16 +91,20 @@ d() {
 essh() {
   # system ssh command
   local SSH=$(which ssh)
+  local SF=".emacs.d/server/server"
+  local SFILE="$HOME/.emacs.d/server/server"
+  [ -z "$DEBUG" ] || echo "[DEBUG] FILE: $SFILE"
 
   # read from emacs server file what port it is currently listening on
-  local PORT=$(egrep  -o '127.0.0.1:([0-9]*)' ~/.emacs.d/server/server | sed 's/127.0.0.1://')
+  local PORT=$(egrep  -o '127.0.0.1:([0-9]*)' "$SFILE" | sed 's/127.0.0.1://')
+  [ -z "$DEBUG" ] || echo "[DEBUG] PORT: $PORT"
 
   # -t : allocate a tty so we are there.
   # -R : the remote port forward that lets emacsclient talk back
   # $@ : any other args this script was invoked with should be passed along.
 
-  [ -z "$DEBUG" ] || printf "[DEBUG] SCP: copying $FILE"
-  scp ~/.emacs.d/server/server $@:~/.emacs.d/server/server &>/dev/null
+  [ -z "$DEBUG" ] || echo "[DEBUG] SCP: copying $SFILE to $@:$SF"
+  scp "$SFILE" "$@:$SF" &>/dev/null
 
   $SSH -t -R $PORT:127.0.0.1:$PORT $@
 }
