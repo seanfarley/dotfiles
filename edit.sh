@@ -49,7 +49,7 @@ fi
 [[ -r $SF ]] && PORT=$(egrep -o '127.0.0.1:([0-9]*)' $SF | sed 's/127.0.0.1://')
 
 # check to see if port is open; apparently, ubuntu needs the -v flag
-[[ -n $(nc -zv 127.0.0.1 $PORT 2>&1 | grep 'succeeded\|open') || $HOME == /Users/$USER ]] && ED="$EC -f $SF"
+[[ -n $(netstat -ant | grep $PORT | grep 'LISTEN') || $HOME == /Users/$USER ]] && ED="$EC -f $SF"
 
 # build the tramp filename or local filename also
 [[ $HOME != /Users/$USER ]] && FN="/$(whoami)@$HN:$FN"
