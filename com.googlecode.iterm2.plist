@@ -527,11 +527,11 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 382 620 392 0 0 1440 900 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>284 342 937 465 0 0 1440 900 </string>
+	<string>284 368 1018 447 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1440 900 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 7 1231 335 0 0 1440 900 </string>
+	<string>0 4 1274 827 0 0 1440 900 </string>
 	<key>NeverWarnAboutShortLivedSessions_C1F2222A-6D3E-44B0-8F07-9EF1257810D0</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_C1F2222A-6D3E-44B0-8F07-9EF1257810D0_selection</key>
@@ -1419,7 +1419,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-04-27T23:48:21Z</date>
+	<date>2017-06-24T20:43:40Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -1462,9 +1462,11 @@
 	<string>/-+\~_.</string>
 	<key>findIgnoreCase_iTerm</key>
 	<true/>
+	<key>findMode_iTerm</key>
+	<integer>0</integer>
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.0.15</string>
+	<string>3.1.beta.5</string>
 </dict>
 </plist>
