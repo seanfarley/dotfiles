@@ -24,6 +24,11 @@ Host bb
   HostName app-125.ash1.bb-inf.net
   ProxyCommand ssh -A -W %h:%p bb-backend
 
+Host bb-staging
+  User sfarley
+  HostName api-s01.us-west-2.bb-inf.net
+  ProxyCommand ssh -A -W %h:%p bb-backend
+
 Host smf.io
   ControlMaster auto
   ControlPersist yes
