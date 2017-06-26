@@ -1,7 +1,7 @@
 IMAPAccount mail
 Host mail.farley.io
 User sean@farley.io
-PassCmd "/usr/bin/security find-internet-password -w -a sean@farley.io -s mail.farley.io"
+PassCmd "pass email/mail.farley.io/sean@farley.io | head -n1"
 SSLType IMAPS
 SSLVersions TLSv1.2
 
