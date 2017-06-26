@@ -1833,7 +1833,7 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
 
 #+BEGIN_SRC emacs-lisp
   (use-package smtpmail-async
-    :after (notmuch async)
+    :after async
     :config
     (setq send-mail-function           'async-smtpmail-send-it
           message-send-mail-function   'async-smtpmail-send-it
