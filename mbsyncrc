@@ -4,7 +4,6 @@ User sean@farley.io
 PassCmd "/usr/bin/security find-internet-password -w -a sean@farley.io -s mail.farley.io"
 SSLType IMAPS
 SSLVersions TLSv1.2
-CertificateFile ~/.mail.crt
 
 IMAPStore mail-remote
 Account mail
