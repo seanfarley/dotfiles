@@ -1816,21 +1816,6 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
     (define-key 'notmuch-show-mode-map "J" 'smf/notmuch-show-set-pre-reviewed))
 #+END_SRC
 
-*** sendmail async
-
-#+BEGIN_SRC emacs-lisp
-  (use-package smtpmail-async
-    :after async
-    :config
-    (setq send-mail-function           'async-smtpmail-send-it
-          message-send-mail-function   'async-smtpmail-send-it
-          smtpmail-default-smtp-server "mail.farley.io"
-          smtpmail-smtp-server         "mail.farley.io"
-          smtpmail-stream-type         'starttls
-          smtpmail-smtp-service        587))
-
-#+END_SRC
-
 *** Reply with custom from address
 
 By default, I want my reply email to be the correct one. For example, if I am
@@ -1947,6 +1932,20 @@ Sign our email upon being sent.
 #+BEGIN_SRC emacs-lisp
   ;; sign messages by default
   (add-hook 'message-send-hook 'mml-secure-message-sign-pgpmime)
+#+END_SRC
+
+*** sendmail async
+
+#+BEGIN_SRC emacs-lisp
+  (use-package smtpmail-async
+    :after async
+    :config
+    (setq send-mail-function           'async-smtpmail-send-it
+          message-send-mail-function   'async-smtpmail-send-it
+          smtpmail-default-smtp-server "mail.farley.io"
+          smtpmail-smtp-server         "mail.farley.io"
+          smtpmail-stream-type         'starttls
+          smtpmail-smtp-service        587))
 #+END_SRC
 
 ** org
