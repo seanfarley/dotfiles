@@ -2686,7 +2686,7 @@ has better code for integrating with).
     :diminish company-mode
     :config
     (setq company-tooltip-limit 20
-          company-idle-delay 0
+          company-idle-delay .5
           company-echo-delay 0
           company-minimum-prefix-length 1
           company-selection-wrap-around t
