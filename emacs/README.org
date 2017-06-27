@@ -2319,13 +2319,12 @@ Manage external services from within Emacs.
     ;; imapnotify is a node app that fires a program (in our case an elisp
     ;; function) when new mail is received
     (prodigy-define-service
-      :name "OfflineIMAP"
+      :name "imapnotify"
       :command "imapnotify"
       :args '("-c" "~/.config/imapnotify.js")
       :tags '(mail node)
       :kill-signal 'sigkill
-      :kill-process-buffer-on-stop t
-      :init 'offlineimap)
+      :kill-process-buffer-on-stop t)
 
     ;; bitbucket awwwwww yeah
     (prodigy-define-tag
