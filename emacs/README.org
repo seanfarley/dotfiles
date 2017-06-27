@@ -1711,13 +1711,7 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
     :init
     (smf/add-launcher "e" 'smf/notmuch-start-or-switch)
     :config
-    (setq user-mail-address "sean@farley.io"
-          user-full-name  "Sean Farley"
-
-          notmuch-archive-tags '("-inbox" "-unread" "+archive")
-
-          ;; don't keep message buffers around
-          message-kill-buffer-on-exit t
+    (setq notmuch-archive-tags '("-inbox" "-unread" "+archive")
 
           ;; address completion via an extra package
           notmuch-address-command "notmuch-addrlookup"
@@ -1740,13 +1734,6 @@ You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
           ;; only mail-archive works for me consistently
           notmuch-show-stash-mlarchive-link-alist
           '(("Mail Archive, The" . "http://mid.mail-archive.com/")))
-
-    ;; when composing an email, turn on spellchecking and autofill
-    (add-hook 'notmuch-message-mode-hook #'auto-fill-mode)
-    (add-hook 'notmuch-message-mode-hook #'flyspell-mode)
-
-    ;; Sign messages by default.
-    (add-hook 'message-setup-hook #'mml-secure-sign-pgpmime)
 
     ;; function for launching notmuch along with prodigy service
     (defun smf/notmuch-start-or-switch ()
@@ -1928,6 +1915,38 @@ updated from within [[notmuch]] with keyboard shortcuts.
 
     (define-key notmuch-hello-mode-map "G" 'offlineimap)
     (define-key notmuch-search-mode-map "G" 'offlineimap))
+#+END_SRC
+
+** mail
+
+*** setup
+
+Here are some generic settings for having email in emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (setq user-mail-address "sean@farley.io"
+        user-full-name  "Sean Farley"
+
+        ;; don't keep message buffers around
+        message-kill-buffer-on-exit t
+
+        mm-text-html-renderer 'shr)
+#+END_SRC
+
+Some helpful minor modes for composing a message.
+
+#+BEGIN_SRC emacs-lisp
+  ;; compose minor modes
+  (add-hook 'message-mode-hook #'footnote-mode)
+  (add-hook 'message-mode-hook #'turn-on-flyspell)
+  (add-hook 'message-mode-hook #'yas-minor-mode)
+#+END_SRC
+
+Sign our email upon being sent.
+
+#+BEGIN_SRC emacs-lisp
+  ;; sign messages by default
+  (add-hook 'message-send-hook 'mml-secure-message-sign-pgpmime)
 #+END_SRC
 
 ** org
