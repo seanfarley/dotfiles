@@ -1948,6 +1948,143 @@ Sign our email upon being sent.
           smtpmail-smtp-service        587))
 #+END_SRC
 
+*** mu4e
+
+After a year hiatus of using =notmuch=, I've come back to =mu4e=. At the end of
+the day, notmuch was just not a good fit. I couldn't give up using a mobile
+email client and was tired of fighting notmuch's insistence of not moving
+messages to maildirs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package mu4e
+    :after (async prodigy)
+    :commands smf/mu4e-start-or-switch
+    :bind (:map mu4e-main-mode-map
+                ("q" . bury-buffer))
+    :init
+    (smf/add-launcher "e" 'smf/mu4e-start-or-switch)
+    :config
+    (setq mu4e-user-mail-address-list '("sean.michael.farley@gmail.com"
+                                        "sean@seanfarley.org"
+                                        "sean@mcs.anl.gov"
+                                        "sean@macports.org"
+                                        "sean@lsmsa.net"
+                                        "sean@farley.io"
+                                        "sfarley@atlassian.com"
+                                        "me@smf.io"
+                                        "sfarley@iit.edu")
+
+          ;; basic maildir locations
+          mu4e-maildir "~/.mail"
+          mu4e-attachment-dir  "~/Downloads"
+          mu4e-refile-folder "/archive"
+          mu4e-drafts-folder "/drafts"
+          mu4e-trash-folder "/trash"
+          mu4e-sent-folder "/sent"
+
+          mu4e-maildir-shortcuts '(("/inbox"     . ?i)
+                                   ("/archive"   . ?a)
+                                   ("/drafts"    . ?d)
+                                   ("/phd"       . ?p)
+                                   ("/posterity" . ?t)
+                                   ("/barryisms" . ?b)
+                                   ("/spam"      . ?s))
+
+          mu4e-bookmarks
+          '(("flag:unread AND NOT flag:trashed AND NOT maildir:/spam" "All unread" ?u)
+            ("flag:unread AND NOT flag:trashed AND NOT maildir:/spam AND NOT mercurial AND NOT macports" "Unread" ?U)
+            ("to:sean.michael.farley+self and not maildir:/phd and not maildir:/posterity" "Notes" ?n)
+            ("flag:unread macports" "Macports" ?p)
+            ("flag:unread mercurial" "Mercurial" ?m))
+
+          ;; an absolute must to sort the inbox with the date ascending.
+          mu4e-headers-sort-direction 'ascending
+
+          mu4e-get-mail-command "mbsync -a"
+
+          ;; mbsync needs messages to be renamed
+          mu4e-change-filenames-when-moving t
+
+          mu4e-completing-read-function 'ivy-completing-read
+
+          ;; didn't have luck with these
+          ;; mu4e-index-cleanup nil  ;; don't do a full cleanup check
+          ;; mu4e-index-lazy-check t ;; don't consider up-to-date dirs
+
+          ;; threading and duplicates
+          mu4e-headers-show-threads t
+          mu4e-headers-skip-duplicates t
+          mu4e-headers-include-related t
+
+          ;; show images inline by default
+          mu4e-view-show-images t)
+
+    ;; helper function to jump to message composing when pressing tab in the
+    ;; subject line
+    (defun smf/mu4e-tab-subject ()
+      (interactive)
+      ;; check if line starts with "Subject: "
+      (if (not (string-prefix-p "Subject: " (thing-at-point 'line t)))
+          ;; if it does not then call the default tab completion
+          (message-tab)
+        ;; otherwise move the point forward to the message body
+        (forward-line 2)))
+    (add-hook 'mu4e-compose-mode-hook
+              (lambda () (local-set-key (kbd "TAB") #'smf/mu4e-tab-subject)))
+
+    ;; helper method for custom from address
+    (defun smf/mu4e-set-from-address ()
+      "Set the From address based on the To address of the original."
+      (let ((msg mu4e-compose-parent-message))
+        (setq user-mail-address
+              (cond
+               ((null msg) "sean@farley.io")
+               ((mu4e-message-contact-field-matches msg :to "sean@macports.org")
+                "sean@macports.org")
+               ((mu4e-message-contact-field-matches msg :to "sean@lsmsa.net")
+                "sean@lsmsa.net")
+               ((mu4e-message-contact-field-matches msg :to "sean@farley.io")
+                "sean@farley.io")
+               ((mu4e-message-contact-field-matches msg :to "me@smf.io")
+                "me@smf.io")
+               ((or
+                 (mu4e-message-contact-field-matches msg :from "macports")
+                 (mu4e-message-contact-field-matches msg :to "macports"))
+                "sean@macports.org")
+               ((or
+                 (mu4e-message-contact-field-matches msg :from "atlassian")
+                 (mu4e-message-contact-field-matches msg :to "atlassian"))
+                "sfarley@atlassian.com")
+               (t "sean@farley.io")))))
+    (add-hook 'mu4e-compose-pre-hook 'smf/mu4e-set-from-address)
+
+    ;; function for launching mu4e along with prodigy service
+    (defun smf/mu4e-start-or-switch ()
+      "Start the imapnotify process or switch to the mu4e buffer"
+      (interactive)
+      ;; switch to the scratch buffer so cwd isn't in a project
+      (with-current-buffer (get-buffer "*scratch*")
+        (prodigy-start-service (prodigy-find-service "imapnotify"))
+        (mu4e)))
+
+    (setq mu4e-marks (assq-delete-all 'trash mu4e-marks))
+    (add-to-list 'mu4e-marks
+                 '(trash
+                   :char       "d"
+                   :prompt     "dtrash"
+                   :show-target (lambda (target) "/trash")
+                   :action      (lambda (docid msg target)
+                                  (mu4e~proc-move docid mu4e-trash-folder "+S-u-N"))))
+
+    (add-to-list 'mu4e-marks
+                 '(archive
+                   :char       "A"
+                   :prompt     "Archive"
+                   :show-target (lambda (target) "/archive")
+                   :action      (lambda (docid msg target)
+                                  (mu4e~proc-move docid mu4e-refile-folder "+S-u-N")))))
+#+END_SRC
+
 ** org
 
 **** init
