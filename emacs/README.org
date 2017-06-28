@@ -3584,6 +3584,17 @@ installed via cargo on my Mac.
     :if (executable-find "rg"))
 #+END_SRC
 
+*** rjsx-mode
+
+A JSX major mode for Emacs (for writing react code).
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rjsx-mode
+    :ensure t
+    :mode ("\\.js\\'" "\\.jsx\\'")
+    :commands rjsx-mode)
+#+END_SRC
+
 *** ruby-mode
 
 As of 24.4, Emacs comes with a much better [[http://www.masteringemacs.org/articles/2013/12/29/whats-new-in-emacs-24-4/][Ruby mode]]. However it doesn't come
