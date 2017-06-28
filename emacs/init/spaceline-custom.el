@@ -487,7 +487,7 @@ the directions of the separator."
 
  '(ati-right-1-separator
    ati-right-2-inactive-separator
-   ((ati-erc-track ati-offlineimap) :separator " · " :face default-face)
+   ((ati-erc-track ati-mu4e) :separator " · " :face default-face)
    ))
 
 (provide 'spaceline-custom)
