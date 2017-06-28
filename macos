@@ -84,7 +84,7 @@ sudo /opt/local/bin/port -vN install py27-readline \
      watchman \
      terminal-notifier \
      notmuch-addrlookup \
-     offlineimap \
+     isync \
      coreutils findutils
 
 # select the default versions
