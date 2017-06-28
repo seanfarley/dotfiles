@@ -328,28 +328,6 @@
     :when (and (boundp 'mu4e-alert-mode-line) mu4e-alert-mode-line))
 
 (spaceline-define-segment
-    ati-offlineimap "Show the status of the offlineimap process. Requires offlineimap."
-  (propertize (if (and (featurep 'offlineimap) offlineimap-mode-line-string)
-                  (let ((status (replace-regexp-in-string " \\[\\(.\\)\\]"
-                                                          "\\1 "
-                                                          offlineimap-mode-line-string))
-                        (unread (when (get-buffer "*notmuch-hello*")
-                                  (with-current-buffer "*notmuch-hello*"
-                                    (save-excursion
-                                      (goto-char (point-min))
-                                      (re-search-forward " \\([0-9]+\\) unread" nil t)
-                                      (match-string-no-properties 1))))))
-                    (if (and (string-match status "⊙ ") unread)
-                        ;; this tightly couples us to the actual value of
-                        ;; offlineimap's symbol list but oh well
-                        "⚑ "
-                      status))
-                "■ ")
-              'face `(:height 0.9 :inherit)
-              'help-echo "Email"
-              'display '(raise 0.1)))
-
-(spaceline-define-segment
     ati-erc-track "An `all-the-icons' segment for erc-track"
     (when (bound-and-true-p erc-track-mode)
       (mapcar (lambda (b)
