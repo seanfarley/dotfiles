@@ -2082,7 +2082,23 @@ messages to maildirs.
                    :prompt     "Archive"
                    :show-target (lambda (target) "/archive")
                    :action      (lambda (docid msg target)
-                                  (mu4e~proc-move docid mu4e-refile-folder "+S-u-N")))))
+                                  (mu4e~proc-move docid mu4e-refile-folder "+S-u-N"))))
+
+    (defun smf/mu4e-action-hg-import-patch (msg)
+      "Import the hg [patch] message."
+      (interactive)
+      (ivy-read "Target directory: "
+                'read-file-name-internal
+                :matcher #'smf/find-dir-matcher
+                :history 'smf/recent-patch-dirs
+                :action (lambda (d)
+                          (shell-command
+                           (format
+                            "hg --cwd %s import --obsolete --partial %s"
+                            d
+                            (mu4e-message-field msg :path))))))
+
+    (add-to-list 'mu4e-view-actions '("patch" . smf/mu4e-action-hg-import-patch) t))
 #+END_SRC
 
 ** org
