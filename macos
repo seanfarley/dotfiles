@@ -69,7 +69,7 @@ sudo /opt/local/bin/port -vN install mercurial-devel +bash_completion
 sudo /opt/local/bin/port -vN install cairo +quartz -x11
 sudo /opt/local/bin/port -vN install ImageMagick +pango -x11 +graphviz +rsvg
 sudo /opt/local/bin/port -vN install emacs-mac-app +imagemagick +rsvg
-sudo /opt/local/bin/port -vN install notmuch +emacs
+sudo /opt/local/bin/port -vN install mu4e-devel +emacs
 
 # ports that don't need variants
 sudo /opt/local/bin/port -vN install py27-readline \
@@ -83,7 +83,6 @@ sudo /opt/local/bin/port -vN install py27-readline \
      aspell-dict-en \
      watchman \
      terminal-notifier \
-     notmuch-addrlookup \
      isync \
      coreutils findutils
 
