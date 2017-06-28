@@ -2302,11 +2302,12 @@ Let's use pomodoro!
     (setq org-pomodoro-play-sounds nil))
 #+END_SRC
 
-While we're at it, let's add notmuch and twitter bootstrap integration,
+While we're at it, let's add mu4e and org-mode integration (included in the
+mu4e installation),
 
 #+BEGIN_SRC emacs-lisp
-  (use-package org-notmuch
-    :after notmuch
+  (use-package org-mu4e
+    :after mu4e
     :defer t)
 #+END_SRC
 
