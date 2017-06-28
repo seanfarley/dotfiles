@@ -2101,6 +2101,21 @@ messages to maildirs.
     (add-to-list 'mu4e-view-actions '("patch" . smf/mu4e-action-hg-import-patch) t))
 #+END_SRC
 
+*** mu4e-alert
+
+Use terminal-notifier to display unread email.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package mu4e-alert
+    :ensure t
+    :after mu4e
+    :config
+    (mu4e-alert-set-default-style 'notifier)
+    (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+    (mu4e-alert-enable-notifications)
+    (mu4e-alert-enable-mode-line-display))
+#+END_SRC
+
 ** org
 
 **** init
