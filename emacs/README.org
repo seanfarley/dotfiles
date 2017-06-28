@@ -2084,6 +2084,14 @@ messages to maildirs.
                    :action      (lambda (docid msg target)
                                   (mu4e~proc-move docid mu4e-refile-folder "+S-u-N"))))
 
+    (add-to-list 'mu4e-marks
+                 '(spam
+                   :char       "S"
+                   :prompt     "Spam"
+                   :show-target (lambda (target) "/spam")
+                   :action      (lambda (docid msg target)
+                                  (mu4e~proc-move docid "/spam" "+S-u-N"))))
+
     (defun smf/mu4e-action-hg-import-patch (msg)
       "Import the hg [patch] message."
       (interactive)
