@@ -87,6 +87,10 @@ hs.hotkey.bind({"cmd", "ctrl"}, "S", function()
       hs.application.launchOrFocus("Safari")
 end)
 
+hs.hotkey.bind({"cmd", "ctrl"}, "C", function()
+      hs.application.launchOrFocus("Google Chrome")
+end)
+
 hs.hotkey.bind({"cmd", "ctrl"}, "E", function()
       hs.application.launchOrFocus("EmacsMac")
 end)
