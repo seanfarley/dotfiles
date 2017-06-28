@@ -3081,7 +3081,7 @@ JavaScript Awesome Development Environment (in Emacs).
 #+BEGIN_SRC emacs-lisp
   (use-package indium
     :ensure t
-    :commands indium-connect-to-chrome
+    :commands (indium-connect-to-chrome indium-run-chrome)
     :config
     (setq indium-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"))
 #+END_SRC
