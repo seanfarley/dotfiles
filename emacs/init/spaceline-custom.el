@@ -319,6 +319,15 @@
     :tight t)
 
 (spaceline-define-segment
+    ati-mu4e "Show the number of unread email in mu4e. Requires mu4e-alert."
+    (propertize mu4e-alert-mode-line)
+              'face `(:height 0.9 :inherit)
+              'help-echo "Email"
+              'display '(raise 0.1)
+    :tight t
+    :when (and (boundp 'mu4e-alert-mode-line) mu4e-alert-mode-line))
+
+(spaceline-define-segment
     ati-offlineimap "Show the status of the offlineimap process. Requires offlineimap."
   (propertize (if (and (featurep 'offlineimap) offlineimap-mode-line-string)
                   (let ((status (replace-regexp-in-string " \\[\\(.\\)\\]"
