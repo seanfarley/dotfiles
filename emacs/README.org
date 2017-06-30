@@ -1809,6 +1809,9 @@ messages to maildirs.
           mu4e-headers-skip-duplicates t
           mu4e-headers-include-related t
 
+          ;; always show full email address
+          mu4e-view-show-addresses t
+
           ;; show images inline by default
           mu4e-view-show-images t)
 
