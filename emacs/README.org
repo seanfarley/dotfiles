@@ -3602,7 +3602,11 @@ A JSX major mode for Emacs (for writing react code).
   (use-package rjsx-mode
     :ensure t
     :mode ("\\.js\\'" "\\.jsx\\'")
-    :commands rjsx-mode)
+    :commands rjsx-mode
+    :config
+    ;; turn off warnings about semi-colons since javascript "programmers" are
+    ;; assholes
+    (setq-default js2-strict-missing-semi-warning nil))
 #+END_SRC
 
 *** ruby-mode
