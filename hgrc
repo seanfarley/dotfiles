@@ -223,6 +223,7 @@ changeset.obsolete = italic dim
 
 [revsetalias]
 smart = (parents(not public()) or not public() or . or (heads(all()) and not closed())) and (not obsolete() or unstable()^)
+stack = (draft() and branch(.))
 
 [alias]
 up = update -c
@@ -291,17 +292,13 @@ ll = log -T ll
 
 gll = log -G -T sl
 
-gl = gll -r 'branch(.)'
+gl = gll -r stack
 
-gl. = gll -fl 20
-
-sll = log -G -r smart -T sl
-
-sl = sll -l 20
+sl = log -G -r smart -T sl
 
 nll = log -G -T nl
 
-nl = nll -r '.%(bookmark()-. or max(public()))^'
+nl = nll -r stack
 
 # hg show .  -- show a summary of rev . with diff.
 show = log --stat --hidden -T nl -vpr
