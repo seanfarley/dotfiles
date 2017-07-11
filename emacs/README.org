@@ -1813,7 +1813,10 @@ messages to maildirs.
           mu4e-view-show-addresses t
 
           ;; show images inline by default
-          mu4e-view-show-images t)
+          mu4e-view-show-images t
+
+          ;; just apply the actions without asking
+          mu4e-headers-leave-behavior 'apply)
 
     (add-to-list 'mu4e-view-actions '("View in browser" . mu4e-action-view-in-browser) t)
 
