@@ -49,6 +49,7 @@ mkdir -p ~/.ssh
 mkdir -p ~/.config/karabiner
 mkdir -p ~/.pastebin.d
 mkdir -p ~/.hammerspoon
+mkdir -p ~/.config/pass-git-helper
 
 ensure_link "aliases"
 ensure_link "aspell.en.prepl"
@@ -86,6 +87,7 @@ ensure_link "pwclient"
 ensure_link "docker-bash"
 ensure_link "karabiner.json" ".config/karabiner/karabiner.json"
 ensure_link "hammerspoon.lua" ".hammerspoon/init.lua"
+ensure_link "git-pass-mapping.ini" ".config/pass-git-helper/git-pass-mapping.ini"
 
 if [[ ! -f emacs/init.el ]]
 then
