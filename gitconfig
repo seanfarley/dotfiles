@@ -7,6 +7,13 @@
   excludesfile = ~/.gitignore
   quotepath = false
 
+[sendemail]
+  smtpencryption = tls
+  smtpserver = mail.farley.io
+  smtpserverport = 587
+  smtpuser = sean@farley.io
+  confirm = auto
+
 [alias]
   gl = log -10 --color=always --graph --topo-order --pretty='format: %Cgreen%h%Creset %s %C(yellow)%ad%Creset %Cred%d%Creset%n' --date=short
   gll = log --color=always --graph --topo-order --pretty='format: %Cgreen%h%Creset %s %C(yellow)%ad%Creset %Cred%d%Creset %an%n' --date=short
