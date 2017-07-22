@@ -1925,7 +1925,20 @@ messages to maildirs.
                             d
                             (mu4e-message-field msg :path))))))
     (add-to-list 'mu4e-view-actions '("patch" . smf/mu4e-action-hg-import-patch) t)
-    (add-to-list 'mu4e-headers-actions '("patch" . smf/mu4e-action-hg-import-patch) t))
+    (add-to-list 'mu4e-headers-actions '("patch" . smf/mu4e-action-hg-import-patch) t)
+
+    (defun smf/disable-email ()
+      (interactive)
+      (if (get-buffer " *mu4e-main*") ;; ERC already active?
+          (prodigy-stop-service (prodigy-find-service "imapnotify")))
+      (define-key smf/launcher-map "e" nil)
+      (message "Disabled email"))
+
+    (defun smf/enable-email ()
+      (interactive)
+      (smf/add-launcher "e" 'smf/mu4e-start-or-switch)
+      (message "Enabled email"))
+    (smf/enable-email))
 #+END_SRC
 
 *** mu4e-alert
