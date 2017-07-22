@@ -2047,6 +2047,13 @@ some basic settings and personal tweaks,
   (use-package htmlize
     :after org
     :ensure t)
+
+  (use-package org-bullets
+    :after org
+    :ensure t
+    :defer t
+    :config
+    (add-hook 'org-mode-hook #'org-bullets-mode))
 #+END_SRC
 
 **** tangling
