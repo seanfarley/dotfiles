@@ -2040,13 +2040,15 @@ some basic settings and personal tweaks,
           org-capture-templates
           `(("t" "Tasks" entry
              (file+headline "~/Dropbox/org/organizer.org" "Inbox")
-             "* TODO %?\nCaptured %<%Y-%m-%d %H:%M>\n%a\n\n%i" "Basic task2 data")
-            ("i" "Interrupting task" entry
-             (file+headline "~/Dropbox/org/organizer.org" "Inbox")
-             "* STARTED %^{Task}"
-             :clock-in :clock-resume))
+             "* TODO %?\n  Captured %<%Y-%m-%d %H:%M>\n  %a\n\n  %i" "Basic task data"))
 
-          org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
+          org-todo-keywords '((sequence "TODO(t)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELED(c)"))
+
+          ;; use a bit better looking colors for todo faces
+          org-todo-keyword-faces '(("TODO" . (:foreground "OrangeRed" :weight bold))
+                                   ("SOMEDAY" . (:foreground "GoldenRod" :weight bold))
+                                   ("DONE" . (:foreground "LimeGreen" :weight bold))
+                                   ("CANCELED" . (:foreground "gray" :weight bold))))
 
     ;; shortcut to launch file for refiling
     (smf/add-launcher "o" (lambda ()
