@@ -434,6 +434,13 @@ _ve() {
 }
 complete -o nospace -F _ve ve
 
+ve_bb() {
+  cat >$VIRTUAL_ENV/pip.conf <<EOF
+[global]
+extra-index-url = https://artifactory-proxy.us-east-1.prod.atl-paas.net/bitbucket-pypi-virtual/simple
+EOF
+}
+
 bb() {
   local bdir=$PROJECTS/bitbucket-docker/bitbucket
   cd $bdir
