@@ -223,8 +223,9 @@ changeset.obsolete = italic dim
 
 [revsetalias]
 also_parents(s) = parents(s) or s
-branches_mine = branch(author(sean@farley.io))
 smart = (also_parents(not public()) or . or (heads(all()) and not closed())) and (not obsolete() or unstable()^) and not branch(closed())
+me = author(sean@farley.io) or author(sean.michael.farley@gmail.com)
+branches_mine = branch(me)
 smart_mine = smart and also_parents(branches_mine)
 stack = also_parents(branch(.) and not public())
 
