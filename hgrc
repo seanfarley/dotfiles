@@ -297,7 +297,8 @@ gll = log -G -T sl
 
 gl = gll -r stack
 
-sl = log -G -r smart -T sl
+sl = gll -r smart_mine
+sll = gll -r smart
 
 nll = log -G -T nl
 
