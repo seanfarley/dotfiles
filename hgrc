@@ -222,8 +222,9 @@ changeset.merge = dim
 changeset.obsolete = italic dim
 
 [revsetalias]
-smart = (parents(not public()) or not public() or . or (heads(all()) and not closed())) and (not obsolete() or unstable()^)
-stack = (parents(not public()) or not public()) and branch(.)
+also_parents(s) = parents(s) or s
+smart = (also_parents(not public()) or . or (heads(all()) and not closed())) and (not obsolete() or unstable()^)
+stack = also_parents(branch(.) and not public())
 
 [alias]
 up = update -c
