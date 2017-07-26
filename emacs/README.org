@@ -2004,55 +2004,55 @@ some basic settings and personal tweaks,
     ;; don't auto-fold my documents:
     (setq-default org-startup-folded nil
 
-          ;; automatically apply syntax highlighting:
-          org-src-fontify-natively t
-          org-src-tab-acts-natively t
-          org-ellipsis "⤵"
+                  ;; automatically apply syntax highlighting:
+                  org-src-fontify-natively t
+                  org-src-tab-acts-natively t
+                  org-ellipsis "⤵"
 
-          ;; and don't prompt
-          org-confirm-babel-evaluate nil
+                  ;; and don't prompt
+                  org-confirm-babel-evaluate nil
 
-          ;; when using imenu, make sure I can follow the outline to the full available
-          ;; depth
-          org-imenu-depth 6
+                  ;; when using imenu, make sure I can follow the outline to the full available
+                  ;; depth
+                  org-imenu-depth 6
 
-          ;; also, I like using shift+arrow keys to highlight, so let's set that
-          org-support-shift-select 'always
+                  ;; also, I like using shift+arrow keys to highlight, so let's set that
+                  org-support-shift-select 'always
 
-          ;; set up MobileOrg (which is sweet!)
-          org-directory "~/Dropbox/org"
+                  ;; set up MobileOrg (which is sweet!)
+                  org-directory "~/Dropbox/org"
 
-          org-default-notes-file smf/org-input
+                  org-default-notes-file smf/org-input
 
-          ;; set to the name of the file where new notes will be stored
-          org-mobile-inbox-for-pull smf/org-input
+                  ;; set to the name of the file where new notes will be stored
+                  org-mobile-inbox-for-pull smf/org-input
 
-          org-mobile-directory "~/Dropbox/Apps/MobileOrg"
+                  org-mobile-directory "~/Dropbox/Apps/MobileOrg"
 
-          ;; now, set the agenda files,
-          org-agenda-files (list "~/Dropbox/org/organizer.org"
-                                 "~/Dropbox/org/bitbucket.org"
-                                 "~/Dropbox/org/phd.org"
-                                 "~/Dropbox/org/hg.org"
-                                 "~/Dropbox/org/personal.org")
+                  ;; now, set the agenda files,
+                  org-agenda-files (list "~/Dropbox/org/organizer.org"
+                                         "~/Dropbox/org/bitbucket.org"
+                                         "~/Dropbox/org/phd.org"
+                                         "~/Dropbox/org/hg.org"
+                                         "~/Dropbox/org/personal.org")
 
-          ;; please don't close and mess up my windows,
-          org-agenda-window-setup 'current-window
-          org-agenda-restore-windows-after-quit 't
+                  ;; please don't close and mess up my windows,
+                  org-agenda-window-setup 'current-window
+                  org-agenda-restore-windows-after-quit 't
 
-          ;; add a nice, little template to use along with some shortcuts
-          org-capture-templates
-          `(("t" "Tasks" entry
-             (file+headline "~/Dropbox/org/organizer.org" "Inbox")
-             "* TODO %?\n  Captured %<%Y-%m-%d %H:%M>\n  %a\n\n  %i" "Basic task data"))
+                  ;; add a nice, little template to use along with some shortcuts
+                  org-capture-templates
+                  `(("t" "Tasks" entry
+                     (file+headline "~/Dropbox/org/organizer.org" "Inbox")
+                     "* TODO %?\n  Captured %<%Y-%m-%d %H:%M>\n  %a\n\n  %i" "Basic task data"))
 
-          org-todo-keywords '((sequence "TODO(t)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELED(c)"))
+                  org-todo-keywords '((sequence "TODO(t)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELED(c)"))
 
-          ;; use a bit better looking colors for todo faces
-          org-todo-keyword-faces '(("TODO" . (:foreground "OrangeRed" :weight bold))
-                                   ("SOMEDAY" . (:foreground "GoldenRod" :weight bold))
-                                   ("DONE" . (:foreground "LimeGreen" :weight bold))
-                                   ("CANCELED" . (:foreground "gray" :weight bold))))
+                  ;; use a bit better looking colors for todo faces
+                  org-todo-keyword-faces '(("TODO" . (:foreground "OrangeRed" :weight bold))
+                                           ("SOMEDAY" . (:foreground "GoldenRod" :weight bold))
+                                           ("DONE" . (:foreground "LimeGreen" :weight bold))
+                                           ("CANCELED" . (:foreground "gray" :weight bold))))
 
     ;; shortcut to launch file for refiling
     (smf/add-launcher "o" (lambda ()
