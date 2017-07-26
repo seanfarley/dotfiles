@@ -227,8 +227,8 @@ smart = (also_parents(not public()) or . or (heads(all()) and not closed())) and
 me = author(sean@farley.io) or author(sean.michael.farley@gmail.com)
 fast_subset(s) = not public() and s
 fast_branch(s) = branch(fast_subset(s))
-stack = also_parents(branch(.) and not public())
 smart_mine = smart and also_parents(fast_branch(me))
+stack = also_parents(fast_subset(branch(.)))
 
 [alias]
 up = update -c
