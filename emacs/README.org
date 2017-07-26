@@ -2079,6 +2079,35 @@ some basic settings and personal tweaks,
     :defer t
     :config
     (add-hook 'org-mode-hook #'org-bullets-mode))
+
+  (use-package tiny-menu
+    :after org
+    :ensure t
+    :defer t
+    :config
+    (add-hook 'org-mode-hook
+              (lambda ()
+                (define-key org-mode-map "\C-c\C-t" (tiny-menu-run-item "org-tasks"))
+                (define-key org-agenda-mode-map "\C-c\C-t" (tiny-menu-run-item "org-agenda-tasks"))
+
+                ))
+
+    (defun smf/org-task-change ()
+      (interactive)
+      (tiny-menu-run-item "org-tasks"))
+
+    (setq tiny-menu-items
+          '(("org-tasks" ("Org Tasks"
+                          ((?t "TODO"    (lambda () (interactive) (org-todo "TODO")))
+                           (?s "SOMEDAY" (lambda () (interactive) (org-todo "SOMEDAY")))
+                           (?d "DONE"    (lambda () (interactive) (org-todo "DONE")))
+                           (?c "CANCELED"    (lambda () (interactive) (org-todo "CANCELED"))))))
+            ("org-agenda-tasks" ("Org Agenda Tasks"
+                          ((?t "TODO"    (lambda () (interactive) (org-agenda-todo "TODO")))
+                           (?s "SOMEDAY" (lambda () (interactive) (org-agenda-todo "SOMEDAY")))
+                           (?d "DONE"    (lambda () (interactive) (org-agenda-todo "DONE")))
+                           (?c "CANCELED"    (lambda () (interactive) (org-agenda-todo "CANCELED"))))))
+            )))
 #+END_SRC
 
 **** tangling
