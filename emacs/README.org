@@ -1975,7 +1975,6 @@ some basic settings and personal tweaks,
            ;; smf/launcher) since they are so common
            ("C-c l" . org-store-link)
            ("C-c a" . org-agenda)
-           ("C-c c" . org-capture)
 
            :map org-mode-map
            ;; I use meta-arrow keys for navigation so let's stop org from
@@ -1998,6 +1997,9 @@ some basic settings and personal tweaks,
            ;; let's make it do the same thing as =C-c '=
            ("s-s" . org-edit-src-exit))
     :config
+    (define-key global-map "\C-cc"
+      (lambda () (interactive) (org-capture nil "t")))
+
     ;; set the file for capturing todos
     (defvar smf/org-input "~/Dropbox/org/organizer.org")
 
