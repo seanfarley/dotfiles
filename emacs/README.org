@@ -2201,7 +2201,9 @@ capture notes to Emacs,
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-protocol
-    :commands (org-protocol-capture org-protocol-create))
+    :commands (org-protocol-capture org-protocol-create)
+    :config
+    (setq org-protocol-default-template-key "t"))
 #+END_SRC
 
 **** misc org
