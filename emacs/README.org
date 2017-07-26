@@ -1987,6 +1987,10 @@ some basic settings and personal tweaks,
            ;; add that keybinding,
            ("C-c C-'" . org-edit-special)
 
+           ;; same as python
+           ("C-c <" . org-shiftmetaleft)
+           ("C-c >" . org-shiftmetaright)
+
            :map org-src-mode-map
            ("C-c C-'" . org-edit-src-exit)
            ;; I find it infuriating that my muscle memory =⌘+s= in
