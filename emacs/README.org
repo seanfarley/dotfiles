@@ -2001,7 +2001,7 @@ some basic settings and personal tweaks,
       (lambda () (interactive) (org-capture nil "t")))
 
     ;; set the file for capturing todos
-    (defvar smf/org-input "~/Dropbox/org/organizer.org")
+    (defvar smf/org-input "~/Dropbox/org/inbox.org")
 
     ;; don't auto-fold my documents:
     (setq-default org-startup-folded nil
