@@ -226,6 +226,8 @@ also_parents(s) = parents(s) or s
 smart = (also_parents(not public()) or . or (heads(all()) and not closed())) and (not obsolete() or unstable()^) and not branch(closed())
 me = author(sean@farley.io) or author(sean.michael.farley@gmail.com)
 branches_mine = branch(me)
+fast_subset(s) = not public() and s
+fast_branch(s) = branch(fast_subset(s))
 smart_mine = smart and also_parents(branches_mine)
 stack = also_parents(branch(.) and not public())
 
