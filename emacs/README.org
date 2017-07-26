@@ -2032,11 +2032,10 @@ some basic settings and personal tweaks,
                   org-mobile-directory "~/Dropbox/Apps/MobileOrg"
 
                   ;; now, set the agenda files,
-                  org-agenda-files (list "~/Dropbox/org/organizer.org"
-                                         "~/Dropbox/org/bitbucket.org"
-                                         "~/Dropbox/org/phd.org"
-                                         "~/Dropbox/org/hg.org"
-                                         "~/Dropbox/org/personal.org")
+                  org-agenda-files '("~/Dropbox/org/bitbucket.org"
+                                     "~/Dropbox/org/phd.org"
+                                     "~/Dropbox/org/hg.org"
+                                     "~/Dropbox/org/personal.org")
 
                   ;; also search archive files
                   org-agenda-text-search-extra-files '(agenda-archives)
