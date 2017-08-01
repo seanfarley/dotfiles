@@ -2550,6 +2550,18 @@ seems like it would have been really helpful in the past.
     :defer t)
 #+END_SRC
 
+*** color identifier mode
+
+Color Identifiers is a minor mode for Emacs that highlights each source code
+identifier uniquely based on its name.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package color-identifiers-mode
+    :ensure t
+    :config
+    (add-hook 'after-init-hook 'global-color-identifiers-mode))
+#+END_SRC
+
 *** colorize compile buffer
 
 Some compiler output has ansi color, so let's escape that,
