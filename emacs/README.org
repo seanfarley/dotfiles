@@ -2672,7 +2672,6 @@ custom functionality I had lying around.
            ("C-c w" . crux-swap-windows)
            ("C-c D" . crux-delete-file-and-buffer)
            ("C-c r" . crux-rename-buffer-and-file)
-           ("C-c t" . crux-visit-term-buffer)
            ("C-c k" . crux-kill-other-buffers)
            ("C-c TAB" . crux-indent-rigidly-and-copy-to-clipboard)
            ("C-c I" . crux-find-user-init-file)
