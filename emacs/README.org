@@ -2035,7 +2035,8 @@ some basic settings and personal tweaks,
                   org-agenda-files '("~/Dropbox/org/bitbucket.org"
                                      "~/Dropbox/org/phd.org"
                                      "~/Dropbox/org/hg.org"
-                                     "~/Dropbox/org/personal.org")
+                                     "~/Dropbox/org/personal.org"
+                                     "~/Dropbox/org/macports.org")
 
                   ;; also search archive files
                   org-agenda-text-search-extra-files '(agenda-archives)
