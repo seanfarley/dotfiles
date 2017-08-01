@@ -321,10 +321,9 @@
 
 (spaceline-define-segment
     ati-mu4e "Show the number of unread email in mu4e. Requires mu4e-alert."
-    (propertize mu4e-alert-mode-line)
+    (propertize mu4e-alert-mode-line
               'face `(:height 0.9 :inherit)
-              'help-echo "Email"
-              'display '(raise 0.1)
+              'help-echo "Email")
     :tight t
     :when (and (boundp 'mu4e-alert-mode-line) mu4e-alert-mode-line))
 
