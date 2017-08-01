@@ -446,6 +446,8 @@ the directions of the separator."
 (define-separator "left-3" "right" 'spaceline-highlight-face 'mode-line)
 (define-separator "left-4" "right" 'mode-line 'powerline-active2)
 
+(define-separator "right-0" "right" 'mode-line 'spaceline-highlight-face)
+
 (define-separator "right-1" "right" 'powerline-active2 'powerline-active1)
 (define-separator "right-2" "left" 'powerline-active1 'mode-line)
 
@@ -463,9 +465,9 @@ the directions of the separator."
    ((ati-vc-icon ati-git-stats ati-flycheck-status ati-flycheck-info purpose) :separator " · " :face other-face)
    ati-left-4-separator)
 
- '(ati-right-1-separator
+ '(ati-right-0-separator
    ati-right-2-inactive-separator
-   ((ati-erc-track ati-mu4e) :separator " · " :face default-face)
+   ((ati-erc-track ati-mu4e) :separator " · " :face highlight-face)
    ))
 
 (provide 'spaceline-custom)
