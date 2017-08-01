@@ -25,6 +25,7 @@
 (require 'spaceline)
 (require 'spaceline-config)
 (require 'all-the-icons)
+(require 'org)
 
 ;;---------------;;
 ;; First Segment ;;
@@ -345,6 +346,25 @@
                  'help-echo "ERC"))
               erc-modified-channels-alist)))
 
+(defun spaceline--tasks-inbox ()
+  "Return the number of todo items from the `org-default-notes-file'."
+  (with-current-buffer (find-file-noselect org-default-notes-file)
+    (let ((inboxtree (org-element-parse-buffer 'headline))
+          (inboxcount 0))
+      (org-element-map inboxtree 'headline
+        (lambda (hl)
+          (when (not (string= (org-element-property :title hl) "Inbox"))
+            (incf inboxcount))))
+      (format "%d " inboxcount))))
+
+(spaceline-define-segment
+    ati-org-inbox "Show the number of todos in org-default-notes-file."
+    (propertize (spaceline--tasks-inbox)
+              'face `( :inherit)
+              'help-echo "inbox.org")
+    :tight t
+    :when (not (string= (spaceline--tasks-inbox) "0 ")))
+
 (spaceline-define-segment
     ati-hud "Display position through buffer as an XPM image"
     (let ((color1 (face-foreground default-face))
@@ -468,6 +488,8 @@ the directions of the separator."
  '(ati-right-0-separator
    ati-right-2-inactive-separator
    ((ati-erc-track ati-mu4e) :separator " · " :face highlight-face)
+   ati-left-1-separator
+   ((ati-org-inbox))
    ))
 
 (provide 'spaceline-custom)
