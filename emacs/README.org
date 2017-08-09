@@ -2199,7 +2199,8 @@ Let's use pomodoro!
     :ensure t
     :commands org-pomodoro
     :config
-    (setq org-pomodoro-play-sounds nil))
+    (setq-default org-pomodoro-play-sounds nil
+                  org-pomodoro-format "%s"))
 #+END_SRC
 
 While we're at it, let's add mu4e and org-mode integration (included in the
