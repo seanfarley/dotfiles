@@ -2197,7 +2197,10 @@ Let's use pomodoro!
 #+BEGIN_SRC emacs-lisp
   (use-package org-pomodoro
     :ensure t
+    :after org
     :commands org-pomodoro
+    :bind (:map org-agenda-mode-map
+                ("I" . org-pomodoro))
     :config
     (setq-default org-pomodoro-play-sounds nil
                   org-pomodoro-format "%s"))
