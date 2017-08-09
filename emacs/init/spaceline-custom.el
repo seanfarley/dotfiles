@@ -484,7 +484,8 @@ the directions of the separator."
    ((ati-vc-icon ati-git-stats ati-flycheck-status ati-flycheck-info purpose) :separator " · " :face other-face)
    ati-left-4-separator)
 
- '(ati-right-0-separator
+ '(((org-pomodoro) :face other-face)
+   ati-right-0-separator
    ati-right-2-inactive-separator
    ((ati-erc-track ati-mu4e) :separator " · " :face highlight-face)
    ati-left-1-separator
