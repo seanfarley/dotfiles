@@ -457,6 +457,7 @@ the directions of the separator."
 (defvar spaceline-separator-type "slant")
 
 (define-separator "left-inactive" "right" 'powerline-inactive1 'powerline-inactive2 t)
+(define-separator "right-inactive" "right" 'powerline-inactive2 'powerline-inactive1 t)
 (define-separator "right-1-inactive" "left" 'powerline-inactive2 'mode-line-inactive t)
 (define-separator "right-2-inactive" "right" 'powerline-inactive2 'mode-line-inactive t)
 
@@ -484,9 +485,9 @@ the directions of the separator."
    ((ati-vc-icon ati-git-stats ati-flycheck-status ati-flycheck-info purpose) :separator " · " :face other-face)
    ati-left-4-separator)
 
- '(((org-pomodoro) :face other-face)
+ '(ati-right-inactive-separator
+   ((org-pomodoro) :face default-face :skip-alternate t)
    ati-right-0-separator
-   ati-right-2-inactive-separator
    ((ati-erc-track ati-mu4e) :separator " · " :face highlight-face)
    ati-left-1-separator
    ((ati-org-inbox))
