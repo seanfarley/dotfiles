@@ -2096,6 +2096,24 @@ some basic settings and personal tweaks,
                   org-return-follows-link t
                   org-confirm-babel-evaluate nil)
 
+    ;; auto save all org files after doing a common action
+    (advice-add 'org-agenda-quit      :before #'org-save-all-org-buffers)
+    ;; (advice-add 'org-agenda-schedule  :after #'org-save-all-org-buffers)
+    (advice-add 'org-agenda-todo      :after #'org-save-all-org-buffers)
+    (advice-add 'org-agenda-refile    :after #'org-save-all-org-buffers)
+    (advice-add 'org-agenda-clock-in  :after #'org-save-all-org-buffers)
+    ;; (advice-add 'org-agenda-clock-out :after #'org-save-all-org-buffers)
+
+    ;; (advice-add 'org-deadline         :after #'org-save-all-org-buffers)
+    ;; (advice-add 'org-schedule         :after #'org-save-all-org-buffers)
+    ;; (advice-remove 'org-schedule  #'org-save-all-org-buffers)
+
+    (advice-add 'org-todo             :after #'org-save-all-org-buffers)
+    (advice-add 'org-refile           :after #'org-save-all-org-buffers)
+    (advice-add 'org-clock-in         :after #'org-save-all-org-buffers)
+    ;; (advice-add 'org-clock-out        :after #'org-save-all-org-buffers)
+    (advice-add 'org-store-log-note   :after #'org-save-all-org-buffers)
+
     ;; shortcut to launch file for refiling
     (smf/add-launcher "o" (lambda ()
                             (interactive)
