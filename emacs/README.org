@@ -3331,6 +3331,7 @@ Magit interfaces for GitHub.
 #+BEGIN_SRC emacs-lisp
   (use-package magithub
     :after magit
+    :disabled
     :ensure t
     :config (magithub-feature-autoinject t))
 #+END_SRC
