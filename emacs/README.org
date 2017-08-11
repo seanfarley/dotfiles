@@ -2205,6 +2205,7 @@ Let's use pomodoro!
     (setq-default org-pomodoro-play-sounds nil
                   org-pomodoro-format "%s"
                   org-pomodoro-short-break-format "%s"
+                  org-pomodoro-long-break-format "%s"
                   org-pomodoro-keep-killed-pomodoro-time t))
 #+END_SRC
 
