@@ -2204,7 +2204,8 @@ Let's use pomodoro!
     :config
     (setq-default org-pomodoro-play-sounds nil
                   org-pomodoro-format "%s"
-                  org-pomodoro-short-break-format "%s"))
+                  org-pomodoro-short-break-format "%s"
+                  org-pomodoro-keep-killed-pomodoro-time t))
 #+END_SRC
 
 While we're at it, let's add mu4e and org-mode integration (included in the
