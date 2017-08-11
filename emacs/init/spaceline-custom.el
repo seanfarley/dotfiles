@@ -488,7 +488,7 @@ the directions of the separator."
  '(ati-right-inactive-separator
    ((org-pomodoro) :face default-face :skip-alternate t)
    ati-right-0-separator
-   ((ati-erc-track ati-mu4e) :separator " · " :face highlight-face)
+   ((ati-erc-track ati-mu4e) :separator " · " :face highlight-face :tight t)
    ati-left-1-separator
    ((ati-org-inbox))
    ))
