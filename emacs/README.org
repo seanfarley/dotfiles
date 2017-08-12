@@ -2057,7 +2057,19 @@ some basic settings and personal tweaks,
                                           'todo '("SOMEDAY" "DONE" "CANCELED"))
                                          (org-agenda-skip-subtree-if
                                           'scheduled 'deadline)))
-                                   (org-agenda-overriding-header "ALL normal priority tasks:"))))))
+                                   (org-agenda-overriding-header "ALL normal priority tasks:")))))
+
+                    ("r" "done or canceled items for reporting"
+                     ((agenda ""
+                              ((org-agenda-files '("~/Dropbox/org/bitbucket.org"
+                                                   "~/Dropbox/org/bitbucket.org_archive"
+                                                   "~/Dropbox/org/hg.org"
+                                                   "~/Dropbox/org/hg.org_archive"
+                                                   "~/Dropbox/org/macports.org"
+                                                   "~/Dropbox/org/macports.org_archive"))
+                               (org-agenda-skip-function
+                                '(org-agenda-skip-subtree-if 'todo
+                                                             '("TODO" "SOMEDAY"))))))))
 
                   org-refile-targets
                   '((nil :maxlevel . 2)   ; top level headlines in current buffer
