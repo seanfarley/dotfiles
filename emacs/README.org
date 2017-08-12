@@ -2236,6 +2236,17 @@ mu4e installation),
     :defer t)
 #+END_SRC
 
+To promote using a process journal for logging notes and, more importantly, a
+closing note, I needed to write a view for the org-agenda mode that displayed
+notes (just like 'l' for log mode).
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-logbook
+    :after org
+    :demand
+    :load-path "init")
+#+END_SRC
+
 ** prodigy
 
 Manage external services from within Emacs.
