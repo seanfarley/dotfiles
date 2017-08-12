@@ -3222,6 +3222,18 @@ More friendly interface for ivy.
     (setq ivy-rich-abbreviate-paths t))
 #+END_SRC
 
+*** jump-tree
+
+[[https://github.com/yangwen0228/jump-tree][jump-tree]] is an undo-tree like jumping implementation, so that we can jump back
+and forth in a tree way like undo-tree.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package jump-tree
+    :ensure t
+    :config
+    (global-jump-tree-mode 1))
+#+END_SRC
+
 *** js2-mode
 
 Improved JavaScript editing mode for GNU Emacs.
