@@ -115,6 +115,7 @@
     (message "Logbook mode is %s"
              (if org-agenda-logbook-mode "on" "off"))))
 
+(org-defkey org-agenda-mode-map "L" 'org-agenda-logbook-mode)
 (provide 'org-logbook)
 
 ;;; org-logbook.el ends here
