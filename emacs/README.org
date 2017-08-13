@@ -2049,6 +2049,15 @@ some basic settings and personal tweaks,
                   org-agenda-persistent-filter t
                   org-agenda-sticky t
 
+                  org-agenda-category-icon-alist
+                  `(("bitbucket" ,(list (all-the-icons-faicon "bitbucket")) nil nil :ascent center)
+                    ("hg" ,(list (propertize (all-the-icons-faicon "mercury")
+                                             'face `(:family ,(all-the-icons-faicon-family) :height 1.3)
+                                             )) nil nil :height (16) :width (16) :ascent center)
+                    ("macports" ,(list (all-the-icons-faicon "apple")) nil nil :ascent center)
+                    ("personal" ,(list (all-the-icons-faicon "user")) nil nil :ascent center)
+                    ("phd" ,(list (all-the-icons-faicon "superscript")) nil nil :ascent center))
+
                   org-agenda-custom-commands
                   '(("c" "Simple agenda view"
                      ((agenda "")
