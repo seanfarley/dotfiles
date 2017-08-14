@@ -2278,7 +2278,7 @@ Manage external services from within Emacs.
     :ensure t
     :init
     (smf/add-launcher "d" 'prodigy)
-    :commands (prodigy-start-service prodigy-find-service)
+    :commands (prodigy prodigy-start-service prodigy-find-service)
     :config
     ;; start by defining a simple service to run the Mercurial website
     (prodigy-define-service
