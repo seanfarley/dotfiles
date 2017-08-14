@@ -1489,14 +1489,14 @@ method so that takes care of most potential name conflicts.
       (set-buffer buffer)
       (smf/user-keys erc-channel-users)))
 
-  (setq-default channels '("&bitlbee" "#mercurial" "#bitbucket" "#rw_grim"))
+  (defvar smf/channels '("&bitlbee" "#mercurial" "#bitbucket" "#rw_grim"))
 
   (defun smf/erc-chat (nick)
     "Start a query with nick"
     (interactive
      (let ((users))
        (list (completing-read "Nick: "
-                              (dolist (c channels users)
+                              (dolist (c smf/channels users)
                                 (setq users
                                       (delete-dups
                                        (append users
@@ -1505,8 +1505,8 @@ method so that takes care of most potential name conflicts.
     (let ((i 0)
           (done))
       (while (and (not done)
-                  (<= i (length channels)))
-        (let ((c (elt channels i)))
+                  (<= i (length smf/channels)))
+        (let ((c (elt smf/channels i)))
           (when (member nick (smf/buffer-users c))
             (setq done t)
             (set-buffer c)
