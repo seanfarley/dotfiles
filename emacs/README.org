@@ -942,7 +942,8 @@ On the Yosemite beta, =ns-use-native-fullscreen= is =nil=.
 Start emacs in fullscreen,
 
 #+BEGIN_SRC emacs-lisp
-  (smf/toggle-fullscreen)
+  (when (fboundp 'toggle-frame-fullscreen)
+    (smf/toggle-fullscreen))
 #+END_SRC
 
 *** OS X keybindings
