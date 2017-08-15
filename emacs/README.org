@@ -4260,6 +4260,7 @@ disable chat and email,
     (interactive)
     (smf/dnd-notification-center t))
 
+  ;; by default enable chat and email
   (smf/enable-chat)
   (smf/enable-email)
 #+END_SRC
