@@ -4246,6 +4246,16 @@ disable chat and email,
     %s
     fi" plcmd gstr oscmd))))))
 
+  (defun smf/disable-notifications ()
+    "Disable desktop notifications."
+    (interactive)
+    (smf/do-not-disturb))
+
+  (defun smf/enable-notifications ()
+    "Enables desktop notifications."
+    (interactive)
+    (smf/do-not-disturb t))
+
   (smf/enable-chat)
   (smf/enable-email)
 #+END_SRC
