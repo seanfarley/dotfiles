@@ -4260,6 +4260,20 @@ disable chat and email,
     (interactive)
     (smf/dnd-notification-center t))
 
+  (defun smf/do-not-disturb ()
+    "Disable chat, email, and desktop notifications."
+    (interactive)
+    (smf/disable-chat)
+    (smf/disable-email)
+    (smf/disable-notifications))
+
+  (defun smf/socialize ()
+    "Enable chat, email, and desktop notifications."
+    (interactive)
+    (smf/enable-notifications)
+    (smf/enable-email)
+    (smf/enable-chat))
+
   ;; by default enable chat and email
   (smf/enable-chat)
   (smf/enable-email)
