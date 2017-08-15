@@ -4125,7 +4125,7 @@ It's very convenient to select the whole line when no region is active.
     :ensure t
     :diminish whole-line-or-region-mode
     :config
-    (whole-line-or-region-mode))
+    (whole-line-or-region-global-mode))
 #+END_SRC
 
 *** writeroom
