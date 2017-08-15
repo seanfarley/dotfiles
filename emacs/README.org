@@ -4227,7 +4227,7 @@ disable chat and email,
     (smf/add-launcher "e" 'smf/mu4e-start-or-switch)
     (message "Enabled email"))
 
-  (defun smf/do-not-disturb (&optional disable)
+  (defun smf/dnd-notification-center (&optional disable)
     "Toggle the Do Not Disturb button in MacOS Notification Center.
 
     If DISABLE is non-nil then this disables Do Not Disturb (thereby
@@ -4253,12 +4253,12 @@ disable chat and email,
   (defun smf/disable-notifications ()
     "Disable desktop notifications."
     (interactive)
-    (smf/do-not-disturb))
+    (smf/dnd-notification-center))
 
   (defun smf/enable-notifications ()
     "Enables desktop notifications."
     (interactive)
-    (smf/do-not-disturb t))
+    (smf/dnd-notification-center t))
 
   (smf/enable-chat)
   (smf/enable-email)
