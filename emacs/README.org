@@ -4141,31 +4141,6 @@ Writeroom-mode: distraction-free writing for Emacs.
     (setq writeroom-restore-window-config t
           writeroom-width 100)
 
-    ;; helper method to turn on "Do Not Disturb" mode in macos
-    (defun smf/do-not-distrub (&optional disable)
-      "Toggles the Do Not Disturb button in MacOS Notification
-      Center.
-
-  If DISABLE is non-nil then this disables Do Not Disturb (thereby
-  re-enabling notifications)"
-      (interactive "P")
-      (let ((gstr (if disable "true" "false"))
-            (plcmd "plutil -convert xml1 -o - ~/Library/Preferences/ByHost/com.apple.notificationcenterui.*.plist")
-            (oscmd "
-  osascript -e 'tell application \"System Events\" to tell process \"SystemUIServer\"
-    key down option
-    click menu bar item 1 of menu bar 1
-    key up option
-  end tell'"))
-        (start-process-shell-command
-         "do-not-disturb"
-         nil
-         (concat "/bin/bash -c "
-                 (shell-quote-argument
-                  (format "if [[ $(%s | grep %s) ]]; then
-  %s
-  fi" plcmd gstr oscmd))))))
-
     ;; turn off chat when entering writeroom
     (advice-add 'writeroom--enable :before #'smf/disable-chat)
     (advice-add 'writeroom--disable :before #'smf/enable-chat)
@@ -4247,6 +4222,29 @@ disable chat and email,
     (interactive)
     (smf/add-launcher "e" 'smf/mu4e-start-or-switch)
     (message "Enabled email"))
+
+  (defun smf/do-not-distrub (&optional disable)
+    "Toggles the Do Not Disturb button in MacOS Notification Center.
+
+    If DISABLE is non-nil then this disables Do Not Disturb (thereby
+    re-enabling notifications)"
+    (interactive "P")
+    (let ((gstr (if disable "true" "false"))
+          (plcmd "plutil -convert xml1 -o - ~/Library/Preferences/ByHost/com.apple.notificationcenterui.*.plist")
+          (oscmd "
+    osascript -e 'tell application \"System Events\" to tell process \"SystemUIServer\"
+      key down option
+      click menu bar item 1 of menu bar 1
+      key up option
+    end tell'"))
+      (start-process-shell-command
+       "do-not-disturb"
+       nil
+       (concat "/bin/bash -c "
+               (shell-quote-argument
+                (format "if [[ $(%s | grep %s) ]]; then
+    %s
+    fi" plcmd gstr oscmd))))))
 
   (smf/enable-chat)
   (smf/enable-email)
