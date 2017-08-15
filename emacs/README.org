@@ -4198,6 +4198,7 @@ disable chat and email,
 
 #+BEGIN_SRC emacs-lisp
   (defun smf/disable-chat ()
+    "Disable znc/erc chat."
     (interactive)
     (if (get-buffer "*irc-freenode*") ;; ERC already active?
         (znc-all t))
@@ -4206,12 +4207,14 @@ disable chat and email,
     (message "Disabled ERC/ZNC"))
 
   (defun smf/enable-chat ()
+    "Enable znc/erc chat."
     (interactive)
     (define-key smf/launcher-map "b" 'smf/bitbucket)
     (define-key smf/launcher-map "m" 'smf/mercurial)
     (message "Enabled ERC/ZNC"))
 
   (defun smf/disable-email ()
+    "Disable mail fetching."
     (interactive)
     (if (get-buffer " *mu4e-main*") ;; mu4e already active?
         (prodigy-stop-service (prodigy-find-service "imapnotify")))
@@ -4219,12 +4222,13 @@ disable chat and email,
     (message "Disabled email"))
 
   (defun smf/enable-email ()
+    "Enable mail fetching."
     (interactive)
     (smf/add-launcher "e" 'smf/mu4e-start-or-switch)
     (message "Enabled email"))
 
   (defun smf/do-not-disturb (&optional disable)
-    "Toggles the Do Not Disturb button in MacOS Notification Center.
+    "Toggle the Do Not Disturb button in MacOS Notification Center.
 
     If DISABLE is non-nil then this disables Do Not Disturb (thereby
     re-enabling notifications)"
