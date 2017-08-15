@@ -2203,22 +2203,7 @@ after changes.
   (add-hook 'after-save-hook #'smf/tangle-if-init)
 #+END_SRC
 
-**** org-journal
-
-A great plugin for =org-mode= is =org-journal= to take daily and weekly notes.
-I was inspired by [[http://pages.sachachua.com/.emacs.d/Sacha.html#org5b9f9d2][Sacha Chau's setup]] (and her [[http://sachachua.com][great website]]) to also revamp my
-workflow to use =org-mode= even more better.
-
-So, we'll start with some basic settings,
-
-#+BEGIN_SRC emacs-lisp
-  (use-package org-journal
-    :after org
-    :ensure t
-    :defer t
-    :config
-    (setq-default org-journal-dir "~/Dropbox/journal"))
-#+END_SRC
+**** org-protocol
 
 The org-protocol plugin is sweet awesomeness. It allows native apps to send
 capture notes to Emacs,
