@@ -2116,6 +2116,11 @@ some basic settings and personal tweaks,
                   org-log-into-drawer t
                   org-log-state-notes-insert-after-drawers nil
 
+                  ;; also log when items are rescheduled and refiled
+                  org-log-reschedule 'time
+                  org-log-refile     'time
+
+
                   ;; try to minimize blank lines
                   org-cycle-separator-lines 0
                   org-blank-before-new-entry '((heading)
