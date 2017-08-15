@@ -4146,8 +4146,8 @@ Writeroom-mode: distraction-free writing for Emacs.
     (advice-add 'writeroom--disable :before #'smf/enable-chat)
 
     ;; turn off notifications when entering writeroom
-    (advice-add 'writeroom--enable :before #'smf/do-not-disturb)
-    (advice-add 'writeroom--disable :before (lambda () (smf/do-not-disturb t))))
+    (advice-add 'writeroom--enable :before #'smf/disable-notifications)
+    (advice-add 'writeroom--disable :before #'smf/enable-notificaations))
 #+END_SRC
 
 *** yaml-mode
