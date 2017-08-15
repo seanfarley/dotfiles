@@ -4146,8 +4146,8 @@ Writeroom-mode: distraction-free writing for Emacs.
     (advice-add 'writeroom--disable :before #'smf/enable-chat)
 
     ;; turn off notifications when entering writeroom
-    (advice-add 'writeroom--enable :before #'smf/do-not-distrub)
-    (advice-add 'writeroom--disable :before (lambda () (smf/do-not-distrub t))))
+    (advice-add 'writeroom--enable :before #'smf/do-not-disturb)
+    (advice-add 'writeroom--disable :before (lambda () (smf/do-not-disturb t))))
 #+END_SRC
 
 *** yaml-mode
@@ -4223,7 +4223,7 @@ disable chat and email,
     (smf/add-launcher "e" 'smf/mu4e-start-or-switch)
     (message "Enabled email"))
 
-  (defun smf/do-not-distrub (&optional disable)
+  (defun smf/do-not-disturb (&optional disable)
     "Toggles the Do Not Disturb button in MacOS Notification Center.
 
     If DISABLE is non-nil then this disables Do Not Disturb (thereby
