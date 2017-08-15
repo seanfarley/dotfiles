@@ -1450,21 +1450,6 @@ switch to the buffer.
   (defun smf/mercurial ()
     (interactive)
     (smf/erc-start-or-switch "#mercurial"))
-
-  (defun smf/disable-chat ()
-    (interactive)
-    (if (get-buffer "*irc-freenode*") ;; ERC already active?
-        (znc-all t))
-    (define-key smf/launcher-map "b" nil)
-    (define-key smf/launcher-map "m" nil)
-    (message "Disabled ERC/ZNC"))
-
-  (defun smf/enable-chat ()
-    (interactive)
-    (define-key smf/launcher-map "b" 'smf/bitbucket)
-    (define-key smf/launcher-map "m" 'smf/mercurial)
-    (message "Enabled ERC/ZNC"))
-  (smf/enable-chat)
 #+END_SRC
 
 *** Query any user
@@ -1926,20 +1911,7 @@ messages to maildirs.
                             d
                             (mu4e-message-field msg :path))))))
     (add-to-list 'mu4e-view-actions '("patch" . smf/mu4e-action-hg-import-patch) t)
-    (add-to-list 'mu4e-headers-actions '("patch" . smf/mu4e-action-hg-import-patch) t)
-
-    (defun smf/disable-email ()
-      (interactive)
-      (if (get-buffer " *mu4e-main*") ;; ERC already active?
-          (prodigy-stop-service (prodigy-find-service "imapnotify")))
-      (define-key smf/launcher-map "e" nil)
-      (message "Disabled email"))
-
-    (defun smf/enable-email ()
-      (interactive)
-      (smf/add-launcher "e" 'smf/mu4e-start-or-switch)
-      (message "Enabled email"))
-    (smf/enable-email))
+    (add-to-list 'mu4e-headers-actions '("patch" . smf/mu4e-action-hg-import-patch) t))
 #+END_SRC
 
 *** mu4e-alert
@@ -4242,6 +4214,42 @@ ztree-dir is a simple text-mode directory tree for Emacs.
     :commands (ztree-dir ztree-diff)
     :config
     (setq ztree-dir-move-focus t))
+#+END_SRC
+
+** Do Not Disturb
+
+Sometimes chats and emails are too distracting. Here we define methods to
+disable chat and email,
+
+#+BEGIN_SRC emacs-lisp
+  (defun smf/disable-chat ()
+    (interactive)
+    (if (get-buffer "*irc-freenode*") ;; ERC already active?
+        (znc-all t))
+    (define-key smf/launcher-map "b" nil)
+    (define-key smf/launcher-map "m" nil)
+    (message "Disabled ERC/ZNC"))
+
+  (defun smf/enable-chat ()
+    (interactive)
+    (define-key smf/launcher-map "b" 'smf/bitbucket)
+    (define-key smf/launcher-map "m" 'smf/mercurial)
+    (message "Enabled ERC/ZNC"))
+
+  (defun smf/disable-email ()
+    (interactive)
+    (if (get-buffer " *mu4e-main*") ;; mu4e already active?
+        (prodigy-stop-service (prodigy-find-service "imapnotify")))
+    (define-key smf/launcher-map "e" nil)
+    (message "Disabled email"))
+
+  (defun smf/enable-email ()
+    (interactive)
+    (smf/add-launcher "e" 'smf/mu4e-start-or-switch)
+    (message "Enabled email"))
+
+  (smf/enable-chat)
+  (smf/enable-email)
 #+END_SRC
 
 ** Local and custom configuration
