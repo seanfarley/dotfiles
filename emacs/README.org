@@ -2078,10 +2078,28 @@ some basic settings and personal tweaks,
                                                    "~/Dropbox/org/hg.org"
                                                    "~/Dropbox/org/hg.org_archive"
                                                    "~/Dropbox/org/macports.org"
-                                                   "~/Dropbox/org/macports.org_archive"))
+                                                   "~/Dropbox/org/macports.org_archive"
+                                                   "~/Dropbox/org/personal.org"
+                                                   "~/Dropbox/org/personal.org_archive"
+                                                   ))
                                (org-agenda-skip-function
                                 '(org-agenda-skip-subtree-if 'todo
-                                                             '("TODO" "SOMEDAY"))))))))
+                                                             '("TODO" "SOMEDAY")))))))
+
+                    ("w" "just work items"
+                     ((agenda ""
+                              ((org-agenda-files '("~/Dropbox/org/bitbucket.org"
+                                                   "~/Dropbox/org/hg.org"
+                                                   ))
+                               ))))
+
+                    ("p" "just personal items"
+                     ((agenda ""
+                              ((org-agenda-files '("~/Dropbox/org/hg.org"
+                                                   "~/Dropbox/org/personal.org"
+                                                   "~/Dropbox/org/macports.org"
+                                                   ))
+                               )))))
 
                   org-refile-targets
                   '((nil :maxlevel . 2)   ; top level headlines in current buffer
