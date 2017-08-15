@@ -2133,7 +2133,7 @@ some basic settings and personal tweaks,
 
     (advice-add 'org-todo             :after #'org-save-all-org-buffers)
     (advice-add 'org-refile           :after #'org-save-all-org-buffers)
-    (advice-add 'org-clock-in         :after #'org-save-all-org-buffers)
+    ;; (advice-add 'org-clock-in         :after #'org-save-all-org-buffers)
     ;; (advice-add 'org-clock-out        :after #'org-save-all-org-buffers)
     (advice-add 'org-store-log-note   :after #'org-save-all-org-buffers)
 
