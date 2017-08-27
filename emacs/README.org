@@ -3249,6 +3249,7 @@ and forth in a tree way like undo-tree.
 #+BEGIN_SRC emacs-lisp
   (use-package jump-tree
     :ensure t
+    :disabled
     :config
     (global-jump-tree-mode 1))
 #+END_SRC
