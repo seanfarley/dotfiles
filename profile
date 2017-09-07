@@ -4,7 +4,7 @@ for file in exports bash_prompt aliases extra docker-bash; do
 done
 
 # hard-code check for rsync
-for file in {/opt/,$HOME/.}local/{share/bash-completion/completions/rsync,etc/profile.d/{autojump,bash_completion}.sh} $HOME/.functions; do
+for file in {/opt/,$HOME/.}local/{share/bash-completion/completions/rsync,etc/profile.d/{autojump,bash_completion}.sh} $HOME/.functions /usr/share/autojump/autojump.sh; do
   [ -e "$file" ] && source "$file"
 done
 
