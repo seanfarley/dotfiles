@@ -70,6 +70,10 @@ if [ -d $HOME/.local/lib/python2.7 ]; then
   export PYTHONPATH=$HOME/.local/lib/python2.7/site-packages:$HOME/.local/lib/python2.7:$PYTHONPATH
 fi
 
+if [ -d $HOME/.npm/bin ]; then
+  export PATH=$HOME/.npm/bin:$PATH
+fi
+
 if [ -d $HOME/.config/yarn/global/node_modules/.bin ]; then
   export PATH=$HOME/.config/yarn/global/node_modules/.bin:$PATH
 fi
