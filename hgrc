@@ -25,6 +25,9 @@ spacemovesdown = True
 obshashrange = yes
 obshashrange.warm-cache = no
 
+[profiling]
+type = stat
+
 [format]
 usegeneraldelta = True
 
