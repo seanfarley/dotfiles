@@ -1998,15 +1998,10 @@ some basic settings and personal tweaks,
                   ;; also, I like using shift+arrow keys to highlight, so let's set that
                   org-support-shift-select 'always
 
-                  ;; set up MobileOrg (which is sweet!)
+                  ;; set up root org directory
                   org-directory "~/Nextcloud/org"
 
                   org-default-notes-file smf/org-input
-
-                  ;; set to the name of the file where new notes will be stored
-                  org-mobile-inbox-for-pull smf/org-input
-
-                  org-mobile-directory "~/Nextcloud/Apps/MobileOrg"
 
                   ;; now, set the agenda files,
                   org-agenda-files '("~/Nextcloud/org/bitbucket.org"
