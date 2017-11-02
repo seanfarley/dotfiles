@@ -1978,7 +1978,7 @@ some basic settings and personal tweaks,
       (lambda () (interactive) (org-capture nil "j")))
 
     ;; set the file for capturing todos
-    (defvar smf/org-input "~/Dropbox/org/inbox.org")
+    (defvar smf/org-input "~/Nextcloud/org/inbox.org")
 
     ;; don't auto-fold my documents:
     (setq-default org-startup-folded nil
@@ -1999,21 +1999,21 @@ some basic settings and personal tweaks,
                   org-support-shift-select 'always
 
                   ;; set up MobileOrg (which is sweet!)
-                  org-directory "~/Dropbox/org"
+                  org-directory "~/Nextcloud/org"
 
                   org-default-notes-file smf/org-input
 
                   ;; set to the name of the file where new notes will be stored
                   org-mobile-inbox-for-pull smf/org-input
 
-                  org-mobile-directory "~/Dropbox/Apps/MobileOrg"
+                  org-mobile-directory "~/Nextcloud/Apps/MobileOrg"
 
                   ;; now, set the agenda files,
-                  org-agenda-files '("~/Dropbox/org/bitbucket.org"
-                                     "~/Dropbox/org/phd.org"
-                                     "~/Dropbox/org/hg.org"
-                                     "~/Dropbox/org/personal.org"
-                                     "~/Dropbox/org/macports.org")
+                  org-agenda-files '("~/Nextcloud/org/bitbucket.org"
+                                     "~/Nextcloud/org/phd.org"
+                                     "~/Nextcloud/org/hg.org"
+                                     "~/Nextcloud/org/personal.org"
+                                     "~/Nextcloud/org/macports.org")
 
                   ;; also search archive files
                   org-agenda-text-search-extra-files '(agenda-archives)
@@ -2047,14 +2047,14 @@ some basic settings and personal tweaks,
 
                     ("r" "done or canceled items for reporting"
                      ((agenda ""
-                              ((org-agenda-files '("~/Dropbox/org/bitbucket.org"
-                                                   "~/Dropbox/org/bitbucket.org_archive"
-                                                   "~/Dropbox/org/hg.org"
-                                                   "~/Dropbox/org/hg.org_archive"
-                                                   "~/Dropbox/org/macports.org"
-                                                   "~/Dropbox/org/macports.org_archive"
-                                                   "~/Dropbox/org/personal.org"
-                                                   "~/Dropbox/org/personal.org_archive"
+                              ((org-agenda-files '("~/Nextcloud/org/bitbucket.org"
+                                                   "~/Nextcloud/org/bitbucket.org_archive"
+                                                   "~/Nextcloud/org/hg.org"
+                                                   "~/Nextcloud/org/hg.org_archive"
+                                                   "~/Nextcloud/org/macports.org"
+                                                   "~/Nextcloud/org/macports.org_archive"
+                                                   "~/Nextcloud/org/personal.org"
+                                                   "~/Nextcloud/org/personal.org_archive"
                                                    ))
                                (org-agenda-skip-function
                                 '(org-agenda-skip-subtree-if 'todo
@@ -2062,22 +2062,22 @@ some basic settings and personal tweaks,
 
                     ("w" "just work items"
                      ((agenda ""
-                              ((org-agenda-files '("~/Dropbox/org/bitbucket.org"
-                                                   "~/Dropbox/org/hg.org"
+                              ((org-agenda-files '("~/Nextcloud/org/bitbucket.org"
+                                                   "~/Nextcloud/org/hg.org"
                                                    ))
                                ))))
 
                     ("p" "just personal items"
                      ((agenda ""
-                              ((org-agenda-files '("~/Dropbox/org/hg.org"
-                                                   "~/Dropbox/org/personal.org"
-                                                   "~/Dropbox/org/macports.org"
+                              ((org-agenda-files '("~/Nextcloud/org/hg.org"
+                                                   "~/Nextcloud/org/personal.org"
+                                                   "~/Nextcloud/org/macports.org"
                                                    ))
                                )))))
 
                   org-refile-targets
                   '((nil :maxlevel . 2)   ; top level headlines in current buffer
-                    (("~/Dropbox/org/entertainment.org") :maxlevel . 4)
+                    (("~/Nextcloud/org/entertainment.org") :maxlevel . 4)
                     (org-agenda-files :maxlevel . 4))
 
                   ;; add a nice, little template to use along with some shortcuts
