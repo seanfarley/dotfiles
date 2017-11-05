@@ -3258,6 +3258,17 @@ More friendly interface for ivy.
     (setq ivy-rich-abbreviate-paths t))
 #+END_SRC
 
+*** ivy-pass
+
+Ivy interface for pass.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy-pass
+    :ensure t
+    :after ivy
+    :commands ivy-pass)
+#+END_SRC
+
 *** jump-tree
 
 [[https://github.com/yangwen0228/jump-tree][jump-tree]] is an undo-tree like jumping implementation, so that we can jump back
