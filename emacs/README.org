@@ -2850,6 +2850,26 @@ Emacs lisp (eg information about arity of functions). Enable that for
     (add-hook 'prog-mode-hook #'eldoc-mode))
 #+END_SRC
 
+*** elm
+
+Elm mode for Emacs.
+
+#+BEGIN_SRC emacs-lisp
+    (use-package elm-mode
+      :ensure t
+      :defer t)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck-elm
+    :ensure t
+    :after (elm-mode flycheck)
+    :config
+    (eval-after-load 'flycheck
+      '(add-hook 'flycheck-mode-hook #'flycheck-elm-setup)))
+
+#+END_SRC
+
 *** emacs-git-messenger
 
 #+BEGIN_SRC emacs-lisp
