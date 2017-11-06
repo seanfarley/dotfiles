@@ -2643,6 +2643,16 @@ action without leaving the completion session.
     (counsel-projectile-on))
 #+END_SRC
 
+*** counsel-etags
+
+Fast and complete Ctags solution using ivy-completion.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel-etags
+    :ensure t
+    :after counsel)
+#+END_SRC
+
 *** company
 
 [[https://github.com/company-mode/company-mode][company-mode]] is a modern and modular completion framework (the other one Emacs
