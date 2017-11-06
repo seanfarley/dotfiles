@@ -1853,7 +1853,7 @@ messages to maildirs.
       (interactive)
       ;; switch to the scratch buffer so cwd isn't in a project
       (with-current-buffer (get-buffer "*scratch*")
-        (prodigy-start-service (prodigy-find-service "imapnotify"))
+        ;; (prodigy-start-service (prodigy-find-service "imapnotify"))
         (mu4e)))
 
     (setq mu4e-marks (assq-delete-all 'trash mu4e-marks))
@@ -4255,8 +4255,8 @@ disable chat and email,
   (defun smf/disable-email ()
     "Disable mail fetching."
     (interactive)
-    (if (get-buffer " *mu4e-main*") ;; mu4e already active?
-        (prodigy-stop-service (prodigy-find-service "imapnotify")))
+    ;; (if (get-buffer " *mu4e-main*") ;; mu4e already active?
+    ;;     (prodigy-stop-service (prodigy-find-service "imapnotify")))
     (define-key smf/launcher-map "e" nil)
     (message "Disabled email"))
 
