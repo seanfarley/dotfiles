@@ -2485,6 +2485,15 @@ Pro tip: [[http://www.jethrokuan.com/init.html][Jethro Kuan]] has an awesome ema
     (smf/add-launcher "a" 'artbollocks-mode))
 #+END_SRC
 
+*** auth-password-store
+
+#+BEGIN_SRC emacs-lisp
+  (use-package auth-password-store
+    :ensure t
+    :config
+    (auth-pass-enable))
+#+END_SRC
+
 *** avy
 
 I'm choosing =avy= over =ace-jump-mode= for tighter integration with
