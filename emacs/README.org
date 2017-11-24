@@ -1717,8 +1717,8 @@ Sign our email upon being sent.
   (use-package smtpmail-async
     :after async
     :config
-    (setq send-mail-function           'async-smtpmail-send-it
-          message-send-mail-function   'async-smtpmail-send-it
+    (setq send-mail-function           'smtpmail-send-it
+          message-send-mail-function   'smtpmail-send-it
           smtpmail-default-smtp-server "mail.farley.io"
           smtpmail-smtp-server         "mail.farley.io"
           smtpmail-stream-type         'starttls
