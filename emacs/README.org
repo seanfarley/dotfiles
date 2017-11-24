@@ -1066,9 +1066,7 @@ Use =auth-source= for all the things!
             (let ((secret (plist-get found :secret)))
               (if (functionp secret)
                   (funcall secret)
-                secret)))))
-
-    (setq auth-sources '(macos-keychain-internet)))
+                secret))))))
 #+END_SRC
 
 *** Conditionally kill Emacs
