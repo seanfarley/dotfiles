@@ -1719,6 +1719,7 @@ Sign our email upon being sent.
     :config
     (setq send-mail-function           'smtpmail-send-it
           message-send-mail-function   'smtpmail-send-it
+          smtpmail-smtp-user           "sean@farley.io"
           smtpmail-default-smtp-server "mail.farley.io"
           smtpmail-smtp-server         "mail.farley.io"
           smtpmail-stream-type         'starttls
