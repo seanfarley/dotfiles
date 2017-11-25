@@ -76,9 +76,11 @@ sudo /opt/local/bin/port -vN install py27-readline \
      py27-hgevolve-devel \
      py27-hgexperimental \
      py27-flake8 \
+     py27-sphinx \
      py27-configparser \
      py27-enum34 \
      py27-virtualenvwrapper \
+     pass-update \
      aspell \
      aspell-dict-en \
      watchman \
