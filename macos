@@ -138,8 +138,8 @@ if ! [ -d /Applications/Hammerspoon.app ]; then
 fi
 
 # Adguard
-if ! [ -f "$HOME/Library/Safari/Extensions/Adguard AdBlocker.safariextz" ]; then
-  open https://safari-extensions.apple.com/details/?id=com.adguard.safari-N33TQXN8C7
+if ! [ -f "$HOME/Library/Safari/Extensions/uBlock Origin.safariextz" ]; then
+  open https://github.com/el1t/uBlock-Safari/releases/
   read -p "Press enter to continue"
 fi
 
