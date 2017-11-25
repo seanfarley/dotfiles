@@ -43,6 +43,7 @@ purge =
 strip =
 shelve =
 journal =
+releasenotes =
 # Third-party extensions
 evolve =
 
