@@ -1735,7 +1735,6 @@ messages to maildirs.
 
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e
-    :after (async prodigy)
     :commands smf/mu4e-start-or-switch
     :bind (:map mu4e-main-mode-map
                 ("q" . bury-buffer))
@@ -1846,13 +1845,12 @@ messages to maildirs.
                (t "sean@farley.io")))))
     (add-hook 'mu4e-compose-pre-hook 'smf/mu4e-set-from-address)
 
-    ;; function for launching mu4e along with prodigy service
+    ;; function for launching mu4e
     (defun smf/mu4e-start-or-switch ()
-      "Start the imapnotify process or switch to the mu4e buffer"
+      "Start or switch to the mu4e buffer"
       (interactive)
       ;; switch to the scratch buffer so cwd isn't in a project
       (with-current-buffer (get-buffer "*scratch*")
-        ;; (prodigy-start-service (prodigy-find-service "imapnotify"))
         (mu4e)))
 
     (setq mu4e-marks (assq-delete-all 'trash mu4e-marks))
