@@ -3954,6 +3954,7 @@ functions and methods.
 
 #+BEGIN_SRC emacs-lisp
   (use-package stickyfunc-enhance
+    :disabled
     :ensure t
     :config
     (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
