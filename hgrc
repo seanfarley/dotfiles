@@ -232,7 +232,7 @@ fast_subset(s) = not public() and s
 fast_branch(s) = branch(fast_subset(s))
 smart = (also_parents(not public()) or . or (heads(all()) and not closed())) and (not obsolete() or unstable()^) and not fast_branch(closed())
 smart_mine = smart and also_parents(fast_branch(me))
-stack = also_parents(. or fast_subset(branch(.)))
+stack = also_parents(. or fast_subset(branch(.)) or allprecursors(fast_branch(.))::)
 
 [alias]
 up = update -c
