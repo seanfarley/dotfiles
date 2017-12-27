@@ -3265,6 +3265,11 @@ More friendly interface for ivy.
     :config
     (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
 
+    ;; better max lengths for my screen
+    (setq ivy-rich-switch-buffer-name-max-length 40
+          ivy-rich-switch-buffer-project-max-length 25
+          ivy-rich-switch-buffer-mode-max-length 20)
+
     ;; align the virtual buffers
     (setq ivy-virtual-abbreviate 'full
           ivy-rich-switch-buffer-align-virtual-buffer t)
