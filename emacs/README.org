@@ -2646,7 +2646,7 @@ action without leaving the completion session.
   (use-package counsel-projectile
     :ensure t
     :config
-    (counsel-projectile-on))
+    (counsel-projectile-mode))
 #+END_SRC
 
 *** counsel-etags
