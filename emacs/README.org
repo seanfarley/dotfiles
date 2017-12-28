@@ -3717,7 +3717,12 @@ colors with the color they represent as background.
     :ensure t
     :commands rainbow-mode
     :init
-    (add-hook 'prog-mode-hook #'rainbow-mode))
+    (add-hook 'web-mode-hook #'rainbow-mode)
+    (add-hook 'html-mode-hook #'rainbow-mode)
+    (add-hook 'css-mode-hook #'rainbow-mode)
+    (add-hook 'less-mode-hook #'rainbow-mode)
+    (add-hook 'scss-mode-hook #'rainbow-mode)
+    (add-hook 'sass-mode-hook #'rainbow-mode))
 #+END_SRC
 
 *** recentf
