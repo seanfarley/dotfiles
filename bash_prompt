@@ -117,7 +117,7 @@ _lp_upwards_find()
     local dir
     dir="$PWD"
     while [[ -n "$dir" ]]; do
-        [[ -d "$dir/$1" ]] && printf "$dir" && return 0
+        [[ -d "$dir/$1" || -f "$dir/$1" ]] && printf "$dir" && return 0
         dir="${dir%/*}"
     done
     return 1
