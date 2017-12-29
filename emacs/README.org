@@ -4229,7 +4229,6 @@ snippet syntax is inspired from [[http://manual.macromates.com/en/snippets][Text
     :init
     (add-hook 'prog-mode-hook #'yas-minor-mode)
     :config
-    (setq yas/root-directory (smf/join-dirs smf/dotfiles-dir "snippets"))
     (yas-reload-all))
 #+END_SRC
 
