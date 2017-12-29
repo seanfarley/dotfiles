@@ -930,7 +930,7 @@ dislike it. Define a method to toggle fullscreen pre-Lion.
       (global-set-key (kbd "C-s-f") #'smf/toggle-fullscreen))
 #+END_SRC
 
-On the Yosemite beta, =ns-use-native-fullscreen= is =nil=.
+On the macos, use the built-in =ns-use-native-fullscreen= and set to =nil=.
 
 #+BEGIN_SRC emacs-lisp
   (when (eq system-type 'darwin)
