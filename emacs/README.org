@@ -1791,6 +1791,11 @@ messages to maildirs.
 
     (add-to-list 'mu4e-view-actions '("View in browser" . mu4e-action-view-in-browser) t)
 
+    ;; add support for xwidgets if available
+    (when (featurep 'xwidget-internal)
+      (add-to-list 'mu4e-view-actions
+                   '("xViewXWidget" . mu4e-action-view-with-xwidget) t))
+
     ;; helper function to jump to message composing when pressing tab in the
     ;; subject line
     (defun smf/mu4e-tab-subject ()
