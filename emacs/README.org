@@ -937,13 +937,6 @@ On the macos, use the built-in =ns-use-native-fullscreen= and set to =nil=.
     (setq-default ns-use-native-fullscreen nil))
 #+END_SRC
 
-Start emacs in fullscreen,
-
-#+BEGIN_SRC emacs-lisp
-  (when (fboundp 'toggle-frame-fullscreen)
-    (smf/toggle-fullscreen))
-#+END_SRC
-
 *** OS X keybindings
 
 There are a lot of native OS X-isms that I would like to keep. Things such =⌘-a=
@@ -4333,6 +4326,15 @@ disable chat and email,
 #+END_SRC
 
 ** Local and custom configuration
+
+*** Fullscreen
+
+Start emacs in fullscreen,
+
+#+BEGIN_SRC emacs-lisp
+  (when (fboundp 'toggle-frame-fullscreen)
+    (toggle-frame-fullscreen))
+#+END_SRC
 
 *** Local overrides
 
