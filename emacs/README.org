@@ -416,7 +416,8 @@ govern encoding]], so we should set them all at once:
   (set-keyboard-coding-system 'utf-8) ; pretty
   (set-selection-coding-system 'utf-8) ; please
   (prefer-coding-system 'utf-8) ; with sugar on top
-  (setenv "LANG" "en_US.ut8") ; ensure subprocesses get the right env variable
+  (setenv "LANG" "en_US.UTF-8") ; ensure subprocesses get the right env variable
+  (setenv "LC_ALL" "en_US.UTF-8") ; ensure subprocesses get the right env variable
 #+END_SRC
 
 *** Fix minibuffer behaviour
