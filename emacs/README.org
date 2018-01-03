@@ -921,13 +921,7 @@ dislike it. Define a method to toggle fullscreen pre-Lion.
 
 #+BEGIN_SRC emacs-lisp
   (when (fboundp 'toggle-frame-fullscreen)
-    (defun smf/toggle-fullscreen ()
-      "Toggle full screen"
-      (interactive)
-      (set-frame-parameter nil 'fullscreen
-                           (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
-
-      (global-set-key (kbd "C-s-f") #'smf/toggle-fullscreen))
+      (global-set-key (kbd "C-s-f") #'toggle-frame-fullscreen))
 #+END_SRC
 
 On the macos, use the built-in =ns-use-native-fullscreen= and set to =nil=.
