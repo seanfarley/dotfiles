@@ -1794,6 +1794,7 @@ messages to maildirs.
 
     ;; add support for xwidgets if available
     (when (featurep 'xwidget-internal)
+      (setq browse-url-browser-function 'xwidget-webkit-browse-url)
       (add-to-list 'mu4e-view-actions
                    '("xViewXWidget" . mu4e-action-view-with-xwidget) t))
 
