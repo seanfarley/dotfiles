@@ -801,10 +801,10 @@ Comment or uncomment the region or current line if no active region.
 
 *** Bells
 
-Don't make a sound when [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Beeping.html][ringing a bell]] - flash a visual bell instead:
+Don't make a sound when [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Beeping.html][ringing a bell]] nor flash a visual bell:
 
 #+BEGIN_SRC emacs-lisp
-  (setq visible-bell t)
+  (setq visible-bell nil)
 #+END_SRC
 
 Override the =ring-bell-function= to conditionally ring the bell only when it's
