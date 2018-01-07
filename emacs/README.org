@@ -2476,10 +2476,14 @@ Pro tip: [[http://www.jethrokuan.com/init.html][Jethro Kuan]] has an awesome ema
 *** auth-password-store
 
 #+BEGIN_SRC emacs-lisp
-  (use-package auth-password-store
-    :ensure t
+  (use-package auth-source-pass
+    :after async
+    :init
+    ;; needed to initialize auth-source-pass correctly as emacs is spawning a new
+    ;; process
+    (add-hook 'async-smtpmail-before-send-hook #'auth-source-pass-enable)
     :config
-    (auth-pass-enable))
+    (auth-source-pass-enable))
 #+END_SRC
 
 *** avy
