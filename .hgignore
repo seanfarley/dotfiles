@@ -25,6 +25,7 @@ emacs/.org-id-locations
 emacs/init.el
 emacs/emojis
 emacs/bookmarks
+emacs/eshell
 
 omnisharp-server
 irony-server
