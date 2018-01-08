@@ -3211,6 +3211,7 @@ need to load Magit first.
 #+BEGIN_SRC emacs-lisp
   (use-package mahgic
     :after magit
+    :commands (mahgic-status mahgic-get-current-branch)
     :load-path "~/projects/mahgic/lisp"
     :mode (("hg-editor-.*\\.txt" . hg-commit-mode)
            ("hg-histedit-.*\\.txt" . hg-histedit-mode))
