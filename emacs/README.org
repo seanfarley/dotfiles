@@ -644,8 +644,27 @@ I use [[https://github.com/tonsky/FiraCode][Fira Code]] as my default coding fon
   ;; set the font
   (when (window-system)
     (set-frame-font "Fira Code"))
+#+END_SRC
+
+When on Mituhara's version of Emacs for MacOS, ligatures are built-in,
+
+#+BEGIN_SRC emacs-lisp
   (if (fboundp 'mac-auto-operator-composition-mode)
       (mac-auto-operator-composition-mode))
+#+END_SRC
+
+When we're on vanilla emacs, we'll need to massage ligatures to work. The
+following is taken from [[http://www.modernemacs.com/post/prettify-mode/][Modern Emacs]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package pretty-fonts
+    :load-path "lisp"
+    :if (not (fboundp 'mac-auto-operator-composition-mode))
+    :config
+    (pretty-fonts-set-kwds
+     '(;; Fira Code Ligatures
+       (pretty-fonts-fira-font prog-mode-hook org-mode-hook
+                               text-mode-hook))))
 #+END_SRC
 
 *** ImageMagick
