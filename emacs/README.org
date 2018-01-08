@@ -851,21 +851,10 @@ Don't make a sound when [[http://www.gnu.org/software/emacs/manual/html_node/eli
   (setq visible-bell nil)
 #+END_SRC
 
-Override the =ring-bell-function= to conditionally ring the bell only when it's
-not a valid quit case like hitting =esc= or =C-g=. Generally this means the bell
-will only ring when there's actually an error raised somehow:
+Override the =ring-bell-function= to silence the bell.
 
 #+BEGIN_SRC emacs-lisp
-  (setq ring-bell-function
-        (lambda ()
-          "Only rings the bell if it's not a valid quit case, e.g
-  keyboard-quit"
-          (unless (memq this-command
-                        '(isearch-abort
-                          abort-recursive-edit
-                          exit-minibuffer
-                          keyboard-quit))
-            (ding))))
+  (setq ring-bell-function 'ignore)
 #+END_SRC
 
 *** Buffer naming
