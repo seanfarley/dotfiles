@@ -836,7 +836,10 @@ will only ring when there's actually an error raised somehow:
           "Only rings the bell if it's not a valid quit case, e.g
   keyboard-quit"
           (unless (memq this-command
-                        '(isearch-abort abort-recursive-edit exit-minibuffer keyboard-quit))
+                        '(isearch-abort
+                          abort-recursive-edit
+                          exit-minibuffer
+                          keyboard-quit))
             (ding))))
 #+END_SRC
 
