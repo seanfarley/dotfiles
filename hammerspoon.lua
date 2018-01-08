@@ -92,7 +92,7 @@ hs.hotkey.bind({"cmd", "ctrl"}, "C", function()
 end)
 
 hs.hotkey.bind({"cmd", "ctrl"}, "E", function()
-      hs.application.launchOrFocus("EmacsMac")
+      hs.application.launchOrFocus("Emacs")
 end)
 
 hs.hotkey.bind({"cmd", "ctrl"}, "T", function()
