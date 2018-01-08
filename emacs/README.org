@@ -3626,6 +3626,41 @@ buffers, search buffers etc. a bit more sane.
     (popwin-mode))
 #+END_SRC
 
+*** pretty-mode
+
+The package [[https://github.com/akatov/pretty-mode][pretty-mode]] provides default symbol replacements including in, not
+in, and, or, and greek letters.
+
+Overlap with Fira Code operators can be handled by deactivating the operator,
+equality, and arrow groups. Sub/superscripts, greek letters, and the sigma
+summation must be manually activated.
+
+The =:logic= group overlaps/interferes with prettify-symbols and is disabled.
+The =:set= group interferes with the int symbol replacement for unknown
+reasons. We redefine its symbols in prettify-symbols-mode later.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package pretty-mode
+    :ensure t
+    :config
+    (global-pretty-mode t)
+
+    (pretty-deactivate-groups
+     '(:equality :ordering :ordering-double :ordering-triple
+                 :arrows :arrows-twoheaded :punctuation
+                 :logic :sets))
+    (pretty-activate-groups
+     '(:greek :arithmetic-nary)))
+#+END_SRC
+
+Commented symbols are not replaced, so and and or are fine within docstrings
+and comments.
+
+The replacements are entirely visual - searching the buffer for lambda will
+find λ.
+
+Check pretty-mode.el for the full list of groups, symbols and supported modes.
+
 *** projectile
 
 [[https://github.com/bbatsov/projectile][projectile]] is a minor mode for performing commands over a single 'project' or
