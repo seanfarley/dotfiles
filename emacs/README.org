@@ -3664,34 +3664,52 @@ goes to ∨, and lambda goes to λ.
 
 Additional symbols can be added through prettify-symbols-alist.
 
-#+BEGIN_SRC emacs-lisp
-  (global-prettify-symbols-mode)
+*** prettify-utils
 
-  (add-hook 'python-mode-hook
-            (lambda ()
-              (mapc (lambda (pair) (push pair prettify-symbols-alist))
-                    '(;; Syntax
-                      ("def" .      #x2131)
-                      ("not" .      #x2757)
-                      ("in" .       #x2208)
-                      ("not in" .   #x2209)
-                      ("return" .   #x27fc)
-                      ("yield" .    #x27fb)
-                      ("for" .      #x2200)
-                      ;; Base Types
-                      ("int" .      #x2124)
-                      ("float" .    #x211d)
-                      ("str" .      #x1d54a)
-                      ("True" .     #x1d54b)
-                      ("False" .    #x1d53d)
-                      ;; Mypy
-                      ("Dict" .     #x1d507)
-                      ("List" .     #x2112)
-                      ("Tuple" .    #x2a02)
-                      ("Set" .      #x2126)
-                      ("Iterable" . #x1d50a)
-                      ("Any" .      #x2754)
-                      ("Union" .    #x22c3)))))
+A dependency needed for =pretty-code=,
+
+#+BEGIN_SRC emacs-lisp
+  (use-package prettify-utils
+    :load-path "lisp"
+    :demand)
+#+END_SRC
+
+*** pretty-code
+
+Taken from [[http://www.modernemacs.com/post/prettify-mode/][Modern Emacs]]:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package pretty-code
+    :after prettify-utils
+    :load-path "lisp"
+    :demand
+    :config
+    (global-prettify-symbols-mode)
+
+    (setq python-pretty-pairs
+          (pretty-code-get-pairs
+           '(;; Functional
+             :lambda "lambda"
+             :def "def"
+
+             ;; Types
+             :null "None"
+             :true "True" :false "False"
+             :int "int" :float "float"
+             :str "str" :bool "bool"
+
+             ;; Flow
+             :not "not"
+             :in "in" :not-in "not in"
+             :and "and" :or "or"
+             :for "for"
+             :return "return" :yield "yield"
+
+             ;; Other
+             :tuple "Tuple" :pipe "tz-pipe"
+             )))
+
+    (pretty-code-set-pairs `((python-mode-hook ,python-pretty-pairs))))
 #+END_SRC
 
 *** pretty-mode
