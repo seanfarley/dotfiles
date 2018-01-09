@@ -2422,44 +2422,13 @@ is enabled, company-anaconda will also be enabled.
     :diminish anaconda-mode
     :commands (anaconda-mode anaconda-eldoc-mode)
     :bind (:map anaconda-mode-map
-                ("M-," . nil)  ; By default, anaconda binds =M-,= to finding
-                               ; assignments instead of popping the navigation
-                               ; stack (which changed in Emacs 25)
-                ("M-." . smf/goto-def-or-dumbjump))
+                ("M-," . nil)     ; By default, anaconda binds =M-,= to finding
+                                  ; assignments instead of popping the navigation
+                                  ; stack (which changed in Emacs 25)
+                ("M-." . nil))    ; prefer to use other jump packages
     :init
     (add-hook 'python-mode-hook 'anaconda-mode)
-    (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-    :config
-    ;; need to load this for the xref call in our function below
-    (use-package xref)
-
-    ;; After a few levels of indirection, =anaconda= has no hope of finding a symbol's
-    ;; definition, so it gives up. In this case, invoking
-    ;; `anaconda-mode-find-defintions' will do nothing and show a little error message
-    ;; in the echo area. When this happens, of course we still want to find what I'm
-    ;; looking for so we define this function:
-    (defun smf/goto-def-or-dumbjump ()
-      "Go to definition of thing at point or do a dumb-jump-go in
-      project if that fails"
-      (interactive)
-      (xref-push-marker-stack)
-      (anaconda-mode-call "goto_definitions"
-                          'smf/anaconda-mode-find-definitions-callback))
-
-    (defun smf/anaconda-mode-find-definitions-callback (result)
-      "Process find definitions RESULT."
-      (let ((old-buffer (current-buffer))
-            (old-point (point)))
-        (if result
-            (progn
-              (anaconda-mode-definitions-view result)
-              (when (and (eq old-point (point))
-                         (equal old-buffer (current-buffer)))
-                ;; if we didn't actually jump, then fallback to dumb-jump
-                (message nil)             ; clear any failed messages since we're
-                                          ; about to try a different jump
-                (dumb-jump-go)))
-          (dumb-jump-go)))))
+    (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
   (use-package company-anaconda
     :after (anaconda-mode company-mode)
