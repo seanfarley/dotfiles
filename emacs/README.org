@@ -4040,6 +4040,20 @@ to the definitions of variables, functions, libraries and faces.
     (add-hook 'ielm-mode-hook 'elisp-slime-nav-mode))
 #+END_SRC
 
+*** smart-jump
+
+This packages tries to smartly go to definition leveraging several methods to
+do so. If one method fails, this package will go on to the next one, eventually
+falling back to dumb-jump.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package smart-jump
+    :after dumb-jump
+    :ensure t
+    :config
+    (smart-jump-setup-default-registers))
+#+END_SRC
+
 *** smart-tabs-mode
 
 This mode provides code which improves on Emacs’ auto-indenting, so that
