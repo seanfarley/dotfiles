@@ -1317,6 +1317,18 @@ of the buffer. We'll bind this to =C-M-d=
       (interactive)
       (smf/mark-read)
       (bury-buffer)))
+
+  (use-package erc-replace
+    :after erc
+    :config
+    ;; never going to not be funny
+    (add-to-list 'erc-modules 'replace)
+    (add-hook 'erc-insert-modify-hook 'erc-replace-insert)
+
+    (setq erc-replace-alist
+          '(("[tT]he [cC]loud" . "~my butt~")))
+
+    (erc-update-modules))
 #+END_SRC
 
 *** erc patches from jwiegly
@@ -1403,17 +1415,6 @@ Put the actual tweet into the buffer.
     :config
     ;; this makes colors look nice with darker themes
     (setq erc-hl-nicks-color-contrast-strategy '(invert contrast)))
-#+END_SRC
-
-*** cloud-to-butt
-
-This will never get old.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package cloud-to-butt-erc
-    :after erc
-    :ensure t
-    :defer t)
 #+END_SRC
 
 *** hipchat
