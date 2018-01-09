@@ -3064,6 +3064,18 @@ A major mode for editing .gitignore files.
     :defer t)
 #+END_SRC
 
+*** gnutls
+
+This is fixed in Emacs 26 but for a while we'll need this on the mac so that
+[[https://letsencrypt.org][Let's Encrypt]] will work,
+
+#+BEGIN_SRC emacs-lisp
+  (use-package gnutls
+    :config
+    (unless (member "/etc/ssl/cert.pem" gnutls-trustfiles)
+      (add-to-list 'gnutls-trustfiles "/etc/ssl/cert.pem")))
+#+END_SRC
+
 *** go-mode
 
 Blergh.
