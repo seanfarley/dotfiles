@@ -41,7 +41,7 @@ alias lhg="HGDEMANDIMPORT=disable $HOME/projects/hg/hg"
 alias hg-git="hg --config extensions.hggit="
 
 # File size
-alias fs="stat -f \"%z bytes\""
+alias fs="/usr/bin/stat -f \"%z bytes\""
 
 # ROT13-encode text. Works for decoding, too! ;)
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'
