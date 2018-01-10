@@ -3315,6 +3315,19 @@ Ivy interface for pass.
     :commands ivy-pass)
 #+END_SRC
 
+*** ivy-xref
+
+Ivy interface for xref results.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy-xref
+    :after ivy
+    :ensure t
+    :commands (ivy-xref-show-xrefs)
+    :config
+    (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
+#+END_SRC
+
 *** jump-tree
 
 [[https://github.com/yangwen0228/jump-tree][jump-tree]] is an undo-tree like jumping implementation, so that we can jump back
