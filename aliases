@@ -51,27 +51,6 @@ alias spotoff="sudo mdutil -a -i off"
 # Enable Spotlight
 alias spoton="sudo mdutil -a -i on"
 
-# One of @janmoesen’s ProTip™s
-for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do alias "$method"="lwp-request -m '$method'"; done
-
-# Stuff I never really use but cannot delete either because of http://xkcd.com/530/
-alias stfu="osascript -e 'set volume output muted true'"
-alias pumpitup="osascript -e 'set volume 10'"
-alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
-
-##
-# PETSc commands
-##
-
-alias ts="cd \$PROJECTS/petsc/src/ts/examples/tutorials"
-alias snes="cd \$PROJECTS/petsc/src/snes/examples/tutorials"
-alias ksp="cd \$PROJECTS/petsc/src/ksp/ksp/examples/tutorials"
-alias vec="cd \$PROJECTS/petsc/src/vec/vec/examples/tutorials"
-alias mat="cd \$PROJECTS/petsc/src/mat/examples/tutorials"
-alias sys="cd \$PROJECTS/petsc/src/sys/examples/tutorials"
-alias dm="cd \$PROJECTS/petsc/src/dm/examples/tutorials"
-alias pb="make -j4 -C \$PETSC_DIR/\$PETSC_ARCH"
-
 [ -n "$(ls --version 2>/dev/null)" ] && alias ls='ls --color=auto'
 alias dir='ls --color=auto --format=vertical'
 alias vdir='ls --color=auto --format=long'
@@ -85,13 +64,4 @@ alias g='grep -i'
 
 if [ -s "$(which chg 2>/dev/null)" ]; then
   alias hg=chg
-fi
-
-if [ -s "$(which pss 2>/dev/null)" ]; then
-  alias pss='pss --ignore-dir=dist --ignore-dir=build --ignore-dir=tests --ignore-dir=test'
-fi
-
-if [ -d /cygdrive/c ]; then
-  alias msbuild=MSBuild.exe
-  alias hg=~/projects/chg/chg
 fi
