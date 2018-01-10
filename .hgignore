@@ -26,6 +26,7 @@ emacs/init.el
 emacs/emojis
 emacs/bookmarks
 emacs/eshell
+emacs/.historian
 
 omnisharp-server
 irony-server
