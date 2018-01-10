@@ -4499,6 +4499,220 @@ disable chat and email,
   (smf/enable-email)
 #+END_SRC
 
+** eshell
+
+What have I become?
+
+*** prompt
+
+A decent prompt from [[http://www.modernemacs.com/post/custom-eshell/][Modern Emacs]]. We'll start with some macros to help out,
+
+#+BEGIN_SRC emacs-lisp
+  (require 'dash)
+  (require 's)
+
+  (defmacro with-face (STR &rest PROPS)
+    "Return STR propertized with PROPS."
+    `(propertize ,STR 'face (list ,@PROPS)))
+
+  (defmacro esh-section (NAME ICON FORM &rest PROPS)
+    "Build eshell section NAME with ICON prepended to evaled FORM with PROPS."
+    `(setq ,NAME
+           (lambda () (when ,FORM
+                        (-> ,ICON
+                            (concat esh-section-delim ,FORM)
+                            (with-face ,@PROPS))))))
+#+END_SRC
+
+And some helper methods,
+
+#+BEGIN_SRC emacs-lisp
+  (defun esh-acc (acc x)
+    "Accumulator for evaluating and concatenating esh-sections."
+    (--if-let (funcall x)
+        (if (s-blank? acc)
+            it
+          (concat acc esh-sep it))
+      acc))
+
+  (defun esh-prompt-func ()
+    "Build `eshell-prompt-function'"
+    (concat esh-header
+            (-reduce-from 'esh-acc "" eshell-funcs)
+            "\n"
+            eshell-prompt-string))
+#+END_SRC
+
+And now to construct the prompt sections,
+
+#+BEGIN_SRC emacs-lisp
+    (esh-section esh-dir
+                 (all-the-icons-faicon "folder-open" :v-adjust .05)
+                 (abbreviate-file-name (eshell/pwd))
+                 '(:foreground "gold" :underline t))
+
+    (esh-section esh-git
+                 (all-the-icons-alltheicon "git" :v-adjust .05)
+                 (magit-get-current-branch)
+                 '(:foreground "pink"))
+
+    (esh-section esh-hg
+                 (all-the-icons-faicon "mercury" :v-adjust .05)
+                 (mahgic-get-current-branch)
+                 '(:foreground "pink"))
+
+    (esh-section esh-python
+                 (all-the-icons-alltheicon "python" :v-adjust .05)
+                 pyvenv-virtual-env-name)
+#+END_SRC
+
+Set up eshell with some prompt characters (concrete) and other basic settings,
+
+#+BEGIN_SRC emacs-lisp
+  (use-package eshell
+    :commands (eshell)
+    :config
+    ;; Separator between esh-sections
+    (setq esh-sep " ")  ; or " | "
+
+    ;; Separator between an esh-section icon and form
+    (setq esh-section-delim " ")
+
+    ;; Eshell prompt header
+    (setq esh-header "\n┌─ ")  ; or "\n┌─"
+
+    ;; Eshell prompt regexp and string. Unless you are varying the prompt by eg.
+    ;; your login, these can be the same.
+    (setq eshell-prompt-regexp "└→ ")   ; or "└─> "
+    (setq eshell-prompt-string "└→ ")   ; or "└─> "
+
+    ;; Choose which eshell-funcs to enable
+    (setq eshell-funcs (list esh-dir esh-hg esh-git esh-python))
+
+    ;; Enable the new eshell prompt
+    (setq eshell-prompt-function 'esh-prompt-func)
+
+    ;; Larger eshell history (allow 32³ entries; default is 128)
+    (setq eshell-history-size 32768)
+
+    ;; turn off highlighting the prompt (background)
+    (setq eshell-highlight-prompt nil)
+
+    ;; use ivy for M-r search through history
+    (defun smf/setup-eshell ()
+      (define-key eshell-mode-map (kbd "<tab>") 'completion-at-point)
+      (define-key eshell-mode-map [remap eshell-previous-matching-input] 'counsel-esh-history))
+
+    (add-hook 'eshell-mode-hook #'smf/setup-eshell))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+#+END_SRC
+
+*** paging
+
+For paging, emacs has a better system than =less= called =smart display=. Let's
+use that,
+
+#+BEGIN_SRC emacs-lisp
+  (use-package eshell
+    :init
+    (setenv "PAGER" "cat")
+
+    (setq eshell-buffer-shorthand t
+          eshell-scroll-to-bottom-on-input 'all
+          eshell-error-if-no-glob t
+          eshell-hist-ignoredups t
+          eshell-save-history-on-exit t
+          eshell-prefer-lisp-functions nil
+          eshell-destroy-buffer-when-process-dies t))
+
+  ;; still not decided about using this
+  ;; (use-package em-smart
+  ;;   :after eshell
+  ;;   :config
+  ;;   (setq eshell-where-to-jump 'begin
+  ;;         eshell-review-quick-commands nil
+  ;;         eshell-smart-space-goes-to-end t)
+
+  ;;   (add-hook 'eshell-mode-hook
+  ;;             (lambda ()
+  ;;               (eshell-smart-initialize))))
+#+END_SRC
+
+*** aliases
+
+Since we're in Emacs already, the =e= alias is much easier to define,
+
+#+BEGIN_SRC emacs-lisp
+  (defun eshell/e (file)
+    (find-file-other-window file))
+#+END_SRC
+
+Let's bring back our favorite =-= as well,
+
+#+BEGIN_SRC emacs-lisp
+  (defun eshell/- ()
+    (eshell/cd "-"))
+#+END_SRC
+
+Mercurial needs to disable pagination, too,
+
+#+BEGIN_SRC emacs-lisp
+  (defun eshell/hg (&rest args)
+    (eshell-do-eval
+     (eshell-parse-command (concat
+                            "chg --config ui.paginate=never "
+                            (string-join args))) t)
+    (eshell/echo))
+#+END_SRC
+
+*** z
+
+=cd= to frequent directory in =eshell=, Emacs port of [[https://github.com/rupa/z][z]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package eshell-z
+    :after eshell
+    :ensure t
+    :config
+    (add-hook 'eshell-mode-hook (lambda ()
+                                  (require 'eshell-z))))
+#+END_SRC
+
+*** autosuggest
+
+Fish-like history autosuggestions in eshell.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package esh-autosuggest
+    :after eshell
+    :ensure t
+    :hook (eshell-mode . esh-autosuggest-mode))
+#+END_SRC
+
+*** color
+
+ANSI & xterm-256 color text property translator for Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package xterm-color
+    :ensure t
+    :config
+    ;; comint
+    (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter)
+    (setq comint-output-filter-functions (remove 'ansi-color-process-output comint-output-filter-functions))
+
+    ;; eshell
+    (add-hook 'eshell-mode-hook
+              (lambda ()
+                (setenv "TERM" "xterm-256color")
+                (setq xterm-color-preserve-properties t)))
+
+    (add-to-list 'eshell-preoutput-filter-functions 'xterm-color-filter)
+    (setq eshell-output-filter-functions (remove 'eshell-handle-ansi-color eshell-output-filter-functions)))
+#+END_SRC
+
 ** Local and custom configuration
 
 *** Fullscreen
