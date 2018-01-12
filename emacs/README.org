@@ -4684,6 +4684,31 @@ Cool little ps wrapper for ivy
 
 #+END_SRC
 
+Helper method to open a shell in the directory of the current file.
+
+#+BEGIN_SRC emacs-lisp
+  (defun smf/eshell-here ()
+    "Opens up a new shell in the directory associated with the
+  current buffer's file. The eshell is renamed to match that
+  directory to make multiple eshell windows easier."
+    (interactive)
+    (let* ((height (/ (window-total-height) 3))
+           (name (format "*eshell: %s*"
+                         (f-filename default-directory))))
+      (split-window-vertically (- height))
+      (other-window 1)
+      (let ((buf (get-buffer name)))
+        (if buf
+            (switch-to-buffer buf)
+          (eshell 'new)
+          (rename-buffer name 'unique)))
+      (insert (concat "ls"))
+      (eshell-send-input)))
+
+  ;; bind to RET
+  (smf/add-launcher (kbd "RET") 'smf/eshell-here)
+#+END_SRC
+
 *** z
 
 =cd= to frequent directory in =eshell=, Emacs port of [[https://github.com/rupa/z][z]].
