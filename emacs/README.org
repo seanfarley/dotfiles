@@ -4667,6 +4667,23 @@ Mercurial needs to disable pagination, too,
     (eshell/echo))
 #+END_SRC
 
+Cool little ps wrapper for ivy
+
+#+BEGIN_SRC emacs-lisp
+  (defun eshell/ivy-ps ()
+    (interactive)
+    (let ((ps (split-string
+               (shell-command-to-string
+                "ps axco user,pid,%cpu,%mem,start,time,command")
+               "\n"
+               t)))
+      (ivy-read "[ps] "
+                ps
+                :action (lambda (x)
+                          (insert (cadr (split-string x " " t)))))))
+
+#+END_SRC
+
 *** z
 
 =cd= to frequent directory in =eshell=, Emacs port of [[https://github.com/rupa/z][z]].
