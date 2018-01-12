@@ -4255,8 +4255,6 @@ More on the last two incantations at [[http://emacs-fu.blogspot.co.uk/2009/10/ed
     :ensure t
     :defer t
     :commands twit
-    :init
-    (smf/add-launcher "t" 'twit)
     :config
     (setq twittering-icon-mode t)
     (setq twittering-use-icon-storage t))
@@ -4571,6 +4569,8 @@ Set up eshell with some prompt characters (concrete) and other basic settings,
 #+BEGIN_SRC emacs-lisp
   (use-package eshell
     :commands (eshell)
+    :init
+    (smf/add-launcher "t" 'eshell)
     :config
     ;; Separator between esh-sections
     (setq esh-sep " ")  ; or " | "
