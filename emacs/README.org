@@ -4688,7 +4688,9 @@ Fish-like history autosuggestions in eshell.
   (use-package esh-autosuggest
     :after eshell
     :ensure t
-    :hook (eshell-mode . esh-autosuggest-mode))
+    :hook (eshell-mode . esh-autosuggest-mode)
+    :config
+    (define-key esh-autosuggest-active-map (kbd "C-e") 'company-complete-selection))
 #+END_SRC
 
 *** color
