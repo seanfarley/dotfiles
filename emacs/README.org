@@ -4715,11 +4715,13 @@ Helper method to open a shell in the directory of the current file.
 
 #+BEGIN_SRC emacs-lisp
   (use-package eshell-z
-    :after eshell
     :ensure t
+    :after eshell
+    :commands (eshell/z eshell/j)
     :config
-    (add-hook 'eshell-mode-hook (lambda ()
-                                  (require 'eshell-z))))
+    ;; add 'j' alias for z
+    (defun eshell/j (&rest args)
+      (eshell/z args)))
 #+END_SRC
 
 *** autosuggest
