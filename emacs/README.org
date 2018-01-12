@@ -4724,6 +4724,25 @@ Helper method to open a shell in the directory of the current file.
       (eshell/z args)))
 #+END_SRC
 
+*** autocomplete
+
+#+BEGIN_SRC emacs-lisp
+  (use-package pcmpl-git
+    :after eshell
+    :ensure t
+    :demand t)
+
+  (use-package pcmpl-pip
+    :after eshell
+    :ensure t
+    :demand t)
+
+  (use-package pcmpl-args
+    :after eshell
+    :ensure t
+    :demand t)
+#+END_SRC
+
 *** autosuggest
 
 Fish-like history autosuggestions in eshell.
