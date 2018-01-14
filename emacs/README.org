@@ -4171,7 +4171,23 @@ Note: swiper <- {counsel, ivy}
            ("M-y" . counsel-yank-pop))
     :init
     (smf/add-launcher "U" 'counsel-unicode-char)
-    (smf/add-launcher "i" 'counsel-imenu))
+    (smf/add-launcher "i" 'counsel-imenu)
+    :custom
+    (counsel-describe-function-function #'helpful-callable)
+    (counsel-describe-variable-function #'helpful-variable)
+    :config
+    (when (eq system-type 'darwin)
+      (setq counsel-locate-cmd 'counsel-locate-cmd-mdfind))
+
+    (setq conusel-org-goto-display-style 'path
+          counsel-org-goto-face-style 'org
+          counsel-org-headline-display-todo t
+          counsel-grep-base-command "rg -i -M 120 --no-heading --line-number --color never %s %s"
+          counsel-yank-pop-separator "\n─────────────────────────\n"
+          counsel-find-file-ignore-regexp (rx (or (group string-start (char ".#"))
+                                                  (group (char "~#") string-end)
+                                                  (group ".elc" string-end)
+                                                  (group ".pyc" string-end)))))
 
   (use-package ivy
     :ensure t
