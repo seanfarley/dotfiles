@@ -4844,3 +4844,15 @@ place:
 #+END_SRC
 
 (note that this works because =setq= returns the value it's set to)
+
+** References
+
+In no particular order (and in no means complete), here is a list of people's
+configurations that I've found useful:
+
+- [[https://github.com/dieggsy/dotfiles/blob/master/emacs.d/init.org][deiggsy/dotfiles]]
+- [[https://github.com/hlissner/doom-emacs][hlissner/doom]]
+- [[https://github.com/Ambrevar/dotfiles][Ambrevar/dotfiles]]
+- [[http://www.howardism.org/Technical/Emacs/eshell-fun.html][howardism/eshell]]
+- [[https://github.com/howardabrams/dot-files/blob/master/emacs-eshell.org][howardadbrams/dot-files]]
+- [[http://www.modernemacs.com/post/org-mode-blogging/][modernemacs/org-mode-blogging]]
