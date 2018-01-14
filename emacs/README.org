@@ -2964,6 +2964,17 @@ Not going to lie. Totally ripped this from [[https://github.com/belak/dotfiles][
     (add-hook 'web-mode-hook 'emmet-mode))
 #+END_SRC
 
+*** esup
+
+ESUP - Emacs Start Up Profiler
+
+#+BEGIN_SRC emacs-lisp
+  (use-package esup
+    :ensure t
+    :config
+    (setq esup-insignificant-time 0.001))
+#+END_SRC
+
 *** exec-path-from-shell
 
 OS X doesn't use the environment variables available in a shell in a GUI
