@@ -2730,6 +2730,14 @@ has better code for integrating with).
     (company-quickhelp-mode t))
 #+END_SRC
 
+**** Statistics
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company-statistics
+    :ensure t
+    :hook (company-mode . company-statistics-mode))
+#+END_SRC
+
 *** crosshairs
 
 Highlights both the line and the column.
