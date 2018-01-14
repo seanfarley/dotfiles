@@ -3301,6 +3301,13 @@ JavaScript Awesome Development Environment (in Emacs).
     (setq indium-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"))
 #+END_SRC
 
+*** info+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package info+
+    :ensure t)
+#+END_SRC
+
 *** ivy-historian
 
 Persistently store selected minibuffer candidates.
