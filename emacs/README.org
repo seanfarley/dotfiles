@@ -2777,6 +2777,13 @@ custom functionality I had lying around.
            ("C-c s" . crux-ispell-word-then-abbrev)))
 #+END_SRC
 
+*** DevDocs
+
+#+BEGIN_SRC emacs-lisp
+  (use-package devdocs
+    :ensure t)
+#+END_SRC
+
 *** discover-my-major
 
 A nicer way to browse keybindings for major modes.
