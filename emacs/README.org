@@ -3000,6 +3000,19 @@ perform on-the-fly syntax checking and linting.
     (defalias 'flycheck-show-error-at-point-soon 'flycheck-show-error-at-point))
 #+END_SRC
 
+*** flyspell-correct-ivy
+
+Correcting words with flyspell via custom interface.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flyspell-correct-ivy
+    :ensure t
+    :after flyspell
+    :config
+    (setq flyspell-correct-interface 'flyspell-correct-ivy)
+    (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-word-generic))
+#+END_SRC
+
 *** focus
 
 Dim the font color of text in surrounding paragraphs.
