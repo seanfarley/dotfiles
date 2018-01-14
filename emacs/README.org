@@ -3156,6 +3156,21 @@ Emacs extension for Habitica, a RPG style habit tracker and todo list.
     (setq habitica-turn-on-highlighting t))
 #+END_SRC
 
+*** helpful
+
+A better Emacs *help* buffer.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helpful
+    :ensure t
+    :bind (("C-h f" . helpful-callable)
+           ("C-h v" . helpful-variable)
+           ("C-h k" . helpful-key)
+           ("C-h ." . helpful-at-point))
+    :init
+    (setq find-function-C-source-directory "~/projects/emacs/src"))
+#+END_SRC
+
 *** hg-test-mode
 
 A mode for Mercurial test files
