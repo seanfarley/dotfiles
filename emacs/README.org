@@ -4263,6 +4263,15 @@ Note: swiper <- {counsel, ivy}
     (ivy-mode))
 #+END_SRC
 
+*** sx
+
+Stack Exchange for Emacs
+
+#+BEGIN_SRC emacs-lisp
+  (use-package sx
+    :ensure t)
+#+END_SRC
+
 *** tern
 
 =tern= is a js navigation package which extends js-mode.
