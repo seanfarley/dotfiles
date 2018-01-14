@@ -4293,6 +4293,17 @@ Stack Exchange for Emacs
     (setq company-tern-property-marker ""))
 #+END_SRC
 
+*** tldr
+
+tldr client for Emacs
+
+#+BEGIN_SRC emacs-lisp
+  (use-package tldr
+    :ensure t
+    :config
+    ;; fixes error with trailing slash
+    (setq tldr-directory-path (concat (file-truename user-emacs-directory) "tldr")))
+#+END_SRC
 *** tramp mode
 
 =tramp-mode= is a package that provides [[https://www.gnu.org/software/emacs/manual/html_node/tramp/index.html#Top][remote file editing]], eg =find-file
