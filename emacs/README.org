@@ -2881,6 +2881,18 @@ between different text editors and between different projects.
     (editorconfig-mode))
 #+END_SRC
 
+*** ein
+
+Long live ein!
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ein
+    :ensure t
+    :config
+    (setq ein:jupyter-default-server-command "jupyter-2.7"
+          ein:jupyter-default-notebook-directory "~/sandbox"))
+#+END_SRC
+
 *** eldoc-mode
 
 [[http://www.emacswiki.org/emacs/ElDoc][eldoc-mode]] is a minor mode that displays context-sensitive help when editing
