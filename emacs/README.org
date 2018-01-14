@@ -2526,6 +2526,7 @@ Jump to and fix syntax errors using flycheck with avy interface.
   (use-package avy-flycheck
     :after (avy flycheck)
     :ensure t
+    :commands avy-flycheck-goto-error
     :bind ("H-;" . avy-flycheck-goto-error))
 #+END_SRC
 
