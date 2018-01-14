@@ -3349,6 +3349,13 @@ JavaScript Awesome Development Environment (in Emacs).
     (setq indium-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"))
 #+END_SRC
 
+*** imenu-anywhere
+
+#+BEGIN_SRC emacs-lisp
+  (use-package imenu-anywhere
+    :ensure t)
+#+END_SRC
+
 *** info+
 
 #+BEGIN_SRC emacs-lisp
