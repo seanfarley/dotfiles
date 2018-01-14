@@ -4198,6 +4198,18 @@ Note: swiper <- {counsel, ivy}
                                                               ivy--directory)))
                         (counsel--find-file-matcher regexp candidates)))
 
+    (defun smf/ivy-launch-eshell (f)
+      (let ((default-directory (if (file-directory-p f)
+                                   f
+                                 (file-name-directory f))))
+        (smf/eshell-here)))
+
+    (ivy-add-actions
+     'counsel-find-file '(("e" smf/ivy-launch-eshell "eshell")))
+
+    (ivy-add-actions
+     'counsel-projectile-find-file '(("e" smf/ivy-launch-eshell "eshell")))
+
     (ivy-mode))
 #+END_SRC
 
