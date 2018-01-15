@@ -3064,17 +3064,29 @@ at point.
     (fa-config-default))
 #+END_SRC
 
-*** git-gutter
+*** git-gutter-fringe
 
 Emacs port of GitGutter which is Sublime Text Plugin.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package git-gutter
+  (use-package git-gutter-fringe
     :ensure t
     :diminish git-gutter-mode
     :defer 5
     :config
     (setq git-gutter:handled-backends '(git hg))
+    ;; (setq git-gutter:update-interval 2)
+
+    (define-fringe-bitmap 'git-gutter-fr:added
+      [240 240 240 240 240 240 240 240 240 240 240 240 240 240]
+      nil nil 'center)
+    (define-fringe-bitmap 'git-gutter-fr:modified
+      [240 240 240 240 240 240 240 240 240 240 240 240 240 240]
+      nil nil 'center)
+    (define-fringe-bitmap 'git-gutter-fr:deleted
+      [0 0 0 128 192 224 240 248]
+      nil nil 'center)
+
     (global-git-gutter-mode))
 #+END_SRC
 
