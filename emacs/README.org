@@ -3322,6 +3322,38 @@ Enables collapsable regions and diminish the mode:
     :diminish hs-minor-mode
     :config
     (add-hook 'prog-mode-hook #'hideshowvis-enable))
+
+  ;; TODO combine hideshow and vimish into one package
+  (use-package vimish-fold
+    :ensure t
+    :config
+    ;; stolen from doom
+    (defface +doom-folded-face
+      `((((background dark))
+         (:inherit font-lock-comment-face :background ,(doom-color 'base0)))
+        (((background light))
+         (:inherit font-lock-comment-face :background ,(doom-color 'base3))))
+      "Face to hightlight `hideshow' overlays."
+      :group 'doom)
+
+    (setq vimish-fold-indication-mode 'right-fringe)
+
+    ;; Nicer code-folding overlays (with fringe indicators)
+    (setq hs-set-up-overlay
+          (lambda (ov)
+            (when (eq 'code (overlay-get ov 'hs))
+              (when (featurep 'vimish-fold)
+                (overlay-put
+                 ov 'before-string
+                 (propertize "…" 'display
+                             (list vimish-fold-indication-mode
+                                   'empty-line
+                                   'vimish-fold-fringe))))
+              (overlay-put
+               ov 'display (propertize "  [...]  " 'face '+doom-folded-face)))))
+
+    (vimish-fold-global-mode))
+
 #+END_SRC
 
 *** highlight-symbol
