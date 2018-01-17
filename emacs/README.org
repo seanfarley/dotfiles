@@ -4270,6 +4270,34 @@ code), the tab size does not matter.
                                            smf/tmp-local-dir)))
 #+END_SRC
 
+*** solaire-mode
+
+[[https://github.com/hlissner/emacs-solaire-mode][solaire-mode]] is an aesthetic plugin that helps visually distinguish
+file-visiting windows from other types of windows (like popups or sidebars) by
+giving them a slightly different -- often brighter -- background.
+
+Mostly only works with =doom-themes= but shouldn't be too hard to get to work
+for =moe-dark= and friends.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package solaire-mode
+    :ensure t
+    :config
+    (setq solaire-mode-remap-modeline nil)
+
+    ;; brighten buffers (that represent real files)
+    (add-hook 'after-change-major-mode-hook #'turn-on-solaire-mode)
+    ;; To enable solaire-mode unconditionally for certain modes:
+    (add-hook 'ediff-prepare-buffer-hook #'solaire-mode)
+
+    ;; ...if you use auto-revert-mode, this prevents solaire-mode from turning
+    ;; itself off every time Emacs reverts the file
+    (add-hook 'after-revert-hook #'turn-on-solaire-mode)
+
+    ;; highlight the minibuffer when it is activated:
+    (add-hook 'minibuffer-setup-hook #'solaire-mode-in-minibuffer))
+#+END_SRC
+
 *** sphinx-doc-mode
 
 [[https://github.com/naiquevin/sphinx-doc.el][sphinx-doc]] is an emacs minor mode for inserting docstring skeleton for Python
