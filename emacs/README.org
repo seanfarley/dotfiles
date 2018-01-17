@@ -3766,6 +3766,7 @@ Shamelessly stolen from [[https://git.alanpearce.uk/alan/dotfiles/src/master/tag
     :defer 5
     :diminish page-break-lines-mode
     :config
+    (add-to-list 'page-break-lines-modes 'prog-mode)
     (global-page-break-lines-mode)
     (unless (eq (char-displayable-p ?─) (char-displayable-p ?a))
       (set-fontset-font "fontset-default"
