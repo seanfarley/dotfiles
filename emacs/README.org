@@ -3014,6 +3014,25 @@ for that.
 perform on-the-fly syntax checking and linting.
 
 #+BEGIN_SRC emacs-lisp
+  ;; exclamation point
+  (define-fringe-bitmap 'smf/flycheck-fringe-indicator
+    (vector #b00000000
+            #b00011000
+            #b00011000
+            #b00011000
+            #b00011000
+            #b00011000
+            #b00011000
+            #b00000000
+            #b00000000
+            #b00011000
+            #b00011000
+            #b00000000
+            #b00000000
+            #b00000000
+            #b00000000
+            #b00000000))
+
   (use-package flycheck
     :ensure t
     :commands flycheck-mode
