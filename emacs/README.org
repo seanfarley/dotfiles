@@ -3026,6 +3026,19 @@ perform on-the-fly syntax checking and linting.
     (defalias 'flycheck-show-error-at-point-soon 'flycheck-show-error-at-point))
 #+END_SRC
 
+*** flycheck-pos-tip
+
+This Flycheck extension shows errors under point in pos-tip popups.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck-pos-tip
+    :after flycheck
+    :ensure t
+    :init
+    (with-eval-after-load 'flycheck
+      (flycheck-pos-tip-mode)))
+#+END_SRC
+
 *** flyspell-correct-ivy
 
 Correcting words with flyspell via custom interface.
