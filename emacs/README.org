@@ -1047,9 +1047,17 @@ Pretty impressed by spacelines + all-the-icons integration.
 Some basic themes that work with =spaceline= and =all-the-icons=.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package moe-theme :ensure t)
+  (use-package doom-themes
+    :ensure t
+    :config
+    (setq doom-themes-enable-bold t     ; if nil, bold is universally disabled
+          doom-themes-enable-italic t)  ; if nil, italics is universally disabled
+
+    ;; enable flashing mode-line on errors
+    (doom-themes-visual-bell-config))
 
   ;; deferred for now
+  (use-package moe-theme :ensure t :defer t)
   (use-package creamsody-theme :ensure t :defer t)
   (use-package gruvbox-theme :ensure t :defer t)
   (use-package suscolors-theme :ensure t :defer t)
@@ -1065,7 +1073,13 @@ Some basic themes that work with =spaceline= and =all-the-icons=.
 
   (when window-system
     (smf/remove-mode-line-box)
-    (load-theme 'moe-dark))
+    (load-theme 'doom-one t)
+
+    ;; Enable custom neotree theme
+    (doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
+
+    ;; Corrects (and improves) org-mode's native fontification.
+    (doom-themes-org-config))
 #+END_SRC
 
 ** Utility functions
