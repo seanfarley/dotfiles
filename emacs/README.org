@@ -2748,6 +2748,15 @@ has better code for integrating with).
   (use-package emojify
     :ensure t
     :config
+
+    (defun smf/emojify-set-emoji-data ()
+      "Wrap `emojify-create-emojify-emojis'
+
+  This wrapper will remove emojis based on user preference."
+      (ht-remove emojify-emojis ":et:"))
+
+    (advice-add 'emojify-set-emoji-data :after 'smf/emojify-set-emoji-data)
+
     (add-hook 'after-init-hook #'global-emojify-mode))
 #+END_SRC
 
