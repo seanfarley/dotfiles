@@ -2757,6 +2757,11 @@ has better code for integrating with).
     (advice-add 'emojify-set-emoji-data :after 'smf/emojify-set-emoji-data)
 
     (add-hook 'after-init-hook #'global-emojify-mode))
+
+  (use-package emojify-logos
+    :after emojify
+    :ensure t)
+
 #+END_SRC
 
 **** Quickhelp
