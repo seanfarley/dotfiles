@@ -2458,7 +2458,6 @@ determining the level of indentation,
 
 #+BEGIN_SRC emacs-lisp
   (use-package highlight-indentation
-    :after anaconda
     :ensure t
     :diminish highlight-identation-mode
     :config
