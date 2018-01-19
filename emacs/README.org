@@ -2459,9 +2459,10 @@ determining the level of indentation,
 #+BEGIN_SRC emacs-lisp
   (use-package highlight-indentation
     :ensure t
-    :diminish highlight-identation-mode
-    :config
-    (add-hook 'python-mode-hook 'highlight-indentation-mode))
+    :commands highlight-indentation-mode
+    :diminish highlight-indentation-mode
+    :init
+    (add-hook 'python-mode-hook #'highlight-indentation-mode))
 #+END_SRC
 
 *** anzu
