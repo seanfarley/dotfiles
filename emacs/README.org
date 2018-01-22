@@ -3222,9 +3222,8 @@ Blergh.
     :mode ("\\.go$" . go-mode))
 
   (use-package company-go
-    :after (go-mode company-mode)
+    :after (:all go-mode company-mode)
     :ensure t
-    :defer t
     :config
     (setq company-go-show-annotation t)
     (add-hook 'go-mode-hook (lambda ()
