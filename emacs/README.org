@@ -5044,21 +5044,26 @@ Helper method to open a shell in the directory of the current file.
 
 *** autocomplete
 
+Not ready to use (errors out in most tab complete situations). Leaving here as
+a note to self.
+
+TODO: fix this up
+
 #+BEGIN_SRC emacs-lisp
-  (use-package pcmpl-git
-    :after eshell
-    :ensure t
-    :demand t)
+  ;; (use-package pcmpl-git
+  ;;   :after eshell
+  ;;   :ensure t
+  ;;   :demand t)
 
-  (use-package pcmpl-pip
-    :after eshell
-    :ensure t
-    :demand t)
+  ;; (use-package pcmpl-pip
+  ;;   :after eshell
+  ;;   :ensure t
+  ;;   :demand t)
 
-  (use-package pcmpl-args
-    :after eshell
-    :ensure t
-    :demand t)
+  ;; (use-package pcmpl-args
+  ;;   :after eshell
+  ;;   :ensure t
+  ;;   :demand t)
 #+END_SRC
 
 *** autosuggest
