@@ -4891,6 +4891,9 @@ Set up eshell with some prompt characters (concrete) and other basic settings,
     ;; turn off highlighting the prompt (background)
     (setq eshell-highlight-prompt nil)
 
+    ;; setting from bash that I'm already accustomed to
+    (setq eshell-cmpl-ignore-case t)
+
     ;; use ivy for M-r search through history
     (defun smf/setup-eshell ()
       (define-key eshell-mode-map (kbd "<tab>") 'completion-at-point)
