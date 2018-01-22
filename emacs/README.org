@@ -3219,11 +3219,7 @@ Blergh.
 #+BEGIN_SRC emacs-lisp
   (use-package go-mode
     :ensure t
-    :defer t
-    :mode "\\.go\\'"
-    :bind (:map go-mode-map
-                ("M-." . go-guru-definition)
-                ("C-c o" . go-guru-map)))
+    :mode ("\\.go$" . go-mode))
 
   (use-package company-go
     :after (go-mode company-mode)
