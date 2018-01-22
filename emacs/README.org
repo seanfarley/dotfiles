@@ -4987,6 +4987,21 @@ Cool little ps wrapper for ivy
 
 #+END_SRC
 
+Use =eshell/alias= to easily add aliases,
+
+#+BEGIN_SRC emacs-lisp
+  (use-package em-alias
+    :after eshell
+    :config
+    (setq-default password-cache t           ; enable password caching
+                  password-cache-expiry 300) ; for one hour (time in secs)
+
+    (require 'em-tramp)
+
+    ;; add a sudo wrapper that remembers the password
+    (eshell/alias "sudo" "eshell/sudo $*"))
+#+END_SRC
+
 Helper method to open a shell in the directory of the current file.
 
 #+BEGIN_SRC emacs-lisp
