@@ -3231,8 +3231,9 @@ Blergh.
                               (company-mode))))
 
   (use-package go-eldoc
+    :after (go-mode)
+    :commands go-eldoc-setup
     :ensure t
-    :defer
     :init
     (add-hook 'go-mode-hook 'go-eldoc-setup))
 #+END_SRC
