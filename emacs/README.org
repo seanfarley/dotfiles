@@ -2453,18 +2453,6 @@ is enabled, company-anaconda will also be enabled.
     :config (add-to-list 'company-backends 'company-anaconda))
 #+END_SRC
 
-Showing the indentation by a vertical highlight line is quite handy for quickly
-determining the level of indentation,
-
-#+BEGIN_SRC emacs-lisp
-  (use-package highlight-indentation
-    :ensure t
-    :commands highlight-indentation-mode
-    :diminish highlight-indentation-mode
-    :init
-    (add-hook 'python-mode-hook #'highlight-indentation-mode))
-#+END_SRC
-
 *** anzu
 
 [[https://github.com/syohex/emacs-anzu][anzu]] provides enhancements to =isearch= and related tasks, particularly
@@ -3386,6 +3374,20 @@ Enables collapsable regions and diminish the mode:
 
     (vimish-fold-global-mode))
 
+#+END_SRC
+
+*** highlight-indentation
+
+Showing the indentation by a vertical highlight line is quite handy for quickly
+determining the level of indentation,
+
+#+BEGIN_SRC emacs-lisp
+  (use-package highlight-indentation
+    :ensure t
+    :commands highlight-indentation-mode
+    :diminish highlight-indentation-mode
+    :init
+    (add-hook 'python-mode-hook #'highlight-indentation-mode))
 #+END_SRC
 
 *** highlight-symbol
