@@ -2424,35 +2424,6 @@ A Growl-like alerts notifier for Emacs.
                                 'osx-notifier)))
 #+END_SRC
 
-*** anaconda
-
-=anaconda= is an Emacs package to bring powerful Python editing to Emacs. After
-trying other major packages (elpy and jedi) I’ve settled on anaconda-mode and
-virtualenvwrapper. It provides a nice mix of tweakability and convenience.
-
-anaconda-mode provides code navigation and docs. Additionally, if company-mode
-is enabled, company-anaconda will also be enabled.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package anaconda-mode
-    :ensure t
-    :diminish anaconda-mode
-    :commands (anaconda-mode anaconda-eldoc-mode)
-    :bind (:map anaconda-mode-map
-                ("M-," . nil)     ; By default, anaconda binds =M-,= to finding
-                                  ; assignments instead of popping the navigation
-                                  ; stack (which changed in Emacs 25)
-                ("M-." . nil))    ; prefer to use other jump packages
-    :init
-    (add-hook 'python-mode-hook 'anaconda-mode)
-    (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
-
-  (use-package company-anaconda
-    :after (anaconda-mode company-mode)
-    :ensure t
-    :config (add-to-list 'company-backends 'company-anaconda))
-#+END_SRC
-
 *** anzu
 
 [[https://github.com/syohex/emacs-anzu][anzu]] provides enhancements to =isearch= and related tasks, particularly
@@ -3636,6 +3607,18 @@ Emacs client/library for the Language Server Protocol.
     :config
     (with-eval-after-load 'flycheck
       (require 'lsp-flycheck)))
+#+END_SRC
+
+*** lsp-python
+
+Python support for lsp-mode using pyls. Needs =python-language-server=
+installed (e.g. =pip install python-language-server=)
+
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-python
+    :ensure t
+    :commands lsp-python-enable
+    :init (add-hook 'python-mode-hook #'lsp-python-enable))
 #+END_SRC
 
 *** lua-mode
