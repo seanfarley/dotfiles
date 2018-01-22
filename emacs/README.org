@@ -2765,6 +2765,17 @@ has better code for integrating with).
 
 #+END_SRC
 
+**** lsp
+
+Company completion backend for lsp-mode.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company-lsp
+    :ensure t
+    :after (:all company lsp-mode)
+    :init (cl-pushnew (company-backend-with-yas 'company-lsp) company-backends))
+#+END_SRC
+
 **** Quickhelp
 
 #+BEGIN_SRC emacs-lisp
