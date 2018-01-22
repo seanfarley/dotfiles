@@ -3610,6 +3610,21 @@ colors with the color they represent as background.
     :commands less-css-mode)
 #+END_SRC
 
+*** lsp-mode
+
+Emacs client/library for the Language Server Protocol.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-mode
+    :ensure t
+    :diminish lsp-mode
+    ;; :init
+    ;; (add-hook 'prog-mode-hook 'lsp-mode)
+    :config
+    (with-eval-after-load 'flycheck
+      (require 'lsp-flycheck)))
+#+END_SRC
+
 *** lua-mode
 
 Dear god.
