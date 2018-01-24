@@ -4922,6 +4922,9 @@ use that,
     :init
     (setenv "PAGER" "cat")
 
+    ;; for processes that fork to spawn the editor, we need to set this
+    (setenv "EDITOR" "emacsclient -f ~/.emacs.d/server/server")
+
     (setq eshell-buffer-shorthand t
           eshell-scroll-to-bottom-on-input 'all
           eshell-error-if-no-glob t
