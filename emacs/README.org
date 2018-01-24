@@ -4925,13 +4925,13 @@ use that,
     ;; for processes that fork to spawn the editor, we need to set this
     (setenv "EDITOR" "emacsclient -f ~/.emacs.d/server/server")
 
-    (setq eshell-buffer-shorthand t
-          eshell-scroll-to-bottom-on-input 'all
-          eshell-error-if-no-glob t
-          eshell-hist-ignoredups t
-          eshell-save-history-on-exit t
-          eshell-prefer-lisp-functions t
-          eshell-destroy-buffer-when-process-dies t))
+    (setq-default eshell-buffer-shorthand t
+                  eshell-scroll-to-bottom-on-input 'all
+                  eshell-error-if-no-glob t
+                  eshell-hist-ignoredups t
+                  eshell-save-history-on-exit t
+                  eshell-prefer-lisp-functions t
+                  eshell-destroy-buffer-when-process-dies t))
 
   ;; still not decided about using this
   ;; (use-package em-smart
