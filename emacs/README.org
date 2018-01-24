@@ -611,6 +611,28 @@ I never remember the keybindings for this:
   (global-set-key (kbd "s-0") '(lambda () (interactive) (text-scale-adjust 0)))
 #+END_SRC
 
+*** exec-path-from-shell
+
+OS X doesn't use the environment variables available in a shell in a GUI
+environment ([[https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPRuntimeConfig/Articles/EnvironmentVars.html][more here]]).
+
+Since Emacs runs shell commands regularly it's important that the same =PATH= is
+available to my editor as [[https://www.macports.org][MacPorts]] etc. set and use.
+
+[[https://github.com/purcell/exec-path-from-shell][exec-path-from-shell]] is a package that copies across =PATH= and other variables
+to the Emacs environment.
+
+I only want this to be installed and enabled on OS X.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package exec-path-from-shell
+    :if (eq system-type 'darwin)
+    :ensure t
+    :config
+    (setq exec-path-from-shell-variables '("PATH"  "MANPATH" "SHELL"))
+    (exec-path-from-shell-initialize))
+#+END_SRC
+
 ** Interface
 
 *** Remove chrome
@@ -2991,28 +3013,6 @@ ESUP - Emacs Start Up Profiler
     :ensure t
     :config
     (setq esup-insignificant-time 0.001))
-#+END_SRC
-
-*** exec-path-from-shell
-
-OS X doesn't use the environment variables available in a shell in a GUI
-environment ([[https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPRuntimeConfig/Articles/EnvironmentVars.html][more here]]).
-
-Since Emacs runs shell commands regularly it's important that the same =PATH= is
-available to my editor as [[https://www.macports.org][MacPorts]] etc. set and use.
-
-[[https://github.com/purcell/exec-path-from-shell][exec-path-from-shell]] is a package that copies across =PATH= and other variables
-to the Emacs environment.
-
-I only want this to be installed and enabled on OS X.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package exec-path-from-shell
-    :if (eq system-type 'darwin)
-    :ensure t
-    :config
-    (setq exec-path-from-shell-variables '("PATH"  "MANPATH" "SHELL"))
-    (exec-path-from-shell-initialize))
 #+END_SRC
 
 *** expand-region
