@@ -2417,11 +2417,17 @@ A Growl-like alerts notifier for Emacs.
 
 #+BEGIN_SRC emacs-lisp
   (use-package alert
+    :after exec-path-from-shell
     :ensure t
     :config
-    (setq alert-default-style (if (file-executable-p alert-notifier-command)
-                                  'notifier
-                                'osx-notifier)))
+    ;; odd, for some reason this is not finding the executable even after setting
+    ;; this package to load after `exec-path-from-shell'
+    (eval-after-load 'exec-path-from-shell
+      '(progn
+         (setq alert-notifier-command (executable-find "terminal-notifier"))
+         (setq alert-default-style (if alert-notifier-command
+                                       'notifier
+                                     'osx-notifier)))))
 #+END_SRC
 
 *** anzu
