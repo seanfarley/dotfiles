@@ -32,7 +32,6 @@ type = stat
 usegeneraldelta = True
 
 [extensions]
-color =
 patchbomb =
 schemes =
 progress =
