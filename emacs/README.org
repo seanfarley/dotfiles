@@ -2462,23 +2462,26 @@ anaconda-mode provides code navigation and docs. Additionally, if company-mode
 is enabled, company-anaconda will also be enabled.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package python
+    :mode ("\\.py\\'" . python-mode)
+    :interpreter ("python" . python-mode))
+
   (use-package anaconda-mode
     :ensure t
     :diminish anaconda-mode
-    :commands (anaconda-mode anaconda-eldoc-mode)
-    :bind (:map anaconda-mode-map
-                ("M-," . nil)     ; By default, anaconda binds =M-,= to finding
-                                  ; assignments instead of popping the navigation
-                                  ; stack (which changed in Emacs 25)
-                ("M-." . nil))    ; prefer to use other jump packages
-    :init
-    (add-hook 'python-mode-hook 'anaconda-mode)
-    (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+    :hook ((python-mode . anaconda-mode)
+           (python-mode . anaconda-eldoc-mode))
+    :config
+    ;; below, the keymaps need to be set in :config instead of :bind since :bind
+    ;; turns on deferred loading in the opposite way (loads when user presses
+    ;; those keys)
 
-  (use-package company-anaconda
-    :after (anaconda-mode company-mode)
-    :ensure t
-    :config (add-to-list 'company-backends 'company-anaconda))
+    ;; By default, anaconda binds =M-,= to finding assignments instead of popping
+    ;; the navigation stack (which changed in Emacs 25)
+    (define-key anaconda-mode-map (kbd "M-,") nil)
+
+    ;; prefer to use other jump packages
+    (define-key anaconda-mode-map (kbd "M-.") nil))
 #+END_SRC
 
 *** anzu
@@ -2749,6 +2752,26 @@ has better code for integrating with).
     (setq company-backends (mapcar #'company-backend-with-yas company-backends))
 
     (global-company-mode))
+#+END_SRC
+
+**** Anaconda
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company-anaconda
+    :after (anaconda-mode company)
+    :ensure t
+    :preface
+    (defvar smf/py-paths `(,(expand-file-name "~/projects/bitbucket-docker/")))
+
+    (defun smf/add-python-path (p)
+      "A helper method to add a python path if it is not in the list
+    already"
+      (unless (member p python-shell-extra-pythonpaths)
+        (add-to-list 'python-shell-extra-pythonpaths p)))
+    :config
+    (mapc #'smf/add-python-path smf/py-paths)
+    (define-key anaconda-mode-map (kbd "<tab>") 'company-complete)
+    (cl-pushnew (company-backend-with-yas 'company-anaconda) company-backends))
 #+END_SRC
 
 **** Emoji
