@@ -4421,8 +4421,7 @@ functions and methods.
     :after anaconda-mode
     :ensure t
     :diminish sphinx-doc-mode
-    :config
-    (add-hook 'python-mode-hook 'sphinx-doc-mode))
+    :hook (python-mode . sphinx-doc-mode))
 #+END_SRC
 
 *** stickyfunc-enhance
