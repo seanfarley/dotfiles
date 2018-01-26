@@ -2458,8 +2458,7 @@ A Growl-like alerts notifier for Emacs.
 trying other major packages (elpy and jedi) I’ve settled on anaconda-mode and
 virtualenvwrapper. It provides a nice mix of tweakability and convenience.
 
-anaconda-mode provides code navigation and docs. Additionally, if company-mode
-is enabled, company-anaconda will also be enabled.
+anaconda-mode provides code navigation and docs.
 
 #+BEGIN_SRC emacs-lisp
   (use-package python
@@ -2756,12 +2755,20 @@ has better code for integrating with).
 
 **** Anaconda
 
+If company-mode is enabled, company-anaconda will also be enabled.
+
 #+BEGIN_SRC emacs-lisp
   (use-package company-anaconda
     :after (anaconda-mode company)
     :ensure t
     :preface
-    (defvar smf/py-paths `(,(expand-file-name "~/projects/bitbucket-docker/")))
+    (defvar smf/py-paths '("~/projects/bitbucket-docker"
+                           "~/projects/bitbucket-hooks"
+                           "~/projects/orochi"
+                           "~/projects/hg"
+                           "~/projects/hggit"
+                           "~/projects/hgevolve"
+                           "~/projects/hgsubversion"))
 
     (defun smf/add-python-path (p)
       "A helper method to add a python path if it is not in the list
@@ -2769,7 +2776,7 @@ has better code for integrating with).
       (unless (member p python-shell-extra-pythonpaths)
         (add-to-list 'python-shell-extra-pythonpaths p)))
     :config
-    (mapc #'smf/add-python-path smf/py-paths)
+    (mapc #'smf/add-python-path (mapcar #'expand-file-name smf/py-paths))
     (define-key anaconda-mode-map (kbd "<tab>") 'company-complete)
     (cl-pushnew (company-backend-with-yas 'company-anaconda) company-backends))
 #+END_SRC
