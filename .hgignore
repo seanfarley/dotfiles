@@ -29,6 +29,7 @@ emacs/eshell
 emacs/.historian
 emacs/company-statistics-cache.el
 
+db/dhist
 omnisharp-server
 irony-server
 
