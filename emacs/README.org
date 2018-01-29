@@ -3374,7 +3374,7 @@ Enables collapsable regions and diminish the mode:
 
 #+BEGIN_SRC emacs-lisp
   (use-package hideshowvis
-    :ensure t
+    :load-path "lisp"
     :diminish hs-minor-mode
     :config
     (add-hook 'prog-mode-hook #'hideshowvis-enable))
@@ -3539,7 +3539,7 @@ JavaScript Awesome Development Environment (in Emacs).
 
 #+BEGIN_SRC emacs-lisp
   (use-package info+
-    :ensure t)
+    :load-path "lisp")
 #+END_SRC
 
 *** ivy-historian
@@ -3790,7 +3790,7 @@ description of this workflow]]).
 
 #+BEGIN_SRC emacs-lisp
   (use-package narrow-indirect
-    :ensure t)
+    :load-path "lisp")
 #+END_SRC
 
 *** npm-mode
