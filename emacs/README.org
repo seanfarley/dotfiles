@@ -1481,6 +1481,19 @@ A package I wrote to help connect to hipchat and display things like (awyeah).
     (erc-update-modules))
 #+END_SRC
 
+*** image
+
+Fetch and show received images in a ERC buffer.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package erc-image
+    :after erc
+    :ensure t
+    :config
+    (setq erc-image-inline-rescale 'window)
+    (erc-image-enable))
+#+END_SRC
+
 *** Switch to buffer or connect to znc
 
 If I haven't connected to my ZNC server, then we connect to it; otherwise, just
