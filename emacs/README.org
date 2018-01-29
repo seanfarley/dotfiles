@@ -5015,17 +5015,6 @@ Let's bring back our favorite =-= as well,
     (eshell/cd "-"))
 #+END_SRC
 
-Mercurial needs to disable pagination, too,
-
-#+BEGIN_SRC emacs-lisp
-  (defun eshell/hg (&rest args)
-    (eshell-do-eval
-     (eshell-parse-command (concat
-                            "chg --config ui.paginate=never "
-                            (string-join args))) t)
-    (eshell/echo))
-#+END_SRC
-
 Cool little ps wrapper for ivy
 
 #+BEGIN_SRC emacs-lisp
@@ -5055,7 +5044,11 @@ Use =eshell/alias= to easily add aliases,
     (require 'em-tramp)
 
     ;; add a sudo wrapper that remembers the password
-    (eshell/alias "sudo" "eshell/sudo $*"))
+    (eshell/alias "sudo" "eshell/sudo $*")
+
+    ;; hg needs to disable pagination
+
+    (eshell/alias "hg" "chg --config ui.paginate=never $*"))
 #+END_SRC
 
 Helper method to open a shell in the directory of the current file.
