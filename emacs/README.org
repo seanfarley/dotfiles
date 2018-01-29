@@ -2834,6 +2834,16 @@ Company completion backend for lsp-mode.
     :init (cl-pushnew (company-backend-with-yas 'company-lsp) company-backends))
 #+END_SRC
 
+**** restclient
+
+Company-mode completion back-end for [[https://github.com/pashky/restclient.el][restclient-mode]] (a HTTP REST client tool
+for emacs).
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company-restclient
+    :ensure t)
+#+END_SRC
+
 **** Quickhelp
 
 #+BEGIN_SRC emacs-lisp
