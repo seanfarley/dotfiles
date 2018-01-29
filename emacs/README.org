@@ -2143,11 +2143,7 @@ some basic settings and personal tweaks,
                   org-capture-templates
                   '(("t" "Tasks" entry
                      (file+headline smf/org-input "Inbox")
-                     "* TODO %?\n  Captured %<%Y-%m-%d %H:%M>\n  %a\n\n  %i" "Basic task data")
-                    ("j" "Journal" entry
-                     (file+datetree (concat org-directory "/journal.org"))
-                     "* %?\n** Situation\n*** What led to the unpleasant emotion?\n** Automatic Thoughts\n*** What thoughts went through your mind?\n** Emotion(s)\n*** What emotion(s) did you feel at the time?\n** Adaptive Response\n*** Modify your automatic thoughts with more realistic responses."))
-
+                     "* TODO %?\n  Captured %<%Y-%m-%d %H:%M>\n  %a\n\n  %i" "Basic task data"))
 
                   org-todo-keywords '((sequence "TODO(t)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELED(c)"))
 
