@@ -2341,6 +2341,15 @@ notes (just like 'l' for log mode).
     :load-path "init")
 #+END_SRC
 
+This package lets you quickly jump to recently used Org headings using Helm,
+Ivy, or plain-ol’ completing-read.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-recent-headings
+    :ensure t
+    :config (org-recent-headings-mode))
+#+END_SRC
+
 ** prodigy
 
 Manage external services from within Emacs.
