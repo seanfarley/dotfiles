@@ -4114,6 +4114,19 @@ Set up some key bindings:
     :disabled)
 #+END_SRC
 
+*** pylookup
+
+Emacs mode for searching python documents with convenience.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package pylookup
+    :load-path "lisp/pylookup"
+    :config
+    (let ((pylookup-dir (smf/join-dirs smf/dotfiles-dir "lisp/pylookup")))
+      (setq pylookup-program (concat pylookup-dir "pylookup.py")
+            pylookup-db-file (concat pylookup-dir "pylookup.db"))))
+#+END_SRC
+
 *** python debugger
 
 #+BEGIN_SRC emacs-lisp
