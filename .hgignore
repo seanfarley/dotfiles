@@ -29,7 +29,9 @@ emacs/eshell
 emacs/.historian
 emacs/company-statistics-cache.el
 emacs/org-recent-headings
+emacs/lisp/pylookup/*-docs-html
 
+pylookup.db
 db/dhist
 omnisharp-server
 irony-server
