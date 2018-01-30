@@ -28,6 +28,7 @@ emacs/bookmarks
 emacs/eshell
 emacs/.historian
 emacs/company-statistics-cache.el
+emacs/org-recent-headings
 
 db/dhist
 omnisharp-server
