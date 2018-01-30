@@ -4145,6 +4145,19 @@ We can work around that using [[https://www.gnu.org/software/emacs/manual/html_n
     (add-hook 'python-mode-hook #'smf/python-mode))
 #+END_SRC
 
+*** pytest
+
+Run py.test on testing functions, classes, modules and entire suites in Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package pytest
+    :ensure t
+    :bind (("C-c t a" . pytest-all)
+           ("C-c t m" . pytest-module)
+           ("C-c t o" . pytest-one)
+           ("C-c t d" . pytest-directory)))
+#+END_SRC
+
 *** pyvenv
 
 Python virtual environment interface for Emacs. Useful for eshell and similar.
