@@ -397,8 +397,8 @@ ve() {
   [[ ! -d "$WORKON_HOME" ]] && mkdir -p "$WORKON_HOME"
   [[ -z "$@" ]] && return
   if [ ! -d "$WORKON_HOME/$1" ]; then
-    echo mkvirtualenv "$1" ${@:2}
-    mkvirtualenv "$1" ${@:2}
+    echo mkvirtualenv ${@:2} "$1"
+    mkvirtualenv ${@:2} "$1"
     mkdir -p $HOME/.bbrepos/bucket01 $HOME/.bbrepos/bucket02 $HOME/.bbrepos/bucket03
     ln -sif $HOME/.bbrepos $VIRTUAL_ENV/repos
     cat >$VIRTUAL_ENV/bin/postactivate <<EOF
