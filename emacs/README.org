@@ -2458,6 +2458,20 @@ Manage external services from within Emacs.
 Emacs comes with hundreds of major and minor modes to do many, many things.
 These are the ones I commonly use and have configured.
 
+*** ace-link
+
+Quickly follow links in Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ace-link
+    :ensure t
+    :after org
+    :config
+    (ace-link-setup-default)
+    (define-key org-mode-map (kbd "M-o") 'ace-link-org))
+
+#+END_SRC
+
 *** aHg
 
 #+BEGIN_SRC emacs-lisp
