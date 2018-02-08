@@ -30,6 +30,7 @@ emacs/.historian
 emacs/company-statistics-cache.el
 emacs/org-recent-headings
 emacs/lisp/pylookup/*-docs-html
+emacs/magithub/cache
 
 pylookup.db
 db/dhist
