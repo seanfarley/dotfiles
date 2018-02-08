@@ -83,3 +83,5 @@
 	verbose = true
 [magit]
 	hideCampaign = true
+[github]
+	user = seanfarley
