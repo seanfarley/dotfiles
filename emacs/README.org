@@ -4147,12 +4147,7 @@ Emacs mode for searching python documents with convenience.
 
 #+BEGIN_SRC emacs-lisp
   (use-package realgud
-    :ensure t
-    :disabled t
-    :bind (:map realgud:shortkey-mode-map
-                ([mouse-3] . realgud:tooltip-eval)
-                :map realgud-track-mode-map
-                ("C-c C-/" . realgud:ipdb-foo)))
+    :ensure t)
 #+END_SRC
 
 *** python-mode
