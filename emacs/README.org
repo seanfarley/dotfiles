@@ -3470,18 +3470,17 @@ Enables collapsable regions and diminish the mode:
 
 #+END_SRC
 
-*** highlight-indentation
+*** highlight-indent-guides
 
 Showing the indentation by a vertical highlight line is quite handy for quickly
 determining the level of indentation,
 
 #+BEGIN_SRC emacs-lisp
-  (use-package highlight-indentation
+  (use-package highlight-indent-guides
     :ensure t
-    :commands highlight-indentation-mode
-    :diminish highlight-indentation-mode
-    :init
-    (add-hook 'python-mode-hook #'highlight-indentation-mode))
+    :hook (prog-mode . highlight-indent-guides-mode)
+    :config
+    (setq highlight-indent-guides-method 'column))
 #+END_SRC
 
 *** highlight-symbol
