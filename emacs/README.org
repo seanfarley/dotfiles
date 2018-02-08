@@ -4179,7 +4179,29 @@ Run py.test on testing functions, classes, modules and entire suites in Emacs.
     :bind (("C-c t a" . pytest-all)
            ("C-c t m" . pytest-module)
            ("C-c t o" . pytest-one)
-           ("C-c t d" . pytest-directory)))
+           ("C-c t d" . pytest-directory)
+           ("C-c t r" . pytest-realgud))
+    :config
+    ;; when you put a breakpoint in a pytest you need to run it in a
+    ;; debugger-aware comint mode; for now this is hardcoded to realgud and ipdb
+    (defun pytest-realgud (&optional tests flags)
+      "Run pytest.
+  Optional argument TESTS Tests to run.
+  Optional argument FLAGS py.test command line flags."
+      (interactive)
+      (let* ((tests (pytest-py-testable))
+             (pytest (pytest-find-test-runner))
+             (where (if tests
+                        (let ((testpath (if (listp tests) (car tests) tests)))
+                          (pytest-find-project-root (file-name-directory testpath)))
+                      (pytest-find-project-root)))
+             (tests (cond ((not tests) (list "."))
+                          ((listp tests) tests)
+                          ((stringp tests) (split-string tests))))
+             (tnames (mapconcat (apply-partially 'format "%s") tests " "))
+             (cmd-flags (if flags flags pytest-cmd-flags)))
+        (cd where)
+        (realgud:ipdb (format "%s %s %s" pytest cmd-flags tnames)))))
 #+END_SRC
 
 *** pyvenv
