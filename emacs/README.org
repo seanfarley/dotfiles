@@ -2511,7 +2511,9 @@ anaconda-mode provides code navigation and docs.
 #+BEGIN_SRC emacs-lisp
   (use-package python
     :mode ("\\.py\\'" . python-mode)
-    :interpreter ("python" . python-mode))
+    :interpreter ("ipython" . python-mode)
+    :config
+    (setq python-shell-interpreter-args "--simple-prompt -i"))
 
   (use-package anaconda-mode
     :ensure t
