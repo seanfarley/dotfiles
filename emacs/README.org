@@ -2330,8 +2330,7 @@ mu4e installation),
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-mu4e
-    :after mu4e
-    :defer t)
+    :after mu4e)
 #+END_SRC
 
 To promote using a process journal for logging notes and, more importantly, a
