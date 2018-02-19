@@ -1837,6 +1837,7 @@ messages to maildirs.
           mu4e-view-html-plaintext-ratio-heuristic most-positive-fixnum
 
           mu4e-maildir-shortcuts '(("/inbox"     . ?i)
+                                   ("/lists"     . ?l)
                                    ("/archive"   . ?a)
                                    ("/drafts"    . ?d)
                                    ("/phd"       . ?p)
@@ -1845,11 +1846,11 @@ messages to maildirs.
                                    ("/spam"      . ?s))
 
           mu4e-bookmarks
-          '(("flag:unread AND NOT flag:trashed AND NOT maildir:/spam" "All unread" ?u)
-            ("flag:unread AND NOT flag:trashed AND NOT maildir:/spam AND NOT mercurial AND NOT macports" "Unread" ?U)
+          '(("maildir:/inbox AND flag:unread AND NOT flag:trashed" "All unread" ?u)
+            ("maildir:/lists AND flag:unread AND NOT flag:trashed AND NOT mercurial AND NOT macports" "Unread" ?U)
             ("to:sean.michael.farley+self and not maildir:/phd and not maildir:/posterity" "Notes" ?n)
-            ("flag:unread macports" "Macports" ?p)
-            ("flag:unread mercurial" "Mercurial" ?m))
+            ("maildir:/lists macports" "Macports" ?p)
+            ("maildir:/lists mercurial" "Mercurial" ?m))
 
           ;; an absolute must to sort the inbox with the date ascending.
           mu4e-headers-sort-direction 'ascending
@@ -2002,9 +2003,12 @@ Use terminal-notifier to display unread email.
     :ensure t
     :after mu4e
     :config
-    ;; just display a number to save precious modeline space
-    (setq mu4e-alert-modeline-formatter
-          (lambda (count) (when (> count 0) (format "%d" count))))
+    (setq
+     ;; only list mails in inbox
+     mu4e-alert-interesting-mail-query "maildir:/inbox AND flag:unread AND NOT flag:trashed"
+
+     ;; just display a number to save precious modeline space
+     mu4e-alert-modeline-formatter (lambda (count) (when (> count 0) (format "%d" count))))
 
     (mu4e-alert-set-default-style 'notifier)
     (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
