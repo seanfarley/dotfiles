@@ -103,6 +103,9 @@ EOF
 # install modern looking icon for emacs
 curl -O https://s3.amazonaws.com/emacs-mac-port/Emacs.icns.modern && sudo mv Emacs.icns.modern /Applications/MacPorts/EmacsMac.app/Contents/Resources/Emacs.icns && sudo touch /Applications/MacPorts/EmacsMac.app/
 
+# disable nap mode for Emacs, otherwise requests will be very slow when Emacs enters nap mode
+sudo defaults write org.gnu.Emacs NSAppSleepDisabled -bool YES
+
 if ! grep -q "/opt/local/bin/bash" /etc/shells; then
   sudo sh -c "echo '/opt/local/bin/bash' >> /etc/shells"
 fi
