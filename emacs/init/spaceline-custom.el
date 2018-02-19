@@ -365,6 +365,17 @@
     :when (not (string= (spaceline--tasks-inbox) "0 ")))
 
 (spaceline-define-segment
+    ati-vpn "Display whether or not the vpn is connected."
+    (propertize (all-the-icons-faicon "wifi" :v-adjust 0.05)
+              'face `( :inherit)
+              'help-echo "Atlassian VPN"
+              'local-map (make-mode-line-mouse-map 'mouse-1 #'prodigy))
+    :tight t
+    :when (string-match-p "\\(Running\\|Ready\\)"
+                          (prodigy-status-name
+                           (prodigy-find-service "Atlassian VPN"))))
+
+(spaceline-define-segment
     ati-hud "Display position through buffer as an XPM image"
     (let ((color1 (face-foreground default-face))
           (height (or powerline-height (frame-char-height)))
@@ -485,7 +496,7 @@ the directions of the separator."
    ((ati-vc-icon ati-git-stats ati-flycheck-status ati-flycheck-info purpose) :separator " · " :face other-face)
    ati-left-4-separator)
 
- '(((org-pomodoro) :face line-face)
+ '(((org-pomodoro ati-vpn) :face line-face)
    ati-right-inactive-separator
    ati-right-0-separator
    ((ati-erc-track ati-mu4e) :separator " · " :face highlight-face :tight t)
