@@ -5,6 +5,7 @@ emacs/server
 emacs/tramp
 emacs/*persistent-scratch*
 emacs/.elpa
+emacs/elpa
 emacs/.tmp
 emacs/README.*
 emacs/custom.el
