@@ -134,7 +134,7 @@
                             (point-min) (point-max))))))
          (branch (replace-regexp-in-string (rx (* (any " \t\n")) eos)
                                            ""
-                                           branch-raw)))
+                                           (or branch-raw "default"))))
     (concat
      (propertize (format " %s" (all-the-icons-faicon "mercury"))
                  'face `(:family ,(all-the-icons-faicon-family) :height 0.8 :inherit)
