@@ -2382,6 +2382,30 @@ Manage external services from within Emacs.
       :kill-signal 'sigkill
       :kill-process-buffer-on-stop t)
 
+    ;; filter function to send password to the openconnect process
+    (defun smf/vpn-filter (&rest args)
+      (let* ((service (plist-get args :service))
+             (output (plist-get args :output))
+             (proc (plist-get service :process)))
+
+        (when (and proc (s-matches? "Password" output))
+          (let ((pass (concat (smf/auth-source-pass "sfarley@atlassian.com" "atlassian.my.centrify.com") "\rpush\r")))
+            (process-send-string proc pass)
+            (clear-string pass)
+            (process-send-eof proc)))
+
+        (when (s-matches? "Established DTLS connection" output)
+          (prodigy-set-status service 'ready))))
+
+    (prodigy-define-service
+      :name "Atlassian VPN"
+      :command (expand-file-name "~/projects/dotfiles/vpn-connect")
+      :args '("vpn.atlassian.com" "-u" "sfarley")
+      :tags '(work vpn)
+      :on-output 'smf/vpn-filter
+      :stop-signal 'kill
+      :kill-process-buffer-on-stop t)
+
     ;; bitbucket awwwwww yeah
     (prodigy-define-tag
       :name 'bitbucket
