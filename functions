@@ -467,11 +467,7 @@ imsg() {
 
 function vpn-connect {
   echo "Connecting ${user} to vpn using DUO ${duo}..."
-  # hardcode the password here so that no variables hold the plain text
-  pass="$(pass show work/atlassian.my.centrify.com | head -n1)"
-  [[ -z "$pass" ]] && read -sp "VPN password:" pass
-  printf "sfarley\n%s\npush\n" "$pass" | sudo openconnect vpn.atlassian.com
-  echo "Done"
+  printf "$(pass show work/atlassian.my.centrify.com | head -n1)\npush\n" | $PROJECTS/dotfiles/vpn-connect vpn.atlassian.com -u sfarley
 }
 
 watchman-sync() {
