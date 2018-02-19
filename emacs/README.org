@@ -3207,7 +3207,9 @@ perform on-the-fly syntax checking and linting.
     (add-hook 'prog-mode-hook #'flycheck-mode)
     :config
     ;; because git-gutter is in the left fringe
-    (setq flycheck-indication-mode 'right-fringe)
+    (setq flycheck-indication-mode 'right-fringe
+          flycheck-emacs-lisp-initialize-packages t
+          flycheck-emacs-lisp-load-path 'inherit)
 
     (flycheck-define-error-level 'error
       :overlay-category 'flycheck-error-overlay
