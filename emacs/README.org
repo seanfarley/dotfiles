@@ -4741,8 +4741,16 @@ More on the last two incantations at [[http://emacs-fu.blogspot.co.uk/2009/10/ed
     :defer t
     :commands twit
     :config
-    (setq twittering-icon-mode t)
-    (setq twittering-use-icon-storage t))
+    (setq twittering-icon-mode t
+          twittering-use-icon-storage t
+
+          ;; bug in twittering mode with curl
+          ;; https://www.reddit.com/r/emacs/comments/7irnst/twittering_mode_curl_errors/
+          twittering-connection-type-order '(wget
+                                             curl
+                                             urllib-http
+                                             native
+                                             urllib-https)))
 #+END_SRC
 
 *** undo-tree
