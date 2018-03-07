@@ -2865,7 +2865,8 @@ has better code for integrating with).
 
     (setq company-backends (mapcar #'company-backend-with-yas company-backends))
 
-    (global-company-mode))
+    (global-company-mode)
+    (global-set-key (kbd "TAB") #'company-indent-or-complete-common))
 #+END_SRC
 
 **** Anaconda
@@ -2892,7 +2893,7 @@ If company-mode is enabled, company-anaconda will also be enabled.
         (add-to-list 'python-shell-extra-pythonpaths p)))
     :config
     (mapc #'smf/add-python-path (mapcar #'expand-file-name smf/py-paths))
-    (define-key anaconda-mode-map (kbd "<tab>") 'company-complete)
+    (define-key anaconda-mode-map (kbd "<tab>") #'company-indent-or-complete-common)
     (cl-pushnew (company-backend-with-yas 'company-anaconda) company-backends))
 #+END_SRC
 
