@@ -850,7 +850,7 @@ echo "Done. Note that some of these changes require a logout/restart to take eff
 ###############################################################################
 
 # add multiple routes at once (SUBNET1 MASK1 GW1) (SUBNET2 MASK2 GW2)
-# sudo networksetup -setadditionalroutes Wi-Fi 10.192.0.0 255.255.0.0 172.29.184.1 10.64.0.0 255.255.0.0 172.29.184.1 172.30.221.0 255.255.255.0 172.29.184.1 10.104.0.0 255.255.0.0 172.29.184.1 10.194.0.0 255.255.0.0 172.29.184.1
+# sudo networksetup -setadditionalroutes Wi-Fi 10.192.0.0 255.255.0.0 172.29.184.1 10.64.0.0 255.255.0.0 172.29.184.1 172.30.221.0 255.255.255.0 172.29.184.1 10.104.0.0 255.255.0.0 172.29.184.1 10.194.0.0 255.255.0.0 172.29.184.1 10.124.0.0 255.255.0.0 172.29.184.1 172.29.0.0 255.255.0.0 172.29.184.1
 
 # check with
 # networksetup -getadditionalroutes Wi-Fi
@@ -865,3 +865,6 @@ echo "Done. Note that some of these changes require a logout/restart to take eff
 # 10.104.82.170   api-s01.us-west-2.bb-inf.net
 # 10.194.7.74     fabfile.aws.bb-inf.net
 # 10.124.139.174  docker.atl-paas.net
+# 10.64.2.249     ops.internal.atlassian.com
+# 10.124.144.248  directory.prod.atl-paas.net
+# 172.29.148.20   sfo2-l2-north-colour-letter.office.atlassian.com
