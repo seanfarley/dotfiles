@@ -1855,6 +1855,16 @@ messages to maildirs.
           ;; an absolute must to sort the inbox with the date ascending.
           mu4e-headers-sort-direction 'ascending
 
+          ;; gives me more subject line real estate
+          mu4e-headers-fields '((:human-date . 10)
+                                (:flags . 4)
+                                (:from . 18)
+                                (:subject))
+
+          ;; n and p already do this and I like be bounded by the current message
+          ;; view
+          mu4e-view-scroll-to-next nil
+
           mu4e-get-mail-command "mbsync -a"
 
           ;; mbsync needs messages to be renamed
