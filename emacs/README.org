@@ -2422,7 +2422,8 @@ Manage external services from within Emacs.
     ;; bitbucket awwwwww yeah
     (prodigy-define-tag
       :name 'bitbucket
-      :cwd "~/projects/bitbucket"
+      :url "http://localhost:8000"
+      :cwd "~/projects/bitbucket-docker/bitbucket"
       :path `(,(expand-file-name "~/.virtualenvs/bitbucket/bin")
               ,(expand-file-name "~/projects/go/bin"))
       :kill-signal 'sigkill
@@ -2433,12 +2434,10 @@ Manage external services from within Emacs.
              ("PYTHONUNBUFFERED" "1")
              ("DEBUG" "1")
              ("CELERY_RDB_PORT" "6900")
-             ("DJANGO_SETTINGS_MODULE" "bitbucket.settings.dev")
              ("LANG" "en_US.UTF-8")
              ("PATH" ,(concat (expand-file-name "~/projects/go/bin") ":"
-                              (expand-file-name "~/.virtualenvs/bitbucket/bin") ":"
-                              (getenv "PATH")))
-             ("VIRTUAL_ENV" ,(expand-file-name "~/.virtualenvs/bitbucket/"))))
+                              (getenv "PATH"))))
+      :init '(lambda () (venv-workon "bitbucket")))
 
     (prodigy-define-service
       :name "Bitbucket Celery"
@@ -2449,8 +2448,8 @@ Manage external services from within Emacs.
     (prodigy-define-service
       :name "Bitbucket Django"
       :command "python"
-      :url "http://dev.bitbucket.org:8000"
-      :args '("manage.py" "runserver")
+      :args '("manage.py" "runserver"
+              "0.0.0.0:8000")
       :tags '(bitbucket python))
 
     (prodigy-define-service
