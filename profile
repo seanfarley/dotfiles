@@ -11,12 +11,12 @@ done
 # Only run these if running interactively
 if [ -n "$PS1" ]; then
 
-  # make sure multiplexing directory exists
-  [ -d $HOME/.ssh/connections ] || mkdir $HOME/.ssh/connections
-
   # load keys from keychain
   if [[ -f /usr/bin/security ]]; then
     ssh-add -K &> /dev/null
+    for f in $(find ~/.ssh/ -maxdepth 1 -type f \( -name id_\* -or -name sean_\* -or -name smf_\* \) ! -name \*.pub); do
+      [[ -f "$f" ]] && ssh-add -K "$f" &> /dev/null
+    done
     export SSH_KEY="$(/usr/bin/security find-generic-password -w -a /Users/sean/.ssh/id_rsa | openssl rsa -in ~/.ssh/id_rsa -passin stdin 2> /dev/null)"
   fi
 
