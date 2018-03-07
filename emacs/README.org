@@ -5123,7 +5123,7 @@ use that,
                   eshell-error-if-no-glob t
                   eshell-hist-ignoredups t
                   eshell-save-history-on-exit t
-                  eshell-prefer-lisp-functions t
+                  eshell-prefer-lisp-functions nil
                   eshell-destroy-buffer-when-process-dies t))
 
   ;; still not decided about using this
