@@ -2486,7 +2486,11 @@ Manage external services from within Emacs.
       :name "Bitbucket Conker"
       :command "conker"
       :cwd "~/projects/go/src/bitbucket.org/bitbucket/conker"
-      :tags '(bitbucket)))
+      :tags '(bitbucket))
+
+    ;; also, globally set the default django settings for both prodigy and things
+    ;; like eshell
+    (setenv "DJANGO_SETTINGS_MODULE" "bitbucket.settings.dev"))
 #+END_SRC
 
 ** Other modes
