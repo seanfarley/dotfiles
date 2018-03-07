@@ -1425,7 +1425,7 @@ The =auth-source= could below is borrowed from [[http://doc.rix.si/cce/cce-irc.h
      znc-detatch-on-kill t
      znc-servers nil)
 
-    (smf/znc-add-server "smf.io" 6697 "smf" '(freenode bitlbee twitch)))
+    (smf/znc-add-server "smf.io" 6697 "smf" '(freenode bitlbee)))
 #+END_SRC
 
 *** erc-tweet
