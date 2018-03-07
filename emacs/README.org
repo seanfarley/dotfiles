@@ -2488,6 +2488,15 @@ Manage external services from within Emacs.
       :cwd "~/projects/go/src/bitbucket.org/bitbucket/conker"
       :tags '(bitbucket))
 
+    (prodigy-define-service
+      :name "Bitbucket Radar / Swagger"
+      :url "http://localhost:8080/docs/bitbucket/latest"
+      :command "npm"
+      :args '("start")
+      :env `(("SWAGGER_JSON" "http://api.localhost:8000/swagger.json"))
+      :cwd "~/projects/bitbucket-radar"
+      :tags '(bitbucket))
+
     ;; also, globally set the default django settings for both prodigy and things
     ;; like eshell
     (setenv "DJANGO_SETTINGS_MODULE" "bitbucket.settings.dev"))
