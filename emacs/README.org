@@ -4243,15 +4243,6 @@ Run py.test on testing functions, classes, modules and entire suites in Emacs.
         (realgud:ipdb (format "%s %s %s" pytest cmd-flags tnames)))))
 #+END_SRC
 
-*** pyvenv
-
-Python virtual environment interface for Emacs. Useful for eshell and similar.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package pyvenv
-    :ensure t)
-#+END_SRC
-
 *** rainbow-blocks
 
 =rainbow-blocks= is an Emacs mode that highlights blocks made of parentheses,
@@ -4788,6 +4779,22 @@ Functions providing the inverse of Emacs' fill-paragraph and fill-region.
     :bind (("M-Q" . unfill-paragraph)))
 #+END_SRC
 
+*** virtualenvwrapper
+
+virtualenv tool for emacs
+
+#+BEGIN_SRC emacs-lisp
+  (use-package virtualenvwrapper
+    :ensure t
+    :config
+    (venv-initialize-eshell)
+
+    (setq projectile-switch-project-action
+          '(lambda ()
+             (venv-projectile-auto-workon)
+             (projectile-find-file))))
+#+END_SRC
+
 *** volatile highlights
 
 Minor mode for visual feedback on some operations in Emacs.
@@ -5064,7 +5071,7 @@ And now to construct the prompt sections,
 
     (esh-section esh-python
                  (all-the-icons-alltheicon "python" :v-adjust .05)
-                 pyvenv-virtual-env-name)
+                 venv-current-name)
 #+END_SRC
 
 Set up eshell with some prompt characters (concrete) and other basic settings,
