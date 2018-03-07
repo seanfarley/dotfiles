@@ -2813,6 +2813,16 @@ Fast and complete Ctags solution using ivy-completion.
     :after counsel)
 #+END_SRC
 
+*** counsel-mu4e
+
+A package I wrote that is derived from [[https://github.com/fuxialexander/counsel-notmuch][counsel-notmuch]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel-mu4e
+    :load-path "~/projects/counsel-mu4e"
+    :after mu4e)
+#+END_SRC
+
 *** company
 
 [[https://github.com/company-mode/company-mode][company-mode]] is a modern and modular completion framework (the other one Emacs
