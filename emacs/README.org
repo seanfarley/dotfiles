@@ -2497,6 +2497,13 @@ Manage external services from within Emacs.
       :cwd "~/projects/bitbucket-radar"
       :tags '(bitbucket))
 
+    (prodigy-define-service
+      :name "Bitbucket Frontbucket"
+      :command "npm"
+      :args '("start")
+      :cwd "~/projects/bitbucket-frontbucket"
+      :tags '(bitbucket))
+
     ;; also, globally set the default django settings for both prodigy and things
     ;; like eshell
     (setenv "DJANGO_SETTINGS_MODULE" "bitbucket.settings.dev"))
