@@ -1671,7 +1671,7 @@ Magical syntax highlighting for LaTeX-mode buffers.
 
 *** RefTeX
 
-You know what eles is awesome? [[http://www.gnu.org/software/auctex/reftex.html][RefTeX]].
+You know what else is awesome? [[http://www.gnu.org/software/auctex/reftex.html][RefTeX]].
 
 #+BEGIN_SRC emacs-lisp
   (use-package reftex
