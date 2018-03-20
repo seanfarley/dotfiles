@@ -1,3 +1,40 @@
 #!/bin/sh
 
-sudo openconnect $@
+# simple script to connect to a vpn using openconnect and leave a sticky
+# notification (which kills the vpn connection when dismissed)
+
+MYID=$$
+
+# alert that we're attempting to connect
+terminal-notifier -title 'Atlassian VPN' -message "Attempting to connect to Atlassian" -appIcon /System/Library/PreferencePanes/Network.prefPane/Contents/Resources/VPN.tiff -group $MYID
+
+# hardcode my username and pass command
+bash -c 'printf "$(pass show work/atlassian.my.centrify.com | head -n1)\npush\n" | sudo openconnect vpn.atlassian.com -u sfarley &> /tmp/openconnect-cmdline.log' &
+
+# get the bash process
+BASHID=$!
+# echo bash proc: $BASHID
+
+# wait for the vpn to fire up and create the log file
+sleep 1
+
+# wait for user to authenticate with 2fa by checking the output of the log file
+tail -f /tmp/openconnect-cmdline.log | while read LOGLINE
+do
+  if [[ "${LOGLINE}" == *"add net default: gateway"* ]]; then
+    # -sender com.apple.airport.airportutility doesn't seem to work
+    alerter -title 'Atlassian VPN' -message 'Dismiss to disconnect' -closeLabel Abort -actions Disconnect -appIcon /System/Library/PreferencePanes/Network.prefPane/Contents/Resources/VPN.tiff -group $MYID &> /dev/null
+    pkill -P $$ tail
+  fi
+done
+
+# get the sudo process
+SUDOID=$(pgrep -P $BASHID)
+#echo sudo proc: $SUDOID
+
+# get the openconnect process
+OCID=$(pgrep -P $SUDOID)
+#echo openconnect proc: $OCID
+
+# once we get here, the user has dismissed the alert
+sudo kill -s INT $OCID
