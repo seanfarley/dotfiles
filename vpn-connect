@@ -38,3 +38,6 @@ OCID=$(pgrep -P $SUDOID)
 
 # once we get here, the user has dismissed the alert
 sudo kill -s INT $OCID
+
+# clean up log file
+rm /tmp/openconnect-cmdline.log
