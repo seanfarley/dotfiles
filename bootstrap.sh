@@ -50,7 +50,6 @@ mkdir -p ~/.config/karabiner
 mkdir -p ~/.pastebin.d
 mkdir -p ~/.hammerspoon
 mkdir -p ~/.config/pass-git-helper
-mkdir -p ~/Library/Preferences/kitty
 
 ensure_link "aliases"
 ensure_link "aspell.en.prepl"
@@ -90,9 +89,6 @@ ensure_link "docker-bash"
 ensure_link "karabiner.json" ".config/karabiner/karabiner.json"
 ensure_link "hammerspoon.lua" ".hammerspoon/init.lua"
 ensure_link "git-pass-mapping.ini" ".config/pass-git-helper/git-pass-mapping.ini"
-ensure_link "kitty.conf" "Library/Preferences/kitty/kitty.conf"
-# install kitty profile
-tic -o ~/.terminfo kitty.terminfo
 
 if [[ ! -f emacs/init.el ]]
 then
