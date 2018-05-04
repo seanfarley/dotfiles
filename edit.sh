@@ -52,7 +52,7 @@ fi
 [[ -n $(netstat -ant | grep $PORT | grep 'LISTEN') || $HOME == /Users/$USER ]] && ED="$EC -f $SF"
 
 # build the tramp filename or local filename also
-[[ $HOME != /Users/$USER ]] && FN="/$(whoami)@$HN:$FN"
+[[ $HOME != /Users/$USER ]] && FN="/ssh:$(whoami)@$HN:$FN"
 
 # fucking git
 [[ "$FN" == *"mergetool-emacsclient"* && "$FN" == *"eval ("* ]] && FN=$(echo $FN | sed 's,",\\",g' | sed 's,eval (,eval "(,' | sed 's,"),")",')
