@@ -53,6 +53,7 @@ venv
 rootmodules_cache
 .dir-locals.el
 compile_commands.json
+*.api
 
 .rope*
 output_*
