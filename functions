@@ -88,7 +88,7 @@ d() {
   done;
 }
 
-essh() {
+ssh() {
   # system ssh command
   local SSH=$(which ssh)
   local SF=".emacs.d/server/server"
