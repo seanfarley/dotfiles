@@ -835,27 +835,3 @@ for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
   killall "${app}" &> /dev/null || echo "Couldn't kill ${app}; moving on"
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
-
-###############################################################################
-# Advanced routing                                                            #
-###############################################################################
-
-# add multiple routes at once (SUBNET1 MASK1 GW1) (SUBNET2 MASK2 GW2)
-# sudo networksetup -setadditionalroutes Wi-Fi 10.192.0.0 255.255.0.0 172.29.184.1 10.64.0.0 255.255.0.0 172.29.184.1 172.30.221.0 255.255.255.0 172.29.184.1 10.104.0.0 255.255.0.0 172.29.184.1 10.194.0.0 255.255.0.0 172.29.184.1 10.124.0.0 255.255.0.0 172.29.184.1 172.29.0.0 255.255.0.0 172.29.184.1
-
-# check with
-# networksetup -getadditionalroutes Wi-Fi
-
-# make sure /etc/host has this:
-# 127.0.0.1       localhost api.localhost
-# ::1             localhost api.localhost
-# 10.64.2.251     extranet.atlassian.com eac
-# 10.192.25.108   staging.bb-inf.net staging
-# 54.192.117.114  avatar-cdn.stg.internal.atlassian.com
-# 10.192.2.22     app-125.ash1.bb-inf.net
-# 10.104.82.170   api-s01.us-west-2.bb-inf.net
-# 10.194.7.74     fabfile.aws.bb-inf.net
-# 10.124.139.174  docker.atl-paas.net
-# 10.64.2.249     ops.internal.atlassian.com
-# 10.124.144.248  directory.prod.atl-paas.net
-# 172.29.148.20   sfo2-l2-north-colour-letter.office.atlassian.com

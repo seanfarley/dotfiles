@@ -1453,34 +1453,6 @@ Put the actual tweet into the buffer.
     (setq erc-hl-nicks-color-contrast-strategy '(invert contrast)))
 #+END_SRC
 
-*** hipchat
-
-A package I wrote to help connect to hipchat and display things like (awyeah).
-
-#+BEGIN_SRC emacs-lisp
-  (use-package erc-hipchatify
-    :after erc
-    :ensure t
-    :defer t
-    :config
-    (setq erc-hipchatify-token `,(smf/auth-source-pass "smf/token" "hipchat.com")
-          erc-hipchatify-email "sfarley@atlassian.com"
-
-          ;; set the channel names (buffer names) for which to replace 'nick'
-          ;; with '@nick'
-          erc-hipchatify-mention-channels '("smf"
-                                            "#bitbucket-social"
-                                            "#bitbucket-cloud"
-                                            "#bitbucket-support"
-                                            "#bitbucket-bugfix"
-                                            "#bitbucket-sf"
-                                            "#bitbucket-ops"
-                                            "#sourcetree"))
-
-    (add-to-list 'erc-modules 'hipchatify)
-    (erc-update-modules))
-#+END_SRC
-
 *** image
 
 Fetch and show received images in a ERC buffer.
@@ -1929,10 +1901,6 @@ messages to maildirs.
                  (mu4e-message-contact-field-matches msg :from "macports")
                  (mu4e-message-contact-field-matches msg :to "macports"))
                 "sean@macports.org")
-               ((or
-                 (mu4e-message-contact-field-matches msg :from "atlassian")
-                 (mu4e-message-contact-field-matches msg :to "atlassian"))
-                "sfarley@atlassian.com")
                (t "sean@farley.io")))))
     (add-hook 'mu4e-compose-pre-hook 'smf/mu4e-set-from-address)
 
@@ -2382,16 +2350,6 @@ Manage external services from within Emacs.
       :cwd "~/projects/hgwebsite"
       :tags '(hg python)
       :port 5000
-      :kill-signal 'sigkill
-      :kill-process-buffer-on-stop t)
-
-    ;; imapnotify is a node app that fires a program (in our case an elisp
-    ;; function) when new mail is received
-    (prodigy-define-service
-      :name "imapnotify"
-      :command "imapnotify"
-      :args '("-c" "~/.config/imapnotify.js")
-      :tags '(mail node)
       :kill-signal 'sigkill
       :kill-process-buffer-on-stop t)
 

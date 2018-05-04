@@ -393,65 +393,6 @@ mpsearch() {
   csearch -f Portfile "$@" | less
 }
 
-ve() {
-  [[ ! -d "$WORKON_HOME" ]] && mkdir -p "$WORKON_HOME"
-  [[ -z "$@" ]] && return
-  if [ ! -d "$WORKON_HOME/$1" ]; then
-    echo mkvirtualenv ${@:2} "$1"
-    mkvirtualenv ${@:2} "$1"
-    mkdir -p $HOME/.bbrepos/bucket01 $HOME/.bbrepos/bucket02 $HOME/.bbrepos/bucket03
-    ln -sif $HOME/.bbrepos $VIRTUAL_ENV/repos
-    cat >$VIRTUAL_ENV/bin/postactivate <<EOF
-#!/opt/local/bin/bash
-# This hook is sourced after this virtualenv is activated.
-
-export ARCHFLAGS="-arch x86_64"
-export CPPFLAGS="-I/opt/local/include"
-export LDFLAGS="-L/opt/local/lib"
-export DJANGO_SETTINGS_MODULE="bitbucket.settings.dev"
-export APPDIR="\$PROJECTS/bitbucket"
-export PATH=\$PATH:\$PWD/node_modules/.bin
-EOF
-    cat >$VIRTUAL_ENV/bin/postdeactivate <<EOF
-#!/opt/local/bin/bash
-# This hook is sourced after this virtualenv is activated.
-
-unset ARCHFLAGS
-unset CPPFLAGS
-unset LDFLAGS
-unset DJANGO_SETTINGS_MODULE
-unset APPDIR
-EOF
-    pip install --upgrade pip
-    deactivate "$1"
-  fi
-  workon "$1"
-}
-
-_ve() {
-  [[ ${COMP_WORDS[COMP_CWORD]} == $VIRTUALENV_HOME/* ]] || COMP_WORDS[COMP_CWORD]="$VIRTUALENV_HOME/${COMP_WORDS[COMP_CWORD]}"
-  COMPREPLY=( $(compgen -d ${COMP_WORDS[COMP_CWORD]} -- ${COMP_WORDS[COMP_CWORD]} | cut -b$(echo $VIRTUALENV_HOME/ | wc -c)- ) )
-}
-complete -o nospace -F _ve ve
-
-ve_bb() {
-  cat >$VIRTUAL_ENV/pip.conf <<EOF
-[global]
-extra-index-url = https://artifactory-proxy.us-east-1.prod.atl-paas.net/bitbucket-pypi-virtual/simple
-EOF
-}
-
-bb() {
-  local bdir=$PROJECTS/bitbucket-docker/bitbucket
-  cd $bdir
-  mkdir -p /opt/python/domains/bitbucket.org/current
-  rm -f /opt/python/domains/bitbucket.org/current/bitbucket
-  ln -si $bdir /opt/python/domains/bitbucket.org/current
-  ve bitbucket
-  rm -rf local/env
-  ln -sif $VIRTUAL_ENV local/env
-}
-
 imsg() {
   if [ $# -lt 1 ]; then
     echo "Enter a iMessage account (email or phone number i.e +14156...) "
@@ -463,11 +404,6 @@ imsg() {
   sqlite3 $dbpath/Library/Messages/chat.db "select is_from_me,text,datetime(date + strftime('%s', '2001-01-01 00:00:00'),'unixepoch', 'localtime') as date from message" > MessageBackup.txt
 
   sqlite3 $dbpath/Library/Messages/chat.db "select filename from attachment" | cut -c 2- | awk -v home=$dbpath '{print home $0}' | tr '\n' '\0' | xargs -0 -t -I fname cp fname .
-}
-
-function vpn-connect {
-  echo "Connecting ${user} to vpn using DUO ${duo}..."
-  $PROJECTS/dotfiles/vpn-connect vpn.atlassian.com -u sfarley
 }
 
 watchman-sync() {

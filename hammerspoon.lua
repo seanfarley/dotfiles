@@ -107,11 +107,6 @@ hs.hotkey.bind({"cmd", "ctrl"}, "I", function()
       hs.application.launchOrFocus("iTunes")
 end)
 
-hs.hotkey.bind({"cmd", "ctrl"}, "=", function()
-      local script = os.getenv('HOME') .. '/projects/dotfiles/vpn-connect'
-      hs.task.new("/bin/bash", nil, {"-lic", script}):start()
-end)
-
 -- map emacs keybindings in everything but the emacs app
 local esc = hs.hotkey.new({"ctrl"}, "g", function()
       hs.eventtap.keyStroke({}, "escape")
