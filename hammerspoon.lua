@@ -96,7 +96,7 @@ hs.hotkey.bind({"cmd", "ctrl"}, "E", function()
 end)
 
 hs.hotkey.bind({"cmd", "ctrl"}, "T", function()
-      hs.application.launchOrFocus("kitty")
+      hs.application.launchOrFocus("iTerm")
 end)
 
 hs.hotkey.bind({"cmd", "ctrl"}, "L", function()
