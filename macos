@@ -33,12 +33,6 @@ if ! [ -d /Applications/Xcode.app ]; then
   exit 1
 fi
 
-JAVAOUT=$(javac 2>&1)
-if [ -z "$JAVAOUT" ]; then
-  echo "Please install java through the web browser"
-  exit 1
-fi
-
 # install xcode command-line tools
 if ! xcode-select -p; then
   sudo xcode-select --install
