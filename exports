@@ -1,5 +1,5 @@
 # Make emacs the default editor
-export EDITOR="emacsclient -f $HOME/.emacs.d/server/server"
+export EDITOR="~/.edit.sh"
 # Don't clear the screen after quitting a manual page
 export MANPAGER="less -X"
 export LESS="--ignore-case --quit-if-one-screen --quit-on-intr FRXQ"
