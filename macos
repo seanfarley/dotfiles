@@ -818,13 +818,6 @@ defaults write com.twitter.twitter-mac ShowFullNames -bool true
 defaults write com.twitter.twitter-mac HideInBackground -bool true
 
 ###############################################################################
-# Adobe                                                                       #
-###############################################################################
-
-# Turn off annoying Adobe Cloud (for both sudo and current user)
-[ -f /Library/LaunchAgents/com.adobe.AdobeCreativeCloud.plist ] && sudo launchctl unload -w /Library/LaunchAgents/com.adobe.AdobeCreativeCloud.plist && launchctl unload -w /Library/LaunchAgents/com.adobe.AdobeCreativeCloud.plist
-
-###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
