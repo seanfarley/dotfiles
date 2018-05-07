@@ -818,6 +818,14 @@ defaults write com.twitter.twitter-mac ShowFullNames -bool true
 defaults write com.twitter.twitter-mac HideInBackground -bool true
 
 ###############################################################################
+# Homebrew                                                                    #
+###############################################################################
+
+if ! which brew; then
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
