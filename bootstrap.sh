@@ -94,8 +94,13 @@ ensure_link "gpg.conf" ".gnupg/gpg.conf"
 
 if [[ ! -f emacs/init.el ]]
 then
+   EM=emacs
+   if [ -x "$EMACS" ]; then
+     EM="$EMACS"
+   fi
+
    echo "Tangling init"
-   emacs --batch --eval "(progn
+   $EM --batch --eval "(progn
 (setq vc-follow-symlinks nil)
 (find-file \"emacs/README.org\")
 (require 'ob-tangle)
