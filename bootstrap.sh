@@ -102,3 +102,5 @@ then
 )"
    echo "Finished tangling"
 fi
+
+exit 0
