@@ -136,4 +136,6 @@ if [[ ! -d "$HOME/.password-store" ]]; then
   pass git branch -D master2
 fi
 
+cd "$HOME/projects/go/src/github.com/dannyvankooten/browserpass" && ./install.sh chrome
+
 exit 0
