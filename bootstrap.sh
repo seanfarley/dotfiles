@@ -105,4 +105,18 @@ fi
 
 [[ ! -f "$HOME/.ssh/id_rsa" ]] && echo "No ssh id_rsa!" && exit 3
 
+# need this for the gpg agent device io error
+export GPG_TTY=$(tty)
+
+# import public gpg keys from keybase
+keybase pgp export | gpg --import
+
+# import my own secret
+keybase pgp export --secret | gpg --import --allow-secret-key-import
+
+# trust my own key
+cat << EOF | gpg --import-ownertrust
+5D05F69E60DE8F3E519240C3FFD8DC399F9F3BD6:6:
+EOF
+
 exit 0
