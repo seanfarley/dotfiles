@@ -89,6 +89,8 @@ ensure_link "docker-bash"
 ensure_link "karabiner.json" ".config/karabiner/karabiner.json"
 ensure_link "hammerspoon.lua" ".hammerspoon/init.lua"
 ensure_link "git-pass-mapping.ini" ".config/pass-git-helper/git-pass-mapping.ini"
+ensure_link "gpg-agent.conf" ".gnupg/gpg-agent.conf"
+ensure_link "gpg.conf" ".gnupg/gpg.conf"
 
 if [[ ! -f emacs/init.el ]]
 then
@@ -118,5 +120,8 @@ keybase pgp export --secret | gpg --import --allow-secret-key-import
 cat << EOF | gpg --import-ownertrust
 5D05F69E60DE8F3E519240C3FFD8DC399F9F3BD6:6:
 EOF
+
+# ensure that the gpg agent reloads
+gpgconf --kill gpg-agent
 
 exit 0
