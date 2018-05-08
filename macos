@@ -181,9 +181,6 @@ sudo scutil --set HostName "laptop"
 sudo scutil --set LocalHostName "laptop"
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "laptop"
 
-# Set standby delay to 24 hours (default is 1 hour)
-sudo pmset -a standbydelay 86400
-
 # Menu bar: hide the Volume, Bluetooth, and User icons
 defaults write com.apple.systemuiserver dontAutoLoad -array \
 		"/System/Library/CoreServices/Menu Extras/Volume.menu" \
