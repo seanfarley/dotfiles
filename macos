@@ -112,8 +112,6 @@ if ! [ -d /Applications/iTerm.app ]; then
   rm -f latest.zip
 fi
 
-open fonts/*
-
 # karabiner
 if ! [ -d /Applications/Karabiner-Elements.app ]; then
   PKG=karabiner-elements-latest
@@ -783,6 +781,12 @@ defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 if ! which brew; then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
+
+###############################################################################
+# Custom fonts                                                                #
+###############################################################################
+
+cp fonts/* ~/Library/Fonts
 
 ###############################################################################
 # Kill affected applications                                                  #
