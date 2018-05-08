@@ -691,11 +691,11 @@ defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
 
-# Install the dark base16 theme for iTerm
-open "base16-default.dark.256.itermcolors"
+# Specify the preferences directory
+defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/projects/dotfiles"
 
-# copy preferences (keybindings, etc)
-cp com.googlecode.iterm2.plist ~/Library/Preferences/
+# Tell iTerm2 to use the custom preferences in the directory
+defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
 
 ###############################################################################
 # Time Machine                                                                #
