@@ -103,4 +103,6 @@ then
    echo "Finished tangling"
 fi
 
+[[ ! -f "$HOME/.ssh/id_rsa" ]] && echo "No ssh id_rsa!" && exit 3
+
 exit 0
