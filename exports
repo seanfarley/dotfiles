@@ -78,6 +78,10 @@ if [ -d $HOME/.config/yarn/global/node_modules/.bin ]; then
   export PATH=$HOME/.config/yarn/global/node_modules/.bin:$PATH
 fi
 
+if [ -d /usr/local/opt/coreutils/libexec/gnubin ]; then
+  export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+fi
+
 # for virtualenv
 export VIRTUALENV_HOME="$HOME/.virtualenvs"
 mkdir -p "$VIRTUALENV_HOME"
