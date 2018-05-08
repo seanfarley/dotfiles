@@ -51,6 +51,10 @@ if [ -n "$PS1" ]; then
 
   [[ -f $HOME/.npmrc ]] && export NPMRC="$(cat ~/.npmrc)"
 
+  # apparently this is needed for gpg agent stuff to not get this error:
+  # "error sending to agent: Inappropriate ioctl for device"
+  export GPG_TTY=$(tty)
+
 fi
 
 if [[ -z "$SSH_CLIENT" && -d /cygdrive/c ]]; then
