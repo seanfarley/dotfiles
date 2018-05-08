@@ -124,4 +124,16 @@ EOF
 # ensure that the gpg agent reloads
 gpgconf --kill gpg-agent
 
+if [[ ! -d "$HOME/.password-store" ]]; then
+  pass init keybase.io/smf
+  pass git init
+  pass git remote add origin seanfarley@bitbucket.org:seanfarley/pass-store.git
+  pass git fetch
+  pass git branch -m master master2
+  pass git branch --set-upstream-to=origin/master master
+  pass git checkout master
+  pass git pull
+  pass git branch -D master2
+fi
+
 exit 0
