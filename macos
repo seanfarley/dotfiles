@@ -131,45 +131,6 @@ if ! [ -d /Applications/Hammerspoon.app ]; then
   rm -f $PKG
 fi
 
-# Adguard
-if ! [ -f "$HOME/Library/Safari/Extensions/uBlock Origin.safariextz" ]; then
-  open https://github.com/el1t/uBlock-Safari/releases/
-  read -p "Press enter to continue"
-fi
-
-# Save to Pocket
-if ! [ -f "$HOME/Library/Safari/Extensions/Save to Pocket.safariextz" ]; then
-  open https://safari-extensions.apple.com/details/?id=com.ideashower.pocket.safari-ET279A6R5N
-  read -p "Press enter to continue"
-fi
-
-# JsonView
-if ! [ -f "$HOME/Library/Safari/Extensions/JsonView.safariextz" ]; then
-  PKG=jsonview.safariextz
-  curl -LO https://github.com/acrogenesis/jsonview-safari/raw/v1.7/$PKG
-  open $PKG
-  read -p "Press enter to continue"
-fi
-
-# Cloud2Butt
-if ! [ -f "$HOME/Library/Safari/Extensions/CloudToButt.safariextz" ]; then
-  PKG=CloudToButt.safariextz
-  curl -L https://github.com/logancollins/cloud-to-butt-safari/blob/master/$PKG.zip?raw=true > $PKG.zip
-  unzip $PKG.zip
-  open $PKG
-  read -p "Press enter to continue"
-  rm -rf __MACOSX $PKG*
-fi
-
-# org-capture for safari
-if ! [ -f "$HOME/Library/Safari/Extensions/org-capture.safariextz" ]; then
-  PKG=org-capture-0.1.safariextz
-  curl -LO https://bitbucket.org/seanfarley/org-capture.safariextension/downloads/$PKG
-  open $PKG
-  read -p "Press enter to continue"
-  rm -rf __MACOSX $PKG*
-fi
-
 
 ###############################################################################
 # General UI/UX                                                               #
