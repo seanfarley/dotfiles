@@ -92,15 +92,13 @@ ensure_link "git-pass-mapping.ini" ".config/pass-git-helper/git-pass-mapping.ini
 ensure_link "gpg-agent.conf" ".gnupg/gpg-agent.conf"
 ensure_link "gpg.conf" ".gnupg/gpg.conf"
 
-if [[ ! -f emacs/init.el ]]
-then
-   EM=emacs
-   if [ -x "$EMACS" ]; then
-     EM="$EMACS"
-   fi
+EM=emacs
+if [ -x "$EMACS" ]; then
+  EM="$EMACS"
+fi
 
-   echo "Tangling init"
-   $EM --batch --eval "(progn
+echo "Tangling init"
+$EM --batch --eval "(progn
 (setq vc-follow-symlinks nil)
 (find-file \"emacs/README.org\")
 (require 'ob-tangle)
@@ -108,7 +106,6 @@ then
 (byte-compile-file \"init.el\")
 )"
    echo "Finished tangling"
-fi
 
 [[ ! -f "$HOME/.ssh/id_rsa" ]] && echo "No ssh id_rsa!" && exit 3
 
