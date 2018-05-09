@@ -48,11 +48,11 @@
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>433 81 796 473 0 0 1440 900 </string>
+	<string>242 187 1016 512 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>208 358 570 402 0 0 1440 900 </string>
+	<string>0 0 1440 900 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>410 160 941 402 0 0 1440 900 </string>
+	<string>410 160 570 402 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>92 432 850 402 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -611,11 +611,11 @@
 			<key>Normal Font</key>
 			<string>FiraMono-Regular 12</string>
 			<key>Option Key Sends</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
 			<false/>
 			<key>Right Option Key Sends</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Rows</key>
 			<integer>25</integer>
 			<key>Screen</key>
