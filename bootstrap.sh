@@ -147,4 +147,13 @@ fi
 
 cd "$HOME/projects/go/src/github.com/dannyvankooten/browserpass" && ./install.sh chrome
 
+# generic apps that have the same installation on all systems
+
+# python
+pip install --user cython
+pip install --user flake8
+pip install --user hg-evolve
+pip install --user pipenv
+pip install --user sphinx
+
 exit 0
