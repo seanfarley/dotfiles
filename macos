@@ -22,115 +22,11 @@ cd "$DIR"
 # Bootstrapping                                                               #
 ###############################################################################
 
-# helper function to get the latest replease of a github repo
-gh_url() {
-  curl https://api.github.com/repos/$1/releases | grep browser_download_url | head -n 1 | cut -d '"' -f 4
-}
-
 # check for xcode
 if ! [ -d /Applications/Xcode.app ]; then
   echo "Please install Xcode through the App Store"
   exit 1
 fi
-
-# install xcode command-line tools
-if ! xcode-select -p; then
-  sudo xcode-select --install
-  sudo xcodebuild -license
-fi
-
-# install macports
-if ! [ -d /opt/local/bin ]; then
-  PKG=MacPorts-2.4.2-10.13-HighSierra.pkg
-  curl -O https://distfiles.macports.org/MacPorts/$PKG
-  sudo installer -pkg ./$PKG -target /
-  rm -f $PKG
-fi
-
-set -e
-
-# check to make sure macports is using my local checkout
-LMP="file:///Users/sean/projects/macports"
-MP="/opt/local/etc/macports/sources.conf"
-if ! grep -q "$LMP" "$MP"; then
-  echo "$LMP missing from $MP"
-  exit 2
-fi
-
-# ports that need variants
-cat << EOF | sudo sh
-/opt/local/bin/port -vN install python27 +readline
-/opt/local/bin/port -vN install mercurial-devel +bash_completion
-/opt/local/bin/port -vN install cairo +quartz -x11
-/opt/local/bin/port -vN install ImageMagick +pango -x11 +graphviz +rsvg
-/opt/local/bin/port -vN install emacs-mac-app +imagemagick +rsvg
-/opt/local/bin/port -vN install mu-devel +emacs
-
-# ports that don't need variants
-/opt/local/bin/port -vN install py27-gnureadline \
-     py27-hgevolve-devel \
-     py27-hgexperimental \
-     py27-flake8 \
-     py27-sphinx \
-     py27-configparser \
-     py27-enum34 \
-     py27-virtualenvwrapper \
-     pass-update \
-     aspell \
-     aspell-dict-en \
-     watchman \
-     terminal-notifier \
-     isync \
-     coreutils findutils
-
-# select the default versions
-/opt/local/bin/port -vN select cython cython27
-/opt/local/bin/port -vN select python python27
-/opt/local/bin/port -vN select python2 python27
-/opt/local/bin/port -vN select pycodestyle pycodestyle-py27
-/opt/local/bin/port -vN select pyflakes py27-pyflakes
-/opt/local/bin/port -vN select flake8 flake8-27
-/opt/local/bin/port -vN select virtualenv virtualenv27
-/opt/local/bin/port -vN select sphinx py27-sphinx
-EOF
-
-# disable nap mode for Emacs, otherwise requests will be very slow when Emacs enters nap mode
-sudo defaults write org.gnu.Emacs NSAppSleepDisabled -bool YES
-
-if ! grep -q "/opt/local/bin/bash" /etc/shells; then
-  sudo sh -c "echo '/opt/local/bin/bash' >> /etc/shells"
-fi
-
-if ! [ "$SHELL" == "/opt/local/bin/bash" ]; then
-  chsh -s /opt/local/bin/bash
-fi
-
-if ! [ -d /Applications/iTerm.app ]; then
-  curl -L https://iterm2.com/stable/latest > latest.zip
-  unzip latest.zip
-  sudo mv iTerm.app /Applications
-  rm -f latest.zip
-fi
-
-# karabiner
-if ! [ -d /Applications/Karabiner-Elements.app ]; then
-  PKG=karabiner-elements-latest
-  curl -LO https://pqrs.org/latest/karabiner-elements-latest.dmg
-  sudo hdiutil attach $PKG.dmg
-  sudo installer -package /Volumes/Karabiner*/Karabiner*.pkg -target /
-  sudo umount /Volumes/Karabiner*
-  rm -f $PKG.dmg
-fi
-
-# Hammerspoon
-if ! [ -d /Applications/Hammerspoon.app ]; then
-  PKG=hammerspoon.zip
-  curl -L "$(gh_url Hammerspoon/hammerspoon)" > $PKG
-  unzip $PKG
-  sudo mv Hammerspoon.app /Applications
-  rm -f $PKG
-fi
-
 
 ###############################################################################
 # General UI/UX                                                               #
@@ -720,6 +616,77 @@ defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 if ! which brew; then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
+
+# just to ensure python 2.7
+brew install python
+brew install python@2
+
+# apps
+brew install aspell
+brew install cairo
+brew install coreutils
+brew install dep
+brew install emacs
+brew install git
+brew install go
+brew install findutils --with-default-names
+brew install imagemagick
+brew install isync
+brew install lz4
+brew install mercurial
+brew install mu --HEAD
+brew install npm
+brew install pass
+brew install pinentry-mac
+brew install terminal-notifier
+brew install rust
+brew install watchman
+brew install yarn
+
+# bash
+brew install bash
+brew install bash-completion@2
+
+if ! grep -q "/usr/local/bin/bash" /etc/shells; then
+  sudo sh -c "echo '/usr/local/bin/bash' >> /etc/shells"
+fi
+
+if ! [ "$SHELL" == "/usr/local/bin/bash" ]; then
+  chsh -s /usr/local/bin/bash
+fi
+
+# cask apps
+brew tap caskroom/cask
+
+brew cask install google-chrome
+brew cask install iterm2
+brew cask install karabiner-elements
+brew cask install keybase
+
+# also make this startup upon login
+brew cask install hammerspoon && osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Hammerspoon.app", hidden:false}' &> /dev/null
+
+# also, also make sure hammerspoon is open
+if ! ps aux | grep -v "grep Hammerspoon" | grep -q Hammerspoon; then
+  open -a Hammerspoon
+fi
+
+# unset annoying values
+defaults write org.hammerspoon.Hammerspoon MJShowDockIconKey -bool False
+
+# fonts
+echo "Tapping fonts..."
+brew tap caskroom/fonts
+
+brew cask install font-fontawesome
+brew cask install font-fira-code
+brew cask install font-fira-mono
+brew cask install font-fira-mono-for-powerline
+brew cask install font-symbola
+
+# emacs
+brew tap railwaycat/emacsmacport
+brew cask install emacs-mac
 
 ###############################################################################
 # Custom fonts                                                                #
