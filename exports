@@ -58,16 +58,8 @@ if [ -d $GOPATH/bin ]; then
   export PATH=$GOPATH/bin:$PATH
 fi
 
-if [ -d $HOME/.local/lib/python ]; then
-  export PYTHONPATH=$HOME/.local/lib/python/site-packages:$HOME/.local/lib/python:$PYTHONPATH
-fi
-
-if [ -d $HOME/.local/lib/python2.6 ]; then
-  export PYTHONPATH=$HOME/.local/lib/python2.6/site-packages:$HOME/.local/lib/python2.6:$PYTHONPATH
-fi
-
-if [ -d $HOME/.local/lib/python2.7 ]; then
-  export PYTHONPATH=$HOME/.local/lib/python2.7/site-packages:$HOME/.local/lib/python2.7:$PYTHONPATH
+if [ -d $HOME/Library/Python/2.7 ]; then
+  export PATH=$HOME/Library/Python/2.7/bin:$PATH
 fi
 
 if [ -d $HOME/.npm/bin ]; then
