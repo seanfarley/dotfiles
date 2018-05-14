@@ -701,9 +701,20 @@ cp fonts/* ~/Library/Fonts
 # Kill affected applications                                                  #
 ###############################################################################
 
-for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
-  "Dock" "Finder" "Mail" "Messages" "Photos" "Safari" \
-  "SystemUIServer" "Terminal" "Twitter"; do
+for app in "Activity Monitor" \
+             "Address Book" \
+             "Calendar" \
+             "Contacts" \
+             "cfprefsd" \
+             "Dock" \
+             "Finder" \
+             "Mail" \
+             "Messages" \
+             "Photos" \
+             "Safari" \
+             "SystemUIServer" \
+             "Terminal" \
+             "Twitter"; do
   killall "${app}" &> /dev/null || echo "Couldn't kill ${app}; moving on"
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
