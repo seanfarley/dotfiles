@@ -42,12 +42,25 @@ sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.serve
 defaults write com.apple.systemuiserver dontAutoLoad -array \
 	       "/System/Library/CoreServices/Menu Extras/Volume.menu" \
 	       "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
-	       "/System/Library/CoreServices/Menu Extras/Display.menu" \
+	       "/System/Library/CoreServices/Menu Extras/Displays.menu" \
 	       "/System/Library/CoreServices/Menu Extras/User.menu"
+
+# Don't show Siri in the menu bar
+defaults write 'com.apple.Siri' 'StatusMenuVisible' -bool false
+defaults write 'com.apple.systemuiserver' 'NSStatusItem Visible Siri' -bool false
+
+# Disable Airplay menu bar item
+# https://github.com/LukeChannings/.config/blob/master/install.macos
+defaults write com.apple.airplay showInMenuBarIfPresent -bool false
+
+# Disable bluetooth
+defaults write 'com.apple.systemuiserver' 'NSStatusItem Visible com.apple.menuextra.bluetooth' -bool false
+
+# only show airport, battery, and clock
 defaults write com.apple.systemuiserver menuExtras -array \
-	       "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-	       "/System/Library/CoreServices/Menu Extras/Battery.menu" \
-	       "/System/Library/CoreServices/Menu Extras/Clock.menu"
+         "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+         "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+         "/System/Library/CoreServices/Menu Extras/Clock.menu"
 
 # Set sidebar icon size to medium
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
