@@ -715,6 +715,6 @@ for app in "Activity Monitor" \
              "SystemUIServer" \
              "Terminal" \
              "Twitter"; do
-  killall "${app}" &> /dev/null || echo "Couldn't kill ${app}; moving on"
+  killall "${app}" &> /dev/null
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
