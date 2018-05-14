@@ -635,6 +635,8 @@ brew install imagemagick
 brew install isync
 brew install lz4
 brew install mercurial
+brew install mpc
+brew install mpd
 brew install mu --HEAD
 brew install npm
 brew install pass
