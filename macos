@@ -42,6 +42,7 @@ sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.serve
 defaults write com.apple.systemuiserver dontAutoLoad -array \
 	       "/System/Library/CoreServices/Menu Extras/Volume.menu" \
 	       "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+	       "/System/Library/CoreServices/Menu Extras/Display.menu" \
 	       "/System/Library/CoreServices/Menu Extras/User.menu"
 defaults write com.apple.systemuiserver menuExtras -array \
 	       "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
