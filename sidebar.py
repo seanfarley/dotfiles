@@ -47,6 +47,12 @@ def main(*args, **opts):
     # dispatch
     actions[args.action]()
 
+    CoreFoundation.CFPreferencesSynchronize(
+        CoreFoundation.kCFPreferencesAnyApplication,
+        CoreFoundation.kCFPreferencesCurrentUser,
+        CoreFoundation.kCFPreferencesCurrentHost)
+    CoreFoundation.CFPreferencesAppSynchronize("com.apple.sidebarlists")
+
     return 0
 
 
