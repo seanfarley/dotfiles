@@ -28,6 +28,9 @@ if ! [ -d /Applications/Xcode.app ]; then
   exit 1
 fi
 
+# make sure the full-blown xcode is selected (so that xcodebuild works)
+sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
