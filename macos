@@ -55,7 +55,6 @@ defaults write 'com.apple.systemuiserver' 'NSStatusItem Visible Siri' -bool fals
 # Disable Airplay menu bar item
 # https://github.com/LukeChannings/.config/blob/master/install.macos
 # https://github.com/mathiasbynens/dotfiles/commit/398496c2372d65c0e6770d02b0c5b49c0d636f31#diff-db672f7be337a783b0a45f6fb67ac7f0
-defaults delete 'com.apple.systemuiserver' 'NSStatusItem Visible com.apple.menuextra.airplay'
 defaults write com.apple.airplay showInMenuBarIfPresent -bool false
 
 # Disable bluetooth
