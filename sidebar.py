@@ -52,9 +52,7 @@ def all_items():
         CoreFoundation.kCFAllocatorDefault,
         LaunchServices.kLSSharedFileListFavoriteItems, None)
 
-    snapshot = LaunchServices.LSSharedFileListCopySnapshot(sitems, None)[0]
-
-    return [lsf(i) for i in snapshot]
+    return lsf_list(sitems)
 
 
 def sidebar_list(*args, **opts):
