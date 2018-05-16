@@ -86,6 +86,24 @@ def sidebar_remove(item, *args, **opts):
           % item)
 
 
+def sidebar_move(item, pos, *args, **opts):
+    """remove item from the finder sidebar"""
+    items = all_items()
+
+    for i in items:
+        # special case a few special names e.g. 'recent'
+        if (i.name.lower() == item.lower() or
+            ('recent' in item.upper() and
+             'MyLibraries/myDocuments.cannedSearch' in
+             i.path.absoluteString())):
+            LaunchServices.LSSharedFileListItemMove(items.items, i.ref,
+                                                    items[pos])
+            return 0
+
+    print("Couldn't find '%s', try the command 'list' to see current items"
+          % item)
+
+
 def main(*args, **opts):
     """our main entry point to parse args and dispatch functions"""
 
