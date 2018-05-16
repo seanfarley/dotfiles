@@ -39,12 +39,18 @@ class lsf(object):
 class lsf_list(object):
     """helper class to make LSSharedFileListCopySnapshot more pythonic"""
     def __init__(self, items):
+        snapshot = LaunchServices.LSSharedFileListCopySnapshot
+        self._snapshot = snapshot(items, None)[0]
         self.items = items
 
     def __iter__(self):
-        snapshot = LaunchServices.LSSharedFileListCopySnapshot
-        for i in snapshot(self.items, None)[0]:
+        for i in self._snapshot:
             yield lsf(i)
+
+    def __getitem__(self, key):
+        if key < 0:
+            return None
+        return self._snapshot[key]
 
 
 def all_items():
