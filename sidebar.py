@@ -108,7 +108,7 @@ def main(*args, **opts):
     """our main entry point to parse args and dispatch functions"""
 
     actions = {c.__name__.replace('sidebar_', ''): c
-               for c in [sidebar_list, sidebar_remove]}
+               for c in [sidebar_list, sidebar_remove, sidebar_move]}
 
     parser = argparse.ArgumentParser()
     parser.add_argument("action",
@@ -116,10 +116,12 @@ def main(*args, **opts):
                         help="action to perform on sidebar")
     parser.add_argument('item', nargs='?', default='',
                         help="item to add or remove")
+    parser.add_argument('pos', nargs='?', type=int, default=0,
+                        help="position in the list to move to")
     args = parser.parse_args()
 
     # dispatch
-    ret = actions[args.action](args.item)
+    ret = actions[args.action](args.item, args.pos)
 
     CoreFoundation.CFPreferencesSynchronize(
         CoreFoundation.kCFPreferencesAnyApplication,
