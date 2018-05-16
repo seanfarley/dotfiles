@@ -68,8 +68,12 @@ def sidebar_remove(item, *args, **opts):
     items = all_items()
 
     for i in items:
-        if i.name.upper() == item.upper():
-            LaunchServices.LSSharedFileListItemRemove(items, i.ref)
+        # special case a few special names e.g. 'recent'
+        if (i.name.lower() == item.lower() or
+            ('recent' in item.upper() and
+             'MyLibraries/myDocuments.cannedSearch' in
+             i.path.absoluteString())):
+            LaunchServices.LSSharedFileListItemRemove(items.items, i.ref)
             return 0
 
     print("Couldn't find '%s', try the command 'list' to see current items"
