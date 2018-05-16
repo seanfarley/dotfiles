@@ -61,17 +61,15 @@ def all_items():
     return lsf_list(sitems)
 
 
-def sidebar_list(*args, **opts):
+def sidebar_list(items, *args, **opts):
     """lists the current items in the finder sidebar"""
-    items = all_items()
 
     for i in items:
         print("(%s, %s)" % (i.name, i.path))
 
 
-def sidebar_remove(item, *args, **opts):
+def sidebar_remove(items, item, *args, **opts):
     """remove item from the finder sidebar"""
-    items = all_items()
 
     for i in items:
         # special case a few special names e.g. 'recent'
@@ -86,9 +84,8 @@ def sidebar_remove(item, *args, **opts):
           % item)
 
 
-def sidebar_move(item, pos, *args, **opts):
+def sidebar_move(items, item, item_after, *args, **opts):
     """remove item from the finder sidebar"""
-    items = all_items()
 
     for i in items:
         # special case a few special names e.g. 'recent'
@@ -97,7 +94,7 @@ def sidebar_move(item, pos, *args, **opts):
              'MyLibraries/myDocuments.cannedSearch' in
              i.path.absoluteString())):
             LaunchServices.LSSharedFileListItemMove(items.items, i.ref,
-                                                    items[pos])
+                                                    item_after)
             return 0
 
     print("Couldn't find '%s', try the command 'list' to see current items"
@@ -120,8 +117,10 @@ def main(*args, **opts):
                         help="position in the list to move to")
     args = parser.parse_args()
 
+    items = all_items()
+
     # dispatch
-    ret = actions[args.action](args.item, args.pos)
+    ret = actions[args.action](items, args.item, items[args.pos])
 
     CoreFoundation.CFPreferencesSynchronize(
         CoreFoundation.kCFPreferencesAnyApplication,
