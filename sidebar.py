@@ -71,17 +71,18 @@ def main(*args, **opts):
     """our main entry point to parse args and dispatch functions"""
 
     actions = {c.__name__.replace('sidebar_', ''): c
-               for c in [sidebar_list]}
+               for c in [sidebar_list, sidebar_remove]}
 
     parser = argparse.ArgumentParser()
     parser.add_argument("action",
                         choices=actions,
                         help="action to perform on sidebar")
-
+    parser.add_argument('item', nargs='?', default='',
+                        help="item to add or remove")
     args = parser.parse_args()
 
     # dispatch
-    actions[args.action]()
+    ret = actions[args.action](args.item)
 
     CoreFoundation.CFPreferencesSynchronize(
         CoreFoundation.kCFPreferencesAnyApplication,
@@ -89,7 +90,7 @@ def main(*args, **opts):
         CoreFoundation.kCFPreferencesCurrentHost)
     CoreFoundation.CFPreferencesAppSynchronize("com.apple.sidebarlists")
 
-    return 0
+    return ret
 
 
 if __name__ == "__main__":
