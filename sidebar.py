@@ -54,6 +54,17 @@ def sidebar_list(*args, **opts):
         print("(%s, %s)" % (i.name, i.path))
 
 
+def sidebar_remove(item, *args, **opts):
+    """remove item from the finder sidebar"""
+    items = all_items()
+
+    for i in items:
+        if i.name.upper() == item.upper():
+            LaunchServices.LSSharedFileListItemRemove(items, i.ref)
+            return 0
+
+    print("Couldn't find '%s', try the command 'list' to see current items"
+          % item)
 
 
 def main(*args, **opts):
