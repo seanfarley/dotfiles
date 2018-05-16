@@ -68,8 +68,8 @@ def sidebar_list(items, *args, **opts):
         print("(%s, %s)" % (i.name, i.path))
 
 
-def sidebar_remove(items, item, *args, **opts):
-    """remove item from the finder sidebar"""
+def _rm_move(func, items, item, *args, **opts):
+    """abtract same loop logic for moving and remove"""
 
     for i in items:
         # special case a few special names e.g. 'recent'
@@ -77,28 +77,21 @@ def sidebar_remove(items, item, *args, **opts):
             ('recent' in item.lower() and
              'MyLibraries/myDocuments.cannedSearch' in
              i.path.absoluteString())):
-            LaunchServices.LSSharedFileListItemRemove(items.items, i.ref)
+            func(items.items, i.ref, *args)
             return 0
 
     print("Couldn't find '%s', try the command 'list' to see current items"
           % item)
+
+
+def sidebar_remove(items, item, *args, **opts):
+    """remove item from the finder sidebar"""
+    _rm_move(LaunchServices.LSSharedFileListItemRemove, items, item)
 
 
 def sidebar_move(items, item, item_after, *args, **opts):
     """remove item from the finder sidebar"""
-
-    for i in items:
-        # special case a few special names e.g. 'recent'
-        if (i.name.lower() == item.lower() or
-            ('recent' in item.upper() and
-             'MyLibraries/myDocuments.cannedSearch' in
-             i.path.absoluteString())):
-            LaunchServices.LSSharedFileListItemMove(items.items, i.ref,
-                                                    item_after)
-            return 0
-
-    print("Couldn't find '%s', try the command 'list' to see current items"
-          % item)
+    _rm_move(LaunchServices.LSSharedFileListItemMove, items, item, item_after)
 
 
 def main(*args, **opts):
