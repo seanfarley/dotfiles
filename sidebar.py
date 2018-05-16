@@ -36,6 +36,17 @@ class lsf(object):
         return self._path
 
 
+class lsf_list(object):
+    """helper class to make LSSharedFileListCopySnapshot more pythonic"""
+    def __init__(self, items):
+        self.items = items
+
+    def __iter__(self):
+        snapshot = LaunchServices.LSSharedFileListCopySnapshot
+        for i in snapshot(self.items, None)[0]:
+            yield lsf(i)
+
+
 def all_items():
     sitems = LaunchServices.LSSharedFileListCreate(
         CoreFoundation.kCFAllocatorDefault,
