@@ -631,6 +631,17 @@ defaults write com.apple.commerce AutoUpdateRestartRequired -bool true
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
 ###############################################################################
+# Customize Finder Sidebar                                                    #
+###############################################################################
+
+./sidebar.py removeall devices
+./sidebar.py removeall favorites
+
+# reverse the order
+./sidebar.py insert favorites ~/Downloads 0
+./sidebar.py insert favorites ~ 0
+
+###############################################################################
 # Homebrew                                                                    #
 ###############################################################################
 
