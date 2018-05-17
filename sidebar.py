@@ -76,7 +76,7 @@ def sidebar_list(items, *args, **opts):
     """lists the current items in the finder sidebar"""
 
     for i in items:
-        print("(%s, %s)" % (i.name, i.path))
+        print("%s -> %s" % (i.name, i.path))
 
 
 def _rm_move(func, items, item, *args, **opts):
