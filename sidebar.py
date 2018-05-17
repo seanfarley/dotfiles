@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-# note: due to a bug in the old pyobjc (2.5.1!!) distributed with 10.13, you
-# must pip install pyobjc otherwise LSSharedFileListCreate will be undefined
-
 from __future__ import print_function
 from __future__ import absolute_import
 
@@ -13,6 +10,48 @@ import sys
 import Cocoa
 import CoreFoundation
 import LaunchServices
+
+# fix for older pyobjc
+try:
+    LaunchServices.LSSharedFileListCreate
+except AttributeError:
+    import objc
+    from Foundation import NSBundle
+
+    bdl = NSBundle.bundleWithIdentifier_('com.apple.coreservices.SharedFileList')
+
+    functions  = [
+        ('LSSharedFileListCreate',
+         '^{OpaqueLSSharedFileListRef=}^{__CFAllocator=}^{__CFString=}@'),
+
+        ('LSSharedFileListCopySnapshot',
+         '^{__CFArray=}^{OpaqueLSSharedFileListRef=}o^I'),
+
+        ('LSSharedFileListItemCopyDisplayName',
+         '^{__CFString=}^{OpaqueLSSharedFileListItemRef=}'),
+
+        ('LSSharedFileListItemResolve',
+         'i^{OpaqueLSSharedFileListItemRef=}Io^^{__CFURL=}o^{FSRef=[80C]}'),
+
+        ('LSSharedFileListItemMove',
+         'i^{OpaqueLSSharedFileListRef=}^{OpaqueLSSharedFileListItemRef=}^{OpaqueLSSharedFileListItemRef=}'),  # noqa
+
+        ('LSSharedFileListItemRemove',
+         'i^{OpaqueLSSharedFileListRef=}^{OpaqueLSSharedFileListItemRef=}'),
+
+        ('LSSharedFileListInsertItemURL',
+         '^{OpaqueLSSharedFileListItemRef=}^{OpaqueLSSharedFileListRef=}^{OpaqueLSSharedFileListItemRef=}^{__CFString=}^{OpaqueIconRef=}^{__CFURL=}^{__CFDictionary=}^{__CFArray=}'),  # noqa
+    ]
+
+    objc.loadBundleFunctions(bdl, globals(), functions)
+
+    LaunchServices.LSSharedFileListCreate = LSSharedFileListCreate
+    LaunchServices.LSSharedFileListCopySnapshot = LSSharedFileListCopySnapshot
+    LaunchServices.LSSharedFileListItemCopyDisplayName = LSSharedFileListItemCopyDisplayName  # noqa
+    LaunchServices.LSSharedFileListItemResolve = LSSharedFileListItemResolve
+    LaunchServices.LSSharedFileListItemMove = LSSharedFileListItemMove
+    LaunchServices.LSSharedFileListItemRemove = LSSharedFileListItemRemove
+    LaunchServices.LSSharedFileListInsertItemURL = LSSharedFileListInsertItemURL
 
 
 class lsf(object):
