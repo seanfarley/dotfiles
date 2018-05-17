@@ -7,6 +7,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 
 import argparse
+import os
 import sys
 
 import Cocoa
@@ -104,11 +105,39 @@ def sidebar_move(items, item, item_after, *args, **opts):
     _rm_move(LaunchServices.LSSharedFileListItemMove, items, item, item_after)
 
 
+def sidebar_insert(items, item, item_after, *args, **opts):
+    """insert item after item_after in the sidebar
+
+    Only works for physical files right now (e.g. not airdrop).
+
+    """
+    item = os.path.expanduser(os.path.expandvars(item))
+    if not item.startswith("file://"):
+        item = "file://" + os.path.normpath(item)
+
+    if not os.path.exists(item[7:]):
+        print("'%s' does not exist!" % item)
+        return -2
+
+    nsstr = Cocoa.NSString.alloc().initWithString_(item)
+    fn = nsstr.stringByAddingPercentEscapesUsingEncoding_
+    nsurl = Cocoa.NSURL.URLWithString_(fn(Cocoa.NSASCIIStringEncoding))
+
+    new_item = LaunchServices.LSSharedFileListInsertItemURL(
+        items.items, LaunchServices.kLSSharedFileListItemBeforeFirst, None,
+        None, nsurl, None, None)
+
+    new_item = lsf(new_item)
+
+    sidebar_move(items, new_item.name, item_after)
+
+
 def main(*args, **opts):
     """our main entry point to parse args and dispatch functions"""
 
     actions = {c.__name__.replace('sidebar_', ''): c
-               for c in [sidebar_list, sidebar_remove, sidebar_move]}
+               for c in [sidebar_list, sidebar_remove, sidebar_move,
+                         sidebar_insert]}
 
     parser = argparse.ArgumentParser()
     parser.add_argument("action",
