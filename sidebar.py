@@ -25,7 +25,12 @@ class lsf(object):
         if self._name is None:
             dname = LaunchServices.LSSharedFileListItemCopyDisplayName
             # seems that this can be empty?
-            self._name = dname(self.ref) or "AirDrop"
+            if self.path is None:
+                self._name = "?"
+            elif 'AirDrop' in self.path:
+                self._name = "AirDrop"
+            else:
+                self._name = dname(self.ref)
         return self._name
 
     @property
