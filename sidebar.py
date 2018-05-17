@@ -64,14 +64,20 @@ class lsf(object):
     @property
     def name(self):
         if self._name is None:
-            dname = LaunchServices.LSSharedFileListItemCopyDisplayName
             # seems that this can be empty?
+            dname = LaunchServices.LSSharedFileListItemCopyDisplayName
+
             if self.path is None:
                 self._name = "?"
+            elif self.path.endswith('LSSharedFileList.IsComputer'):
+                self._name = 'Computer'
+            elif self.path.endswith('LSSharedFileList.IsRemoteDisc'):
+                self._name = "Remote Disc"
             elif 'AirDrop' in self.path:
                 self._name = "AirDrop"
             else:
                 self._name = dname(self.ref)
+
         return self._name
 
     @property
@@ -104,10 +110,11 @@ class lsf_list(object):
         return self._snapshot[key]
 
 
-def all_items():
+def all_items(section):
     sitems = LaunchServices.LSSharedFileListCreate(
         CoreFoundation.kCFAllocatorDefault,
-        LaunchServices.kLSSharedFileListFavoriteItems, None)
+        section,
+        None)
 
     return lsf_list(sitems)
 
@@ -179,17 +186,25 @@ def main(*args, **opts):
                for c in [sidebar_list, sidebar_remove, sidebar_move,
                          sidebar_insert]}
 
+    sections = {
+        'favorites': LaunchServices.kLSSharedFileListFavoriteItems,
+        'devices': LaunchServices.kLSSharedFileListFavoriteVolumes,
+    }
+
     parser = argparse.ArgumentParser()
     parser.add_argument("action",
                         choices=actions,
                         help="action to perform on sidebar")
+    parser.add_argument('section',
+                        choices=sections,
+                        help="section to operate on")
     parser.add_argument('item', nargs='?', default='',
                         help="item to add or remove")
     parser.add_argument('pos', nargs='?', type=int, default=-1,
                         help="position in the list to move to")
     args = parser.parse_args()
 
-    items = all_items()
+    items = all_items(sections[args.section])
 
     # dispatch
     ret = actions[args.action](items, args.item, items[args.pos])
