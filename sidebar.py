@@ -113,7 +113,7 @@ def main(*args, **opts):
                         help="action to perform on sidebar")
     parser.add_argument('item', nargs='?', default='',
                         help="item to add or remove")
-    parser.add_argument('pos', nargs='?', type=int, default=0,
+    parser.add_argument('pos', nargs='?', type=int, default=-1,
                         help="position in the list to move to")
     args = parser.parse_args()
 
