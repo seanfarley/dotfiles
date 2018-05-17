@@ -9,6 +9,7 @@ from __future__ import absolute_import
 import argparse
 import sys
 
+import Cocoa
 import CoreFoundation
 import LaunchServices
 
@@ -38,6 +39,8 @@ class lsf(object):
         if self._path is None:
             presolve = LaunchServices.LSSharedFileListItemResolve
             self._path = presolve(self.ref, 0, None, None)[1]
+            if isinstance(self._path, Cocoa.NSURL):
+                self._path = self._path.absoluteString()
         return self._path
 
 
@@ -80,8 +83,7 @@ def _rm_move(func, items, item, *args, **opts):
         # special case a few special names e.g. 'recent'
         if (i.name.lower() == item.lower() or
             ('recent' in item.lower() and
-             'MyLibraries/myDocuments.cannedSearch' in
-             i.path.absoluteString())):
+             'MyLibraries/myDocuments.cannedSearch' in i.path)):
             func(items.items, i.ref, *args)
             return 0
 
