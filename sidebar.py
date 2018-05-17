@@ -168,7 +168,8 @@ def sidebar_insert(items, item, item_after, *args, **opts):
 
     new_item = lsf(new_item)
 
-    sidebar_move(items, new_item.name, item_after)
+    if item_after is not None:
+        sidebar_move(items, new_item.name, item_after)
 
 
 def main(*args, **opts):
