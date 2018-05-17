@@ -179,12 +179,21 @@ def sidebar_insert(items, item, item_after, *args, **opts):
         sidebar_move(items, new_item.name, item_after)
 
 
+def sidebar_removeall(items, item, *args, **opts):
+    """remove all items from the finder sidebar section"""
+    for i in items:
+        # hack for airdrop because I can't figure out how to add it back
+        if 'airdrop' not in i.name.lower():
+            LaunchServices.LSSharedFileListItemRemove(items.items, i.ref)
+    return 0
+
+
 def main(*args, **opts):
     """our main entry point to parse args and dispatch functions"""
 
     actions = {c.__name__.replace('sidebar_', ''): c
                for c in [sidebar_list, sidebar_remove, sidebar_move,
-                         sidebar_insert]}
+                         sidebar_insert, sidebar_removeall]}
 
     sections = {
         'favorites': LaunchServices.kLSSharedFileListFavoriteItems,
