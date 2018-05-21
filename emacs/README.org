@@ -3515,7 +3515,7 @@ similar keywords.
     (setq hl-todo-keyword-faces '(("FIXME" . hl-todo)
                                   ("TODO"  . hl-todo)
                                   ("XXX"   . hl-todo)))
-    (hl-todo-set-regexp)
+    (hl-todo--setup)
     (global-hl-todo-mode))
 #+END_SRC
 
