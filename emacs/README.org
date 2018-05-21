@@ -1821,7 +1821,7 @@ messages to maildirs.
           '(("maildir:/inbox AND flag:unread AND NOT flag:trashed" "All unread" ?u)
             ("maildir:/lists AND flag:unread AND NOT flag:trashed AND NOT mercurial AND NOT macports" "Unread" ?U)
             ("to:sean.michael.farley+self and not maildir:/phd and not maildir:/posterity" "Notes" ?n)
-            ("maildir:/lists macports" "Macports" ?p)
+            ("maildir:/phd and flag:unread and not flag:trashed" "PhD" ?p)
             ("maildir:/lists mercurial" "Mercurial" ?m))
 
           ;; an absolute must to sort the inbox with the date ascending.
