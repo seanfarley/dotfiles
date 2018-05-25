@@ -56,10 +56,6 @@ pushanonheads = True
 
 [schemes]
 bb = ssh://hg@bitbucket.org/
-bbs = ssh://hg-staging@staging.bitbucket.org/
-bbl = http://seanfarley:seanfarley@dev.bitbucket.org/
-git+bb = git+ssh://git@bitbucket.org/
-git+bbs = git+ssh://git-staging@staging.bitbucket.org/
 gh = git+ssh://git@github.com/
 
 [hgsubversion]
