@@ -24,6 +24,7 @@ editortmpinhg = True
 spacemovesdown = True
 obshashrange = yes
 obshashrange.warm-cache = no
+worddiff = True
 
 [profiling]
 type = stat
