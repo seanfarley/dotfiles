@@ -276,6 +276,7 @@ md = merge default
 
 # this blows up when message has a '!' in it?
 cm = commit -m
+cii = commit -i
 cus = commit -m 'subrepo: update state'
 cmm = commit -m 'merge'
 
