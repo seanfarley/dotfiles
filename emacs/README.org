@@ -2747,6 +2747,17 @@ A package I wrote that is derived from [[https://github.com/fuxialexander/counse
     :after mu4e)
 #+END_SRC
 
+*** counsel-world-clock
+
+Display world clock using Ivy.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel-world-clock
+    :ensure t
+    :init
+    (smf/add-launcher "w" #'counsel-world-clock))
+#+END_SRC
+
 *** company
 
 [[https://github.com/company-mode/company-mode][company-mode]] is a modern and modular completion framework (the other one Emacs
