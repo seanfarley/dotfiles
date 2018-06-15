@@ -3992,6 +3992,17 @@ buffers, search buffers etc. a bit more sane.
     (popwin-mode))
 #+END_SRC
 
+*** powerthesaurus
+
+emacs-powerthesaurus is a simple plugin to integrate Emacs with amazing
+powerthesaurus.org.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package powerthesaurus
+    :ensure t)
+#+END_SRC
+
+
 *** prettify-mode
 
 Taken from [[http://www.modernemacs.com/post/prettify-mode/][Modern Emacs]]:
