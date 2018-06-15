@@ -1,10 +1,10 @@
-;; Gnus addon to beautify patch-like emails. This uses a "ft/" prefix for
+;; mu4e addon to beautify patch-like emails. This uses a "ft/" prefix for
 ;; everything to avoid clashing with anything upstream. That prefix can be
 ;; savely s,ft/,,'d - if this is to be submitted to the gnus developers.
 
 (require 'diff-mode)
 
-(add-hook 'gnus>-part-display-hook 'ft/gnus-article-treat-patch)
+(add-hook 'mu4e-view-mode-hook 'ft/gnus-article-treat-patch)
 
 ;; Colour handling and faces
 (defun ft/gnus-colour-line (use-face)
@@ -42,15 +42,15 @@
 
 ;; Pseudo-headers
 (defvar ft/gnus-article-patch-pseudo-headers
-  '(("^Acked-by: "      'gnus-header-name 'gnus-header-from)
-    ("^C\\(c\\|C\\): "  'gnus-header-name 'gnus-header-from)
-    ("^From: "          'gnus-header-name 'gnus-header-from)
-    ("^Link: "          'gnus-header-name 'gnus-header-from)
-    ("^Reported-by: "   'gnus-header-name 'gnus-header-from)
-    ("^Reviewed-by: "   'gnus-header-name 'gnus-header-from)
-    ("^Signed-off-by: " 'gnus-header-name 'gnus-header-from)
-    ("^Subject: "       'gnus-header-name 'gnus-header-from)
-    ("^Suggested-by: "  'gnus-header-name 'gnus-header-from))
+  '(("^Acked-by: "      'mu4e-header-key-face 'mu4e-header-value-face)
+    ("^C\\(c\\|C\\): "  'mu4e-header-key-face 'mu4e-header-value-face)
+    ("^From: "          'mu4e-header-key-face 'mu4e-header-value-face)
+    ("^Link: "          'mu4e-header-key-face 'mu4e-header-value-face)
+    ("^Reported-by: "   'mu4e-header-key-face 'mu4e-header-value-face)
+    ("^Reviewed-by: "   'mu4e-header-key-face 'mu4e-header-value-face)
+    ("^Signed-off-by: " 'mu4e-header-key-face 'mu4e-header-value-face)
+    ("^Subject: "       'mu4e-header-key-face 'mu4e-header-value-face)
+    ("^Suggested-by: "  'mu4e-header-key-face 'mu4e-header-value-face))
   "List of lists of regular expressions (with two face names)
 which are used to determine the highlighting of pseudo headers in
 the commit message (such as \"Signed-off-by:\").
@@ -442,4 +442,5 @@ borrowing the highlighting faces for from `diff-mode'."
             (goto-char (point-min))
             (ft/gnus-article-treat-patch-state-machine))))))
 
-(provide 'gnus-article-treat-patch)
+(provide 'mu4e-patch)
+;;; mu4e-patch ends here
