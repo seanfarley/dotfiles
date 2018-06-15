@@ -43,6 +43,7 @@ strip =
 shelve =
 journal =
 releasenotes =
+fsmonitor =
 # Third-party extensions
 evolve =
 
