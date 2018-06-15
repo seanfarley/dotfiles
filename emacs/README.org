@@ -665,7 +665,7 @@ I use [[https://github.com/tonsky/FiraCode][Fira Code]] as my default coding fon
 #+BEGIN_SRC emacs-lisp
   ;; set the font
   (when (window-system)
-    (set-frame-font "Fira Code"))
+    (add-to-list 'default-frame-alist '(font . "Fira Code")))
 #+END_SRC
 
 When on Mituhara's version of Emacs for MacOS, ligatures are built-in,
