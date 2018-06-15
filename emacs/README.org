@@ -3832,7 +3832,7 @@ Magit interfaces for GitHub.
           ("H-p" . mc/mark-previous-like-this)
           ;; ("s-p" . mc/skip-to-previous-like-this)
           ("H-l" . mc/mark-all-symbols-like-this)
-          ("C-S-<mouse-1>" . mc/add-cursor-on-click))
+          ("H-<mouse-1>" . mc/add-cursor-on-click))
 #+END_SRC
 
 *** narrow-indirect
