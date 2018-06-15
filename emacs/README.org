@@ -2559,23 +2559,13 @@ Pro tip: [[http://www.jethrokuan.com/init.html][Jethro Kuan]] has an awesome ema
 #+BEGIN_SRC emacs-lisp
   (use-package auth-source-pass
     :after async
-    :if (>= emacs-major-version 26)
+    :ensure t
     :init
     ;; needed to initialize auth-source-pass correctly as emacs is spawning a new
     ;; process
     (add-hook 'async-smtpmail-before-send-hook #'auth-source-pass-enable)
     :config
     (auth-source-pass-enable))
-
-  (use-package auth-password-store
-    :after async
-    :if (< emacs-major-version 26)
-    :init
-    ;; needed to initialize auth-source-pass correctly as emacs is spawning a new
-    ;; process
-    (add-hook 'async-smtpmail-before-send-hook #'auth-pass-enable)
-    :config
-    (auth-pass-enable))
 #+END_SRC
 
 *** avy
