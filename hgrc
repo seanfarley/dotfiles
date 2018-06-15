@@ -57,6 +57,7 @@ pushanonheads = True
 [schemes]
 bb = ssh://hg@bitbucket.org/
 gh = git+ssh://git@github.com/
+gcc = ssh://smf@gcc{1}.fsffrance.org/projects/{2}
 
 [hgsubversion]
 nativerevs = True
