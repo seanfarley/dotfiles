@@ -1,3 +1,10 @@
+;;; mu4e-view-treat-patch.el --- colorize patch-like emails in mu4e
+
+;; Copyright (C) 2011 Frank Terbeck.
+;; Copyright (C) 2018 Sean Farley.
+
+;;; Commentary:
+
 ;; mu4e addon to beautify patch-like emails. This uses a "ft/" prefix for
 ;; everything to avoid clashing with anything upstream. That prefix can be
 ;; savely s,ft/,,'d - if this is to be submitted to the gnus developers.
