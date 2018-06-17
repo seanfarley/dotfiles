@@ -16,7 +16,7 @@
 
 ;; Colour handling and faces
 (defun ft/gnus-colour-line (use-face)
-  "Set text overlay to `use-face' for the current line."
+  "Set text overlay to `USE-FACE' for the current line."
   (overlay-put (make-overlay (point-at-bol) (point-at-eol)) 'face use-face))
 
 (make-face 'ft/gnus-three-dashes)
@@ -67,8 +67,9 @@ The first face if used to highlight the header's name; the second
 highlights the header's value.")
 
 (defun ft/gnus-pseudo-header-get (line)
-  "Check if `line' is a pseudo header, and if so return its enty in
-`ft/gnus-article-patch-pseudo-headers'."
+  "Check if `LINE' is a pseudo header.
+
+If so return its entry in `ft/gnus-article-patch-pseudo-headers'."
   (catch 'done
     (dolist (entry ft/gnus-article-patch-pseudo-headers)
       (let ((regex (car entry)))
@@ -77,14 +78,14 @@ highlights the header's value.")
     (throw 'done '())))
 
 (defun ft/gnus-pseudo-header-p (line)
-  "Returns `t' if `line' looks like a pseudo-header; `nil' otherwise.
+  "Return t if `LINE' is a pseudo-header; nil otherwise.
 
 `ft/gnus-article-patch-pseudo-headers' is used to determine what a pseudo-header
 is."
   (if (eq (ft/gnus-pseudo-header-get line) '()) nil t))
 
 (defun ft/gnus-pseudo-header-colour (line)
-  "Colourise a pseudo-header line."
+  "Colorize a pseudo-header `LINE'."
   (let ((data (ft/gnus-pseudo-header-get line)))
     (if (eq data '())
         nil
@@ -97,7 +98,7 @@ is."
 
 ;; diff-stat
 (defun ft/gnus-diff-stat-colour (line)
-  "Colourise a diff-stat line."
+  "Colorize a diff-stat `LINE'."
   (let ((s (point-at-bol))
         (e (point-at-eol))
         (bar (- (re-search-forward "|") 1))
@@ -125,7 +126,7 @@ is."
           (overlay-put (make-overlay brk e) 'face second-face))))))
 
 (defun ft/gnus-diff-stat-summary-colour (line)
-  "Colourise a diff-stat summary-line."
+  "Colorize a diff-stat summary `LINE'."
   (let* ((e (point-at-eol))
          (plus (- (re-search-forward "(\\+)" e t) 2))
          (minus (- (re-search-forward "(-)" e t) 2)))
@@ -133,35 +134,36 @@ is."
     (overlay-put (make-overlay minus (+ minus 1)) 'face 'ft/gnus-diff-remove)))
 
 (defun ft/gnus-diff-stat-line-p (line)
-  "Return `t' if `line' is a diff-stat line; `nil' otherwise."
+  "Return t if `LINE' is a diff-stat line; nil otherwise."
   (string-match "^ *[^ ]+[^|]+| +[0-9]+\\( *\\| +[+-]+\\)$" line))
 
 (defun ft/gnus-diff-stat-summary-p (line)
-  "Return `t' if `line' is a diff-stat summary-line; `nil' otherwise."
+  "Return t if `LINE' is a diff-stat summary-line; nil otherwise."
   (string-match "^ *[0-9]+ file\\(s\\|\\) changed,.*insertion.*deletion" line))
 
 ;; unified-diffs
 (defun ft/gnus-diff-header-p (line)
-  "Returns `t' if `line' looks like a diff-header; `nil' otherwise."
+  "Return t if `LINE' is a diff-header; nil otherwise."
   (cond
    ((string-match "^\\(\\+\\+\\+\\|---\\) " line) t)
    ((string-match "^diff -" line) t)
    (t nil)))
 
 (defun ft/gnus-index-line-p (line)
-  "Returns `t' if `line' looks like an index-line; `nil' otherwise."
+  "Return t if `LINE' is an index-line; nil otherwise."
   (cond
    ((string-match "^Index: " line) t)
    ((string-match "^index [0-9a-f]+\\.\\.[0-9a-f]+" line) t)
    (t nil)))
 
 (defun ft/gnus-hunk-line-p (line)
-  "Returns `t' if `line' looks like a hunk-line; `nil' otherwise."
+  "Return t if `LINE' is a hunk-line; nil otherwise."
   (string-match "^@@ -[0-9]+,[0-9]+ \\+[0-9]+,[0-9]+ @@" line))
 
 (defun ft/gnus-atp-misc-diff-p (line)
-  "Return `t' if `line' is a \"misc line\" with respect to patch
-treatment; `nil' otherwise."
+  "Return t if `LINE' is a \"misc line\"; nil otherwise.
+
+This is tested with respect to patch treatment."
   (let ((patterns '("^new file"
                     "^RCS file:"
                     "^retrieving revision ")))
@@ -172,30 +174,35 @@ treatment; `nil' otherwise."
       (throw 'done nil))))
 
 (defun ft/gnus-atp-looks-like-diff (line)
-  "Return `t' if `line' looks remotely like a line from a unified
-diff; `nil' otherwise."
+  "Return t if `LINE' is a unified diff; nil otherwise.
+
+This will test anything that even looks remotely like a line from
+a unified diff"
   (or (ft/gnus-index-line-p line)
       (ft/gnus-diff-header-p line)
       (ft/gnus-hunk-line-p line)))
 
 ;; miscellaneous line handlers
 (defun ft/gnus-scissors-line-p (line)
-  "Returns `t' if `line' looks like a scissors-line; `nil' otherwise."
+  "Return t if `LINE' is a scissors-line; nil otherwise."
   (cond
    ((string-match "^\\( *--* *\\(8<\\|>8\\)\\)+ *-* *$" line) t)
    (t nil)))
 
 ;; Patch mail detection
 (defvar ft/gnus-article-patch-conditions nil
-  "List of conditions that will enable patch treatment.  String
-values will be matched as regular expressions within the currently
-processed part.  Non-string value are supposed to be code fragments,
-which determine whether or not to do treatment: The code needs to
-return `t' if treatment is wanted.")
+  "List of conditions that will enable patch treatment.
+
+String values will be matched as regular expressions within the
+currently processed part. Non-string value are supposed to be
+code fragments, which determine whether or not to do treatment:
+The code needs to return t if treatment is wanted.")
 
 (defun ft/gnus-part-want-patch-treatment ()
-  "Run through `ft/gnus-article-patch-conditions' to determine whether
-patch treatment is wanted or not. Return `t' or `nil' accordingly."
+  "Return t if patch treatment is wanted.
+
+Run through `ft/gnus-article-patch-conditions' to determine
+whether patch treatment is wanted or not."
   (catch 'done
     (dolist (entry ft/gnus-article-patch-conditions)
       (cond
@@ -210,7 +217,9 @@ patch treatment is wanted or not. Return `t' or `nil' accordingly."
 
 ;; The actual article treatment code
 (defun ft/gnus-article-treat-patch-state-machine ()
-  "Implement the state machine which colourises a part of an article
+  "Colorize a part of the mu4e-view buffer.
+
+Implement the state machine which colorizes a part of an article
 if it looks patch-like.
 
 The state machine works like this:
@@ -363,10 +372,12 @@ The state machine works like this:
                 (throw 'ft/gnus-atp-done t)))))))
 
 (defun ft/gnus-article-treat-patch ()
-  "Highlight mail parts, that look like patches (well, usually
-they *are* patches - or possibly, when you take git's format-patch output,
-entire commit exports - including comments).  This treatment assumes the
-use of unified diffs.  Here is how it works:
+  "Highlight mail parts, that look like patches.
+
+Well, usually they *are* patches - or possibly, when you take
+git's format-patch output, entire commit exports - including
+comments). This treatment assumes the use of unified diffs. Here
+is how it works:
 
 The most fancy type of patch mails look like this:
 
