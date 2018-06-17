@@ -68,8 +68,11 @@
   "Face for the stat number column."
   :group 'mu4e-patch-faces)
 
-(make-face 'ft/gnus-diff-misc)
-(set-face-attribute 'ft/gnus-diff-misc nil :foreground "magenta")
+(defface mu4e-patch-misc
+  '((t :foreground "magenta"))
+  "Face for the \"misc line\" part of the diff."
+  :group 'mu4e-patch-faces)
+
 (make-face 'ft/gnus-commit-comment)
 (set-face-attribute 'ft/gnus-commit-comment nil :inherit 'default)
 (make-face 'ft/gnus-diff-header)
@@ -388,7 +391,7 @@ The state machine works like this:
                   (mu4e~patch-color-line 'ft/gnus-diff-context)
                   'unified-diff)
                  ((ft/gnus-atp-misc-diff-p line)
-                  (mu4e~patch-color-line 'ft/gnus-diff-misc)
+                  (mu4e~patch-color-line 'mu4e-patch-misc)
                   'unified-diff)
                  ((string-match "^\\+" line)
                   (mu4e~patch-color-line 'ft/gnus-diff-add)
