@@ -38,8 +38,11 @@
   "Face for the diff index."
   :group 'mu4e-patch-faces)
 
-(make-face 'ft/gnus-diff-hunk)
-(set-face-attribute 'ft/gnus-diff-hunk nil :foreground "brightblue")
+(defface mu4e-patch-diff-hunk
+  '((t :foreground "brightblue"))
+  "Face for the diff hunk."
+  :group 'mu4e-patch-faces)
+
 (make-face 'ft/gnus-diff-equals)
 (set-face-attribute 'ft/gnus-diff-equals nil :foreground "brightmagenta")
 (make-face 'ft/gnus-commit-message)
@@ -359,7 +362,7 @@ The state machine works like this:
                   (mu4e~patch-color-line 'mu4e-patch-diff-index)
                   'unified-diff)
                  ((ft/gnus-hunk-line-p line)
-                  (mu4e~patch-color-line 'ft/gnus-diff-hunk)
+                  (mu4e~patch-color-line 'mu4e-patch-diff-hunk)
                   'unified-diff)
                  ((string-match "^==*$" line)
                   (mu4e~patch-color-line 'ft/gnus-diff-equals)
