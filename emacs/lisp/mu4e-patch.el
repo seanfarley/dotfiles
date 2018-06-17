@@ -43,8 +43,11 @@
   "Face for the diff hunk."
   :group 'mu4e-patch-faces)
 
-(make-face 'ft/gnus-diff-equals)
-(set-face-attribute 'ft/gnus-diff-equals nil :foreground "brightmagenta")
+(defface mu4e-patch-diff-equals
+  '((t :foreground "brightmagenta"))
+  "Face for the line of equal signs that some diffs have."
+  :group 'mu4e-patch-faces)
+
 (make-face 'ft/gnus-commit-message)
 (set-face-attribute 'ft/gnus-commit-message nil :foreground "white")
 (make-face 'ft/gnus-diff-stat-file)
@@ -365,7 +368,7 @@ The state machine works like this:
                   (mu4e~patch-color-line 'mu4e-patch-diff-hunk)
                   'unified-diff)
                  ((string-match "^==*$" line)
-                  (mu4e~patch-color-line 'ft/gnus-diff-equals)
+                  (mu4e~patch-color-line 'mu4e-patch-diff-equals)
                   'unified-diff)
                  ((string-match "^$" line)
                   'unified-diff)
