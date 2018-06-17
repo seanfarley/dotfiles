@@ -17,8 +17,17 @@
   "Set text overlay to `USE-FACE' for the current line."
   (overlay-put (make-overlay (point-at-bol) (point-at-eol)) 'face use-face))
 
-(make-face 'ft/gnus-three-dashes)
-(set-face-attribute 'ft/gnus-three-dashes nil :foreground "brightblue")
+;; Faces
+(defgroup mu4e-patch-faces nil
+  "Type faces (fonts) used in mu4e-patch."
+  :group 'mu4e
+  :group 'faces)
+
+(defface mu4e-patch-three-dashes
+  '((t :foreground "brightblue"))
+  "Face for the three dashes in a diff header."
+  :group 'mu4e-patch-faces)
+
 (make-face 'ft/gnus-scissors)
 (set-face-attribute 'ft/gnus-scissors nil :foreground "brown")
 (make-face 'ft/gnus-diff-index)
@@ -311,7 +320,7 @@ The state machine works like this:
                   (ft/gnus-pseudo-header-colour line)
                   'commit-message)
                  ((string= line "---")
-                  (mu4e~patch-color-line 'ft/gnus-three-dashes)
+                  (mu4e~patch-color-line 'mu4e-patch-three-dashes)
                   'commit-comment)
                  ((ft/gnus-atp-looks-like-diff line)
                   (setq do-not-move t)
