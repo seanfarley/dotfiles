@@ -33,8 +33,11 @@
   "Face for the scissors 8< lines."
   :group 'mu4e-patch-faces)
 
-(make-face 'ft/gnus-diff-index)
-(set-face-attribute 'ft/gnus-diff-index nil :foreground "brightmagenta")
+(defface mu4e-patch-diff-index
+  '((t :foreground "brightmagenta"))
+  "Face for the diff index."
+  :group 'mu4e-patch-faces)
+
 (make-face 'ft/gnus-diff-hunk)
 (set-face-attribute 'ft/gnus-diff-hunk nil :foreground "brightblue")
 (make-face 'ft/gnus-diff-equals)
@@ -353,7 +356,7 @@ The state machine works like this:
                   (mu4e~patch-color-line 'ft/gnus-diff-header)
                   'unified-diff)
                  ((ft/gnus-index-line-p line)
-                  (mu4e~patch-color-line 'ft/gnus-diff-index)
+                  (mu4e~patch-color-line 'mu4e-patch-diff-index)
                   'unified-diff)
                  ((ft/gnus-hunk-line-p line)
                   (mu4e~patch-color-line 'ft/gnus-diff-hunk)
