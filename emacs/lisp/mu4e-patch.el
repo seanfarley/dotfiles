@@ -95,7 +95,7 @@ the commit message)."
   :group 'mu4e-patch-faces)
 
 ;; Pseudo-headers
-(defvar ft/gnus-article-patch-pseudo-headers
+(defvar mu4e~patch-pseudo-headers
   '(("^Acked-by: "      'mu4e-header-key-face 'mu4e-header-value-face)
     ("^C\\(c\\|C\\): "  'mu4e-header-key-face 'mu4e-header-value-face)
     ("^From: "          'mu4e-header-key-face 'mu4e-header-value-face)
@@ -115,9 +115,9 @@ highlights the header's value.")
 (defun ft/gnus-pseudo-header-get (line)
   "Check if `LINE' is a pseudo header.
 
-If so return its entry in `ft/gnus-article-patch-pseudo-headers'."
+If so return its entry in `mu4e~patch-pseudo-headers'."
   (catch 'done
-    (dolist (entry ft/gnus-article-patch-pseudo-headers)
+    (dolist (entry mu4e~patch-pseudo-headers)
       (let ((regex (car entry)))
         (if (string-match regex line)
             (throw 'done entry))))
@@ -126,8 +126,8 @@ If so return its entry in `ft/gnus-article-patch-pseudo-headers'."
 (defun ft/gnus-pseudo-header-p (line)
   "Return t if `LINE' is a pseudo-header; nil otherwise.
 
-`ft/gnus-article-patch-pseudo-headers' is used to determine what a pseudo-header
-is."
+`mu4e~patch-pseudo-headers' is used to determine what a
+pseudo-header is."
   (if (eq (ft/gnus-pseudo-header-get line) '()) nil t))
 
 (defun ft/gnus-pseudo-header-colour (line)
