@@ -112,7 +112,7 @@ the commit message (such as \"Signed-off-by:\").
 The first face if used to highlight the header's name; the second
 highlights the header's value.")
 
-(defun ft/gnus-pseudo-header-get (line)
+(defun mu4e~pseduo-header-get (line)
   "Check if `LINE' is a pseudo header.
 
 If so return its entry in `mu4e~patch-pseudo-headers'."
@@ -128,11 +128,11 @@ If so return its entry in `mu4e~patch-pseudo-headers'."
 
 `mu4e~patch-pseudo-headers' is used to determine what a
 pseudo-header is."
-  (if (eq (ft/gnus-pseudo-header-get line) '()) nil t))
+  (if (eq (mu4e~pseduo-header-get line) '()) nil t))
 
 (defun ft/gnus-pseudo-header-colour (line)
   "Colorize a pseudo-header `LINE'."
-  (let ((data (ft/gnus-pseudo-header-get line)))
+  (let ((data (mu4e~pseduo-header-get line)))
     (if (eq data '())
         nil
       (let* ((s (point-at-bol))
