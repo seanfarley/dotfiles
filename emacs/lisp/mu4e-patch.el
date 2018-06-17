@@ -28,8 +28,11 @@
   "Face for the three dashes in a diff header."
   :group 'mu4e-patch-faces)
 
-(make-face 'ft/gnus-scissors)
-(set-face-attribute 'ft/gnus-scissors nil :foreground "brown")
+(defface mu4e-patch-scissors
+  '((t :foreground "brown"))
+  "Face for the scissors 8< lines."
+  :group 'mu4e-patch-faces)
+
 (make-face 'ft/gnus-diff-index)
 (set-face-attribute 'ft/gnus-diff-index nil :foreground "brightmagenta")
 (make-face 'ft/gnus-diff-hunk)
@@ -314,7 +317,7 @@ The state machine works like this:
                ((eq state 'commit-message)
                 (cond
                  ((ft/gnus-scissors-line-p line)
-                  (mu4e~patch-color-line 'ft/gnus-scissors)
+                  (mu4e~patch-color-line 'mu4e-patch-scissors)
                   'commit-message)
                  ((ft/gnus-pseudo-header-p line)
                   (ft/gnus-pseudo-header-colour line)
