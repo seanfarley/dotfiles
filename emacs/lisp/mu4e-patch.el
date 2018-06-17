@@ -89,8 +89,10 @@ the commit message)."
   "Face for the diff lines that are added."
   :group 'mu4e-patch-faces)
 
-(make-face 'ft/gnus-diff-remove)
-(set-face-attribute 'ft/gnus-diff-remove nil :inherit 'diff-removed)
+(defface mu4e-patch-diff-removed
+  '((t :inherit diff-removed))
+  "Face for the diff lines that are removed."
+  :group 'mu4e-patch-faces)
 
 ;; Pseudo-headers
 (defvar ft/gnus-article-patch-pseudo-headers
@@ -159,8 +161,8 @@ is."
            (brk (if plus
                     (re-search-forward "-" e t)
                   (re-search-forward "\\+" e t)))
-           (first-face (if plus 'mu4e-patch-diff-added 'ft/gnus-diff-remove))
-           (second-face (if plus 'ft/gnus-diff-remove 'mu4e-patch-diff-added)))
+           (first-face (if plus 'mu4e-patch-diff-added 'mu4e-patch-diff-removed))
+           (second-face (if plus 'mu4e-patch-diff-removed 'mu4e-patch-diff-added)))
 
       (if (eq brk nil)
           (overlay-put (make-overlay pm e) 'face first-face)
@@ -175,7 +177,7 @@ is."
          (plus (- (re-search-forward "(\\+)" e t) 2))
          (minus (- (re-search-forward "(-)" e t) 2)))
     (overlay-put (make-overlay plus (+ plus 1)) 'face 'mu4e-patch-diff-added)
-    (overlay-put (make-overlay minus (+ minus 1)) 'face 'ft/gnus-diff-remove)))
+    (overlay-put (make-overlay minus (+ minus 1)) 'face 'mu4e-patch-diff-removed)))
 
 (defun ft/gnus-diff-stat-line-p (line)
   "Return t if `LINE' is a diff-stat line; nil otherwise."
@@ -407,7 +409,7 @@ The state machine works like this:
                   (mu4e~patch-color-line 'mu4e-patch-diff-added)
                   'unified-diff)
                  ((string-match "^-" line)
-                  (mu4e~patch-color-line 'ft/gnus-diff-remove)
+                  (mu4e~patch-color-line 'mu4e-patch-diff-removed)
                   'unified-diff)
                  (t 'unified-diff)))))
 
