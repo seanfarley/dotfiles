@@ -73,8 +73,12 @@
   "Face for the \"misc line\" part of the diff."
   :group 'mu4e-patch-faces)
 
-(make-face 'ft/gnus-commit-comment)
-(set-face-attribute 'ft/gnus-commit-comment nil :inherit 'default)
+(defface mu4e-patch-commit-comment
+  '((t :inherit default))
+  "Face for the commit part of the diff (between two ---'s after
+the commit message)."
+  :group 'mu4e-patch-faces)
+
 (make-face 'ft/gnus-diff-header)
 (set-face-attribute 'ft/gnus-diff-header nil :inherit 'diff-header)
 (make-face 'ft/gnus-diff-add)
@@ -368,7 +372,7 @@ The state machine works like this:
                   (setq do-not-move t)
                   'unified-diff)
                  (t
-                  (mu4e~patch-color-line 'ft/gnus-commit-comment)
+                  (mu4e~patch-color-line 'mu4e-patch-commit-comment)
                   'commit-comment)))
 
                ((eq state 'unified-diff)
