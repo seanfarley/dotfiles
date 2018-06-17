@@ -79,8 +79,11 @@
 the commit message)."
   :group 'mu4e-patch-faces)
 
-(make-face 'ft/gnus-diff-header)
-(set-face-attribute 'ft/gnus-diff-header nil :inherit 'diff-header)
+(defface mu4e-patch-diff-header
+  '((t :inherit diff-header))
+  "Face for the diff hunk headers."
+  :group 'mu4e-patch-faces)
+
 (make-face 'ft/gnus-diff-add)
 (set-face-attribute 'ft/gnus-diff-add nil :inherit 'diff-added)
 (make-face 'ft/gnus-diff-remove)
@@ -378,7 +381,7 @@ The state machine works like this:
                ((eq state 'unified-diff)
                 (cond
                  ((ft/gnus-diff-header-p line)
-                  (mu4e~patch-color-line 'ft/gnus-diff-header)
+                  (mu4e~patch-color-line 'mu4e-patch-diff-header)
                   'unified-diff)
                  ((ft/gnus-index-line-p line)
                   (mu4e~patch-color-line 'mu4e-patch-diff-index)
