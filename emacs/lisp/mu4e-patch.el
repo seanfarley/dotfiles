@@ -12,8 +12,6 @@
 
 (require 'diff-mode)
 
-(add-hook 'mu4e-view-mode-hook 'ft/gnus-article-treat-patch)
-
 ;; Colour handling and faces
 (defun ft/gnus-colour-line (use-face)
   "Set text overlay to `USE-FACE' for the current line."
