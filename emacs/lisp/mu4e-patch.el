@@ -48,8 +48,11 @@
   "Face for the line of equal signs that some diffs have."
   :group 'mu4e-patch-faces)
 
-(make-face 'ft/gnus-commit-message)
-(set-face-attribute 'ft/gnus-commit-message nil :foreground "white")
+(defface mu4e-patch-commit-message
+  '((t :foreground "white"))
+  "Face for the commit message."
+  :group 'mu4e-patch-faces)
+
 (make-face 'ft/gnus-diff-stat-file)
 (set-face-attribute 'ft/gnus-diff-stat-file nil :foreground "yellow")
 (make-face 'ft/gnus-diff-stat-bar)
@@ -338,7 +341,7 @@ The state machine works like this:
                   (setq do-not-move t)
                   'unified-diff)
                  (t
-                  (mu4e~patch-color-line 'ft/gnus-commit-message)
+                  (mu4e~patch-color-line 'mu4e-patch-commit-message)
                   'commit-message)))
 
                ((eq state 'commit-comment)
