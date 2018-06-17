@@ -12,8 +12,8 @@
 
 (require 'diff-mode)
 
-;; Colour handling and faces
-(defun ft/gnus-colour-line (use-face)
+;; Color handling and faces
+(defun mu4e~patch-color-line (use-face)
   "Set text overlay to `USE-FACE' for the current line."
   (overlay-put (make-overlay (point-at-bol) (point-at-eol)) 'face use-face))
 
@@ -305,19 +305,19 @@ The state machine works like this:
                ((eq state 'commit-message)
                 (cond
                  ((ft/gnus-scissors-line-p line)
-                  (ft/gnus-colour-line 'ft/gnus-scissors)
+                  (mu4e~patch-color-line 'ft/gnus-scissors)
                   'commit-message)
                  ((ft/gnus-pseudo-header-p line)
                   (ft/gnus-pseudo-header-colour line)
                   'commit-message)
                  ((string= line "---")
-                  (ft/gnus-colour-line 'ft/gnus-three-dashes)
+                  (mu4e~patch-color-line 'ft/gnus-three-dashes)
                   'commit-comment)
                  ((ft/gnus-atp-looks-like-diff line)
                   (setq do-not-move t)
                   'unified-diff)
                  (t
-                  (ft/gnus-colour-line 'ft/gnus-commit-message)
+                  (mu4e~patch-color-line 'ft/gnus-commit-message)
                   'commit-message)))
 
                ((eq state 'commit-comment)
@@ -332,36 +332,36 @@ The state machine works like this:
                   (setq do-not-move t)
                   'unified-diff)
                  (t
-                  (ft/gnus-colour-line 'ft/gnus-commit-comment)
+                  (mu4e~patch-color-line 'ft/gnus-commit-comment)
                   'commit-comment)))
 
                ((eq state 'unified-diff)
                 (cond
                  ((ft/gnus-diff-header-p line)
-                  (ft/gnus-colour-line 'ft/gnus-diff-header)
+                  (mu4e~patch-color-line 'ft/gnus-diff-header)
                   'unified-diff)
                  ((ft/gnus-index-line-p line)
-                  (ft/gnus-colour-line 'ft/gnus-diff-index)
+                  (mu4e~patch-color-line 'ft/gnus-diff-index)
                   'unified-diff)
                  ((ft/gnus-hunk-line-p line)
-                  (ft/gnus-colour-line 'ft/gnus-diff-hunk)
+                  (mu4e~patch-color-line 'ft/gnus-diff-hunk)
                   'unified-diff)
                  ((string-match "^==*$" line)
-                  (ft/gnus-colour-line 'ft/gnus-diff-equals)
+                  (mu4e~patch-color-line 'ft/gnus-diff-equals)
                   'unified-diff)
                  ((string-match "^$" line)
                   'unified-diff)
                  ((string-match "^ " line)
-                  (ft/gnus-colour-line 'ft/gnus-diff-context)
+                  (mu4e~patch-color-line 'ft/gnus-diff-context)
                   'unified-diff)
                  ((ft/gnus-atp-misc-diff-p line)
-                  (ft/gnus-colour-line 'ft/gnus-diff-misc)
+                  (mu4e~patch-color-line 'ft/gnus-diff-misc)
                   'unified-diff)
                  ((string-match "^\\+" line)
-                  (ft/gnus-colour-line 'ft/gnus-diff-add)
+                  (mu4e~patch-color-line 'ft/gnus-diff-add)
                   'unified-diff)
                  ((string-match "^-" line)
-                  (ft/gnus-colour-line 'ft/gnus-diff-remove)
+                  (mu4e~patch-color-line 'ft/gnus-diff-remove)
                   'unified-diff)
                  (t 'unified-diff)))))
 
