@@ -5,9 +5,10 @@
 
 ;;; Commentary:
 
-;; mu4e addon to beautify patch-like emails. This uses a "ft/" prefix for
-;; everything to avoid clashing with anything upstream. That prefix can be
-;; savely s,ft/,,'d - if this is to be submitted to the gnus developers.
+;; This is adapted from Frank Terbeck's gnus-article-treat-patch.el but has
+;; been adapted to work with mu4e.
+
+;;; Code:
 
 (require 'diff-mode)
 
