@@ -261,8 +261,8 @@ whether patch treatment is wanted or not."
       (throw 'done nil)))
 
 
-;; The actual article treatment code
-(defun ft/gnus-article-treat-patch-state-machine ()
+;; The actual treatment code
+(defun mu4e~patch-state-machine ()
   "Colorize a part of the mu4e-view buffer.
 
 Implement the state machine which colorizes a part of an article
@@ -505,7 +505,7 @@ borrowing the highlighting faces for from `diff-mode'."
         (progn
           (let ((inhibit-read-only t))
             (goto-char (point-min))
-            (ft/gnus-article-treat-patch-state-machine))))))
+            (mu4e~patch-state-machine))))))
 
 (provide 'mu4e-patch)
 ;;; mu4e-patch ends here
