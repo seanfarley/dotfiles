@@ -195,7 +195,7 @@ pseudo-header is."
    ((string-match "^diff -" line) t)
    (t nil)))
 
-(defun ft/gnus-index-line-p (line)
+(defun mu4e~patch-index-line-p (line)
   "Return t if `LINE' is an index-line; nil otherwise."
   (cond
    ((string-match "^Index: " line) t)
@@ -224,7 +224,7 @@ This is tested with respect to patch treatment."
 
 This will test anything that even looks remotely like a line from
 a unified diff"
-  (or (ft/gnus-index-line-p line)
+  (or (mu4e~patch-index-line-p line)
       (mu4e~patch-diff-header-p line)
       (ft/gnus-hunk-line-p line)))
 
@@ -323,7 +323,7 @@ The state machine works like this:
      or \"commit-comment\". In this mode there can be a set of lines types:
 
        a) diff-header lines (`mu4e~patch-diff-header-p')
-       b) index lines (`ft/gnus-index-line-p')
+       b) index lines (`mu4e~patch-index-line-p')
        c) hunk lines (`ft/gnus-hunk-line-p')
        d) equals line (\"^==*$\")
        e) context lines (\"^ \")
@@ -388,7 +388,7 @@ The state machine works like this:
                  ((mu4e~patch-diff-header-p line)
                   (mu4e~patch-color-line 'mu4e-patch-diff-header)
                   'unified-diff)
-                 ((ft/gnus-index-line-p line)
+                 ((mu4e~patch-index-line-p line)
                   (mu4e~patch-color-line 'mu4e-patch-diff-index)
                   'unified-diff)
                  ((ft/gnus-hunk-line-p line)
