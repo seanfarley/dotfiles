@@ -53,8 +53,11 @@
   "Face for the commit message."
   :group 'mu4e-patch-faces)
 
-(make-face 'ft/gnus-diff-stat-file)
-(set-face-attribute 'ft/gnus-diff-stat-file nil :foreground "yellow")
+(defface mu4e-patch-diff-stat-file
+  '((t :foreground "yellow"))
+  "Face for the file stats."
+  :group 'mu4e-patch-faces)
+
 (make-face 'ft/gnus-diff-stat-bar)
 (set-face-attribute 'ft/gnus-diff-stat-bar nil :foreground "magenta")
 (make-face 'ft/gnus-diff-stat-num)
@@ -127,7 +130,7 @@ is."
         (num (- (re-search-forward "[0-9]") 1))
         (pm (- (re-search-forward "\\([+-]\\|$\\)") 1)))
 
-    (overlay-put (make-overlay s (- bar 1)) 'face 'ft/gnus-diff-stat-file)
+    (overlay-put (make-overlay s (- bar 1)) 'face 'mu4e-patch-diff-stat-file)
     (overlay-put (make-overlay bar (+ bar 1)) 'face 'ft/gnus-diff-stat-bar)
     (overlay-put (make-overlay num pm) 'face 'ft/gnus-diff-stat-num)
 
