@@ -183,7 +183,7 @@ pseudo-header is."
   "Return t if `LINE' is a diff-stat line; nil otherwise."
   (string-match "^ *[^ ]+[^|]+| +[0-9]+\\( *\\| +[+-]+\\)$" line))
 
-(defun ft/gnus-diff-stat-summary-p (line)
+(defun mu4e~patch-diff-stat-summary-p (line)
   "Return t if `LINE' is a diff-stat summary-line; nil otherwise."
   (string-match "^ *[0-9]+ file\\(s\\|\\) changed,.*insertion.*deletion" line))
 
@@ -314,7 +314,7 @@ The state machine works like this:
 
   6. A diff stat provides statistics about how much changed in a given commit
      by files and by whole commit (in a summary line). Two functions
-     `mu4e~patch-diff-stat-line-p' and `ft/gnus-diff-stat-summary-p' decide if a
+     `mu4e~patch-diff-stat-line-p' and `mu4e~patch-diff-stat-summary-p' decide if a
      line belongs to a diff stat. It's coloured appropriately and the state
      switches back to \"commit-comment\".
 
@@ -373,7 +373,7 @@ The state machine works like this:
                  ((mu4e~patch-diff-stat-line-p line)
                   (mu4e~patch-diff-stat-color line)
                   'commit-comment)
-                 ((ft/gnus-diff-stat-summary-p line)
+                 ((mu4e~patch-diff-stat-summary-p line)
                   (mu4e~patch-diff-stat-summary-color line)
                   'commit-comment)
                  ((ft/gnus-atp-looks-like-diff line)
