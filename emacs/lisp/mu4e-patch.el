@@ -244,7 +244,7 @@ currently processed part. Non-string value are supposed to be
 code fragments, which determine whether or not to do treatment:
 The code needs to return t if treatment is wanted.")
 
-(defun ft/gnus-part-want-patch-treatment ()
+(defun mu4e~patch-want-treatment ()
   "Return t if patch treatment is wanted.
 
 Run through `mu4e-patch-regex' to determine
@@ -500,7 +500,7 @@ lines, three-dashes-line, equals lines, diffstat lines, diffstat
 summary. Then there is added lines, removed lines, context lines,
 diff-header lines and diff-file-header lines, for which we are
 borrowing the highlighting faces for from `diff-mode'."
-  (if (ft/gnus-part-want-patch-treatment)
+  (if (mu4e~patch-want-treatment)
       (save-excursion
         (progn
           (let ((inhibit-read-only t))
