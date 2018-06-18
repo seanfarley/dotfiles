@@ -417,7 +417,7 @@ The state machine works like this:
             (if (> (forward-line) 0)
                 (throw 'ft/gnus-atp-done t)))))))
 
-(defun ft/gnus-article-treat-patch ()
+(defun mu4e-patch-highlight ()
   "Highlight mail parts, that look like patches.
 
 Well, usually they *are* patches - or possibly, when you take
