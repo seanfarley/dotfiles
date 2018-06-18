@@ -188,7 +188,7 @@ pseudo-header is."
   (string-match "^ *[0-9]+ file\\(s\\|\\) changed,.*insertion.*deletion" line))
 
 ;; unified-diffs
-(defun ft/gnus-diff-header-p (line)
+(defun mu4e~patch-diff-header-p (line)
   "Return t if `LINE' is a diff-header; nil otherwise."
   (cond
    ((string-match "^\\(\\+\\+\\+\\|---\\) " line) t)
@@ -225,7 +225,7 @@ This is tested with respect to patch treatment."
 This will test anything that even looks remotely like a line from
 a unified diff"
   (or (ft/gnus-index-line-p line)
-      (ft/gnus-diff-header-p line)
+      (mu4e~patch-diff-header-p line)
       (ft/gnus-hunk-line-p line)))
 
 ;; miscellaneous line handlers
@@ -322,7 +322,7 @@ The state machine works like this:
      state to switch to \"unified-diff\" state from either \"commit-message\"
      or \"commit-comment\". In this mode there can be a set of lines types:
 
-       a) diff-header lines (`ft/gnus-diff-header-p')
+       a) diff-header lines (`mu4e~patch-diff-header-p')
        b) index lines (`ft/gnus-index-line-p')
        c) hunk lines (`ft/gnus-hunk-line-p')
        d) equals line (\"^==*$\")
@@ -385,7 +385,7 @@ The state machine works like this:
 
                ((eq state 'unified-diff)
                 (cond
-                 ((ft/gnus-diff-header-p line)
+                 ((mu4e~patch-diff-header-p line)
                   (mu4e~patch-color-line 'mu4e-patch-diff-header)
                   'unified-diff)
                  ((ft/gnus-index-line-p line)
