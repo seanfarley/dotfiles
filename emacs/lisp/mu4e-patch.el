@@ -94,6 +94,11 @@ the commit message)."
   "Face for the diff lines that are removed."
   :group 'mu4e-patch-faces)
 
+(defface mu4e-patch-diff-context
+  '((t :inherit default))
+  "Face for the context lines in the diff."
+  :group 'mu4e-patch-faces)
+
 ;; Pseudo-headers
 (defvar mu4e~patch-pseudo-headers
   '(("^Acked-by: "      'mu4e-header-key-face 'mu4e-header-value-face)
@@ -400,7 +405,7 @@ The state machine works like this:
                  ((string-match "^$" line)
                   'unified-diff)
                  ((string-match "^ " line)
-                  (mu4e~patch-color-line 'ft/gnus-diff-context)
+                  (mu4e~patch-color-line 'mu4e-patch-diff-context)
                   'unified-diff)
                  ((mu4e~patch-atp-misc-diff-p line)
                   (mu4e~patch-color-line 'mu4e-patch-misc)
