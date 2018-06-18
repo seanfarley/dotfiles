@@ -219,7 +219,7 @@ This is tested with respect to patch treatment."
             (throw 'done t)))
       (throw 'done nil))))
 
-(defun ft/gnus-atp-looks-like-diff (line)
+(defun mu4e~patch-atp-looks-like-diff (line)
   "Return t if `LINE' is a unified diff; nil otherwise.
 
 This will test anything that even looks remotely like a line from
@@ -361,7 +361,7 @@ The state machine works like this:
                  ((string= line "---")
                   (mu4e~patch-color-line 'mu4e-patch-three-dashes)
                   'commit-comment)
-                 ((ft/gnus-atp-looks-like-diff line)
+                 ((mu4e~patch-atp-looks-like-diff line)
                   (setq do-not-move t)
                   'unified-diff)
                  (t
@@ -376,7 +376,7 @@ The state machine works like this:
                  ((mu4e~patch-diff-stat-summary-p line)
                   (mu4e~patch-diff-stat-summary-color line)
                   'commit-comment)
-                 ((ft/gnus-atp-looks-like-diff line)
+                 ((mu4e~patch-atp-looks-like-diff line)
                   (setq do-not-move t)
                   'unified-diff)
                  (t
