@@ -236,7 +236,7 @@ a unified diff"
    (t nil)))
 
 ;; Patch mail detection
-(defvar ft/gnus-article-patch-conditions nil
+(defvar mu4e-patch-regex nil
   "List of conditions that will enable patch treatment.
 
 String values will be matched as regular expressions within the
@@ -247,10 +247,10 @@ The code needs to return t if treatment is wanted.")
 (defun ft/gnus-part-want-patch-treatment ()
   "Return t if patch treatment is wanted.
 
-Run through `ft/gnus-article-patch-conditions' to determine
+Run through `mu4e-patch-regex' to determine
 whether patch treatment is wanted or not."
   (catch 'done
-    (dolist (entry ft/gnus-article-patch-conditions)
+    (dolist (entry mu4e-patch-regex)
       (cond
        ((stringp entry)
         (if (re-search-forward entry nil t)
