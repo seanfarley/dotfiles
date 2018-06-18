@@ -123,7 +123,7 @@ If so return its entry in `mu4e~patch-pseudo-headers'."
             (throw 'done entry))))
     (throw 'done '())))
 
-(defun ft/gnus-pseudo-header-p (line)
+(defun mu4e~patch-pseudo-header-p (line)
   "Return t if `LINE' is a pseudo-header; nil otherwise.
 
 `mu4e~patch-pseudo-headers' is used to determine what a
@@ -300,7 +300,7 @@ The state machine works like this:
      will switch back to the \"commit-mesage\" state.
 
   3. This is very similar to a scissors line. It'll just return to the old
-     state after its being done. The `ft/gnus-pseudo-header-p' function
+     state after its being done. The `mu4e~patch-pseudo-header-p' function
      decides if a line is a pseudo header. The line will be appropriately
      coloured.
 
@@ -355,7 +355,7 @@ The state machine works like this:
                  ((ft/gnus-scissors-line-p line)
                   (mu4e~patch-color-line 'mu4e-patch-scissors)
                   'commit-message)
-                 ((ft/gnus-pseudo-header-p line)
+                 ((mu4e~patch-pseudo-header-p line)
                   (ft/gnus-pseudo-header-colour line)
                   'commit-message)
                  ((string= line "---")
