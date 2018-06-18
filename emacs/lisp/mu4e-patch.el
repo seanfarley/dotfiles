@@ -284,15 +284,17 @@ if it looks patch-like.
 
 The state machine works like this:
 
-  0a. The machinery starts at the first line of the article's body. Not
-      the header lines. We don't care about header lines at all.
+  0a. The machinery starts at the first line of the article's
+      body. Not the header lines. We don't care about header
+      lines at all.
 
-  0b. The whole thing works line by line. It doesn't do any forward or
-      backward looks.
+  0b. The whole thing works line by line. It doesn't do any
+      forward or backward looks.
 
-  1. Initially, we assume, that what we'll see first is part of the
-     patch's commit-message. Hence this first initial state is
-     \"commit-message\". There are several ways out of this state:
+  1. Initially, we assume, that what we'll see first is part of
+     the patch's commit-message. Hence this first initial state
+     is \"commit-message\". There are several ways out of this
+     state:
 
        a) a scissors line is found (see 2.)
        b) a pseudo-header line is found (see 3.)
@@ -300,8 +302,8 @@ The state machine works like this:
        d) something that looks like the start of a unified diff is
           found (see 7.)
 
-  2. A scissors line is something that looks like a pair of scissors running
-     through a piece of paper. Like this:
+  2. A scissors line is something that looks like a pair of
+     scissors running through a piece of paper. Like this:
 
       ------ 8< ----- 8< ------
 
@@ -309,32 +311,37 @@ The state machine works like this:
 
       ------------>8-----------
 
-     The function `mu4e~patch-scissors-line-p' decides whether a line is a
-     scissors line or not. After a scissors line was treated, the machine
-     will switch back to the \"commit-mesage\" state.
+     The function `mu4e~patch-scissors-line-p' decides whether a
+     line is a scissors line or not. After a scissors line was
+     treated, the machine will switch back to the
+     \"commit-mesage\" state.
 
-  3. This is very similar to a scissors line. It'll just return to the old
-     state after its being done. The `mu4e~patch-pseudo-header-p' function
-     decides if a line is a pseudo header. The line will be appropriately
-     coloured.
+  3. This is very similar to a scissors line. It'll just return
+     to the old state after its being done. The
+     `mu4e~patch-pseudo-header-p' function decides if a line is a
+     pseudo header. The line will be appropriately colored.
 
-  4. A three-dashes line is a line that looks like this: \"---\". It's the
-     definite end of the \"commit-message\" state. The three dashes line is
-     coloured and the state switches to \"commit-comment\". (See 5.)
+  4. A three-dashes line is a line that looks like this: \"---\".
+     It's the definite end of the \"commit-message\" state. The
+     three dashes line is coloured and the state switches to
+     \"commit-comment\". (See 5.)
 
-  5. Nothing in \"commit-comment\" will appear in the generated commit (this
-     is git-am specific semantics, but it's useful, so...). It may contain
-     things like random comments or - promimently - a diff stat. (See 6.)
+  5. Nothing in \"commit-comment\" will appear in the generated
+     commit (this is git-am specific semantics, but it's useful,
+     so...). It may contain things like random comments or -
+     promimently - a diff stat. (See 6.)
 
-  6. A diff stat provides statistics about how much changed in a given commit
-     by files and by whole commit (in a summary line). Two functions
-     `mu4e~patch-diff-stat-line-p' and `mu4e~patch-diff-stat-summary-p' decide if a
-     line belongs to a diff stat. It's coloured appropriately and the state
+  6. A diff stat provides statistics about how much changed in a
+     given commit by files and by whole commit (in a summary
+     line). Two functions `mu4e~patch-diff-stat-line-p' and
+     `mu4e~patch-diff-stat-summary-p' decide if a line belongs to
+     a diff stat. It's coloured appropriately and the state
      switches back to \"commit-comment\".
 
-  7. There is a function `mu4e~patch-atp-looks-like-diff' which will cause the
-     state to switch to \"unified-diff\" state from either \"commit-message\"
-     or \"commit-comment\". In this mode there can be a set of lines types:
+  7. There is a function `mu4e~patch-atp-looks-like-diff' which
+     will cause the state to switch to \"unified-diff\" state
+     from either \"commit-message\" or \"commit-comment\". In
+     this mode there can be a set of lines types:
 
        a) diff-header lines (`mu4e~patch-diff-header-p')
        b) index lines (`mu4e~patch-index-line-p')
