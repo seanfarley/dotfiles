@@ -58,8 +58,11 @@
   "Face for the file stats."
   :group 'mu4e-patch-faces)
 
-(make-face 'ft/gnus-diff-stat-bar)
-(set-face-attribute 'ft/gnus-diff-stat-bar nil :foreground "magenta")
+(defface mu4e-patch-diff-stat-bar
+  '((t :foreground "magenta"))
+  "Face for the stat bar separator."
+  :group 'mu4e-patch-faces)
+
 (make-face 'ft/gnus-diff-stat-num)
 (set-face-attribute 'ft/gnus-diff-stat-num nil :foreground "white")
 (make-face 'ft/gnus-diff-misc)
@@ -131,7 +134,7 @@ is."
         (pm (- (re-search-forward "\\([+-]\\|$\\)") 1)))
 
     (overlay-put (make-overlay s (- bar 1)) 'face 'mu4e-patch-diff-stat-file)
-    (overlay-put (make-overlay bar (+ bar 1)) 'face 'ft/gnus-diff-stat-bar)
+    (overlay-put (make-overlay bar (+ bar 1)) 'face 'mu4e-patch-diff-stat-bar)
     (overlay-put (make-overlay num pm) 'face 'ft/gnus-diff-stat-num)
 
     (goto-char pm)
