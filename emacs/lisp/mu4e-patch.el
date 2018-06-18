@@ -63,8 +63,11 @@
   "Face for the stat bar separator."
   :group 'mu4e-patch-faces)
 
-(make-face 'ft/gnus-diff-stat-num)
-(set-face-attribute 'ft/gnus-diff-stat-num nil :foreground "white")
+(defface mu4e-patch-diff-stat-num
+  '((t :foreground "white"))
+  "Face for the stat number column."
+  :group 'mu4e-patch-faces)
+
 (make-face 'ft/gnus-diff-misc)
 (set-face-attribute 'ft/gnus-diff-misc nil :foreground "magenta")
 (make-face 'ft/gnus-commit-comment)
@@ -135,7 +138,7 @@ is."
 
     (overlay-put (make-overlay s (- bar 1)) 'face 'mu4e-patch-diff-stat-file)
     (overlay-put (make-overlay bar (+ bar 1)) 'face 'mu4e-patch-diff-stat-bar)
-    (overlay-put (make-overlay num pm) 'face 'ft/gnus-diff-stat-num)
+    (overlay-put (make-overlay num pm) 'face 'mu4e-patch-diff-stat-num)
 
     (goto-char pm)
     (let* ((plus (looking-at "\\+"))
