@@ -28,11 +28,6 @@ The code needs to return t if treatment is wanted."
   :type '(repeat (string :tag "regex"))
   :group 'mu4e-patch)
 
-;; Color handling and faces
-(defun mu4e~patch-color-line (use-face)
-  "Set text overlay to `USE-FACE' for the current line."
-  (overlay-put (make-overlay (point-at-bol) (point-at-eol)) 'face use-face))
-
 ;; Faces
 (defgroup mu4e-patch-faces nil
   "Type faces (fonts) used in mu4e-patch."
@@ -132,6 +127,11 @@ the commit message (such as \"Signed-off-by:\").
 
 The first face if used to highlight the header's name; the second
 highlights the header's value.")
+
+;; Color handling of faces
+(defun mu4e~patch-color-line (use-face)
+  "Set text overlay to `USE-FACE' for the current line."
+  (overlay-put (make-overlay (point-at-bol) (point-at-eol)) 'face use-face))
 
 (defun mu4e~pseduo-header-get (line)
   "Check if `LINE' is a pseudo header.
