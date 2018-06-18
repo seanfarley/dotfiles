@@ -202,7 +202,7 @@ pseudo-header is."
    ((string-match "^index [0-9a-f]+\\.\\.[0-9a-f]+" line) t)
    (t nil)))
 
-(defun ft/gnus-hunk-line-p (line)
+(defun mu4e~patch-hunk-line-p (line)
   "Return t if `LINE' is a hunk-line; nil otherwise."
   (string-match "^@@ -[0-9]+,[0-9]+ \\+[0-9]+,[0-9]+ @@" line))
 
@@ -226,7 +226,7 @@ This will test anything that even looks remotely like a line from
 a unified diff"
   (or (mu4e~patch-index-line-p line)
       (mu4e~patch-diff-header-p line)
-      (ft/gnus-hunk-line-p line)))
+      (mu4e~patch-hunk-line-p line)))
 
 ;; miscellaneous line handlers
 (defun ft/gnus-scissors-line-p (line)
@@ -324,7 +324,7 @@ The state machine works like this:
 
        a) diff-header lines (`mu4e~patch-diff-header-p')
        b) index lines (`mu4e~patch-index-line-p')
-       c) hunk lines (`ft/gnus-hunk-line-p')
+       c) hunk lines (`mu4e~patch-hunk-line-p')
        d) equals line (\"^==*$\")
        e) context lines (\"^ \")
        f) add lines (\"^\\+\")
@@ -391,7 +391,7 @@ The state machine works like this:
                  ((mu4e~patch-index-line-p line)
                   (mu4e~patch-color-line 'mu4e-patch-diff-index)
                   'unified-diff)
-                 ((ft/gnus-hunk-line-p line)
+                 ((mu4e~patch-hunk-line-p line)
                   (mu4e~patch-color-line 'mu4e-patch-diff-hunk)
                   'unified-diff)
                  ((string-match "^==*$" line)
