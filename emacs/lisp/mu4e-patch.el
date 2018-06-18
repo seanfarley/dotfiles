@@ -17,14 +17,15 @@
   "Type faces (fonts) used in mu4e-patch."
   :group 'mu4e)
 
-(defcustom mu4e-patch-regex nil
+(defcustom mu4e-patch-regex
+  '("^@@ -[0-9]+,[0-9]+ \\+[0-9]+,[0-9]+ @@")
   "List of conditions that will enable patch treatment.
 
 String values will be matched as regular expressions within the
 currently processed part. Non-string value are supposed to be
 code fragments, which determine whether or not to do treatment:
 The code needs to return t if treatment is wanted."
-  :type 'string
+  :type '(repeat (string :tag "regex"))
   :group 'mu4e-patch)
 
 ;; Color handling and faces
