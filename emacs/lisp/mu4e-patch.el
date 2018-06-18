@@ -229,7 +229,7 @@ a unified diff"
       (mu4e~patch-hunk-line-p line)))
 
 ;; miscellaneous line handlers
-(defun ft/gnus-scissors-line-p (line)
+(defun mu4e~patch-scissors-line-p (line)
   "Return t if `LINE' is a scissors-line; nil otherwise."
   (cond
    ((string-match "^\\( *--* *\\(8<\\|>8\\)\\)+ *-* *$" line) t)
@@ -295,7 +295,7 @@ The state machine works like this:
 
       ------------>8-----------
 
-     The function `ft/gnus-scissors-line-p' decides whether a line is a
+     The function `mu4e~patch-scissors-line-p' decides whether a line is a
      scissors line or not. After a scissors line was treated, the machine
      will switch back to the \"commit-mesage\" state.
 
@@ -352,7 +352,7 @@ The state machine works like this:
 
                ((eq state 'commit-message)
                 (cond
-                 ((ft/gnus-scissors-line-p line)
+                 ((mu4e~patch-scissors-line-p line)
                   (mu4e~patch-color-line 'mu4e-patch-scissors)
                   'commit-message)
                  ((mu4e~patch-pseudo-header-p line)
