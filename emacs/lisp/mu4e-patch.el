@@ -332,7 +332,7 @@ The state machine works like this:
        h) empty lines (\"^$\")
 
      This state runs until the end of the part."
-  (catch 'ft/gnus-atp-done
+  (catch 'mu4e~patch-atp-done
     (let ((state 'commit-message)
           line do-not-move)
 
@@ -345,7 +345,7 @@ The state machine works like this:
         ;; Switched state machine. The "real" states are `commit-message',
         ;; `commit-comment' and `unified-diff'. The other "states" are only
         ;; single-line colourisations that return to their respective parent-
-        ;; state. Each state may (throw 'ft/gnus-atp-done) to leave the state-
+        ;; state. Each state may (throw 'mu4e~patch-atp-done) to leave the state-
         ;; machine immediately.
         (setq state
               (cond
@@ -415,7 +415,7 @@ The state machine works like this:
 
         (if (not do-not-move)
             (if (> (forward-line) 0)
-                (throw 'ft/gnus-atp-done t)))))))
+                (throw 'mu4e~patch-atp-done t)))))))
 
 (defun mu4e-patch-highlight ()
   "Highlight mail parts, that look like patches.
