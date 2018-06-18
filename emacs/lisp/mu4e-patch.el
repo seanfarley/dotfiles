@@ -130,7 +130,7 @@ If so return its entry in `mu4e~patch-pseudo-headers'."
 pseudo-header is."
   (if (eq (mu4e~pseduo-header-get line) '()) nil t))
 
-(defun ft/gnus-pseudo-header-colour (line)
+(defun mu4e~patch-pseudo-header-color (line)
   "Colorize a pseudo-header `LINE'."
   (let ((data (mu4e~pseduo-header-get line)))
     (if (eq data '())
@@ -356,7 +356,7 @@ The state machine works like this:
                   (mu4e~patch-color-line 'mu4e-patch-scissors)
                   'commit-message)
                  ((mu4e~patch-pseudo-header-p line)
-                  (ft/gnus-pseudo-header-colour line)
+                  (mu4e~patch-pseudo-header-color line)
                   'commit-message)
                  ((string= line "---")
                   (mu4e~patch-color-line 'mu4e-patch-three-dashes)
