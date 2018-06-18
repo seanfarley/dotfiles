@@ -318,7 +318,7 @@ The state machine works like this:
      line belongs to a diff stat. It's coloured appropriately and the state
      switches back to \"commit-comment\".
 
-  7. There is a function `ft/gnus-unified-diff-line-p' which will cause the
+  7. There is a function `mu4e~patch-atp-looks-like-diff' which will cause the
      state to switch to \"unified-diff\" state from either \"commit-message\"
      or \"commit-comment\". In this mode there can be a set of lines types:
 
