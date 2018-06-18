@@ -143,7 +143,7 @@ pseudo-header is."
         (overlay-put (make-overlay value e) 'face (nth 2 data))))))
 
 ;; diff-stat
-(defun ft/gnus-diff-stat-colour (line)
+(defun mu4e~patch-diff-stat-color (line)
   "Colorize a diff-stat `LINE'."
   (let ((s (point-at-bol))
         (e (point-at-eol))
@@ -371,7 +371,7 @@ The state machine works like this:
                ((eq state 'commit-comment)
                 (cond
                  ((ft/gnus-diff-stat-line-p line)
-                  (ft/gnus-diff-stat-colour line)
+                  (mu4e~patch-diff-stat-color line)
                   'commit-comment)
                  ((ft/gnus-diff-stat-summary-p line)
                   (ft/gnus-diff-stat-summary-colour line)
