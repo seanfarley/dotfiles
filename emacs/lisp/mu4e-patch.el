@@ -206,7 +206,7 @@ pseudo-header is."
   "Return t if `LINE' is a hunk-line; nil otherwise."
   (string-match "^@@ -[0-9]+,[0-9]+ \\+[0-9]+,[0-9]+ @@" line))
 
-(defun ft/gnus-atp-misc-diff-p (line)
+(defun mu4e~patch-atp-misc-diff-p (line)
   "Return t if `LINE' is a \"misc line\"; nil otherwise.
 
 This is tested with respect to patch treatment."
@@ -402,7 +402,7 @@ The state machine works like this:
                  ((string-match "^ " line)
                   (mu4e~patch-color-line 'ft/gnus-diff-context)
                   'unified-diff)
-                 ((ft/gnus-atp-misc-diff-p line)
+                 ((mu4e~patch-atp-misc-diff-p line)
                   (mu4e~patch-color-line 'mu4e-patch-misc)
                   'unified-diff)
                  ((string-match "^\\+" line)
