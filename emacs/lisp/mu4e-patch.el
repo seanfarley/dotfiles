@@ -111,7 +111,7 @@ the commit message)."
   :group 'mu4e-patch-faces)
 
 ;; Pseudo-headers
-(defvar mu4e~patch-pseudo-headers
+(defcustom mu4e-patch-pseudo-headers
   '(("^Acked-by: "      'mu4e-header-key-face 'mu4e-header-value-face)
     ("^C\\(c\\|C\\): "  'mu4e-header-key-face 'mu4e-header-value-face)
     ("^From: "          'mu4e-header-key-face 'mu4e-header-value-face)
@@ -126,7 +126,8 @@ which are used to determine the highlighting of pseudo headers in
 the commit message (such as \"Signed-off-by:\").
 
 The first face if used to highlight the header's name; the second
-highlights the header's value.")
+highlights the header's value."
+  :group 'mu4e-patch)
 
 ;; Color handling of faces
 (defun mu4e~patch-color-line (use-face)
@@ -136,9 +137,9 @@ highlights the header's value.")
 (defun mu4e~pseduo-header-get (line)
   "Check if `LINE' is a pseudo header.
 
-If so return its entry in `mu4e~patch-pseudo-headers'."
+If so return its entry in `mu4e-patch-pseudo-headers'."
   (catch 'done
-    (dolist (entry mu4e~patch-pseudo-headers)
+    (dolist (entry mu4e-patch-pseudo-headers)
       (let ((regex (car entry)))
         (if (string-match regex line)
             (throw 'done entry))))
@@ -147,7 +148,7 @@ If so return its entry in `mu4e~patch-pseudo-headers'."
 (defun mu4e~patch-pseudo-header-p (line)
   "Return t if `LINE' is a pseudo-header; nil otherwise.
 
-`mu4e~patch-pseudo-headers' is used to determine what a
+`mu4e-patch-pseudo-headers' is used to determine what a
 pseudo-header is."
   (if (eq (mu4e~pseduo-header-get line) '()) nil t))
 
