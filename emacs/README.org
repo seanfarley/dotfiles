@@ -2563,7 +2563,18 @@ Pro tip: [[http://www.jethrokuan.com/init.html][Jethro Kuan]] has an awesome ema
     :init
     ;; needed to initialize auth-source-pass correctly as emacs is spawning a new
     ;; process
-    (add-hook 'async-smtpmail-before-send-hook #'auth-source-pass-enable)
+    (add-hook 'async-smtpmail-before-send-hook (lambda ()
+                                                 (let* ((dir1 (concat
+                                                               "~/.emacs.d/.elpa/"
+                                                               emacs-version
+                                                               "/"))
+                                                        (dir2 (expand-file-name
+                                                               dir1))
+                                                        (default-directory dir2))
+                                                   (normal-top-level-add-subdirs-to-load-path)
+                                                   (require 'auth-source-pass)
+                                                   (auth-source-pass-enable))))
+
     :config
     (auth-source-pass-enable))
 #+END_SRC
