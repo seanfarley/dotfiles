@@ -2535,7 +2535,19 @@ anaconda-mode provides code navigation and docs.
     (define-key anaconda-mode-map (kbd "M-,") nil)
 
     ;; prefer to use other jump packages
-    (define-key anaconda-mode-map (kbd "M-.") nil))
+    (define-key anaconda-mode-map (kbd "M-.") nil)
+
+    (defun smf/anaconda-mode-host ()
+      "Target host with `anaconda-mode' server."
+      (cond
+       ((pythonic-remote-docker-p)
+        "127.0.0.1")
+       ((pythonic-remote-p)
+        (pythonic-remote-host))
+       (t
+        "127.0.0.1")))
+
+    (advice-add 'anaconda-mode-host :override 'smf/anaconda-mode-host))
 #+END_SRC
 
 *** anzu
