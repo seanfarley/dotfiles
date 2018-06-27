@@ -3546,7 +3546,6 @@ Enables collapsable regions and diminish the mode:
                ov 'display (propertize "  [...]  " 'face '+doom-folded-face)))))
 
     (vimish-fold-global-mode))
-
 #+END_SRC
 
 *** highlight-indent-guides
