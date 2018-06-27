@@ -2060,6 +2060,17 @@ Show mu4e maildirs summary in mu4e-main-view.
     (setq mu4e-maildirs-extension-before-insert-maildir-hook '()))
 #+END_SRC
 
+*** mu4e-patch
+
+Colorize an email that has a patch (based on gnus-article-treat-patch.el)
+
+#+BEGIN_SRC emacs-lisp
+  (use-package mu4e-patch
+    :load-path "lisp"
+    :config
+    (add-hook 'mu4e-view-mode-hook #'mu4e-patch-highlight))
+#+END_SRC
+
 ** org
 
 **** init
