@@ -607,6 +607,15 @@ Most of the time I want the buffer to be reverted automatically:
   (global-auto-revert-mode t)
 #+END_SRC
 
+**** Frame management
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "s-n") #'make-frame)
+  (add-hook 'after-make-frame-functions (lambda (frame)
+                                          (select-frame frame)
+                                          (toggle-frame-fullscreen)))
+#+END_SRC
+
 **** Increase / decrease font size
 
 I never remember the keybindings for this:
