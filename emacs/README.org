@@ -2526,17 +2526,6 @@ anaconda-mode provides code navigation and docs.
     :hook ((python-mode . anaconda-mode)
            (python-mode . anaconda-eldoc-mode))
     :config
-    ;; below, the keymaps need to be set in :config instead of :bind since :bind
-    ;; turns on deferred loading in the opposite way (loads when user presses
-    ;; those keys)
-
-    ;; By default, anaconda binds =M-,= to finding assignments instead of popping
-    ;; the navigation stack (which changed in Emacs 25)
-    (define-key anaconda-mode-map (kbd "M-,") nil)
-
-    ;; prefer to use other jump packages
-    (define-key anaconda-mode-map (kbd "M-.") nil)
-
     (defun smf/anaconda-mode-host ()
       "Target host with `anaconda-mode' server."
       (cond
