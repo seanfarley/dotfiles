@@ -151,6 +151,12 @@ Always copy files when backing up to avoid breaking symlinks:
   (setq backup-by-copying t)
 #+END_SRC
 
+Also, disable the =#.foo= lock files,
+
+#+BEGIN_SRC emacs-lisp
+  (setq create-lockfiles nil)
+#+END_SRC
+
 Delete old versions automatically, and keep a limited number around:
 
 #+BEGIN_SRC emacs-lisp
