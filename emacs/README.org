@@ -2614,11 +2614,11 @@ watch the video on that link than explain).
 Jump to and fix syntax errors using flycheck with avy interface.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package avy-flycheck
-    :after (avy flycheck)
-    :ensure t
-    :commands avy-flycheck-goto-error
-    :bind ("H-;" . avy-flycheck-goto-error))
+  ;; (use-package avy-flycheck
+  ;;   :after (avy flycheck)
+  ;;   :ensure t
+  ;;   :commands avy-flycheck-goto-error
+  ;;   :bind ("H-;" . avy-flycheck-goto-error))
 #+END_SRC
 
 *** beacon-mode
@@ -3179,53 +3179,53 @@ for that.
 perform on-the-fly syntax checking and linting.
 
 #+BEGIN_SRC emacs-lisp
-  ;; exclamation point
-  (define-fringe-bitmap 'smf/flycheck-fringe-indicator
-    (vector #b00000000
-            #b00011000
-            #b00011000
-            #b00011000
-            #b00011000
-            #b00011000
-            #b00011000
-            #b00000000
-            #b00000000
-            #b00011000
-            #b00011000
-            #b00000000
-            #b00000000
-            #b00000000
-            #b00000000
-            #b00000000))
+  ;; ;; exclamation point
+  ;; (define-fringe-bitmap 'smf/flycheck-fringe-indicator
+  ;;   (vector #b00000000
+  ;;           #b00011000
+  ;;           #b00011000
+  ;;           #b00011000
+  ;;           #b00011000
+  ;;           #b00011000
+  ;;           #b00011000
+  ;;           #b00000000
+  ;;           #b00000000
+  ;;           #b00011000
+  ;;           #b00011000
+  ;;           #b00000000
+  ;;           #b00000000
+  ;;           #b00000000
+  ;;           #b00000000
+  ;;           #b00000000))
 
-  (use-package flycheck
-    :ensure t
-    :commands flycheck-mode
-    :diminish flycheck-mode
-    :bind (("C-c C-n" . flycheck-next-error)
-           ("C-c C-p" . flycheck-previous-error))
-    :init
-    (add-hook 'prog-mode-hook #'flycheck-mode)
-    :config
-    ;; because git-gutter is in the left fringe
-    (setq flycheck-indication-mode 'right-fringe
-          flycheck-emacs-lisp-initialize-packages t
-          flycheck-emacs-lisp-load-path 'inherit)
+  ;; (use-package flycheck
+  ;;   :ensure t
+  ;;   :commands flycheck-mode
+  ;;   :diminish flycheck-mode
+  ;;   :bind (("C-c C-n" . flycheck-next-error)
+  ;;          ("C-c C-p" . flycheck-previous-error))
+  ;;   :init
+  ;;   (add-hook 'prog-mode-hook #'flycheck-mode)
+  ;;   :config
+  ;;   ;; because git-gutter is in the left fringe
+  ;;   (setq flycheck-indication-mode 'right-fringe
+  ;;         flycheck-emacs-lisp-initialize-packages t
+  ;;         flycheck-emacs-lisp-load-path 'inherit)
 
-    (flycheck-define-error-level 'error
-      :overlay-category 'flycheck-error-overlay
-      :fringe-bitmap `smf/flycheck-fringe-indicator
-      :fringe-face 'flycheck-fringe-error)
-    (flycheck-define-error-level 'warning
-      :overlay-category 'flycheck-warning-overlay
-      :fringe-bitmap `smf/flycheck-fringe-indicator
-      :fringe-face 'flycheck-fringe-warning)
-    (flycheck-define-error-level 'info
-      :overlay-category 'flycheck-info-overlay
-      :fringe-bitmap `smf/flycheck-fringe-indicator
-      :fringe-face 'flycheck-fringe-info)
+  ;;   (flycheck-define-error-level 'error
+  ;;     :overlay-category 'flycheck-error-overlay
+  ;;     :fringe-bitmap `smf/flycheck-fringe-indicator
+  ;;     :fringe-face 'flycheck-fringe-error)
+  ;;   (flycheck-define-error-level 'warning
+  ;;     :overlay-category 'flycheck-warning-overlay
+  ;;     :fringe-bitmap `smf/flycheck-fringe-indicator
+  ;;     :fringe-face 'flycheck-fringe-warning)
+  ;;   (flycheck-define-error-level 'info
+  ;;     :overlay-category 'flycheck-info-overlay
+  ;;     :fringe-bitmap `smf/flycheck-fringe-indicator
+  ;;     :fringe-face 'flycheck-fringe-info)
 
-    (defalias 'flycheck-show-error-at-point-soon 'flycheck-show-error-at-point))
+  ;;   (defalias 'flycheck-show-error-at-point-soon 'flycheck-show-error-at-point))
 #+END_SRC
 
 *** flycheck-pos-tip
@@ -3233,12 +3233,12 @@ perform on-the-fly syntax checking and linting.
 This Flycheck extension shows errors under point in pos-tip popups.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package flycheck-pos-tip
-    :after flycheck
-    :ensure t
-    :init
-    (with-eval-after-load 'flycheck
-      (flycheck-pos-tip-mode)))
+  ;; (use-package flycheck-pos-tip
+  ;;   :after flycheck
+  ;;   :ensure t
+  ;;   :init
+  ;;   (with-eval-after-load 'flycheck
+  ;;     (flycheck-pos-tip-mode)))
 #+END_SRC
 
 *** flyspell-correct-ivy
@@ -3246,12 +3246,12 @@ This Flycheck extension shows errors under point in pos-tip popups.
 Correcting words with flyspell via custom interface.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package flyspell-correct-ivy
-    :ensure t
-    :after flyspell
-    :config
-    (setq flyspell-correct-interface 'flyspell-correct-ivy)
-    (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-word-generic))
+  ;; (use-package flyspell-correct-ivy
+  ;;   :ensure t
+  ;;   :after flyspell
+  ;;   :config
+  ;;   (setq flyspell-correct-interface 'flyspell-correct-ivy)
+  ;;   (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-word-generic))
 #+END_SRC
 
 *** focus
