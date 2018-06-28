@@ -499,9 +499,9 @@ the directions of the separator."
  '(((org-pomodoro ati-vpn) :face line-face)
    ati-right-inactive-separator
    ati-right-0-separator
-   ((ati-erc-track ati-mu4e) :separator " · " :face highlight-face :tight t)
+   ((ati-erc-track) :separator " · " :face highlight-face :tight t)
    ati-left-1-separator
-   ((ati-org-inbox))
+   ((ati-mu4e))
    ))
 
 (provide 'spaceline-custom)
