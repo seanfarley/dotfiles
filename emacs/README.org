@@ -4639,7 +4639,7 @@ Note: swiper <- {counsel, ivy}
     (when (eq system-type 'darwin)
       (setq counsel-locate-cmd 'counsel-locate-cmd-mdfind))
 
-    (setq conusel-org-goto-display-style 'path
+    (setq counsel-org-goto-display-style 'path
           counsel-org-goto-face-style 'org
           counsel-org-headline-display-todo t
           counsel-grep-base-command "rg -i -M 120 --no-heading --line-number --color never %s %s"
