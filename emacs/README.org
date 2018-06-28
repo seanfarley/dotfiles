@@ -2560,11 +2560,11 @@ virtualenvwrapper. It provides a nice mix of tweakability and convenience.
 anaconda-mode provides code navigation and docs.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package python
-    :mode ("\\.py\\'" . python-mode)
-    :interpreter ("ipython" . python-mode)
-    :config
-    (setq python-shell-interpreter-args "--simple-prompt -i"))
+  ;; (use-package python
+  ;;   :mode ("\\.py\\'" . python-mode)
+  ;;   :interpreter ("ipython" . python-mode)
+  ;;   :config
+  ;;   (setq python-shell-interpreter-args "--simple-prompt -i"))
 
   (use-package anaconda-mode
     :ensure t
@@ -4245,15 +4245,15 @@ As of 24.2, Emacs ships with a [[http://www.emacswiki.org/emacs/PythonProgrammin
 We can work around that using [[https://www.gnu.org/software/emacs/manual/html_node/ccmode/Subword-Movement.html#Subword-Movement][subword-mode]]:
 
 #+BEGIN_SRC emacs-lisp
-  (use-package python
-    :mode ("\\.py\\'" . python-mode)
-    :interpreter ("python" . python-mode)
-    :config
-    (defun smf/python-mode ()
-      (local-unset-key (kbd "C-c C-p")))  ; unbind run-python
+  ;; (use-package python
+  ;;   :mode ("\\.py\\'" . python-mode)
+  ;;   :interpreter ("python" . python-mode)
+  ;;   :config
+  ;;   (defun smf/python-mode ()
+  ;;     (local-unset-key (kbd "C-c C-p")))  ; unbind run-python
 
-    (add-hook 'python-mode-hook #'subword-mode)
-    (add-hook 'python-mode-hook #'smf/python-mode))
+  ;;   (add-hook 'python-mode-hook #'subword-mode)
+  ;;   (add-hook 'python-mode-hook #'smf/python-mode))
 #+END_SRC
 
 *** pytest
