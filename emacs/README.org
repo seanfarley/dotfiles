@@ -2975,19 +2975,6 @@ for emacs).
     :hook (company-mode . company-statistics-mode))
 #+END_SRC
 
-*** crosshairs
-
-Highlights both the line and the column.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package crosshairs
-    :ensure t
-    :bind (("C-|" . column-highlight-mode))
-    :init
-    (global-hl-line-mode)
-    (global-hl-line-highlight))
-#+END_SRC
-
 *** crux
 
 A Collection of Ridiculously Useful eXtensions for Emacs. Replaces a lot of
