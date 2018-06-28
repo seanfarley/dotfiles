@@ -2988,7 +2988,7 @@ custom functionality I had lying around.
     :bind (("C-c o" . crux-open-with)
            ("M-o" . crux-smart-open-line)
            ("C-c n" . crux-cleanup-buffer-or-region)
-           ("C-c f" . crux-recentf-ido-find-file)
+           ("C-c f" . crux-recentf-find-file)
            ("C-M-z" . crux-indent-defun)
            ("C-c u" . crux-view-url)
            ("C-c e" . crux-eval-and-replace)
@@ -3109,9 +3109,9 @@ Long live ein!
 #+BEGIN_SRC emacs-lisp
   (use-package ein
     :ensure t
-    :config
-    (setq ein:jupyter-default-server-command "jupyter-2.7"
-          ein:jupyter-default-notebook-directory "~/sandbox"))
+    :init
+    (setq-default ein:jupyter-default-server-command "jupyter-2.7"
+                  ein:jupyter-default-notebook-directory "~/sandbox"))
 #+END_SRC
 
 *** eldoc-mode
@@ -3506,6 +3506,21 @@ Enables collapsable regions and diminish the mode:
   ;; TODO combine hideshow and vimish into one package
   (use-package vimish-fold
     :ensure t
+    :init
+    ;; Nicer code-folding overlays (with fringe indicators)
+    (setq-default hs-set-up-overlay
+                  (lambda (ov)
+                    (when (eq 'code (overlay-get ov 'hs))
+                      (when (featurep 'vimish-fold)
+                        (overlay-put
+                         ov 'before-string
+                         (propertize "…" 'display
+                                     (list vimish-fold-indication-mode
+                                           'empty-line
+                                           'vimish-fold-fringe))))
+                      (overlay-put
+                       ov 'display (propertize "  [...]  " 'face '+doom-folded-face)))))
+
     :config
     ;; stolen from doom
     (defface +doom-folded-face
@@ -3517,20 +3532,6 @@ Enables collapsable regions and diminish the mode:
       :group 'doom)
 
     (setq vimish-fold-indication-mode 'right-fringe)
-
-    ;; Nicer code-folding overlays (with fringe indicators)
-    (setq hs-set-up-overlay
-          (lambda (ov)
-            (when (eq 'code (overlay-get ov 'hs))
-              (when (featurep 'vimish-fold)
-                (overlay-put
-                 ov 'before-string
-                 (propertize "…" 'display
-                             (list vimish-fold-indication-mode
-                                   'empty-line
-                                   'vimish-fold-fringe))))
-              (overlay-put
-               ov 'display (propertize "  [...]  " 'face '+doom-folded-face)))))
 
     (vimish-fold-global-mode))
 #+END_SRC
@@ -3683,21 +3684,23 @@ More friendly interface for ivy.
   (use-package ivy-rich
     :after ivy
     :ensure t
-    :config
-    (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
-
+    :init
     ;; better max lengths for my screen
-    (setq ivy-rich-switch-buffer-name-max-length 40
-          ivy-rich-switch-buffer-project-max-length 25
-          ivy-rich-switch-buffer-mode-max-length 20)
+    (setq-default ivy-rich-switch-buffer-name-max-length 40
+                  ivy-rich-switch-buffer-project-max-length 25
+                  ivy-rich-switch-buffer-mode-max-length 20)
 
     ;; align the virtual buffers
-    (setq ivy-virtual-abbreviate 'full
-          ivy-rich-switch-buffer-align-virtual-buffer t)
+    (setq-default ivy-virtual-abbreviate 'full
+                  ivy-rich-switch-buffer-align-virtual-buffer t)
 
     ;; abbreviate paths using abbreviate-file-name (e.g. replace “/home/username”
     ;; with “~”)
-    (setq ivy-rich-abbreviate-paths t))
+    (setq-default ivy-rich-abbreviate-paths t)
+
+    :config
+    (ivy-set-display-transformer 'ivy-switch-buffer
+                                 'ivy-rich-switch-buffer-transformer)) 
 #+END_SRC
 
 *** ivy-pass
@@ -4102,6 +4105,8 @@ Taken from [[http://www.modernemacs.com/post/prettify-mode/][Modern Emacs]]:
     :after prettify-utils
     :load-path "lisp"
     :demand
+    :init
+    (defvar python-pretty-pairs)
     :config
     (global-prettify-symbols-mode)
 
@@ -4639,7 +4644,7 @@ Note: swiper <- {counsel, ivy}
     (when (eq system-type 'darwin)
       (setq counsel-locate-cmd 'counsel-locate-cmd-mdfind))
 
-    (setq counsel-org-goto-display-style 'path
+    (setq counsel-org-headline-display-style 'path
           counsel-org-goto-face-style 'org
           counsel-org-headline-display-todo t
           counsel-grep-base-command "rg -i -M 120 --no-heading --line-number --color never %s %s"
@@ -5048,47 +5053,72 @@ What have I become?
 
 *** prompt
 
-A decent prompt from [[http://www.modernemacs.com/post/custom-eshell/][Modern Emacs]]. We'll start with some macros to help out,
+A decent prompt from [[http://www.modernemacs.com/post/custom-eshell/][Modern Emacs]]. Set up eshell with some prompt characters
+(concrete) and other basic settings,
 
 #+BEGIN_SRC emacs-lisp
-  (require 'dash)
-  (require 's)
+  (use-package eshell
+    :commands (eshell)
+    :init
+    (smf/add-launcher "t" 'eshell)
+    :init
+    (defvar esh-dir)
+    (defvar esh-hg)
+    (defvar esh-git)
+    (defvar esh-python)
+    (defvar esh-sep)
+    (defvar esh-header)
+    (defvar eshell-funcs)
+    (defvar eshell-prompt-string)
 
-  (defmacro with-face (STR &rest PROPS)
-    "Return STR propertized with PROPS."
-    `(propertize ,STR 'face (list ,@PROPS)))
+    ;; Separator between esh-sections
+    (setq-default esh-sep " ")                    ; or " | "
 
-  (defmacro esh-section (NAME ICON FORM &rest PROPS)
-    "Build eshell section NAME with ICON prepended to evaled FORM with PROPS."
-    `(setq ,NAME
-           (lambda () (when ,FORM
-                        (-> ,ICON
-                            (concat esh-section-delim ,FORM)
-                            (with-face ,@PROPS))))))
-#+END_SRC
+    ;; Separator between an esh-section icon and form
+    (setq-default esh-section-delim " ")
 
-And some helper methods,
+    ;; Eshell prompt header
+    (setq-default esh-header "\n┌─ ")             ; or "\n┌─"
 
-#+BEGIN_SRC emacs-lisp
-  (defun esh-acc (acc x)
-    "Accumulator for evaluating and concatenating esh-sections."
-    (--if-let (funcall x)
-        (if (s-blank? acc)
-            it
-          (concat acc esh-sep it))
-      acc))
+    ;; Eshell prompt regexp and string. Unless you are varying the prompt by eg.
+    ;; your login, these can be the same.
+    (setq-default eshell-prompt-regexp "└→ ")     ; or "└─> "
+    (setq-default eshell-prompt-string "└→ ")     ; or "└─> "
 
-  (defun esh-prompt-func ()
-    "Build `eshell-prompt-function'"
-    (concat esh-header
-            (-reduce-from 'esh-acc "" eshell-funcs)
-            "\n"
-            eshell-prompt-string))
-#+END_SRC
+    ;; Choose which eshell-funcs to enable
+    (setq-default eshell-funcs (list esh-dir esh-hg esh-git esh-python))
 
-And now to construct the prompt sections,
+    ;; Enable the new eshell prompt
+    (setq-default eshell-prompt-function 'esh-prompt-func)
 
-#+BEGIN_SRC emacs-lisp
+    ;; Larger eshell history (allow 32³ entries; default is 128)
+    (setq-default eshell-history-size 32768)
+
+    ;; turn off highlighting the prompt (background)
+    (setq-default eshell-highlight-prompt nil)
+
+    ;; setting from bash that I'm already accustomed to
+    (setq-default eshell-cmpl-ignore-case t)
+
+    :config
+    ;; we'll start with some macros to help out,
+
+    (require 'dash)
+    (require 's)
+
+    (defmacro with-face (STR &rest PROPS)
+      "Return STR propertized with PROPS."
+      `(propertize ,STR 'face (list ,@PROPS)))
+
+    (defmacro esh-section (NAME ICON FORM &rest PROPS)
+      "Build eshell section NAME with ICON prepended to evaled FORM with PROPS."
+      `(setq ,NAME
+             (lambda () (when ,FORM
+                     (-> ,ICON
+                         (concat esh-section-delim ,FORM)
+                         (with-face ,@PROPS))))))
+
+    ;; and now to construct the prompt sections,
     (esh-section esh-dir
                  (all-the-icons-faicon "folder-open" :v-adjust .05)
                  (abbreviate-file-name (eshell/pwd))
@@ -5107,44 +5137,22 @@ And now to construct the prompt sections,
     (esh-section esh-python
                  (all-the-icons-alltheicon "python" :v-adjust .05)
                  venv-current-name)
-#+END_SRC
 
-Set up eshell with some prompt characters (concrete) and other basic settings,
+    ;; add some helper methods
+    (defun esh-acc (acc x)
+      "Accumulator for evaluating and concatenating esh-sections."
+      (--if-let (funcall x)
+          (if (s-blank? acc)
+              it
+            (concat acc esh-sep it))
+        acc))
 
-#+BEGIN_SRC emacs-lisp
-  (use-package eshell
-    :commands (eshell)
-    :init
-    (smf/add-launcher "t" 'eshell)
-    :config
-    ;; Separator between esh-sections
-    (setq esh-sep " ")                    ; or " | "
-
-    ;; Separator between an esh-section icon and form
-    (setq esh-section-delim " ")
-
-    ;; Eshell prompt header
-    (setq esh-header "\n┌─ ")             ; or "\n┌─"
-
-    ;; Eshell prompt regexp and string. Unless you are varying the prompt by eg.
-    ;; your login, these can be the same.
-    (setq eshell-prompt-regexp "└→ ")     ; or "└─> "
-    (setq eshell-prompt-string "└→ ")     ; or "└─> "
-
-    ;; Choose which eshell-funcs to enable
-    (setq eshell-funcs (list esh-dir esh-hg esh-git esh-python))
-
-    ;; Enable the new eshell prompt
-    (setq eshell-prompt-function 'esh-prompt-func)
-
-    ;; Larger eshell history (allow 32³ entries; default is 128)
-    (setq eshell-history-size 32768)
-
-    ;; turn off highlighting the prompt (background)
-    (setq eshell-highlight-prompt nil)
-
-    ;; setting from bash that I'm already accustomed to
-    (setq eshell-cmpl-ignore-case t)
+    (defun esh-prompt-func ()
+      "Build `eshell-prompt-function'"
+      (concat esh-header
+              (-reduce-from 'esh-acc "" eshell-funcs)
+              "\n"
+              eshell-prompt-string))
 
     ;; use ivy for M-r search through history
     (defun smf/setup-eshell ()
