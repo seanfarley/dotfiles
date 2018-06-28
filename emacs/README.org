@@ -1405,6 +1405,10 @@ The =auth-source= could below is borrowed from [[http://doc.rix.si/cce/cce-irc.h
     :after erc
     :ensure t
     :commands znc-all
+    :init
+    (declare-function smf/auth-source-pass "init.el")
+    (declare-function smf/znc-add-server "init.el")
+    (declare-function smf/znc-erc-ssl-connector "init.el")
     :config
     (defun smf/znc-add-server (server port user networks)
       "Add a server to the list of ZNC servers.
@@ -1582,6 +1586,10 @@ and the resulting pdf file.
     :diminish abbrev-mode
     :bind (:map latex-mode-map
                 ("C-c C-a" . smf/latexmk-compile))
+    :init
+    (declare-function smf/guess-TeX-master "init.el")
+    (declare-function smf/latexmk-compile "init.el")
+    (declare-function smf/latex-mode-hook "init.el")
     :config
     (setq-default TeX-auto-save t
                   TeX-parse-self t
@@ -1799,6 +1807,9 @@ messages to maildirs.
                 ("q" . bury-buffer))
     :init
     (smf/add-launcher "e" 'smf/mu4e-start-or-switch)
+    (declare-function smf/mu4e-tab-subject "init.el")
+    (declare-function smf/find-dir-matcher "init.el")
+    (declare-function mu4e-view-mode "mu4e-view.el")
     :config
     (setq mu4e-user-mail-address-list '("sean.michael.farley@gmail.com"
                                         "sean@seanfarley.org"
@@ -2401,6 +2412,7 @@ Manage external services from within Emacs.
     :ensure t
     :init
     (smf/add-launcher "d" 'prodigy)
+    (declare-function smf/auth-source-pass "init.el")
     :commands (prodigy prodigy-start-service prodigy-find-service)
     :config
     ;; start by defining a simple service to run the Mercurial website
@@ -2841,6 +2853,8 @@ has better code for integrating with).
   (use-package company
     :ensure t
     :diminish company-mode
+    :init
+    (declare-function company-backend-with-yas "init.el")
     :config
     (setq company-tooltip-limit 20
           company-idle-delay .5
@@ -4375,6 +4389,8 @@ yet.
   (use-package restclient
     :ensure t
     :mode ("\\.api\\'" . restclient-mode)
+    :init
+    (declare-function imenu-restclient-sections "init.el")
     :config
     (defun imenu-restclient-sections ()
       (setq imenu-prev-index-position-function nil)
@@ -4916,7 +4932,7 @@ Writeroom-mode: distraction-free writing for Emacs.
 
     ;; turn off notifications when entering writeroom
     (advice-add 'writeroom--enable :before #'smf/disable-notifications)
-    (advice-add 'writeroom--disable :before #'smf/enable-notificaations))
+    (advice-add 'writeroom--disable :before #'smf/enable-notifications))
 #+END_SRC
 
 *** yaml-mode
@@ -5070,6 +5086,7 @@ A decent prompt from [[http://www.modernemacs.com/post/custom-eshell/][Modern Em
     (defvar esh-header)
     (defvar eshell-funcs)
     (defvar eshell-prompt-string)
+    (declare-function smf/setup-eshell "init.el")
 
     ;; Separator between esh-sections
     (setq-default esh-sep " ")                    ; or " | "
@@ -5100,7 +5117,6 @@ A decent prompt from [[http://www.modernemacs.com/post/custom-eshell/][Modern Em
     ;; setting from bash that I'm already accustomed to
     (setq-default eshell-cmpl-ignore-case t)
 
-    :config
     ;; we'll start with some macros to help out,
 
     (require 'dash)
@@ -5118,7 +5134,9 @@ A decent prompt from [[http://www.modernemacs.com/post/custom-eshell/][Modern Em
                          (concat esh-section-delim ,FORM)
                          (with-face ,@PROPS))))))
 
+    :config
     ;; and now to construct the prompt sections,
+    (declare-function esh-section "init.el")
     (esh-section esh-dir
                  (all-the-icons-faicon "folder-open" :v-adjust .05)
                  (abbreviate-file-name (eshell/pwd))
