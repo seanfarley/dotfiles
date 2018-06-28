@@ -5078,32 +5078,33 @@ A decent prompt from [[http://www.modernemacs.com/post/custom-eshell/][Modern Em
     :init
     (smf/add-launcher "t" 'eshell)
     :init
-    (defvar esh-dir)
-    (defvar esh-hg)
-    (defvar esh-git)
-    (defvar esh-python)
-    (defvar esh-sep)
-    (defvar esh-header)
-    (defvar eshell-funcs)
-    (defvar eshell-prompt-string)
     (declare-function smf/setup-eshell "init.el")
+    (declare-function esh-section "init.el")
+    (defvar eshell-prompt-regexp)
+    (defvar eshell-prompt-string)
+    (defvar eshell-funcs)
+    (defvar esh-header)
+    (defvar esh-sep)
+    (defvar esh-section-delim)
+    (defvar esh-header)
+    :config
+    (require 'dash)
+    (require 'em-prompt)
+    (require 's)
 
     ;; Separator between esh-sections
-    (setq-default esh-sep " ")                    ; or " | "
+    (setq esh-sep " ")                    ; or " | "
 
     ;; Separator between an esh-section icon and form
-    (setq-default esh-section-delim " ")
+    (setq esh-section-delim " ")
 
     ;; Eshell prompt header
-    (setq-default esh-header "\n┌─ ")             ; or "\n┌─"
+    (setq esh-header "\n┌─ ")             ; or "\n┌─"
 
     ;; Eshell prompt regexp and string. Unless you are varying the prompt by eg.
     ;; your login, these can be the same.
-    (setq-default eshell-prompt-regexp "└→ ")     ; or "└─> "
-    (setq-default eshell-prompt-string "└→ ")     ; or "└─> "
-
-    ;; Choose which eshell-funcs to enable
-    (setq-default eshell-funcs (list esh-dir esh-hg esh-git esh-python))
+    (setq eshell-prompt-regexp "└→ ")     ; or "└─> "
+    (setq eshell-prompt-string "└→ ")     ; or "└─> "
 
     ;; Enable the new eshell prompt
     (setq-default eshell-prompt-function 'esh-prompt-func)
@@ -5117,67 +5118,65 @@ A decent prompt from [[http://www.modernemacs.com/post/custom-eshell/][Modern Em
     ;; setting from bash that I'm already accustomed to
     (setq-default eshell-cmpl-ignore-case t)
 
-    ;; we'll start with some macros to help out,
+    (eval-and-compile
+      ;; we'll start with some macros to help out,
+      (defmacro with-face (STR &rest PROPS)
+        "Return STR propertized with PROPS."
+        `(propertize ,STR 'face (list ,@PROPS)))
 
-    (require 'dash)
-    (require 's)
+      (defmacro esh-section (NAME ICON FORM &rest PROPS)
+        "Build eshell section NAME with ICON prepended to evaled FORM with PROPS."
+        `(setq ,NAME
+               (lambda () (when ,FORM
+                       (-> ,ICON
+                           (concat esh-section-delim ,FORM)
+                           (with-face ,@PROPS))))))
 
-    (defmacro with-face (STR &rest PROPS)
-      "Return STR propertized with PROPS."
-      `(propertize ,STR 'face (list ,@PROPS)))
+      ;; and now to construct the prompt sections,
+      (esh-section esh-dir
+                   (all-the-icons-faicon "folder-open" :v-adjust .05)
+                   (abbreviate-file-name (eshell/pwd))
+                   '(:foreground "gold" :underline t))
 
-    (defmacro esh-section (NAME ICON FORM &rest PROPS)
-      "Build eshell section NAME with ICON prepended to evaled FORM with PROPS."
-      `(setq ,NAME
-             (lambda () (when ,FORM
-                     (-> ,ICON
-                         (concat esh-section-delim ,FORM)
-                         (with-face ,@PROPS))))))
+      (esh-section esh-git
+                   (all-the-icons-alltheicon "git" :v-adjust .05)
+                   (magit-get-current-branch)
+                   '(:foreground "pink"))
 
-    :config
-    ;; and now to construct the prompt sections,
-    (declare-function esh-section "init.el")
-    (esh-section esh-dir
-                 (all-the-icons-faicon "folder-open" :v-adjust .05)
-                 (abbreviate-file-name (eshell/pwd))
-                 '(:foreground "gold" :underline t))
+      (esh-section esh-hg
+                   (all-the-icons-faicon "mercury" :v-adjust .05)
+                   (mahgic-get-current-branch)
+                   '(:foreground "pink"))
 
-    (esh-section esh-git
-                 (all-the-icons-alltheicon "git" :v-adjust .05)
-                 (magit-get-current-branch)
-                 '(:foreground "pink"))
+      (esh-section esh-python
+                   (all-the-icons-alltheicon "python" :v-adjust .05)
+                   venv-current-name)
 
-    (esh-section esh-hg
-                 (all-the-icons-faicon "mercury" :v-adjust .05)
-                 (mahgic-get-current-branch)
-                 '(:foreground "pink"))
+      ;; add some helper methods
+      (defun esh-acc (acc x)
+        "Accumulator for evaluating and concatenating esh-sections."
+        (--if-let (funcall x)
+            (if (s-blank? acc)
+                it
+              (concat acc esh-sep it))
+          acc))
 
-    (esh-section esh-python
-                 (all-the-icons-alltheicon "python" :v-adjust .05)
-                 venv-current-name)
+      ;; Choose which eshell-funcs to enable
+      (setq eshell-funcs (list esh-dir esh-hg esh-git esh-python))
 
-    ;; add some helper methods
-    (defun esh-acc (acc x)
-      "Accumulator for evaluating and concatenating esh-sections."
-      (--if-let (funcall x)
-          (if (s-blank? acc)
-              it
-            (concat acc esh-sep it))
-        acc))
+      (defun esh-prompt-func ()
+        "Build `eshell-prompt-function'"
+        (concat esh-header
+                (-reduce-from 'esh-acc "" eshell-funcs)
+                "\n"
+                eshell-prompt-string))
 
-    (defun esh-prompt-func ()
-      "Build `eshell-prompt-function'"
-      (concat esh-header
-              (-reduce-from 'esh-acc "" eshell-funcs)
-              "\n"
-              eshell-prompt-string))
+      ;; use ivy for M-r search through history
+      (defun smf/setup-eshell ()
+        (define-key eshell-mode-map (kbd "<tab>") 'completion-at-point)
+        (define-key eshell-mode-map [remap eshell-previous-matching-input] 'counsel-esh-history))
 
-    ;; use ivy for M-r search through history
-    (defun smf/setup-eshell ()
-      (define-key eshell-mode-map (kbd "<tab>") 'completion-at-point)
-      (define-key eshell-mode-map [remap eshell-previous-matching-input] 'counsel-esh-history))
-
-    (add-hook 'eshell-mode-hook #'smf/setup-eshell))
+      (add-hook 'eshell-mode-hook #'smf/setup-eshell)))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
