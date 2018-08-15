@@ -2773,6 +2773,7 @@ action without leaving the completion session.
 #+BEGIN_SRC emacs-lisp
   (use-package counsel-projectile
     :ensure t
+    :after projectile
     :config
     (counsel-projectile-mode))
 #+END_SRC
