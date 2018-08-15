@@ -3848,7 +3848,7 @@ Magit interfaces for GitHub.
     :ensure t
     :config
     (magithub-feature-autoinject t)
-    (setq magithub-clone-default-directory "~/projects"))
+    (setq magithub-clone-default-directory "~/projects/"))
 #+END_SRC
 
 *** markdown-mode
