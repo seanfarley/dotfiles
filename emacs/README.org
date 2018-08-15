@@ -4160,7 +4160,6 @@ grouping of files.
   (use-package projectile
     :ensure t
     :diminish projectile-mode
-    :defer 4
     :init
     (smf/add-launcher "s" 'projectile-switch-project)
     :config
