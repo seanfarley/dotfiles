@@ -924,16 +924,28 @@ is =mouse-3= and not =mouse-2=:
     :ensure t
     :diminish flyspell-mode
     :commands (flyspell-mode flyspell-prog-mode flyspell-correct-word)
-    :init
-    (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-    (add-hook 'text-mode-hook 'flyspell-mode)
+    ;; :init
+    ;; (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+    ;; (add-hook 'text-mode-hook 'flyspell-mode)
     :config
     ;; ispell isn't generally available on macos so let's use aspell
-    (when (executable-find "aspell")
-      (setq ispell-program-name (executable-find "aspell")))
+    (when (executable-find "hunspell")
+      (setq ispell-program-name (executable-find "hunspell")))
 
     ;; Sets flyspell correction to use two-finger mouse click
     (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word))
+#+END_SRC
+
+**** flyspell hacks
+
+It seems flyspell grinds emacs to a halt preventing user input, ugh.
+
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package flyspell-lazy
+  ;;   :ensure t
+  ;;   :disabled
+  ;;   :config
+  ;;   (flyspell-lazy-mode 1))
 #+END_SRC
 
 *** dired fixes
