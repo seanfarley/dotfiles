@@ -2666,6 +2666,17 @@ Jump to and fix syntax errors using flycheck with avy interface.
   ;;   :bind ("H-;" . avy-flycheck-goto-error))
 #+END_SRC
 
+*** banner-comment
+
+Trivial emacs package to turn a comment into a banner.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package banner-comment
+    :ensure t
+    :commands (banner-comment)
+    :bind ("C-c h" . banner-comment))
+#+END_SRC
+
 *** beacon-mode
 
 This package highlights the cursor every time it jumps abruptedly from a place
