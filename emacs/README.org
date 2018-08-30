@@ -3674,17 +3674,26 @@ More friendly interface for ivy.
 
 #+BEGIN_SRC emacs-lisp
   (use-package ivy-rich
-    :after ivy
+    :after (ivy all-the-icons)
     :ensure t
     :init
+    ;; define function for getting the icon
+    (defun ivy-rich-switch-buffer-icon (candidate)
+      (with-current-buffer (get-buffer candidate)
+        (let ((icon (all-the-icons-icon-for-mode major-mode)))
+          (if (symbolp icon)
+              (all-the-icons-icon-for-mode 'fundamental-mode)
+            icon))))
+
     ;; redefining this here to change the switch-buffer widths; better max
     ;; lengths for my screen
     (setq-default
      ivy-rich--display-transformers-list
      '(ivy-switch-buffer
        (:columns
-        ;; return the candidate itself
-        ((ivy-rich-candidate (:width 40))
+        ((ivy-rich-switch-buffer-icon (:width 4))
+         ;; return the candidate itself
+         (ivy-rich-candidate (:width 40))
          ;; return the buffer size
          (ivy-rich-switch-buffer-size (:width 7))
          ;; return the buffer indicators
