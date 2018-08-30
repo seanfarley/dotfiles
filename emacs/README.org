@@ -3960,6 +3960,16 @@ Magit interfaces for GitHub.
           ("H-<mouse-1>" . mc/add-cursor-on-click))
 #+END_SRC
 
+*** mmm-jinja2
+
+Seems alright for jinja templates
+#+BEGIN_SRC emacs-lisp
+  (use-package mmm-jinja2
+    :ensure t
+    :mode
+    "\\.jinja\\'")
+#+END_SRC
+
 *** narrow-indirect
 
 [[http://www.emacswiki.org/emacs/narrow-indirect.el][narrow-indirect]] allows one to focus a buffer onto some particular code in
