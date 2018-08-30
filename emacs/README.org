@@ -2574,6 +2574,15 @@ anaconda-mode provides code navigation and docs.
     (advice-add 'anaconda-mode-host :override 'smf/anaconda-mode-host))
 #+END_SRC
 
+*** ansible
+
+Mode for ansible.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ansible
+    :ensure t)
+#+END_SRC
+
 *** anzu
 
 [[https://github.com/syohex/emacs-anzu][anzu]] provides enhancements to =isearch= and related tasks, particularly
