@@ -84,11 +84,11 @@ end)
 
 
 hs.hotkey.bind({"cmd", "ctrl"}, "S", function()
-      hs.application.launchOrFocus("Google Chrome")
+      hs.application.launchOrFocus("Firefox")
 end)
 
 hs.hotkey.bind({"cmd", "ctrl"}, "C", function()
-      hs.application.launchOrFocus("Google Chrome")
+      hs.application.launchOrFocus("Firefox")
 end)
 
 hs.hotkey.bind({"cmd", "ctrl"}, "E", function()
