@@ -2101,65 +2101,66 @@ some basic settings and personal tweaks,
     (define-key global-map "\C-cj"
       (lambda () (interactive) (org-capture nil "j")))
 
-    ;; don't auto-fold my documents:
-    (setq-default org-startup-folded nil
+    (setq-default
+     ;; don't auto-fold my documents
+     org-startup-folded nil
 
-                  ;; automatically apply syntax highlighting:
-                  org-src-fontify-natively t
-                  org-src-tab-acts-natively t
-                  org-ellipsis " ⤵"
+     ;; automatically apply syntax highlighting:
+     org-src-fontify-natively t
+     org-src-tab-acts-natively t
+     org-ellipsis " ⤵"
 
-                  ;; and don't prompt
-                  org-confirm-babel-evaluate nil
+     ;; and don't prompt
+     org-confirm-babel-evaluate nil
 
-                  ;; when using imenu, make sure I can follow the outline to the full available
-                  ;; depth
-                  org-imenu-depth 6
+     ;; when using imenu, make sure I can follow the outline to the full available
+     ;; depth
+     org-imenu-depth 6
 
-                  ;; also, I like using shift+arrow keys to highlight, so let's set that
-                  org-support-shift-select 'always
+     ;; also, I like using shift+arrow keys to highlight, so let's set that
+     org-support-shift-select 'always
 
-                  ;; also search archive files
-                  org-agenda-text-search-extra-files '(agenda-archives)
+     ;; also search archive files
+     org-agenda-text-search-extra-files '(agenda-archives)
 
-                  ;; please don't close and mess up my windows,
-                  org-agenda-window-setup 'current-window
-                  org-agenda-restore-windows-after-quit 't
+     ;; please don't close and mess up my windows,
+     org-agenda-window-setup 'current-window
+     org-agenda-restore-windows-after-quit 't
 
-                  ;; more agenda settings
-                  org-agenda-persistent-filter t
-                  org-agenda-sticky t
+     ;; more agenda settings
+     org-agenda-persistent-filter t
+     org-agenda-sticky t
 
-                  org-todo-keywords '((sequence "TODO(t)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELED(c)"))
+     org-todo-keywords '((sequence "TODO(t)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELED(c)"))
 
-                  ;; use a bit better looking colors for todo faces
-                  org-todo-keyword-faces '(("TODO" . (:foreground "OrangeRed" :weight bold))
-                                           ("SOMEDAY" . (:foreground "GoldenRod" :weight bold))
-                                           ("DONE" . (:foreground "LimeGreen" :weight bold))
-                                           ("CANCELED" . (:foreground "gray" :weight bold)))
+     ;; use a bit better looking colors for todo faces
+     org-todo-keyword-faces '(("TODO" . (:foreground "OrangeRed" :weight bold))
+                              ("SOMEDAY" . (:foreground "GoldenRod" :weight bold))
+                              ("DONE" . (:foreground "LimeGreen" :weight bold))
+                              ("CANCELED" . (:foreground "gray" :weight bold)))
 
-                  ;; misc todo settings
-                  org-enforce-todo-dependencies t
-                  org-use-fast-todo-selection t
-                  org-fast-tag-selection-single-key nil
+     ;; misc todo settings
+     org-enforce-todo-dependencies t
+     org-use-fast-todo-selection t
+     org-fast-tag-selection-single-key nil
 
-                  ;; force me to write a note about the task when marking it done
-                  org-log-done 'note
-                  org-log-into-drawer t
-                  org-log-state-notes-insert-after-drawers nil
+     ;; force me to write a note about the task when marking it done
+     org-log-done 'note
+     org-log-into-drawer t
+     org-log-state-notes-insert-after-drawers nil
 
-                  ;; also log when items are rescheduled and refiled
-                  org-log-reschedule 'time
-                  org-log-refile     'time
+     ;; also log when items are rescheduled and refiled
+     org-log-reschedule 'time
+     org-log-refile     'time
 
 
-                  ;; try to minimize blank lines
-                  org-cycle-separator-lines 0
-                  org-blank-before-new-entry '((heading)
-                                               (plain-list-item . auto))
+     ;; try to minimize blank lines
+     org-cycle-separator-lines 0
+     org-blank-before-new-entry '((heading)
+                                  (plain-list-item . auto))
 
-                  org-return-follows-link t
-                  org-confirm-babel-evaluate nil)
+     org-return-follows-link t
+     org-confirm-babel-evaluate nil)
 
     ;; auto save all org files after doing a common action
     (advice-add 'org-agenda-quit      :before #'org-save-all-org-buffers)
