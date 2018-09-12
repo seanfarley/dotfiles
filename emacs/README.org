@@ -2152,46 +2152,6 @@ some basic settings and personal tweaks,
                     ("personal" ,(list (all-the-icons-faicon "user")) nil nil :ascent center)
                     ("phd" ,(list (all-the-icons-faicon "superscript")) nil nil :ascent center))
 
-                  org-agenda-custom-commands
-                  '(("c" "Simple agenda view"
-                     ((agenda "")
-                      (alltodo "" ((org-agenda-skip-function
-                                    '(or (org-agenda-skip-subtree-if
-                                          'todo '("SOMEDAY" "DONE" "CANCELED"))
-                                         (org-agenda-skip-subtree-if
-                                          'scheduled 'deadline)))
-                                   (org-agenda-overriding-header "ALL normal priority tasks:")))))
-
-                    ("r" "done or canceled items for reporting"
-                     ((agenda ""
-                              ((org-agenda-files '("~/Nextcloud/org/bitbucket.org"
-                                                   "~/Nextcloud/org/bitbucket.org_archive"
-                                                   "~/Nextcloud/org/hg.org"
-                                                   "~/Nextcloud/org/hg.org_archive"
-                                                   "~/Nextcloud/org/macports.org"
-                                                   "~/Nextcloud/org/macports.org_archive"
-                                                   "~/Nextcloud/org/personal.org"
-                                                   "~/Nextcloud/org/personal.org_archive"
-                                                   ))
-                               (org-agenda-skip-function
-                                '(org-agenda-skip-subtree-if 'todo
-                                                             '("TODO" "SOMEDAY")))))))
-
-                    ("w" "just work items"
-                     ((agenda ""
-                              ((org-agenda-files '("~/Nextcloud/org/bitbucket.org"
-                                                   "~/Nextcloud/org/hg.org"
-                                                   ))
-                               ))))
-
-                    ("p" "just personal items"
-                     ((agenda ""
-                              ((org-agenda-files '("~/Nextcloud/org/hg.org"
-                                                   "~/Nextcloud/org/personal.org"
-                                                   "~/Nextcloud/org/macports.org"
-                                                   ))
-                               )))))
-
                   org-refile-targets
                   '((nil :maxlevel . 2)   ; top level headlines in current buffer
                     (("~/Nextcloud/org/entertainment.org") :maxlevel . 4)
