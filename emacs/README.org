@@ -4262,7 +4262,7 @@ grouping of files.
     :diminish projectile-mode
     :init
     (smf/add-launcher "s" 'projectile-switch-project)
-    (setq projectile-keymap-prefix (kbd "C-c C-p"))
+    (setq projectile-keymap-prefix (kbd "C-c p"))
     :config
     (setq projectile-completion-system 'ivy
           projectile-enable-caching t)
