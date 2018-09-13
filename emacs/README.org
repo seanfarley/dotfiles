@@ -2153,6 +2153,11 @@ some basic settings and personal tweaks,
      org-log-reschedule 'time
      org-log-refile     'time
 
+     ;; prepend the filename for each org target
+     org-refile-use-outline-path 'file
+
+     ;; since we're using ivy just put all the files + headers in a list
+     org-outline-path-complete-in-steps nil
 
      ;; try to minimize blank lines
      org-cycle-separator-lines 0
