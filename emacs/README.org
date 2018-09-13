@@ -2237,7 +2237,19 @@ easy searching) and easier syntax.
       ("hg.org" :agenda t :refile (:maxlevel . 4))
       ("personal.org" :agenda t :refile (:maxlevel . 4))
       ("phd.org" :agenda t :refile (:maxlevel . 4))
-      ("entertainment.org" :agenda nil)))
+      ("entertainment.org" :agenda nil))
+
+    (defun smf/org-init ()
+      "method to load org files and agenda when emacs starts"
+      (interactive)
+      ;; load all org files
+      (org-starter-load-all-files-in-path)
+      (split-window-right)
+      ;; start org-agenda
+      (org-agenda nil "a")
+      (display-buffer "*Org Agenda(a)*" t))
+
+    (add-hook 'after-init-hook #'smf/org-init))
 #+END_SRC
 
 **** tangling
