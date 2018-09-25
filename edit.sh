@@ -7,6 +7,12 @@ SF="$HOME/.emacs.d/server/server"
 PORT="1"
 HN=$(hostname -f)
 
+if [[ -f "$HOME/.emacs.d/.local/cache/server/server" && ! -f "$SF" ]]; then
+  SF="$HOME/.emacs.d/.local/cache/server/server"
+fi
+
+[[ ! -f "$SF" ]] && echo "error: could not find server file at $SF" && exit 2
+
 # check for emacsclient path, fallback to home directory
 hash emacsclient 2>/dev/null || EC="$HOME/.local/bin/emacsclient"
 
