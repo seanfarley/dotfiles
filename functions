@@ -92,6 +92,11 @@ ssh() {
   # system ssh command
   local SSH=$(which ssh)
   local SF=".emacs.d/server"
+
+  if [[ -d "$HOME/.emacs.d/.local/cache/server" && ! -d "$$HOME/$SF" ]]; then
+    SF=".emacs.d/.local/cache/server"
+  fi
+
   local SDIR="$HOME/$SF"
   local SFILE="$SDIR/server"
   [ -z "$DEBUG" ] || echo "[DEBUG] DIR: $SFILE"
