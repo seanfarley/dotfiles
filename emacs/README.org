@@ -149,6 +149,10 @@ Always copy files when backing up to avoid breaking symlinks:
 
 #+BEGIN_SRC emacs-lisp
   (setq backup-by-copying t)
+
+  ;; maybe just disable this? testing for performance
+  (setq auto-save-default nil)
+  (setq backup-inhibited t)
 #+END_SRC
 
 Also, disable the =#.foo= lock files,
