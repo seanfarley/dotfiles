@@ -70,19 +70,19 @@
 		<string>@^→</string>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>699 110 445 77 0 0 1440 900 </string>
+	<string>699 33 445 77 0 0 1440 900 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>269 420 606 456 0 0 1440 900 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 381 620 392 0 0 1440 900 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>306 241 918 492 0 0 1440 900 </string>
+	<string>306 223 918 495 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1440 900 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 473 650 427 0 0 1440 900 </string>
+	<string>0 0 1440 900 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>197 52 650 427 0 0 1440 900 </string>
+	<string>85 394 650 427 0 0 1440 900 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -670,7 +670,7 @@
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
-			<string>FiraMonoForPowerline-Regular 14</string>
+			<string>FiraCode-Regular 14</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Non-ASCII Ligatures</key>
@@ -896,7 +896,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-06-24T08:35:13Z</date>
+	<date>2018-09-29T16:11:12Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>Secure Input</key>
@@ -906,6 +906,6 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.1.6</string>
+	<string>3.2.1</string>
 </dict>
 </plist>
