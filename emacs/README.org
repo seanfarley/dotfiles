@@ -2125,7 +2125,7 @@ some basic settings and personal tweaks,
      org-support-shift-select 'always
 
      ;; also search archive files
-     org-agenda-text-search-extra-files '(agenda-archives)
+     ;; org-agenda-text-search-extra-files '(agenda-archives)
 
      ;; please don't close and mess up my windows,
      org-agenda-window-setup 'current-window
