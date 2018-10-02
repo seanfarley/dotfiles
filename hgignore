@@ -70,6 +70,7 @@ projectile-bookmarks.eld
 .clang_complete
 *.egg-info
 .pytest_cache
+.cask
 
 tags
 TAGS
