@@ -63,7 +63,7 @@ constructs use this when looking for implicit names.
 Before anything, let's bump the gc size to something bigger and more modern,
 
 #+BEGIN_SRC emacs-lisp
-  (setq gc-cons-threshold 200000000)
+  (setq gc-cons-threshold most-positive-fixnum)
 #+END_SRC
 
 First we define a convenience function =smf/add-to-load-path= that adds the
