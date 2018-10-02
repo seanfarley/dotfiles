@@ -3495,11 +3495,12 @@ A mode for Mercurial test files
 Enables collapsable regions and diminish the mode:
 
 #+BEGIN_SRC emacs-lisp
-  (use-package hideshowvis
-    :load-path "lisp"
-    :diminish hs-minor-mode
-    :config
-    (add-hook 'prog-mode-hook #'hideshowvis-enable))
+  ;; (use-package hideshowvis
+  ;;   :load-path "lisp"
+  ;;   :diminish hs-minor-mode
+  ;;   :disabled
+  ;;   :config
+  ;;   (add-hook 'prog-mode-hook #'hideshowvis-enable))
 
   ;; TODO combine hideshow and vimish into one package
   (use-package vimish-fold
