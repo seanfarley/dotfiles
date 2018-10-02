@@ -7,10 +7,6 @@
   excludesfile = ~/.gitignore
   quotepath = false
 
-[credential]
-  # installed via python3 setup.py --home ~/.local
-  helper = !pass-git-helper $@
-
 [sendemail]
   smtpencryption = tls
   smtpserver = mail.farley.io
