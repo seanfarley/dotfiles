@@ -4362,9 +4362,11 @@ brackets, and braces according to their depth.
     :ensure t
     :diminish rainbow-blocks-mode
     :commands rainbow-blocks-mode
-    :init
-    (add-hook 'emacs-lisp-mode-hook #'rainbow-blocks-mode)
-    (add-hook 'lisp-interaction-mode-hook #'rainbow-blocks-mode))
+    :disabled
+    ;; :init
+    ;; (add-hook 'emacs-lisp-mode-hook #'rainbow-blocks-mode)
+    ;; (add-hook 'lisp-interaction-mode-hook #'rainbow-blocks-mode))
+  )
 #+END_SRC
 
 *** rainbow-delimiters
