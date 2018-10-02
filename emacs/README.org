@@ -1496,6 +1496,7 @@ Fetch and show received images in a ERC buffer.
   (use-package erc-image
     :after erc
     :ensure t
+    :disabled
     :config
     (setq erc-image-inline-rescale 'window)
     (erc-image-enable))
@@ -1754,6 +1755,7 @@ You know what else is awesome? [[http://www.gnu.org/software/auctex/reftex.html]
 #+BEGIN_SRC emacs-lisp
   (use-package pdf-tools
     :ensure t
+    :disabled
     :mode (("\\.pdf\\'" . pdf-view-mode))
     :config
     (pdf-tools-install)
@@ -2758,6 +2760,7 @@ identifier uniquely based on its name.
 
 #+BEGIN_SRC emacs-lisp
   (use-package color-identifiers-mode
+    :disabled
     :ensure t
     :config
     (add-hook 'after-init-hook 'global-color-identifiers-mode))
@@ -3671,6 +3674,7 @@ Persistently store selected minibuffer candidates.
 #+BEGIN_SRC emacs-lisp
   (use-package ivy-historian
     :ensure t
+    :disabled
     :config
     (ivy-historian-mode t))
 #+END_SRC
