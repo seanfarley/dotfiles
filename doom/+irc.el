@@ -15,6 +15,7 @@
                      :user "smf/freenode"
                      :port 6697
                      :host "smf.io"
+                     :server-buffer-name "{network}:{host}:{port}"
                      :channels ("#mercurial" "#bitbucket")))
   
   (set-irc-server! "bitlbee"
@@ -23,6 +24,7 @@
                      :user "smf/bitlbee"
                      :port 6697
                      :host "smf.io"
+                     :server-buffer-name "{network}:{host}:{port}"
                      :channels ("&bitlbee"))))
 
 (defun smf/tracking-shorten (name)
