@@ -40,17 +40,28 @@
     ("phd.org" :agenda t :refile (:maxlevel . 4))
     ("entertainment.org" :agenda nil))
 
-  (defun smf/org-init ()
-    "method to load org files and agenda when emacs starts"
-    (interactive)
-    ;; load all org files
-    (org-starter-load-all-files-in-path)
-    (split-window-right)
-    ;; start org-agenda
-    (org-agenda nil "a")
-    (display-buffer "*Org Agenda(a)*" t))
+  ;; after persp-mode is loaded, open all our org files and add them to the main
+  ;; workspace
+  (after! persp-mode
+    (defun smf/org-init ()
+      "method to load org files and agenda when emacs starts"
+      (interactive)
+      ;; load all org files
+      (org-starter-load-all-files-in-path)
+      (split-window-right)
+      ;; start org-agenda
+      (org-agenda nil "a")
+      (display-buffer "*Org Agenda(a)*" t)
 
-  ;; once the scratch buffer has loaded it should be late enough to load the org
-  ;; agenda files as well
- (add-hook 'doom-init-ui-hook #'smf/org-init)
-)
+      ;; add the org files to the main workspace
+      (persp-add-buffer
+       (mapcar (lambda (f)
+                 (file-name-nondirectory f)) org-starter-known-files)
+       (persp-get-by-name +workspaces-main))
+
+      ;; also add the agenda
+      (persp-add-buffer "*Org Agenda(a)*" (persp-get-by-name +workspaces-main)))
+
+    ;; once the scratch buffer has loaded it should be late enough to load the org
+    ;; agenda files as well
+    (add-hook 'doom-init-ui-hook #'smf/org-init)))
