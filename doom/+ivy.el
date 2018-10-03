@@ -1,8 +1,8 @@
 ;;; ~/projects/dotfiles/doom/+ivy.el -*- lexical-binding: t; -*-
 
 (after! ivy
-  (setq ivy-initial-inputs-alist nil)
-  (setq ivy-use-virtual-buffers t))
+  ;; prefer space-separated-words over fuzzy matching
+  (setq ivy-initial-inputs-alist nil))
 
 (def-package! ivy-rich
   :init
