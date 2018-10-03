@@ -50,3 +50,4 @@
 (load! "+org")
 (load! "+org-starter")
 (load! "+irc")
+(load! "+twitter")
