@@ -167,6 +167,7 @@
     "U"                               #'winner-redo
     "p"                               #'+workspace/switch-left
     "n"                               #'+workspace/switch-right
+    "w"                               #'+workspace/switch-to
     ;; requires private package 'resize-window'
     "h"                               #'resize-window
     "1"                               (λ! (+workspace/switch-to 0))
