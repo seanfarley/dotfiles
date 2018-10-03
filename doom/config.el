@@ -31,6 +31,16 @@
 
   (add-hook 'doom-scratch-buffer-hook #'smf/scratch-init))
 
+;; automatically add some buffers to the workspace
+(after! persp-mode
+  (defun smf/unreal-buffer-p (buffer-or-name)
+    "Wrap `doom-unreal-buffer-p' but allow circe buffers through."
+    (unless (derived-mode-p 'circe-mode)
+      (doom-unreal-buffer-p buffer-or-name)))
+
+  (setq persp-add-buffer-on-after-change-major-mode-filter-functions
+        '(smf/unreal-buffer-p)))
+
 ;; load personal modules
 (load! "+utils")
 (load! "+mac")
