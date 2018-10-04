@@ -131,4 +131,6 @@
 }}}
 
 %FACE[twitter-divider]{                                                                                                }
-"))
+"
+        twittering-initial-timeline-spec-string
+        '(":home" ":mentions")))
