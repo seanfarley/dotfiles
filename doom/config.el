@@ -49,6 +49,9 @@
   (setq persp-add-buffer-on-after-change-major-mode-filter-functions
         '(smf/unreal-buffer-p)))
 
+;; enable hs-minor-mode
+(add-hook 'prog-mode-hook #'hs-minor-mode)
+
 ;; load personal modules
 (load! "+utils")
 (load! "+mac")
