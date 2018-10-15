@@ -104,6 +104,7 @@
     "u"                               #'doom/sudo-this-file
     "e"                               #'+eshell/open-popup
     "E"                               #'+eshell/open
+    "l"                               #'doom/toggle-line-numbers
     :desc "Reload Private Config" "R" #'doom/reload)
 
   ;; Org related bindings
