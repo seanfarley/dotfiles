@@ -52,6 +52,10 @@
 ;; enable hs-minor-mode
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 
+;; git stuff
+(after! git-commit
+  (setq git-commit-summary-max-length 72))
+
 ;; load personal modules
 (load! "+utils")
 (load! "+mac")
