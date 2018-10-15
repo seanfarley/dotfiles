@@ -36,8 +36,3 @@
   (if add-to-kill-ring-p
       (kill-region (point) (point-max))
     (delete-region (point) (point-max))))
-
-;; make new frames fullscreen by default
-(add-hook 'after-make-frame-functions (lambda (frame)
-                                        (select-frame frame)
-                                        (toggle-frame-fullscreen)))

@@ -14,6 +14,14 @@
 ;; really convenient mode for copying the whole line or region
 (whole-line-or-region-global-mode)
 
+;; make new frames fullscreen by default
+(add-hook 'after-make-frame-functions (lambda (frame)
+                                        (select-frame frame)
+                                        (toggle-frame-fullscreen)
+                                        ;; don't really like creating a random
+                                        ;; workspace when a new frame is created
+                                        (+workspace/delete "#1")))
+
 ;; save and restore the scratch buffer
 (def-package! persistent-scratch
   :init
