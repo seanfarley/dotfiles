@@ -3,13 +3,16 @@
 ED="emacs"
 EC="emacsclient"
 OPTS=""
-SF="$HOME/.emacs.d/server/server"
+SFDIR="$HOME/.emacs.d/server"
 PORT="1"
 HN=$(hostname -f)
 
-if [[ -f "$HOME/.emacs.d/.local/cache/server/server" && ! -f "$SF" ]]; then
-  SF="$HOME/.emacs.d/.local/cache/server/server"
+if [[ -d "$HOME/.emacs.d/.local/cache/server" && ! -f "$SF" ]]; then
+  SFDIR="$HOME/.emacs.d/.local/cache/server"
 fi
+
+# get the latest file which could be named, for example, server1234
+SF="$SFDIR/$(ls -t $SFDIR | head -n1)"
 
 [[ ! -f "$SF" ]] && echo "error: could not find server file at $SF" && exit 2
 
