@@ -55,6 +55,27 @@
 ;; smart-jump
 (smart-jump-setup-default-registers)
 
+;; bitwardn password auth-source
+(def-package! bitwarden
+  :config
+
+  (setq bitwarden-user "sean@farley.io"
+
+        bitwarden-automatic-unlock (let* ((auth-sources
+                                           '(macos-keychain-internet))
+                                          (matches (auth-source-search
+                                                    :user "sean@farley.io"
+                                                    :host "bitwarden.farley.in"
+                                                    :require '(:secret)
+                                                    :max 1))
+                                          (entry (nth 0 matches)))
+                                     (plist-get entry :secret)))
+  (bitwarden-auth-source-enable))
+
+;; magit should use auth-source
+(add-hook 'magit-process-find-password-functions
+          'magit-process-password-auth-source)
+
 
 ;; load personal modules
 (load! "+utils")
