@@ -55,6 +55,9 @@
 ;; git stuff
 (after! git-commit
   (setq git-commit-summary-max-length 72))
+;; smart-jump
+(smart-jump-setup-default-registers)
+
 
 ;; load personal modules
 (load! "+utils")

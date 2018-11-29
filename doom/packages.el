@@ -6,6 +6,7 @@
 (package! org-starter)
 (package! persistent-scratch)
 (package! resize-window)
+(package! smart-jump)
 (package! srefactor)
 (package! unfill)
 (package! whole-line-or-region)
