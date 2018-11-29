@@ -1,3 +1,4 @@
+(package! exec-path-from-shell :disable t)
 (package! banner-comment)
 (package! emr)
 (package! goto-chg)
