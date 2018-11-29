@@ -4,6 +4,7 @@
 (package! emr)
 (package! goto-chg)
 (package! ivy-rich)
+(package! lispy)
 (package! org-starter)
 (package! persistent-scratch)
 (package! resize-window)
