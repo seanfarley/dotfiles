@@ -6,29 +6,6 @@ Host github.com
   HostName ssh.github.com
   Port 443
 
-Host *.bitbucket.org
-  User sfarley
-
-Host bb-backend
-  User sfarley
-  HostName fabfile.aws.bb-inf.net
-  CheckHostIP yes
-  ProxyCommand none
-
-Host *.ash-private.bitbucket.org *.ash1.bb-inf.net
-  User sfarley
-  ProxyCommand ssh -A -W %h:%p bb-backend
-
-Host bb
-  User sfarley
-  HostName app-125.ash1.bb-inf.net
-  ProxyCommand ssh -A -W %h:%p bb-backend
-
-Host bb-staging
-  User sfarley
-  HostName api-s01.us-west-2.bb-inf.net
-  ProxyCommand ssh -A -W %h:%p bb-backend
-
 Host smf.io
   ControlMaster auto
   ControlPersist yes
@@ -39,12 +16,6 @@ Host euclid
   ControlMaster auto
   ControlPersist yes
   ControlPath ~/.ssh/socket-%r@%h:%p
-
-Host *.amazonaws.com
-  User ec2-user
-
-Host micros
-  HostName jumpbox.domain.dev.atl-inf.io
 
 Host *.fsffrance.org
   User smf
