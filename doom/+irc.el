@@ -3,6 +3,15 @@
 (after! lui
   (add-hook 'lui-mode-hook #'enable-lui-track-bar))
 
+(defun smf/tracking-next-buffer ()
+  (interactive)
+  (when (derived-mode-p 'circe-mode)
+    (tracking-next-buffer)))
+
+(after! circe
+  (disable-circe-new-day-notifier)
+  (define-key tracking-mode-map (kbd "C-c C-SPC") 'smf/tracking-next-buffer))
+
 (after! circe-notifications
   (setq circe-notifications-alert-style 'notifier)
   (setq circe-notifications-alert-icon
