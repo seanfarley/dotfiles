@@ -76,6 +76,7 @@
 (add-hook 'magit-process-find-password-functions
           'magit-process-password-auth-source)
 
+;; (setq doom-theme 'doom-snazzy)
 
 ;; load personal modules
 (load! "+utils")
