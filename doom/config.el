@@ -93,4 +93,5 @@
 (load! "+org-starter")
 (load! "+irc")
 (load! "+twitter")
+(load! "+mail")
 (load! "+modeline")

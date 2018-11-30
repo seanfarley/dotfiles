@@ -5,6 +5,7 @@
 (package! goto-chg)
 (package! ivy-rich)
 (package! lispy)
+(package! mu4e-alert)
 (package! org-starter)
 (package! persistent-scratch)
 (package! resize-window)
