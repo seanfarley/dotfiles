@@ -15,7 +15,7 @@
        :completion
        (company          ; the ultimate code completion backend
         +auto)           ; as-you-type code completion
-       ivy               ; a search engine for love and life
+       (ivy +childframe) ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
