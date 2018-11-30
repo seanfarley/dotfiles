@@ -348,7 +348,17 @@
   "M-Q"                               #'unfill-paragraph
 
   ;; banner-comment
-  "C-c h"                             #'banner-comment)
+  "C-c h"                             #'banner-comment
+
+  ;; circe emacs bindings
+  (:prefix "C-c m"
+    "m"                               #'=email
+    "c"                               #'+email/compose)
+
+  ;; circe emacs bindings
+  (:prefix "C-c i"
+    "i"                               #'=irc
+    "k"                               #'+irc/quit))
 
 (which-key-add-key-based-replacements "C-c !"   "checking")
 (which-key-add-key-based-replacements "C-c d p" "doom popups")
