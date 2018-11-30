@@ -27,7 +27,6 @@
         (setq beg (region-beginning) end (region-end))
       (setq beg (line-beginning-position) end (line-end-position)))
     (comment-or-uncomment-region beg end)))
-(global-set-key (kbd "s-;") #'smf/comment-or-uncomment-region-or-line)
 
 (defun smf/delete-to-end-of-buffer (add-to-kill-ring-p)
   "Deletes from point to end of buffer. If prefix argument is

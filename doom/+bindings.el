@@ -25,6 +25,7 @@
   "s-Z"                               #'undo-tree-redo
   "s-}"                               #'forward-paragraph
   "s-{"                               #'backward-paragraph
+  "s-;"                               #'smf/comment-or-uncomment-region-or-line
   "H-<left>"                          #'beginning-of-buffer
   "H-<right>"                         #'end-of-buffer
   "H-<down>"                          [?\C-v]
