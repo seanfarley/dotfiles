@@ -87,3 +87,4 @@
 (load! "+org-starter")
 (load! "+irc")
 (load! "+twitter")
+(load! "+modeline")
