@@ -1,5 +1,7 @@
 ;;; ~/projects/dotfiles/doom/+mail.el -*- lexical-binding: t; -*-
 
+(def-package! mu4e-patch)
+
 (after! mu4e
 
   ;;=============================== basic settings =============================
@@ -227,7 +229,10 @@
   (mu4e-alert-set-default-style 'notifier)
   (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
   (mu4e-alert-enable-notifications)
-  (mu4e-alert-enable-mode-line-display))
+  (mu4e-alert-enable-mode-line-display)
+
+  ;; colorize patch-based emails
+  (add-hook 'mu4e-view-mode-hook #'mu4e-patch-highlight))
 
 ;; remove the org-mode compose functionality: it removes the coloring of
 ;; indented replies

@@ -6,6 +6,7 @@
 (package! ivy-rich)
 (package! lispy)
 (package! mu4e-alert)
+(package! mu4e-patch :recipe (:fetcher github :repo "seanfarley/mu4e-patch"))
 (package! org-starter)
 (package! persistent-scratch)
 (package! resize-window)
