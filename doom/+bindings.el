@@ -358,7 +358,8 @@
   ;; circe emacs bindings
   (:prefix "C-c i"
     "i"                               #'=irc
-    "k"                               #'+irc/quit))
+    "k"                               #'+irc/quit
+    "r"                               #'circe-reconnect-all))
 
 (which-key-add-key-based-replacements "C-c !"   "checking")
 (which-key-add-key-based-replacements "C-c d p" "doom popups")
