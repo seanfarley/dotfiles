@@ -16,6 +16,16 @@
        (company          ; the ultimate code completion backend
         +auto)           ; as-you-type code completion
        (ivy +childframe) ; a search engine for love and life
+       (lsp
+        +javascript
+        +go
+        +css
+        +rust
+        ;; +cpp
+        ;; +ocaml
+        +java
+        +python
+        +sh)
 
        :ui
        ;;deft              ; notational velocity for Emacs
