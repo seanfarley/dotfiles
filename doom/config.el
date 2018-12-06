@@ -76,11 +76,6 @@
 (add-hook 'magit-process-find-password-functions
           'magit-process-password-auth-source)
 
-(after! magit
-  (when (executable-find "fd")
-    (setq projectile-git-command "fd . -0"
-          projectile-generic-command projectile-git-command)))
-
 ;; (setq doom-theme 'doom-snazzy)
 
 ;; load personal modules
