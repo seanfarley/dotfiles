@@ -2,12 +2,20 @@
 
 (def-package! lsp-mode
   :commands (lsp-mode lsp-define-stdio-client)
+  :init
+  (require 'lsp)
+  (require 'lsp-clients)
   :config
-  (require 'lsp-imenu)
+  (setq lsp-session-file (expand-file-name ".lsp-session-v1"
+                                           doom-cache-dir))
+
   (add-hook 'lsp-after-open-hook 'lsp-enable-imenu))
 
 (def-package! lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
+  :init
+  (require 'lsp-ui)
+  (require 'lsp-ui-imenu)
   :config
   (set-lookup-handlers! 'lsp-ui-mode
                         :definition #'lsp-ui-peek-find-definitions
@@ -18,7 +26,7 @@
 
 (def-package! lsp-typescript
   :when (featurep! +javascript)
-  :hook ((js2-mode typescript-mode) . lsp-typescript-enable))
+  :hook (typescript-mode . lsp-typescript-enable))
 
 (def-package! company-lsp
   :after lsp-mode
