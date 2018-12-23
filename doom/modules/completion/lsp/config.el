@@ -42,8 +42,10 @@
 
 (def-package! cquery
   :when (featurep! +cpp)
-  :hook ((c-mode c++-mode objc-mode) . +setup-cquery)
+  ;; :hook ((c-mode c++-mode objc-mode) . +setup-cquery)
+  :hook ((c-mode c++-mode objc-mode) . lsp)
   :init
+  (require 'cquery)
   (setq cquery-extra-init-params '(:index (:comments 2)
                                           :cacheFormat "msgpack"
                                           :completion (:detailedLabel t))

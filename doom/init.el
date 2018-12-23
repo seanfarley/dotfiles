@@ -22,8 +22,7 @@
         +css
         +lua
         +rust
-        ;; +cpp
-        ;; +ocaml
+        +cpp
         +java
         +python
         +sh)
