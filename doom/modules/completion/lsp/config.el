@@ -55,6 +55,18 @@
         (lsp-cquery-enable)
       (user-error nil))))
 
+
+(def-package! lua-mode
+  :when (featurep! +lua)
+  ;; :hook ((lsp-mode) . lsp)
+  :init
+  (require 'lua-mode)
+
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection "lua-lsp")
+                    :major-modes '(lua-mode)
+                    :server-id 'lua)))
+
 (def-package! lsp-ocaml
   :when (featurep! +ocaml)
   :hook ((tuareg-mode reason-mode) . lsp-ocaml-enable))

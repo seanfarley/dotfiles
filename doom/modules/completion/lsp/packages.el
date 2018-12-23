@@ -17,6 +17,9 @@
   (when (featurep! +go)
     (package! lsp-go))
 
+  (when (featurep! +lua)
+    (package! lua-mode))
+
   (when (featurep! +python)
     (package! anaconda-mode :disable t))
 

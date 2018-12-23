@@ -20,6 +20,7 @@
         +javascript
         +go
         +css
+        +lua
         +rust
         ;; +cpp
         ;; +ocaml
