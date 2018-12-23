@@ -21,6 +21,11 @@
     (package! lua-mode))
 
   (when (featurep! +python)
+    (package! lsp-python-ms
+      :recipe (:fetcher
+               github
+               :repo "seanfarley/lsp-python-ms"
+               :branch "smf/underscore"))
     (package! anaconda-mode :disable t))
 
   (when (featurep! +rust)
