@@ -14,3 +14,4 @@
 (package! srefactor)
 (package! unfill)
 (package! whole-line-or-region)
+(package! yequake :recipe (:fetcher github :repo "alphapapa/yequake"))
