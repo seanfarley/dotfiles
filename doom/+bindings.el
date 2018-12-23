@@ -16,7 +16,7 @@
   "s-g"                               #'isearch-repeat-forward
   "s-k"                               #'kill-this-buffer
   "s-l"                               #'goto-line
-  "s-n"                               #'make-frame
+  "s-n"                               #'smf/make-frame
   "s-q"                               #'save-buffers-kill-terminal
   "s-r"                               #'recompile
   "s-s"                               #'save-buffer

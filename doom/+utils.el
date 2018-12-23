@@ -45,3 +45,10 @@
   "Is S anything but nil or the empty string?"
   (declare (pure t) (side-effect-free t))
   (not (smf/s-blank? s)))
+
+(defun smf/make-frame ()
+  "Make a new, fullscreen frame."
+  (interactive)
+  (let ((frame (make-frame)))
+    (select-frame frame)
+    (toggle-frame-fullscreen)))
