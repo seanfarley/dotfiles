@@ -1,9 +1,10 @@
 ;;; private/boy/+bindings.el -*- lexical-binding: t; -*-
 
 ;; Change the default key of persp-mode to avoid conflicts with projectile.
-(setq persp-keymap-prefix (kbd "C-c e"))
+(setq persp-keymap-prefix (kbd "C-c e")
+      projectile-keymap-prefix (kbd "C-c p"))
 
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+;;(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 (setq doom-leader-key nil
       doom-localleader-key nil)
