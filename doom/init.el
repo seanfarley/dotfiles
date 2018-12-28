@@ -14,7 +14,8 @@
 
        :completion
        (company          ; the ultimate code completion backend
-        +auto)           ; as-you-type code completion
+        +auto            ; as-you-type code completion
+        +childframe)
        (ivy +childframe) ; a search engine for love and life
        (lsp
         +javascript
