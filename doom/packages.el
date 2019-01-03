@@ -9,6 +9,18 @@
 (package! mu4e-patch :recipe (:fetcher github :repo "seanfarley/mu4e-patch"))
 (package! org-starter)
 (package! persistent-scratch)
+(package!
+  pdf-tools :recipe
+  ;; https://github.com/melpa/melpa/blob/master/recipes/pdf-tools
+  (:fetcher
+   github
+   :repo "seanfarley/pdf-tools"
+   :branch "retina"
+   :files ("lisp/*.el"
+           "README"
+           ("build" "Makefile")
+           ("build" "server")
+           (:exclude "lisp/tablist.el" "lisp/tablist-filter.el"))))
 (package! resize-window)
 (package! smart-jump)
 (package! srefactor)
