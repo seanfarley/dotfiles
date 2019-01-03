@@ -1,5 +1,8 @@
 ;;; ../../../doom_private/autoload/latex.el -*- lexical-binding: t; -*-
 
+(defvar boy--synonyms-key "Hx7SZWK6jKOUKdh3M9zC"
+  "API key from http://thesaurus.altervista.org that gives us synonyms.")
+
 ;;;###autoload
 (defun +boy/print-table-send-cmd ()
   "Insert the ORG command needed to create ORG tables."
