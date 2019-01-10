@@ -2,6 +2,7 @@
 (package! banner-comment)
 (package! bitwarden :recipe (:fetcher github :repo "seanfarley/emacs-bitwarden"))
 (package! emr)
+(package! forge)
 (package! goto-chg)
 (package! ivy-rich)
 (package! lispy)
