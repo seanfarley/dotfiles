@@ -90,9 +90,6 @@
   :hook (python-mode . lsp)
   :config
 
-  ;; (hash-table-keys lsp-clients)
-  (remhash 'pyls lsp-clients)
-
   ;; for dev build of language server
   (setq lsp-python-ms-dir
         (expand-file-name
