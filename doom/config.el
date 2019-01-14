@@ -86,6 +86,8 @@
                          "*scratch*"))
           (frame-parameters . ((undecorated . t))))))))
 
+(setq pdf-view-use-vector-graphics t)
+
 ;; load personal modules
 (load! "+utils")
 (load! "+mac")

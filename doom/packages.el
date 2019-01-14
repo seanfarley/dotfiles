@@ -15,8 +15,8 @@
   ;; https://github.com/melpa/melpa/blob/master/recipes/pdf-tools
   (:fetcher
    github
-   :repo "seanfarley/pdf-tools"
-   :branch "retina"
+   :repo "dzop/pdf-tools"
+   :branch "vector-graphics"
    :files ("lisp/*.el"
            "README"
            ("build" "Makefile")
