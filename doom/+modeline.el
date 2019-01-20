@@ -1,5 +1,11 @@
 ;;; ~/projects/dotfiles/doom/+modeline.el -*- lexical-binding: t; -*-
 
+;; use external package for niceties
+(def-package! doom-modeline
+  :hook (after-init . doom-modeline-init)
+  :config
+  (setq doom-modeline-github t)
+
 (defun smf/tracking-shorten (name)
   "Wrapper for `tracking-shorten' that only takes one NAME."
   (car (tracking-shorten (list name))))
@@ -30,51 +36,54 @@
    (propertize " · " 'display '(space-width 0.4))))
 
 ;; create a modeline segment that contains the irc tracked buffers
-(def-modeline-segment! irc-track
+(doom-modeline-def-segment irc-track
   (when (and (boundp 'tracking-mode-line-buffers)
              (derived-mode-p 'circe-mode))
     ;; add a space at the end to pad against the following segment
     (concat (smf/tracking-buffers tracking-buffers) " ")))
 
-;; create a modeline segment that only show an icon for unread messages; TODO add
-;; ability to turn on or off notifications in other frames
-(def-modeline-segment! irc-notification
+;; create a modeline segment that only show an icon for unread messages; TODO
+;; add ability to turn on or off notifications in other frames
+(doom-modeline-def-segment irc-notification
   (when (boundp 'tracking-mode-line-buffers)
     ;; add a space at the end to pad against the following segment
-    (when (smf/s-present? (smf/tracking-buffers tracking-buffers))
-      (concat (+doom-ml-icon "sms") " "))))
+    (when (and (smf/s-present? (smf/tracking-buffers tracking-buffers))
+               (doom-modeline--active))
+      (concat
+       (propertize (doom-modeline-icon-material "sms"
+                                                :height 0.9)
+                   'face 'doom-modeline-warning
+                   'help-echo (format "IRC Notifications: %s"
+                                      (smf/tracking-buffers tracking-buffers))
+                   'display '(raise -0.17))
+      (propertize " " 'display '(space-width 0.6))))))
 
-(def-modeline-format! :irc
-  '(+modeline-matches " "
-    +modeline-buffer-id)
-  `(mode-line-misc-info
-    irc-track
-    +modeline-major-mode " "
-    mode-line-process
-    +modeline-flycheck))
-(add-hook! 'circe-mode-hook (set-modeline! :irc))
+;; create a modeline segment that only show an icon for unread messages; TODO
+;; add ability to turn on or off notifications in other frames
+(doom-modeline-def-segment mu4e-unread
+  (when (and (boundp 'mu4e-alert-mode-line)
+             (doom-modeline--active))
+    (propertize mu4e-alert-mode-line
+                'face '(:height 0.85)
+                'display '(raise 0.09)
+                'help-echo (format "%s unread emails" mu4e-alert-mode-line))))
 
-;; older doom-modeline
-;; (def-modeline! 'irc
-;;   '(bar matches " " buffer-info "  %l:%c %p  " selection-info)
-;;   '(irc-track " " major-mode flycheck))
-;; (add-hook! 'circe-mode-hook (doom-set-modeline 'irc))
+(doom-modeline-def-modeline 'irc
+  '(bar workspace-number window-number evil-state god-state ryo-modal xah-fly-keys matches " " buffer-info remote-host buffer-position " " selection-info)
+  '(irc-track misc-info persp-name mu4e-unread github minor-modes input-method major-mode process))
 
-(remove-hook 'circe-mode-hook #'+doom-modeline|set-special-modeline)
+(add-hook! 'circe-mode-hook (doom-modeline-set-modeline 'irc))
+(remove-hook 'circe-mode-hook #'doom-modeline-set-special-modeline)
 
-;; define a new main modeline that has
+(doom-modeline-def-modeline 'main+irc
+  '(bar workspace-number window-number god-state xah-fly-keys matches buffer-info remote-host  parrot selection-info)
+  '(misc-info persp-name lsp irc-notification mu4e-unread github debug minor-modes input-method major-mode process vcs checker))
 
-(def-modeline-format! :main+irc
-  '(+modeline-matches " "
-    +modeline-buffer-state
-    +modeline-buffer-id
-    "  %2l:%c %p  ")
-  `(irc-notification
-    mode-line-misc-info
-    +modeline-encoding
-    +modeline-major-mode " "
-    (vc-mode (" " +modeline-vcs " "))
-    mode-line-process
-    +modeline-flycheck))
+(doom-modeline-set-modeline 'main+irc t)
 
-(set-modeline! :main+irc t)
+;; doom-modeline takes care of this so disable doom's own python modeline
+(setq +python-mode-line-indicator nil)
+
+(add-hook 'doom-modeline-before-github-fetch-notification-hook
+          (lambda () (smf/bitwarden-init)))
+)

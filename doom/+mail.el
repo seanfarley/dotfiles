@@ -231,6 +231,11 @@
   (mu4e-alert-enable-notifications)
   (mu4e-alert-enable-mode-line-display)
 
+  ;; remove mu4e-alert from the modeline since we'll manually add it later
+  (setq global-mode-string (delete '(:eval mu4e-alert-mode-line)
+                                   global-mode-string))
+
+
   ;; colorize patch-based emails
   (add-hook 'mu4e-view-mode-hook #'mu4e-patch-highlight))
 
