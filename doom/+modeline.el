@@ -1,5 +1,24 @@
 ;;; ~/projects/dotfiles/doom/+modeline.el -*- lexical-binding: t; -*-
 
+;; we're going to exploit the github notification display variable for all
+;; notifications so that we can disable them all in one go; this will
+;; potentially break if there is a new doom-modeline notification segment that
+;; needs its own visibility toggle
+(defun smf/show-notifications ()
+  "Enables modeline segments that have notifications."
+  (interactive)
+  (setq doom-modeline-github t))
+
+(defun smf/hide-notifications ()
+  "Enables modeline segments that have notifications."
+  (interactive)
+  (setq doom-modeline-github nil))
+
+(defun smf/toggle-notifications ()
+  "Enables modeline segments that have notifications."
+  (interactive)
+  (setq doom-modeline-github (not doom-modeline-github)))
+
 ;; use external package for niceties
 (def-package! doom-modeline
   :hook (after-init . (lambda ()
@@ -44,10 +63,9 @@
       ;; add a space at the end to pad against the following segment
       (concat (smf/tracking-buffers tracking-buffers) " ")))
 
-  ;; create a modeline segment that only show an icon for unread messages; TODO
-  ;; add ability to turn on or off notifications in other frames
   (doom-modeline-def-segment irc-notification
-    (when (boundp 'tracking-mode-line-buffers)
+    (when (and (boundp 'tracking-mode-line-buffers)
+               doom-modeline-github)
       ;; add a space at the end to pad against the following segment
       (when (and (smf/s-present? (smf/tracking-buffers tracking-buffers))
                  (doom-modeline--active))
@@ -60,11 +78,10 @@
                      'display '(raise -0.17))
          (propertize " " 'display '(space-width 0.6))))))
 
-  ;; create a modeline segment that only show an icon for unread messages; TODO
-  ;; add ability to turn on or off notifications in other frames
   (doom-modeline-def-segment mu4e-unread
     (when (and (boundp 'mu4e-alert-mode-line)
-               (doom-modeline--active))
+               (doom-modeline--active)
+               doom-modeline-github)
       (propertize mu4e-alert-mode-line
                   'face '(:height 0.85)
                   'display '(raise 0.09)
