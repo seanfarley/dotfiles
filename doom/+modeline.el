@@ -2,7 +2,9 @@
 
 ;; use external package for niceties
 (def-package! doom-modeline
-  :hook (after-init . doom-modeline-init)
+  :hook (after-init . (lambda ()
+                              (doom-modeline-init)
+                              (doom-modeline-set-modeline 'main+irc t)))
   :config
   (setq doom-modeline-github t)
 
@@ -78,8 +80,6 @@
   (doom-modeline-def-modeline 'main+irc
     '(bar workspace-number window-number god-state xah-fly-keys matches buffer-info remote-host  parrot selection-info)
     '(misc-info persp-name lsp irc-notification mu4e-unread github debug minor-modes major-mode process vcs checker))
-
-  (doom-modeline-set-modeline 'main+irc t)
 
   ;; doom-modeline takes care of this so disable doom's own python modeline
   (setq +python-mode-line-indicator nil)
