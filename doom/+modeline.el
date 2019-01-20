@@ -70,14 +70,14 @@
 
   (doom-modeline-def-modeline 'irc
     '(bar workspace-number window-number evil-state god-state ryo-modal xah-fly-keys matches " " buffer-info remote-host buffer-position " " selection-info)
-    '(irc-track misc-info persp-name mu4e-unread github minor-modes input-method major-mode process))
+    '(irc-track misc-info persp-name mu4e-unread github minor-modes major-mode process))
 
   (add-hook! 'circe-mode-hook (doom-modeline-set-modeline 'irc))
   (remove-hook 'circe-mode-hook #'doom-modeline-set-special-modeline)
 
   (doom-modeline-def-modeline 'main+irc
     '(bar workspace-number window-number god-state xah-fly-keys matches buffer-info remote-host  parrot selection-info)
-    '(misc-info persp-name lsp irc-notification mu4e-unread github debug minor-modes input-method major-mode process vcs checker))
+    '(misc-info persp-name lsp irc-notification mu4e-unread github debug minor-modes major-mode process vcs checker))
 
   (doom-modeline-set-modeline 'main+irc t)
 
