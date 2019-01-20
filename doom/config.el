@@ -35,7 +35,9 @@
 (after! persp-mode
   (defun smf/unreal-buffer-p (buffer-or-name)
     "Wrap `doom-unreal-buffer-p' but allow circe buffers through."
-    (unless (derived-mode-p 'circe-mode)
+    (unless (and (derived-mode-p 'circe-mode)
+                 (eq (safe-persp-name (get-current-persp))
+                     +irc--workspace-name))
       (doom-unreal-buffer-p buffer-or-name)))
 
   (setq persp-add-buffer-on-after-change-major-mode-filter-functions
