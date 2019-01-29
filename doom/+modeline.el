@@ -82,10 +82,12 @@
     (when (and (boundp 'mu4e-alert-mode-line)
                (doom-modeline--active)
                doom-modeline-github)
-      (propertize mu4e-alert-mode-line
-                  'face '(:height 0.85)
-                  'display '(raise 0.09)
-                  'help-echo (format "%s unread emails" mu4e-alert-mode-line))))
+      (concat
+       (propertize mu4e-alert-mode-line
+                   'face '(:height 0.85)
+                   'display '(raise 0.09)
+                   'help-echo (format "%s unread emails" mu4e-alert-mode-line))
+       (propertize " " 'display '(space-width 0.6)))))
 
   (doom-modeline-def-modeline 'irc
     '(bar workspace-number window-number evil-state god-state ryo-modal xah-fly-keys matches " " buffer-info remote-host buffer-position " " selection-info)
