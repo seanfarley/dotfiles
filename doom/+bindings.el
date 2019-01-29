@@ -1,41 +1,24 @@
 ;;; doom/+bindings.el -*- lexical-binding: t; -*-
 
 (map!
-  "s-a"                               #'mark-whole-buffer
-  "s-c"                               #'kill-ring-save
-  "s-f"                               #'swiper
-  "s-g"                               #'isearch-repeat-forward
   "s-k"                               #'kill-this-buffer
-  "s-l"                               #'goto-line
   "s-n"                               #'smf/make-frame
-  "s-q"                               #'save-buffers-kill-terminal
-  "s-r"                               #'recompile
-  "s-s"                               #'save-buffer
-  "s-v"                               #'yank
-  "s-w"                               #'delete-window
   "s-x"                               #'kill-region
-  "s-z"                               #'undo-tree-undo
-  "s-Z"                               #'undo-tree-redo
+  "s-N"                               #'+default/new-buffer
+
   "s-}"                               #'forward-paragraph
   "s-{"                               #'backward-paragraph
-  "s-;"                               #'smf/comment-or-uncomment-region-or-line
+
   "H-<left>"                          #'beginning-of-buffer
   "H-<right>"                         #'end-of-buffer
   "H-<down>"                          [?\C-v]
   "H-<up>"                            [?\M-v]
-  "C-s-f"                             #'toggle-frame-fullscreen
-  [s-backspace]                       [?\C- ?\C-a backspace]
 
   ;; custom methods
-  "M-;"                               #'comment-dwim
   "C-M-d"                             #'smf/delete-to-end-of-buffer
   (:map whole-line-or-region-local-mode-map
+    ;; behave more like the terminal
     "C-w"                             #'smf/backward-kill-word)
-
-  ;; misc
-  (:after helpful
-    (:map helpful-mode-map
-      "C-g"                           #'quit-window))
 
   ;; common typo for me
   "C-x C-b"                           #'persp-switch-to-buffer
@@ -48,20 +31,6 @@
   "C-s-<down>"                        #'windmove-down
   "C-s-<right>"                       #'windmove-right
   "C-s-<left>"                        #'windmove-left
-
-  ;; Restore common editing keys in minibuffer
-  (:map (minibuffer-local-map
-         minibuffer-local-ns-map
-         minibuffer-local-completion-map
-         minibuffer-local-must-match-map
-         minibuffer-local-isearch-map
-         read-expression-map)
-    "C-g"                             #'abort-recursive-edit
-    "C-a"                             #'move-beginning-of-line)
-
-  ;; Working with windows, workgroups and stuff.
-  (:prefix "C-c w"
-    "w"                               #'+workspace/switch-to)
 
   ;; Plugins
 
