@@ -71,8 +71,8 @@
                  (doom-modeline--active))
         (concat
          (propertize (doom-modeline-icon-material "sms"
-                                                  :height 0.9)
-                     'face 'doom-modeline-warning
+                                                  :height 0.9
+                                                  :face 'doom-modeline-warning)
                      'help-echo (format "IRC Notifications: %s"
                                         (smf/tracking-buffers tracking-buffers))
                      'display '(raise -0.17))
