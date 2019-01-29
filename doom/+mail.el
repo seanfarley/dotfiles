@@ -29,13 +29,6 @@
    ;; n and p already do this and I like be bounded by the current message view
    mu4e-view-scroll-to-next nil
 
-   ;; lazy checking just straight-up doesn't work for me
-   mu4e-index-lazy-check nil
-
-   ;; doom sets this to nil due to gmail but we need it so that moved messages
-   ;; are picked up by an update
-   mu4e-index-cleanup t
-
    ;; show the indexing messages
    mu4e-hide-index-messages nil
 
@@ -64,9 +57,6 @@
       (:from          .   22)
       (:subject       .   nil))
 
-
-   ;; set mail user agent
-   mail-user-agent 'mu4e-user-agent
 
    mu4e-bookmarks
    '(("maildir:/inbox AND flag:unread AND NOT flag:trashed" "All unread" ?u)
