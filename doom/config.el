@@ -82,6 +82,10 @@
 
 (setq pdf-view-use-vector-graphics t)
 
+(def-package! webpaste
+  :bind (("C-c C-p C-b" . webpaste-paste-buffer)
+         ("C-c C-p C-r" . webpaste-paste-region)))
+
 ;; load personal modules
 (load! "+utils")
 (load! "+mac")
