@@ -78,7 +78,7 @@
                      'display '(raise -0.17))
          (propertize " " 'display '(space-width 0.6))))))
 
-  (doom-modeline-def-segment mu4e-unread
+  (doom-modeline-def-segment mu4e
     (when (and (boundp 'mu4e-alert-mode-line)
                (doom-modeline--active)
                doom-modeline-github)
@@ -91,14 +91,14 @@
 
   (doom-modeline-def-modeline 'irc
     '(bar workspace-number window-number evil-state god-state ryo-modal xah-fly-keys matches " " buffer-info remote-host buffer-position " " selection-info)
-    '(irc-track misc-info persp-name mu4e-unread github minor-modes major-mode process))
+    '(irc-track misc-info persp-name mu4e github minor-modes major-mode process))
 
   (add-hook! 'circe-mode-hook (doom-modeline-set-modeline 'irc))
   (remove-hook 'circe-mode-hook #'doom-modeline-set-special-modeline)
 
   (doom-modeline-def-modeline 'main+irc
-    '(bar workspace-number window-number god-state xah-fly-keys matches buffer-info remote-host  parrot selection-info)
-    '(misc-info persp-name lsp irc-notification mu4e-unread github debug minor-modes major-mode process vcs checker))
+    '(bar workspace-number window-number god-state xah-fly-keys matches buffer-info remote-host parrot selection-info)
+    '(misc-info persp-name lsp irc-notification mu4e github debug minor-modes major-mode process vcs checker))
 
   ;; doom-modeline takes care of this so disable doom's own python modeline
   (setq +python-mode-line-indicator nil)
