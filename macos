@@ -721,6 +721,7 @@ defaults write org.hammerspoon.Hammerspoon MJShowDockIconKey -bool False
 echo "Tapping fonts..."
 brew tap caskroom/fonts
 
+brew install fontconfig
 brew cask install font-fontawesome
 brew cask install font-fira-code
 brew cask install font-fira-mono
@@ -737,6 +738,8 @@ brew cask install emacs-mac
 ###############################################################################
 
 cp fonts/* ~/Library/Fonts
+
+fc-cache -f -v
 
 ###############################################################################
 # Kill affected applications                                                  #
