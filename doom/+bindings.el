@@ -83,7 +83,7 @@
       "M-<right>"                  nil
       "C-<left>"                   nil
       "M-<left>"                   nil
-      ))
+      "C-M-d"                      nil))
 
   ;; flyspell
   (:after flyspell
