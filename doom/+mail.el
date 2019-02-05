@@ -209,21 +209,12 @@
    mu4e-alert-interesting-mail-query
    "maildir:/inbox AND flag:unread AND NOT flag:trashed"
 
-   ;; just display a number to save precious modeline space
-   mu4e-alert-modeline-formatter (lambda (count) (when (> count 0)
-                                                   (format "%d" count)))
-
    ;; don't draw a newline
    mu4e-maildirs-extension-before-insert-maildir-hook '())
 
   (mu4e-alert-set-default-style 'notifier)
-  (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
   (mu4e-alert-enable-notifications)
   (mu4e-alert-enable-mode-line-display)
-
-  ;; remove mu4e-alert from the modeline since we'll manually add it later
-  (setq global-mode-string (delete '(:eval mu4e-alert-mode-line)
-                                   global-mode-string))
 
 
   ;; colorize patch-based emails
