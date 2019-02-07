@@ -90,7 +90,6 @@
 (load! "+utils")
 (load! "+mac")
 (load! "+bindings")
-(load! "info+")
 (load! "+ivy")
 (load! "+org")
 (load! "+org-starter")
