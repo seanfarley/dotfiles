@@ -26,11 +26,12 @@
     '(bar workspace-number window-number god-state xah-fly-keys matches buffer-info remote-host parrot selection-info)
     '(misc-info persp-name lsp irc mu4e github debug minor-modes process vcs checker))
 
-  ;; doom-modeline takes care of this so disable doom's own python modeline
-  (setq +python-mode-line-indicator           nil
-        doom-modeline-buffer-file-name-style  'truncate-upto-root
-        doom-modeline-irc-stylize             #'smf/irc-icons
-        doom-modeline-github                  t)
+  (setq
+   ;; doom-modeline takes care of this so disable doom's own python modeline
+   +python-mode-line-indicator           nil
+   doom-modeline-buffer-file-name-style  'truncate-upto-root
+   doom-modeline-irc-stylize             #'smf/irc-icons
+   doom-modeline-github                  t)
 
   (add-hook 'doom-modeline-before-github-fetch-notification-hook
             (lambda () (smf/bitwarden-init))))
