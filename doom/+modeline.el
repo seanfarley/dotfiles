@@ -6,6 +6,8 @@
                               (doom-modeline-set-modeline 'smf/main t)))
   :config
 
+  ;========================= map irc channels to icons =========================
+
   (defun smf/irc-icons (buffer)
     "Given a BUFFER name, return an icon. Else return buffer."
     (cond
@@ -22,9 +24,13 @@
                   'font-lock-ignore t))
      (t buffer)))
 
+  ;================ customize segments to put in main  modeline ================
+
   (doom-modeline-def-modeline 'smf/main
     '(bar workspace-number window-number god-state xah-fly-keys matches buffer-info remote-host parrot selection-info)
     '(misc-info persp-name lsp irc mu4e github debug minor-modes process vcs checker))
+
+  ;=============================== misc settings ===============================
 
   (setq
    ;; doom-modeline takes care of this so disable doom's own python modeline
@@ -33,5 +39,6 @@
    doom-modeline-irc-stylize             #'smf/irc-icons
    doom-modeline-github                  t)
 
+  ;; hook to get correct github auth info
   (add-hook 'doom-modeline-before-github-fetch-notification-hook
             (lambda () (smf/bitwarden-init))))
