@@ -1,25 +1,5 @@
 ;;; ~/projects/dotfiles/doom/+modeline.el -*- lexical-binding: t; -*-
 
-;; we're going to exploit the github notification display variable for all
-;; notifications so that we can disable them all in one go; this will
-;; potentially break if there is a new doom-modeline notification segment that
-;; needs its own visibility toggle
-(defun smf/show-notifications ()
-  "Enables modeline segments that have notifications."
-  (interactive)
-  (setq doom-modeline-github t))
-
-(defun smf/hide-notifications ()
-  "Enables modeline segments that have notifications."
-  (interactive)
-  (setq doom-modeline-github nil))
-
-(defun smf/toggle-notifications ()
-  "Enables modeline segments that have notifications."
-  (interactive)
-  (setq doom-modeline-github (not doom-modeline-github)))
-
-;; use external package for niceties
 (def-package! doom-modeline
   :hook (after-init . (lambda ()
                               (doom-modeline-init)
