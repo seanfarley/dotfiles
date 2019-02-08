@@ -96,5 +96,4 @@
 (load! "+irc")
 (load! "+twitter")
 (load! "+mail")
-(load! "+latex")
 (load! "+modeline")

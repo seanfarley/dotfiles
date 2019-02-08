@@ -60,17 +60,6 @@
       "C-;" nil ; Do not override
       "C-M-i"                         #'flyspell-auto-correct-previous-word))
 
-  ;; latex
-  (:after latex
-    (:when (not (or (null boy--synonyms-key) (string= "" boy--synonyms-key)))
-      ("C-c y"                        #'www-synonyms-insert-synonym))
-    (:map LaTeX-mode-map
-      ;; Replace LaTeX-section with a version that inserts '%' after the section
-      ;; macro
-      "C-c C-s"                       #'+boy/latex-section
-      ;; Run LatexMk without asking
-      "<f8>"                          #'+boy/run-latexmk))
-
   ;; unfill
   "M-Q"                               #'unfill-paragraph
 
