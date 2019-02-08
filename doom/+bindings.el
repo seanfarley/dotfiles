@@ -24,7 +24,6 @@
   "C-x C-b"                           #'persp-switch-to-buffer
 
   ;; Switching windows
-  "C-x C-o"                           #'+boy/switch-to-last-window
   "C-x O"                             #'switch-window-then-swap-buffer
 
   "C-s-<up>"                          #'windmove-up

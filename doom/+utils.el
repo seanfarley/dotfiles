@@ -1,16 +1,6 @@
 ;;; ~/projects/dotfiles/doom/+utils.el -*- lexical-binding: t; -*-
 
 
-(defun +boy/switch-to-last-window ()
-  "Switch to the previously selected window, skipping any other window in between."
-  (interactive)
-  (let ((win (get-mru-window t t t)))
-    (unless win (error "Last window not found."))
-    (let ((frame (window-frame win)))
-      (raise-frame frame)
-      (select-frame frame)
-      (select-window win))))
-
 ;; deletes backward until a space is hit
 (defun smf/backward-kill-word ()
   (interactive)
