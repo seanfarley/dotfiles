@@ -2,6 +2,7 @@
 (package! banner-comment)
 (package! bitwarden :recipe (:fetcher github :repo "seanfarley/emacs-bitwarden"))
 (package! doom-modeline)
+(package! deadgrep)
 (package! emr)
 (package! forge)
 (package! goto-chg)
