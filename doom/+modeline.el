@@ -6,6 +6,30 @@
                               (doom-modeline-set-modeline 'smf/main t)))
   :config
 
+  ;=============================== segment tweaks ==============================
+
+  (defun smf/vcs-tweak (prop &rest _)
+    "Trim first left space from vcs segment."
+    (substring prop 1))
+
+  (advice-add (alist-get 'vcs doom-modeline-fn-alist)
+              :filter-return #'smf/vcs-tweak)
+
+  (defun smf/irc-tweak (prop &rest _)
+    "Trim left space."
+    (s-trim-left prop))
+
+  (advice-add (alist-get 'irc doom-modeline-fn-alist)
+              :filter-return #'smf/irc-tweak)
+
+  (defun smf/mu4e-tweak (prop &rest _)
+    "Trim all space and add a tiny space to the right side."
+    (concat (s-trim prop)
+            (propertize " " 'display '(space-width 0.5))))
+
+  (advice-add (alist-get 'mu4e doom-modeline-fn-alist)
+              :filter-return #'smf/mu4e-tweak)
+
   ;========================= map irc channels to icons =========================
 
   (defun smf/irc-icons (buffer)
