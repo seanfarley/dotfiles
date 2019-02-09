@@ -19,15 +19,8 @@
        (ivy              ; a search engine for love and life
         +childframe)     ; modern popup ui
        (lsp
-        +javascript
-        +go
-        +css
-        +lua
-        +rust
         +cpp
-        +java
-        +python
-        +sh)
+        +python)
 
        :ui
        ;;deft              ; notational velocity for Emacs

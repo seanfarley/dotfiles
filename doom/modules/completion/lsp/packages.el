@@ -3,51 +3,17 @@
 
 (when (package! lsp-mode)
   (package! lsp-ui)
-  (package! find-file-in-project)
   (package! company-lsp)
 
-  (when (featurep! +javascript)
-    (package! lsp-typescript
-      :recipe (:fetcher
-               github
-               :repo "emacs-lsp/lsp-javascript"
-               :files ("lsp-typescript.el")))
-    (package! tide :disable t))
+  ;; disable doom packages that lsp already has
+  (package! tide :disable t)
+  (package! racer :disable t)
+  (package! company-shell :disable t)
+  (package! anaconda-mode :disable t)
 
-  (when (featurep! +go)
-    (package! lsp-go))
-
-  (when (featurep! +lua)
-    (package! lua-mode))
-
+  ;; prefer ms-python ironically enough
   (when (featurep! +python)
     (package! lsp-python-ms
       :recipe (:fetcher
                github
-               :repo "seanfarley/lsp-python-ms"
-               :branch "smf/underscore"))
-    (package! anaconda-mode :disable t))
-
-  (when (featurep! +rust)
-    (package! lsp-rust)
-    (package! racer :disable t))
-
-  (when (featurep! +css)
-    (package! lsp-css
-      :recipe (:fetcher
-               github
-               :repo "emacs-lsp/lsp-css")))
-
-  (when (featurep! +cpp)
-    (package! cquery)
-    (package! rtags :disable t))
-
-
-  (when (featurep! +ocaml)
-    (package! lsp-ocaml))
-
-  (when (featurep! +java)
-    (package! lsp-intellij))
-
-  (when (featurep! +sh)
-    (package! company-shell :disable t)))
+               :repo "andrew-christianson/lsp-python-ms"))))
