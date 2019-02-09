@@ -16,7 +16,8 @@
        (company          ; the ultimate code completion backend
         +auto            ; as-you-type code completion
         +childframe)
-       (ivy +childframe) ; a search engine for love and life
+       (ivy              ; a search engine for love and life
+        +childframe)     ; modern popup ui
        (lsp
         +javascript
         +go
