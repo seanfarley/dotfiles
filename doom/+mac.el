@@ -6,15 +6,6 @@
   (when (fboundp 'toggle-frame-fullscreen)
     (toggle-frame-fullscreen))
 
-  ;; set mac opt as meta
-  (setq-default ns-alternate-modifier 'meta)
-  (setq-default mac-option-modifier 'meta)
-  (setq-default ns-right-alternate-modifier nil)
-
-  ;; set command as super
-  (setq-default ns-command-modifier 'super)
-  (setq-default mac-command-modifier 'super)
-
   ;; set fn as hyper
   (setq-default ns-function-modifier 'hyper)
   (setq-default mac-function-modifier 'hyper)
