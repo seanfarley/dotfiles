@@ -62,6 +62,10 @@ if [ -d $HOME/Library/Python/2.7 ]; then
   export PATH=$HOME/Library/Python/2.7/bin:$PATH
 fi
 
+if [ -d $HOME/Library/Python/3.7 ]; then
+  export PATH=$HOME/Library/Python/3.7/bin:$PATH
+fi
+
 if [ -d $HOME/.npm/bin ]; then
   export PATH=$HOME/.npm/bin:$PATH
 fi
