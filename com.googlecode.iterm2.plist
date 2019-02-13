@@ -10,6 +10,8 @@
 	<integer>1</integer>
 	<key>AppleWindowTabbingMode</key>
 	<string>manual</string>
+	<key>CopyLastNewline</key>
+	<true/>
 	<key>Custom Color Presets</key>
 	<dict>
 		<key>Snazzy</key>
@@ -420,13 +422,15 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 381 620 392 0 0 1440 900 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>306 315 928 394 0 0 1440 900 </string>
+	<string>306 326 796 486 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1440 900 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 473 650 427 0 0 1440 900 </string>
+	<string>0 0 1440 900 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>85 394 650 427 0 0 1440 900 </string>
+	<key>NSWindow Frame iTerm Window 3</key>
+	<string>218 29 650 427 0 0 1440 900 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1332,7 +1336,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-11-08T18:31:18Z</date>
+	<date>2019-01-30T11:05:16Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>Secure Input</key>
@@ -1342,6 +1346,6 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.2.5</string>
+	<string>3.2.7</string>
 </dict>
 </plist>
