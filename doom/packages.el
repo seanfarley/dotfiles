@@ -4,7 +4,6 @@
 (package! doom-modeline)
 (package! deadgrep)
 (package! emr)
-(package! forge)
 (package! goto-chg)
 (package! ivy-rich)
 (package! lispy)

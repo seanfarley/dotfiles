@@ -62,8 +62,6 @@
 (add-hook 'magit-process-find-password-functions
           'magit-process-password-auth-source)
 
-(def-package! forge)
-
 ;; (setq doom-theme 'doom-snazzy)
 
 ;; nifty package for popping up a quick emacs frame
