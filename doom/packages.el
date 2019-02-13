@@ -17,7 +17,7 @@
   (:fetcher
    github
    :repo "dzop/pdf-tools"
-   :branch "vector-graphics"
+   :branch "scale-2x"
    :files ("lisp/*.el"
            "README"
            ("build" "Makefile")
