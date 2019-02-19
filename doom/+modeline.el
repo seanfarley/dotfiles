@@ -64,7 +64,8 @@
    +python-mode-line-indicator           nil
    doom-modeline-buffer-file-name-style  'truncate-upto-root
    doom-modeline-irc-stylize             #'smf/irc-icons
-   doom-modeline-github                  t)
+   doom-modeline-github                  t
+   doom-modeline-checker-simple-format   t)
 
   ;; hook to get correct github auth info
   (add-hook 'doom-modeline-before-github-fetch-notification-hook
