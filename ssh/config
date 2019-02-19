@@ -18,6 +18,10 @@ Host euclid
   ControlPersist yes
   ControlPath ~/.ssh/socket-%r@%h:%p
 
+Host pybay
+  HostName pybay.com
+  User pybay
+
 Host *.fsffrance.org
   User smf
 
