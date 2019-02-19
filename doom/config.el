@@ -78,8 +78,7 @@
                          "*scratch*"))
           (frame-parameters . ((undecorated . t))))))))
 
-(setq pdf-view-use-vector-graphics t
-      pdf-view-use-scaling t)
+(setq pdf-view-use-scaling t)
 
 (def-package! webpaste
   :bind (("C-c C-p C-b" . webpaste-paste-buffer)
