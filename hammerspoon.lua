@@ -103,10 +103,6 @@ hs.hotkey.bind({"cmd", "ctrl"}, "L", function()
       hs.application.launchOrFocus("Calendar")
 end)
 
-hs.hotkey.bind({"cmd", "ctrl"}, "I", function()
-      hs.application.launchOrFocus("iTunes")
-end)
-
 -- map emacs keybindings in everything but the emacs app
 local esc = hs.hotkey.new({"ctrl"}, "g", function()
       hs.eventtap.keyStroke({}, "escape")
