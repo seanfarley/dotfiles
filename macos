@@ -731,7 +731,9 @@ brew cask install font-jsmath-cmbx10
 
 # emacs
 brew tap railwaycat/emacsmacport
-brew cask install emacs-mac
+brew install emacs-mac --with-imagemagick --with-modules
+brew install libvterm
+ln -s /usr/local/opt/emacs-mac/Emacs.app /Applications
 
 ###############################################################################
 # Custom fonts                                                                #
