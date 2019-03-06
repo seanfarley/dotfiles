@@ -1,7 +1,6 @@
 (package! exec-path-from-shell :disable t)
 (package! banner-comment)
 (package! bitwarden :recipe (:fetcher github :repo "seanfarley/emacs-bitwarden"))
-(package! doom-modeline)
 (package! emr)
 (package! goto-chg)
 (package! lispy)

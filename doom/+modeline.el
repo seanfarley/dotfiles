@@ -1,11 +1,6 @@
 ;;; ~/projects/dotfiles/doom/+modeline.el -*- lexical-binding: t; -*-
 
-(def-package! doom-modeline
-  :hook (after-init . (lambda ()
-                              (doom-modeline-init)
-                              (doom-modeline-set-modeline 'smf/main t)))
-  :config
-
+(after! doom-modeline
   ;=============================== segment tweaks ==============================
 
   (defun smf/vcs-tweak (prop &rest _)
@@ -53,18 +48,20 @@
 
   ;================ customize segments to put in main  modeline ================
 
-  (doom-modeline-def-modeline 'smf/main
-    '(bar workspace-number window-number god-state xah-fly-keys matches buffer-info remote-host parrot selection-info)
-    '(misc-info persp-name lsp irc mu4e github debug minor-modes process vcs checker))
+  (doom-modeline-def-modeline 'main
+    '(bar buffer-info remote-host selection-info)
+    '(misc-info persp-name irc mu4e github debug indent lsp process vcs checker))
 
   ;=============================== misc settings ===============================
 
   (setq
-   ;; doom-modeline takes care of this so disable doom's own python modeline
-   +python-mode-line-indicator           nil
    doom-modeline-buffer-file-name-style  'truncate-upto-root
    doom-modeline-irc-stylize             #'smf/irc-icons
+   doom-modeline-mu4e                    t
    doom-modeline-github                  t
+   doom-modeline-major-mode-icon         t
+   doom-modeline-major-mode-color-icon   nil
+   doom-modeline-persp-name              t
    doom-modeline-checker-simple-format   t)
 
   ;; hook to get correct github auth info
