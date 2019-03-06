@@ -42,17 +42,6 @@ complete -o nospace -F _.... ....
 # helper functions
 ##################
 
-# usage: _not_in_list_exit $element $list
-# return: echo "1" if found, "" if not found
-_in_list() {
-  local i
-  local found=0
-
-  for i in ${2//,/ }; do [[ "$i" == "$1" ]] && found=1; done
-
-  [ $found -eq 1 ] && echo 1
-}
-
 pg() {
   [ -z "$@" ] && ps aux && return
   ps aux | grep -v grep | grep "$@"
