@@ -36,9 +36,11 @@
   :config
 
   ;; for dev build of language server
-  (setq lsp-python-ms-dir
-        (expand-file-name
-         "~/sandbox/python-language-server/output/bin/Release/")))
+  (setq lsp-python-ms-dir (expand-file-name "python-language-server/"
+                                            doom-cache-dir)
+
+        lsp-python-ms-cache-dir (expand-file-name ".lsp-python/"
+                                                  doom-cache-dir)))
 
 (when (featurep! +python)
   (after! python
