@@ -53,12 +53,6 @@ _in_list() {
   [ $found -eq 1 ] && echo 1
 }
 
-# All the dig info
-digga() {
-  dig +nocmd "$1" any +multiline +noall +answer
-
-}
-
 pg() {
   [ -z "$@" ] && ps aux && return
   ps aux | grep -v grep | grep "$@"
