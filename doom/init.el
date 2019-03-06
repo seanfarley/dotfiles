@@ -8,9 +8,6 @@
        (lookup           ; helps you navigate your code and documentation
         +docsets)        ; ...or in Dash docsets locally
        snippets          ; my elves. They type so I don't have to
-       spellcheck        ; tasing you for misspelling mispelling
-       (syntax-checker   ; tasing you for every semicolon you forget
-        +childframe)     ; use childframes for error popups (Emacs 26+ only)
        workspaces        ; tab emulation, persistence & separate workspaces
 
        :completion
@@ -67,6 +64,9 @@
        docker
        editorconfig      ; let someone else argue about tabs vs spaces
        ein               ; tame Jupyter notebooks with emacs
+       (flycheck         ; tasing you for every semicolon you forget
+        +childframe)
+       flyspell          ; tasing you for misspelling mispelling
        gist              ; interacting with github gists
        macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
