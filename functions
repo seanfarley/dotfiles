@@ -72,16 +72,6 @@ kg() {
   done <<< "$(pg $@)"
 }
 
-d() {
-  local i
-  local GET="curl -OL"
-  [[ -z "$(which curl 2>/dev/null)" ]] && GET="wget -c"
-
-  for i in $@; do
-    $GET $i;
-  done;
-}
-
 imsg() {
   if [ $# -lt 1 ]; then
     echo "Enter a iMessage account (email or phone number i.e +14156...) "
