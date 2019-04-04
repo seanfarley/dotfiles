@@ -705,6 +705,7 @@ brew cask install firefox
 brew cask install iterm2
 brew cask install karabiner-elements
 brew cask install keybase
+brew cask install calibre
 
 # also make this startup upon login
 brew cask install hammerspoon && osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Hammerspoon.app", hidden:false}' &> /dev/null
