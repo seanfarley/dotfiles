@@ -54,9 +54,7 @@
      (bitwarden-auth-source-enable)))
 
 ;; bitwardn password auth-source
-(def-package! bitwarden
-  :config
-  (smf/bitwarden-init))
+(smf/bitwarden-init)
 
 ;; magit should use auth-source
 (add-hook 'magit-process-find-password-functions
