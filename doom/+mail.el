@@ -13,6 +13,8 @@
    smtpmail-smtp-user           "sean@farley.io"
    smtpmail-default-smtp-server "mail.farley.io"
    smtpmail-smtp-server         "mail.farley.io"
+   smtpmail-stream-type         'starttls
+   smtpmail-smtp-service        587
 
    mu4e-user-mail-address-list '("sean.michael.farley@gmail.com"
                                  "sean@seanfarley.org"
