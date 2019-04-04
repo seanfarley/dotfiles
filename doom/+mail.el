@@ -24,7 +24,8 @@
                                  "sean@farley.io"
                                  "sfarley@atlassian.com"
                                  "me@smf.io"
-                                 "sfarley@iit.edu")
+                                 "sfarley@iit.edu"
+                                 "sean@preferred-america.com")
 
    mu4e-attachment-dir  "~/Downloads"
 
@@ -124,6 +125,12 @@
                (mu4e-message-contact-field-matches msg :from "macports")
                (mu4e-message-contact-field-matches msg :to "macports"))
               "sean@macports.org")
+             ((or
+               (mu4e-message-contact-field-matches msg :from "preferred-networks")
+               (mu4e-message-contact-field-matches msg :to "preferred-networks")
+               (mu4e-message-contact-field-matches msg :from "preferred-america")
+               (mu4e-message-contact-field-matches msg :to "preferred-america"))
+              "sean@preferred-america.com")
              (t "sean@farley.io")))))
 
   (add-hook 'mu4e-compose-pre-hook 'smf/mu4e-set-from-address)
