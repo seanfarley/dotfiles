@@ -108,7 +108,9 @@ local esc = hs.hotkey.new({"ctrl"}, "g", function()
       hs.eventtap.keyStroke({}, "escape")
 end)
 
-function applicationWatcher(appName, eventType, appObject)
+-- after much research, applicationWatcher is the best way to achieve what we
+-- want for ctrl-g with emacs
+local function applicationWatcher(appName, eventType, appObject)
    if (eventType == hs.application.watcher.activated) then
       if (appName == "Emacs") then
          esc:disable()
@@ -117,5 +119,5 @@ function applicationWatcher(appName, eventType, appObject)
       end
    end
 end
-appWatcher = hs.application.watcher.new(applicationWatcher)
+local appWatcher = hs.application.watcher.new(applicationWatcher)
 appWatcher:start()
