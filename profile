@@ -14,9 +14,6 @@ if [ -n "$PS1" ]; then
   # load keys from keychain
   if [[ -f /usr/bin/security ]]; then
     ssh-add -K &> /dev/null
-    for f in $(find ~/.ssh/ -maxdepth 1 -type f \( -name id_\* -or -name sean_\* -or -name smf_\* \) ! -name \*.pub); do
-      [[ -f "$f" ]] && ssh-add -K "$f" &> /dev/null
-    done
   fi
 
   [[ BASH_VERSINFO -ge 4 ]] && shopt -s globstar
