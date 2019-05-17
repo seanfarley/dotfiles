@@ -121,10 +121,10 @@ gpgconf --kill gpg-agent
 # generic apps that have the same installation on all systems
 
 # python
-pip install --user cython
-pip install --user flake8
-pip install --user hg-evolve
-pip install --user pipenv
-pip install --user sphinx
+pip install --user -U cython
+pip install --user -U flake8
+pip install --user -U hg-evolve
+pip install --user -U pipenv
+pip install --user -U sphinx
 
 exit 0
