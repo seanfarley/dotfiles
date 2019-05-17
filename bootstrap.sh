@@ -51,13 +51,16 @@ mkdir -p ~/.pastebin.d
 mkdir -p ~/.hammerspoon
 mkdir -p ~/.config/pass-git-helper
 
+[[ ! -d "$HOME/projects/doom-emacs" ]] && echo "doom not cloned yet" && exit 128
+
 ensure_link "aliases"
 ensure_link "aspell.en.prepl"
 ensure_link "aspell.en.pws"
 ensure_link "bash_prompt"
 ensure_link "ctags"
 ensure_link "dir_colors"
-ensure_link "emacs" ".emacs.d"
+ensure_link "$HOME/projects/doom" ".emacs.d"
+ensure_link "doom" ".doom.d"
 ensure_link "edit.sh"
 ensure_link "exports"
 ensure_link "functions"
@@ -91,21 +94,6 @@ ensure_link "hammerspoon.lua" ".hammerspoon/init.lua"
 ensure_link "git-pass-mapping.ini" ".config/pass-git-helper/git-pass-mapping.ini"
 ensure_link "gpg-agent.conf" ".gnupg/gpg-agent.conf"
 ensure_link "gpg.conf" ".gnupg/gpg.conf"
-
-EM=emacs
-if [ -x "$EMACS" ]; then
-  EM="$EMACS"
-fi
-
-echo "Tangling init"
-$EM --batch --eval "(progn
-(setq vc-follow-symlinks nil)
-(find-file \"emacs/README.org\")
-(require 'ob-tangle)
-(org-babel-tangle nil \"init.el\")
-(byte-compile-file \"init.el\")
-)"
-   echo "Finished tangling"
 
 [[ ! -f "$HOME/.ssh/id_rsa" ]] && echo "No ssh id_rsa!" && exit 3
 
