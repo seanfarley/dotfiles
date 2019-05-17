@@ -22,23 +22,6 @@
 ;; really convenient mode for copying the whole line or region
 (whole-line-or-region-global-mode)
 
-;; save and restore the scratch buffer
-(def-package! persistent-scratch
-  :init
-  (setq persistent-scratch-save-file
-        (expand-file-name "persistent-scratch"
-                          doom-cache-dir))
-
-  :config
-  (persistent-scratch-setup-default)
-  (persistent-scratch-autosave-mode)
-
-  (defun smf/scratch-init ()
-    (switch-to-buffer (get-buffer-create "*scratch*"))
-    (lisp-interaction-mode))
-
-  (add-hook 'doom-scratch-buffer-hook #'smf/scratch-init))
-
 ;; enable hs-minor-mode
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 
