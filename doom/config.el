@@ -1,4 +1,5 @@
-(setq server-use-tcp t)
+(setq server-use-tcp t
+      server-port    9999)
 
 ;; custom fonts
 
