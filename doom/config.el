@@ -76,6 +76,8 @@
   :bind (("C-c C-p C-b" . webpaste-paste-buffer)
          ("C-c C-p C-r" . webpaste-paste-region)))
 
+(add-hook 'after-init-hook 'global-color-identifiers-mode)
+
 ;; load personal modules
 (load! "+utils")
 (load! "+mac")
