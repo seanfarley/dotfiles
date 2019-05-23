@@ -148,11 +148,16 @@
        web               ; the tubes
        ;;vala              ; GObjective-C
 
+       :email
+       mu4e                ; WIP
+       ;;notmuch             ; WIP
+       ;;(wanderlust +gmail) ; WIP
+
        ;; Applications are complex and opinionated modules that transform Emacs
        ;; toward a specific purpose. They may have additional dependencies and
        ;; should be loaded late.
        :app
-       email             ; emacs as an email client
+       ;;calendar
        irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
        twitter           ; twitter client https://twitter.com/vnought
