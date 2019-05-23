@@ -13,7 +13,8 @@
         +auto            ; as-you-type code completion
         +childframe)
        (ivy              ; a search engine for love and life
-        +childframe)     ; modern popup ui
+        +childframe      ; modern popup ui
+        +icons)          ; pretty icons in buffer lists
 
        :ui
        ;;deft              ; notational velocity for Emacs
