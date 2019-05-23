@@ -38,41 +38,23 @@ if [ -d /opt/local ]; then
   fi
 fi
 
-if [ -d $HOME/.local/bin ]; then
-  export PATH=$HOME/.local/bin:$PATH
-fi
+export PATH=$HOME/.local/bin:$PATH
 
-if [ -d /usr/local/cuda ]; then
-  export PATH=/usr/local/cuda/bin:$PATH
-fi
+export PATH=/usr/local/bin:$PATH
 
-if [ -d $HOME/.cargo/bin ]; then
-  export PATH=$HOME/.cargo/bin:$PATH
-fi
+export PATH=/usr/local/cuda/bin:$PATH
 
-if [ -d $GOPATH/bin ]; then
-  export PATH=$GOPATH/bin:$PATH
-fi
+export PATH=$HOME/.cargo/bin:$PATH
 
-if [ -d $HOME/Library/Python/2.7 ]; then
-  export PATH=$HOME/Library/Python/2.7/bin:$PATH
-fi
+export PATH=$GOPATH/bin:$PATH
 
-if [ -d $HOME/Library/Python/3.7 ]; then
-  export PATH=$HOME/Library/Python/3.7/bin:$PATH
-fi
+export PATH=$HOME/Library/Python/2.7/bin:$PATH
 
-if [ -d $HOME/.npm/bin ]; then
-  export PATH=$HOME/.npm/bin:$PATH
-fi
+export PATH=$HOME/Library/Python/3.7/bin:$PATH
 
-if [ -d $HOME/.config/yarn/global/node_modules/.bin ]; then
-  export PATH=$HOME/.config/yarn/global/node_modules/.bin:$PATH
-fi
+export PATH=$HOME/.npm/bin:$PATH
 
-if [ -d /usr/local/opt/coreutils/libexec/gnubin ]; then
-  export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-fi
+export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 
 # for virtualenv
 export VIRTUALENV_HOME="$HOME/.virtualenvs"
