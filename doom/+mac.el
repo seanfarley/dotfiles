@@ -10,5 +10,8 @@
   (setq-default ns-function-modifier 'hyper)
   (setq-default mac-function-modifier 'hyper)
 
+  (if (fboundp 'mac-auto-operator-composition-mode)
+      (mac-auto-operator-composition-mode))
+
   ;; don't use the native fullscreen crap
   (setq-default ns-use-native-fullscreen nil))
