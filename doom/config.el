@@ -3,6 +3,9 @@
 
 ;; custom fonts
 
+;; optionally specifiy :weight 'light
+(setq doom-font (font-spec :family "FuraCode Nerd Font" :size 14))
+
 ;; icomoon allows use of custom ranges so just upload there and make sure that
 ;; range matches the range below
 (when (fboundp 'set-fontset-font)
