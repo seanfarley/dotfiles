@@ -3,6 +3,7 @@
 (package! bitwarden :recipe (:fetcher github :repo "seanfarley/emacs-bitwarden"))
 (package! color-identifiers-mode)
 (package! emr)
+(package! focus)
 (package! goto-chg)
 (package! lispy)
 (package! lsp-python-ms)
