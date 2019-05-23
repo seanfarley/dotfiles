@@ -14,9 +14,6 @@
         +childframe)
        (ivy              ; a search engine for love and life
         +childframe)     ; modern popup ui
-       (lsp
-        +cpp
-        +python)
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -77,6 +74,7 @@
        gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
         +docsets)        ; ...or in Dash docsets locally
+       lsp
        macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
@@ -110,7 +108,8 @@
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
-       javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript       ; all(hope(abandon(ye(who(enter(here))))))
+        +lsp)
        ;;julia             ; a better, faster MATLAB
        (latex            ; writing papers in Emacs has never been so fun
         +latexmk)
@@ -132,7 +131,8 @@
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       python            ; beautiful is better than ugly
+       (python           ; beautiful is better than ugly
+        +lsp)
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;rest              ; Emacs as a REST client

@@ -83,3 +83,4 @@
 (load! "+twitter")
 (load! "+mail")
 (load! "+modeline")
+(load! "+lsp")
