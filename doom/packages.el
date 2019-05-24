@@ -13,7 +13,6 @@
 (package! persistent-scratch)
 (package! resize-window)
 (package! ripgrep)
-(package! smart-jump)
 (package! srefactor)
 (package! unfill)
 (package! webpaste)

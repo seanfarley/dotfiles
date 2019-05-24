@@ -28,9 +28,6 @@
 ;; enable hs-minor-mode
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 
-;; smart-jump
-(smart-jump-setup-default-registers)
-
 (defmacro smf/bitwarden-init ()
   `(progn
      (require 'bitwarden nil t)
