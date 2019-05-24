@@ -16,9 +16,10 @@
     ;; icons for each org file, only works in gui mode
     (setq-default
      org-agenda-category-icon-alist
-     `(("hg" ,(list (propertize (all-the-icons-faicon "mercury")
-                                'face `(:family ,(all-the-icons-faicon-family) :height 1.3)
-                                )) nil nil :height (16) :width (16) :ascent center)
+     `(("hg" ,(list (propertize
+                     (all-the-icons-faicon "mercury")
+                     'face `(:family ,(all-the-icons-faicon-family) :height 1.3)))
+        nil nil :height (16) :width (16) :ascent center)
        ("personal" ,(list (all-the-icons-faicon "user")) nil nil :ascent center)
        ("phd" ,(list (all-the-icons-faicon "superscript")) nil nil :ascent center))))
 
