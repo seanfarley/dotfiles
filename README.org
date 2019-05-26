@@ -1,0 +1,17 @@
+* Sean's Dotfiles
+
+An always evolving repo of my settings. My ultimate goal is to minimize the code
+in this repo as much as possible by upstreaming my settings.
+
+OS targets are =MacOS= and =Linux=. In the future, I might choose =NixOS=.
+Ideally, I'd just be running Emacs as my OS :-)
+
+Basic usuage:
+
+#+BEGIN_SRC sh
+./bootstrap
+./osx
+#+END_SRC
+
+Since this repo is cobbled together from many other users' ideas, feel free to
+do the same for mine.
