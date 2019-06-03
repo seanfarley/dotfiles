@@ -70,7 +70,6 @@
 
 ;; load personal modules
 (load! "+utils")
-(load! "+mac")
 (load! "+bindings")
 (load! "+org")
 (load! "+org-starter")
@@ -79,3 +78,4 @@
 (load! "+mail")
 (load! "+modeline")
 (load! "+lsp")
+(load! "+mac")
