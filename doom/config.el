@@ -60,20 +60,6 @@
 
 ;; (setq doom-theme 'doom-snazzy)
 
-;; nifty package for popping up a quick emacs frame
-(def-package! yequake
-  :config
-  (setq yequake-frames
-      '(("Yequake & scratch" .
-         ((name . "Yequake & scratch")
-          (width . 0.75)
-          (height . 0.5)
-          (alpha . 0.75)
-          (buffer-fns . ("~/projects/dotfiles/doom/config.el"
-                         split-window-horizontally
-                         "*scratch*"))
-          (frame-parameters . ((undecorated . t))))))))
-
 (setq pdf-view-use-scaling t)
 
 (def-package! webpaste

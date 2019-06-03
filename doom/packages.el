@@ -17,4 +17,3 @@
 (package! unfill)
 (package! webpaste)
 (package! whole-line-or-region)
-(package! yequake :recipe (:fetcher github :repo "alphapapa/yequake"))
