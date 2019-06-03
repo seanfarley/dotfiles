@@ -667,7 +667,6 @@ brew install findutils --with-default-names
 brew install imagemagick
 brew install isync
 brew install lz4
-brew install mercurial
 brew install mpc
 brew install mpd
 brew install mu --HEAD
