@@ -13,7 +13,7 @@ _main() {
     osascript -e 'tell application "Emacs" to activate' > /dev/null 2>&1 &
     # Support piping text to emacs.
     local tempfile
-    tempfile="$(mktemp -t "emacs-stdin-$USER")"
+    tempfile="$(mktemp -t "emacs-stdin-$USER-XXXXXXX")"
     cat - > "${tempfile}"
     _emacs "${tempfile}"
   else
