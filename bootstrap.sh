@@ -127,4 +127,12 @@ pip3 install --user -U hg-evolve
 pip3 install --user -U pipenv
 pip3 install --user -U sphinx
 
+# xonsh
+pip3 install --user -U xonsh gitsome
+pip3 install --user -U pillow gnureadline
+pip3 install --user -U git+https://github.com/seanfarley/autojump-xonsh@smf/fix-env
+pip3 install --user -U xontrib-autojump xonsh-docker-tabcomplete xontrib-readable-traceback
+pip3 install --user -U git+https://github.com/laloch/xonsh-vox-tabcomplete.git@proxy-warnings
+pip3 install --user -U git+https://github.com/deeuu/xontrib-apipenv.git
+
 exit 0
