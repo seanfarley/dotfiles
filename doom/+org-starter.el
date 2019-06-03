@@ -6,7 +6,7 @@
   ;; TODO this is duplicating entries in org-agenda
   (setq-default
    ;; set up root org directory
-   org-directory "~/pydio/org"
+   org-directory "~/Nextcloud/org"
 
    ;; set the file for capturing todos
    org-default-notes-file (concat org-directory "/inbox.org"))
