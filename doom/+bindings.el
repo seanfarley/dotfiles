@@ -32,6 +32,7 @@
   "C-s-<left>"                        #'windmove-left
 
   ;; Plugins
+  "C-:"                               #'avy-goto-char-timer
 
   ;; goto-chg
   "H-."                               #'goto-last-change
