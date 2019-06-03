@@ -16,6 +16,9 @@ _main() {
     tempfile="$(mktemp -t "emacs-stdin-$USER-XXXXXXX")"
     cat - > "${tempfile}"
     _emacs "${tempfile}"
+  elif [[ "$1" =~ .*:[0-9]+ ]]; then
+    IFS=':' read -ra arrFL <<< "$1"
+    _emacs -e "(let ((buf (find-file \"${arrFL[0]}\"))) (goto-line ${arrFL[1]}) (select-frame-set-input-focus (window-frame (get-buffer-window buf))))"
   else
     _emacs "$@"
   fi
