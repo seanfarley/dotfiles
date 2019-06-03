@@ -675,8 +675,6 @@ brew install pass
 brew install pinentry-mac
 brew install terminal-notifier
 brew install rust
-brew install watchman
-brew install yarn
 
 # bash
 brew install bash
