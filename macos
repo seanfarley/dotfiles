@@ -722,11 +722,11 @@ brew tap caskroom/fonts
 
 brew install fontconfig
 brew cask install font-fontawesome
-brew cask install font-fira-code
-brew cask install font-fira-mono
-brew cask install font-fira-mono-for-powerline
 brew cask install font-symbola
 brew cask install font-jsmath-cmbx10
+brew cask install font-firacode-nerd-font font-firacode-nerd-font-mono
+brew cask install font-iosevka-nerd-font  font-iosevka-nerd-font-mono
+brew cask install font-monoid-nerd-font   font-monoid-nerd-font-mono
 
 # emacs
 brew tap railwaycat/emacsmacport
