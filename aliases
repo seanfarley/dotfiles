@@ -16,8 +16,6 @@ alias server="open http://localhost:8080/ && python -m SimpleHTTPServer 8080"
 alias e="$HOME/.edit.sh -n"
 alias s="perl -pi -e"
 alias l="less"
-alias h="hg"
-alias lhg="HGDEMANDIMPORT=disable $HOME/projects/hg/hg"
 
 [ -n "$(ls --version 2>/dev/null)" ] && alias ls='ls --color=auto'
 
@@ -25,7 +23,3 @@ if [ "$(echo test | grep --color=auto te 2>/dev/null)" == "te" ];then
    alias grep='grep --color=auto'
 fi
 alias g='grep -i'
-
-if command -v chg >/dev/null 2>&1; then
-  alias hg=chg
-fi

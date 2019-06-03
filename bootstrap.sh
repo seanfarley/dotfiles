@@ -102,7 +102,6 @@ ensure_link "gpg.conf" ".gnupg/gpg.conf"
 # python
 pip3 install --user -U cython
 pip3 install --user -U flake8
-pip3 install --user -U hg-evolve
 pip3 install --user -U pipenv
 pip3 install --user -U sphinx
 
