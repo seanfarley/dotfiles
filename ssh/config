@@ -2,25 +2,29 @@ KeepAlive yes
 ServerAliveInterval 60
 StrictHostKeyChecking no
 
+Host pfna-gateway
+  HostName 99.23.123.185
+  CheckHostIP yes
+  ProxyCommand none
+
+Host pfna pfna-gpu2             # emacs
+  HostName pfna-gpu2.local
+  ProxyCommand ssh -A -W %h:%p pfna-gateway
+  RemoteForward 9999 localhost:9999
+
 Host github.com
   HostName ssh.github.com
   Port 443
 
-Host smf.io
-  ControlMaster auto
-  ControlPersist yes
-  ControlPath ~/.ssh/socket-%r@%h:%p
-
-Host euclid
+Host euclid                     # emacs
   HostName farley.in
+  RemoteForward 9999 localhost:9999
   #Port 443
-  ControlMaster auto
-  ControlPersist yes
-  ControlPath ~/.ssh/socket-%r@%h:%p
 
 Host pybay
   HostName pybay.com
   User pybay
+  RemoteForward 9999 localhost:9999
 
 Host *.fsffrance.org
   User smf
