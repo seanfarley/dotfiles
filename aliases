@@ -10,7 +10,7 @@ alias localips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 alias localip="localips | grep -v 127.0.0.1"
 
 # Shortcuts
-alias e="$HOME/.edit.sh -n"
+alias e="$HOME/.ec"
 alias s="perl -pi -e"
 alias l="less"
 
