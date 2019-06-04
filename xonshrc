@@ -1,0 +1,150 @@
+import hashlib
+import os
+import platform
+import shlex
+
+
+from xonsh.events import events
+from xonsh.tools import EnvPath
+
+$AUTO_CD = '1'
+$AUTO_PUSHD = '1'
+$AUTO_SUGGEST_IN_COMPLETIONS = '1'
+$BASH_COMPLETIONS = '/usr/local/share/bash-completion/'
+$CASE_SENSITIVE_COMPLETIONS = False
+$DYNAMIC_CWD_ELISION_CHAR = '…'
+$XONSH_SHOW_TRACEBACK = True
+# source-bash --overwrite-aliases --interactive True --sourcer source "echo loading xonsh foreign shell"
+
+
+# =================================== aliases =================================
+
+def _md(args, stdin=None):
+    mkdir -p @(args[0])
+    cd @(args[0])
+
+aliases['md'] = _md
+aliases['-'] = 'cd -'
+aliases['..'] = 'cd ..'
+aliases['...'] = 'cd ../..'
+aliases['g'] = 'grep -i --color=auto'
+aliases['l'] = 'less'
+
+# =================================== exports =================================
+
+$EDITOR = "emacsclient"
+# Don't clear the screen after quitting a manual page
+$MANPAGER = "less -X"
+$LESS = "--ignore-case --quit-if-one-screen --quit-on-intr FRXQ"
+
+$PROJECTS = $HOME + "/projects"
+$SANDBOX = $HOME + "/sandbox"
+$PHD = $PROJECTS + "/phd"
+
+$GOPATH = $PROJECTS + "/go"
+
+# sweet, sweet emacs
+$EMACS_SERVER_FILE = $HOME + "/.emacs.d/server/server"
+if os.path.exists($HOME + "/.emacs.d/.local/cache/server/"):
+    $EMACS_SERVER_FILE = $HOME + "/.emacs.d/.local/cache/server/server"
+
+# if we're not on our home machine, then set tramp
+if $HOME != "/Users/" + $USER:
+    $EMACSCLIENT_TRAMP = "/ssh:" + $(hostname -f).strip() + ":"
+
+# ==================================== paths ==================================
+
+$PATH = EnvPath([
+    $HOME + "/.local/bin",
+    "/opt/X11/bin",
+    "/usr/local/bin",
+    "/usr/local/sbin",
+    "/usr/local/cuda/bin",
+    "/usr/local/share/dotnet",
+    $HOME + "/.cargo/bin",
+    $GOPATH[0] + "/bin",
+    $HOME + "/Library/Python/3.7/bin",
+    $HOME + "/.npm/bin",
+    "/usr/local/opt/coreutils/libexec/gnubin",
+    "/Library/TeX/texbin",
+]) + $PATH
+
+# =================================== prompt ==================================
+
+# determine type of os
+$PROMPT_FIELDS['os'] = ''
+plat = platform.platform().lower()
+if 'darwin' in plat:
+    $PROMPT_FIELDS['os'] = ''
+elif 'ubuntu' in plat:
+    $PROMPT_FIELDS['os'] = ''
+elif 'fedora' in plat:
+    $PROMPT_FIELDS['os'] = ''
+elif 'centos' in plat:
+    $PROMPT_FIELDS['os'] = ''
+
+
+def host_color():
+    hn = $PROMPT_FIELDS['hostname'].encode('utf8')
+    hn_hash = hashlib.md5(hn)
+    colors = [
+        "#D68700",
+        "#FFC97F",
+        "#C0893F",
+        "#804900",
+        "#F26722",
+    ]
+    # print(hn_hash.hexdigest())
+    return colors[0]
+
+
+$PROMPT_FIELDS['env_prefix'] = $PROMPT_FIELDS['env_postfix'] = ''
+
+$PROMPT = ("\n{#686868}┌─{BOLD_RED} {user} "
+           "{BOLD_%s}{os} {hostname}{NO_COLOR}"
+           "{BOLD_BLUE}   {short_cwd}"
+           "{branch_color}{curr_branch:  {}}"
+           "{BOLD_YELLOW}{env_name:  {}}"
+           "{ret_code_color}{ret_code}\n"
+           "{#686868}└─{NO_COLOR} ") % host_color()
+
+# ===================================== etc ===================================
+
+if (os.path.isfile('/usr/bin/security') and
+    !(ssh-add -lq a> /dev/null).returncode == 1):
+    ssh-add -K
+
+# =================================== events ==================================
+
+@events.on_precommand
+def ssh_pre(cmd):
+    cmds = shlex.split(cmd)
+    if cmds and cmds[0] == 'ssh':
+        hostname = ""
+        for c in cmds[1:]:
+            if not c.startswith('-'):
+                hostname = c
+                if '@' in hostname:
+                    hostname = hostname.split('@', 1)[1]
+                break
+        # build set of hostnames that we explicity want to scp the emacs file
+        names = set()
+        for line in open(os.environ['HOME'] + '/.ssh/config'):
+            line = line.strip()
+            if line.endswith('# emacs'):
+                line = line.replace("Host ", "")
+                line = line.replace("# emacs", "")
+                names ^= set(line.strip().split())
+        if hostname and hostname in names:
+            # TODO create directory if needed and switch to doom
+            # echo scp $EMACS_SERVER_FILE @(hostname):.emacs.d/server/server
+            rsync $EMACS_SERVER_FILE @(hostname):.emacs.d/server/server
+
+# =================================== plugins =================================
+
+# read bash completions
+$BASH_COMPLETIONS.insert(0, '/usr/local/share/bash-completion/bash_completion')
+
+xontrib load autojump coreutils distributed docker_tabcomplete jedi mpl
+xontrib load prompt_ret_code vox vox_tabcomplete xonsh-apipenv
+xontrib load readable-traceback
