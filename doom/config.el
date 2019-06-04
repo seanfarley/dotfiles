@@ -78,4 +78,4 @@
 (load! "+mail")
 (load! "+modeline")
 (load! "+lsp")
-(load! "+mac")
+(load! "+ui")
