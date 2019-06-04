@@ -56,7 +56,6 @@
 (load! "+utils")
 (load! "+bindings")
 (load! "+org")
-(load! "+org-starter")
 (load! "+irc")
 (load! "+twitter")
 (load! "+mail")
