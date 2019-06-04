@@ -9,10 +9,10 @@
   "s-}"                               #'forward-paragraph
   "s-{"                               #'backward-paragraph
 
-  "H-<left>"                          #'beginning-of-buffer
-  "H-<right>"                         #'end-of-buffer
-  "H-<down>"                          [?\C-v]
-  "H-<up>"                            [?\M-v]
+  "C-M-s-<left>"                      #'beginning-of-buffer
+  "C-M-s-<right>"                     #'end-of-buffer
+  "C-M-s-<down>"                      [?\C-v]
+  "C-M-s-<up>"                        [?\M-v]
 
   ;; custom methods
   "C-M-d"                             #'smf/delete-to-end-of-buffer
@@ -35,7 +35,7 @@
   "C-:"                               #'avy-goto-char-timer
 
   ;; goto-chg
-  "H-."                               #'goto-last-change
+  "C-M-s-z"                           #'goto-last-change
 
   ;; Smartparens
   (:after smartparens

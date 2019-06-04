@@ -6,10 +6,6 @@
   (when (fboundp 'toggle-frame-fullscreen)
     (toggle-frame-fullscreen))
 
-  ;; set fn as hyper
-  (setq-default ns-function-modifier 'hyper)
-  (setq-default mac-function-modifier 'hyper)
-
   (if (fboundp 'mac-auto-operator-composition-mode)
       (mac-auto-operator-composition-mode))
 
