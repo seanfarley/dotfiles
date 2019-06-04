@@ -16,14 +16,14 @@
 ;;                   'display '(raise -0.1)
 ;;                   'font-lock-ignore t))
 
-(when (and (eq system-type 'darwin) (display-graphic-p))
-
+(when (display-graphic-p)
   ;; automatically start in fullscreen
   (when (fboundp 'toggle-frame-fullscreen)
     (toggle-frame-fullscreen))
 
-  (if (fboundp 'mac-auto-operator-composition-mode)
-      (mac-auto-operator-composition-mode))
+  (when (eq system-type 'darwin)
+    (if (fboundp 'mac-auto-operator-composition-mode)
+        (mac-auto-operator-composition-mode))
 
-  ;; don't use the native fullscreen crap
-  (setq-default ns-use-native-fullscreen nil))
+    ;; don't use the native fullscreen crap
+    (setq-default ns-use-native-fullscreen nil)))
