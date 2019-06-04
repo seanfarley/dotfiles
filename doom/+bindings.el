@@ -23,9 +23,6 @@
   ;; common typo for me
   "C-x C-b"                           #'persp-switch-to-buffer
 
-  ;; Switching windows
-  "C-x O"                             #'switch-window-then-swap-buffer
-
   "C-s-<up>"                          #'windmove-up
   "C-s-<down>"                        #'windmove-down
   "C-s-<right>"                       #'windmove-right
