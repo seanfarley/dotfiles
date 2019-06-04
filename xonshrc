@@ -29,6 +29,9 @@ aliases['..'] = 'cd ..'
 aliases['...'] = 'cd ../..'
 aliases['g'] = 'grep -i --color=auto'
 aliases['l'] = 'less'
+aliases['e'] = '$HOME/.ec'
+aliases['s'] = 'perl -pi -e'
+aliases['ls'] = 'ls --color=auto'
 
 # =================================== exports =================================
 
