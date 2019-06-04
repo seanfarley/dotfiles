@@ -1,5 +1,5 @@
 # Make emacs the default editor
-export EDITOR="$HOME/.edit.sh"
+export EDITOR="emacsclient"
 # Don't clear the screen after quitting a manual page
 export MANPAGER="less -X"
 export LESS="--ignore-case --quit-if-one-screen --quit-on-intr FRXQ"
@@ -18,6 +18,17 @@ export PHD=$PROJECTS/phd
 export CDPATH=.:$PROJECTS:$HOME
 
 export GOPATH=$PROJECTS/go
+
+# sweet, sweet emacs
+export EMACS_SERVER_FILE=$HOME/.emacs.d/server/server
+if [ -d $HOME/.emacs.d/.local/cache/server/ ]; then
+  export EMACS_SERVER_FILE=$HOME/.emacs.d/.local/cache/server/server
+fi
+
+# if we're not on our home machine, then set tramp
+if [[ $HOME != /Users/$USER ]]; then
+  export EMACSCLIENT_TRAMP="/ssh:$(hostname -f):"
+fi
 
 ##
 # Paths, environment variables
