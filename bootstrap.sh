@@ -94,6 +94,7 @@ ensure_link "hammerspoon.lua" ".hammerspoon/init.lua"
 ensure_link "git-pass-mapping.ini" ".config/pass-git-helper/git-pass-mapping.ini"
 ensure_link "gpg-agent.conf" ".gnupg/gpg-agent.conf"
 ensure_link "gpg.conf" ".gnupg/gpg.conf"
+ensure_link "xonshrc"
 
 [[ ! -f "$HOME/.ssh/id_rsa" ]] && echo "No ssh id_rsa!" && exit 3
 
