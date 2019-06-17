@@ -9,8 +9,6 @@ function reloadConfig(files)
         hs.reload()
     end
 end
-local myWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/init.lua", reloadConfig):start()
-hs.alert.show("Config loaded")
 
 -- left half window
 hs.hotkey.bind({"cmd", "shift", "ctrl"}, "Left", function()
@@ -121,3 +119,6 @@ local function applicationWatcher(appName, eventType, appObject)
 end
 local appWatcher = hs.application.watcher.new(applicationWatcher)
 appWatcher:start()
+
+local myWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon", reloadConfig):start()
+hs.alert.show("Config loaded")
