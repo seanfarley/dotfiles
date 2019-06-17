@@ -1,3 +1,5 @@
+local emacs = require "emacs"
+
 function reloadConfig(files)
     doReload = false
     for _,file in pairs(files) do
