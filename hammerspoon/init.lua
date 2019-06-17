@@ -10,6 +10,9 @@ function reloadConfig(files)
     end
 end
 
+ipc = require('hs.ipc')
+ipc.cliInstall()
+
 -- left half window
 hs.hotkey.bind({"cmd", "shift", "ctrl"}, "Left", function()
   local win = hs.window.focusedWindow()
