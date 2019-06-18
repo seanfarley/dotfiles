@@ -1920,7 +1920,7 @@
                         ]
                     },
                     {
-                        "description": "Change fn key to command+control+option+shift.",
+                        "description": "Change fn key to command+control+option.",
                         "manipulators": [
                             {
                                 "from": {
@@ -1933,9 +1933,8 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "left_shift",
+                                        "key_code": "left_command",
                                         "modifiers": [
-                                            "left_command",
                                             "left_control",
                                             "left_option"
                                         ]
