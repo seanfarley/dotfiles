@@ -32,6 +32,8 @@ aliases['l'] = 'less'
 aliases['e'] = '$HOME/.ec'
 aliases['s'] = 'perl -pi -e'
 aliases['ls'] = 'ls --color=auto'
+aliases['doom-upgrade'] = 'sh -c "cd ~/projects/doom-emacs; ./bin/doom -y upgrade"'
+aliases['doom-refresh'] = 'sh -c "cd ~/projects/doom-emacs; ./bin/doom refresh"'
 
 # =================================== exports =================================
 
