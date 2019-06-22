@@ -3,6 +3,12 @@
 ;; optionally specifiy :weight 'light
 (setq doom-font (font-spec :family "FuraCode Nerd Font" :size 14))
 
+(after! hl-line
+  ;; doom set this for a tiny speed boost but it breaks highlighting in mu4e
+  ;; header-view
+  (setq hl-line-sticky-flag t
+        global-hl-line-sticky-flag t))
+
 ;; icomoon allows use of custom ranges so just upload there and make sure that
 ;; range matches the range below
 (when (fboundp 'set-fontset-font)
