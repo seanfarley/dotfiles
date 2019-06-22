@@ -46,6 +46,8 @@ $PHD = $PROJECTS + "/phd"
 
 $GOPATH = $PROJECTS + "/go"
 
+$RIPGREP_CONFIG_PATH = $HOME + "/.ripgreprc"
+
 # sweet, sweet emacs
 $EMACS_SERVER_FILE = $HOME + "/.emacs.d/server/server"
 if os.path.exists($HOME + "/.emacs.d/.local/cache/server/"):
