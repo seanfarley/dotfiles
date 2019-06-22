@@ -1,18 +1,10 @@
+local ipc = require 'hs.ipc'
+
 local emacs = require "emacs"
+local keybindings = require "keybindings"
+local reload = require 'utils/reload'
 
-function reloadConfig(files)
-    doReload = false
-    for _,file in pairs(files) do
-        if file:sub(-4) == ".lua" then
-            doReload = true
-        end
-    end
-    if doReload then
-        hs.reload()
-    end
-end
-
-ipc = require('hs.ipc')
+-- make sure command-line utility is enabled and installed
 ipc.cliInstall()
 
 -- left half window
@@ -125,5 +117,7 @@ end
 local appWatcher = hs.application.watcher.new(applicationWatcher)
 appWatcher:start()
 
-local myWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon", reloadConfig):start()
+reload.init()
+keybindings.init()
+
 hs.alert.show("Config loaded")
