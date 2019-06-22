@@ -26,7 +26,7 @@
                      :host "smf.io"
                      :server-buffer-name "{network}:{host}:{port}"
                      :channels ("#mercurial" "#bitbucket")))
-  
+
   (set-irc-server! "bitlbee"
                    `(:use-tls t
                      :nick "smf"
