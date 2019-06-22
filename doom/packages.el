@@ -2,6 +2,7 @@
 (package! banner-comment)
 (package! bitwarden :recipe (:fetcher github :repo "seanfarley/emacs-bitwarden"))
 (package! color-identifiers-mode)
+(package! embrace)
 (package! emr)
 (package! focus)
 (package! goto-chg)
