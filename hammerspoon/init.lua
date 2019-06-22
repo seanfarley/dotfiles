@@ -77,27 +77,6 @@ hs.hotkey.bind({"cmd", "shift", "ctrl"}, "/", function()
   win:setFrame(f)
 end)
 
-
-hs.hotkey.bind({"cmd", "ctrl"}, "S", function()
-      hs.application.launchOrFocus("Safari")
-end)
-
-hs.hotkey.bind({"cmd", "ctrl"}, "C", function()
-      hs.application.launchOrFocus("Safari")
-end)
-
-hs.hotkey.bind({"cmd", "ctrl"}, "E", function()
-      hs.application.launchOrFocus("/Applications/Emacs.app")
-end)
-
-hs.hotkey.bind({"cmd", "ctrl"}, "T", function()
-      hs.application.launchOrFocus("iTerm")
-end)
-
-hs.hotkey.bind({"cmd", "ctrl"}, "L", function()
-      hs.application.launchOrFocus("Calendar")
-end)
-
 -- map emacs keybindings in everything but the emacs app
 local esc = hs.hotkey.new({"ctrl"}, "g", function()
       hs.eventtap.keyStroke({}, "escape")

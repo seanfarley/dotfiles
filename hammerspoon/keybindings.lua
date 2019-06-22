@@ -27,6 +27,11 @@ local bindings = {
     bindings = {
       -- cmd + h reserved for notification
 
+      { modifiers = cmdCtrl, key = 's', name = 'Safari' },
+      { modifiers = cmdCtrl, key = 'e', name = 'Emacs' },
+      { modifiers = cmdCtrl, key = 't', name = 'iTerm' },
+      { modifiers = cmdCtrl, key = 'l', name = 'Calendar' },
+
       -- { key = '1', name = apps.name.activityMonitor },
       -- { key = '1', fn = apps.activityMonitor, shift = true, desc = 'Activity Monitor with CPU Graph' },
       -- { key = '2', name = 'Keybase' },
