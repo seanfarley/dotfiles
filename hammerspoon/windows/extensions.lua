@@ -177,7 +177,6 @@ function mod.launchOrCycleFocus(applicationName)
       return nil
     end
 
-    mod.centerOnTitle(targetWindow:frame())
   end
 end
 
