@@ -2,14 +2,9 @@ local eventtap = require 'hs.eventtap'
 local mouse = require 'hs.mouse'
 local screen = require 'hs.screen'
 local timer = require 'hs.timer'
-local window = require 'hs.window'
 local windows = require 'windows'
 
 local mod = {}
-
-mod.name = {
-  activityMonitor = 'Activity Monitor',
-}
 
 local states = {
   noisyTyperEnabled = false
@@ -44,14 +39,6 @@ end
 
 function mod.openNotificationAction()
   clickNotification(40)
-end
-
-function mod.activityMonitor()
-  mod.switchToAndType(mod.name.activityMonitor, {'cmd'}, '2')
-  local win = hs.window.focusedWindow()
-
-  win:moveToUnit({ 0.85, 0.9, 0.1, 0.1 }, 0)
-  eventtap.keyStroke({'cmd'}, '1')
 end
 
 return mod
