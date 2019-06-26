@@ -55,6 +55,8 @@ function mod.create(modifiers, key, name, bindings)
   fnutils.each(bindings, bindFn)
   mode:bind({}, 'escape', exit)
   mode:bind({}, 'q', exit)
+  mode:bind({'ctrl'}, 'g', exit)
+  mode:bind({'ctrl'}, '[', exit)
 end
 
 return mod
