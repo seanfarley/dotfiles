@@ -57,6 +57,7 @@ function mod.create(modifiers, key, name, bindings)
   mode:bind({}, 'q', exit)
   mode:bind({'ctrl'}, 'g', exit)
   mode:bind({'ctrl'}, '[', exit)
+  mode:bind(modifiers, key, exit)
 end
 
 return mod
