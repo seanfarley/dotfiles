@@ -12,8 +12,18 @@ alert.defaultStyle['textSize'] = 20
 function mod.create(modifiers, key, name, bindings)
   local mode = hotkey.modal.new(modifiers, key)
 
+  local function buildDesc(binding)
+    local desc = binding.desc or binding.name
+    return binding.key .. " \t→\t " .. desc
+  end
+
   function mode:entered()
-    alert.show(name .. ' Mode', 120)
+    local d = name .. ' Mode'
+    local mappings = fnutils.imap(bindings, buildDesc)
+    if mappings ~= nil then
+      d = d .. '\n\n' .. table.concat(mappings, "\n")
+    end
+    alert.show(d, 120)
   end
 
   local function exit()
