@@ -121,6 +121,10 @@ local function getNextWindow(currentWindow)
 
   local lastIndex = indexOf(windows, currentWindow)
 
+  if lastIndex == nil then
+    return currentWindow
+  end
+
   return windows[getNextIndex(windows, lastIndex)]
 end
 
