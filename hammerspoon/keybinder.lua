@@ -9,6 +9,7 @@ local windows = require 'windows'
 local hyper = { 'cmd', 'alt', 'ctrl' }
 local hyperShift = { 'cmd', 'alt', 'ctrl', 'shift' }
 local globalBindings = '*'
+local globalFilter = {}
 
 hotkey.alertDuration = 2.5
 
@@ -55,6 +56,17 @@ local function bind(binding)
     logger.ef('Missing binding function for: %s', inspect(binding))
   end
   binding.hotkey = hotkey.new(modifiers, binding.key, fn, message)
+
+  -- 'filter' is a list of app to filter out, e.g. disable the global keybinding
+  -- for that particular app
+  if binding.filter ~= nil then
+    for _, app in ipairs(binding.filter) do
+      -- instantiate the list first
+      globalFilter[app] = globalFilter[app] or {}
+      table.insert(globalFilter[app], binding.hotkey)
+    end
+  end
+
   return binding
 end
 
@@ -68,6 +80,29 @@ function initWatcher(appBindingMap)
   return
     application.watcher.new(
       function(appName, event, appObj)
+
+        -- re-enable global keybindings and disable filtered ones; only if we're
+        -- activating an app
+        if activated[event] ~= nil then
+          -- loop over the filtered apps
+          for app, filter in pairs(globalFilter) do
+            for _, key in ipairs(filter) do
+              -- re-enable all global keys (see below)
+              key:enable()
+            end
+          end
+
+          -- needs to be after re-enabling
+          for app, filter in pairs(globalFilter) do
+            for _, key in ipairs(filter) do
+              if app == appName then
+                -- disable the specified hotkeys
+                key:disable()
+              end
+            end
+          end
+        end
+
         local bindings = appBindingMap[appName]
         if bindings == nil then
           return
