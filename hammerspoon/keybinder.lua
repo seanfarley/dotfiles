@@ -16,7 +16,8 @@ hotkey.alertDuration = 2.5
 local mod = {
   cmd = { 'cmd' },
   hyper = hyper,
-  globalBindings = globalBindings
+  globalBindings = globalBindings,
+  globalFilter = globalFilter,
 }
 
 local function enableBindings(bindings, window)

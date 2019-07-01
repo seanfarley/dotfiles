@@ -2,49 +2,12 @@ local hotkey = require 'hs.hotkey'
 local alert = require 'hs.alert'
 local fnutils = require "hs.fnutils"
 local application = require "hs.application"
+local keybinder = require "keybinder"
 
 local mod = {}
-local globalFilter = {}
 
 alert.defaultStyle['radius'] = 5
 alert.defaultStyle['textSize'] = 20
-
-local function initWatcher(appBindingMap)
-  local activated = {}
-  activated[application.watcher.activated] = true
-  activated[application.watcher.launched] = true
-  activated[application.watcher.launching] = true
-  activated[application.watcher.unhidden] = true
-
-  return
-    application.watcher.new(
-      function(appName, event, appObj)
-
-        -- re-enable global keybindings and disable filtered ones; only if we're
-        -- activating an app
-        if activated[event] ~= nil then
-          -- loop over the filtered apps
-          for app, filter in pairs(globalFilter) do
-            for _, key in ipairs(filter) do
-              -- re-enable all global keys (see below)
-              key:enable()
-            end
-          end
-
-          -- needs to be after re-enabling
-          for app, filter in pairs(globalFilter) do
-            for _, key in ipairs(filter) do
-              if app == appName then
-                -- disable the specified hotkeys
-                key:disable()
-              end
-            end
-          end
-        end
-
-      end
-    )
-end
 
 -- bindings { { key = 'string', fn = fn } }
 function mod.create(modifiers, key, name, bindings, filter)
@@ -112,13 +75,10 @@ function mod.create(modifiers, key, name, bindings, filter)
   if filter ~= nil then
     for _, app in ipairs(filter) do
       -- instantiate the list first
-      globalFilter[app] = globalFilter[app] or {}
-      table.insert(globalFilter[app], mode.k)
+      keybinder.globalFilter[app] = keybinder.globalFilter[app] or {}
+      table.insert(keybinder.globalFilter[app], mode.k)
     end
   end
-
-
-  initWatcher(nil):start()
 end
 
 return mod
