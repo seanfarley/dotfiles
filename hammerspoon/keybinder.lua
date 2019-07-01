@@ -44,6 +44,18 @@ local function buildBindFunction(binding)
   end
 end
 
+function mod.bindExclude(key, app_list)
+  -- 'app_list' is a list of app to filter out, e.g. disable the global
+  -- keybinding for that particular app
+  if app_list ~= nil then
+    for _, app in ipairs(app_list) do
+      -- instantiate the list first
+      globalFilter[app] = globalFilter[app] or {}
+      table.insert(globalFilter[app], key)
+    end
+  end
+end
+
 local function bind(binding)
   modifiers = binding.modifiers
   if modifiers == nil then
@@ -57,17 +69,7 @@ local function bind(binding)
     logger.ef('Missing binding function for: %s', inspect(binding))
   end
   binding.hotkey = hotkey.new(modifiers, binding.key, fn, message)
-
-  -- 'filter' is a list of app to filter out, e.g. disable the global keybinding
-  -- for that particular app
-  if binding.filter ~= nil then
-    for _, app in ipairs(binding.filter) do
-      -- instantiate the list first
-      globalFilter[app] = globalFilter[app] or {}
-      table.insert(globalFilter[app], binding.hotkey)
-    end
-  end
-
+  mod.bindExclude(binding.hotkey, binding.filter)
   return binding
 end
 

@@ -70,15 +70,7 @@ function mod.create(modifiers, key, name, bindings, filter)
   mode:bind({'ctrl'}, '[', exit)
   mode:bind(modifiers, key, exit)
 
-  -- 'filter' is a list of app to filter out, e.g. disable the global keybinding
-  -- for that particular app
-  if filter ~= nil then
-    for _, app in ipairs(filter) do
-      -- instantiate the list first
-      keybinder.globalFilter[app] = keybinder.globalFilter[app] or {}
-      table.insert(keybinder.globalFilter[app], mode.k)
-    end
-  end
+  keybinder.bindExclude(mode.k, filter)
 end
 
 return mod
