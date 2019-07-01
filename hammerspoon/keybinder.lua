@@ -19,13 +19,13 @@ local mod = {
   globalBindings = globalBindings
 }
 
-function enableBindings(bindings, window)
+local function enableBindings(bindings, window)
   for _, binding in pairs(bindings) do
     binding.hotkey:enable()
   end
 end
 
-function disableBindings(bindings)
+local function disableBindings(bindings)
   for _, binding in pairs(bindings) do
     binding.hotkey:disable()
   end
@@ -70,7 +70,7 @@ local function bind(binding)
   return binding
 end
 
-function initWatcher(appBindingMap)
+local function initWatcher(appBindingMap)
   local activated = {}
   activated[application.watcher.activated] = true
   activated[application.watcher.launched] = true
