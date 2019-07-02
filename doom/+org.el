@@ -25,12 +25,13 @@
 
   (setq-default +org-capture-todo-file "inbox.org")
 
-  (setq-default
-   ;; add a nice, little template to use along with some shortcuts
-   org-capture-templates
-   '(("t" "Tasks" entry
+  (add-to-list
+   ;; add a template to capture slack messages
+   'org-capture-templates
+   '("s" "Tasks" entry
       (file+headline (lambda () org-default-notes-file) "Inbox")
-      "* TODO %?\n  Captured %<%Y-%m-%d %H:%M>\n  %a\n\n  %i")))
+      "* TODO %?\n%(smf/slack-text-and-link)\n\n  %i"
+      :prepend t :kill-buffer t))
 
   ;; ;; shortcut to launch file for refiling
   ;; (smf/add-launcher "o" (lambda ()
