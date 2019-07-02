@@ -30,7 +30,7 @@
    'org-capture-templates
    '("s" "Tasks" entry
       (file+headline (lambda () org-default-notes-file) "Inbox")
-      "* TODO %?\n%(smf/slack-text-and-link)\n\n  %i"
+      "* TODO %?\nCaptured %<%Y-%m-%d %H:%M>\n%(smf/slack-text-and-link)"
       :prepend t :kill-buffer t))
 
   ;; ;; shortcut to launch file for refiling
