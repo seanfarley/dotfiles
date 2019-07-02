@@ -10,6 +10,14 @@ local function file_exists(name)
    if f~=nil then io.close(f) return true else return false end
 end
 
+function mod.read_file(path)
+    local file = io.open(path, "rb") -- r read mode and b binary mode
+    if not file then return nil end
+    local content = file:read("*a") -- *a or *all reads the whole file
+    file:close()
+    return content
+end
+
 local function emacs_server_file()
     local home = os.getenv("HOME")
     local ret = home .. "/.emacs.d/server/server"

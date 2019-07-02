@@ -3,6 +3,7 @@ local ipc = require 'hs.ipc'
 local emacs = require "emacs"
 local keybindings = require "keybindings"
 local reload = require 'utils/reload'
+local slack = require 'slack'
 
 -- 'info' is a bit too verbose
 hs.logger.setGlobalLogLevel('warning')
@@ -12,5 +13,6 @@ ipc.cliInstall()
 
 reload.init()
 keybindings.init()
+slack.init()
 
 hs.alert.show("Config loaded")
