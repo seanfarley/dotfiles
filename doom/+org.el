@@ -247,7 +247,7 @@ if (selected_text.length != 0) {
       (let* ((ret (json-read-from-string value))
              (link (alist-get 'link ret))
              (text (string-trim (alist-get 'text ret))))
-        (format "%s\n[[slack:%s]]" text link))))
+        (format "[[slack:%s][%s]]" link text))))
 
   (defun smf/slack-ws-url ()
     "Return the most recently used slack url.
