@@ -23,6 +23,7 @@
        ("personal" ,(list (all-the-icons-faicon "user")) nil nil :ascent center)
        ("phd" ,(list (all-the-icons-faicon "superscript")) nil nil :ascent center))))
 
+  (setq-default +org-capture-todo-file "inbox.org")
 
   (setq-default
    ;; add a nice, little template to use along with some shortcuts
