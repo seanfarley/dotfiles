@@ -30,6 +30,11 @@ local bindings = {
       { modifiers = cmdCtrl, key = 't', name = 'iTerm' },
       { modifiers = cmdCtrl, key = 'l', name = 'Calendar' },
 
+      { key = 'up', fn = function () hs.eventtap.keyStroke({}, "pageup") end, desc = 'Page Up' },
+      { key = 'down', fn = function () hs.eventtap.keyStroke({}, "pagedown") end, desc = 'Page Down' },
+      { key = 'left', fn = function () hs.eventtap.keyStroke({}, "home") end, desc = 'Page Top' },
+      { key = 'right', fn = function () hs.eventtap.keyStroke({}, "end") end, desc = 'Page Bottom' },
+
       -- map emacs keybindings in everything but the emacs app
       { modifiers = {'ctrl'}, key = 'g', filter = { 'Emacs' }, fn = function() hs.eventtap.keyStroke({}, "escape") end },
 
