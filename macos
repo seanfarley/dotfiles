@@ -680,12 +680,12 @@ brew install rust
 brew install bash
 brew install bash-completion@2
 
-if ! grep -q "/usr/local/bin/bash" /etc/shells; then
-  sudo sh -c "echo '/usr/local/bin/bash' >> /etc/shells"
+if ! grep -q "xonsh" /etc/shells; then
+  sudo sh -c "echo '/Users/sean/Library/Python/3.7/bin/xonsh' >> /etc/shells"
 fi
 
-if ! [ "$SHELL" == "/usr/local/bin/bash" ]; then
-  chsh -s /usr/local/bin/bash
+if ! [ "$SHELL" == "/Users/sean/Library/Python/3.7/bin/xonsh" ]; then
+  chsh -s /Users/sean/Library/Python/3.7/bin/xonsh
 fi
 
 # cask drivers
