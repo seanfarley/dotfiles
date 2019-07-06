@@ -53,10 +53,8 @@
       (interactive)
       ;; load all org files
       (org-starter-load-all-files-in-path)
-      (split-window-right)
       ;; start org-agenda
       (org-agenda nil "a")
-      (display-buffer "*Org Agenda(a)*" t)
 
       ;; add the org files to the main workspace
       (persp-add-buffer
