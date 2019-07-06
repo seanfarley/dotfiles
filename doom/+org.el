@@ -40,6 +40,7 @@
 
   (org-starter-def org-directory
     :files
+    ("inbox.org" :agenda t :refile (:maxlevel . 4))
     ("personal.org" :agenda t :refile (:maxlevel . 4))
     ("phd.org" :agenda t :refile (:maxlevel . 4))
     ("entertainment.org" :agenda nil))
