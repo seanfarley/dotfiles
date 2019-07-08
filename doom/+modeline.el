@@ -62,6 +62,7 @@
    doom-modeline-major-mode-icon         t
    doom-modeline-major-mode-color-icon   nil
    doom-modeline-persp-name              t
+   doom-modeline-persp-name-icon         t
    doom-modeline-checker-simple-format   t)
 
   ;; hook to get correct github auth info
