@@ -9,7 +9,6 @@ from xonsh.tools import EnvPath
 
 $AUTO_CD = '1'
 $AUTO_PUSHD = '1'
-$AUTO_SUGGEST_IN_COMPLETIONS = '1'
 $BASH_COMPLETIONS = '/usr/local/share/bash-completion/'
 $CASE_SENSITIVE_COMPLETIONS = False
 $DYNAMIC_CWD_ELISION_CHAR = '…'
