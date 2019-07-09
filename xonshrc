@@ -7,8 +7,8 @@ import shlex
 from xonsh.events import events
 from xonsh.tools import EnvPath
 
-$AUTO_CD = '1'
-$AUTO_PUSHD = '1'
+$AUTO_CD = True
+$AUTO_PUSHD = True
 $BASH_COMPLETIONS = '/usr/local/share/bash-completion/'
 $CASE_SENSITIVE_COMPLETIONS = False
 $DYNAMIC_CWD_ELISION_CHAR = '…'
