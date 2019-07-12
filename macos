@@ -681,7 +681,7 @@ fi
 
 # cask drivers
 brew tap caskroom/drivers
-if system_profiler SPDisplaysDataType | grep -i chipset.*nvidia; then
+if system_profiler SPDisplaysDataType | grep -i "chipset.*nvidia"; then
   brew cask install nvidia-web-driver
   brew cask install nvidia-cuda
 fi
