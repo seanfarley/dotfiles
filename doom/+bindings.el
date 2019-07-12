@@ -9,6 +9,8 @@
   "s-}"                               #'forward-paragraph
   "s-{"                               #'backward-paragraph
 
+  "s-0"                               #'doom/reset-font-size
+
   "C-M-s-<left>"                      #'beginning-of-buffer
   "C-M-s-<right>"                     #'end-of-buffer
   "C-M-s-<down>"                      [?\C-v]
