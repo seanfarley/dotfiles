@@ -1,17 +1,28 @@
 ;;; ~/.doom.d/+org.el -*- lexical-binding: t; -*-
 
-(def-package! org-starter
-  :init
+;; after persp-mode is loaded, open all our org files and add them to the main
+;; workspace
+(after! persp-mode
+  (defun smf/org-init ()
+    "method to load org files and agenda when emacs starts"
+    (interactive)
+    ;; start org-agenda
+    (org-agenda nil "a")
 
-  ;; TODO this is duplicating entries in org-agenda
-  (setq-default
-   ;; set up root org directory
-   org-directory "~/Nextcloud/org"
+    ;; add the org files to the main workspace
+    (persp-add-buffer
+     (mapcar (lambda (f) (file-name-nondirectory f))
+             org-agenda-files)
+     (persp-get-by-name +workspaces-main))
 
-   ;; set the file for capturing todos
-   org-default-notes-file (concat org-directory "/inbox.org"))
+    ;; also add the agenda
+    (persp-add-buffer "*Org Agenda(a)*" (persp-get-by-name +workspaces-main)))
 
-  :config
+  ;; once the scratch buffer has loaded it should be late enough to load the org
+  ;; agenda files as well
+  (add-hook 'doom-init-ui-hook #'smf/org-init))
+
+(after! org
   (when (all-the-icons-faicon "mercury")
     ;; icons for each org file, only works in gui mode
     (setq-default
@@ -23,58 +34,20 @@
        ("personal" ,(list (all-the-icons-faicon "user")) nil nil :ascent center)
        ("phd" ,(list (all-the-icons-faicon "superscript")) nil nil :ascent center))))
 
-  (setq-default +org-capture-todo-file "inbox.org")
-
   (add-to-list
    ;; add a template to capture slack messages
    'org-capture-templates
-   '("s" "Tasks" entry
-      (file+headline (lambda () org-default-notes-file) "Inbox")
-      "* TODO %?\nCaptured %<%Y-%m-%d %H:%M>\n%(smf/slack-text-and-link)"
-      :prepend t :kill-buffer t))
+   '("s" "Slack" entry
+     (file+headline (lambda () +org-capture-todo-file) "Inbox")
+     "* TODO %?\nCaptured %<%Y-%m-%d %H:%M>\n%(smf/slack-text-and-link)"
+     :prepend t :kill-buffer t))
 
-  ;; ;; shortcut to launch file for refiling
-  ;; (smf/add-launcher "o" (lambda ()
-  ;;                         (interactive)
-  ;;                         (find-file org-default-notes-file)))
-
-  (org-starter-def org-directory
-    :files
-    ("inbox.org" :agenda t :refile (:maxlevel . 4))
-    ("personal.org" :agenda t :refile (:maxlevel . 4))
-    ("phd.org" :agenda t :refile (:maxlevel . 4))
-    ("entertainment.org" :agenda nil))
-
-  ;; after persp-mode is loaded, open all our org files and add them to the main
-  ;; workspace
-  (after! persp-mode
-    (defun smf/org-init ()
-      "method to load org files and agenda when emacs starts"
-      (interactive)
-      ;; load all org files
-      (org-starter-load-all-files-in-path)
-      ;; start org-agenda
-      (org-agenda nil "a")
-
-      ;; add the org files to the main workspace
-      (persp-add-buffer
-       (mapcar (lambda (f)
-                 (file-name-nondirectory f)) org-starter-known-files)
-       (persp-get-by-name +workspaces-main))
-
-      ;; also add the agenda
-      (persp-add-buffer "*Org Agenda(a)*" (persp-get-by-name +workspaces-main)))
-
-    ;; once the scratch buffer has loaded it should be late enough to load the org
-    ;; agenda files as well
-    (add-hook 'doom-init-ui-hook #'smf/org-init)))
-
-(after! org
   (map!
    ;; I'll change the prefix for these function (instead of using smf/launcher)
    ;; since they are so common
    "C-c l" #'org-store-link
-   "C-c a" #'org-agenda
+   "C-c a" (lambda () (interactive) (org-agenda nil "a"))
+   "C-c c" (lambda () (interactive) (org-capture nil "t"))
 
    :map org-mode-map
    ;; I use meta-arrow keys for navigation so let's stop org from
@@ -97,12 +70,19 @@
    ;; let's make it do the same thing as =C-c '=
    "s-s" #'org-edit-src-exit)
 
-  (define-key global-map "\C-cc"
-    (lambda () (interactive) (org-capture nil "t")))
-  (define-key global-map "\C-cj"
-    (lambda () (interactive) (org-capture nil "j")))
-
   (setq-default
+   ;; set up root org directory
+   org-directory "~/Nextcloud/org/"
+
+   org-agenda-files (mapcar (lambda (f) (concat org-directory f))
+                            (list "inbox.org"
+                                  "personal.org"
+                                  "phd.org"
+                                  "entertainment.org"))
+
+   ;; set the file for capturing todos
+   org-default-notes-file (concat org-directory "/inbox.org")
+
    ;; don't auto-fold my documents
    org-startup-folded nil
 
@@ -189,7 +169,13 @@
   ;; also, let's turn on auto-fill-mode
   (add-hook 'org-mode-hook 'auto-fill-mode)
 
-  ;=================================== slack =================================
+  (defun smf/org-capture-finalize ()
+    "Call Hammerspoon to switch back to previous app."
+    (call-process-shell-command "/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/ipc/bin/hs -c 'backFromEmacs()' &"))
+
+  ;; (add-hook 'org-capture-prepare-finalize-hook #'smf/org-capture-finalize)
+
+                                        ;=================================== slack =================================
 
   (defun smf/slack-selected ()
     "Return the deep-linked url to a slack message and selected text.
@@ -269,4 +255,15 @@ have the selected text we want to capture for org-mode)."
 
   (org-link-set-parameters
    "slack"
-   :follow #'smf/org-link-slack-follow))
+   :follow #'smf/org-link-slack-follow)
+
+  (defun smf/slack-capture ()
+    "Convenience function to run `org-capture' with the slack template."
+    ;; (let ((org-capture-entry (org-capture-select-template "s"))))
+    ;; (org-capture))
+    (+org-capture/open-frame nil "s"))
+
+  (defun smf/org-agenda ()
+    "Convenience function to switch workspace and display the org agenda."
+    (+workspace-switch "main")
+    (org-agenda-list)))
