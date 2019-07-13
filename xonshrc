@@ -123,7 +123,7 @@ if (os.path.isfile('/usr/bin/security') and
 # =================================== events ==================================
 
 @events.on_precommand
-def ssh_pre(cmd):
+def ssh_pre(cmd, **kwargs):
     cmds = shlex.split(cmd)
     if cmds and cmds[0] == 'ssh':
         hostname = ""
