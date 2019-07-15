@@ -49,8 +49,9 @@ local function evalInCurrentBuffer(sexp)
 end
 
 local function open(url)
-  process.start('emacsclient', { '--no-wait', '--quiet', '--suppress-output', url })
-  application.launchOrFocus('Emacs')
+  appRequestingEmacs = hs.application.frontmostApplication()
+
+  process.start(ec, { '--no-wait', '--quiet', '--suppress-output', url })
 end
 
 function mod.helmBuffers()
