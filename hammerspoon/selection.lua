@@ -59,6 +59,16 @@ function mod.getSelectedText()
     selection = element:selectedText()
   end
 
+  -- -- This avoids using the pasteboard but is *significantly* slower
+  -- if currentApp == "Safari" or currentApp == "Google Chrome" then
+  --   local currentTab = "currentTab"
+  --   if currentApp == "Google Chrome" then
+  --     currentTab = "activeTab"
+  --   end
+  --   _, text, _ = osascript.javascript("Application('" .. currentApp .. "').doJavaScript('window.getSelection().toString();', { in: Application('" .. currentApp .. "').windows[0]." .. currentTab .. " })")
+  --   return text
+  -- end
+
   if not selection or currentApp == 'Emacs' then
     return selectedTextFromClipboard(currentApp)
   end
