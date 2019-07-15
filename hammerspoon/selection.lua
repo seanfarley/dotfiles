@@ -33,7 +33,20 @@ local function selectedTextFromClipboard(currentApp)
   eventtap.keyStroke({'cmd'}, 'c')
   selection = getClipboard(initial, 3)
   logger.df('clipboard: %s', selection)
-  pasteboard:setContents(initial)
+
+  if initial == selection then
+    -- if we haven't selected anything then don't make the (random) contents of
+    -- the pasteboard the current selection; the downside of this, of course, is
+    -- that if the selection *happens* to be the same as the pasteboard then
+    -- this will make it seem as nothing is selected
+    selection = ""
+  else
+    -- set pastboard using 'pbcopy' due to unreliability of pastboard:setContents
+    local f = io.popen("pbcopy", 'w')
+    f:write(initial)
+    f:close()
+  end
+
   return selection
 end
 
