@@ -79,40 +79,39 @@ function mod.agenda()
 end
 
 function mod.capture(captureTemplate)
-  return function()
-    local focusedWindow = window.focusedWindow()
-    local focusedApplication = focusedWindow:application()
+  local focusedWindow = window.focusedWindow()
+  local focusedApplication = focusedWindow:application()
 
-    if focusedApplication:name() == 'Emacs' then
-      evalInCurrentBuffer('(org-capture)')
-      return
-    end
-
-    local title = focusedWindow:title() .. " - " .. focusedApplication:name()
-    local url = focusedApplication:path()
-    local body = selection.getSelectedText()
-
-    if focusedApplication:name() == 'Google Chrome' then
-      _, title, _ = osascript.javascript("Application('Google Chrome').windows[0].activeTab().title()")
-      _, url, _ = osascript.javascript("Application('Google Chrome').windows[0].activeTab().url()")
-    end
-
-    if focusedApplication:name() == 'Finder' then
-      _, title, _ = osascript.javascript("Application('Finder').selection()[0].name()")
-      _, url, _ = osascript.javascript("Application('Finder').selection()[0].url()")
-    end
-
-    local protocolUrl = 'org-protocol://capture?' ..
-      'title=' .. http.encodeForQuery(title) ..
-      '&url=' .. http.encodeForQuery(url) ..
-      '&body=' .. http.encodeForQuery(body or '')
-    if captureTemplate then
-      protocolUrl = protocolUrl .. '&template=' .. captureTemplate
-    end
-
-    logger.df("URL: %s", protocolUrl)
-    open(protocolUrl)
+  if focusedApplication:name() == 'Slack' then
+    evalInCurrentBuffer('(org-capture)')
+    return
   end
+
+  local title = focusedWindow:title() .. " - " .. focusedApplication:name()
+  local url = focusedApplication:path()
+  local body = selection.getSelectedText()
+
+  if focusedApplication:name() == 'Google Chrome' then
+    _, url, _ = osascript.javascript("Application('Google Chrome').windows[0].activeTab().url()")
+  end
+
+  if focusedApplication:name() == 'Finder' then
+    _, title, _ = osascript.javascript("Application('Finder').selection()[0].name()")
+    _, url, _ = osascript.javascript("Application('Finder').selection()[0].url()")
+  end
+
+  if captureTemplate == nil then
+    captureTemplate = 't'
+  end
+
+  local protocolUrl = 'org-protocol://capture?' ..
+    'title=' .. http.encodeForQuery(title) ..
+    '&url=' .. http.encodeForQuery(url) ..
+    '&body=' .. http.encodeForQuery(body or '') ..
+    '&template=' .. captureTemplate
+
+  logger.df("URL: %s", protocolUrl)
+  open(protocolUrl)
 end
 
 function mod.test_frame()
