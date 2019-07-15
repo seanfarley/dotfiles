@@ -95,6 +95,10 @@ function mod.capture(captureTemplate)
     _, url, _ = osascript.javascript("Application('Google Chrome').windows[0].activeTab().url()")
   end
 
+  if focusedApplication:name() == 'Safari' then
+    _, url, _ = osascript.javascript("Application('Safari').windows[0].currentTab().url()")
+  end
+
   if focusedApplication:name() == 'Finder' then
     _, title, _ = osascript.javascript("Application('Finder').selection()[0].name()")
     _, url, _ = osascript.javascript("Application('Finder').selection()[0].url()")
