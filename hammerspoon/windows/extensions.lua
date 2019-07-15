@@ -132,55 +132,8 @@ end
 local lastToggledAppName = ''
 
 function mod.launchOrCycleFocus(applicationName)
-  local function cleanupName(name)
-    return name:gsub('.app$', '')
-  end
-
   return function()
-    local nextWindow = nil
-    local targetWindow
-    local focusedWindow = window.frontmostWindow()
-    if not focusedWindow then
-      application.launchOrFocus(applicationName:gsub('[0-9]+', ''))
-      return
-    end
-    local app = focusedWindow:application()
-
-    focusedWindow:focus()
-    local currentAppName
-    if app:path() then
-      currentAppName = cleanupName(focusedWindow and fs.displayName(app:path()))
-    end
-    lastToggledAppName = currentAppName
-
-    if applicationName == 'iTerm2' then
-      -- moving the cursor out the window, to preserve iTerm currently focused split
-      mouse.setAbsolutePosition(geometry.point(screen.mainScreen():fullFrame().w / 2, 5))
-    end
-
-    local appName = cleanupName(applicationName)
-    logger.df('last: %s, current: %s', currentAppName, appName)
-    if currentAppName == appName:gsub('[0-9]+', '') then
-      nextWindow = getNextWindow(focusedWindow)
-      nextWindow:becomeMain()
-    else
-      logger.df('launch or focus %s', app)
-      if not application.launchOrFocus(applicationName) then
-        application.launchOrFocus(applicationName:gsub('[0-9]+', ''))
-      end
-    end
-
-    if nextWindow then
-      targetWindow = nextWindow
-    else
-      targetWindow = window.focusedWindow()
-    end
-
-    if not targetWindow then
-      logger.df('failed finding a window for application: %s', applicationName)
-      return nil
-    end
-
+    application.launchOrFocus(applicationName)
   end
 end
 
