@@ -75,7 +75,7 @@ function mod.workInbox()
 end
 
 function mod.agenda()
-  eval('(org-agenda-list)')
+  eval('(smf/org-agenda)')
 end
 
 function mod.capture(captureTemplate)
