@@ -83,8 +83,7 @@ function mod.capture(captureTemplate)
   local focusedApplication = focusedWindow:application()
 
   if focusedApplication:name() == 'Slack' then
-    evalInCurrentBuffer('(org-capture)')
-    return
+    captureTemplate = 's'
   end
 
   local title = focusedWindow:title() .. " - " .. focusedApplication:name()
