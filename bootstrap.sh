@@ -79,6 +79,7 @@ ensure_link "gpg-agent.conf" ".gnupg/gpg-agent.conf"
 ensure_link "gpg.conf" ".gnupg/gpg.conf"
 ensure_link "xonshrc"
 ensure_link "ripgreprc"
+ensure_link "vault_pass.txt"
 
 [[ ! -f "$HOME/.ssh/id_rsa" ]] && echo "No ssh id_rsa!" && exit 3
 

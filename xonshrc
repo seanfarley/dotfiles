@@ -49,6 +49,8 @@ $GOPATH = $PROJECTS + "/go"
 
 $RIPGREP_CONFIG_PATH = $HOME + "/.ripgreprc"
 
+$ANSIBLE_VAULT_PASSWORD_FILE = $HOME + "/.vault_pass.txt"
+
 # sweet, sweet emacs
 $EMACS_SERVER_FILE = $HOME + "/.emacs.d/server/server"
 if os.path.exists($HOME + "/.emacs.d/.local/cache/server/"):
