@@ -46,7 +46,7 @@
    ;; I'll change the prefix for these function (instead of using smf/launcher)
    ;; since they are so common
    "C-c l" #'org-store-link
-   "C-c a" (lambda () (interactive) (org-agenda nil "a"))
+   "C-c a" #'org-agenda-list
    "C-c c" (lambda () (interactive) (org-capture nil "t"))
 
    :map org-mode-map
