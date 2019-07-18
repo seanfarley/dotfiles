@@ -232,7 +232,7 @@ if (selected_text.length != 0) {
       (let* ((ret (json-read-from-string value))
              (link (alist-get 'link ret))
              (text (string-trim (alist-get 'text ret))))
-        (format "[[slack:%s][%s]]" link text))))
+        (format "[[slack:channel?%s][%s]]" link text))))
 
   (defun smf/slack-ws-url ()
     "Return the most recently used slack url.
@@ -251,7 +251,7 @@ have the selected text we want to capture for org-mode)."
   (defun smf/org-link-slack-follow (link)
     "Open LINK in slack."
     (call-process-shell-command
-     (format "open 'slack://channel?%s' &" link)))
+     (format "open 'slack://%s' &" link)))
 
   (org-link-set-parameters
    "slack"
