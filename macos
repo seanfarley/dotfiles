@@ -696,6 +696,7 @@ brew cask install keybase
 brew cask install calibre
 brew cask install nextcloud
 brew cask install docker
+brew cask install slack         # needs to be before hammerspoon
 brew install docker-completion
 
 # also make this startup upon login
