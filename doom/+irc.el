@@ -24,8 +24,7 @@
                      :pass ,(irc-password! "smf/freenode")
                      :port 16697
                      :host "smf.io"
-                     :server-buffer-name "{network}:{host}:{port}"
-                     :channels ("#mercurial" "#bitbucket")))
+                     :server-buffer-name "{network}:{host}:{port}"))
 
   (set-irc-server! "bitlbee"
                    `(:use-tls t
@@ -34,5 +33,4 @@
                      :pass ,(irc-password! "smf/bitlbee")
                      :port 16697
                      :host "smf.io"
-                     :server-buffer-name "{network}:{host}:{port}"
-                     :channels ("&bitlbee"))))
+                     :server-buffer-name "{network}:{host}:{port}"))
