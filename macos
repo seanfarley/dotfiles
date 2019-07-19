@@ -667,6 +667,25 @@ brew install rust
 brew install bash
 brew install bash-completion@2
 
+# FIXME this can only be run after pip3 has been installed, which has a
+# dependency on brew / apt / whatever so it can't live in bootstrap
+
+# generic apps that have the same installation on all systems
+
+# python
+pip3 install --user -U cython
+pip3 install --user -U flake8
+pip3 install --user -U pipenv
+pip3 install --user -U sphinx
+
+# xonsh
+pip3 install --user -U xonsh gitsome
+pip3 install --user -U pillow gnureadline
+pip3 install --user -U xontrib-autojump xonsh-docker-tabcomplete xontrib-readable-traceback
+pip3 install --user -U git+https://github.com/laloch/xonsh-vox-tabcomplete.git@proxy-warnings
+pip3 install --user -U git+https://github.com/deeuu/xontrib-apipenv.git
+
+
 if ! grep -q "xonsh" /etc/shells; then
   sudo sh -c "echo '/Users/sean/Library/Python/3.7/bin/xonsh' >> /etc/shells"
 fi

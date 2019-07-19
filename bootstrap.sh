@@ -84,19 +84,4 @@ ensure_link "vault_pass.txt"
 
 [[ ! -f "$HOME/.ssh/id_rsa" ]] && echo "No ssh id_rsa!" && exit 3
 
-# generic apps that have the same installation on all systems
-
-# python
-pip3 install --user -U cython
-pip3 install --user -U flake8
-pip3 install --user -U pipenv
-pip3 install --user -U sphinx
-
-# xonsh
-pip3 install --user -U xonsh gitsome
-pip3 install --user -U pillow gnureadline
-pip3 install --user -U xontrib-autojump xonsh-docker-tabcomplete xontrib-readable-traceback
-pip3 install --user -U git+https://github.com/laloch/xonsh-vox-tabcomplete.git@proxy-warnings
-pip3 install --user -U git+https://github.com/deeuu/xontrib-apipenv.git
-
 exit 0
