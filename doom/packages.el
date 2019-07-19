@@ -6,6 +6,7 @@
 (package! embrace)
 (package! emr)
 (package! focus)
+(package! github-review)
 (package! goto-chg)
 (package! lispy)
 (package! lsp-python-ms)
