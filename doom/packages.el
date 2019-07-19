@@ -1,3 +1,4 @@
+(package! ace-mc)
 (package! exec-path-from-shell :disable t)
 (package! banner-comment)
 (package! bitwarden :recipe (:fetcher github :repo "seanfarley/emacs-bitwarden"))
