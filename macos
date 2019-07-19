@@ -650,7 +650,7 @@ brew install dep
 brew install emacs
 brew install git
 brew install go
-brew install findutils --with-default-names
+brew install findutils
 brew install imagemagick
 brew install isync
 brew install lz4
