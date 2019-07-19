@@ -23,13 +23,17 @@ cd "$DIR" || exit
 ###############################################################################
 
 # check for xcode
-if ! [ -d /Applications/Xcode.app ]; then
-  echo "Please install Xcode through the App Store"
-  exit 1
+XCODE="/Applications/Xcode.app"
+if ! [ -d "$XCODE" ]; then
+  XCODE="/Applications/Xcode-beta.app"
+  if ! [ -d "$XCODE" ]; then
+    echo "Please install Xcode through the App Store"
+    exit 1
+  fi
 fi
 
 # make sure the full-blown xcode is selected (so that xcodebuild works)
-sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+sudo xcode-select -s "$XCODE/Contents/Developer"
 
 ###############################################################################
 # General UI/UX                                                               #
