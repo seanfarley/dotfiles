@@ -34,3 +34,12 @@
                      :port 16697
                      :host "smf.io"
                      :server-buffer-name "{network}:{host}:{port}"))
+
+  (set-irc-server! "gitter"
+                   `(:use-tls t
+                     :nick "smf"
+                     :user "smf/gitter"
+                     :pass ,(irc-password! "smf/gitter")
+                     :port 16697
+                     :host "smf.io"
+                     :server-buffer-name "{network}:{host}:{port}")))
