@@ -81,7 +81,8 @@
                                   "entertainment.org"))
 
    ;; set the file for capturing todos
-   org-default-notes-file (concat org-directory "/inbox.org")
+   +org-capture-todo-file "inbox.org"
+   org-default-notes-file (concat org-directory "/" +org-capture-todo-file)
 
    ;; don't auto-fold my documents
    org-startup-folded nil
