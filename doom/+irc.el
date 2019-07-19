@@ -22,7 +22,7 @@
                      :nick "smf"
                      :user "smf/freenode"
                      :pass ,(irc-password! "smf/freenode")
-                     :port 6697
+                     :port 16697
                      :host "smf.io"
                      :server-buffer-name "{network}:{host}:{port}"
                      :channels ("#mercurial" "#bitbucket")))
@@ -32,7 +32,7 @@
                      :nick "smf"
                      :user "smf/bitlbee"
                      :pass ,(irc-password! "smf/bitlbee")
-                     :port 6697
+                     :port 16697
                      :host "smf.io"
                      :server-buffer-name "{network}:{host}:{port}"
                      :channels ("&bitlbee"))))
