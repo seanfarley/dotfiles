@@ -46,6 +46,7 @@ mkdir -p ~/projects
 mkdir -p ~/sandbox
 mkdir -p ~/.ipython
 mkdir -p ~/.ssh
+mkdir -p ~/.gnupg
 mkdir -p ~/.config/karabiner
 mkdir -p ~/.hammerspoon
 
