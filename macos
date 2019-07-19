@@ -145,6 +145,9 @@ defaults write com.apple.menuextra.clock DateFormat "EEE MMM d  h:mm a"
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
 
+# Always display full control strip (ignoring App Controls)
+defaults write com.apple.touchbar.agent PresentationModeGlobal fullControlStrip
+
 # Trackpad: enable tap to click for this user and for the login screen
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults write com.apple.AppleMultitouchTrackpad Clicking -int 1
@@ -691,7 +694,7 @@ brew cask install nextcloud
 brew cask install docker
 brew cask install slack         # needs to be before hammerspoon
 brew install docker-completion
-brew cask install myside
+brew cask install mysides
 
 # also make this startup upon login
 brew cask install hammerspoon && osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Hammerspoon.app", hidden:false}' &> /dev/null
