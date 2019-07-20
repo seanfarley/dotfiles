@@ -757,10 +757,10 @@ fc-cache -f -v
 # remove everything but AirDrop
 mysides list | grep -v AirDrop | awk '{print $1}' | xargs -I{} mysides remove {}
 
-mysides add sean file://$HOME
-mysides add Downloads file://$HOME/Downloads
-mysides add Nextcloud file://$HOME/Nextcloud
-mysides add projects file://$HOME/projects
+mysides add sean "file://$HOME"
+mysides add Downloads "file://$HOME/Downloads"
+mysides add Nextcloud "file://$HOME/Nextcloud"
+mysides add projects "file://$HOME/projects"
 
 ###############################################################################
 # Keybase                                                                     #
