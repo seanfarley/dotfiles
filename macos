@@ -637,33 +637,33 @@ if ! command -v brew; then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-brew install python
+brew install python \
+    autojump \
+    aspell \
+    cairo \
+    coreutils \
+    dep \
+    docker-completion \
+    emacs \
+    git \
+    go \
+    findutils \
+    imagemagick \
+    isync \
+    lz4 \
+    mpc \
+    mpd \
+    npm \
+    pass \
+    pinentry-mac \
+    terminal-notifier \
+    rust
 
-# apps
-brew install autojump
-brew install aspell
-brew install cairo
-brew install coreutils
-brew install dep
-brew install emacs
-brew install git
-brew install go
-brew install findutils
-brew install imagemagick
-brew install isync
-brew install lz4
-brew install mpc
-brew install mpd
+# the --HEAD option messing up the chaining above
 brew install mu --HEAD
-brew install npm
-brew install pass
-brew install pinentry-mac
-brew install terminal-notifier
-brew install rust
 
 # bash
-brew install bash
-brew install bash-completion@2
+brew install bash bash-completion@2
 
 # FIXME this can only be run after pip3 has been installed, which has a
 # dependency on brew / apt / whatever so it can't live in bootstrap
@@ -671,17 +671,17 @@ brew install bash-completion@2
 # generic apps that have the same installation on all systems
 
 # python
-pip3 install --user -U cython
-pip3 install --user -U flake8
-pip3 install --user -U pipenv
-pip3 install --user -U sphinx
+pip3 install --user -U cython \
+    flake8 \
+    pipenv \
+    sphinx
 
 # xonsh
-pip3 install --user -U xonsh gitsome
-pip3 install --user -U pillow gnureadline
-pip3 install --user -U xontrib-autojump xonsh-docker-tabcomplete xontrib-readable-traceback
-pip3 install --user -U git+https://github.com/laloch/xonsh-vox-tabcomplete.git@proxy-warnings
-pip3 install --user -U git+https://github.com/deeuu/xontrib-apipenv.git
+pip3 install --user -U xonsh gitsome \
+    pillow gnureadline \
+    xontrib-autojump xonsh-docker-tabcomplete xontrib-readable-traceback \
+    git+https://github.com/laloch/xonsh-vox-tabcomplete.git@proxy-warnings \
+    git+https://github.com/deeuu/xontrib-apipenv.git
 
 
 if ! grep -q "xonsh" /etc/shells; then
@@ -695,23 +695,22 @@ fi
 # cask drivers
 brew tap caskroom/drivers
 if system_profiler SPDisplaysDataType | grep -i "chipset.*nvidia"; then
-  brew cask install nvidia-web-driver
-  brew cask install nvidia-cuda
+  brew cask install nvidia-web-driver nvidia-cuda
 fi
 
 # cask apps
 brew tap caskroom/cask
 
-brew cask install firefox
-brew cask install iterm2
-brew cask install karabiner-elements
-brew cask install keybase
-brew cask install calibre
-brew cask install nextcloud
-brew cask install docker
-brew cask install slack         # needs to be before hammerspoon
-brew install docker-completion
-brew cask install mysides
+# slack needs to be before hammerspoon launches
+brew cask install firefox \
+    iterm2 \
+    karabiner-elements \
+    keybase \
+    calibre \
+    nextcloud \
+    docker \
+    slack \
+    mysides
 
 # also make this startup upon login
 brew cask install hammerspoon && osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Hammerspoon.app", hidden:false}' &> /dev/null
@@ -729,12 +728,12 @@ echo "Tapping fonts..."
 brew tap caskroom/fonts
 
 brew install fontconfig
-brew cask install font-fontawesome
-brew cask install font-symbola
-brew cask install font-jsmath-cmbx10
-brew cask install font-firacode-nerd-font font-firacode-nerd-font-mono
-brew cask install font-iosevka-nerd-font  font-iosevka-nerd-font-mono
-brew cask install font-monoid-nerd-font   font-monoid-nerd-font-mono
+brew cask install font-fontawesome \
+    font-symbola \
+    font-jsmath-cmbx10 \
+    font-firacode-nerd-font font-firacode-nerd-font-mono \
+    font-iosevka-nerd-font  font-iosevka-nerd-font-mono \
+    font-monoid-nerd-font   font-monoid-nerd-font-mono
 
 # emacs
 brew tap railwaycat/emacsmacport
