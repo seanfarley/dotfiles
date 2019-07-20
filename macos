@@ -640,6 +640,7 @@ fi
 brew install python
 
 # apps
+brew install autojump
 brew install aspell
 brew install cairo
 brew install coreutils
