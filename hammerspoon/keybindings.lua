@@ -29,6 +29,7 @@ local bindings = {
       { modifiers = cmdCtrl, key = 'e', name = 'Emacs' },
       { modifiers = cmdCtrl, key = 't', name = 'iTerm' },
       { modifiers = cmdCtrl, key = 'l', name = 'Calendar' },
+      { modifiers = cmdCtrl, key = 'c', name = 'Slack' },
 
       { key = 'up', fn = function () hs.eventtap.keyStroke({}, "pageup") end, desc = 'Page Up' },
       { key = 'down', fn = function () hs.eventtap.keyStroke({}, "pagedown") end, desc = 'Page Down' },
