@@ -9,6 +9,7 @@ local screen = require 'screen'
 local selection = require 'selection'
 local windows = require 'windows'
 local reload = require 'utils/reload'
+local clipboard = require 'clipboard'
 
 local cmd = keybinder.cmd
 local cmdCtrl = { 'cmd', 'ctrl' }
@@ -76,6 +77,7 @@ local hyperModeBindings = {
   { key = 'space', fn = audio.playpause, exitMode = true, desc = 'Pause or resume' },
   { key = 'u', fn = audio.changeVolume(5), desc = 'Increase the volume by 5%' },
   { key = 'm', fn = audio.changeVolume(-100), desc = 'Mute'},
+  { key = 'v', fn = clipboard.toggle, desc = 'Clipboard'},
 }
 
 ----------------
