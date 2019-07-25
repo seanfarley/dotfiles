@@ -15,7 +15,11 @@ function mod.create(modifiers, key, name, bindings, filter)
 
   local function buildDesc(binding)
     local desc = binding.desc or binding.name
-    return binding.key .. " \t→\t " .. desc
+    local key = binding.key
+    if key == 'space' then
+      key = "' '"
+    end
+    return key .. " \t→\t " .. desc
   end
 
   function mode:entered()
