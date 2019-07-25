@@ -78,9 +78,19 @@ local hyperModeBindings = {
   { key = 'm', fn = audio.changeVolume(-100), desc = 'Mute'},
 }
 
+----------------
+-- org mode --
+----------------
+
+local orgModeBindings = {
+  { key = 'c', fn = emacs.capture, desc = 'Capture' },
+  { key = 'a', fn = emacs.agenda, desc = 'Agenda' },
+}
+
 function mod.init()
   keybinder.init(bindings)
   mode.create(hyper, 'space', 'Hyper', hyperModeBindings)
+  mode.create({'ctrl'}, 'c', 'Org', orgModeBindings, {'Emacs', 'iTerm2'})
 end
 
 return mod
