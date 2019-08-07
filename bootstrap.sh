@@ -48,6 +48,7 @@ mkdir -p ~/.ipython
 mkdir -p ~/.ssh
 mkdir -p ~/.gnupg
 mkdir -p ~/.config/karabiner
+mkdir -p ~/.config/alacritty
 mkdir -p ~/.hammerspoon
 
 if [[ ! -d "$HOME/projects/doom-emacs" ]]; then
@@ -85,6 +86,7 @@ ensure_link "gpg.conf" ".gnupg/gpg.conf"
 ensure_link "xonshrc"
 ensure_link "ripgreprc"
 ensure_link "vault_pass.txt"
+ensure_link "alacritty.yml" ".config/alacritty/alacritty.yml"
 
 [[ ! -f "$HOME/.ssh/id_rsa" ]] && echo "No ssh id_rsa!" && exit 3
 
