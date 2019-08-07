@@ -44,4 +44,5 @@ Host *.osuosl.org
   User smf
 
 Host *
+  User sean
   ForwardAgent yes
