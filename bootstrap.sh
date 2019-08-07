@@ -50,7 +50,11 @@ mkdir -p ~/.gnupg
 mkdir -p ~/.config/karabiner
 mkdir -p ~/.hammerspoon
 
-[[ ! -d "$HOME/projects/doom-emacs" ]] && echo "doom not cloned yet" && exit 128
+if [[ ! -d "$HOME/projects/doom-emacs" ]]; then
+  echo "doom not cloned yet!"
+  echo "git clone git@github.com:hlissner/doom-emacs.git ~/projects/doom-emacs"
+  exit 128
+fi
 
 ensure_link "aliases"
 ensure_link "bash_prompt"
