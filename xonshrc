@@ -144,9 +144,7 @@ def ssh_pre(cmd, **kwargs):
                 line = line.replace("# emacs", "")
                 names ^= set(line.strip().split())
         if hostname and hostname in names:
-            # TODO create directory if needed and switch to doom
-            # echo scp $EMACS_SERVER_FILE @(hostname):.emacs.d/server/server
-            rsync $EMACS_SERVER_FILE @(hostname):.emacs.d/server/server
+            scp $EMACS_SERVER_FILE @(hostname):.emacs.d/.local/cache/server/server
 
 # =================================== plugins =================================
 
