@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+sudo apt-get install -y \
+    autojump \
+    libncurses-dev \
+    python3-dev \
+    python3-pip \
+    libjpeg-dev libtiff-dev libjpeg-dev zlib1g-dev \
+    libfreetype6-dev liblcms2-dev libwebp-dev
+
+# common installs (pip, etc)
+./common
+
+# nerd fonts
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraCode.zip -O - | python -c "import zipfile,sys,StringIO;zipfile.ZipFile(StringIO.StringIO(sys.stdin.read())).extractall(sys.argv[1] if len(sys.argv) == 2 else '.')" ~/.fonts
+
+fc-cache -fv
