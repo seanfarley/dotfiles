@@ -12,6 +12,11 @@ Host pfna pfna-gpu2             # emacs
   ProxyCommand ssh -A -W %h:%p pfna-gateway
   RemoteForward 9999 localhost:9999
 
+Host pfna-ucb                   # emacs
+  HostName pfna-ucb.local
+  ProxyCommand ssh -A -W %h:%p pfna-gateway
+  RemoteForward 9999 localhost:9999
+
 Host github.com
   HostName ssh.github.com
   Port 443
