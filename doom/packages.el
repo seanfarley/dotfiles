@@ -5,6 +5,7 @@
 (package! color-identifiers-mode)
 (package! embrace)
 (package! emr)
+(package! fancy-narrow)
 (package! focus)
 (package! github-review)
 (package! goto-chg)

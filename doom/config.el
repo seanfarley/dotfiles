@@ -46,6 +46,8 @@
 
 (setq pdf-view-use-scaling t)
 
+(fancy-narrow-mode)
+
 (def-package! webpaste
   :bind (("C-c C-p C-b" . webpaste-paste-buffer)
          ("C-c C-p C-r" . webpaste-paste-region)))
