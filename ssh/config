@@ -17,6 +17,12 @@ Host pfna-ucb                   # emacs
   ProxyCommand ssh -A -W %h:%p pfna-gateway
   RemoteForward 9999 localhost:9999
 
+Host pfnjetson1                 # emacs
+  HostName pfnjetson1.local
+  User pfn
+  ProxyCommand ssh -A -W %h:%p pfna-gateway
+  RemoteForward 9999 localhost:9999
+
 Host github.com
   HostName ssh.github.com
   Port 443
