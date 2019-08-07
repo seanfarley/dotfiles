@@ -657,7 +657,8 @@ brew install python \
     pass \
     pinentry-mac \
     terminal-notifier \
-    rust
+    rust \
+    ncurses
 
 # the --HEAD option messing up the chaining above
 brew install mu --HEAD
