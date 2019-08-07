@@ -672,7 +672,7 @@ brew install bash bash-completion@2
 # generic apps that have the same installation on all systems
 
 # python
-pip3 install --user -U cython \
+pip3 install --user -U \
     flake8 \
     sphinx
 
