@@ -674,7 +674,6 @@ brew install bash bash-completion@2
 # python
 pip3 install --user -U cython \
     flake8 \
-    pipenv \
     sphinx
 
 # xonsh
