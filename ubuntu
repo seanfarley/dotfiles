@@ -15,6 +15,7 @@ sudo apt-get install -y \
     libcanberra-gtk-module libcanberra-gtk3-module \
     libjpeg-dev libtiff-dev libjpeg-dev zlib1g-dev \
     libfreetype6-dev liblcms2-dev libwebp-dev \
+    libopenblas-dev \
     python3-dev \
     python3-numpy \
     python3-pip \
