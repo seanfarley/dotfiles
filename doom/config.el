@@ -12,6 +12,8 @@
 ;; enable hs-minor-mode
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 
+(setq projectile-project-search-path '("~/projects/" "~/sandbox/"))
+
 (defmacro smf/bitwarden-init ()
   `(progn
      (require 'bitwarden nil t)
