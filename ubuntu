@@ -11,6 +11,7 @@ sudo apt-get install -y \
     autojump \
     cargo \
     emacs26 \
+    gfortran \
     libncurses-dev \
     libcanberra-gtk-module libcanberra-gtk3-module \
     libjpeg-dev libtiff-dev libjpeg-dev zlib1g-dev \
