@@ -5,11 +5,13 @@
 # python
 pip3 install --user -U \
     flake8 \
-    sphinx
+    sphinx \
+    pillow \
+    gnureadline
 
 # xonsh
-pip3 install --user -U xonsh gitsome \
-    pillow gnureadline \
+pip3 install --user -U gitsome \
     xontrib-autojump xonsh-docker-tabcomplete xontrib-readable-traceback \
     git+https://github.com/laloch/xonsh-vox-tabcomplete.git@proxy-warnings \
-    git+https://github.com/deeuu/xontrib-apipenv.git
+    git+https://github.com/deeuu/xontrib-apipenv.git \
+    xonsh
