@@ -65,13 +65,11 @@
    '(("maildir:/inbox AND flag:unread AND NOT flag:trashed" "All unread" ?u)
      ((concat "maildir:/lists AND flag:unread "
               "AND NOT flag:trashed "
-              "AND NOT mercurial "
               "AND NOT macports") "Unread" ?U)
      ((concat "to:sean.michael.farley+self "
               "AND NOT maildir:/phd "
               "AND NOT maildir:/posterity") "Notes" ?n)
      ("maildir:/phd and flag:unread and not flag:trashed" "PhD" ?p)
-     ("maildir:/lists mercurial" "Mercurial" ?m)
 
      ;; doom shortcuts
      ("date:today..now" "Today's messages" ?t)
