@@ -20,3 +20,4 @@
 (package! unfill)
 (package! webpaste)
 (package! whole-line-or-region)
+(package! which-key-posframe)

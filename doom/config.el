@@ -56,6 +56,8 @@
 
 (add-hook 'after-init-hook 'global-color-identifiers-mode)
 
+(which-key-posframe-mode)
+
 ;; load personal modules
 (load! "+utils")
 (load! "+bindings")
