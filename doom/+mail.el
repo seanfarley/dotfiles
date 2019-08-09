@@ -4,6 +4,14 @@
 
 (after! mu4e
 
+  ;============================= org settings first ============================
+
+  ;;store org-mode links to messages
+  (require 'org-mu4e)
+
+  ;;store link to message if in header view, not to header query
+  (setq org-mu4e-link-query-in-headers-mode nil)
+
   ;;=============================== basic settings =============================
 
   (setq
