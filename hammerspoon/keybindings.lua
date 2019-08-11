@@ -28,7 +28,7 @@ local bindings = {
     bindings = {
       { modifiers = cmdCtrl, key = 's', name = 'Safari' },
       { modifiers = cmdCtrl, key = 'e', name = 'Emacs' },
-      { modifiers = cmdCtrl, key = 't', name = 'iTerm' },
+      { modifiers = cmdCtrl, key = 't', name = 'Alacritty' },
       { modifiers = cmdCtrl, key = 'l', name = 'Calendar' },
       { modifiers = cmdCtrl, key = 'c', name = 'Slack' },
 
@@ -92,7 +92,7 @@ local orgModeBindings = {
 function mod.init()
   keybinder.init(bindings)
   mode.create(hyper, 'space', 'Hyper', hyperModeBindings)
-  mode.create({'ctrl'}, 'c', 'Org', orgModeBindings, {'Emacs', 'iTerm2'})
+  mode.create({'ctrl'}, 'c', 'Org', orgModeBindings, {'Emacs', 'iTerm2', 'Alacritty'})
 end
 
 return mod
