@@ -10,7 +10,6 @@
 (package! github-review)
 (package! goto-chg)
 (package! lispy)
-(package! lsp-python-ms)
 (package! mu4e-alert)
 (package! mu4e-patch :recipe (:fetcher github :repo "seanfarley/mu4e-patch"))
 (package! persistent-scratch)
