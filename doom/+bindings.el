@@ -30,6 +30,9 @@
   "C-s-<right>"                       #'windmove-right
   "C-s-<left>"                        #'windmove-left
 
+  "C-<tab>"                           #'+workspace/switch-right
+  "C-S-<tab>"                         #'+workspace/switch-left
+
   ;; Plugins
   "C-:"                               #'avy-goto-char-timer
 
