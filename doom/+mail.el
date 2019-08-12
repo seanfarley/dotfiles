@@ -241,3 +241,6 @@
 
 ;; try to get sent messages to the sent folder
 (require 'smtpmail)
+
+;; auto start mail notifications
+(require 'mu4e-alert)
