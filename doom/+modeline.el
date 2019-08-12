@@ -3,14 +3,6 @@
 (after! doom-modeline
   ;=============================== segment tweaks ==============================
 
-  (defun smf/vcs-tweak (prop &rest _)
-    "Trim first left space from vcs segment."
-    (when prop
-      (substring prop 1)))
-
-  (advice-add (alist-get 'vcs doom-modeline-fn-alist)
-              :filter-return #'smf/vcs-tweak)
-
   (defun smf/irc-tweak (prop &rest _)
     "Trim left space."
     (when prop
