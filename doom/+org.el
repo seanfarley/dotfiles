@@ -268,3 +268,13 @@ have the selected text we want to capture for org-mode)."
     "Convenience function to switch workspace and display the org agenda."
     (+workspace-switch "main")
     (org-agenda-list)))
+
+;=================================== org-ref ===================================
+
+(setq bibtex-completion-bibliography '("~/Nextcloud/refs/master.bib")
+      bibtex-completion-library-path '("~/Nextcloud/refs/pdfs")
+      bibtex-completion-additional-search-fields '(tags))
+
+(setq org-ref-bibliography-notes "~/Nextcloud/refs/notes.org"
+      org-ref-default-bibliography '("~/Nextcloud/refs/master.bib")
+      org-ref-pdf-directory (expand-file-name "~/Nextcloud/refs/pdfs/"))
