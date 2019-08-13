@@ -46,7 +46,7 @@
 (advice-add #'+vc|enforce-git-commit-conventions :after
             #'smf/git-commit-conventions)
 
-;; (setq doom-theme 'doom-snazzy)
+(load-theme 'doom-nord t)
 
 (setq pdf-view-use-scaling t)
 
