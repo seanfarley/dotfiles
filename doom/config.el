@@ -52,8 +52,6 @@
 
 (fancy-narrow-mode)
 
-(setq vterm-shell (executable-find "xonsh"))
-
 (def-package! webpaste
   :bind (("C-c C-p C-b" . webpaste-paste-buffer)
          ("C-c C-p C-r" . webpaste-paste-region)))
@@ -72,3 +70,4 @@
 (load! "+modeline")
 (load! "+lsp")
 (load! "+ui")
+(load! "+vterm")
