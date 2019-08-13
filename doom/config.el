@@ -60,6 +60,20 @@
 
 (which-key-posframe-mode)
 
+(defun smf/auto-activate-venv (&rest _)
+  "Automatically activate virtualenv of same name, if one exists."
+  (pyvenv-deactivate)
+  (when-let ((workon-home (pyvenv-workon-home))
+             (window-name (safe-persp-name (get-current-persp))))
+    (if (not (file-directory-p workon-home))
+        (error "Can't find a workon home directory, set $WORKON_HOME"))
+    (dolist (name (f-directories workon-home))
+      (when (string= (file-name-nondirectory name) window-name)
+        (pyvenv-activate name)))))
+
+(after! persp-mode
+  (advice-add #'persp-frame-switch :after #'smf/auto-activate-venv))
+
 ;; load personal modules
 (load! "+utils")
 (load! "+bindings")
