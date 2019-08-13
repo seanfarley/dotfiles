@@ -78,6 +78,14 @@ function mod.agenda()
   eval('(smf/org-agenda)')
 end
 
+function mod.mu4e()
+  eval('(=mu4e)')
+end
+
+function mod.vterm()
+  eval('(=vterm)')
+end
+
 function mod.capture(captureTemplate)
   local focusedWindow = window.focusedWindow()
   local focusedApplication = focusedWindow:application()
