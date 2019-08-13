@@ -81,4 +81,13 @@
   "C-c h"                             #'banner-comment
 
   ;; embrace
-  "C-,"                               #'embrace-commander)
+  "C-,"                               #'embrace-commander
+
+  ;; vterm
+  (:map vterm-mode-map
+
+    ;; TODO upstream this to doom
+    [remap whole-line-or-region-yank] #'vterm-yank
+    "s-<backspace>"                  (lambda ()
+                                       (interactive)
+                                       (vterm-send-key "u" nil nil t))))
