@@ -13,6 +13,6 @@ create a workspace call *vterm* and switch to it."
   (interactive)
   (require 'vterm)
   (+workspace-switch "*vterm*" t)
-  (switch-to-buffer "vterm")
-  (unless (eq major-mode 'vterm-mode)
+  (if (get-buffer "vterm")
+      (switch-to-buffer "vterm")
     (vterm)))
