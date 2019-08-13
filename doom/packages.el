@@ -21,3 +21,4 @@
 (package! webpaste)
 (package! whole-line-or-region)
 (package! which-key-posframe)
+(package! xonsh-mode :recipe (:host github :repo "seanfarley/xonsh-mode"))

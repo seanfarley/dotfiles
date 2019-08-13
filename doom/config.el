@@ -14,6 +14,8 @@
 
 (setq projectile-project-search-path '("~/projects/" "~/sandbox/"))
 
+(require 'xonsh-mode)
+
 (defmacro smf/bitwarden-init ()
   `(progn
      (require 'bitwarden nil t)
