@@ -92,6 +92,12 @@
 
     ;; TODO upstream this to doom
     [remap whole-line-or-region-yank] #'vterm-yank
-    "s-<backspace>"                  (lambda ()
-                                       (interactive)
-                                       (vterm-send-key "u" nil nil t))))
+    "s-<backspace>"                   (lambda ()
+                                        (interactive)
+                                        (vterm-send-key "u" nil nil t))
+    "M-<left>"                        (lambda ()
+                                        (interactive)
+                                        (vterm-send-key "b" nil t nil))
+    "M-<right>"                       (lambda ()
+                                        (interactive)
+                                        (vterm-send-key "f" nil t nil))))
