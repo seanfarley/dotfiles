@@ -100,4 +100,11 @@
                                         (vterm-send-key "b" nil t nil))
     "M-<right>"                       (lambda ()
                                         (interactive)
-                                        (vterm-send-key "f" nil t nil))))
+                                        (vterm-send-key "f" nil t nil)))
+
+  ;; mu4e
+  (:after mu4e
+    (:map (mu4e-view-mode-map mu4e-headers-mode-map)
+      ;; too common for me
+      "M-<right>"                  nil
+      "M-<left>"                   nil)))
