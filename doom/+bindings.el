@@ -32,7 +32,11 @@
   "C-M-d"                             #'smf/delete-to-end-of-buffer
   (:map whole-line-or-region-local-mode-map
     ;; behave more like the terminal
-    "C-w"                             #'smf/backward-kill-word)
+    "C-w"                             (lambda ()
+                                        (interactive)
+                                        (if (not (eq major-mode 'vterm-mode))
+                                            (smf/backward-kill-word)
+                                          (vterm--self-insert))))
 
   ;; common typo for me
   "C-x C-b"                           #'persp-switch-to-buffer
