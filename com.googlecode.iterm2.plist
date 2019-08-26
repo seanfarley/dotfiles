@@ -785,11 +785,11 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>166 352 1016 512 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1440 900 0 0 1440 900 </string>
+	<string>0 427 650 473 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>720 414 650 473 0 0 1440 900 </string>
+	<string>0 0 1440 900 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>0 448 650 452 0 0 1440 900 </string>
+	<string>0 0 1440 900 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
 	<string>398 99 650 452 0 0 1440 900 </string>
 	<key>New Bookmarks</key>
@@ -1063,7 +1063,7 @@
 			<key>Columns</key>
 			<integer>80</integer>
 			<key>Command</key>
-			<string></string>
+			<string>/usr/local/bin/bash</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -1104,7 +1104,7 @@
 				<real>0.17621420323848724</real>
 			</dict>
 			<key>Custom Command</key>
-			<string>No</string>
+			<string>Yes</string>
 			<key>Custom Directory</key>
 			<string>No</string>
 			<key>Default Bookmark</key>
@@ -1851,9 +1851,9 @@
 	<key>NoSyncInstallationId</key>
 	<string>67267103-50A0-47CA-B327-DC96870C0E66</string>
 	<key>NoSyncLastTipTime</key>
-	<real>586991098.75529504</real>
+	<real>587164514.16405904</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>16</integer>
+	<integer>28</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2556,6 +2556,8 @@
 	</dict>
 	<key>NoSyncSearchHistory</key>
 	<array>
+		<string>accel</string>
+		<string>projectil</string>
 		<string>host</string>
 		<string>gforta</string>
 		<string>numpy</string>
@@ -2653,6 +2655,8 @@
 		<string>0073</string>
 		<string>0074</string>
 		<string>0075</string>
+		<string>0076</string>
+		<string>0077</string>
 	</array>
 	<key>PasteTabToStringTabStopSize</key>
 	<integer>4</integer>
@@ -2706,7 +2710,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-08-08T04:05:45Z</date>
+	<date>2019-08-13T04:39:08Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
