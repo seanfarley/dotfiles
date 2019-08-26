@@ -231,6 +231,7 @@
   (mu4e-alert-enable-notifications)
   (mu4e-alert-enable-mode-line-display)
 
+  ;============================== colorize patches =============================
 
   ;; colorize patch-based emails
   (add-hook 'mu4e-view-mode-hook #'mu4e-patch-highlight))
