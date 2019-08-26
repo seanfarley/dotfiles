@@ -90,6 +90,10 @@ function mod.irc()
   eval('(=irc)')
 end
 
+function mod.switchWorkspace()
+  eval('(smf/activate-emacs)')
+end
+
 function mod.capture(captureTemplate)
   local focusedWindow = window.focusedWindow()
   local focusedApplication = focusedWindow:application()
