@@ -40,8 +40,8 @@ end
 
 local function eval(sexp)
   appRequestingEmacs = hs.application.frontmostApplication()
-
   process.start(ec, {'-n', '--quiet', '--eval', sexp})
+  hs.application.launchOrFocus("Emacs")
 end
 
 local function evalInCurrentBuffer(sexp)
