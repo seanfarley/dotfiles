@@ -234,7 +234,17 @@
   ;============================== colorize patches =============================
 
   ;; colorize patch-based emails
-  (add-hook 'mu4e-view-mode-hook #'mu4e-patch-highlight))
+  (add-hook 'mu4e-view-mode-hook #'mu4e-patch-highlight)
+
+  ;============================ monkey-patch `=mu4e' ===========================
+
+  (defun smf/mu4e (orig-func &rest args)
+    "Switch to *mu4e* workspace or start it."
+    (if (+workspace-exists-p +mu4e-workspace-name)
+        (+workspace-switch +mu4e-workspace-name)
+      (apply orig-func args)))
+
+  (advice-add #'=mu4e :around #'smf/mu4e))
 
 ;; remove the org-mode compose functionality: it removes the coloring of
 ;; indented replies
