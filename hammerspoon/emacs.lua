@@ -86,6 +86,10 @@ function mod.vterm()
   eval('(=vterm)')
 end
 
+function mod.irc()
+  eval('(=irc)')
+end
+
 function mod.capture(captureTemplate)
   local focusedWindow = window.focusedWindow()
   local focusedApplication = focusedWindow:application()
