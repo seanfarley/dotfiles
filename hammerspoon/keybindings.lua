@@ -27,7 +27,7 @@ local bindings = {
   { name = keybinder.globalBindings,
     bindings = {
       { modifiers = cmdCtrl, key = 's', name = 'Safari' },
-      { modifiers = cmdCtrl, key = 'e', name = 'Emacs' },
+      { modifiers = cmdCtrl, key = 'e', fn = emacs.switchWorkspace, desc = 'Emacs' },
       { modifiers = cmdCtrl, key = 't', fn = emacs.vterm, desc = 'vterm' },
       { modifiers = cmdCtrl, key = 'i', fn = emacs.irc, desc = 'irc' },
       { modifiers = cmdCtrl, key = 'l', name = 'Calendar' },
