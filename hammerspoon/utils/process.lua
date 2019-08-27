@@ -35,7 +35,6 @@ local env = {
   LC_ALL = 'en_US.UTF-8',
   LANG = 'en_US.UTF-8',
   HOME = HOME,
-  EMACS_SERVER_FILE = emacs_server_file()
 }
 
 local function returnCallback(exitCode, stdOut, stdErr)
@@ -92,6 +91,10 @@ function mod.start(cmd, args, pwd, stream_callback, callback)
 
   logger.f('starting %s %s in %s', cmd, args, pwd)
   process:setWorkingDirectory(pwd)
+
+  -- set this here so that it's always fresh
+  env["EMACS_SERVER_FILE"] = emacs_server_file()
+
   process:setEnvironment(env)
 
   if not process:start() then
