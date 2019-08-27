@@ -29,6 +29,7 @@ local bindings = {
       { modifiers = cmdCtrl, key = 's', name = 'Safari' },
       { modifiers = cmdCtrl, key = 'e', name = 'Emacs' },
       { modifiers = cmdCtrl, key = 't', fn = emacs.vterm, desc = 'vterm' },
+      { modifiers = cmdCtrl, key = 'i', fn = emacs.irc, desc = 'irc' },
       { modifiers = cmdCtrl, key = 'l', name = 'Calendar' },
       { modifiers = cmdCtrl, key = 'c', name = 'Slack' },
       { modifiers = cmdCtrl, key = 'm', fn = emacs.mu4e, desc = 'mu4e' },
