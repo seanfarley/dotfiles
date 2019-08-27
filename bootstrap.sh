@@ -87,6 +87,7 @@ ensure_link "xonshrc"
 ensure_link "ripgreprc"
 ensure_link "vault_pass.txt"
 ensure_link "alacritty.yml" ".config/alacritty/alacritty.yml"
+ensure_link "epass.sh"
 
 [[ ! -f "$HOME/.ssh/id_rsa" ]] && echo "No ssh id_rsa!" && exit 3
 
