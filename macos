@@ -669,14 +669,6 @@ brew install bash bash-completion@2
 # common installs (pip, etc)
 ./common
 
-if ! grep -q "xonsh" /etc/shells; then
-  sudo sh -c "echo '/Users/sean/Library/Python/3.7/bin/xonsh' >> /etc/shells"
-fi
-
-if ! [ "$SHELL" == "/Users/sean/Library/Python/3.7/bin/xonsh" ]; then
-  chsh -s /Users/sean/Library/Python/3.7/bin/xonsh
-fi
-
 # cask drivers
 brew tap caskroom/drivers
 if system_profiler SPDisplaysDataType | grep -i "chipset.*nvidia"; then
