@@ -33,7 +33,7 @@
      (bitwarden-auth-source-enable)))
 
 ;; bitwardn password auth-source
-(smf/bitwarden-init)
+(add-hook 'doom-init-ui-hook (lambda () (smf/bitwarden-init)))
 
 ;; magit should use auth-source
 (add-hook 'magit-process-find-password-functions
