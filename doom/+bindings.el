@@ -87,21 +87,6 @@
   ;; embrace
   "C-,"                               #'embrace-commander
 
-  ;; vterm
-  (:map vterm-mode-map
-
-    ;; TODO upstream this to doom
-    [remap whole-line-or-region-yank] #'vterm-yank
-    "s-<backspace>"                   (lambda ()
-                                        (interactive)
-                                        (vterm-send-key "u" nil nil t))
-    "M-<left>"                        (lambda ()
-                                        (interactive)
-                                        (vterm-send-key "b" nil t nil))
-    "M-<right>"                       (lambda ()
-                                        (interactive)
-                                        (vterm-send-key "f" nil t nil)))
-
   ;; mu4e
   (:after mu4e
     (:map (mu4e-view-mode-map mu4e-headers-mode-map)
