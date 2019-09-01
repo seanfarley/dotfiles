@@ -24,6 +24,9 @@ create a workspace call *vterm* and switch to it."
 
     ;; TODO upstream this to doom
     [remap whole-line-or-region-yank] #'vterm-yank
+    "S-SPC"                       (lambda ()
+                                        (interactive)
+                                        (vterm-send-key " "))
     "s-<backspace>"                   (lambda ()
                                         (interactive)
                                         (vterm-send-key "u" nil nil t))
