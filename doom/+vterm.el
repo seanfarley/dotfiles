@@ -3,7 +3,8 @@
 ;; hack to fix the autocomplete face color
 (after! vterm
   (set-face-attribute 'vterm-color-black nil
-                      :background "#9099AB")) ;; a very bright grey
+                      :background "#9099AB") ;; a very bright grey
+  (add-hook 'vterm-mode-hook #'goto-address-mode))
 
 (defun =vterm ()
   "Start vterm app.
