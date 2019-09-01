@@ -39,12 +39,8 @@
 (add-hook 'magit-process-find-password-functions
           'magit-process-password-auth-source)
 
-(defun smf/git-commit-conventions (&rest _)
-  "All opinions not my own are, by definition, bullshit."
+(after! git-commit
   (setq git-commit-summary-max-length 80))
-(add-hook 'git-commit-mode-hook #'smf/git-commit-conventions)
-(advice-add #'+vc|enforce-git-commit-conventions :after
-            #'smf/git-commit-conventions)
 
 (load-theme 'doom-nord t)
 
