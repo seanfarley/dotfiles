@@ -696,7 +696,7 @@ brew cask install firefox \
 brew cask install hammerspoon && osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Hammerspoon.app", hidden:false}' &> /dev/null
 
 # also, also make sure hammerspoon is open
-if ! ps aux | grep -v "grep Hammerspoon" | grep -q Hammerspoon; then
+if ! pgrep -q Hammerspoon; then
   open -a Hammerspoon
 fi
 
