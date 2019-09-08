@@ -9,6 +9,9 @@ pip3 install --user -U \
     pillow \
     gnureadline
 
+# pyls and flake8 support
+pip3 install --user 'python-language-server[all]' git+https://github.com/emanspeaks/pyls-flake8
+
 # xonsh
 pip3 install --user -U gitsome \
     xontrib-autojump xonsh-docker-tabcomplete xontrib-readable-traceback \
