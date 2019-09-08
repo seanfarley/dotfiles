@@ -39,6 +39,10 @@
 (add-hook 'magit-process-find-password-functions
           'magit-process-password-auth-source)
 
+;; magit-todo ignore json files
+(after! magit
+  (setq magit-todos-exclude-globs '("*.json")))
+
 (after! git-commit
   (setq git-commit-summary-max-length 80))
 
