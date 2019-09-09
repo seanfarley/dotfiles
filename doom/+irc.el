@@ -1,6 +1,7 @@
 ;;; ~/projects/dotfiles/doom/+irc.el -*- lexical-binding: t; -*-
 
 (after! circe
+  (setq circe-fool-list '("^gitter"))
   (disable-circe-new-day-notifier))
 
 (after! circe-notifications
