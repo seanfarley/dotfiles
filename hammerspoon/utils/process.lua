@@ -20,12 +20,7 @@ end
 
 local function emacs_server_file()
     local home = os.getenv("HOME")
-    local ret = home .. "/.emacs.d/server/server"
-    if file_exists(home .. "/.emacs.d/.local/cache/server/server")
-    then
-        ret = home .. "/.emacs.d/.local/cache/server/server"
-    end
-    return ret
+    return home .. "/.emacs.d/.local/cache/server/server"
 end
 
 local running_processes = {}
