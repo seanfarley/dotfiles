@@ -52,7 +52,8 @@ $RIPGREP_CONFIG_PATH = $HOME + "/.ripgreprc"
 $ANSIBLE_VAULT_PASSWORD_FILE = $HOME + "/.vault_pass.txt"
 
 # sweet, sweet emacs
-$EMACS_SERVER_FILE = "/.emacs.d/.local/cache/server/server"
+esf = ".emacs.d/.local/cache/server/server"
+$EMACS_SERVER_FILE = $HOME + '/' + esf
 
 # if we're not on our home machine, then set tramp
 if $HOME != "/Users/" + $USER:
@@ -126,12 +127,12 @@ if (os.path.isfile('/usr/bin/security') and
 def ssh_pre(cmd, **kwargs):
     cmds = shlex.split(cmd)
     if cmds and cmds[0] == 'ssh':
-        hostname = ""
+        hname = ""
         for c in cmds[1:]:
             if not c.startswith('-'):
-                hostname = c
-                if '@' in hostname:
-                    hostname = hostname.split('@', 1)[1]
+                hname = c
+                if '@' in hname:
+                    hname = hname.split('@', 1)[1]
                 break
         # build set of hostnames that we explicity want to scp the emacs file
         names = set()
@@ -141,8 +142,8 @@ def ssh_pre(cmd, **kwargs):
                 line = line.replace("Host ", "")
                 line = line.replace("# emacs", "")
                 names ^= set(line.strip().split())
-        if hostname and hostname in names:
-            scp $HOME+$EMACS_SERVER_FILE @(hostname):$EMACS_SERVER_FILE
+        if hname and hname in names:
+            scp $EMACS_SERVER_FILE @(hname):@(esf)
 
 # =================================== plugins =================================
 
