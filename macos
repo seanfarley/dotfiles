@@ -695,6 +695,9 @@ brew cask install firefox \
 # also make this startup upon login
 brew cask install hammerspoon && osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Hammerspoon.app", hidden:false}' &> /dev/null
 
+# install appcleaner
+brew cask install appcleaner
+
 # also, also make sure hammerspoon is open
 if ! pgrep -q Hammerspoon; then
   open -a Hammerspoon
