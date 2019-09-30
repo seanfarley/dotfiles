@@ -29,10 +29,10 @@ aliases['md'] = _md
 aliases['-'] = 'cd -'
 aliases['..'] = 'cd ..'
 aliases['....'] = 'cd ../..'
-aliases['g'] = 'grep -i --color=auto'
+aliases['g'] = 'grep -i --color=auto'.split()
 aliases['l'] = 'less'
 aliases['e'] = '$HOME/.ec'
-aliases['s'] = 'perl -pi -e'
+aliases['s'] = 'perl -pi -e'.split()
 aliases['wanip'] = 'curl -s ifconfig.me'
 aliases['localips'] = r"ifconfig -a | perl -nle r'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 aliases['localip'] = aliases['localips'].src.strip() + " | grep -v 127.0.0.1"
