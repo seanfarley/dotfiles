@@ -22,6 +22,9 @@ def _md(args, stdin=None):
     mkdir -p @(args[0])
     cd @(args[0])
 
+if $(ls --version 2>/dev/null).strip():
+    aliases['ls'].append('--color=auto')
+
 aliases['md'] = _md
 aliases['-'] = 'cd -'
 aliases['..'] = 'cd ..'
@@ -30,7 +33,6 @@ aliases['g'] = 'grep -i --color=auto'
 aliases['l'] = 'less'
 aliases['e'] = '$HOME/.ec'
 aliases['s'] = 'perl -pi -e'
-aliases['ls'] = 'ls --color=auto'
 aliases['doom-upgrade'] = 'sh -c "cd ~/projects/doom-emacs; ./bin/doom -y upgrade -t 120"'
 aliases['doom-refresh'] = 'sh -c "cd ~/projects/doom-emacs; ./bin/doom refresh"'
 
