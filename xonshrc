@@ -33,6 +33,9 @@ aliases['g'] = 'grep -i --color=auto'
 aliases['l'] = 'less'
 aliases['e'] = '$HOME/.ec'
 aliases['s'] = 'perl -pi -e'
+aliases['wanip'] = 'curl -s ifconfig.me'
+aliases['localips'] = r"ifconfig -a | perl -nle r'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+aliases['localip'] = aliases['localips'].src.strip() + " | grep -v 127.0.0.1"
 aliases['doom-upgrade'] = 'sh -c "cd ~/projects/doom-emacs; ./bin/doom -y upgrade -t 120"'
 aliases['doom-refresh'] = 'sh -c "cd ~/projects/doom-emacs; ./bin/doom refresh"'
 
