@@ -28,7 +28,7 @@ if $(ls --version 2>/dev/null).strip():
 aliases['md'] = _md
 aliases['-'] = 'cd -'
 aliases['..'] = 'cd ..'
-aliases['...'] = 'cd ../..'
+aliases['....'] = 'cd ../..'
 aliases['g'] = 'grep -i --color=auto'
 aliases['l'] = 'less'
 aliases['e'] = '$HOME/.ec'
