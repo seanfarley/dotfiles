@@ -25,6 +25,9 @@ def _md(args, stdin=None):
 if $(ls --version 2>/dev/null).strip():
     aliases['ls'].append('--color=auto')
 
+if $(which gfind):
+    aliases['find'] = 'gfind'
+
 aliases['md'] = _md
 aliases['-'] = 'cd -'
 aliases['..'] = 'cd ..'
