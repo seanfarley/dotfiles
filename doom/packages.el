@@ -3,7 +3,6 @@
 (package! banner-comment)
 (package! bitwarden :recipe (:host github :repo "seanfarley/emacs-bitwarden"))
 (package! color-identifiers-mode)
-(package! cython-mode)
 (package! embrace)
 (package! emr)
 (package! fancy-narrow)
