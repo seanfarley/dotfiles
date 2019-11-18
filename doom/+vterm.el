@@ -4,7 +4,8 @@
 (after! vterm
   (set-face-attribute 'vterm-color-black nil
                       :background "#9099AB") ;; a very bright grey
-  (add-hook 'vterm-mode-hook #'goto-address-mode))
+  (add-hook 'vterm-mode-hook #'goto-address-mode)
+  (add-hook 'vterm-mode-hook #'compilation-shell-minor-mode))
 
 (defun =vterm ()
   "Start vterm app.
