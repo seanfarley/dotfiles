@@ -28,6 +28,8 @@
   "C-M-s-<down>"                      [?\C-v]
   "C-M-s-<up>"                        [?\M-v]
 
+  "C-|"                               #'column-highlight-mode
+
   ;; custom methods
   "C-M-d"                             #'smf/delete-to-end-of-buffer
   (:map whole-line-or-region-local-mode-map

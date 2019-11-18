@@ -2,6 +2,7 @@
 (package! exec-path-from-shell :disable t)
 (package! banner-comment)
 (package! bitwarden :recipe (:host github :repo "seanfarley/emacs-bitwarden"))
+(package! col-highlight :recipe (:host github :repo "emacsmirror/col-highlight"))
 (package! color-identifiers-mode)
 (package! embrace)
 (package! emr)
