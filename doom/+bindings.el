@@ -1,5 +1,11 @@
 ;;; doom/+bindings.el -*- lexical-binding: t; -*-
 
+;; the most important binding: since using hammerspoon, I map C-g to ESC ... but
+;; in emacs I want C-g to just be itself; since hammerspoon is buggy about its
+;; own filters we just map ESC to C-g here. This also fixes the bug when using
+;; spotlight from emacs (as the last app) where C-g was disabled.
+(define-key key-translation-map (kbd "ESC") (kbd "C-g"))
+
 (setq mac-command-modifier 'super
       mac-option-modifier  'meta
       ;; sane trackpad/mouse scroll settings
