@@ -60,10 +60,6 @@
 
 (which-key-posframe-mode)
 
-(require 'lsp-sourcekit)
-(setenv "SOURCEKIT_TOOLCHAIN_PATH" "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain")
-;; (setenv "SOURCEKIT_TOOLCHAIN_PATH" "/Library/Developer/Toolchains/swift-latest.xctoolchain")
-(setq lsp-sourcekit-executable "/Library/Developer/Toolchains/swift-5.1-DEVELOPMENT-SNAPSHOT-2019-08-27-a.xctoolchain/usr/bin/sourcekit-lsp")
 
 
 ;; load personal modules

@@ -11,7 +11,6 @@
 (package! github-review)
 (package! goto-chg)
 (package! lispy)
-(package! lsp-sourcekit)
 (package! mu4e-alert)
 (package! mu4e-patch :recipe (:host github :repo "seanfarley/mu4e-patch"))
 (package! org-ref)
