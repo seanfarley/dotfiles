@@ -46,6 +46,8 @@
 (after! git-commit
   (setq git-commit-summary-max-length 80))
 
+(global-dot-mode)
+
 (load-theme 'doom-nord t)
 
 (setq pdf-view-use-scaling t)
