@@ -73,3 +73,4 @@
 (load! "+lsp")
 (load! "+ui")
 (load! "+vterm")
+(load! "+ansible")
