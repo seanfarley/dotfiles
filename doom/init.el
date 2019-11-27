@@ -131,6 +131,7 @@
        ;;ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
         +dragndrop       ; file drag & drop support
+        +hugo            ; use Emacs for hugo blogging
         +ipython         ; ipython support for babel
         +pandoc          ; pandoc integration into org's exporter
         +present)        ; using Emacs for presentations
