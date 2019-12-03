@@ -6,5 +6,6 @@
 (after! lsp
   (setq lsp-pyls-configuration-sources ["flake8"]
         lsp-pyls-plugins-pylint-enabled nil
-        lsp-pyls-plugins-pycodestyle-enabled t
+        lsp-pyls-plugins-pycodestyle-enabled nil
+        lsp-pyls-plugins-flake8-enabled t
         lsp-ui-doc-enable t))
