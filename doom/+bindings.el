@@ -93,11 +93,4 @@
   "C-c h"                             #'banner-comment
 
   ;; embrace
-  "C-,"                               #'embrace-commander
-
-  ;; mu4e
-  (:after mu4e
-    (:map (mu4e-view-mode-map mu4e-headers-mode-map)
-      ;; too common for me
-      "M-<right>"                  nil
-      "M-<left>"                   nil)))
+  "C-,"                               #'embrace-commander)

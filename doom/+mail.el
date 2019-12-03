@@ -244,7 +244,23 @@
         (+workspace-switch +mu4e-workspace-name)
       (apply orig-func args)))
 
-  (advice-add #'=mu4e :around #'smf/mu4e))
+  (advice-add #'=mu4e :around #'smf/mu4e)
+
+  (defun smf/mu4e-update-and-index (&rest _)
+    (interactive "P")
+    (mu4e-update-mail-and-index t))
+
+  ;; mu4e key bindings
+  (map!
+   ;; TODO add global menu item C-c M U for updating
+   "C-c M U" #'smf/mu4e-update-and-index
+   (:map mu4e-main-mode-map
+     "U"                          #'smf/mu4e-update-and-index)
+   (:map (mu4e-view-mode-map mu4e-headers-mode-map)
+     ;; too common for me
+     "M-<right>"                  nil
+     "M-<left>"                   nil)))
+
 
 (add-hook 'doom-init-ui-hook
           (lambda ()
