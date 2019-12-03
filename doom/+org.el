@@ -42,12 +42,16 @@
      "* TODO %?\nCaptured %<%Y-%m-%d %H:%M>\n%(smf/slack-text-and-link)"
      :prepend t :kill-buffer t))
 
+  (defun smf/org-capture ()
+    (interactive)
+    (org-capture nil "t"))
+
   (map!
    ;; I'll change the prefix for these function (instead of using smf/launcher)
    ;; since they are so common
    "C-c l" #'org-store-link
    "C-c a" #'org-agenda-list
-   "C-c c" (lambda () (interactive) (org-capture nil "t"))
+   "C-c c" #'smf/org-capture
 
    :map org-mode-map
    ;; I use meta-arrow keys for navigation so let's stop org from
