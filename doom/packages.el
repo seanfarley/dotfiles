@@ -10,7 +10,6 @@
 (package! fancy-narrow)
 (package! focus)
 (package! goto-chg)
-(package! lispy)
 (package! mu4e-alert)
 (package! mu4e-patch :recipe (:host github :repo "seanfarley/mu4e-patch"))
 (package! org-ref)
