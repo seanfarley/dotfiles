@@ -58,7 +58,7 @@
   "C-S-<tab>"                         #'+workspace/switch-left
 
   ;; Plugins
-  "C-:"                               #'avy-goto-char-timer
+  "C-:"                               #'ace-jump-mode
 
   ;; goto-chg
   "C-M-s-z"                           #'goto-last-change
