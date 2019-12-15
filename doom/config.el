@@ -54,10 +54,6 @@
 
 (fancy-narrow-mode)
 
-(def-package! webpaste
-  :bind (("C-c C-p C-b" . webpaste-paste-buffer)
-         ("C-c C-p C-r" . webpaste-paste-region)))
-
 (add-hook 'after-init-hook 'global-color-identifiers-mode)
 
 (which-key-posframe-mode)
