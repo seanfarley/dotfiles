@@ -9,7 +9,6 @@
 (package! emr)
 (package! fancy-narrow)
 (package! focus)
-(package! github-review)
 (package! goto-chg)
 (package! lispy)
 (package! mu4e-alert)
