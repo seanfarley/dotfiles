@@ -1,7 +1,7 @@
 (setq server-use-tcp t
       server-port    9999)
 
-;; custom fonts
+(setq source-directory (expand-file-name "~/projects/emacs"))
 
 ;; don't prompt please
 (setq confirm-kill-emacs nil)
