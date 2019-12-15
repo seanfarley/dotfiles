@@ -118,7 +118,7 @@ $PROMPT_FIELDS['env_prefix'] = $PROMPT_FIELDS['env_postfix'] = ''
 
 $PROMPT = ("\n{#686868}┌─{BOLD_RED} {user} "
            "{BOLD_%s}{os} {hostname}{NO_COLOR}"
-           "{BOLD_BLUE}   {short_cwd}"
+           "{BOLD_BLUE}  {short_cwd}"
            "{branch_color}{curr_branch:  {}}"
            "{BOLD_YELLOW}{env_name:  {}}"
            "{ret_code_color}{ret_code}\n"
