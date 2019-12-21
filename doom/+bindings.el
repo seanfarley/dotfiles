@@ -19,78 +19,78 @@
       ns-pop-up-frames nil)
 
 (map!
-  "s-k"                               #'kill-this-buffer
-  "s-n"                               #'smf/make-frame
-  "s-x"                               #'kill-region
-  "s-N"                               #'+default/new-buffer
+ "s-k"                               #'kill-this-buffer
+ "s-n"                               #'smf/make-frame
+ "s-x"                               #'kill-region
+ "s-N"                               #'+default/new-buffer
 
-  "s-}"                               #'forward-paragraph
-  "s-{"                               #'backward-paragraph
+ "s-}"                               #'forward-paragraph
+ "s-{"                               #'backward-paragraph
 
-  "s-0"                               #'doom/reset-font-size
+ "s-0"                               #'doom/reset-font-size
 
-  "C-M-s-<left>"                      #'beginning-of-buffer
-  "C-M-s-<right>"                     #'end-of-buffer
-  "C-M-s-<down>"                      [?\C-v]
-  "C-M-s-<up>"                        [?\M-v]
+ "C-M-s-<left>"                      #'beginning-of-buffer
+ "C-M-s-<right>"                     #'end-of-buffer
+ "C-M-s-<down>"                      [?\C-v]
+ "C-M-s-<up>"                        [?\M-v]
 
-  "C-|"                               #'column-highlight-mode
+ "C-|"                               #'column-highlight-mode
 
-  ;; custom methods
-  "C-M-d"                             #'smf/delete-to-end-of-buffer
-  (:map whole-line-or-region-local-mode-map
-    ;; behave more like the terminal
-    "C-w"                             (lambda ()
-                                        (interactive)
-                                        (if (not (eq major-mode 'vterm-mode))
-                                            (smf/backward-kill-word)
-                                          (vterm--self-insert))))
+ ;; custom methods
+ "C-M-d"                             #'smf/delete-to-end-of-buffer
+ (:map whole-line-or-region-local-mode-map
+   ;; behave more like the terminal
+   "C-w"                             (lambda ()
+                                       (interactive)
+                                       (if (not (eq major-mode 'vterm-mode))
+                                           (smf/backward-kill-word)
+                                         (vterm--self-insert))))
 
-  ;; common typo for me
-  "C-x C-b"                           #'persp-switch-to-buffer
+ ;; common typo for me
+ "C-x C-b"                           #'persp-switch-to-buffer
 
-  "C-s-<up>"                          #'windmove-up
-  "C-s-<down>"                        #'windmove-down
-  "C-s-<right>"                       #'windmove-right
-  "C-s-<left>"                        #'windmove-left
+ "C-s-<up>"                          #'windmove-up
+ "C-s-<down>"                        #'windmove-down
+ "C-s-<right>"                       #'windmove-right
+ "C-s-<left>"                        #'windmove-left
 
-  "C-<tab>"                           #'+workspace/switch-right
-  "C-S-<tab>"                         #'+workspace/switch-left
+ "C-<tab>"                           #'+workspace/switch-right
+ "C-S-<tab>"                         #'+workspace/switch-left
 
-  ;; Plugins
-  "C-:"                               #'ace-jump-mode
+ ;; Plugins
+ "C-:"                               #'ace-jump-mode
 
-  ;; goto-chg
-  "C-M-s-z"                           #'goto-last-change
+ ;; goto-chg
+ "C-M-s-z"                           #'goto-last-change
 
-  ;; Smartparens
-  (:after smartparens
-    (:map smartparens-mode-map
-      "C-M-a"                         #'sp-beginning-of-sexp
-      "C-M-e"                         #'sp-end-of-sexp
-      "C-M-f"                         #'sp-forward-sexp
-      "C-M-b"                         #'sp-backward-sexp
-      "C-M-d"                         #'sp-splice-sexp
-      "C-M-k"                         #'sp-kill-sexp
-      "C-M-t"                         #'sp-transpose-sexp
-      ;; TODO rethink these bindings
-      "C-<right>"                  nil
-      "M-<right>"                  nil
-      "C-<left>"                   nil
-      "M-<left>"                   nil
-      "C-M-d"                      nil))
+ ;; Smartparens
+ (:after smartparens
+   (:map smartparens-mode-map
+     "C-M-a"                         #'sp-beginning-of-sexp
+     "C-M-e"                         #'sp-end-of-sexp
+     "C-M-f"                         #'sp-forward-sexp
+     "C-M-b"                         #'sp-backward-sexp
+     "C-M-d"                         #'sp-splice-sexp
+     "C-M-k"                         #'sp-kill-sexp
+     "C-M-t"                         #'sp-transpose-sexp
+     ;; TODO rethink these bindings
+     "C-<right>"                     nil
+     "M-<right>"                     nil
+     "C-<left>"                      nil
+     "M-<left>"                      nil
+     "C-M-d"                         nil))
 
-  ;; flyspell
-  (:after flyspell
-    (:map flyspell-mode-map
-      "C-;" nil ; Do not override
-      "C-M-i"                         #'flyspell-auto-correct-previous-word))
+ ;; flyspell
+ (:after flyspell
+   (:map flyspell-mode-map
+     "C-;" nil ; Do not override
+     "C-M-i"                         #'flyspell-auto-correct-previous-word))
 
-  ;; unfill
-  "M-Q"                               #'unfill-paragraph
+ ;; unfill
+ "M-Q"                               #'unfill-paragraph
 
-  ;; banner-comment
-  "C-c h"                             #'banner-comment
+ ;; banner-comment
+ "C-c h"                             #'banner-comment
 
-  ;; embrace
-  "C-,"                               #'embrace-commander)
+ ;; embrace
+ "C-,"                               #'embrace-commander)
