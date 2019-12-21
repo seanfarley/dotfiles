@@ -1,7 +1,5 @@
 ;;; ~/projects/dotfiles/doom/+mail.el -*- lexical-binding: t; -*-
 
-(def-package! mu4e-patch)
-
 (after! mu4e
 
   ;============================= org settings first ============================
