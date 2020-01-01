@@ -6,6 +6,19 @@
 ;; spotlight from emacs (as the last app) where C-g was disabled.
 (define-key key-translation-map (kbd "ESC") (kbd "C-g"))
 
+;; because `read-char-exclusive' is a C function and doesn't read the remapping
+;; above, we need to patch methods that call `read-char-exclusive' to call
+;; `keyboard-quit'
+(defadvice! quit-on-esc (orig-fn &rest args)
+  :around '(org-export--dispatch-action mu4e~read-char-choice)
+  (cl-letf* ((old-read-char (symbol-function 'read-char-exclusive))
+             ((symbol-function 'read-char-exclusive)
+              (lambda (&optional prompt inherit-input-method seconds)
+                (pcase (funcall old-read-char prompt inherit-input-method seconds)
+                  (27 (keyboard-quit))
+                  (x x)))))
+    (apply orig-fn args)))
+
 (setq mac-command-modifier 'super
       mac-option-modifier  'meta
       ;; sane trackpad/mouse scroll settings
