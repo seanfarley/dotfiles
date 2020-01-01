@@ -40,9 +40,10 @@
 
   ;================ customize segments to put in main  modeline ================
 
+  ;; remove buffer-position, input-method, major-mode, and buffer-encoding
   (doom-modeline-def-modeline 'main
-    '(bar buffer-info remote-host selection-info)
-    '(misc-info persp-name irc mu4e github debug lsp process vcs checker))
+    '(bar window-number matches buffer-info remote-host selection-info)
+    '(objed-state misc-info persp-name irc mu4e github debug lsp process vcs checker))
 
   ;=============================== misc settings ===============================
 
