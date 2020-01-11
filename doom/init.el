@@ -51,6 +51,7 @@
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
+       zen               ; distraction-free coding or writing
 
        :editor
        ;; (evil +everywhere); come to the dark side, we have cookies
@@ -183,9 +184,6 @@
        irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
        twitter           ; twitter client https://twitter.com/vnought
-       (write            ; emacs as a word processor (latex + org + markdown)
-        +wordnut         ; wordnet (wn) search
-        +langtool)       ; a proofreader (grammar/style check) for Emacs
 
        :config
        ;;literate
