@@ -1038,7 +1038,7 @@
 			<key>Columns</key>
 			<integer>80</integer>
 			<key>Command</key>
-			<string>/Users/sean/Library/Python/3.7/bin/xonsh</string>
+			<string>/Users/sean/Library/Python/3.8/bin/xonsh</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -1818,7 +1818,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>C0DC0E86-6104-461C-840D-3AEDF047297E</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>102</integer>
+	<integer>107</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2605,7 +2605,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-12-21T19:31:05Z</date>
+	<date>2020-01-02T08:48:55Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
