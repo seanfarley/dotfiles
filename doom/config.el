@@ -3,9 +3,6 @@
 
 (setq source-directory (expand-file-name "~/projects/emacs"))
 
-;; don't prompt please
-(setq confirm-kill-emacs nil)
-
 ;; really convenient mode for copying the whole line or region
 (whole-line-or-region-global-mode)
 
