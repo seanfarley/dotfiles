@@ -97,6 +97,11 @@ end
 function mod.capture(captureTemplate)
   local focusedWindow = window.focusedWindow()
   local focusedApplication = focusedWindow:application()
+  
+  if focusedApplication:name() == 'Emacs' then
+    eval('(smf/org-capture)')
+    return
+  end
 
   if focusedApplication:name() == 'Slack' then
     captureTemplate = 's'
