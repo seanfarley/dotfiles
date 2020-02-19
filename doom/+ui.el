@@ -22,20 +22,8 @@
 ;;                   'display '(raise -0.1)
 ;;                   'font-lock-ignore t))
 
-(defun smf/init-mac-ui ()
-  (when (display-graphic-p)
-    ;; automatically start in fullscreen
-    (when (fboundp 'toggle-frame-fullscreen)
-      (toggle-frame-fullscreen))
-
-    (when (eq system-type 'darwin)
-      (if (fboundp 'mac-auto-operator-composition-mode)
-          (mac-auto-operator-composition-mode))
-
-      ;; don't use the native fullscreen crap
-      (setq-default ns-use-native-fullscreen nil))))
-
-(add-hook 'doom-init-ui-hook #'smf/init-mac-ui)
+;; automatically start in fullscreen
+(add-to-list 'initial-frame-alist '(fullscreen . fullboth))
 
 (defun smf/auto-activate-venv (&rest _)
   "Automatically activate virtualenv of same name, if one exists."
