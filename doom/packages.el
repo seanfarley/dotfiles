@@ -6,6 +6,7 @@
 (package! counsel-jq)
 (package! discover-my-major)
 (package! dot-mode)
+(package! elisp-slime-nav)
 (package! embrace)
 (package! emr)
 (package! fancy-narrow)
