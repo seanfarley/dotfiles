@@ -58,13 +58,12 @@
    ;; mu4e-use-fancy-chars t
 
    mu4e-headers-fields
-   '( (:account       .   12)
-      (:human-date    .   12)
-      (:flags         .    6)
-      (:mailing-list  .   10)
-      (:from          .   22)
-      (:subject       .   nil))
-
+   '((:account       .   12)
+     (:human-date    .   12)
+     (:flags         .    6)
+     (:mailing-list  .   10)
+     (:from          .   22)
+     (:subject       .   nil))
 
    mu4e-bookmarks
    '(("maildir:/inbox AND flag:unread AND NOT flag:trashed" "All unread" ?u)
