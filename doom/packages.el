@@ -15,6 +15,7 @@
 (package! ialign)
 (package! jump-tree)
 (package! lsp-focus :recipe (:host github :repo "emacs-lsp/lsp-focus"))
+(package! lsp-origami)
 (package! mu4e-alert)
 (package! mu4e-patch :recipe (:host github :repo "seanfarley/mu4e-patch"))
 (package! org-ref)
