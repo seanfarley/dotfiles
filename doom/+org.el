@@ -1,27 +1,5 @@
 ;;; ~/.doom.d/+org.el -*- lexical-binding: t; -*-
 
-;; after persp-mode is loaded, open all our org files and add them to the main
-;; workspace
-(after! persp-mode
-  (defun smf/org-init ()
-    "method to load org files and agenda when emacs starts"
-    (interactive)
-    ;; start org-agenda
-    (org-agenda nil "a")
-
-    ;; add the org files to the main workspace
-    (persp-add-buffer
-     (mapcar (lambda (f) (file-name-nondirectory f))
-             org-agenda-files)
-     (persp-get-by-name +workspaces-main))
-
-    ;; also add the agenda
-    (persp-add-buffer "*Org Agenda(a)*" (persp-get-by-name +workspaces-main)))
-
-  ;; once the scratch buffer has loaded it should be late enough to load the org
-  ;; agenda files as well
-  (add-hook 'doom-init-ui-hook #'smf/org-init))
-
 (after! org
   (when (all-the-icons-faicon "mercury")
     ;; icons for each org file, only works in gui mode
