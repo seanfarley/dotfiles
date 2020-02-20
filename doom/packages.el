@@ -26,3 +26,4 @@
 (package! whole-line-or-region)
 (package! which-key-posframe)
 (package! xonsh-mode :recipe (:local-repo "~/projects/xonsh-mode"))
+(package! ztree)
