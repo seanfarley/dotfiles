@@ -26,6 +26,7 @@
 (package! persistent-scratch)
 (package! resize-window)
 (package! ripgrep)
+(package! sphinx-doc)
 (package! srefactor)
 (package! sx)
 (package! unfill)
