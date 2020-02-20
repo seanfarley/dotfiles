@@ -10,7 +10,7 @@
 ;; above, we need to patch methods that call `read-char-exclusive' to call
 ;; `keyboard-quit'
 (defadvice! quit-on-esc (orig-fn &rest args)
-  :around '(org-export--dispatch-action mu4e~read-char-choice)
+  :around '(org-export--dispatch-action)
   (cl-letf* ((old-read-char (symbol-function 'read-char-exclusive))
              ((symbol-function 'read-char-exclusive)
               (lambda (&optional prompt inherit-input-method seconds)
