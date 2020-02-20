@@ -19,18 +19,6 @@
                   (x x)))))
     (apply orig-fn args)))
 
-(setq mac-command-modifier 'super
-      mac-option-modifier  'meta
-      ;; sane trackpad/mouse scroll settings
-      mac-redisplay-dont-reset-vscroll t
-      mac-mouse-wheel-smooth-scroll nil
-      ;; Curse Lion and its sudden but inevitable fullscreen mode!
-      ;; NOTE Meaningless to railwaycat's emacs-mac build
-      ns-use-native-fullscreen nil
-      ;; Visit files opened outside of Emacs in existing frame, rather
-      ;; than a new one
-      ns-pop-up-frames nil)
-
 (map!
  "s-k"                               #'kill-this-buffer
  "s-n"                               #'smf/make-frame
