@@ -13,8 +13,6 @@
 
 (setq projectile-project-search-path '("~/projects/" "~/sandbox/"))
 
-(add-hook 'doom-init-ui-hook (lambda () (require 'xonsh-mode)))
-
 (defmacro smf/bitwarden-init ()
   `(progn
      (require 'bitwarden nil t)
