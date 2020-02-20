@@ -19,6 +19,7 @@
 (package! lsp-treemacs)
 (package! mu4e-alert)
 (package! mu4e-patch :recipe (:host github :repo "seanfarley/mu4e-patch"))
+(package! nov)
 (package! org-ref)
 (package! package-lint)
 (package! page-break-lines)
