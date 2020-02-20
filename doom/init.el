@@ -25,7 +25,7 @@
        (ivy              ; a search engine for love and life
         +childframe      ; modern popup ui
         +icons           ; pretty icons in buffer lists
-        +prescient)       ; frequency filtering and sorting
+        +prescient)      ; frequency filtering and sorting
 
        :ui
        ;;deft              ; notational velocity for Emacs
