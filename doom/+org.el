@@ -47,12 +47,6 @@
     (org-capture nil "t"))
 
   (map!
-   ;; I'll change the prefix for these function (instead of using smf/launcher)
-   ;; since they are so common
-   "C-c l" #'org-store-link
-   "C-c a" #'org-agenda-list
-   "C-c c" #'smf/org-capture
-
    :map org-mode-map
    ;; I use meta-arrow keys for navigation so let's stop org from
    ;; using them to indent
