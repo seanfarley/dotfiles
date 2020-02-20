@@ -15,6 +15,7 @@
 (package! mu4e-patch :recipe (:host github :repo "seanfarley/mu4e-patch"))
 (package! org-ref)
 (package! package-lint)
+(package! page-break-lines)
 (package! persistent-scratch)
 (package! resize-window)
 (package! ripgrep)
