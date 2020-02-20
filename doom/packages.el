@@ -4,6 +4,7 @@
 (package! col-highlight :recipe (:host github :repo "emacsmirror/col-highlight"))
 (package! color-identifiers-mode)
 (package! counsel-jq)
+(package! discover-my-major)
 (package! dot-mode)
 (package! embrace)
 (package! emr)
