@@ -36,8 +36,6 @@
 (add-hook 'magit-process-find-password-functions
           'magit-process-password-auth-source)
 
-(setq iedit-toggle-key-default nil)
-
 ;; magit-todo ignore json files
 (after! magit
   (setq magit-todos-exclude-globs '("*.json")))
