@@ -91,7 +91,7 @@
  "M-Q"                               #'unfill-paragraph
 
  ;; banner-comment
- "C-c h"                             #'banner-comment
+ "C-c c h"                           #'banner-comment
 
  ;; embrace
  "C-,"                               #'embrace-commander)
