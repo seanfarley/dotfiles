@@ -7,7 +7,9 @@
 (whole-line-or-region-global-mode)
 
 ;; enable hs-minor-mode
-(add-hook 'prog-mode-hook #'hs-minor-mode)
+(add-hook! prog-mode
+           #'hs-minor-mode
+           #'color-identifiers-mode)
 
 (setq projectile-project-search-path '("~/projects/" "~/sandbox/"))
 
@@ -45,18 +47,22 @@
 (after! git-commit
   (setq git-commit-summary-max-length 80))
 
-(global-dot-mode)
-
-(load-theme 'doom-nord t)
+(add-hook! (emacs-lisp-mode ielm-mode)
+           #'elisp-slime-nav-mode)
+(add-hook! python-mode #'sphinx-doc-mode)
 
 (setq pdf-view-use-scaling t)
 
-(fancy-narrow-mode)
+(load-theme 'doom-nord t)
 
-(add-hook 'after-init-hook 'global-color-identifiers-mode)
+(after! which-key-mode
+  (which-key-posframe-mode))
 
-(which-key-posframe-mode)
-
+(add-hook! after-init
+           #'fancy-narrow-mode
+           #'global-dot-mode
+           #'global-jump-tree-mode
+           #'global-page-break-lines-mode)
 
 
 ;; load personal modules
