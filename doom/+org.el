@@ -76,6 +76,7 @@
 
   (setq-default
    ;; set up root org directory
+   ;; REVIEW this seems to not set `org-id-locations-file' correctly
    org-directory "~/Nextcloud/org/"
 
    org-agenda-files (mapcar (lambda (f) (concat org-directory f))
