@@ -20,6 +20,7 @@
 (package! resize-window)
 (package! ripgrep)
 (package! srefactor)
+(package! sx)
 (package! unfill)
 (package! webpaste)
 (package! whole-line-or-region)
