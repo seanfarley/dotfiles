@@ -85,6 +85,8 @@
  (:after flyspell
    (:map flyspell-mode-map
      "C-;"                           nil ; Do not override
+     "C-."                           nil ; prefer dot-mode binding over auto
+                                         ; correct
      "C-M-i"                         #'flyspell-auto-correct-previous-word))
 
  ;; unfill
