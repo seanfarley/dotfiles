@@ -78,7 +78,7 @@ $PATH = EnvPath([
     "/usr/local/share/dotnet",
     $HOME + "/.cargo/bin",
     $GOPATH[0] + "/bin",
-    $HOME + "/Library/Python/3.7/bin",
+    $HOME + "/Library/Python/3.8/bin",
     $HOME + "/.npm/bin",
     "/usr/local/opt/coreutils/libexec/gnubin",
     "/usr/local/opt/texinfo/bin",
