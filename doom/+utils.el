@@ -30,3 +30,12 @@
   `(let ((time (current-time)))
      ,@body
      (message "%.06f" (float-time (time-since time)))))
+
+
+;; helper method to filter matches in ivy
+(defun smf/find-dir-matcher (regexp candidates)
+  "Return REGEXP-matching CANDIDATES that are directories."
+  (cl-remove-if-not (lambda (x)
+                      (file-directory-p (expand-file-name x
+                                                          ivy--directory)))
+                    (counsel--find-file-matcher regexp candidates)))
