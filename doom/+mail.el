@@ -66,19 +66,27 @@
      (:subject       .   nil))
 
    mu4e-bookmarks
-   '(("maildir:/inbox AND flag:unread AND NOT flag:trashed" "All unread" ?u)
-     ((concat "maildir:/lists AND flag:unread "
-              "AND NOT flag:trashed "
-              "AND NOT macports") "Unread" ?U)
-     ((concat "to:sean.michael.farley+self "
-              "AND NOT maildir:/phd "
-              "AND NOT maildir:/posterity") "Notes" ?n)
-     ("maildir:/phd and flag:unread and not flag:trashed" "PhD" ?p)
+   (list (list :name "All unread inbox"
+               :query "maildir:/inbox AND flag:unread AND NOT flag:trashed"
+               :key ?u)
+         (list :name "Notes"
+               :query (concat "to:sean.michael.farley+self "
+                              "AND NOT maildir:/phd "
+                              "AND NOT maildir:/posterity")
+               :key ?n)
+         (list :name "PhD"
+               :query (concat "((maildir:/phd AND flag:unread "
+                              "  AND NOT flag:trashed) "
+                              " OR from:xiaofan) AND date:2y..")
+               :key ?p)
 
-     ;; doom shortcuts
-     ("date:today..now" "Today's messages" ?t)
-     ("date:7d..now" "Last 7 days" ?w)
-     ("mime:image/*" "Messages with images" ?p))
+         ;; tweaks on the default bookmarks
+         (list :name "Today's messages"
+               :query "maildir:/inbox AND date:today..now"
+               :key ?t)
+         (list :name "Last 7 days"
+               :query "maildir:/inbox AND date:7d..now"
+               :key ?w))
 
    ;; an absolute must to sort the inbox with the date ascending.
    mu4e-headers-sort-direction 'ascending
