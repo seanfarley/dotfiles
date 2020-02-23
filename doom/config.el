@@ -47,7 +47,6 @@
            #'elisp-slime-nav-mode)
 (add-hook! python-mode #'sphinx-doc-mode)
 
-(setq pdf-view-use-scaling t)
 
 (load-theme 'doom-nord t)
 
