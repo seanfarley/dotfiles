@@ -8,7 +8,7 @@
   (require 'org-mu4e)
 
   ;;store link to message if in header view, not to header query
-  (setq org-mu4e-link-query-in-headers-mode nil)
+  (setq mu4e-org-link-query-in-headers-mode nil)
 
   ;;=============================== basic settings =============================
 
@@ -22,15 +22,15 @@
    smtpmail-stream-type         'starttls
    smtpmail-smtp-service        587
 
-   mu4e-user-mail-address-list '("sean.michael.farley@gmail.com"
-                                 "sean@seanfarley.org"
-                                 "sean@mcs.anl.gov"
-                                 "sean@macports.org"
-                                 "sean@lsmsa.net"
-                                 "sean@farley.io"
-                                 "sfarley@atlassian.com"
-                                 "me@smf.io"
-                                 "sfarley@iit.edu")
+   mu4e-personal-addresses '("sean.michael.farley@gmail.com"
+                             "sean@seanfarley.org"
+                             "sean@mcs.anl.gov"
+                             "sean@macports.org"
+                             "sean@lsmsa.net"
+                             "sean@farley.io"
+                             "sfarley@atlassian.com"
+                             "me@smf.io"
+                             "sfarley@iit.edu")
 
    mu4e-attachment-dir  "~/Downloads"
 
