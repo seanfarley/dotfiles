@@ -54,6 +54,7 @@
    org-agenda-files (mapcar (lambda (f) (concat org-directory f))
                             (list "inbox.org"
                                   "personal.org"
+                                  "coiled.org"
                                   "phd.org"
                                   "entertainment.org"))
 
