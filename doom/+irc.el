@@ -68,6 +68,11 @@ buffers and present them to the user."
         (with-current-buffer buffer
           (circe-command-QUERY nick))))))
 
+(map!
+ (:when (featurep! :app irc)
+   :desc "Query / chat with user"       "C-c I c" #'+circe-query-prompt-user))
+
+
 (after! circe
   (setq circe-fool-list '("^gitter"))
   (disable-circe-new-day-notifier))
