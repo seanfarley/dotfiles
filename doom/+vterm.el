@@ -18,7 +18,7 @@ create a workspace call *vterm* and switch to it."
   (+workspace-switch "*vterm*" t)
   (if (get-buffer "vterm")
       (switch-to-buffer "vterm")
-    (vterm)))
+    (+vterm/here "~")))
 
 
 (map!
