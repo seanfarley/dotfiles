@@ -1,6 +1,7 @@
 (setq vterm-shell (executable-find "xonsh"))
 
 ;; TODO upstream something to fix the autocomplete face color
+;; https://github.com/hlissner/emacs-doom-themes/issues/324#issuecomment-587164161
 (after! vterm
   (set-face-attribute 'vterm-color-black nil
                       :background "#9099AB") ;; a very bright grey
