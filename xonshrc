@@ -81,6 +81,7 @@ $PATH = EnvPath([
     $HOME + "/Library/Python/3.8/bin",
     $HOME + "/.npm/bin",
     "/usr/local/opt/coreutils/libexec/gnubin",
+    "/usr/local/opt/make/libexec/gnubin",
     "/usr/local/opt/texinfo/bin",
     "/Library/TeX/texbin",
 ]) + $PATH
