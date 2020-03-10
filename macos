@@ -679,7 +679,6 @@ if system_profiler SPDisplaysDataType | grep -i "chipset.*nvidia"; then
 fi
 
 # cask apps
-brew tap caskroom/cask
 
 # slack needs to be before hammerspoon launches
 brew cask install firefox \
