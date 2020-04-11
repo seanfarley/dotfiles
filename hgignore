@@ -81,7 +81,6 @@ project.xcworkspace
 xcuserdata
 auto/
 Doxyfile
-data
 .svn
 flush/system
 .vagrant
