@@ -67,6 +67,9 @@ $EMACS_SERVER_FILE = $HOME + '/' + esf
 if $HOME != "/Users/" + $USER:
     $EMACSCLIENT_TRAMP = "/ssh:" + $(hostname -f).strip() + ":"
 
+# always use ipdb for breakpoint()
+$PYTHONBREAKPOINT = "ipdb.set_trace"
+
 # ==================================== paths ==================================
 
 $PATH = EnvPath([
