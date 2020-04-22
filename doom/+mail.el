@@ -30,7 +30,8 @@
                              "sean@farley.io"
                              "sfarley@atlassian.com"
                              "me@smf.io"
-                             "sfarley@iit.edu")
+                             "sfarley@iit.edu"
+                             "sean@coiled.io")
 
    mu4e-attachment-dir  "~/Downloads"
 
@@ -131,6 +132,10 @@
               "sean@farley.io")
              ((mu4e-message-contact-field-matches msg :to "me@smf.io")
               "me@smf.io")
+             ((or
+               (mu4e-message-contact-field-matches msg :to "sean@coiled.io")
+               (mu4e-message-contact-field-matches msg :to "sfarley@coiled.io"))
+              "sean@coiled.io")
              ((or
                (mu4e-message-contact-field-matches msg :from "macports")
                (mu4e-message-contact-field-matches msg :to "macports"))
