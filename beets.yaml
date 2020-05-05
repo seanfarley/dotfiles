@@ -1,0 +1,76 @@
+directory: ~/Music/beets
+library:   ~/Music/beets/library.db
+
+plugins: [
+  # discogs,
+  # chroma,
+  edit,
+  fromfilename,
+  fetchart,
+  embedart,
+  lyrics,
+  missing,
+  mbsync,
+  mpdstats,
+  mpdupdate,
+  ftintitle,
+  replaygain
+]
+
+chroma:
+  auto: yes
+
+pluginpath: ~/Music/beets/BeetsPlugins
+
+threaded: yes
+ui:
+  color: yes
+
+paths:
+    default: $albumartist/$album%aunique{}/$track $title
+    singleton: Non-Album/$artist/$title
+    comp: Compilations/$album%aunique{}/$track $title
+
+paths:
+    default:    $albumartist/$year - $album/$track $title
+    singletons: Singles/$artist - $title
+    comp:       Compilations/$album/$track $title
+
+import:
+  # write metadata to music files
+  write: yes
+
+  # move imported files from source to the music directory
+  move:   yes
+  copy: no
+  delete: no
+  resume: ask
+  log:    ~/Music/beets/beets.log
+
+  # use auto-tagging where possible
+  # do not require confirmation on strong matches
+  autotag: yes
+  timid: no
+
+match:
+  strong_rec_thresh: 0.04
+  preferred:
+    countries: ['US', 'GB|UK', 'CN']
+    original_year: yes
+
+embedart:
+  auto: yes
+  compare_threshold: 80
+  remove_art_file: yes
+  maxwidth: 500
+
+ftintitle:
+  auto: yes
+
+mpdstats:
+    music_directory:    ~/Music
+
+replaygain:
+  auto: yes
+  overwrite: yes
+  albumgain: yes
