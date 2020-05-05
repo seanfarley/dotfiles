@@ -9,8 +9,6 @@ pip3 install --user -U \
     pillow \
     gnureadline
 
-# pyls and flake8 support
-pip3 install --user 'python-language-server[all]'
 
 # xonsh
 pip3 install --user -U gitsome \
