@@ -9,6 +9,8 @@ pip3 install --user -U \
     pillow \
     gnureadline
 
+# beets and mpd stuff
+pip3 install --user -U beets python-mpd2 discogs-client pyacoustid
 
 # xonsh
 pip3 install --user -U \
