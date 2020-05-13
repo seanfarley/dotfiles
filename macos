@@ -691,7 +691,8 @@ brew cask install firefox \
     nextcloud \
     docker \
     slack \
-    mysides
+    mysides \
+    kmbmpdc
 
 # also make this startup upon login
 brew cask install hammerspoon && osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Hammerspoon.app", hidden:false}' &> /dev/null
