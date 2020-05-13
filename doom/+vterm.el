@@ -12,7 +12,7 @@
   "Start vterm app.
 
 This of this as a replacement for your terminal app. It will
-create a workspace call *vterm* and switch to it."
+create a workspace called *vterm* and switch to it."
   (interactive)
   (require 'vterm)
   (+workspace-switch "*vterm*" t)
