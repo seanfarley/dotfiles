@@ -5,6 +5,7 @@ plugins: [
   # discogs,
   # chroma,
   edit,
+  info,
   fromfilename,
   fetchart,
   embedart,
