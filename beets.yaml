@@ -14,9 +14,9 @@ plugins: [
   mbsync,
   missing,
   mpdstats,
-  mpdupdate,
   replaygain,
   smartplaylist,
+  mpdupdate,                    # order is important for mpdupdate
 ]
 
 chroma:
