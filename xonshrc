@@ -53,6 +53,9 @@ $PROJECTS = $HOME + "/projects"
 $SANDBOX = $HOME + "/sandbox"
 $PHD = $PROJECTS + "/phd"
 
+# for autovox
+$PROJECT_DIRS = [$PROJECTS]
+
 $GOPATH = $PROJECTS + "/go"
 
 $RIPGREP_CONFIG_PATH = $HOME + "/.ripgreprc"
