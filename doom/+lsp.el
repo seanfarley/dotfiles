@@ -8,7 +8,24 @@
         lsp-pyls-plugins-pylint-enabled nil
         lsp-pyls-plugins-pycodestyle-enabled nil
         lsp-pyls-plugins-flake8-enabled t
-        lsp-ui-doc-enable t))
+        lsp-ui-doc-enable t)
+
+  ;; python stuff
+
+  ;; lsp-python-ms (or rather the ms-python server) doesn't use other backends,
+  ;; so manually set `flycheck-checker' in `python-mode'
+  (add-hook! lsp-mode (when (derived-mode-p 'python-mode)
+                        (setq-local flycheck-checker 'python-flake8)))
+
+
+  (let* ((ans-dir "/usr/local/Cellar/ansible/")
+         (ans-vers-dir (car
+                        (mapcar #'car
+                                (sort (directory-files-and-attributes ans-dir)
+                                      #'(lambda (x y) (time-less-p (nth 6 x) (nth 6 y))))))))
+
+    (setq lsp-python-ms-extra-paths `("~/Library/Python/3.7/lib/python/site-packages"
+                                      ,(concat ans-dir ans-vers-dir "/libexec/lib/python3.8/site-packages")))))
 
 ;====== helpful snippet to not start a process and just connect to a port ======
 
