@@ -47,14 +47,22 @@
    ;; prefer text over html
    mu4e-view-html-plaintext-ratio-heuristic most-positive-fixnum
 
-   mu4e-maildir-shortcuts '(("/inbox"     . ?i)
-                            ("/lists"     . ?l)
-                            ("/archive"   . ?a)
-                            ("/drafts"    . ?d)
-                            ("/phd"       . ?p)
-                            ("/posterity" . ?t)
-                            ("/barryisms" . ?b)
-                            ("/spam"      . ?s))
+   mu4e-maildir-shortcuts (list (list :maildir "/inbox"
+                                      :key ?i)
+                                (list :maildir "/lists"
+                                      :key ?l)
+                                (list :maildir "/archive"
+                                      :key ?a)
+                                (list :maildir "/drafts"
+                                      :key ?d)
+                                (list :maildir "/phd"
+                                      :key ?p)
+                                (list :maildir "/posterity"
+                                      :key ?t)
+                                (list :maildir "/barryisms"
+                                      :key ?b)
+                                (list :maildir "/spam"
+                                      :key ?s))
 
    ;; mu4e-use-fancy-chars t
 
