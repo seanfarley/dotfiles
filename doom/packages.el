@@ -25,6 +25,7 @@
 (package! package-lint)
 (package! page-break-lines)
 (package! resize-window)
+(package! simple-httpd)
 (package! sly-quicklisp)
 (package! sphinx-doc)
 (package! srefactor)
