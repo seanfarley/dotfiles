@@ -16,6 +16,7 @@ plugins: [
   mpdstats,
   mpdupdate,
   replaygain,
+  smartplaylist,
 ]
 
 chroma:
@@ -75,3 +76,9 @@ replaygain:
   auto: yes
   overwrite: yes
   albumgain: yes
+
+smartplaylist:
+  playlist_dir: ~/Music/playlists
+  playlists:
+    - name: all.m3u
+      query: ''
