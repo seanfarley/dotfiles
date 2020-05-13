@@ -30,3 +30,6 @@
 ;;                   :major-modes '(gdscript-mode)
 ;;                   :priority -1
 ;;                   :server-id 'gdscript-ls))
+
+(after! lsp-python-ms
+  (set-lsp-priority! 'mspyls 1))
