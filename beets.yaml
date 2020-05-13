@@ -2,20 +2,20 @@ directory: ~/Music/beets
 library:   ~/Music/beets/library.db
 
 plugins: [
-  # discogs,
   # chroma,
+  # discogs,
   edit,
-  info,
-  fromfilename,
-  fetchart,
   embedart,
+  fetchart,
+  fromfilename,
+  ftintitle,
+  info,
   lyrics,
-  missing,
   mbsync,
+  missing,
   mpdstats,
   mpdupdate,
-  ftintitle,
-  replaygain
+  replaygain,
 ]
 
 chroma:
