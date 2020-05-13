@@ -645,6 +645,7 @@ brew install python \
     autojump \
     aspell \
     cairo \
+    chromaprint \
     coreutils \
     dep \
     docker-completion \
