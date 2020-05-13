@@ -28,25 +28,25 @@ ui:
   color: yes
 
 paths:
-    default: $albumartist/$album%aunique{}/$track $title
-    singleton: Non-Album/$artist/$title
-    comp: Compilations/$album%aunique{}/$track $title
+  default: $albumartist/$album%aunique{}/$track $title
+  singleton: Non-Album/$artist/$title
+  comp: Compilations/$album%aunique{}/$track $title
 
 paths:
-    default:    $albumartist/$year - $album/$track $title
-    singletons: Singles/$artist - $title
-    comp:       Compilations/$album/$track $title
+  default:    $albumartist/$year - $album/$track $title
+  singletons: Singles/$artist - $title
+  comp:       Compilations/$album/$track $title
 
 import:
   # write metadata to music files
   write: yes
 
   # move imported files from source to the music directory
-  move:   yes
+  move: yes
   copy: no
   delete: no
   resume: ask
-  log:    ~/Music/beets/beets.log
+  log: ~/Music/beets/beets.log
 
   # use auto-tagging where possible
   # do not require confirmation on strong matches
@@ -69,7 +69,7 @@ ftintitle:
   auto: yes
 
 mpdstats:
-    music_directory:    ~/Music
+  music_directory: ~/Music
 
 replaygain:
   auto: yes
