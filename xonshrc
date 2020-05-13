@@ -89,6 +89,7 @@ $PATH = EnvPath([
     "/usr/local/opt/coreutils/libexec/gnubin",
     "/usr/local/opt/make/libexec/gnubin",
     "/usr/local/opt/texinfo/bin",
+    "/usr/local/Cellar/qt/5.14.2/bin",
     "/Library/TeX/texbin",
 ]) + $PATH
 
