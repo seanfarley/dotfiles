@@ -77,15 +77,15 @@ $PYTHONBREAKPOINT = "ipdb.set_trace"
 
 $PATH = EnvPath([
     $HOME + "/.local/bin",
+    $HOME + "/.cargo/bin",
+    $GOPATH[0] + "/bin",
+    $HOME + "/.npm/bin",
     "/opt/X11/bin",
     "/usr/local/bin",
     "/usr/local/sbin",
     "/usr/local/cuda/bin",
     "/usr/local/share/dotnet",
-    $HOME + "/.cargo/bin",
-    $GOPATH[0] + "/bin",
     $HOME + "/Library/Python/3.8/bin",
-    $HOME + "/.npm/bin",
     "/usr/local/opt/coreutils/libexec/gnubin",
     "/usr/local/opt/make/libexec/gnubin",
     "/usr/local/opt/texinfo/bin",
