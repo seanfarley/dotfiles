@@ -24,7 +24,6 @@
 (package! org-ref)
 (package! package-lint)
 (package! page-break-lines)
-(package! persistent-scratch)
 (package! resize-window)
 (package! ripgrep)
 (package! sly-quicklisp)
