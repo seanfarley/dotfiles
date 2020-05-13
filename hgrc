@@ -1,7 +1,7 @@
 [ui]
 username = Sean Farley <sean@farley.io>
 ssh = ssh -C
-editor = ~/.edit.sh
+editor = emacsclient
 ignore = ~/.hgignore
 debugger = ipdb
 mergemarkers = detailed
