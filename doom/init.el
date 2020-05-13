@@ -149,12 +149,16 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
+        +brain
         +dragndrop       ; file drag & drop support
+        +gnuplot
         +hugo            ; use Emacs for hugo blogging
+        +journal
         +jupyter         ; ipython/jupyter support for babel
         +pandoc          ; pandoc integration into org's exporter
         +pomodoro        ; be fruitful with the tomato technique
-        +present)        ; using Emacs for presentations
+        +present         ; using Emacs for presentations
+        +roam)
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
