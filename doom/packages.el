@@ -27,6 +27,7 @@
 (package! persistent-scratch)
 (package! resize-window)
 (package! ripgrep)
+(package! sly-quicklisp)
 (package! sphinx-doc)
 (package! srefactor)
 (package! sx)
