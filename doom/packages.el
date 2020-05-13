@@ -14,7 +14,6 @@
 (package! focus)
 (package! goto-chg)
 (package! ialign)
-(package! jump-tree)
 (package! lsp-focus :recipe (:host github :repo "emacs-lsp/lsp-focus"))
 (package! lsp-origami)
 (package! lsp-treemacs)

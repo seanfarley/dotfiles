@@ -56,7 +56,6 @@
 (add-hook! after-init
            #'fancy-narrow-mode
            #'global-dot-mode
-           #'global-jump-tree-mode
            #'global-page-break-lines-mode)
 
 
