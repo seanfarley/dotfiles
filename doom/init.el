@@ -194,8 +194,3 @@
        :config
        ;;literate
        (default +bindings +smartparens +snippets))
-
-;; REVIEW temporary fix for https://github.com/hlissner/doom-emacs/issues/2386
-(when noninteractive
-  (after! undo-tree
-    (global-undo-tree-mode -1)))
