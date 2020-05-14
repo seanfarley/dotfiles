@@ -1,6 +1,8 @@
 ;;; ~/projects/dotfiles/doom/+mail.el -*- lexical-binding: t; -*-
 
 (after! mu4e
+  (require 'smtpmail)
+  (remove-hook 'mu4e-compose-mode-hook #'org-mu4e-compose-org-mode)
 
   ;============================= org settings first ============================
 
@@ -273,16 +275,3 @@
      ;; too common for me
      "M-<right>"                  nil
      "M-<left>"                   nil)))
-
-
-(add-hook 'doom-init-ui-hook
-          (lambda ()
-            ;; remove the org-mode compose functionality: it removes the
-            ;; coloring of indented replies
-            (remove-hook 'mu4e-compose-mode-hook #'org-mu4e-compose-org-mode)
-
-            ;; try to get sent messages to the sent folder
-            (require 'smtpmail)
-
-            ;; auto start mail notifications
-            (require 'mu4e-alert)))
