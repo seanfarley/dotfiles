@@ -3,9 +3,6 @@
 
 (setq source-directory (expand-file-name "~/projects/emacs"))
 
-;; really convenient mode for copying the whole line or region
-(whole-line-or-region-global-mode)
-
 ;; enable hs-minor-mode
 (add-hook! prog-mode
            #'hs-minor-mode
@@ -58,6 +55,7 @@
 (add-hook! after-init
            #'fancy-narrow-mode
            #'global-dot-mode
+           #'whole-line-or-region-global-mode
            #'global-page-break-lines-mode)
 
 
