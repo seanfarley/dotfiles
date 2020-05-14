@@ -36,6 +36,8 @@
 (add-hook 'magit-process-find-password-functions
           'magit-process-password-auth-source)
 
+(add-hook! artist-mode (display-line-numbers-mode -1))
+
 ;; magit-todo ignore json files
 (after! magit
   (setq magit-todos-exclude-globs '("*.json")))
