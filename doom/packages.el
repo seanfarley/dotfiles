@@ -1,5 +1,3 @@
-(unpin! t)
-
 (package! banner-comment)
 (package! bitwarden :recipe (:host github :repo "seanfarley/emacs-bitwarden"))
 (package! col-highlight :recipe (:host github :repo "emacsmirror/col-highlight"))
