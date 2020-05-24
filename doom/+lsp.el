@@ -8,7 +8,7 @@
         lsp-pyls-plugins-pylint-enabled nil
         lsp-pyls-plugins-pycodestyle-enabled nil
         lsp-pyls-plugins-flake8-enabled t
-        lsp-ui-doc-enable t)
+        lsp-signature-auto-activate nil)
 
   ;; python stuff
 
