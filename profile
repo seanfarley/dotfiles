@@ -51,3 +51,5 @@ if [ -n "$PS1" ]; then
   # "error sending to agent: Inappropriate ioctl for device"
   export GPG_TTY=$(tty)
 fi
+
+export PATH="$HOME/.cargo/bin:$PATH"
