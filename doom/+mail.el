@@ -143,8 +143,10 @@
              ((mu4e-message-contact-field-matches msg :to "me@smf.io")
               "me@smf.io")
              ((or
-               (mu4e-message-contact-field-matches msg :to "sean@coiled.io")
-               (mu4e-message-contact-field-matches msg :to "sfarley@coiled.io"))
+               (mu4e-message-contact-field-matches msg :to "coiled.io")
+               (mu4e-message-contact-field-matches msg :from "coiled.io")
+               (mu4e-message-contact-field-matches msg :cc "coiled.io")
+               (mu4e-message-contact-field-matches msg :bcc "coiled.io"))
               "sean@coiled.io")
              ((or
                (mu4e-message-contact-field-matches msg :from "macports")
