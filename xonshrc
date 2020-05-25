@@ -72,7 +72,9 @@ if $HOME != "/Users/" + $USER:
 
 # always use ipdb for breakpoint()
 $PYTHONBREAKPOINT = "ipdb.set_trace"
-$PYTHONPATH = "~/Library/Python/3.7/lib/python/site-packages"
+
+$USER_PYTHON = $HOME + "/Library/Python/3.7"
+$PYTHONPATH = $USER_PYTHON + "/lib/python/site-packages"
 
 # ==================================== paths ==================================
 
@@ -80,7 +82,7 @@ $PATH = EnvPath([
     $HOME + "/.local/bin",
     $HOME + "/.cargo/bin",
     $GOPATH[0] + "/bin",
-    $HOME + "/Library/Python/3.7/bin",
+    $USER_PYTHON + "/bin",
     $HOME + "/.npm/bin",
     "/opt/X11/bin",
     "/usr/local/bin",
