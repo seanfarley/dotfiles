@@ -19,6 +19,10 @@
                   (x x)))))
     (apply orig-fn args)))
 
+(after! projectile
+  ;; super common typo
+  (define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map))
+
 (map!
  "s-k"                               #'kill-this-buffer
  "s-n"                               #'smf/make-frame
@@ -88,6 +92,12 @@
    "C-."                           nil ; prefer dot-mode binding over auto
                                         ; correct
    "C-M-i"                         #'flyspell-auto-correct-previous-word))
+
+ ;; python
+ (:after python
+  (:map python-mode-map
+   ;; common typo for me with projectile
+   "C-c C-p"                       nil))
 
  ;; unfill
  "M-Q"                               #'unfill-paragraph
