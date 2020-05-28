@@ -66,28 +66,28 @@
 
  ;; Smartparens
  (:after smartparens
-   (:map smartparens-mode-map
-     "C-M-a"                         #'sp-beginning-of-sexp
-     "C-M-e"                         #'sp-end-of-sexp
-     "C-M-f"                         #'sp-forward-sexp
-     "C-M-b"                         #'sp-backward-sexp
-     "C-M-d"                         #'sp-splice-sexp
-     "C-M-k"                         #'sp-kill-sexp
-     "C-M-t"                         #'sp-transpose-sexp
-     ;; TODO rethink these bindings
-     "C-<right>"                     nil
-     "M-<right>"                     nil
-     "C-<left>"                      nil
-     "M-<left>"                      nil
-     "C-M-d"                         nil))
+  (:map smartparens-mode-map
+   "C-M-a"                         #'sp-beginning-of-sexp
+   "C-M-e"                         #'sp-end-of-sexp
+   "C-M-f"                         #'sp-forward-sexp
+   "C-M-b"                         #'sp-backward-sexp
+   "C-M-d"                         #'sp-splice-sexp
+   "C-M-k"                         #'sp-kill-sexp
+   "C-M-t"                         #'sp-transpose-sexp
+   ;; TODO rethink these bindings
+   "C-<right>"                     nil
+   "M-<right>"                     nil
+   "C-<left>"                      nil
+   "M-<left>"                      nil
+   "C-M-d"                         nil))
 
  ;; flyspell
  (:after flyspell
-   (:map flyspell-mode-map
-     "C-;"                           nil ; Do not override
-     "C-."                           nil ; prefer dot-mode binding over auto
-                                         ; correct
-     "C-M-i"                         #'flyspell-auto-correct-previous-word))
+  (:map flyspell-mode-map
+   "C-;"                           nil ; Do not override
+   "C-."                           nil ; prefer dot-mode binding over auto
+                                        ; correct
+   "C-M-i"                         #'flyspell-auto-correct-previous-word))
 
  ;; unfill
  "M-Q"                               #'unfill-paragraph
