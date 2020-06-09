@@ -74,7 +74,7 @@ if $HOME != "/Users/" + $USER:
 $PYTHONBREAKPOINT = "ipdb.set_trace"
 
 $USER_PYTHON = $HOME + "/Library/Python/3.7"
-$PYTHONPATH = $USER_PYTHON + "/lib/python/site-packages"
+# $PYTHONPATH = $USER_PYTHON + "/lib/python/site-packages"
 
 # ==================================== paths ==================================
 
