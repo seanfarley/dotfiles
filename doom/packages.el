@@ -23,6 +23,8 @@
 (package! org-ref)
 (package! package-lint)
 (package! page-break-lines)
+;; ugh, get rid of this pipenv shit
+(package! pipenv :disable t)
 (package! resize-window)
 (package! simple-httpd)
 (package! sly-quicklisp)
