@@ -20,7 +20,7 @@ end
 
 local function emacs_server_file()
     local home = os.getenv("HOME")
-    return home .. "/.emacs.d/.local/cache/server/server"
+    return home .. "/.emacs.d/server/server"
 end
 
 local running_processes = {}

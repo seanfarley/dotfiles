@@ -20,7 +20,7 @@ export CDPATH=.:$PROJECTS:$HOME
 export GOPATH=$PROJECTS/go
 
 # sweet, sweet emacs
-export EMACS_SERVER_FILE=$HOME/.emacs.d/.local/cache/server/server
+export EMACS_SERVER_FILE=$HOME/.emacs.d/server/server
 
 # if we're not on our home machine, then set tramp
 if [[ $HOME != /Users/$USER ]]; then

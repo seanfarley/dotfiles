@@ -63,7 +63,7 @@ $RIPGREP_CONFIG_PATH = $HOME + "/.ripgreprc"
 $ANSIBLE_VAULT_PASSWORD_FILE = $HOME + "/.vault_pass.txt"
 
 # sweet, sweet emacs
-esf = ".emacs.d/.local/cache/server/server"
+esf = ".emacs.d/server/server"
 $EMACS_SERVER_FILE = $HOME + '/' + esf
 
 # if we're not on our home machine, then set tramp
