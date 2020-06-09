@@ -48,7 +48,6 @@ mkdir -p ~/.ipython
 mkdir -p ~/.ssh
 mkdir -p ~/.gnupg
 mkdir -p ~/.config/karabiner
-mkdir -p ~/.config/alacritty
 mkdir -p ~/.config/beets
 mkdir -p ~/Music/beets
 mkdir -p ~/Music/playlists
@@ -90,7 +89,6 @@ ensure_link "gpg.conf" ".gnupg/gpg.conf"
 ensure_link "xonshrc"
 ensure_link "ripgreprc"
 ensure_link "vault_pass.txt"
-ensure_link "alacritty.yml" ".config/alacritty/alacritty.yml"
 ensure_link "epass.sh"
 ensure_link "beets.yaml" ".config/beets/config.yaml"
 ensure_link "mpd.conf" ".mpd/mpd.conf"
