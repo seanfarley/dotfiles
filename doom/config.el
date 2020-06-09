@@ -47,6 +47,8 @@
 (add-hook! python-mode #'sphinx-doc-mode)
 
 
+(add-hook! jinja2-mode (remove-hook after-save-hook 'jinja2-indent-buffer))
+
 (load-theme 'doom-nord t)
 
 (after! which-key-mode
