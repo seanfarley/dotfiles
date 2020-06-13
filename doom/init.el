@@ -36,6 +36,7 @@
        hl-todo           ; highlight todo/fixme/note tags
        ;;hydra
        indent-guides     ; highlighted indent columns
+       minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink the current line after jumping
        ;;neotree           ; a project drawer, like NERDTree for vim
