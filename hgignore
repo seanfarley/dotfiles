@@ -87,3 +87,4 @@ flush/system
 node_modules
 bower_components
 requirements/local.txt
+server/server
