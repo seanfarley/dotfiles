@@ -78,23 +78,27 @@ $USER_PYTHON = $HOME + "/Library/Python/3.7"
 
 # ==================================== paths ==================================
 
-$PATH = EnvPath([
-    $HOME + "/.local/bin",
-    $HOME + "/.cargo/bin",
-    $GOPATH[0] + "/bin",
-    $USER_PYTHON + "/bin",
-    $HOME + "/.npm/bin",
-    "/opt/X11/bin",
-    "/usr/local/bin",
-    "/usr/local/sbin",
-    "/usr/local/cuda/bin",
-    "/usr/local/share/dotnet",
-    "/usr/local/opt/coreutils/libexec/gnubin",
-    "/usr/local/opt/make/libexec/gnubin",
-    "/usr/local/opt/texinfo/bin",
-    "/usr/local/Cellar/qt/5.14.2/bin",
-    "/Library/TeX/texbin",
-]) + $PATH
+# only add paths that aren't already in PATH
+# use reverse since we're prepending
+for p in reversed([
+        $HOME + "/.local/bin",
+        $HOME + "/.cargo/bin",
+        $GOPATH[0] + "/bin",
+        $USER_PYTHON + "/bin",
+        $HOME + "/.npm/bin",
+        "/opt/X11/bin",
+        "/usr/local/bin",
+        "/usr/local/sbin",
+        "/usr/local/cuda/bin",
+        "/usr/local/share/dotnet",
+        "/usr/local/opt/coreutils/libexec/gnubin",
+        "/usr/local/opt/make/libexec/gnubin",
+        "/usr/local/opt/texinfo/bin",
+        "/usr/local/Cellar/qt/5.14.2/bin",
+        "/Library/TeX/texbin",
+]):
+    if p not in $PATH:
+        $PATH.insert(0, p)
 
 # =================================== prompt ==================================
 
