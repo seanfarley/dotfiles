@@ -65,7 +65,6 @@
 (load! "+utils")
 (load! "+bindings")
 (load! "+org")
-(load! "+irc")
 (load! "+twitter")
 (load! "+mail")
 (load! "+modeline")
