@@ -27,6 +27,7 @@
 (package! pipenv :disable t)
 (package! resize-window)
 (package! simple-httpd)
+(package! simple-mpc :recipe (:local-repo "~/projects/simple-mpc"))
 (package! sly-quicklisp)
 (package! sphinx-doc)
 (package! srefactor)
