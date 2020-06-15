@@ -50,6 +50,8 @@
 (add-hook! jinja2-mode (remove-hook after-save-hook 'jinja2-indent-buffer))
 
 (load-theme 'doom-nord t)
+(after! shr
+  (setq shr-color-visible-luminance-min 80))
 
 (after! which-key-mode
   (which-key-posframe-mode))
