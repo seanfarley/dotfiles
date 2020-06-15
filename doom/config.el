@@ -37,7 +37,23 @@
 
 ;; magit-todo ignore json files
 (after! magit
-  (setq magit-todos-exclude-globs '("*.json")))
+  (setq magit-todos-exclude-globs '("*.json"))
+
+  ;; (transient-get-suffix 'magit-commit "x")
+
+  (defun +magit-commit-absorb (&optional args)
+    "Amend the last commit, without editing the message.
+With a prefix argument keep the committer date, otherwise change
+it.  The option `magit-commit-extend-override-date' can be used
+to inverse the meaning of the prefix argument.  \n(git commit
+--amend --no-edit)"
+    (interactive (list (magit-commit-arguments)))
+    (magit-commit-amend-assert)
+    ;; args are ignored for now
+    (magit-run-git-with-editor "absorb"))
+
+  (transient-replace-suffix 'magit-commit "x"
+    '("x" "Absorb" +magit-commit-absorb)))
 
 (after! git-commit
   (setq git-commit-summary-max-length 80))
