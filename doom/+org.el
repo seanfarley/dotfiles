@@ -247,3 +247,7 @@ have the selected text we want to capture for org-mode)."
 (setq org-ref-bibliography-notes "~/Nextcloud/refs/notes.org"
       org-ref-default-bibliography '("~/Nextcloud/refs/master.bib")
       org-ref-pdf-directory (expand-file-name "~/Nextcloud/refs/pdfs/"))
+
+;============================== org-noter-pdftools =============================
+
+(add-hook! 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)

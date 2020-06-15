@@ -21,6 +21,7 @@
 (package! nerd-font :recipe (:host github :repo "twlz0ne/nerd-fonts.el"))
 (package! nov)
 (package! org-ref)
+(package! org-noter-pdftools)
 (package! package-lint)
 (package! page-break-lines)
 ;; ugh, get rid of this pipenv shit
