@@ -162,6 +162,7 @@
         +journal
         +jupyter         ; ipython/jupyter support for babel
         +pandoc          ; pandoc integration into org's exporter
+        +pdf             ; org-pdfnoter
         +pomodoro        ; be fruitful with the tomato technique
         +present         ; using Emacs for presentations
         +roam)
