@@ -2,33 +2,6 @@ KeepAlive yes
 ServerAliveInterval 60
 StrictHostKeyChecking no
 
-Host pfna-gateway
-  HostName 99.23.123.185
-  CheckHostIP yes
-  ProxyCommand none
-
-Host pfna pfna-gpu2             # emacs
-  HostName pfna-gpu2.local
-  ProxyCommand ssh -A -W %h:%p pfna-gateway
-  RemoteForward 9999 localhost:9999
-
-Host pfna-ucb                   # emacs
-  HostName pfna-ucb.local
-  ProxyCommand ssh -A -W %h:%p pfna-gateway
-  RemoteForward 9999 localhost:9999
-
-Host pfnjetson1                 # emacs
-  HostName pfnjetson1.local
-  User pfn
-  ProxyCommand ssh -A -W %h:%p pfna-gateway
-  RemoteForward 9999 localhost:9999
-
-Host pfna-jn-001                # emacs
-  HostName pfna-jn-001.local
-  User pfn
-  ProxyCommand ssh -A -W %h:%p pfna-gateway
-  RemoteForward 9999 localhost:9999
-
 Host github.com
   HostName ssh.github.com
   Port 443
