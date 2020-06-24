@@ -60,10 +60,15 @@ the 'main' one.")
                (match-string 7 str)))))
 
 
+(after! ansible
+  (setq ansible-vault-password-file nil))
+
 (defun smf/spawn-ansible (role)
   (let ((default-directory (projectile-project-root))
         (cmd (list "ansible-playbook" "--tags" role
-                   (concat "--vault-password-file=" ansible-vault-password-file)
+                   (if ansible-vault-password-file
+                       (concat "--vault-password-file=" ansible-vault-password-file)
+                     "")
                    (concat (projectile-project-root) "/" ansible-playbook-file))))
     (make-process :name "ansible-playbook"
                 :buffer ansible-process-buffer
