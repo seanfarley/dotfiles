@@ -3,6 +3,7 @@
 (package! col-highlight :recipe (:host github :repo "emacsmirror/col-highlight"))
 (package! color-identifiers-mode)
 (package! counsel-jq)
+(package! counsel-world-clock)
 (package! discover-my-major)
 (package! dot-mode)
 (package! easy-hugo)
