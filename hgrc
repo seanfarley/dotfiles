@@ -45,6 +45,7 @@ shelve =
 journal =
 releasenotes =
 fsmonitor =
+remotenames =
 perf = ~/projects/hg/contrib/perf.py
 # Third-party extensions
 evolve =
