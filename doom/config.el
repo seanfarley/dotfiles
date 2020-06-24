@@ -48,9 +48,14 @@
   (setq git-commit-summary-max-length 80))
 
 (add-hook! (emacs-lisp-mode ielm-mode)
-           #'elisp-slime-nav-mode)
+           #'elisp-slime-nav-mode
+           #'flycheck-package-setup)
+
 (add-hook! python-mode #'sphinx-doc-mode)
 
+;; TODO make +python module
+;; TODO investigate django packages and incorporate them
+(add-hook! +web-django-mode (prettify-symbols-mode -1))
 
 (add-hook! jinja2-mode (remove-hook after-save-hook 'jinja2-indent-buffer))
 
