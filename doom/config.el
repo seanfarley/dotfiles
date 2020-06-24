@@ -35,14 +35,18 @@
 
 (add-hook! artist-mode (display-line-numbers-mode -1))
 
-;; magit-todo ignore json files
 (after! magit
+  ;; magit-todo ignore json files due to huge performance hit
   (setq magit-todos-exclude-globs '("*.json"))
 
-  ;; see https://github.com/magit/magit/issues/3723 for explanation of behavior
-  ;; for prompting the user
-  (transient-replace-suffix 'magit-commit 'magit-commit-autofixup
-    '("x" "Absorb changes" magit-commit-absorb)))
+  (when (equal (plist-get (nth 2 (transient-get-suffix 'magit-commit "x"))
+                          :command)
+               #'magit-commit-autofixup)
+
+    ;; see https://github.com/magit/magit/issues/3723 for explanation of
+    ;; behavior for prompting the user
+    (transient-replace-suffix #'magit-commit #'magit-commit-autofixup
+      '("x" "Absorb changes" magit-commit-absorb))))
 
 (after! git-commit
   (setq git-commit-summary-max-length 80))
