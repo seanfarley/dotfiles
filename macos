@@ -659,7 +659,6 @@ brew install python \
     mpc \
     mpd \
     npm \
-    pass \
     pinentry-mac \
     terminal-notifier \
     rust \
