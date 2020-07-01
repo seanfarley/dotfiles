@@ -11,6 +11,7 @@ Account mail
 MaildirStore mail-local
 Path ~/.mail/
 Inbox ~/.mail/inbox
+SubFolders Verbatim
 
 Channel mail
 Master :mail-remote:
