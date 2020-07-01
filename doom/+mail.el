@@ -165,7 +165,7 @@
                '(trash
                  :char       "d"
                  :prompt     "dtrash"
-                 :show-target (lambda (target) "/trash")
+                 :show-target (lambda (target) mu4e-trash-folder)
                  :action      (lambda (docid msg target)
                                 (mu4e~proc-move docid
                                                 mu4e-trash-folder
@@ -175,7 +175,7 @@
                '(archive
                  :char       "A"
                  :prompt     "Archive"
-                 :show-target (lambda (target) "/archive")
+                 :show-target (lambda (target) mu4e-refile-folder)
                  :action      (lambda (docid msg target)
                                 (mu4e~proc-move docid
                                                 mu4e-refile-folder
