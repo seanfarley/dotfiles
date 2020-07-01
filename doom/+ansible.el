@@ -71,10 +71,10 @@ the 'main' one.")
                      "")
                    (concat (projectile-project-root) "/" ansible-playbook-file))))
     (make-process :name "ansible-playbook"
-                :buffer ansible-process-buffer
-                :connection-type 'pipe
-                :command cmd
-                :filter #'smf/ansible-proc-filter)))
+                  :buffer ansible-process-buffer
+                  :connection-type 'pipe
+                  :command cmd
+                  :filter #'smf/ansible-proc-filter)))
 
 
 (defun smf/role-from-dir-name (buffer)
