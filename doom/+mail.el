@@ -198,7 +198,6 @@
                                          'read-file-name-internal
                                          :matcher #'smf/find-dir-matcher
                                          :history 'smf/recent-patch-dirs))
-                 ;; :show-target (lambda (target) "/spam")
                  :action      (lambda (docid msg target)
                                 (shell-command
                                  (format
