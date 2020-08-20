@@ -766,13 +766,17 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>339 204 796 486 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>429 207 730 498 0 0 1440 900 </string>
+	<string>353 294 730 498 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>710 391 730 498 0 0 1440 900 </string>
+	<string>0 0 1440 900 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>197 16 730 498 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
 	<string>239 6 730 498 0 0 1440 900 </string>
+	<key>NeverWarnAboutShortLivedSessions_44FD5F89-AF9E-4FFE-A63A-A9275D23B2CF</key>
+	<true/>
+	<key>NeverWarnAboutShortLivedSessions_44FD5F89-AF9E-4FFE-A63A-A9275D23B2CF_selection</key>
+	<integer>0</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1044,7 +1048,7 @@
 			<key>Columns</key>
 			<integer>80</integer>
 			<key>Command</key>
-			<string>/Users/sean/Library/Python/3.7/bin/xonsh</string>
+			<string>/Users/sean/Library/Python/3.8/bin/xonsh</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -1803,16 +1807,18 @@
 	</array>
 	<key>NoSyncAllAppVersions</key>
 	<array>
-		<string>3.3.6</string>
-		<string>3.3.8</string>
-		<string>3.3.1</string>
-		<string>3.3.3</string>
 		<string>3.3.5</string>
-		<string>3.3.7</string>
+		<string>3.3.3</string>
+		<string>3.3.1</string>
+		<string>3.3.8</string>
+		<string>3.3.12</string>
+		<string>3.3.6</string>
+		<string>3.3.11</string>
+		<string>3.3.4</string>
+		<string>3.3.2</string>
 		<string>3.3.9</string>
 		<string>3.2.9</string>
-		<string>3.3.2</string>
-		<string>3.3.4</string>
+		<string>3.3.7</string>
 	</array>
 	<key>NoSyncBFPRecents</key>
 	<array>
@@ -1823,14 +1829,14 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1440, 900}}</string>
 		<key>topLeft</key>
-		<string>{288, 736}</string>
+		<string>{287, 737}</string>
 	</dict>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>C0DC0E86-6104-461C-840D-3AEDF047297E</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>173</integer>
+	<integer>238</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2601,7 +2607,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>~/projects/dotfiles</string>
+	<string>/Users/sean/projects/dotfiles</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>PromptOnQuit</key>
@@ -2617,11 +2623,11 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-04-24T22:10:24Z</date>
+	<date>2020-07-12T01:50:45Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateGroupIdentifier</key>
-	<integer>3750477200</integer>
+	<integer>777806672</integer>
 	<key>SUUpdateRelaunchingMarker</key>
 	<false/>
 	<key>SoundForEsc</key>
@@ -2633,7 +2639,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.9</string>
+	<string>3.3.12</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
