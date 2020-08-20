@@ -8,7 +8,7 @@
            #'hs-minor-mode
            #'color-identifiers-mode)
 
-(setq projectile-project-search-path '("~/projects/" "~/sandbox/"))
+(setq projectile-project-search-path (list "~/projects/"))
 
 (defmacro smf/bitwarden-init ()
   `(progn
