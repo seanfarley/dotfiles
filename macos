@@ -669,7 +669,7 @@ brew install bash bash-completion@2
 ./common
 
 # cask drivers
-brew tap caskroom/drivers
+brew tap homebrew/cask-drivers
 if system_profiler SPDisplaysDataType | grep -i "chipset.*nvidia"; then
   brew cask install nvidia-web-driver nvidia-cuda
 fi
@@ -703,7 +703,7 @@ defaults write org.hammerspoon.Hammerspoon MJShowDockIconKey -bool False
 
 # fonts
 echo "Tapping fonts..."
-brew tap caskroom/fonts
+brew tap homebrew/cask-fonts
 
 brew install fontconfig
 brew cask install font-fontawesome \
