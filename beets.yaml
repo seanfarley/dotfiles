@@ -4,6 +4,7 @@ library:   ~/Music/beets/library.db
 plugins: [
   # chroma,
   # discogs,
+  # acousticbrainz,
   edit,
   embedart,
   fetchart,
