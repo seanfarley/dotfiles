@@ -137,6 +137,7 @@ def host_color():
         "#F26722",
     ]
     # print(hn_hash.hexdigest())
+    # TODO finish fixing this
     return colors[0]
 
 
