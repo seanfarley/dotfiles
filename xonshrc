@@ -75,6 +75,12 @@ $PYTHONBREAKPOINT = "ipdb.set_trace"
 $USER_PYTHON = $HOME + "/Library/Python/3.8"
 # $PYTHONPATH = $USER_PYTHON + "/lib/python/site-packages"
 
+# npm
+$NPM_PACKAGES = $HOME + "/.npm-packages"
+$MANPATH = $NPM_PACKAGES + "/share/man:" + $(manpath).strip()
+# tell node about these packages
+$NODE_PATH = $NPM_PACKAGES + "/lib/node_modules"
+
 # ==================================== paths ==================================
 
 # only add paths that aren't already in PATH
@@ -84,7 +90,7 @@ for p in reversed([
         $HOME + "/.cargo/bin",
         $GOPATH[0] + "/bin",
         $USER_PYTHON + "/bin",
-        $HOME + "/.npm/bin",
+        $NPM_PACKAGES + "/bin",
         "/opt/X11/bin",
         "/usr/local/bin",
         "/usr/local/sbin",
