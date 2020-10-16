@@ -86,6 +86,12 @@ $NODE_PATH = $NPM_PACKAGES + "/lib/node_modules"
 # only add paths that aren't already in PATH
 # use reverse since we're prepending
 for p in reversed([
+        # always put emacs first; could be either a homebrew install or a
+        # custom build, so just add symlink (hopefully they never
+        # conflict)
+        # e.g. ln -s ~/projects/emacs/nextstep/Emacs.app /Applications/Emacs.app
+        # e.g. ln -s /usr/local/opt/emacs-plus@28/Emacs.app /Applications
+        "/Applications/Emacs.app/Contents/MacOS/bin",
         $HOME + "/.local/bin",
         $HOME + "/.cargo/bin",
         $GOPATH[0] + "/bin",
