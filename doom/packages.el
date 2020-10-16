@@ -13,6 +13,7 @@
 (package! flycheck-package)
 (package! focus)
 (package! goto-chg)
+(package! grip-mode)
 (package! ialign)
 (package! lsp-focus :recipe '(:host github :repo "emacs-lsp/lsp-focus"))
 (package! lsp-origami)
