@@ -5,8 +5,7 @@
 
 ;; enable hs-minor-mode
 (add-hook! prog-mode
-           #'hs-minor-mode
-           #'color-identifiers-mode)
+           #'hs-minor-mode)
 
 (setq projectile-project-search-path (list "~/projects/"))
 
