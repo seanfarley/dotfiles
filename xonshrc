@@ -179,6 +179,6 @@ def ssh_pre(cmd, **kwargs):
 # read bash completions
 $BASH_COMPLETIONS.insert(0, '/usr/local/share/bash-completion/bash_completion')
 
-xontrib load autojump coreutils distributed docker_tabcomplete jedi mpl
+xontrib load z coreutils distributed docker_tabcomplete jedi mpl
 xontrib load prompt_ret_code vox vox_tabcomplete
 xontrib load readable-traceback autovox avox
