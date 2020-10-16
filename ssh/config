@@ -9,7 +9,6 @@ Host github.com
 Host euclid                     # emacs
   HostName farley.in
   RemoteForward 9999 localhost:9999
-  #Port 443
 
 Host pybay
   HostName pybay.com
