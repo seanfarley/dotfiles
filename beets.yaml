@@ -10,6 +10,7 @@ plugins: [
   fetchart,
   fromfilename,
   ftintitle,
+  hook,
   info,
   lyrics,
   mbsync,
@@ -83,3 +84,14 @@ smartplaylist:
   playlists:
     - name: all.m3u
       query: ''
+
+hook:
+  hooks:
+    - event: import
+      command: echo 'Now, import the new music into iTunes':' open ~/Music/playlists/*.m3u'
+
+    # # automatically import new songs into iTunes; unfortunately this has two
+    # # shortcomings: 1) it open iTunes and the music starts playing; 2) it
+    # # doesn't add the new songs aren't written to the all.m3u file just yet
+    # - event: import
+    #   command: bash -c "open {lib.directory}/../playlists/*.m3u"
