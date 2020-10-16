@@ -15,6 +15,7 @@ $DYNAMIC_CWD_ELISION_CHAR = '…'
 $XONSH_SHOW_TRACEBACK = True
 # source-bash --overwrite-aliases --interactive True --sourcer source "echo loading xonsh foreign shell"
 
+$XONSH_HISTORY_SIZE = (1073741824, "commands")
 
 # =================================== aliases =================================
 
