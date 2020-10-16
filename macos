@@ -541,17 +541,11 @@ defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
 #defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
 
 ###############################################################################
-# Terminal & iTerm 2                                                          #
+# Terminal                                                                    #
 ###############################################################################
 
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
-
-# Specify the preferences directory
-defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "$HOME/projects/dotfiles"
-
-# Tell iTerm2 to use the custom preferences in the directory
-defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
 
 ###############################################################################
 # Time Machine                                                                #
@@ -684,7 +678,6 @@ fi
 
 # slack needs to be before hammerspoon launches
 brew cask install firefox \
-    iterm2 \
     karabiner-elements \
     keybase \
     calibre \
