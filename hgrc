@@ -48,7 +48,7 @@ fsmonitor =
 remotenames =
 perf = ~/projects/hg/contrib/perf.py
 # Third-party extensions
-evolve =
+evolve = ~/projects/hgevolve/hgext3rd/evolve
 
 [histedit]
 dropmissing = True
