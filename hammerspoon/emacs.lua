@@ -11,7 +11,6 @@ local mod = {}
 
 -- needs to be a wrapper script that will spawn a background process so that
 -- hammerspoon won't crash
-local ec = "~/.ec"
 
 -- this is such horseshit: the below should work but it seems hammerspoon's lua
 -- is buggy as shit when it comes to spawning processes and callbacks; this
