@@ -62,8 +62,14 @@
  "C-<tab>"                           #'+workspace/switch-right
  "C-S-<tab>"                         #'+workspace/switch-left
 
- ;; Plugins
- "C-:"                               #'ace-jump-mode
+ ;; jumping / goto
+ "M-g g"                             nil
+ "M-g TAB"                           nil
+ "M-g ESC"                           nil
+ "M-g M-g"                           #'avy-goto-char
+ "M-g c"                             #'avy-goto-char
+ "M-g l"                             #'avy-goto-line
+ "M-g w"                             #'avy-goto-word-0
 
  ;; goto-chg
  "C-M-s-z"                           #'goto-last-change
