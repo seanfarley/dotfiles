@@ -10,6 +10,13 @@ Host euclid                     # emacs
   HostName farley.in
   RemoteForward 9999 localhost:9999
 
+Host farley
+  HostName farley.io
+  # FIXME -z is needed bc somehow proxytunnel doesn't find my ca store
+  ProxyCommand proxytunnel -q -E -p farley.io:443 -d 127.0.0.1:22 -z 
+  DynamicForward 1080
+  ServerAliveInterval 60
+
 Host pybay
   HostName pybay.com
   User pybay
