@@ -74,7 +74,7 @@
  ;; goto-chg
  "C-M-s-z"                           #'goto-last-change
 
- ;; Smartparens
+ ;; smartparens
  (:after smartparens
   (:map smartparens-mode-map
    "C-M-a"                         #'sp-beginning-of-sexp
