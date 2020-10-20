@@ -60,8 +60,6 @@
 ;; TODO investigate django packages and incorporate them
 (add-hook! +web-django-mode (prettify-symbols-mode -1))
 
-(add-hook! jinja2-mode (remove-hook after-save-hook 'jinja2-indent-buffer))
-
 (load-theme 'doom-nord t)
 (after! shr
   (setq shr-color-visible-luminance-min 80))
