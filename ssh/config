@@ -1,4 +1,4 @@
-KeepAlive yes
+TCPKeepAlive yes
 ServerAliveInterval 60
 StrictHostKeyChecking no
 
