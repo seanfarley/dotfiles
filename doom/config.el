@@ -64,6 +64,8 @@
 (after! shr
   (setq shr-color-visible-luminance-min 80))
 
+(setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn)
+
 (after! which-key-mode
   (which-key-posframe-mode))
 
