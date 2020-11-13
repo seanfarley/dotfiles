@@ -1,5 +1,8 @@
 ;;; ~/.doom.d/+org.el -*- lexical-binding: t; -*-
 
+;; needs to be set before org loads
+(setq org-directory "~/Nextcloud/org/")
+
 (after! org
   ;; icons used to be here but they caused line height problems
 
@@ -38,10 +41,6 @@
    "s-s" #'org-edit-src-exit)
 
   (setq-default
-   ;; set up root org directory
-   ;; REVIEW this seems to not set `org-id-locations-file' correctly
-   org-directory "~/Nextcloud/org/"
-
    org-agenda-files (mapcar (lambda (f) (concat org-directory f))
                             (list "inbox.org"
                                   "personal.org"
