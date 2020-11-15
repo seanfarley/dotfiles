@@ -47,6 +47,7 @@ releasenotes =
 fsmonitor =
 remotenames =
 perf = ~/projects/hg/contrib/perf.py
+debugshell = ~/projects/hg/contrib/debugshell.py
 # Third-party extensions
 evolve = ~/projects/hgevolve/hgext3rd/evolve
 
