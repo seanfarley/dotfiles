@@ -24,8 +24,8 @@
                                 (sort (directory-files-and-attributes ans-dir)
                                       #'(lambda (x y) (time-less-p (nth 6 x) (nth 6 y))))))))
 
-    (setq lsp-python-ms-extra-paths `("~/Library/Python/3.7/lib/python/site-packages"
-                                      ,(concat ans-dir ans-vers-dir "/libexec/lib/python3.8/site-packages")))))
+    (setq lsp-python-ms-extra-paths `["~/Library/Python/3.8/lib/python/site-packages"
+                                      ,(concat ans-dir ans-vers-dir "/libexec/lib/python3.8/site-packages")])))
 
 ;====== helpful snippet to not start a process and just connect to a port ======
 
