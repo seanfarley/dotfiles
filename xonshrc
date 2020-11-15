@@ -191,6 +191,19 @@ def _x11docker(args, stdin=None, stdout=None, stderr=None):
 
 aliases['x11docker'] = _x11docker
 
+# =========================== itunes playlist to mpd ===========================
+
+def _itunes_to_mpd(args, stdin=None, stdout=None, stderr=None):
+    ofn = os.environ["HOME"] + "/Music/playlists/" + args[0]
+    with open(args[0]) as f, open(ofn, 'w') as o:
+        for line in f:
+            if not line.startswith("#"):
+                o.write(line)
+
+    rm @(args[0])
+
+aliases['itunes_to_mpd'] = _itunes_to_mpd
+
 # =================================== plugins =================================
 
 # read bash completions
