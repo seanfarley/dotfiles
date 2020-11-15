@@ -18,7 +18,7 @@
                                               '(macos-keychain-internet))
                                              (matches (auth-source-search
                                                        :user "sean@farley.io"
-                                                       :host "bitwarden.farley.in"
+                                                       :host "bitwarden.farley.io"
                                                        :require '(:secret)
                                                        :max 1))
                                              (entry (nth 0 matches)))
