@@ -82,3 +82,32 @@ simplicity, just test if the workspace begins with an asterik."
       (smf/switch-to-last-workspace)))
 
   (advice-add #'persp-frame-switch :after #'smf/auto-activate-venv))
+
+;;
+;;; Scrolling Tweaks
+
+(setq hscroll-margin 2
+      hscroll-step 1
+
+      ;; Emacs spends too much effort recentering the screen if you scroll the
+      ;; cursor more than N lines past window edges (where N is the settings of
+      ;; `scroll-conservatively'). This is especially slow in larger files
+      ;; during large-scale scrolling commands. If kept over 100, the window is
+      ;; never automatically recentered.
+      scroll-conservatively 101
+      scroll-margin 3
+
+      ;; NOTE: optimally, this would be set to true, but it seems to cause
+      ;; issues with performance and cursor jumping when scrolling.
+      scroll-preserve-screen-position nil
+
+      ;; Reduce cursor lag by a tiny bit by not auto-adjusting `window-vscroll'
+      ;; for tall lines.
+      auto-window-vscroll nil
+
+      ;;scroll-up-aggressively 0.01
+      ;;scroll-down-aggressively 0.01
+
+      ;; mouse
+      mouse-wheel-scroll-amount '(1 ((shift) . 1))
+      mouse-wheel-progressive-speed nil)  ; don't accelerate scrolling
