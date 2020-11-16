@@ -11,7 +11,7 @@ CMD="
                                $USERNAME
                                :max 1)) :secret))"
 
-pass=$(~/.edit.sh -n --eval "'$CMD'")
+pass=$(emacsclient --eval "$CMD")
 
 # remove surrounding quotes
 pass="${pass%\"}"
