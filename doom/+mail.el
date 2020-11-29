@@ -235,10 +235,8 @@
   (setq
    ;; only list mails in inbox
    mu4e-alert-interesting-mail-query
-   "maildir:/inbox AND flag:unread AND NOT flag:trashed"
+   "maildir:/inbox AND flag:unread AND NOT flag:trashed")
 
-   ;; don't draw a newline
-   mu4e-maildirs-extension-before-insert-maildir-hook '())
 
   (mu4e-alert-set-default-style 'notifier)
   (mu4e-alert-enable-notifications)
