@@ -16,7 +16,7 @@
 
   (setq
    user-mail-address "sean@farley.io"
-   user-full-name  "Sean Farley"
+   user-full-name    "Sean Farley"
 
    smtpmail-smtp-user           "sean@farley.io"
    smtpmail-default-smtp-server "mail.farley.io"
