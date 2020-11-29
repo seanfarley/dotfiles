@@ -113,3 +113,9 @@ the 'main' one.")
 (map!
   (:map ansible-key-map
     "C-c C-c"  #'smf/run-ansible))
+
+(defun ansible-docsets ()
+  (interactive)
+  (setq-local dash-docs-docsets '("Ansible")))
+
+(add-hook! +ansible-yaml-mode 'ansible-docsets)
