@@ -1,5 +1,11 @@
 ;;; ~/projects/dotfiles/doom/+mail.el -*- lexical-binding: t; -*-
 
+;; when running an emacs that isn't from brew, /usr/local/share isn't
+;; automatically added to the load-path
+(let ((mu4e-path "/usr/local/share/emacs/site-lisp/mu/mu4e/"))
+  (when (file-directory-p mu4e-path)
+    (add-load-path! mu4e-path)))
+
 (after! mu4e
   (require 'smtpmail)
   (remove-hook 'mu4e-compose-mode-hook #'org-mu4e-compose-org-mode)
