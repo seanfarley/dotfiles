@@ -31,6 +31,7 @@
    smtpmail-smtp-server         "mail.farley.io"
    smtpmail-stream-type         'starttls
    smtpmail-smtp-service        587
+   send-mail-function           #'smtpmail-send-it
 
    mu4e-personal-addresses '("sean.michael.farley@gmail.com"
                              "sean@seanfarley.org"
