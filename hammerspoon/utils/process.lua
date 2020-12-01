@@ -60,7 +60,11 @@ end
 
 local function cleanupProcess(task)
   logger.df("Checking if still running: %s", task:pid())
-  return task:isRunning()
+
+  if task ~= nil then
+    return task:isRunning()
+  end
+  return false
 end
 
 local function expand(path)
@@ -68,7 +72,10 @@ local function expand(path)
 end
 
 local function stream_default(task, stdOut, stdErr)
-  return task:isRunning()
+  if task ~= nil then
+    return task:isRunning()
+  end
+  return false
 end
 
 function mod.start(cmd, args, pwd, stream_callback, callback)
