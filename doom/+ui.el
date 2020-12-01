@@ -25,6 +25,9 @@
 ;; automatically start in fullscreen
 (add-to-list 'initial-frame-alist '(fullscreen . fullboth))
 
+;; BUG below line doesn't check `ns-use-native-fullscreen'
+;; (progn (setq ns-use-native-fullscreen nil) (add-to-list 'initial-frame-alist '(fullscreen . fullboth)))
+
 (defun smf/auto-activate-venv (&rest _)
   "Automatically activate virtualenv of same name, if one exists."
   (pyvenv-deactivate)
