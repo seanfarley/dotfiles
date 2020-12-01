@@ -15,7 +15,9 @@ local cmd = keybinder.cmd
 local cmdCtrl = { 'cmd', 'ctrl' }
 local hyper = keybinder.hyper
 
-local mod = {}
+local mod = {
+  hyper = hyper,
+}
 
 -----------------------------
 -- binding per application --
@@ -26,13 +28,16 @@ local mod = {}
 local bindings = {
   { name = keybinder.globalBindings,
     bindings = {
-      { modifiers = cmdCtrl, key = 's', name = 'Safari' },
-      { modifiers = cmdCtrl, key = 'e', fn = emacs.switchWorkspace, desc = 'Emacs' },
-      { modifiers = cmdCtrl, key = 't', fn = emacs.vterm, desc = 'vterm' },
-      { modifiers = cmdCtrl, key = 'i', fn = emacs.irc, desc = 'irc' },
+      { modifiers = cmdCtrl, key = 's', name = 'Firefox' },
       { modifiers = cmdCtrl, key = 'l', name = 'Calendar' },
-      { modifiers = cmdCtrl, key = 'c', name = 'Slack' },
+      { modifiers = cmdCtrl, key = 'e', fn = emacs.focus, desc = 'Emacs' },
+      { modifiers = cmdCtrl, key = 'w', fn = emacs.switchWorkspace, desc = 'Emacs' },
+      { modifiers = cmdCtrl, key = 't', fn = emacs.vterm, desc = 'vterm' },
+      { modifiers = cmdCtrl, key = 'c', name = 'Element' },
+      { modifiers = cmdCtrl, key = 'i', fn = emacs.mpc, desc = 'mpc' },
       { modifiers = cmdCtrl, key = 'm', fn = emacs.mu4e, desc = 'mu4e' },
+
+      -- { modifiers = cmd, key = 'space', fn = emacs.mu4e, desc = 'mu4e' },
 
       { key = 'up', fn = function () hs.eventtap.keyStroke({}, "pageup") end, desc = 'Page Up' },
       { key = 'down', fn = function () hs.eventtap.keyStroke({}, "pagedown") end, desc = 'Page Down' },
@@ -50,6 +55,13 @@ local bindings = {
       { key = 'k', pos = { { 0.0, 0.0, 1.0, 0.5}, { 0.0, 0.0, 1.0, 0.5} }, desc = 'Window - Bottom 50%', shift = true },
       { key = 'l', pos = { { 0.5, 0.0, 0.5, 1.0}, { 0.5, 0.0, 0.5, 1.0} }, desc = 'Window - Right 50%', shift = true },
       { key = ';', pos = { { 0.0, 0.0, 1.0, 1.0}, { 0.0, 0.0, 1.0, 1.0} }, desc = 'Window - Fullscreen', shift = true },
+
+      -- { key = 'h', fn = function() hs.execute("/usr/local/bin/mpc prev") end, desc = 'MPC Prev' },
+      -- { key = 'j', fn = audio.changeVolume(-5), desc = 'Decrease volume by 5%' },
+      -- { key = 'k', fn = audio.changeVolume(5), desc = 'Increase volume by 5%' },
+      -- { key = 'l', fn = function() hs.execute("/usr/local/bin/mpc next") end, desc = 'MPC Next' },
+      -- { key = ';', fn = function() hs.execute("/usr/local/bin/mpc toggle") end, desc = 'MPC Play / Pause' },
+
     }
   },
   -- {
@@ -67,18 +79,19 @@ local bindings = {
 ----------------
 
 local hyperModeBindings = {
-  { key = 'b', fn = screen.setBrightness(0.8), desc = 'Set brightness to 80%.' },
+  -- { key = 'b', fn = screen.setBrightness(0.8), desc = 'Set brightness to 80%.' },
   { key = 'e', fn = mounts.unmountAll, desc = 'Unmount all volumes' },
-  { key = 'h', fn = audio.current, desc = 'Current song' },
-  { key = 'i', fn = audio.changeVolume(-5), desc = 'Decrease the volume by 5%' },
-  { key = 'j', fn = audio.next, desc = 'Next song' },
-  { key = 'k', fn = audio.previous, desc = 'Previous song' },
-  { key = 'o', fn = audio.setVolume(15), desc = 'Default volume level' },
-  { key = 'p', fn = audio.setVolume(30), desc = 'High volume level' },
-  { key = 'r', fn = reload.reload, desc = 'Reloading configuration ...' },
-  { key = 'space', fn = audio.playpause, exitMode = true, desc = 'Pause or resume' },
-  { key = 'u', fn = audio.changeVolume(5), desc = 'Increase the volume by 5%' },
-  { key = 'm', fn = audio.changeVolume(-100), desc = 'Mute'},
+  -- { key = 'h', fn = audio.current, desc = 'Current song' },
+  -- { key = 'i', fn = audio.changeVolume(-5), desc = 'Decrease the volume by 5%' },
+  -- { key = 'j', fn = audio.next, desc = 'Next song' },
+  -- { key = 'k', fn = audio.previous, desc = 'Previous song' },
+  -- { key = 'o', fn = audio.setVolume(15), desc = 'Default volume level' },
+  -- { key = 'p', fn = audio.setVolume(30), desc = 'High volume level' },
+  { key = 'r', fn = reload.reload, desc = 'Reload hammerspoon' },
+  { key = 'c', fn = hs.toggleConsole, desc = 'Console' },
+  -- { key = 'space', fn = audio.playpause, exitMode = true, desc = 'Pause or resume' },
+  -- { key = 'u', fn = audio.changeVolume(5), desc = 'Increase the volume by 5%' },
+  -- { key = 'm', fn = audio.changeVolume(-100), desc = 'Mute'},
   { key = 'v', fn = clipboard.toggle, desc = 'Clipboard'},
 }
 
@@ -94,7 +107,7 @@ local orgModeBindings = {
 function mod.init()
   keybinder.init(bindings)
   mode.create(hyper, 'space', 'Hyper', hyperModeBindings)
-  mode.create({'ctrl'}, 'c', 'Org', orgModeBindings, {'Emacs', 'iTerm2', 'Alacritty'})
+  mode.create(hyper, 'c', 'Org', orgModeBindings)
 end
 
 return mod
