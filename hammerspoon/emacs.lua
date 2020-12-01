@@ -37,10 +37,56 @@ function backFromEmacs()
    appRequestingEmacs = nil
 end
 
-local function eval(sexp)
+function mod.focus()
+  -- hardcode this since it's a symlink
+  hs.application.launchOrFocus("/Applications/Emacs.app")
+end
+
+function mod.client()
+  -- find homebrew emacsclient
+  local ec = "/Applications/Emacs.app/../bin/"
+  if process.file_exists(ec .. "emacsclient") then
+    -- hs.alert("found it at: " .. ec)
+    return ec .. "emacsclient"
+  end
+
+  -- otherwise might be a local install
+  ec = "/Applications/Emacs.app/Contents/MacOS/bin/"
+  if process.file_exists(ec .. "emacsclient") then
+    -- hs.alert("found it at: " .. ec)
+    return ec .. "emacsclient"
+  end
+
+  return
+end
+
+local function client_callback(task, stdout, stderr)
+  -- hs.alert("Exit code: " .. exit_code)
+  -- hs.alert("Stdout: " .. stdout)
+  local chk_err = ": error accessing server file"
+  if stderr ~= nil then
+    local start = string.find(stderr, chk_err)
+    if start ~= nil then
+      hs.alert("E" .. stderr:sub(start + 3))
+    end
+  end
+
+  if task ~= nil then
+    return task:isRunning()
+  end
+  return false
+end
+
+function mod.eval(sexp)
+  ec = mod.client()
+  if ec == nil then
+    hs.alert("Could not find emacsclient!")
+  end
+
   appRequestingEmacs = hs.application.frontmostApplication()
-  process.start(ec, {'-n', '--quiet', '--eval', sexp})
-  hs.application.launchOrFocus("Emacs")
+  process.start(ec, {'-n', '--quiet', '--eval', sexp},
+                nil, client_callback)
+  mod.focus()
 end
 
 local function evalInCurrentBuffer(sexp)
@@ -78,11 +124,15 @@ function mod.agenda()
 end
 
 function mod.mu4e()
-  eval('(=mu4e)')
+  mod.eval('(=mu4e)')
 end
 
 function mod.vterm()
-  eval('(=vterm)')
+  mod.eval('(=vterm)')
+end
+
+function mod.mpc()
+  mod.eval('(=mpc)')
 end
 
 function mod.irc()
@@ -90,7 +140,7 @@ function mod.irc()
 end
 
 function mod.switchWorkspace()
-  eval('(smf/activate-emacs)')
+  mod.eval('(smf/activate-emacs)')
 end
 
 function mod.capture(captureTemplate)
