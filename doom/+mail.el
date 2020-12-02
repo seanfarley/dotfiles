@@ -260,9 +260,6 @@
    mu4e-alert-interesting-mail-query
    "maildir:/inbox AND flag:unread AND NOT flag:trashed")
 
-
-  (mu4e-alert-set-default-style 'notifier)
-  (mu4e-alert-enable-notifications)
   (mu4e-alert-enable-mode-line-display)
 
   ;============================== colorize patches =============================
