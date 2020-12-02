@@ -34,6 +34,9 @@
 
 (add-hook! artist-mode (display-line-numbers-mode -1))
 
+(add-to-list 'auto-mode-alist '("ssh/config\\'" . ssh-config-mode))
+(add-hook! ssh-config-mode #'display-line-numbers-mode)
+
 (after! magit
   ;; magit-todo ignore json files due to huge performance hit
   (setq magit-todos-exclude-globs '("*.json"))

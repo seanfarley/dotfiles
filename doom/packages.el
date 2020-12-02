@@ -34,6 +34,7 @@
 (package! sly-quicklisp)
 (package! sphinx-doc)
 (package! srefactor)
+(package! ssh-config-mode)
 (package! sx)
 (package! unfill)
 (package! webpaste)
