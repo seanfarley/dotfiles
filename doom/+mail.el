@@ -162,8 +162,31 @@
 
   ;; add support for xwidgets if available
   (when (featurep 'xwidget-internal)
-    (add-to-list 'mu4e-view-actions
-                 '("xViewXWidget" . mu4e-action-view-with-xwidget) t))
+    (require 'xwidget)
+    (when (functionp 'xwidget-webkit-goto-url-block-ext)
+      (defun smf/mu4e-block-content (orig-fn &rest args)
+        (cl-letf* ((old-xwidget-webkit-browse-url
+                    (symbol-function 'xwidget-webkit-browse-url))
+                   ((symbol-function 'xwidget-webkit-browse-url)
+                    (lambda (url &optional new-session &rest _ignore)
+                      (funcall old-xwidget-webkit-browse-url url new-session t)))
+                   (old-xwidget-webkit-goto-url
+                    (symbol-function 'xwidget-webkit-goto-url))
+                   ((symbol-function 'xwidget-webkit-goto-url)
+                    (lambda (url &rest _ignore)
+                      (funcall old-xwidget-webkit-goto-url url t))))
+          (apply orig-fn args)))
+
+      (advice-add #'mu4e-action-view-with-xwidget
+                  :around
+                  #'smf/mu4e-block-content)
+
+      (advice-add #'xwidgets-reuse-xwidget-reuse-browse-url
+                  :around
+                  #'smf/mu4e-block-content)
+
+      (add-to-list 'mu4e-view-actions
+                   '("xWidget" . mu4e-action-view-with-xwidget) t)))
 
   (setq mu4e-marks (assq-delete-all 'trash mu4e-marks))
   (add-to-list 'mu4e-marks
