@@ -70,6 +70,8 @@ function mod.getSelectedText()
   -- end
 
   if not selection or currentApp == 'Emacs' then
+    -- NOTE this will make a beep noise with some apps (e.g. Safari) if nothing
+    -- is selected
     return selectedTextFromClipboard(currentApp)
   end
 
