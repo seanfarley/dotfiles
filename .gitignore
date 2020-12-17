@@ -35,7 +35,7 @@ emacs/magithub/cache
 emacs/.cask
 
 pylookup.db
-db/dhist
+db
 omnisharp-server
 irony-server
 
