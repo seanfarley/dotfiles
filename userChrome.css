@@ -1,0 +1,151 @@
+/* https://www.reddit.com/r/FirefoxCSS/comments/gydi5z/minimalistic_ff77_hiding_everything/ */
+
+/* No hamburguer */
+#PanelUI-button {
+    visibility: collapse;
+}
+
+#urlbar[breakout],
+#urlbar[breakout][breakout-extend] {
+    --urlbar-height: 28px !important;
+    --urlbar-toolbar-height: 30px !important;
+
+    width: 100% !important;
+    top: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important;
+    left: 0 !important;
+}
+
+#TabsToolbar > * {
+    visibility: collapse;
+}
+
+#titlebar{ margin-bottom: -14px}
+
+/* hide navigation bar when it is not focused; use Ctrl+L to get focus */
+#main-window:not([customizing]) #navigator-toolbox:not(:focus-within):not(:hover) {
+    margin-top: -10px;
+}
+
+#nav-bar ~ #PersonalToolbar:not([customizing]) {
+    position: fixed !important;
+    padding: 3px 2px 2px !important;
+    height: auto !important;
+    border-top: 0px solid transparent!important;
+    border-right: 1px solid transparent !important;
+    border-bottom: 1px solid rgba(0,0,0,0.3) !important;
+    border-left: 1px solid transparent !important;
+    box-shadow: 0 0px 2px rgba(0,0,0,0);
+    width: 100%;
+    transform: translateY(-100%);
+    transition: transform 0.5s !important;
+    opacity: 0;
+}
+
+#navigator-toolbox:hover > #nav-bar ~ #PersonalToolbar:not([customizing]) {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+#toolbar-menubar:not([inactive="true"]) ~ #nav-bar ~ #PersonalToolbar:not([customizing]) {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+:root[uidensity=compact] #navigator-toolbox {
+    --nav-bar-height: 33px;
+    --bookmark-bar-height: 23px;
+    --navbar-transition-time: 1ms;
+}
+
+:root:not([uidensity]) #navigator-toolbox {
+    --nav-bar-height: 39px;
+    --bookmark-bar-height: 23px;
+    --navbar-transition-time: 1ms;
+}
+
+:root[uidensity=touch] #navigator-toolbox {
+    --nav-bar-height: 44px;
+    --bookmark-bar-height: 25px;
+    --navbar-transition-time: 1ms;
+}
+
+:root[uidensity=touch] #navigator-toolbox {
+    --nav-bar-height: 41px;
+    --bookmark-bar-height: 50px;
+    --navbar-transition-time: 1ms;
+}
+
+:root:not([customizing]) #nav-bar, #PersonalToolbar {
+    z-index: 1;
+    display: block !important;
+    position: fixed !important;
+    min-height: 0 !important;
+    height: 0 !important;
+    width: 100%;
+    opacity: 0;
+    transition: all 50ms linear 0s !important;
+    pointer-events: none;
+}
+
+:root:not([customizing]) #nav-bar
+{
+    transition: all 50ms linear 0s !important;
+    z-index: 10;
+}
+
+:root:not([customizing]) #navigator-toolbox:hover #nav-bar,
+:root:not([customizing]) #navigator-toolbox:focus-within #nav-bar {
+    transition-delay: 0s !important;
+    height: var(--nav-bar-height) !important;
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* If the bookmarks bar is turned on, auto-hide that too */
+:root:not([customizing]) #PersonalToolbar {
+    margin-top: var(--nav-bar-height) !important;
+}
+
+:root:not([customizing]) #navigator-toolbox:hover #PersonalToolbar,
+:root:not([customizing]) #navigator-toolbox:focus-within #PersonalToolbar {
+    /* transition-delay: var(--navbar-transition-time) !important; */
+    transition: all 50ms linear 0s !important;
+    height: var(--bookmark-bar-height) * 1.05 !important;
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* haxx for the menu button */
+:root:not([customizing]) #nav-bar #nav-bar-customization-target {
+    width: calc(100% - 15px);
+}
+
+/* Lightweight Theme Support */
+:root:-moz-lwtheme #nav-bar,
+:root:-moz-lwtheme #PersonalToolbar {
+    background-color: var(--lwt-accent-color) !important;
+    background-image: var(--lwt-header-image), var(--lwt-additional-images) !important;
+    background-position: var(--lwt-background-alignment) !important;
+    background-repeat: var(--lwt-background-tiling) !important;
+}
+
+/*remove border at the top of url bar drop down*/
+.urlbarView-body-inner {
+    border-top: none !important;
+}
+
+.urlbarView-body-inner {
+    border-top: 1px solid var(--urlbar-separator-color);
+}
+
+#forward-button {
+    display: none;
+}
+
+#back-button {
+    display: none;
+}
+
+#newtab-settings-button {
+    display: none;
+}
