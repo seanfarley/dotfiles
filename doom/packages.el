@@ -36,6 +36,8 @@
 (package! srefactor)
 (package! ssh-config-mode)
 (package! sx)
+(package! tree-sitter)
+(package! tree-sitter-langs)
 (package! unfill)
 (package! webpaste)
 (package! whole-line-or-region)

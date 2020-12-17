@@ -72,6 +72,9 @@
 (after! which-key-mode
   (which-key-posframe-mode))
 
+(global-tree-sitter-mode)
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+
 (add-hook! after-init
            #'fancy-narrow-mode
            #'global-dot-mode
