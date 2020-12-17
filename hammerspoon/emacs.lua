@@ -94,9 +94,11 @@ local function evalInCurrentBuffer(sexp)
 end
 
 local function open(url)
+  ec = mod.client()
   appRequestingEmacs = hs.application.frontmostApplication()
 
   process.start(ec, { '--no-wait', '--quiet', '--suppress-output', url })
+  mod.focus()
 end
 
 function mod.helmBuffers()
