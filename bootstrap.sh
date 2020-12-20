@@ -98,6 +98,7 @@ ensure_link "epass.sh"
 ensure_link "beets.yaml" ".config/beets/config.yaml"
 ensure_link "mpd.conf" ".mpd/mpd.conf"
 ensure_link "userChrome.css" "Library/Application Support/Firefox/Profiles/jj5ek4j8.sean-1535234993763/chrome/userChrome.css"
+ensure_link "npmrc"
 
 [[ ! -f "$HOME/.ssh/id_rsa" ]] && echo "No ssh id_rsa!" && exit 3
 
