@@ -4,6 +4,7 @@
 // having different UIs depending on number of tabs is jarring
 settings.tabsThreshold = 0;
 settings.hintAlign = "left";
+settings.stealFocusOnLoad = false;
 
 imap('<Ctrl-,>', "<Ctrl-'>");
 iunmap("<Ctrl-'>");
