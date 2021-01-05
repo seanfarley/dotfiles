@@ -9,7 +9,7 @@
 (after! mu4e
   (require 'smtpmail)
 
-  (remove-hook 'mu4e-compose-mode-hook #'org-mu4e-compose-org-mode)
+  (remove-hook 'mu4e-compose-mode-hook #'org-msg-post-setup)
   (remove-hook 'mu4e-compose-pre-hook #'org-msg-mode)
 
   ;============================= org settings first ============================
