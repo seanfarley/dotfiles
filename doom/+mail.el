@@ -150,6 +150,10 @@
 
   ;;=================================== actions ================================
 
+  ;; never in my life have I used this
+  (when (member '("view as pdf" . mu4e-action-view-as-pdf) mu4e-view-actions)
+    (delete '("view as pdf" . mu4e-action-view-as-pdf) mu4e-view-actions))
+
   (add-to-list 'mu4e-view-actions
                '("View in browser" . mu4e-action-view-in-browser) t)
 
