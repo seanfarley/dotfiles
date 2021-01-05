@@ -182,8 +182,10 @@
                   :around
                   #'smf/mu4e-block-content)
 
-      (add-to-list 'mu4e-view-actions
-                   '("xWidget" . mu4e-action-view-with-xwidget) t)))
+      (unless (member '("xwidgets view" . mu4e-action-view-with-xwidget)
+                      mu4e-view-actions)
+        (add-to-list 'mu4e-view-actions
+                     '("xwidgets view" . mu4e-action-view-with-xwidget)))))
 
   (setq mu4e-marks (assq-delete-all 'trash mu4e-marks))
   (add-to-list 'mu4e-marks
