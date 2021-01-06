@@ -796,32 +796,6 @@ mysides add Nextcloud "file://$HOME/Nextcloud"
 mysides add projects "file://$HOME/projects"
 
 ###############################################################################
-# Keybase                                                                     #
-###############################################################################
-
-# need this for the gpg agent device io error
-GPG_TTY=$(tty)
-export GPG_TTY
-
-if gpg --list-keys | grep -q "\[ultimate\] keybase.io/smf"; then
-  echo "Already trusted owner key"
-else
-  # import public gpg keys from keybase
-  keybase pgp export | gpg --import
-
-  # import my own secret
-  keybase pgp export --secret | gpg --import --allow-secret-key-import
-
-  # trust my own key
-  cat << EOF | gpg --import-ownertrust
-5D05F69E60DE8F3E519240C3FFD8DC399F9F3BD6:6:
-EOF
-fi
-
-# ensure that the gpg agent reloads
-gpgconf --kill gpg-agent
-
-###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
