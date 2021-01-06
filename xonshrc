@@ -147,8 +147,8 @@ $PROMPT = ("\n{#686868}┌─{BOLD_RED} {user} "
            "{BOLD_%s}{os} {hostname}{RESET}"
            "{BOLD_BLUE}  {short_cwd}"
            "{branch_color}{curr_branch:  {}}"
-           "{BOLD_YELLOW}{env_name:  {}}"
-           "{ret_code_color}{ret_code}\n"
+           "{BOLD_YELLOW}{env_name:  {}}\n"
+           # "{ret_code_color}{ret_code}\n"
            "{#686868}└─{RESET} ") % host_color()
 
 # ===================================== etc ===================================
@@ -210,5 +210,5 @@ aliases['itunes_to_mpd'] = _itunes_to_mpd
 $BASH_COMPLETIONS.insert(0, '/usr/local/share/bash-completion/bash_completion')
 
 xontrib load z coreutils distributed docker_tabcomplete jedi mpl
-xontrib load prompt_ret_code vox vox_tabcomplete
+xontrib load vox # prompt_ret_code vox_tabcomplete
 xontrib load readable-traceback autovox avox
