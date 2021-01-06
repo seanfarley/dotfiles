@@ -50,11 +50,11 @@ local bindings = {
       { key = 'n', fn = apps.openNotification, desc = 'Notification - Open' },
       { key = 'n', fn = apps.openNotificationAction, shift = true, desc = 'Notification - Action' },
 
-      { key = 'h', pos = { { 0.0, 0.0, 0.5, 1.0}, { 0.0, 0.0, 0.5, 1.0} }, desc = 'Window - Left 50%', shift = true },
-      { key = 'j', pos = { { 0.0, 0.5, 1.0, 0.5}, { 0.0, 0.5, 1.0, 0.5} }, desc = 'Window - Top 50%', shift = true },
-      { key = 'k', pos = { { 0.0, 0.0, 1.0, 0.5}, { 0.0, 0.0, 1.0, 0.5} }, desc = 'Window - Bottom 50%', shift = true },
-      { key = 'l', pos = { { 0.5, 0.0, 0.5, 1.0}, { 0.5, 0.0, 0.5, 1.0} }, desc = 'Window - Right 50%', shift = true },
-      { key = ';', pos = { { 0.0, 0.0, 1.0, 1.0}, { 0.0, 0.0, 1.0, 1.0} }, desc = 'Window - Fullscreen', shift = true },
+      { key = 'h', pos = { { 0.0, 0.0, 0.5, 1.0}, { 0.0, 0.0, 0.5, 1.0} }, desc = 'Window - Left 50%' },
+      { key = 'j', pos = { { 0.0, 0.5, 1.0, 0.5}, { 0.0, 0.5, 1.0, 0.5} }, desc = 'Window - Top 50%' },
+      { key = 'k', pos = { { 0.0, 0.0, 1.0, 0.5}, { 0.0, 0.0, 1.0, 0.5} }, desc = 'Window - Bottom 50%' },
+      { key = 'l', pos = { { 0.5, 0.0, 0.5, 1.0}, { 0.5, 0.0, 0.5, 1.0} }, desc = 'Window - Right 50%' },
+      { key = ';', pos = { { 0.0, 0.0, 1.0, 1.0}, { 0.0, 0.0, 1.0, 1.0} }, desc = 'Window - Fullscreen' },
 
       -- { key = 'h', fn = function() hs.execute("/usr/local/bin/mpc prev") end, desc = 'MPC Prev' },
       -- { key = 'j', fn = audio.changeVolume(-5), desc = 'Decrease volume by 5%' },
