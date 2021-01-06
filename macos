@@ -694,8 +694,10 @@ brew install python \
     ansible \
     autojump \
     aspell \
+    bitwarden-cli \
     cairo \
     chromaprint \
+    cmake \
     coreutils \
     dep \
     docker-completion \
@@ -709,6 +711,8 @@ brew install python \
     lz4 \
     mpc \
     mpd \
+    mp3gain \
+    accgain \
     npm \
     pinentry-mac \
     terminal-notifier \
@@ -727,27 +731,24 @@ brew install bash bash-completion@2
 # cask drivers
 brew tap homebrew/cask-drivers
 if system_profiler SPDisplaysDataType | grep -i "chipset.*nvidia"; then
-  brew cask install nvidia-web-driver nvidia-cuda
+  brew install --cask nvidia-web-driver nvidia-cuda
 fi
 
 # cask apps
 
-# slack needs to be before hammerspoon launches
-brew cask install firefox \
-    karabiner-elements \
-    keybase \
-    calibre \
+brew install --cask firefox \
     nextcloud \
     docker \
-    slack \
     mysides \
+    menumeters \
     kmbmpdc
 
 # also make this startup upon login
-brew cask install hammerspoon && osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Hammerspoon.app", hidden:false}' &> /dev/null
+brew install --cask hammerspoon && osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Hammerspoon.app", hidden:false}' &> /dev/null
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/kmbmpdc.app", hidden:false}' &> /dev/null
 
 # install appcleaner
-brew cask install appcleaner
+brew install --cask appcleaner
 
 # also, also make sure hammerspoon is open
 if ! pgrep -q Hammerspoon; then
@@ -762,18 +763,17 @@ echo "Tapping fonts..."
 brew tap homebrew/cask-fonts
 
 brew install fontconfig
-brew cask install font-fontawesome \
-    font-symbola \
+brew install --cask font-fontawesome \
     font-jsmath-cmbx10 \
-    font-firacode-nerd-font font-firacode-nerd-font-mono \
-    font-iosevka-nerd-font  font-iosevka-nerd-font-mono \
-    font-monoid-nerd-font   font-monoid-nerd-font-mono
+    font-fira-code-nerd-font \
+    font-iosevka-nerd-font \
+    font-monoid-nerd-font
 
 # emacs
-brew tap railwaycat/emacsmacport
-brew install emacs-mac --with-imagemagick --with-modules
+brew tap d12frosted/emacs-plus
+brew install emacs-plus@28 --with-dbus --with-modern-icon
 brew install libvterm
-ln -s /usr/local/opt/emacs-mac/Emacs.app /Applications
+ln -s /usr/local/opt/emacs-plus@28/Emacs.app /Applications
 
 ###############################################################################
 # Custom fonts                                                                #
