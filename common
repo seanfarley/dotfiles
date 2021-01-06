@@ -19,6 +19,6 @@ pip3 install --user -U beets python-mpd2 discogs-client pyacoustid
 # https://github.com/prompt-toolkit/python-prompt-toolkit/issues/1233#issuecomment-696578966
 pip3 install --user -U \
     xontrib-autojump xonsh-docker-tabcomplete xontrib-readable-traceback \
-    xontrib-avox \
+    xontrib-avox xontrib-prompt-ret-code \
     git+https://github.com/laloch/xonsh-vox-tabcomplete.git@proxy-warnings \
     xonsh
