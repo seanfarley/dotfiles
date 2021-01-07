@@ -124,3 +124,27 @@ unmap('d');
 // commands (doesn't seem to work on firefox)
 map('<Alt-:>', ':'); // TODO doesn't work
 unmap(':');
+
+mapkey('<Ctrl-c>c', 'Org capture', function() {
+  function replace_all(str, find, replace) {
+      return str.replace(new RegExp(find, 'g'), replace);
+  }
+
+  function escapeIt(text) {
+    return replace_all(replace_all(replace_all(encodeURIComponent(text), "[(]", escape("(")),
+                                   "[)]", escape(")")),
+                       "[']" ,escape("'"));
+  }
+
+  var selection_text = escapeIt(window.getSelection().toString());
+  var encoded_url = encodeURIComponent(location.href);
+  var escaped_title = escapeIt(document.title);
+  var protocol = "capture";
+  var template = "t";
+
+  location.href = "org-protocol://" + protocol
+        + "?template=" + template
+        + '&url=' + encoded_url
+        + '&title=' + escaped_title
+        + '&body=' + selection_text;
+});
