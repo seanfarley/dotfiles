@@ -117,8 +117,9 @@ unmap('<Ctrl-j>');
 unmap('q');
 unmap('O');
 
-// commands (doesn't seem to work on firefox)
-map('<Alt-:>', ':'); // TODO doesn't work
+mapkey('<Alt-x>', 'Open omnibar', function() {
+  Front.openOmnibar({type: "Commands"});}
+);
 unmap(':');
 
 mapkey('<Ctrl-c>c', 'Org capture', function() {
