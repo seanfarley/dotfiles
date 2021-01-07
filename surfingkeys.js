@@ -117,10 +117,6 @@ unmap('<Ctrl-j>');
 unmap('q');
 unmap('O');
 
-// test removing keymaps mapped elsewhere
-unmap('e');
-unmap('d');
-
 // commands (doesn't seem to work on firefox)
 map('<Alt-:>', ':'); // TODO doesn't work
 unmap(':');
