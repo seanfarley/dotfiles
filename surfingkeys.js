@@ -7,8 +7,30 @@ settings.hintAlign = "left";
 settings.stealFocusOnLoad = false;
 settings.defaultSearchEngine = "d";
 
-imap('<Ctrl-,>', "<Ctrl-'>");
-iunmap("<Ctrl-'>");
+function mapboth(newbind, oldbind, help, func) {
+  // normal mapping
+  map(newbind, oldbind);
+
+  // look up the normal mode keybinding
+  if (typeof func === 'undefined') {
+    var tmp_meta = Normal.mappings.find(oldbind);
+    if (tmp_meta) {
+      help = tmp_meta.meta.annotation;
+      func = tmp_meta.meta.code;
+    }
+  }
+
+  if (help && func) {
+    imapkey(newbind, help, func);
+  } else {
+    // if the normal mode keybinding didn't exist, fallback to using a simple
+    // imap()
+    imap(newbind, oldbind);
+  }
+
+  unmap(oldbind);
+  iunmap(oldbind);
+}
 
 // early unmappings
 unmap('<Ctrl-,>');
@@ -16,6 +38,8 @@ unmap('<Ctrl-c>');
 unmap('<Ctrl-D>');
 unmap('<Ctrl-r>');
 unmap('<Ctrl-m>');
+
+mapboth('<Ctrl-,>', "<Ctrl-'>");
 
 // remove proxy keybindings
 unmap('cp');
