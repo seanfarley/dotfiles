@@ -10,6 +10,13 @@ settings.defaultSearchEngine = "d";
 imap('<Ctrl-,>', "<Ctrl-'>");
 iunmap("<Ctrl-'>");
 
+// early unmappings
+unmap('<Ctrl-,>');
+unmap('<Ctrl-c>');
+unmap('<Ctrl-D>');
+unmap('<Ctrl-r>');
+unmap('<Ctrl-m>');
+
 // remove proxy keybindings
 unmap('cp');
 unmap(';cp');
