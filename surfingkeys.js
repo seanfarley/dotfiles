@@ -5,6 +5,7 @@
 settings.tabsThreshold = 0;
 settings.hintAlign = "left";
 settings.stealFocusOnLoad = false;
+settings.defaultSearchEngine = "d";
 
 imap('<Ctrl-,>', "<Ctrl-'>");
 iunmap("<Ctrl-'>");
