@@ -81,10 +81,11 @@ unmap('ZR');
 // repeat
 unmap('<Ctrl-u>');
 unmap('<Ctrl-d>');
-map('<Ctrl-.>', '.');
-unmap('.');
-map('<Ctrl-u><Ctrl-.>', ';ql');
-unmap(';ql');
+unmap('<Ctrl-.>');
+
+mapboth('<Ctrl-.>', '.');
+
+mapboth('<Ctrl-u><Ctrl-.>', ';ql');
 
 // tabs (well, windows since we're not using tabs)
 unmap('g0');
@@ -93,37 +94,114 @@ unmap('gt');
 unmap('gT');
 unmap('on');
 unmap('W');
+unmap('yt');
+unmap('yT');
+unmap('<Alt-p>');
+unmap('<Alt-m>');
+unmap('>>');
+unmap('<<');
 
-map('<Ctrl-x>b', 'T');
-map('<Ctrl-x><Ctrl-<left>>', '<Ctrl-x>b'); // TODO doesn't work
-var tab_func = Normal.mappings.find('T');
-imapkey('<Ctrl-x>b', tab_func.meta.annotation, tab_func.meta.code);
-unmap('T');
+mapboth('<Ctrl-x>b', 'T');
+
+// what ze shit is preview markdown?
+unmap(';pm');
+
+// omnibar
+mapboth('<Ctrl-c>fF', 't');
+mapboth('<Ctrl-c>ff', 'go');
+mapboth('<Ctrl-c>fi', 'oi');
+mapboth('<Ctrl-c>fs', 'ab');
+mapboth('<Ctrl-c>fb', 'b');
+mapboth('<Ctrl-c>fx', 'ox');
+mapboth('<Ctrl-c>fh', 'oh');
+
+unmap('om');
+unmap('ob');
+unmap('og');
+unmap('od');
+unmap('ow');
+unmap('oy');
+unmap('H');
+unmap('Q');
+
+// adjusts the position, which is useless in my workflow
+unmap('<Ctrl-j>')
+
+// searching
+mapboth('<Ctrl-s>', '/');
+
+// 'a' for assholes
+mapboth('<Ctrl-c>sa', 'sg');
+mapboth('<Ctrl-c>ss', 'sd');
+mapboth('<Ctrl-c>sw', 'se');
+mapboth('<Ctrl-c>so', 'ss');
+mapboth('<Ctrl-c>sg', 'sh');
+mapboth('<Ctrl-c>sy', 'sy');
+
+unmap('sb');
+unmap('sw');
 
 // help
 unmap('<Ctrl-h>');
-map('<Ctrl-h><Ctrl-h>', '?');
-map('<Ctrl-h>,', ';e');
-unmap(';e');
+mapboth('<Ctrl-h><Ctrl-h>', '?');
+
+mapboth('<Ctrl-h>,', ';e');
+
+// NOTE can't remap alt-s since it's hardcoded as a special key
+// map('<Ctrl-h>s', '<Alt-s>');
+// unmap('<Alt-s>');
+
+mapboth('<Ctrl-h>t', '<Alt-i>');
+mapboth('<Ctrl-h>p', 'p');
 
 // scrolling
+// already taken care of by karabiner or default mac keybindings
+// map('<Alt-v>', 'e');
+// map('<Ctrl-v>', 'd');
+// map('<Ctrl-f>', 'l');
+// map('<Ctrl-n>', 'j');
+// map('<Ctrl-p>', 'k');
+// map('<Ctrl-b>', 'h');
+
 unmap('u');
-map('<Alt-v>', 'e');
-map('<Ctrl-v>', 'd');
+unmap('e');
+unmap('d');
+unmap('j');
+unmap('k');
+unmap('h');
+unmap('l');
+unmap('gg');
+unmap('G');
+unmap(';w');
+unmap('0');
+unmap('cs');
+unmap('cS');
+unmap('$');
+unmap('%');
+unmap('w');
+
+// page navigation
+mapboth('<Ctrl-c>f^', 'gu');
+mapboth('<Ctrl-c>f?', 'g?');
+mapboth('<Ctrl-c>f#', 'g#');
+mapboth('<Ctrl-c>fa', 'gU');
 
 // jumping / goto
-unmap('af');
 unmap('gf');
 unmap('cf');
 unmap('C');
 
-map('<Alt-g><Alt-g>', 'f');
-map('<Alt-g>l', 'f');
+mapboth('<Ctrl-c>sl', 'f');
 // since we're using that anti-tab extension, opening links in a non-active tab
 // isn't possible
-mapkey('<Alt-g>w', '#1Open a link in active new tab', function() {
-    Hints.create("", Hints.dispatchMouseClick, {tabbed: true, active: true});
-});
+mapboth('<Ctrl-c>sL', 'af');
+
+// cool but fairly niche (clicks on 'next' or 'prev')
+unmap('[[');
+unmap(']]');
+
+// download
+mapboth('<Ctrl-c>di', ';di');
 
 // navigation
 unmap(';u');
