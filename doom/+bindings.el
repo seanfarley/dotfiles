@@ -66,10 +66,10 @@
  "M-g g"                             nil
  "M-g TAB"                           nil
  "M-g ESC"                           nil
- "M-g M-g"                           #'avy-goto-char
- "M-g c"                             #'avy-goto-char
- "M-g l"                             #'avy-goto-line
- "M-g w"                             #'avy-goto-word-0
+ "C-c g g"                           #'avy-goto-char
+ "C-c g c"                           #'avy-goto-char
+ "C-c g l"                           #'avy-goto-line
+ "C-c g w"                           #'avy-goto-word-0
 
  ;; goto-chg
  "C-M-s-z"                           #'goto-last-change
