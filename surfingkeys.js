@@ -7,6 +7,8 @@ settings.hintAlign = "left";
 settings.stealFocusOnLoad = false;
 settings.defaultSearchEngine = "d";
 
+// this function is for a simple mapping map(new, old) -> copied to insert mode;
+// it won't work for remapping ':' to 'alt-x'
 function mapboth(newbind, oldbind, help, func) {
   // normal mapping
   map(newbind, oldbind);
