@@ -297,6 +297,7 @@ vunmap('q'); // broken? only opens github for me
 vunmap('gg'); // handled by macos
 vunmap('G'); // handled by macos
 
+// command M-x
 mapkey('<Alt-x>', 'Open omnibar', function() {
   Front.openOmnibar({type: "Commands"});}
 );
