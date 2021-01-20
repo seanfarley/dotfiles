@@ -139,6 +139,7 @@ mapboth('<Ctrl-c>sw', 'se');
 mapboth('<Ctrl-c>so', 'ss');
 mapboth('<Ctrl-c>sg', 'sh');
 mapboth('<Ctrl-c>sy', 'sy');
+mapboth('<Ctrl-c>st', ';t');
 
 unmap('sb');
 unmap('sw');
