@@ -112,7 +112,7 @@ unmap(';pm');
 mapboth('<Ctrl-c>fF', 't');
 mapboth('<Ctrl-c>ff', 'go');
 mapboth('<Ctrl-c>fi', 'oi');
-mapboth('<Ctrl-c>fs', 'ab');
+mapboth('<Ctrl-c>fS', 'ab'); // save bookmark
 mapboth('<Ctrl-c>fb', 'b');
 mapboth('<Ctrl-c>fx', 'ox');
 mapboth('<Ctrl-c>fh', 'oh');
