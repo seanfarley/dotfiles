@@ -230,6 +230,36 @@ unmap('<Ctrl-j>');
 unmap('q');
 unmap('O');
 
+// yanking
+mapboth('<Ctrl-c>yml', 'yma'); // copy multiple links
+mapboth('<Ctrl-c>ymc', 'ymc'); // copy multiple columns
+mapboth('<Ctrl-c>yme', 'ymv'); // copy multiple elements
+
+mapboth('<Ctrl-c>yl', 'ya'); // copy link
+mapboth('<Ctrl-c>yc', 'yc'); // copy column
+mapboth('<Ctrl-c>yq', 'yq'); // copy quoted block
+mapboth('<Ctrl-c>ye', 'yv'); // copy element
+mapboth('<Ctrl-c>yi', 'yi'); // copy input
+mapboth('<Ctrl-c>ys', 'ys'); // copy page source
+mapboth('<Ctrl-c>yd', 'yd'); // copy current download
+mapboth('<Ctrl-c>fy', 'yy'); // just like doom
+mapboth('<Ctrl-c>yh', 'yh'); // copy page's host
+mapboth('<Ctrl-c>yt', 'yl'); // copy page title
+mapboth('<Ctrl-c>yf', 'yf'); // copy form as json
+mapboth('<Ctrl-c>yp', 'yp'); // copy form post
+
+unmap('yG'); // is broken for me
+unmap('yg'); // is broken for me
+unmap('yS'); // is broken for me
+unmap('cc'); // is broken for me
+unmap('yj'); // nice but to niche
+unmap('yQ'); // nice but to niche
+unmap('cq'); // nice but to niche
+unmap(';pj'); // nice but to niche
+// pastes form data from 'yf'
+unmap(';pf'); // nice but to niche
+unmap(';pp'); // nice but to niche
+
 mapkey('<Alt-x>', 'Open omnibar', function() {
   Front.openOmnibar({type: "Commands"});}
 );
