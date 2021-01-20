@@ -260,6 +260,13 @@ unmap(';pj'); // nice but to niche
 unmap(';pf'); // nice but to niche
 unmap(';pp'); // nice but to niche
 
+// marks
+// can't seem to wrap my head around how to manage these so disabling
+unmap('m');
+unmap("'");
+unmap('<Ctrl-,>');
+unmap('<Ctrl-m>');
+
 mapkey('<Alt-x>', 'Open omnibar', function() {
   Front.openOmnibar({type: "Commands"});}
 );
