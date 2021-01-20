@@ -271,6 +271,32 @@ unmap('<Ctrl-m>');
 mapboth('<Ctrl-c>fs', 'gs'); // open page source
 unmap(';j'); // doesn't seem to work in Firefox
 
+// visual mode
+// NOTE Since we're trying to map this to emacs, "visual mode"
+// doesn't quite fit; instead, we'll just map the visual+selection commands e.g.
+// ctrl+space in emacs
+mapboth('<Ctrl-Space>', 'zv');
+
+vmap('<Ctrl-l>', 'zz');
+vunmap('zz');
+
+vmap('<Ctrl-c>st', 't');
+vunmap('t');
+
+// NOTE can't figure out how to make navigation work :-(
+// vmap('<Alt-f>', 'w');
+
+unmap('v');
+vunmap('('); // broken for me
+vunmap(')'); // broken for me
+vunmap('{'); // broken for me
+vunmap('}'); // broken for me
+vunmap('gr'); // broken for me
+vunmap('q'); // broken? only opens github for me
+
+vunmap('gg'); // handled by macos
+vunmap('G'); // handled by macos
+
 mapkey('<Alt-x>', 'Open omnibar', function() {
   Front.openOmnibar({type: "Commands"});}
 );
