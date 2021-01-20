@@ -267,6 +267,10 @@ unmap("'");
 unmap('<Ctrl-,>');
 unmap('<Ctrl-m>');
 
+// chrome urls
+mapboth('<Ctrl-c>fs', 'gs'); // open page source
+unmap(';j'); // doesn't seem to work in Firefox
+
 mapkey('<Alt-x>', 'Open omnibar', function() {
   Front.openOmnibar({type: "Commands"});}
 );
