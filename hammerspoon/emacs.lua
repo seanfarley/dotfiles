@@ -154,10 +154,6 @@ function mod.capture(captureTemplate)
     return
   end
 
-  if focusedApplication:name() == 'Slack' then
-    captureTemplate = 's'
-  end
-
   local title = focusedWindow:title() .. " - " .. focusedApplication:name()
   local url = focusedApplication:path()
   local body = selection.getSelectedText()

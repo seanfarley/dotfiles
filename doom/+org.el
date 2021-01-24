@@ -6,14 +6,6 @@
 (after! org
   ;; icons used to be here but they caused line height problems
 
-  (add-to-list
-   ;; add a template to capture slack messages
-   'org-capture-templates
-   '("s" "Slack" entry
-     (file+headline (lambda () +org-capture-todo-file) "Inbox")
-     "* TODO %?\nCaptured %<%Y-%m-%d %H:%M>\n%(smf/slack-text-and-link)"
-     :prepend t :kill-buffer t))
-
   (defun smf/org-capture ()
     (interactive)
     (org-capture nil "t"))
@@ -143,94 +135,6 @@
     (call-process-shell-command "/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/ipc/bin/hs -c 'backFromEmacs()' &"))
 
   ;; (add-hook 'org-capture-prepare-finalize-hook #'smf/org-capture-finalize)
-
-                                        ;=================================== slack =================================
-
-  (defun smf/slack-selected ()
-    "Return the deep-linked url to a slack message and selected text.
-
-It's mandatory that the user select the text because that's how
-we figure out the deep link to which message.
-
-The `sleep-for' is used to make sure we don't close the websocket
-before receiving the message and to also make this behave
-synchronously."
-    (let ((json-msg nil)
-          (ws-url (smf/slack-ws-url)))
-      (let ((ws-slack (websocket-open
-                       ws-url
-                       :on-message (lambda (_websocket frame)
-                                     (setq json-msg
-                                           (json-read-from-string
-                                            (websocket-frame-text frame))))))
-            (js "
-sel = window.getSelection();
-selected_text = sel.toString();
-if (selected_text.length != 0) {
-    n = sel.anchorNode.parentNode;
-    while (n !== document && !n.classList.contains('c-message')) {
-        n = n.parentNode;
-    }
-    archive_url = n.getElementsByClassName('c-timestamp--static')[0].href;
-    ns_0 = archive_url.lastIndexOf('/');
-    ns_1 = archive_url.lastIndexOf('/', ns_0 - 1);
-    raw_ts = archive_url.substr(ns_0 + 2);
-    ts = raw_ts.slice(0, -6) + '.' + raw_ts.slice(-6);
-    channel_id = archive_url.slice(ns_1 + 1, ns_0);
-    team_id = boot_data['team_id'];
-    deep_link = `team=${team_id}&id=${channel_id}&message=${ts}`;
-    obj = {\"link\": deep_link, \"text\": selected_text};
-    JSON.stringify(obj);
-}
-"))
-        (websocket-send-text ws-slack
-                             (json-encode `((id . 1337)
-                                            (returnByValue . "true")
-                                            (method . "Runtime.evaluate")
-                                            (params . ((expression . ,js))))))
-        (sleep-for 0.1)
-        (websocket-close ws-slack))
-      json-msg))
-
-  (defun smf/slack-text-and-link ()
-    "Format the selected text and create an org link."
-    (let* ((res (alist-get 'result (alist-get 'result (smf/slack-selected))))
-           (type (alist-get 'type res))
-           (value (alist-get 'value res)))
-      (if (string= type "undefined") (throw 'no-text-selected t))
-      (let* ((ret (json-read-from-string value))
-             (link (alist-get 'link ret))
-             (text (string-trim (alist-get 'text ret))))
-        (format "[[slack:channel?%s][%s]]" link text))))
-
-  (defun smf/slack-ws-url ()
-    "Return the most recently used slack url.
-
-Luckily for us, this is ordered by most recently used (which will
-have the selected text we want to capture for org-mode)."
-    (interactive)
-    (require 'json)
-    (let* ((port 31337)
-           (url (format "http://localhost:%d/json" port)))
-      (with-current-buffer (url-retrieve-synchronously url t)
-        (goto-char (point-min))
-        (re-search-forward "^$")
-        (alist-get 'webSocketDebuggerUrl (elt (json-read) 0)))))
-
-  (defun smf/org-link-slack-follow (link)
-    "Open LINK in slack."
-    (call-process-shell-command
-     (format "open 'slack://%s' &" link)))
-
-  (org-link-set-parameters
-   "slack"
-   :follow #'smf/org-link-slack-follow)
-
-  (defun smf/slack-capture ()
-    "Convenience function to run `org-capture' with the slack template."
-    ;; (let ((org-capture-entry (org-capture-select-template "s"))))
-    ;; (org-capture))
-    (+org-capture/open-frame nil "s"))
 
   (defun smf/org-agenda ()
     "Convenience function to switch workspace and display the org agenda."
