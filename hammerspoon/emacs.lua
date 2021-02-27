@@ -109,7 +109,7 @@ local function open(url)
 end
 
 function mod.agenda()
-  eval('(smf/org-agenda)')
+  mod.eval('(smf/org-agenda)')
 end
 
 function mod.mu4e()
@@ -125,7 +125,15 @@ function mod.mpc()
 end
 
 function mod.irc()
-  eval('(=irc)')
+  mod.eval('(=irc)')
+end
+
+function mod.everywhere()
+  mod.eval('(emacs-everywhere)', true)
+end
+
+function mod.matrix()
+  mod.eval('(smf/matrix)')
 end
 
 function mod.switchWorkspace()
