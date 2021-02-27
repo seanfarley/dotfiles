@@ -91,7 +91,8 @@ for p in reversed([
         # conflict)
         # e.g. ln -s ~/projects/emacs/nextstep/Emacs.app /Applications/Emacs.app
         # e.g. ln -s /usr/local/opt/emacs-plus@28/Emacs.app /Applications
-        "/Applications/Emacs.app/Contents/MacOS/bin",
+        #"/Applications/Emacs.app/Contents/MacOS/bin",
+        #"/usr/local/Cellar/emacs-plus@28/28.0.50/bin",
         $HOME + "/.local/bin",
         $HOME + "/.cargo/bin",
         $GOPATH[0] + "/bin",
