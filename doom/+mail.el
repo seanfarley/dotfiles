@@ -131,21 +131,6 @@
   (add-hook 'mu4e-compose-mode-hook
             (lambda () (local-set-key (kbd "TAB") #'smf/mu4e-tab-subject)))
 
-  ;; helper method for custom from address
-  (defun smf/mu4e-set-from-address ()
-    "Set the From address based on the To address of the original."
-    (let ((msg mu4e-compose-parent-message))
-      (setq smtpmail-smtp-server "mail.farley.io") ; reset to default
-      (cond
-       ((null msg) (setq user-mail-address "sean@farley.io"))
-       ((mu4e-message-contact-field-matches msg :to "sean.michael.farley@gmail.com")
-        (setq user-mail-address    "sean.michael.farley@gmail.com"
-              smtpmail-smtp-user   user-mail-address
-              smtpmail-smtp-server "smtp.gmail.com"))
-       (t (setq user-mail-address "sean@farley.io")))))
-
-  (add-hook 'mu4e-compose-pre-hook 'smf/mu4e-set-from-address)
-
   ;;=================================== actions ================================
 
   ;; never in my life have I used this
