@@ -108,26 +108,6 @@ local function open(url)
   mod.focus()
 end
 
-function mod.helmBuffers()
-  eval('(helm-mini)')
-end
-
-function mod.inbox()
-  eval('(jm/open-inbox)')
-end
-
-function mod.references()
-  eval('(jm/open-references)')
-end
-
-function mod.orgRifle()
-  eval('(helm-org-rifle)')
-end
-
-function mod.workInbox()
-  eval('(jm/open-work)')
-end
-
 function mod.agenda()
   eval('(smf/org-agenda)')
 end
