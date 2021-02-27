@@ -319,14 +319,19 @@ function org_capture(protocol='capture', template='t') {
   var encoded_url = encodeURIComponent(location.href);
   var escaped_title = escapeIt(document.title);
   var template_url = "";
+  var url_key = "url";
 
   if (protocol !== 'store-link') {
     template_url = "template=" + template + "&";
   }
 
+  if (protocol === 'roam-ref') {
+    url_key = "ref";
+  }
+
   var url = "org-protocol:///" + protocol + "?"
         + template_url
-        + 'url=' + encoded_url
+        + url_key + '=' + encoded_url
         + '&title=' + escaped_title;
 
   if (selection_text) {
