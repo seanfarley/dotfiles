@@ -303,26 +303,53 @@ mapkey('<Alt-x>', 'Open omnibar', function() {
 );
 unmap(':');
 
-mapkey('<Ctrl-c>c', 'Org capture', function() {
-  function replace_all(str, find, replace) {
-      return str.replace(new RegExp(find, 'g'), replace);
-  }
+// org mode
+function replace_all(str, find, replace) {
+  return str.replace(new RegExp(find, 'g'), replace);
+}
 
-  function escapeIt(text) {
-    return replace_all(replace_all(replace_all(encodeURIComponent(text), "[(]", escape("(")),
-                                   "[)]", escape(")")),
-                       "[']" ,escape("'"));
-  }
+function escapeIt(text) {
+  return replace_all(replace_all(replace_all(encodeURIComponent(text), "[(]", escape("(")),
+                                 "[)]", escape(")")),
+                     "[']" ,escape("'"));
+}
 
+function org_capture(protocol='capture', template='t') {
   var selection_text = escapeIt(window.getSelection().toString());
   var encoded_url = encodeURIComponent(location.href);
   var escaped_title = escapeIt(document.title);
-  var protocol = "capture";
-  var template = "t";
+  var template_url = "";
 
-  location.href = "org-protocol://" + protocol
-        + "?template=" + template
-        + '&url=' + encoded_url
-        + '&title=' + escaped_title
-        + '&body=' + selection_text;
+  if (protocol !== 'store-link') {
+    template_url = "template=" + template + "&";
+  }
+
+  var url = "org-protocol:///" + protocol + "?"
+        + template_url
+        + 'url=' + encoded_url
+        + '&title=' + escaped_title;
+
+  if (selection_text) {
+      url += '&body=' + selection_text;
+  }
+
+  console.log('LEEEEEEEEROY: ' + url);
+  location.href = url;
+}
+
+// mapping to doom-style keybindings
+mapkey('<Ctrl-c>nn', 'Org capture', org_capture);
+mapkey('<Ctrl-c>nrc', 'Org-roam capture', function () {
+  org_capture('roam-ref', 'r');
+});
+mapkey('<Ctrl-c>nl', 'Org store link', function () {
+  // NOTE I'm not sure I like the behavior of store-link when using a browser;
+  // copy+pasting the link seems to better fit
+  // org_capture('store-link');
+
+  var text = "[[" + location.href + "][" + document.title + "]]";
+  navigator.clipboard.writeText(text).then(function() {
+  }, function(err) {
+    console.error('Async: Could not copy text: ', err);
+  });
 });
