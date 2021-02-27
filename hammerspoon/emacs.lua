@@ -77,7 +77,7 @@ local function client_callback(task, stdout, stderr)
   return false
 end
 
-function mod.eval(sexp)
+function mod.eval(sexp, nofocus)
   ec = mod.client()
   if ec == nil then
     hs.alert("Could not find emacsclient!")
@@ -86,7 +86,14 @@ function mod.eval(sexp)
   appRequestingEmacs = hs.application.frontmostApplication()
   process.start(ec, {'-n', '--quiet', '--eval', sexp},
                 nil, client_callback)
-  mod.focus()
+
+  -- yuck, two different behaviors: 1) focus emacs and keep it there, 2) don't
+  -- focus (e.g. a popup frame) then switch back to original app
+  if nofocus == nil then
+    mod.focus()
+  else
+    hs.application.launchOrFocus(appRequestingEmacs)
+  end
 end
 
 local function evalInCurrentBuffer(sexp)
