@@ -10,6 +10,16 @@
     (interactive)
     (org-capture nil "t"))
 
+  (defun smf/org-roam-insert-key ()
+    "Add and return a roam_key to Org-roam file."
+    (interactive)
+    (unless org-roam-mode (org-roam-mode))
+    (let* ((key (read-string "Key: ")))
+      (when (string-empty-p key)
+        (user-error "Key can't be empty"))
+      (org-roam--set-global-prop "roam_key" key)
+      key))
+
   (map!
    :map org-mode-map
    ;; I use meta-arrow keys for navigation so let's stop org from
@@ -24,6 +34,9 @@
    ;; same as python
    "C-c <" #'org-shiftmetaleft
    "C-c >" #'org-shiftmetaright
+
+   ;; insert org-roam key (usually a link)
+   "C-c n r k" #'smf/org-roam-insert-key
 
    :map org-src-mode-map
    "C-c C-'" #'org-edit-src-exit
