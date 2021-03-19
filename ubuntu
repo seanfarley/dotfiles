@@ -5,6 +5,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # make sure we are in the directory of the script so relative paths work
 cd "$DIR" || exit
 
+mkdir -p ~/.fonts
+
 # recent-ish emacs
 sudo add-apt-repository -y --no-update ppa:kelleyk/emacs
 
