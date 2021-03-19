@@ -1,1 +1,1 @@
-prefix = /Users/sean/.npm-packages
+prefix = ${HOME}/.npm-packages
