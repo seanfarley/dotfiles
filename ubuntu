@@ -75,7 +75,6 @@ npm install -g @bitwarden/cli
 
 # nerd fonts
 if [[ ! -f "$HOME/.fonts/Fura Code Bold Nerd Font Complete Mono.otf" ]]; then
-    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraCode.zip -O - | python -c "import zipfile,sys,StringIO;zipfile.ZipFile(StringIO.StringIO(sys.stdin.read())).extractall(sys.argv[1] if len(sys.argv) == 2 else '.')" ~/.fonts
-
+    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip -O - | busybox unzip -d ~/.fonts -
     fc-cache -fv
 fi
