@@ -7,6 +7,10 @@ cd "$DIR" || exit
 
 mkdir -p ~/.fonts
 
+# don't need since we're only booting one thing (and zfs errors out)
+# See: https://github.com/openzfs/zfs/discussions/9801
+sudo apt remove -y os-prober
+
 # recent-ish emacs
 sudo add-apt-repository -y --no-update ppa:kelleyk/emacs
 
