@@ -60,12 +60,6 @@ if [[ ! -d "$HOME/projects/doom-emacs" ]]; then
   git clone git@github.com:hlissner/doom-emacs.git ~/projects/doom-emacs
 fi
 
-# Check for Firefox profile (just like doom, above) jj5ek4j8.sean-1535234993763
-if [[ ! -d "$HOME/Library/Application Support/Firefox/Profiles/jj5ek4j8.sean-1535234993763/chrome" ]]; then
-  echo "Firefox profile not copied over yet!"
-  exit 128
-fi
-
 ensure_link "aliases"
 ensure_link "bash_prompt"
 ensure_link "dir_colors"
@@ -97,7 +91,6 @@ ensure_link "vault_pass.txt"
 ensure_link "epass.sh"
 ensure_link "beets.yaml" ".config/beets/config.yaml"
 ensure_link "mpd.conf" ".mpd/mpd.conf"
-ensure_link "userChrome.css" "Library/Application Support/Firefox/Profiles/jj5ek4j8.sean-1535234993763/chrome/userChrome.css"
 ensure_link "npmrc"
 
 [[ ! -f "$HOME/.ssh/id_rsa" ]] && echo "No ssh id_rsa!" && exit 3
