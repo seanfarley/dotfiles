@@ -57,7 +57,7 @@ mkdir -p ~/.hammerspoon
 if [[ ! -d "$HOME/projects/doom-emacs" ]]; then
   echo "doom not cloned yet!"
   echo "git clone git@github.com:hlissner/doom-emacs.git ~/projects/doom-emacs"
-  exit 128
+  git clone git@github.com:hlissner/doom-emacs.git ~/projects/doom-emacs
 fi
 
 # Check for Firefox profile (just like doom, above) jj5ek4j8.sean-1535234993763
