@@ -67,6 +67,8 @@ sudo apt-get install -y \
     shellcheck \
     sqlite3
 
+npm install -g js-beautify stylelint
+npm install -g @bitwarden/cli
 
 # common installs (pip, etc)
 ./common
