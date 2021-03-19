@@ -4,10 +4,16 @@
 
 # python
 pip3 install --user -U \
+    cython \
+    gnureadline \
     flake8 \
-    sphinx \
+    isort \
+    jedi \
+    nose \
     pillow \
-    gnureadline
+    pytest \
+    sphinx \
+    xontrib-z
 
 # beets and mpd stuff
 pip3 install --user -U beets python-mpd2 discogs-client pyacoustid
