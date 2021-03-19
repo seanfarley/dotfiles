@@ -14,6 +14,14 @@ sudo apt remove -y os-prober
 # for add-apt-repository
 sudo apt install software-properties-common
 
+# fix secure boot
+sudo cp /boot/efi/EFI/ubuntu/{grubx64,shimx64}.efi
+cp grubx64.efi shimx64.efi
+sudo apt remove -y --purge shim shim-signed
+sudo update-grub
+# just in case
+sudo cp /boot/efi/EFI/ubuntu/{grubx64,shimx64}.efi
+
 # recent-ish emacs
 sudo add-apt-repository -y --no-update ppa:kelleyk/emacs
 
