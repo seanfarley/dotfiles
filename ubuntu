@@ -11,6 +11,9 @@ mkdir -p ~/.fonts
 # See: https://github.com/openzfs/zfs/discussions/9801
 sudo apt remove -y os-prober
 
+# for add-apt-repository
+sudo apt install software-properties-common
+
 # recent-ish emacs
 sudo add-apt-repository -y --no-update ppa:kelleyk/emacs
 
