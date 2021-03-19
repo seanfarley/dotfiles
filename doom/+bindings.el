@@ -25,8 +25,8 @@
 
 (map!
  "s-k"                               #'kill-this-buffer
- "s-n"                               #'smf/make-frame
  "s-x"                               #'kill-region
+ "s-n"                               #'smf/make-frame
  "s-N"                               #'+default/new-buffer
 
  "s-}"                               #'forward-paragraph
