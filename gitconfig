@@ -81,3 +81,5 @@
 	hideCampaign = true
 [github]
 	user = seanfarley
+[init]
+	defaultBranch = main
