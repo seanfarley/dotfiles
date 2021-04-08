@@ -701,20 +701,25 @@ brew install python \
     coreutils \
     dep \
     docker-completion \
+    editorconfig \
     emacs \
     git \
+    glslang \
+    gnuplot \
     go \
     findutils \
     imagemagick \
     inetutils \
     isync \
+    jq \
     lz4 \
     mpc \
     mpd \
     mp3gain \
-    accgain \
     npm \
     pinentry-mac \
+    pngpaste \
+    shellcheck \
     terminal-notifier \
     rust \
     ncurses
