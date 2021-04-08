@@ -91,4 +91,18 @@ simplicity, just test if the workspace begins with an asterik."
     (when (string-prefix-p "*" (+workspace-current-name))
       (smf/switch-to-last-workspace)))
 
-  (advice-add #'persp-frame-switch :after #'smf/auto-activate-venv))
+  (advice-add #'persp-frame-switch :after #'smf/auto-activate-venv)
+
+  (defun smf/workspace-other ()
+    (interactive)
+    (when-let ((mru-list (smf/workspace-mru))
+               (prev-workspace +workspace--last)
+               (cur-workspace (+workspace-current-name)))
+      ;; if we're coming from a previous *foo* workspace, the first entry in
+      ;; `mru-list' is the current workspace; so use the second item
+
+      (if (string-prefix-p (nth 0 mru-list) cur-workspace)
+          (+workspace/switch-to (nth 1 mru-list))
+        (+workspace/switch-to (nth 0 mru-list)))))
+
+  (advice-add #'+workspace/other :override #'smf/workspace-other))
