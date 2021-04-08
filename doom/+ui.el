@@ -84,7 +84,7 @@ The function filters out workspaces that start with a '*'."
 By 'last used,' I mean the last workspace that isn't an app. For
 simplicity, just test if the workspace begins with an asterik."
     (when-let ((mru-list (smf/workspace-mru)))
-      (persp-frame-switch (car mru-list))))
+      (+workspace-switch (car mru-list))))
 
   (defun smf/activate-emacs ()
     "When activating emacs, only switch to last workspace when in an app."
