@@ -11,6 +11,7 @@ pip3 install --user -U \
     jedi \
     nose \
     pillow \
+    pipenv \
     pytest \
     sphinx \
     xontrib-z
