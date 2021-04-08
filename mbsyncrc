@@ -14,8 +14,8 @@ Inbox ~/.mail/inbox
 SubFolders Verbatim
 
 Channel mail
-Master :mail-remote:
-Slave  :mail-local:
+Far :mail-remote:
+Near  :mail-local:
 Patterns * !virtual*
 # Automatically create missing mailboxes, both locally and on the server
 Create Both
