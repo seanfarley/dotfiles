@@ -68,15 +68,22 @@
                         (cons (safe-persp-name persp) persp-names-cache)))))
 
   ;; the above keeps the persp cache in MRU order
+
+  (defun smf/workspace-mru ()
+    "Returns the mru order of workspaces.
+
+The function filters out workspaces that start with a '*'."
+    (cl-remove-if (lambda (it)
+                    (or (string-prefix-p "*" it)
+                        (string= "none" it)))
+                  persp-names-cache))
+
   (defun smf/switch-to-last-workspace ()
     "Function to switch to last used workspace.
 
 By 'last used,' I mean the last workspace that isn't an app. For
 simplicity, just test if the workspace begins with an asterik."
-    (when-let ((mru-list (cl-remove-if (lambda (it)
-                                         (or (string-prefix-p "*" it)
-                                             (string= "none" it)))
-                                       persp-names-cache)))
+    (when-let ((mru-list (smf/workspace-mru)))
       (persp-frame-switch (car mru-list))))
 
   (defun smf/activate-emacs ()
