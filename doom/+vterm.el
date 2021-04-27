@@ -16,8 +16,8 @@ create a workspace called *vterm* and switch to it."
   (interactive)
   (require 'vterm)
   (+workspace-switch "*vterm*" t)
-  (if (get-buffer "vterm")
-      (switch-to-buffer "vterm")
+  (if (get-buffer "*vterm*")
+      (switch-to-buffer "*vterm*")
     (+vterm/here "~")))
 
 
