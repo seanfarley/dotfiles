@@ -60,7 +60,7 @@
    ;; prefer text over html
    mu4e-view-html-plaintext-ratio-heuristic most-positive-fixnum
 
-   mm-discouraged-alternatives '("text/html" "image/.*")
+   mm-discouraged-alternatives '("text/html" "text/richtext" "image/.*")
 
    mu4e-maildir-shortcuts (list (list :maildir "/inbox"
                                       :key ?i)
