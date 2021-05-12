@@ -85,6 +85,7 @@ local hyperModeBindings = {
   -- { key = 'u', fn = audio.changeVolume(5), desc = 'Increase the volume by 5%' },
   -- { key = 'm', fn = audio.changeVolume(-100), desc = 'Mute'},
   { key = 'v', fn = clipboard.toggle, desc = 'Clipboard'},
+  { key = 'e', fn = emacs.everywhere, desc = 'Emacs Everywhere'},
 }
 
 ----------------
