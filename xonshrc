@@ -40,7 +40,7 @@ aliases['s'] = 'perl -pi -e'.split()
 aliases['wanip'] = 'curl -s ifconfig.me'
 aliases['wanip6'] = 'curl -s 6.ifconfig.me'
 aliases['localips'] = r"ifconfig -a | perl -nle r'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
-aliases['localip'] = aliases['localips'].src.strip() + " | grep -v 127.0.0.1"
+aliases['localip'] = aliases['localips'].src.strip() + " | grep -v 127.0.0.1 | grep -v 169.254"
 
 # =================================== exports =================================
 
