@@ -72,7 +72,7 @@ local bindings = {
 
 local hyperModeBindings = {
   -- { key = 'b', fn = screen.setBrightness(0.8), desc = 'Set brightness to 80%.' },
-  { key = 'e', fn = mounts.unmountAll, desc = 'Unmount all volumes' },
+  { key = 'u', fn = mounts.unmountAll, desc = 'Unmount all volumes' },
   -- { key = 'h', fn = audio.current, desc = 'Current song' },
   -- { key = 'i', fn = audio.changeVolume(-5), desc = 'Decrease the volume by 5%' },
   -- { key = 'j', fn = audio.next, desc = 'Next song' },
