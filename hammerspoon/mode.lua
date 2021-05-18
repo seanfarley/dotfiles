@@ -59,11 +59,6 @@ function mod.create(modifiers, key, name, bindings, filter)
         return application.open(binding.name)()
       end
     end
-    if binding.exitMode then
-      mode:bind(modifiers, binding.key, callAndExit(fn))
-    else
-      mode:bind(modifiers, binding.key, fn)
-    end
     mode:bind({}, binding.key, callAndExit(fn))
   end
 
