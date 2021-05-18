@@ -45,7 +45,7 @@ local bindings = {
       { key = 'right', fn = function () hs.eventtap.keyStroke({}, "end") end, desc = 'Page Bottom' },
 
       -- map emacs keybindings in everything but the emacs app
-      { modifiers = {'ctrl'}, key = 'g', fn = function() hs.eventtap.keyStroke({}, "escape") end },
+      { modifiers = {'ctrl'}, key = 'g', fn = function() hs.eventtap.keyStroke({}, "escape") end, desc = 'C-g is ESC'},
 
       { key = 'n', fn = apps.openNotification, desc = 'Notification - Open' },
       { key = 'n', fn = apps.openNotificationAction, shift = true, desc = 'Notification - Action' },
