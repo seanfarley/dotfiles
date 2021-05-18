@@ -105,7 +105,7 @@
        (lookup           ; navigate your code and its documentation
         +docsets         ; ...or in Dash docsets locally
         +dictionary)
-       lsp
+       (lsp +peek)
        (magit            ; a git porcelain for Emacs
         +forge)
        make              ; run make tasks from Emacs
