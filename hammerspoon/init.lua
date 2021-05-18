@@ -5,6 +5,7 @@ local keybindings = require "keybindings"
 local reload = require 'utils/reload'
 local clipboard = require 'clipboard'
 
+-- most of this code is taken from https://github.com/j-martin/dotfiles
 -- 'info' is a bit too verbose
 hs.logger.setGlobalLogLevel('warning')
 
