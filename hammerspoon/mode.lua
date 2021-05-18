@@ -39,7 +39,7 @@ function mod.create(modifiers, key, name, bindings, filter, delete)
   end
 
   function mode:entered()
-    local d = name .. ' Mode'
+    local d = name
     local mappings = fnutils.imap(bindings, buildDesc)
 
     -- https://github.com/asmagill/hammerspoon-config/blob/master/_scratch/modalSuppression.lua
