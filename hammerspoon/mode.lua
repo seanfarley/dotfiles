@@ -49,9 +49,6 @@ function mod.create(modifiers, key, name, bindings, filter)
   local function bindFn(binding)
     local message = binding.desc or binding.name
     local fn = function()
-      if message ~= nil then
-        alert.show(message, 0.75)
-      end
       if binding.fn then
         return binding.fn()
       end
