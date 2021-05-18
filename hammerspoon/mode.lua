@@ -164,6 +164,8 @@ function mod.create(modifiers, key, name, bindings, filter)
   mode:bind({'ctrl'}, '[', exit)
 
   keybinder.bindExclude(mode.k, filter)
+
+  return mode
 end
 
 return mod
