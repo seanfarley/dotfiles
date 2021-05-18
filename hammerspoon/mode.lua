@@ -10,7 +10,7 @@ alert.defaultStyle['radius'] = 5
 alert.defaultStyle['textSize'] = 20
 
 -- bindings { { key = 'string', fn = fn } }
-function mod.create(modifiers, key, name, bindings, filter)
+function mod.create(modifiers, key, name, bindings, filter, delete)
   local mode = hotkey.modal.new(modifiers, key)
 
   local function buildDesc(binding)
@@ -135,6 +135,9 @@ function mod.create(modifiers, key, name, bindings, filter)
   function mode:exited()
     mode._eventtap:stop()
     alert.closeAll()
+    if delete then
+      mode:delete()
+    end
   end
 
   local function callAndExit(fn)
