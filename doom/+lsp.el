@@ -5,7 +5,7 @@
                                                #'lsp-format-buffer nil t))
 
 (after! lsp-mode
-  (add-hook 'lsp-after-open-hook 'lsp-enable-imenu))
+  (add-hook 'lsp-after-open-hook #'lsp-enable-imenu))
 
 (after! lsp-mode
   (setq lsp-pyls-configuration-sources ["flake8"]
