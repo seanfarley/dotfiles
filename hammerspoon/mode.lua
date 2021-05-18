@@ -41,6 +41,87 @@ function mod.create(modifiers, key, name, bindings, filter)
   function mode:entered()
     local d = name .. ' Mode'
     local mappings = fnutils.imap(bindings, buildDesc)
+
+    -- https://github.com/asmagill/hammerspoon-config/blob/master/_scratch/modalSuppression.lua
+    local eventtap = require("hs.eventtap")
+    local passThroughKeys = {}
+
+    for i,v in ipairs(self.keys) do
+      -- parse for flags, get keycode for each
+      local kc, mods = tostring(v._hk):match("keycode: (%d+), mods: (0x[^ ]+)")
+      local hkFlags = tonumber(mods)
+      local hkOriginal = hkFlags
+      local flags = 0
+      if (hkFlags &  256) ==  256 then hkFlags, flags = hkFlags -  256, flags | eventtap.event.rawFlagMasks.command   end
+      if (hkFlags &  512) ==  512 then hkFlags, flags = hkFlags -  512, flags | eventtap.event.rawFlagMasks.shift     end
+      if (hkFlags & 2048) == 2048 then hkFlags, flags = hkFlags - 2048, flags | eventtap.event.rawFlagMasks.alternate end
+      if (hkFlags & 4096) == 4096 then hkFlags, flags = hkFlags - 4096, flags | eventtap.event.rawFlagMasks.control   end
+      if hkFlags ~= 0 then print("unexpected flag pattern detected for " .. tostring(v._hk)) end
+      passThroughKeys[tonumber(kc)] = flags
+    end
+
+    self._eventtap = eventtap.new(
+      {
+        eventtap.event.types.keyDown,
+        eventtap.event.types.keyUp,
+      }, function(event)
+        -- check only the flags we care about and filter the rest
+        local flags = event:getRawEventData().CGEventData.flags  & (
+          eventtap.event.rawFlagMasks.command   |
+          eventtap.event.rawFlagMasks.control   |
+          eventtap.event.rawFlagMasks.alternate |
+          eventtap.event.rawFlagMasks.shift
+                                                                   )
+        if passThroughKeys[event:getKeyCode()] == flags then
+          hs.printf("passing:     %3d 0x%08x", event:getKeyCode(), flags)
+          return false -- pass it through so hotkey can catch it
+        else
+
+          mode:exit()
+
+          for _, key in ipairs(keybinder.globalMap[keybinder.globalBindings]) do
+            if key.key == hs.keycodes.map[event:getKeyCode()] then
+              local t1 = {}
+              if (flags & eventtap.event.rawFlagMasks.command) ~= 0 then
+                t1[#t1 + 1] = "cmd"
+              end
+              if (flags & eventtap.event.rawFlagMasks.control) ~= 0 then
+                t1[#t1 + 1] = "ctrl"
+              end
+              if (flags & eventtap.event.rawFlagMasks.alternate) ~= 0 then
+                t1[#t1 + 1] = "alt"
+              end
+              if (flags & eventtap.event.rawFlagMasks.shift) ~= 0 then
+                t1[#t1 + 1] = "shift"
+              end
+
+              if (key.modifiers == nil or #key.modifiers == 0) and (#t1 == 0) then
+                return false
+              end
+
+              if #key.modifiers > 0 and #t1 == #key.modifiers then
+                table.sort(key.modifiers)
+                table.sort(t1)
+                for i, mod in ipairs(key.modifiers) do
+                  if mod ~= t1[i] then
+                    hs.printf("suppressing: %3d 0x%08x", event:getKeyCode(), flags)
+                    return true
+                  end
+                end
+
+                -- getting here means all flags / modifiers are equal
+                return false
+              end
+            end
+          end
+
+          hs.printf("suppressing: %3d 0x%08x", event:getKeyCode(), flags)
+          return true -- delete it if we got this far -- it's a key that we want suppressed
+        end
+    end)
+
+    mode._eventtap:start()
+
     if mappings ~= nil then
       d = d .. '\n\n' .. table.concat(mappings, "\n")
     end
@@ -52,6 +133,7 @@ function mod.create(modifiers, key, name, bindings, filter)
   end
 
   function mode:exited()
+    mode._eventtap:stop()
     alert.closeAll()
   end
 
