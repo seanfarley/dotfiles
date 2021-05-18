@@ -10,6 +10,7 @@ local hyper = { 'cmd', 'alt', 'ctrl' }
 local hyperShift = { 'cmd', 'alt', 'ctrl', 'shift' }
 local globalBindings = '*'
 local globalFilter = {}
+local appBindingMap = {}
 
 hotkey.alertDuration = 2.5
 
@@ -18,6 +19,7 @@ local mod = {
   hyper = hyper,
   globalBindings = globalBindings,
   globalFilter = globalFilter,
+  globalMap = appBindingMap,
 }
 
 local function enableBindings(bindings, window)
@@ -123,7 +125,6 @@ local function initWatcher(appBindingMap)
 end
 
 function mod.init(appBindingList)
-  local appBindingMap = {}
   for _, app in ipairs(appBindingList) do
     appBindingMap[app.name] = fnutils.imap(app.bindings, bind)
   end
