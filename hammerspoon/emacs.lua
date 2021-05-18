@@ -148,10 +148,6 @@ function mod.capture(captureTemplate)
   local url = focusedApplication:path()
   local body = selection.getSelectedText()
 
-  if focusedApplication:name() == 'Google Chrome' then
-    _, url, _ = osascript.javascript("Application('Google Chrome').windows[0].activeTab().url()")
-  end
-
   if focusedApplication:name() == 'Safari' then
     _, url, _ = osascript.javascript("Application('Safari').windows[0].currentTab().url()")
   end
