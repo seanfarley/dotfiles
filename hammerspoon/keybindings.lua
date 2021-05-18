@@ -93,14 +93,27 @@ local hyperModeBindings = {
 ----------------
 
 local orgModeBindings = {
-  { key = 'c', fn = emacs.capture, desc = 'Capture' },
+  { key = 'n', fn = emacs.capture, desc = 'Capture' },
   { key = 'a', fn = emacs.agenda, desc = 'Agenda' },
+
+  -- { modifiers = { 'ctrl' }, key = 'c', fn = function () hs.alert.show("Testing C-c") end, desc = 'Testin C-c', filter = { 'Emacs' } },
+
+}
+
+local ctrlCBindings = {
+  { key = 'n',
+    fn = function ()
+      local notes = mode.create({}, 'n', '+notes', orgModeBindings, nil, true)
+      notes:enter()
+    end,
+    desc = '+notes' },
+
 }
 
 function mod.init()
   keybinder.init(bindings)
   mode.create(hyper, 'space', 'Hyper', hyperModeBindings)
-  mode.create(hyper, 'c', 'Org', orgModeBindings)
+  mode.create({ 'ctrl' }, 'c', 'C-c', ctrlCBindings, { "Emacs" })
 end
 
 return mod
