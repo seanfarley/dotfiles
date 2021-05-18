@@ -55,3 +55,8 @@
 
 (after! lsp-python-ms
   (set-lsp-priority! 'mspyls 1))
+
+(after! lsp-ui
+  ;; for some reason doom sets these too small
+  (setq lsp-ui-doc-max-height 15
+        lsp-ui-doc-max-width 150))
