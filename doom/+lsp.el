@@ -21,6 +21,7 @@
   (add-hook! lsp-mode (when (derived-mode-p 'python-mode)
                         (setq-local flycheck-checker 'python-flake8)))
 
+  (add-hook! lsp-mode #'lsp-headerline-breadcrumb-mode)
 
   (let* ((ans-dir "/usr/local/Cellar/ansible/")
          (ans-vers-dir (car
