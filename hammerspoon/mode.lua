@@ -16,10 +16,26 @@ function mod.create(modifiers, key, name, bindings, filter)
   local function buildDesc(binding)
     local desc = binding.desc or binding.name
     local key = binding.key
+    local mods = ''
+
     if key == 'space' then
       key = "' '"
     end
-    return key .. " \t→\t " .. desc
+    if binding.modifiers then
+      if fnutils.contains(binding.modifiers, "ctrl") then
+        mods = mods .. "C-"
+      end
+      if fnutils.contains(binding.modifiers, "alt") then
+        mods = mods .. "M-"
+      end
+      if fnutils.contains(binding.modifiers, "shift") then
+        mods = mods .. "S-"
+      end
+      if fnutils.contains(binding.modifiers, "cmd") then
+        mods = mods .. "s-"
+      end
+    end
+    return mods .. key .. " \t→\t " .. desc
   end
 
   function mode:entered()
@@ -56,7 +72,7 @@ function mod.create(modifiers, key, name, bindings, filter)
         return application.open(binding.name)()
       end
     end
-    mode:bind({}, binding.key, callAndExit(fn))
+    mode:bind(binding.modifiers, binding.key, callAndExit(fn))
   end
 
   fnutils.each(bindings, bindFn)
