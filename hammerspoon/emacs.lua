@@ -144,11 +144,6 @@ function mod.capture(captureTemplate)
   local focusedWindow = window.focusedWindow()
   local focusedApplication = focusedWindow:application()
 
-  if focusedApplication:name() == 'Emacs' then
-    eval('(smf/org-capture)')
-    return
-  end
-
   local title = focusedWindow:title() .. " - " .. focusedApplication:name()
   local url = focusedApplication:path()
   local body = selection.getSelectedText()
