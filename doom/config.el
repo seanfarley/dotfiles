@@ -93,3 +93,4 @@
 (load! "+ui")
 (load! "+vterm")
 (load! "+ansible")
+(load! "+gnus-patch")
