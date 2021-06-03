@@ -1,6 +1,10 @@
 (setq server-use-tcp t
       server-port    9999)
 
+;; in case emacs crashed, forcibly delete the server connection and restart it
+(server-force-delete)
+(server-start)
+
 (setq source-directory (expand-file-name "~/projects/emacs"))
 
 ;; enable hs-minor-mode
