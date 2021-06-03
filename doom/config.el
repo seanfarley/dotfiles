@@ -62,6 +62,9 @@
            #'elisp-slime-nav-mode
            #'flycheck-package-setup)
 
+(after! flycheck
+  (add-to-list 'flycheck-gfortran-include-path "."))
+
 (add-hook! python-mode #'sphinx-doc-mode)
 
 ;; TODO make +python module
