@@ -103,3 +103,6 @@
 (load! "+vterm")
 (load! "+ansible")
 (load! "+gnus-patch")
+
+;; TODO don't know where to put this? ui?
+(setq compilation-scroll-output t)
