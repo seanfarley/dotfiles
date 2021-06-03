@@ -80,6 +80,7 @@
 (after! which-key-mode
   (which-key-posframe-mode))
 
+(require 'tree-sitter-langs)
 (global-tree-sitter-mode)
 (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
 
