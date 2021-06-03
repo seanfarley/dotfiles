@@ -44,3 +44,5 @@
 (package! which-key-posframe)
 (package! xonsh-mode :recipe '(:host github :repo "seanfarley/xonsh-mode"))
 (package! ztree)
+(package! org-link-minor-mode :recipe '(:host github
+                                        :repo "seanohalpin/org-link-minor-mode"))
