@@ -5,7 +5,8 @@
 
 ;; enable hs-minor-mode
 (add-hook! prog-mode
-           #'hs-minor-mode)
+           #'hs-minor-mode
+           #'org-link-minor-mode)
 
 (setq projectile-project-search-path (list "~/projects/"))
 
