@@ -28,7 +28,7 @@ local mod = {
 local bindings = {
   { name = keybinder.globalBindings,
     bindings = {
-      { modifiers = cmdCtrl, key = 's', name = 'Firefox' },
+      { modifiers = cmdCtrl, key = 's', name = 'Safari' },
       { modifiers = cmdCtrl, key = 'l', name = 'Calendar' },
       { modifiers = cmdCtrl, key = 'e', fn = emacs.focus, desc = 'Emacs' },
       { modifiers = cmdCtrl, key = 'w', fn = emacs.switchWorkspace, desc = 'Emacs' },
