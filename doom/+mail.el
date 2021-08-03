@@ -24,25 +24,33 @@
 
   ;;=============================== basic settings =============================
 
+  (set-email-account! "farley.io"
+  '((user-mail-address      . "sean@farley.io")
+    (smtpmail-smtp-user     . "sean@farley.io")
+    (smtpmail-smtp-server   . "mail.farley.io"))
+  t)
+
+  (set-email-account! "iit.edu"
+  '((user-mail-address      . "sfarley@iit.edu")
+    (smtpmail-smtp-user     . "sfarley@hawk.iit.edu")
+    (smtpmail-smtp-server   . "smtp.gmail.com")))
+
   (setq
-   user-mail-address "sean@farley.io"
    user-full-name    "Sean Farley"
 
-   smtpmail-smtp-user           "sean@farley.io"
-   smtpmail-default-smtp-server "mail.farley.io"
-   smtpmail-smtp-server         "mail.farley.io"
    smtpmail-stream-type         'starttls
    smtpmail-smtp-service        587
    send-mail-function           #'smtpmail-send-it
 
-   mu4e-personal-addresses '("sean@farley.io"
-                             "sean.michael.farley@gmail.com"
-                             "sean@seanfarley.org"
-                             "sean@mcs.anl.gov"
-                             "sean@macports.org"
-                             "sean@lsmsa.net"
-                             "sfarley@atlassian.com"
-                             "sfarley@iit.edu")
+   ;; mu4e-personal-addresses '("sean@farley.io"
+   ;;                           ;; "sean.michael.farley@gmail.com"
+   ;;                           ;; "sean@seanfarley.org"
+   ;;                           ;; "sean@mcs.anl.gov"
+   ;;                           ;; "sean@macports.org"
+   ;;                           ;; "sean@lsmsa.net"
+   ;;                           ;; "sfarley@atlassian.com"
+   ;;                           "sfarley@iit.edu"
+   ;;                           "sfarley@hawk.iit.edu")
 
    mu4e-attachment-dir "~/Downloads"
    mu4e-drafts-folder  "/Drafts"
