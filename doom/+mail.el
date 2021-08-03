@@ -116,6 +116,9 @@
    ;; just apply the actions without asking
    mu4e-headers-leave-behavior 'apply)
 
+  ;; set date column width to be a bit longer
+  (setf (alist-get :human-date mu4e-headers-fields) 10)
+
   ;;=============================== compose hooks ==============================
 
   ;; helper function to jump to message composing when pressing tab in the
