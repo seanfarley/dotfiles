@@ -24,16 +24,52 @@
 
   ;;=============================== basic settings =============================
 
-  (set-email-account! "farley.io"
-  '((user-mail-address      . "sean@farley.io")
-    (smtpmail-smtp-user     . "sean@farley.io")
-    (smtpmail-smtp-server   . "mail.farley.io"))
-  t)
+  ;; (set-email-account! "farley.io"
+  ;; '((user-mail-address      . "sean@farley.io")
+  ;;   (smtpmail-smtp-user     . "sean@farley.io")
+  ;;   (smtpmail-smtp-server   . "mail.farley.io"))
+  ;; t)
 
-  (set-email-account! "iit.edu"
-  '((user-mail-address      . "sfarley@hawk.iit.edu")
-    (smtpmail-smtp-user     . "sfarley@hawk.iit.edu")
-    (smtpmail-smtp-server   . "smtp.gmail.com")))
+  ;; (set-email-account! "iit.edu"
+  ;; '((user-mail-address      . "sfarley@hawk.iit.edu")
+  ;;   (smtpmail-smtp-user     . "sfarley@hawk.iit.edu")
+  ;;   (smtpmail-smtp-server   . "smtp.gmail.com")))
+
+  (defun smf/iit-context-p (msg)
+    "Determin is MSG is from/to my IIT address."
+    (when msg
+       (mu4e-message-contact-field-matches
+        msg '(:to :from) "@.*iit.edu")))
+
+  ;; `set-email-account!' doesn't accept a custom match-func so we have to duplicate what it does
+  (setq
+   mu4e-contexts
+   `( ,(make-mu4e-context
+        :name "farley.io"
+        :enter-func
+        (lambda () (mu4e-message "Switched to farley.io"))
+        :leave-func
+        (lambda () (progn (setq +mu4e-personal-addresses nil)
+                     (mu4e-clear-caches)))
+        :match-func (lambda (msg) (when msg (not (smf/iit-context-p msg))))
+        :vars '((user-mail-address      . "sean@farley.io")
+                (smtpmail-smtp-user     . "sean@farley.io")
+                (smtpmail-smtp-server   . "mail.farley.io"))
+        )
+
+      ,(make-mu4e-context
+        :name "iit.edu"
+        :enter-func
+        (lambda () (mu4e-message "Switched to iit.edu"))
+        :leave-func
+        (lambda () (progn (setq +mu4e-personal-addresses nil)
+                     (mu4e-clear-caches)))
+        :match-func #'smf/iit-context-p
+        :vars '((user-mail-address      . "sfarley@hawk.iit.edu")
+                (smtpmail-smtp-user     . "sfarley@hawk.iit.edu")
+                (smtpmail-smtp-server   . "smtp.gmail.com"))
+        )))
+
 
   (setq
    user-full-name    "Sean Farley"
