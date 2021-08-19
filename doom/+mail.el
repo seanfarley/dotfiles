@@ -31,7 +31,7 @@
   t)
 
   (set-email-account! "iit.edu"
-  '((user-mail-address      . "sfarley@iit.edu")
+  '((user-mail-address      . "sfarley@hawk.iit.edu")
     (smtpmail-smtp-user     . "sfarley@hawk.iit.edu")
     (smtpmail-smtp-server   . "smtp.gmail.com")))
 
