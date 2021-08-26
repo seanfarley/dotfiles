@@ -46,3 +46,4 @@
 (package! ztree)
 (package! org-link-minor-mode :recipe '(:host github
                                         :repo "seanohalpin/org-link-minor-mode"))
+(package! writegood-mode :disable t)
