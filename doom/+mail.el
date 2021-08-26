@@ -6,8 +6,6 @@
   (when (file-directory-p mu4e-path)
     (add-load-path! mu4e-path)))
 
-(setq mu4e-view-use-old t)
-
 (after! mu4e
   (require 'smtpmail)
 
