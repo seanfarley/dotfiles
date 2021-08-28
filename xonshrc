@@ -211,6 +211,6 @@ aliases['itunes_to_mpd'] = _itunes_to_mpd
 # read bash completions
 $BASH_COMPLETIONS.insert(0, '/usr/local/share/bash-completion/bash_completion')
 
-xontrib load z coreutils distributed docker_tabcomplete jedi mpl
+xontrib load z coreutils distributed docker_tabcomplete mpl
 xontrib load vox # prompt_ret_code vox_tabcomplete
 xontrib load readable-traceback autovox avox
