@@ -1,6 +1,9 @@
 (setq server-use-tcp t
       server-port    9999)
 
+(after! tramp
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+
 ;; in case emacs crashed, forcibly delete the server connection and restart it
 (server-force-delete)
 (server-start)
