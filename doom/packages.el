@@ -21,7 +21,6 @@
 (package! mu4e-alert)
 (package! mu4e-patch :recipe '(:host github :repo "seanfarley/mu4e-patch"))
 (package! nerd-font :recipe '(:host github :repo "twlz0ne/nerd-fonts.el"))
-(package! nov)
 (package! org-ref)
 (package! org-noter-pdftools)
 (package! package-lint)
