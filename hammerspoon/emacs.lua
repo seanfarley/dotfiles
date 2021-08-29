@@ -140,13 +140,15 @@ function mod.switchWorkspace()
   mod.eval('(smf/activate-emacs)')
 end
 
-function mod.capture(captureTemplate)
+function mod.capture(protocol, captureTemplate, time)
   local focusedWindow = window.focusedWindow()
   local focusedApplication = focusedWindow:application()
 
   local title = focusedWindow:title() .. " - " .. focusedApplication:name()
   local url = focusedApplication:path()
+  local urlkey = "url"
   local body = selection.getSelectedText()
+  local timekey = ""
 
   if focusedApplication:name() == 'Safari' then
     _, url, _ = osascript.javascript("Application('Safari').windows[0].currentTab().url()")
@@ -161,13 +163,25 @@ function mod.capture(captureTemplate)
     captureTemplate = 't'
   end
 
-  local protocolUrl = 'org-protocol://capture?' ..
+  if protocol == nil then
+    protocol = "capture"
+  end
+
+  if protocol == "roam-ref" then
+    urlkey = "ref"
+  end
+
+  if time then
+    body = time
+  end
+
+  local protocolUrl = 'org-protocol://' .. protocol .. '?' ..
     'title=' .. http.encodeForQuery(title) ..
-    '&url=' .. http.encodeForQuery(url) ..
+    '&' .. urlkey .. '=' .. http.encodeForQuery(url) ..
     '&body=' .. http.encodeForQuery(body or '') ..
     '&template=' .. captureTemplate
 
-  logger.df("URL: %s", protocolUrl)
+  hs.printf("URL: %s", protocolUrl)
   open(protocolUrl)
 end
 

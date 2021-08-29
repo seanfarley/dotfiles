@@ -62,6 +62,44 @@ local bindings = {
       -- { key = 'l', fn = function() hs.execute("/usr/local/bin/mpc next") end, desc = 'MPC Next' },
       -- { key = ';', fn = function() hs.execute("/usr/local/bin/mpc toggle") end, desc = 'MPC Play / Pause' },
 
+      { modifiers = hyper, key = 'c', fn = function ()
+          local currentApp = hs.window.focusedWindow():application():name()
+          if currentApp == "Safari" then
+            _, time, _ = hs.osascript.javascript("Application('Safari').doJavaScript('" ..
+                                                 "hms = document.getElementsByClassName(\"live-time\")[0].textContent.split(\":\");" ..
+                                                 "Number(hms[0]) * 3600 + Number(hms[1]) * 60 + Number(hms[2]);" ..
+                                                 "', { in: Application('Safari').windows[0].currentTab })")
+            _, vid_id, _ = hs.osascript.javascript("Application('Safari').doJavaScript('" ..
+                                                   "document.getElementById(\"smf-video-id\").textContent;" ..
+                                                   "', { in: Application('Safari').windows[0].currentTab })")
+
+            if vid_id then
+              -- back up a bit
+              if time > 15 then
+                time = time - 15
+              end
+              local h = math.floor(time / 3600)
+              time = time - h * 3600
+              local m = math.floor(time / 60)
+              time = time - m * 60
+              local hms = h .. "h" .. m .. "m" .. time .. "s"
+              -- hs.alert.show(hms)
+              emacs.capture(nil, "c", hms .. "," .. vid_id)
+            else
+              hs.alert.show("WARNING: No video id found! Falling back to regular clipping")
+              -- focus on one of the nav menus
+              hs.osascript.javascript("Application('Safari').doJavaScript('" ..
+                                      "document.querySelector(\"button[data-a-target]\").focus();" ..
+                                      "', { in: Application('Safari').windows[0].currentTab })")
+              -- press the clip shortcut alt-x
+              hs.eventtap.keyStroke({'alt'}, 'x')
+              -- now new window has popped up for a clip, so need to increment windows[0] to windows[1]
+              hs.osascript.javascript("Application('Safari').doJavaScript('" ..
+                                      "document.querySelector(\"textarea[data-a-target]\").focus();" ..
+                                      "', { in: Application('Safari').windows[1].currentTab })")
+            end
+          end
+      end, desc = "Capture Twitch clip"}
     }
   },
 }

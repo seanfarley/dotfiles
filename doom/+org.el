@@ -129,6 +129,37 @@
       :head "#+title: ${title}\n#+roam_key: ${ref}"
       :unnarrowed t)))
 
+  (add-to-list 'org-capture-templates
+               `("c" "Twitch Clip" entry
+                 (file+headline "twitch.org" "Inbox")
+                 ,(concat "* TWITCH %a\n:PROPERTIES:\n"
+                          ":VID: %(nth 1 (split-string \"%i\" \",\"))\n"
+                          ":TIME: %(nth 0 (split-string \"%i\" \",\"))\n"
+                          ":CAPTION: %?\n:END:\n")))
+
+  (defun smf/twitch-org-ctrl-c-ctrl-c-hook ()
+    (interactive "*")
+    (save-excursion
+      (org-back-to-heading)
+      (let* ((context (org-element-context))
+             (twitch-p (string-prefix-p "TWITCH" (org-element-property :title context)))
+             (vid (org-element-property :VID context))
+             (time (org-element-property :TIME context))
+             (caption (org-element-property :CAPTION context)))
+        (when twitch-p
+          ;; unicode ftw
+          (setq caption (string-replace "ex" "eх" caption))
+          (setq caption (string-replace "itch" "іtch" caption))
+          (setq caption (string-replace "imp" "іmp" caption))
+          (setq caption (string-replace "ass" "asѕ" caption))
+          (kill-new caption)
+          (browse-url (concat "https://twitch.tv/videos/" vid "?t=" time))
+          ;; t means that we handled the keypress and org doesn't need to continue
+          ;; looking at the other hooks
+          t))))
+
+  (add-hook 'org-ctrl-c-ctrl-c-hook #'smf/twitch-org-ctrl-c-ctrl-c-hook)
+
   ;; auto save all org files after doing a common action
   (advice-add 'org-agenda-quit      :before #'org-save-all-org-buffers)
   ;; (advice-add 'org-agenda-schedule  :after #'org-save-all-org-buffers)
