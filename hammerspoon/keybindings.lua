@@ -34,7 +34,7 @@ local bindings = {
       { modifiers = cmdCtrl, key = 'w', fn = emacs.switchWorkspace, desc = 'Emacs' },
       { modifiers = cmdCtrl, key = 't', fn = emacs.vterm, desc = 'vterm' },
       { modifiers = cmdCtrl, key = 'c', name = 'Element' },
-      { modifiers = cmdCtrl, key = 'i', fn = emacs.mpc, desc = 'mpc' },
+      { modifiers = cmdCtrl, key = 'i', name = 'Music' },
       { modifiers = cmdCtrl, key = 'm', fn = emacs.mu4e, desc = 'mu4e' },
 
       -- { modifiers = cmd, key = 'space', fn = emacs.mu4e, desc = 'mu4e' },
