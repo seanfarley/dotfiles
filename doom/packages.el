@@ -41,8 +41,9 @@
 (package! webpaste)
 (package! whole-line-or-region)
 (package! which-key-posframe)
+;; too annoying for technical writing which uses a lot of passive voice
+(package! writegood-mode :disable t)
 (package! xonsh-mode :recipe '(:host github :repo "seanfarley/xonsh-mode"))
 (package! ztree)
 (package! org-link-minor-mode :recipe '(:host github
                                         :repo "seanohalpin/org-link-minor-mode"))
-(package! writegood-mode :disable t)
