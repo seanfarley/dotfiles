@@ -3,6 +3,7 @@ local alert = require 'hs.alert'
 local fnutils = require "hs.fnutils"
 local application = require "hs.application"
 local keybinder = require "keybinder"
+local emacs = require "emacs"
 
 local mod = {}
 
@@ -45,6 +46,15 @@ function mod.create(modifiers, key, name, bindings, filter, delete)
     -- https://github.com/asmagill/hammerspoon-config/blob/master/_scratch/modalSuppression.lua
     local eventtap = require("hs.eventtap")
     local passThroughKeys = {}
+
+    -- HACK try sending the keypress directly to emacs instead of the flaky application focus filtering
+    local currentApp = hs.window.focusedWindow():application():name()
+    if currentApp == "Emacs" and self.k.msg == "⌃C" then
+      emacs.sendKey("\\C-c")
+      mode:exit()
+      -- eventtap.keyStroke({'ctrl'}, 'c', "Emacs")
+      return
+    end
 
     for i,v in ipairs(self.keys) do
       -- parse for flags, get keycode for each
@@ -133,7 +143,9 @@ function mod.create(modifiers, key, name, bindings, filter, delete)
   end
 
   function mode:exited()
-    mode._eventtap:stop()
+    if mode._eventtap then
+      mode._eventtap:stop()
+    end
     alert.closeAll()
     if delete then
       mode:delete()

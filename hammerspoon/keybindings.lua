@@ -152,7 +152,7 @@ local ctrlCBindings = {
 function mod.init()
   keybinder.init(bindings)
   mode.create(hyper, 'space', 'Hyper', hyperModeBindings)
-  mode.create({ 'ctrl' }, 'c', 'C-c', ctrlCBindings, { "Emacs" })
+  mode.create({ 'ctrl' }, 'c', 'C-c', ctrlCBindings)
 end
 
 return mod

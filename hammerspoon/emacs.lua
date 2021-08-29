@@ -108,6 +108,11 @@ local function open(url)
   mod.focus()
 end
 
+function mod.sendKey(k)
+  -- https://emacs.stackexchange.com/questions/2461/how-can-i-simulate-an-arbitary-key-event-from-elisp
+  mod.eval('(setq unread-command-events (listify-key-sequence "' .. k .. '"))')
+end
+
 function mod.agenda()
   mod.eval('(smf/org-agenda)')
 end
