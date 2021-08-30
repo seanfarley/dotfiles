@@ -42,6 +42,7 @@
 (package! sx)
 (package! tree-sitter)
 (package! tree-sitter-langs)
+(package! twauctex :recipe '(:host github :repo "jeeger/twauctex"))
 (package! unfill)
 (package! webpaste)
 (package! whole-line-or-region)
