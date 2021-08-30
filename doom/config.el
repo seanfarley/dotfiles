@@ -118,6 +118,7 @@
 (load! "+vterm")
 (load! "+ansible")
 (load! "+gnus-patch")
+(load! "+mpd")
 
 ;; TODO don't know where to put this? ui?
 (setq compilation-scroll-output t)
