@@ -59,7 +59,7 @@
 ;;                   :server-id 'gdscript-ls))
 
 (after! lsp-python-ms
-  (set-lsp-priority! 'mspyls 1))
+  (set-lsp-priority! 'mspyls -100))
 
 (after! lsp-ui
   ;; for some reason doom sets these too small
