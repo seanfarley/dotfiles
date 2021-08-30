@@ -10,6 +10,8 @@
 
 (setq source-directory (expand-file-name "~/projects/emacs"))
 
+(setq langtool-bin "/usr/local/bin/languagetool")
+
 ;; enable hs-minor-mode
 (add-hook! prog-mode
            #'hs-minor-mode
