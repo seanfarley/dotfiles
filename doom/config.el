@@ -71,6 +71,9 @@
 (after! flycheck
   (add-to-list 'flycheck-gfortran-include-path "."))
 
+(after! page-break-lines-mode
+  (add-to-list 'page-break-lines-modes 'prog-mode))
+
 (add-hook! python-mode #'sphinx-doc-mode)
 
 ;; TODO make +python module
