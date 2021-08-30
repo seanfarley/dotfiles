@@ -21,8 +21,13 @@
 (package! mu4e-alert)
 (package! mu4e-patch :recipe '(:host github :repo "seanfarley/mu4e-patch"))
 (package! nerd-font :recipe '(:host github :repo "twlz0ne/nerd-fonts.el"))
-(package! org-ref)
 (package! org-noter-pdftools)
+(package! org-recent-headings)
+(package! org-ref)
+(package! org-roam-bibtex)
+(package! org-sidebar)
+(package! org-web-tools)
+;; (package! ox-report) ;; if I get back into contracting
 (package! package-lint)
 (package! page-break-lines)
 ;; ugh, get rid of this pipenv shit
