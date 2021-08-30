@@ -35,6 +35,8 @@
     (setq lsp-python-ms-extra-paths `["~/Library/Python/3.9/lib/python/site-packages"
                                       ,(concat ans-dir ans-vers-dir "/libexec/lib/python3.9/site-packages")])))
 
+  (add-hook! python-mode (setq-local flycheck-disabled-checkers '(python-pylint)))
+
 ;====== helpful snippet to not start a process and just connect to a port ======
 
 ;; (defun lsp-tcp-connect-to-port ()
