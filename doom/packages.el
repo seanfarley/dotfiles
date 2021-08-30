@@ -1,3 +1,4 @@
+(package! ace-jump-zap)
 (package! banner-comment)
 (package! biblio)
 (package! bitwarden :recipe '(:host github :repo "seanfarley/emacs-bitwarden"))
