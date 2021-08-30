@@ -21,6 +21,8 @@
 (package! mu4e-alert)
 (package! mu4e-patch :recipe '(:host github :repo "seanfarley/mu4e-patch"))
 (package! nerd-font :recipe '(:host github :repo "twlz0ne/nerd-fonts.el"))
+(package! org-link-minor-mode :recipe '(:host github
+                                        :repo "seanohalpin/org-link-minor-mode"))
 (package! org-noter-pdftools)
 (package! org-recent-headings)
 (package! org-ref)
@@ -52,5 +54,3 @@
 (package! xenops)
 (package! xonsh-mode :recipe '(:host github :repo "seanfarley/xonsh-mode"))
 (package! ztree)
-(package! org-link-minor-mode :recipe '(:host github
-                                        :repo "seanohalpin/org-link-minor-mode"))
