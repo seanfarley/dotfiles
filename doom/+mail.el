@@ -293,10 +293,8 @@
 
   ;============================== colorize patches =============================
 
-  (require 'mu4e-patch)
-
   ;; colorize patch-based emails
-  (add-hook 'mu4e-view-mode-hook #'mu4e-patch-highlight)
+  (add-hook 'gnus-part-display-hook 'message-view-patch-highlight)
 
   ;============================ monkey-patch `=mu4e' ===========================
 

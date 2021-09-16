@@ -21,7 +21,7 @@
 (package! lsp-origami)
 (package! lsp-treemacs)
 (package! mu4e-alert)
-(package! mu4e-patch :recipe '(:host github :repo "seanfarley/mu4e-patch"))
+(package! message-view-patch)
 (package! nerd-font :recipe '(:host github :repo "twlz0ne/nerd-fonts.el"))
 (package! org-link-minor-mode :recipe '(:host github
                                         :repo "seanohalpin/org-link-minor-mode"))
