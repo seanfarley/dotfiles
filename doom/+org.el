@@ -158,7 +158,8 @@
           ;; looking at the other hooks
           t))))
 
-  (add-hook 'org-ctrl-c-ctrl-c-hook #'smf/twitch-org-ctrl-c-ctrl-c-hook)
+  ;; TODO for some reason this breaks
+  ;; (add-hook 'org-ctrl-c-ctrl-c-hook #'smf/twitch-org-ctrl-c-ctrl-c-hook)
 
   ;; auto save all org files after doing a common action
   (advice-add 'org-agenda-quit      :before #'org-save-all-org-buffers)
