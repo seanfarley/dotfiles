@@ -137,6 +137,9 @@
                               "  AND NOT flag:trashed) "
                               " OR from:xiaofan) AND date:2y..")
                :key ?p)
+         (list :name "Sent in the last week"
+               :query "maildir:/sent AND date:1w..now"
+               :key ?s)
 
          ;; tweaks on the default bookmarks
          (list :name "Today's messages"
