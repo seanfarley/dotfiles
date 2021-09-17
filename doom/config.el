@@ -105,6 +105,18 @@
            #'whole-line-or-region-global-mode
            #'global-page-break-lines-mode)
 
+(after! prodigy
+  (let ((launchd-dbus (string-trim
+                       (shell-command-to-string
+                        "launchctl getenv DBUS_LAUNCHD_SESSION_BUS_SOCKET"))))
+    (prodigy-define-service
+      :name "Pantalaimon"
+      :command "pantalaimon"
+      :args `("-c" ,(expand-file-name "~/.config/pantalaimon/pantalaimon.conf"))
+      :env `(("DBUS_SESSION_BUS_ADDRESS" ,(concat "unix:path=" launchd-dbus)))
+      :tags '(matrix)
+      :stop-signal 'sigkill
+      :kill-process-buffer-on-stop t)))
 
 ;; load personal modules
 (load! "+utils")
