@@ -92,6 +92,9 @@
    mu4e-sent-folder    "/Sent"
    mu4e-trash-folder   "/Trash"
 
+   ;; bullet char in main view
+   +mu4e-main-bullet "·"
+
    ;; n and p already do this and I like be bounded by the current message view
    mu4e-view-scroll-to-next nil
 
