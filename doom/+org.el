@@ -120,14 +120,7 @@
                                 (plain-list-item . auto))
 
    org-return-follows-link t
-   org-confirm-babel-evaluate nil
-
-   org-roam-capture-ref-templates
-   '(("r" "ref" plain #'org-roam-capture--get-point
-      "\n%(when-let ((txt \"%i\")) (unless (string-empty-p txt) (concat \"\n#+begin_comment\n\" txt \"\n#+end_comment\")))\n%?"
-      :file-name "%<%Y%m%d%H%M%S>-${slug}"
-      :head "#+title: ${title}\n#+roam_key: ${ref}"
-      :unnarrowed t)))
+   org-confirm-babel-evaluate nil)
 
   ;; auto save all org files after doing a common action
   (advice-add 'org-agenda-quit      :before #'org-save-all-org-buffers)
