@@ -93,7 +93,7 @@ local hyperModeBindings = {
 ----------------
 
 local orgModeBindings = {
-  { key = 'r', fn = function () emacs.capture('roam-ref') end, desc = 'Roam Capture' },
+  { key = 'r', fn = function () emacs.capture('roam-ref', 'r') end, desc = 'Roam Capture' },
   { key = 'n', fn = emacs.capture, desc = 'Capture' },
   { key = 'a', fn = emacs.agenda, desc = 'Agenda' },
 
