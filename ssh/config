@@ -13,7 +13,7 @@ Host euclid                     # emacs
 Host farley
   HostName farley.io
   # homebrew ssl certs are keg-only, hence the non-standard location
-  ProxyCommand proxytunnel -q -E -p farley.io:443 -d 127.0.0.1:22 -C /usr/local/etc/openssl/cert.pem
+  ProxyCommand proxytunnel -q -E -p farley.io:443 -d 127.0.0.1:22 -C /usr/local/etc/ca-certificates/cert.pem
   DynamicForward 1080
   ServerAliveInterval 60
 
