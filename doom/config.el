@@ -20,6 +20,14 @@
 (setq projectile-project-search-path (list "~/projects/"))
 
 (defmacro smf/bitwarden-init ()
+  "Needs to be a macro due to async.
+
+Async doesn't load your entire config (for performance reasons)
+so this needs to be a macro and added to async hooks.
+
+Add it to a hook like so:
+  (add-hook 'doom-modeline-before-github-fetch-notification-hook
+            (lambda () (smf/bitwarden-init)))"
   `(progn
      (require 'bitwarden nil t)
      (setq bitwarden-user "sean@farley.io"
