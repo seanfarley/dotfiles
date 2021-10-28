@@ -49,7 +49,7 @@ PASSFG=15                       # white-ish
 FAILBG=161                      # pink/red
 FAILFG=15                       # white-ish
 
-HG="$(which hg)"
+HG="$(which hg 2>/dev/null)"
 [[ -n "$(which chg 2>/dev/null)" ]] && HG="$(which chg)"
 
 MD5="md5"
