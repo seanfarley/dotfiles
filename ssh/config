@@ -28,6 +28,10 @@ Host *.fsffrance.org
 Host *.osuosl.org
   User smf
 
+Host theta
+  HostName theta.alcf.anl.gov
+  User sfarley
+
 Host *
   User sean
   ForwardAgent yes
