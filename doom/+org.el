@@ -49,9 +49,7 @@
    org-agenda-files (mapcar (lambda (f) (concat org-directory f))
                             (list "inbox.org"
                                   "personal.org"
-                                  "coiled.org"
-                                  "phd.org"
-                                  "entertainment.org"))
+                                  "phd.org"))
 
    ;; set the file for capturing todos
    +org-capture-todo-file "inbox.org"
