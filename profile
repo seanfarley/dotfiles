@@ -37,14 +37,6 @@ if [ -n "$PS1" ]; then
   # Get ctrl-s to work in bash searching
   stty -ixon
 
-  # bashcompletion for chg
-  complete -o bashdefault -o default -o nospace -F _hg chg \
-      || complete -o default -o nospace -F _hg chg
-
-  # bashcompletion for lhg
-  complete -o bashdefault -o default -o nospace -F _hg lhg \
-      || complete -o default -o nospace -F _hg lhg
-
   [[ -f $HOME/.npmrc ]] && export NPMRC="$(cat ~/.npmrc)"
 
   # apparently this is needed for gpg agent stuff to not get this error:
