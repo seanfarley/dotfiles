@@ -43,8 +43,7 @@ Add it to a hook like so:
                                         (plist-get entry :secret)))
      (bitwarden-auth-source-enable)))
 
-;; bitwardn password auth-source
-(add-hook 'doom-init-ui-hook (lambda () (smf/bitwarden-init)))
+(smf/bitwarden-init)
 
 ;; magit should use auth-source
 (add-hook 'magit-process-find-password-functions
