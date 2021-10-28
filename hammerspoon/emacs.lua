@@ -161,6 +161,9 @@ function mod.capture(protocol, captureTemplate, time)
 
   if focusedApplication:name() == 'Safari' then
     _, url, _ = osascript.javascript("Application('Safari').windows[0].currentTab().url()")
+
+    -- remove ' - Safari' from the end of the title for webpages
+    title = title:gsub(" [-] Safari$", "")
   end
 
   if focusedApplication:name() == 'Finder' then
