@@ -152,6 +152,11 @@
     (+workspace-switch "main")
     (org-agenda-list)))
 
+  (defun smf/org-roam ()
+    "Switch to *org-roam* workspace or create it."
+    (interactive)
+    (+workspace-switch "*org-roam*" t))
+
 ;=================================== org-ref ===================================
 
 (setq bibtex-completion-bibliography '("~/Nextcloud/refs/master.bib")
