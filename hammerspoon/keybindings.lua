@@ -36,6 +36,7 @@ local bindings = {
       { modifiers = cmdCtrl, key = 'c', name = 'Element' },
       { modifiers = cmdCtrl, key = 'i', name = 'Music' },
       { modifiers = cmdCtrl, key = 'm', fn = emacs.mu4e, desc = 'mu4e' },
+      { modifiers = cmdCtrl, key = 'r', fn = emacs.orgroam, desc = 'org-roam' },
 
       -- { modifiers = cmd, key = 'space', fn = emacs.mu4e, desc = 'mu4e' },
 

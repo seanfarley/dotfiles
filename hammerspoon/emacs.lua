@@ -141,6 +141,10 @@ function mod.matrix()
   mod.eval('(smf/matrix)')
 end
 
+function mod.orgroam()
+  mod.eval('(smf/org-roam)')
+end
+
 function mod.switchWorkspace()
   mod.eval('(smf/activate-emacs)')
 end
