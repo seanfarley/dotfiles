@@ -152,21 +152,22 @@
   (add-hook! org-mode
              #'auto-fill-mode))
 
-  (defun smf/org-capture-finalize ()
-    "Call Hammerspoon to switch back to previous app."
-    (call-process-shell-command "/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/ipc/bin/hs -c 'backFromEmacs()' &"))
+(defun smf/org-capture-finalize ()
+  "Call Hammerspoon to switch back to previous app."
+  (call-process-shell-command "/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/ipc/bin/hs -c 'backFromEmacs()' &"))
 
-  ;; (add-hook 'org-capture-prepare-finalize-hook #'smf/org-capture-finalize)
+;; (add-hook 'org-capture-prepare-finalize-hook #'smf/org-capture-finalize)
 
-  (defun smf/org-agenda ()
-    "Convenience function to switch workspace and display the org agenda."
-    (+workspace-switch "main")
-    (org-agenda-list)))
+(defun smf/org-agenda ()
+  "Convenience function to switch workspace and display the org agenda."
+  (interactive)
+  (+workspace-switch "main")
+  (org-agenda-list))
 
-  (defun smf/org-roam ()
-    "Switch to *org-roam* workspace or create it."
-    (interactive)
-    (+workspace-switch "*org-roam*" t))
+(defun smf/org-roam ()
+  "Switch to *org-roam* workspace or create it."
+  (interactive)
+  (+workspace-switch "*org-roam*" t))
 
 ;=================================== org-ref ===================================
 
