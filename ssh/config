@@ -30,12 +30,14 @@ Host *.osuosl.org
 
 Host theta
   HostName theta.alcf.anl.gov
-  User sfarley
   ControlMaster auto
   ControlPath ~/.ssh/master%r@%h:%p
   AddKeysToAgent yes
   IPQoS=throughput
   ServerAliveInterval 60
+
+Host theta*
+  User sfarley
 
 Host *
   User sean
