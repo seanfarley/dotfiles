@@ -118,7 +118,14 @@
                                 (plain-list-item . auto))
 
    org-return-follows-link t
-   org-confirm-babel-evaluate nil)
+   org-confirm-babel-evaluate nil
+
+   org-roam-capture-ref-templates
+   '(("r" "ref" plain
+      "%(when-let ((txt \"%i\")) (unless (string-empty-p txt) (concat \"#+begin_comment\n\" (string-trim txt) \"\n#+end_comment\n\")))%?"
+      :target
+      (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}")
+      :unnarrowed t)))
 
   ;; auto save all org files after doing a common action
   (advice-add 'org-agenda-quit      :before #'org-save-all-org-buffers)
