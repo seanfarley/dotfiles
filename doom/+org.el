@@ -145,6 +145,9 @@
   ;; (advice-add 'org-clock-out        :after #'org-save-all-org-buffers)
   (advice-add 'org-store-log-note   :after #'org-save-all-org-buffers)
 
+  (require 'org-timeline)
+  (add-hook 'org-agenda-finalize-hook 'org-timeline-insert-timeline :append)
+
   ;; also, let's turn on auto-fill-mode
   (add-hook 'org-mode-hook 'auto-fill-mode)
 
