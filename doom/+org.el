@@ -161,7 +161,7 @@
 (defun smf/org-agenda ()
   "Convenience function to switch workspace and display the org agenda."
   (interactive)
-  (+workspace-switch "main")
+  (smf/org-roam)
   (org-agenda-list))
 
 (defun smf/org-roam ()
