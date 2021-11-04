@@ -723,7 +723,8 @@ brew install python \
     tectonic \
     terminal-notifier \
     rust \
-    ncurses
+    ncurses \
+    wordnet
 
 # the --HEAD option messing up the chaining above
 brew install mu --HEAD
