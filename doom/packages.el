@@ -27,7 +27,6 @@
 (package! org-link-minor-mode :recipe '(:host github
                                         :repo "seanohalpin/org-link-minor-mode"))
 (package! org-noter-pdftools)
-(package! org-timeline)
 (package! org-recent-headings)
 (package! org-ref)
 (package! org-roam-bibtex)
