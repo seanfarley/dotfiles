@@ -1,3 +1,4 @@
+import builtins
 import hashlib
 import os
 import platform
@@ -144,13 +145,31 @@ def host_color():
 
 $PROMPT_FIELDS['env_prefix'] = $PROMPT_FIELDS['env_postfix'] = ''
 
+
+def prompt_exit_code():
+    ret = 0
+    if hasattr(builtins, '_') and hasattr(builtins._, 'rtn'):
+        ret = builtins._.rtn
+    return ret
+
+
+$PROMPT_FIELDS['exit_code'] = prompt_exit_code
+
+
+def prompt_character():
+    return '✖' if prompt_exit_code() != 0 else ''
+
+
+$PROMPT_FIELDS['character'] = prompt_character
+
+
 $PROMPT = ("\n{#686868}┌─{BOLD_RED} {user} "
            "{BOLD_%s}{os} {hostname}{RESET}"
            "{BOLD_BLUE}  {short_cwd}"
            "{branch_color}{curr_branch:  {}}"
            "{BOLD_YELLOW}{env_name:  {}}\n"
            # "{ret_code_color}{ret_code}\n"
-           "{#686868}└─{RESET} ") % host_color()
+           "{#686868}└─{character}{RESET} ") % host_color()
 
 # ===================================== etc ===================================
 
