@@ -22,7 +22,7 @@ pip3 install --user -U beets python-mpd2 discogs-client pyacoustid
 
 pip3 install --user -U \
     xontrib-autojump xonsh-docker-tabcomplete xontrib-readable-traceback \
-    xontrib-avox xontrib-prompt-ret-code \
+    xontrib-avox \
     xonsh-vox-tabcomplete \
     xontrib-z \
     xonsh
