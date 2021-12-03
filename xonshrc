@@ -117,7 +117,7 @@ for p in reversed([
 # determine type of os
 $PROMPT_FIELDS['os'] = ''
 plat = platform.platform().lower()
-if 'darwin' in plat:
+if 'darwin' in plat or 'macos' in plat:
     $PROMPT_FIELDS['os'] = ''
 elif 'ubuntu' in plat:
     $PROMPT_FIELDS['os'] = ''
