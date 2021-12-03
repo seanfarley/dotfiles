@@ -229,6 +229,58 @@ aliases['itunes_to_mpd'] = _itunes_to_mpd
 # read bash completions
 $BASH_COMPLETIONS.insert(0, '/usr/local/share/bash-completion/bash_completion')
 
+import re
+def _vox_completer(prefix, line, begidx, endidx, ctx):
+    """
+    Completes xonsh's `vox` virtual environment manager
+    """
+    if not line.startswith('vox'):
+        return
+
+    vhelp = $(vox --help)
+    vhelp = re.sub(r'\x1b\[[0-9;]*m', '', vhelp)
+    vhelp = re.sub(r'\x1B\[[0-9;]*m', '', vhelp)
+
+    all_c = re.findall(r'\n    (\w+) \((.*)\)', vhelp)
+    all_cd = {c: [al.strip() for al in a.split(',')]
+              for c, a in all_c}
+
+    all_cd_a = set(all_cd.keys())
+    for v in all_cd.values():
+        all_cd_a = all_cd_a.union(set(v))
+
+    to_list_when = ['vox activate ', 'vox remove ']
+    for a in all_cd['activate']:
+        to_list_when.append('vox ' + a + ' ')
+    for a in all_cd['remove']:
+        to_list_when.append('vox ' + a + ' ')
+
+    if any(c in line for c in to_list_when):
+        all_envs = $(vox list).splitlines()[1:]
+        env_prefix = line.split(" ")[-1]
+        return set( env for env in all_envs if env.startswith(env_prefix) )
+
+    if (len(line.split()) > 1 and line.endswith(' ')) or len(line.split()) > 2:
+        # "vox new " -> complete flags if any
+        command = line.strip().split()[1]
+        potential_flag = line.strip().split()[-1]
+        if command not in all_cd_a:
+            return
+        flags = set(re.findall(r'(--\w+)', $(vox @(command) --help)))
+        return flags, len(prefix)
+
+    # all_commands = re.findall(r'\n    (\w+)', vhelp)
+    if prefix in all_cd_a:
+        # "vox new" -> suggest replacing new with other command (note no space)
+        return all_cd_a, len(prefix)
+    elif prefix:
+        # "vox n" -> suggest "new"
+        return [c for c in all_cd_a if c.startswith(prefix)], len(prefix)
+
+    return set(all_cd_a)
+
+completer add vox _vox_completer start
+
 xontrib load z coreutils distributed docker_tabcomplete mpl
 xontrib load vox
 xontrib load readable-traceback autovox avox
