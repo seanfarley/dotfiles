@@ -20,9 +20,6 @@ pip3 install --user -U beets python-mpd2 discogs-client pyacoustid
 
 # xonsh
 
-# There is a weird spacing bug with prompt-toolkit, so don't install it and rely
-# on xonsh to use its own vendored copy; more info here,
-# https://github.com/prompt-toolkit/python-prompt-toolkit/issues/1233#issuecomment-696578966
 pip3 install --user -U \
     xontrib-autojump xonsh-docker-tabcomplete xontrib-readable-traceback \
     xontrib-avox xontrib-prompt-ret-code \
