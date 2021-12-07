@@ -56,16 +56,17 @@ MD5="md5"
 [[ -n "$(which md5sum 2>/dev/null)" ]] && MD5="md5sum"
 
 COLORS=(
-  $MAGENTA
-  $YELLOW
-  $MAGENTA
-  $WHITE
-  $PINK
-  $PURPLE
-  $PURPLE
-  $PINK
-  $WHITE
-  $YELLOW
+  "$MAGENTA"
+  "$YELLOW"
+  "$MAGENTA"
+  "$WHITE"
+  "$PINK"
+  "$PURPLE"
+  "$PURPLE"
+  "$PINK"
+  "$WHITE"
+  "$YELLOW"
+  "$GREEN"
 )
 
 function pretty_dir () {
@@ -76,14 +77,14 @@ function pretty_dir () {
   local ret=""
   local p=${PWD/#$HOME/"~"}
 
-  if (( ${#p} <= ${max_len} )); then
+  if (( ${#p} <= max_len )); then
     ret="$p"
   else
-    local tmp=${path//\//}
+    local tmp=${p//\//}
     local -i delims=$(( ${#p} - ${#tmp} ))
 
-    for (( dir=0; dir < ${keep}; dir++ )); do
-      (( ${dir} == ${delims} )) && break
+    for (( dir=0; dir < keep; dir++ )); do
+      (( "${dir}" == "${delims}" )) && break
 
       local left="${p#*/}"
       local name="${p:0:${#p} - ${#left}}"
@@ -91,7 +92,7 @@ function pretty_dir () {
       ret="${ret}${name%/}/"
     done
 
-    if (( ${delims} <= ${keep} )); then
+    if (( delims <= keep )); then
       # no dirs between LP_PATH_KEEP leading dirs and current dir
       ret="${ret}${p##*/}"
     else
@@ -101,13 +102,13 @@ function pretty_dir () {
 
       [[ ${ret} != "/" ]] && ret="${ret%/}" # strip trailing slash
 
-      local -i len_left=$(( ${max_len} - ${#ret} - ${#base} - ${#mask} ))
+      local -i len_left=$(( max_len - ${#ret} - ${#base} - ${#mask} ))
 
       ret="${ret}${mask}${p:${#p} - ${len_left}}${base}"
     fi
   fi
 
-  printf "${ret//\\/\\\\}"
+  printf '%s' "${ret//\\/\\\\}"
 }
 
 # Search upwards through a directory structure looking for a file/folder with
@@ -117,7 +118,7 @@ _lp_upwards_find()
     local dir
     dir="$PWD"
     while [[ -n "$dir" ]]; do
-        [[ -d "$dir/$1" || -f "$dir/$1" ]] && printf "$dir" && return 0
+        [[ -d "$dir/$1" || -f "$dir/$1" ]] && printf '%s' "$dir" && return 0
         dir="${dir%/*}"
     done
     return 1
@@ -131,7 +132,7 @@ function _lp_git_branch() {
   # Recent versions of Git support the --short option for symbolic-ref, but
   # not 1.7.9 (Ubuntu 12.04)
   if branch="$(\git symbolic-ref -q HEAD)"; then
-    printf "${branch#refs/heads/}"
+    printf '%s' "${branch#refs/heads/}"
   else
     # In detached head state, use commit instead
     # No escape needed
@@ -141,9 +142,11 @@ function _lp_git_branch() {
 
 # return 0 or 1 for dirty working directory
 function _git_info() {
-  local br="$(_lp_git_branch)"
+  local br
   local remote
   local st
+
+  br="$(_lp_git_branch)"
 
   if [[ ! -d /cygdrive/c ]]; then
     [[ -n "$(\git stash list 2>/dev/null)" ]] && br="$br+"
@@ -157,7 +160,7 @@ function _git_info() {
     st="$(echo "$st" | tail -1 | grep -v 'nothing to commit')"
   fi
 
-  printf "$br$remote"
+  printf '%s' "$br$remote"
 
   [[ -n "$st" ]] && return 1
   return 0
@@ -166,28 +169,30 @@ function _git_info() {
 # return 0 or 1 for dirty working directory
 function _hg_info() {
   local repo_dir="$1"
-  local br="$(less $repo_dir/.hg/topic 2>/dev/null)"
+  local br
   local st
   local remote
   local p1
   local p2
   local head
 
-  [[ -z "$br" ]] && br="$(less $repo_dir/.hg/bookmarks.current 2>/dev/null)"
+  br="$(less "$repo_dir/.hg/topic" 2>/dev/null)"
+
+  [[ -z "$br" ]] && br="$(less "$repo_dir/.hg/bookmarks.current" 2>/dev/null)"
 
   # if the dirstate doesn't exist, the repo is null, so just report 'default'
   [[ ! -f "$repo_dir/.hg/dirstate" ]] && br="default"
 
   # fallback to branch name if bookmark isn't active
   if [[ -z "$br" ]]; then
-    p1="$(head -c 20 $repo_dir/.hg/dirstate | xxd -p)"
+    p1="$(head -c 20 "$repo_dir/.hg/dirstate" | xxd -p)"
     [[ -z "$p1" ]] && p1="0000000"
-    p2="$(head -c 40 $repo_dir/.hg/dirstate | xxd -p -s 20)"
+    p2="$(head -c 40 "$repo_dir/.hg/dirstate" | xxd -p -s 20)"
     [[ -z "$p2" ]] && p2="0000000"
-    br="$(less $repo_dir/.hg/branch 2>/dev/null)"
+    br="$(less "$repo_dir/.hg/branch" 2>/dev/null)"
     [[ -z "$br" ]] && br="default"
     # only display the branch name if it's a head
-    head="$(grep -c $p1 $repo_dir/.hg/cache/branch2 2>/dev/null)"
+    head="$(grep -c $p1 "$repo_dir/.hg/cache/branch2" 2>/dev/null)"
     [[ -z "$head" ]] && head="0"
     if [[ "$head" == "0" ]]; then
       p1="$(echo $p1 | head -c 7)"
@@ -198,12 +203,12 @@ function _hg_info() {
   fi
 
   remote=""
-  read -a distance <<< "$(grep "^$br " $repo_dir/.hg/cache/distance 2>/dev/null | cut -d' ' -f2-)"
+  read -r -a distance <<< "$(grep "^$br " "$repo_dir/.hg/cache/distance" 2>/dev/null | cut -d' ' -f2-)"
   [[ ${distance[0]} != "" && ${distance[0]} != "0" ]] && remote="$remote ${distance[0]}⇡"
   [[ ${distance[1]} != "" && ${distance[1]} != "0" ]] && remote="$remote ${distance[1]}⇣"
 
   if [[ "$remote" == "" && $br == "default" ]]; then
-    read -a distance <<< "$(less $repo_dir/.hg/cache/distance.current 2>/dev/null)"
+    read -r -a distance <<< "$(less "$repo_dir/.hg/cache/distance.current" 2>/dev/null)"
     [[ ${distance[0]} != "" ]] && br=":${distance[0]}"
     [[ ${distance[1]} != "" && ${distance[1]} != "0" ]] && remote=" ${distance[1]}⇣"
   fi
@@ -211,10 +216,10 @@ function _hg_info() {
   if [[ ! -d /cygdrive/c ]]; then
     st="$($HG status 2>/dev/null)"
     [[ "$(echo "$st" | grep -c '\(^\?\)')" != "0" ]] && br="$br*"
-    [[ -n "$(ls $repo_dir/.hg/shelved/ 2>/dev/null)" ]] && br="$br+"
+    [[ -n "$(ls "$repo_dir/.hg/shelved/" 2>/dev/null)" ]] && br="$br+"
   fi
 
-  printf "$br$remote"
+  printf '%s' "$br$remote"
 
   [[ -n "$st" ]] && return 1
   return 0
@@ -244,15 +249,15 @@ _lp_jobcount_color()
         ret="${ret}${stopped}${m_stop}"
     fi
 
-    printf "$ret"
+    printf '%s' "$ret"
 }
 
 # adds a new powerline chain link
 # note: last argument is optional and represents the beginning separator
 # call as _chain("FOO" oldbg bg fg '>')
 function _chain() {
-  [[ -z "$1" ]] && return -1
-  printf "\[$(tput setaf $2)$(tput setab $3)\]${5:-} \[$(tput setaf $4)\]$1 \[$RESET\]"
+  [[ -z "$1" ]] && return 255
+  printf '%s' "\[$(tput setaf "$2")$(tput setab "$3")\]${5:-} \[$(tput setaf "$4")\]$1 \[$RESET\]"
 }
 
 # note: unless the last portion of PS1 is a newline, then calling functions will have a
@@ -285,29 +290,35 @@ function update_ps1 () {
   fg=$BLACK
   if [[ "$(hostname)" != laptop* ]]; then
     # generate a hash from the hostname
-    local host_hash="$(hostname | $MD5)"
+    local host_hash
+
+    host_hash="$(hostname | $MD5)"
 
     # convert into a positive integer
     local host_number=$(( 0x${host_hash:4:6} % ${#COLORS[@]} ))
-    [[ $host_number -lt 0 ]] && host_number=$(( -$host_number ))
+    [[ $host_number -lt 0 ]] && host_number=$(( -host_number ))
 
     bg=${COLORS[$host_number]}
   fi
 
   host=$(hostname -s)
   [[ "$USER" != sean ]] && host="$USER@$host"
-  prompt="$prompt$(_chain "$host" $oldbg $bg $fg "\[$BOLD\]")"
+  prompt="$prompt$(_chain "$host" $oldbg "$bg" $fg "\[$BOLD\]")"
 
-  local jobs="$(_lp_jobcount_color)"
+  local jobs
+  jobs="$(_lp_jobcount_color)"
+
   if [[ -n "$jobs" ]]; then
     oldbg=$bg
     bg=$MAGENTA
     fg=$DARKBLUE
-    prompt="$prompt$(_chain "\[$BOLD\]$jobs" $oldbg $bg $fg)"
+    prompt="$prompt$(_chain "\[$BOLD\]$jobs" "$oldbg" "$bg" "$fg")"
   fi
 
   # creates a string with a shortened path
-  local dir="$(pretty_dir)"
+  local dir
+  dir="$(pretty_dir)"
+
   # if the first character is '/' remove that
   [[ "${dir:0:1}" == "/" ]] && dir="${dir:1:${#dir}-1}"
   # replace all the '/' with a fancy unicode separator
@@ -316,14 +327,14 @@ function update_ps1 () {
   bg=$PATHBG
   fg=$PATHFG
   [[ -w "$PWD" ]] || fg=$FAILBG
-  dir="$(echo $dir | perl -pe 's,/,  ,g')"
+  dir="$(echo "$dir" | perl -pe 's,/,  ,g')"
   dir="${dir//  /\\[$(tput setaf $SEP_FG)\\]  \\[$(tput setaf $fg)\\]}"
   prompt="$prompt$(_chain "$dir" $oldbg $bg $fg)"
 
   # search for each repo type
   repo_dir=$(_lp_upwards_find .hg)
   if [[ -n "$repo_dir" ]]; then
-    repo="$(_hg_info $repo_dir)"
+    repo="$(_hg_info "$repo_dir")"
     dirty="$?"
     vcs_type="hg"
     [[ -f "$repo_dir/.hg/svn/uuid" ]] && vcs_type="hg-svn"
@@ -396,7 +407,8 @@ function update_ps1 () {
 
   # the end cap which clears the background color and puts an arrow in the fg color of
   # the previous bg color
-  export PS1="$prompt\[$RESET\]\[$(tput setaf $bg)\]\[$RESET\]"
+  PS1="$prompt\[$RESET\]\[$(tput setaf $bg)\]\[$RESET\]"
+  export PS1
 }
 
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} update_ps1"
