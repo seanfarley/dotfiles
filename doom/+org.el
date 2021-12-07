@@ -147,6 +147,7 @@
 
   ;; also, let's turn on auto-fill-mode
   (add-hook! org-mode
+             #'org-ref-prettify-mode
              #'auto-fill-mode))
 
 (defun smf/org-capture-finalize ()
