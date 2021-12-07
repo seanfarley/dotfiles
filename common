@@ -23,6 +23,5 @@ pip3 install --user -U \
     xonsh-docker-tabcomplete \
     xontrib-readable-traceback \
     xontrib-avox \
-    xonsh-vox-tabcomplete \
     xontrib-z \
     xonsh
