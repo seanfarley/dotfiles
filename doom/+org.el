@@ -167,7 +167,9 @@
 (defun smf/org-roam ()
   "Switch to *org-roam* workspace or create it."
   (interactive)
-  (+workspace-switch "*org-roam*" t))
+  (+workspace-switch "*org-roam*" t)
+  (unless (get-buffer "*Org Agenda(t)*")
+    (org-todo-list)))
 
 ;=================================== org-ref ===================================
 
