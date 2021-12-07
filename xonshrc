@@ -132,6 +132,8 @@ elif 'centos' in plat:
     $PROMPT_FIELDS['os'] = ''
 elif 'suse' in plat:
     $PROMPT_FIELDS['os'] = ''
+elif 'bsd' in plat:
+    $PROMPT_FIELDS['os'] = ''
 
 
 def host_color():
