@@ -145,9 +145,11 @@
   ;; (advice-add 'org-clock-out        :after #'org-save-all-org-buffers)
   (advice-add 'org-store-log-note   :after #'org-save-all-org-buffers)
 
+  (require 'org-bars)
   ;; also, let's turn on auto-fill-mode
   (add-hook! org-mode
              #'org-ref-prettify-mode
+             #'org-bars-mode
              #'auto-fill-mode))
 
 (defun smf/org-capture-finalize ()
