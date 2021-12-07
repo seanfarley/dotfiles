@@ -50,6 +50,8 @@ Add it to a hook like so:
 (add-to-list 'auto-mode-alist '("ssh/config\\'" . ssh-config-mode))
 (add-hook! ssh-config-mode #'display-line-numbers-mode)
 
+(add-to-list 'auto-mode-alist '("bash_prompt\\'" . sh-mode))
+
 (after! magit
   ;; magit-todo ignore json files due to huge performance hit
   (setq magit-todos-exclude-globs '("*.json")
