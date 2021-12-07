@@ -37,6 +37,7 @@
 (package! page-break-lines)
 ;; ugh, get rid of this pipenv shit
 (package! pipenv :disable t)
+(package! prog-fill)
 (package! resize-window)
 (package! simple-httpd)
 (package! simple-mpc)
