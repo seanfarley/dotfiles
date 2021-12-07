@@ -125,7 +125,17 @@
       "%(when-let ((txt \"%i\")) (unless (string-empty-p txt) (concat \"#+begin_quote\n\" (s-word-wrap 80 (string-trim txt)) \"\n#+end_quote\n\")))%?"
       :target
       (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}")
-      :unnarrowed t)))
+      :unnarrowed t))
+
+   org-capture-templates
+   (remove '("t" "Personal todo" entry
+             (file+headline +org-capture-todo-file "Inbox")
+             "* [ ] %?\n%i\n%a" :prepend t) org-capture-templates))
+
+  (add-to-list 'org-capture-templates
+               '("t" "Personal todo" entry
+                 (file+headline +org-capture-todo-file "Inbox")
+                 "* TODO %?\n%i\n%a" :prepend t))
 
   ;; auto save all org files after doing a common action
   (advice-add 'org-agenda-quit      :before #'org-save-all-org-buffers)
