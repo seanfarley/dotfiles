@@ -18,6 +18,10 @@ $XONSH_SHOW_TRACEBACK = True
 
 $XONSH_HISTORY_SIZE = (1073741824, "commands")
 
+if not $SHLVL:
+    $SHLVL = 0
+$SHLVL = int($SHLVL) + 1
+
 # =================================== aliases =================================
 
 def _md(args, stdin=None):
