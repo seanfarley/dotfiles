@@ -122,7 +122,7 @@
 
    org-roam-capture-ref-templates
    '(("r" "ref" plain
-      "%(when-let ((txt \"%i\")) (unless (string-empty-p txt) (concat \"#+begin_quote\n\" (string-trim txt) \"\n#+end_quote\n\")))%?"
+      "%(when-let ((txt \"%i\")) (unless (string-empty-p txt) (concat \"#+begin_quote\n\" (s-word-wrap 80 (string-trim txt)) \"\n#+end_quote\n\")))%?"
       :target
       (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}")
       :unnarrowed t)))
