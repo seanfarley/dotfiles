@@ -167,11 +167,21 @@ def prompt_character():
 $PROMPT_FIELDS['character'] = prompt_character
 
 
+def prompt_shlvl():
+    shlvl = int(os.environ['SHLVL'])
+    return shlvl if shlvl > 0 else None
+
+
+$PROMPT_FIELDS['shlvl'] = prompt_shlvl
+
+
 $PROMPT = ("\n{#686868}┌─{BOLD_RED} {user} "
            "{BOLD_%s}{os} {hostname}{RESET}"
            "{BOLD_BLUE}  {short_cwd}"
            "{branch_color}{curr_branch:  {}}"
-           "{BOLD_YELLOW}{env_name:  {}}\n"
+           "{BOLD_YELLOW}{env_name:  {}}"
+           "{BOLD_WHITE}{shlvl: ⟱️ {}}"
+           "\n"
            # "{ret_code_color}{ret_code}\n"
            "{#686868}└─{character}{RESET} ") % host_color()
 
