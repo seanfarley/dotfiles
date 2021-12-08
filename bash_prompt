@@ -134,7 +134,7 @@ function bp_os_type () {
 
   [[ $PROMPT_SHOW_OS_VERSION != 0 ]] && pver=" ($VER)"
 
-  printf '%s' "$os_icon $(hostname)$pver"
+  printf ' %s' "$os_icon $(hostname)$pver"
 }
 
 function pretty_dir () {
@@ -352,7 +352,7 @@ function update_ps1 () {
 
   prompt="$(bp_segment bp_user 001)"
 
-  prompt="$prompt $(bp_segment bp_os_type 172)"
+  prompt="$prompt$(bp_segment bp_os_type 172)"
 
   # TODO fix hostname coloring
   # only generate a hash color for non-local machines
