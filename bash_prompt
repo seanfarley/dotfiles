@@ -176,7 +176,7 @@ function pretty_dir () {
     fi
   fi
 
-  printf '%s' "${ret//\\/\\\\}"
+  printf ' %s' "${ret//\\/\\\\}"
 }
 
 # Search upwards through a directory structure looking for a file/folder with
@@ -374,9 +374,7 @@ function update_ps1 () {
   prompt="$prompt$(bp_segment bp_jobs 105)"
 
   # creates a string with a shortened path
-  local dir
-  dir="$(pretty_dir)"
-  prompt="$prompt\[$BOLD$(tput setaf 004)\] $dir\[$RESET\]"
+  prompt="$prompt$(bp_segment pretty_dir 004)"
 
   # search for each repo type
   repo_dir=$(_lp_upwards_find .hg)
