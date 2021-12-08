@@ -69,6 +69,11 @@ COLORS=(
   "$GREEN"
 )
 
+function colorize () {
+  # optional arg 2 could be bold or reset or both or whatevs
+  printf '%s' "\[$2\]\[$(tput setaf "$1")\]"
+}
+
 function pretty_dir () {
   # decent default values
   local max_len=27
