@@ -76,6 +76,10 @@ function colorize () {
   printf '%s' "\[$2\]\[$(tput setaf "$1")\]"
 }
 
+function bp_segment () {
+  printf '%s' "$(colorize "$2" "$BOLD")$($1)\[$RESET\]"
+}
+
 function os_type () {
   local os_icon=""
   local pver=""
