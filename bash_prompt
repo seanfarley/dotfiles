@@ -427,10 +427,7 @@ function update_ps1 () {
   fi
 
   if [[ -n "$VIRTUAL_ENV" ]]; then
-    oldbg=$bg
-    bg=4
-    fg=17
-    prompt="$prompt$(_chain "${VIRTUAL_ENV##*/}" $oldbg $bg $fg)"
+    prompt="$prompt $(colorize 003 "$BOLD") ${VIRTUAL_ENV##*/}"
   fi
 
   oldbg=$bg
