@@ -301,8 +301,7 @@ function _hg_info() {
 # - detached screens sessions and/or tmux sessions running on the host
 # - attached running jobs (started with $ myjob &)
 # - attached stopped jobs (suspended with Ctrl-Z)
-_lp_jobcount_color()
-{
+function bp_jobs () {
     local running=$(( $(jobs -r | wc -l) ))
     local stopped=$(( $(jobs -s | wc -l) ))
     local m_stop="z"
@@ -316,6 +315,8 @@ _lp_jobcount_color()
     if [[ $stopped != "0" ]] ; then
         ret="${ret}${stopped}${m_stop}"
     fi
+
+    [[ -n "$ret" ]] && ret=" $ret"
 
     printf '%s' "$ret"
 }
@@ -370,12 +371,7 @@ function update_ps1 () {
   #   bg=${COLORS[$host_number]}
   # fi
 
-  local jobs
-  jobs="$(_lp_jobcount_color)"
-
-  if [[ -n "$jobs" ]]; then
-    prompt="$prompt$(colorize e500e5 "$BOLD")$jobs\[$RESET\]"
-  fi
+  prompt="$prompt$(bp_segment bp_jobs 105)"
 
   # creates a string with a shortened path
   local dir
