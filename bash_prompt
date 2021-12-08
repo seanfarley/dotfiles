@@ -80,6 +80,10 @@ function bp_segment () {
   printf '%s' "$(colorize "$2" "$BOLD")$($1)\[$RESET\]"
 }
 
+function bp_user () {
+  printf '%s' " $USER"
+}
+
 function os_type () {
   local os_icon=""
   local pver=""
