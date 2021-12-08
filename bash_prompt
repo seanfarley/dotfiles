@@ -49,9 +49,6 @@ PASSFG=15                       # white-ish
 FAILBG=161                      # pink/red
 FAILFG=15                       # white-ish
 
-HG="$(which hg 2>/dev/null)"
-[[ -n "$(which chg 2>/dev/null)" ]] && HG="$(which chg)"
-
 MD5="md5"
 [[ -n "$(which md5sum 2>/dev/null)" ]] && MD5="md5sum"
 
@@ -180,7 +177,7 @@ function pretty_dir () {
 }
 
 # Search upwards through a directory structure looking for a file/folder with
-# the given name.  Used to avoid invoking 'hg' and 'bzr'.
+# the given name.  Used to avoid invoking 'git', hg', 'bzr', etc.
 _lp_upwards_find()
 {
     local dir
@@ -226,65 +223,6 @@ function _git_info() {
       remote="$(echo "$st" | perl -lne 'print " $1⇡ $2⇣" if /and have (\d+) and (\d+) diff/')"
     fi
     st="$(echo "$st" | tail -1 | grep -v 'nothing to commit')"
-  fi
-
-  printf '%s' "$br$remote"
-
-  [[ -n "$st" ]] && return 1
-  return 0
-}
-
-# return 0 or 1 for dirty working directory
-function _hg_info() {
-  local repo_dir="$1"
-  local br
-  local st
-  local remote
-  local p1
-  local p2
-  local head
-
-  br="$(less "$repo_dir/.hg/topic" 2>/dev/null)"
-
-  [[ -z "$br" ]] && br="$(less "$repo_dir/.hg/bookmarks.current" 2>/dev/null)"
-
-  # if the dirstate doesn't exist, the repo is null, so just report 'default'
-  [[ ! -f "$repo_dir/.hg/dirstate" ]] && br="default"
-
-  # fallback to branch name if bookmark isn't active
-  if [[ -z "$br" ]]; then
-    p1="$(head -c 20 "$repo_dir/.hg/dirstate" | xxd -p)"
-    [[ -z "$p1" ]] && p1="0000000"
-    p2="$(head -c 40 "$repo_dir/.hg/dirstate" | xxd -p -s 20)"
-    [[ -z "$p2" ]] && p2="0000000"
-    br="$(less "$repo_dir/.hg/branch" 2>/dev/null)"
-    [[ -z "$br" ]] && br="default"
-    # only display the branch name if it's a head
-    head="$(grep -c $p1 "$repo_dir/.hg/cache/branch2" 2>/dev/null)"
-    [[ -z "$head" ]] && head="0"
-    if [[ "$head" == "0" ]]; then
-      p1="$(echo $p1 | head -c 7)"
-      p2="$(echo $p2 | head -c 7)"
-      # br="$p1"
-      # [[ "$p2" != "0000000" ]] && br="$p1 $p2"
-    fi
-  fi
-
-  remote=""
-  read -r -a distance <<< "$(grep "^$br " "$repo_dir/.hg/cache/distance" 2>/dev/null | cut -d' ' -f2-)"
-  [[ ${distance[0]} != "" && ${distance[0]} != "0" ]] && remote="$remote ${distance[0]}⇡"
-  [[ ${distance[1]} != "" && ${distance[1]} != "0" ]] && remote="$remote ${distance[1]}⇣"
-
-  if [[ "$remote" == "" && $br == "default" ]]; then
-    read -r -a distance <<< "$(less "$repo_dir/.hg/cache/distance.current" 2>/dev/null)"
-    [[ ${distance[0]} != "" ]] && br=":${distance[0]}"
-    [[ ${distance[1]} != "" && ${distance[1]} != "0" ]] && remote=" ${distance[1]}⇣"
-  fi
-
-  if [[ ! -d /cygdrive/c ]]; then
-    st="$($HG status 2>/dev/null)"
-    [[ "$(echo "$st" | grep -c '\(^\?\)')" != "0" ]] && br="$br*"
-    [[ -n "$(ls "$repo_dir/.hg/shelved/" 2>/dev/null)" ]] && br="$br+"
   fi
 
   printf '%s' "$br$remote"
@@ -346,7 +284,6 @@ function update_ps1 () {
   local repo_dir
   local dirty
   local vcs_type
-  local vcs_extra
 
   # prompt variable to build
   local prompt
@@ -376,36 +313,15 @@ function update_ps1 () {
   # creates a string with a shortened path
   prompt="$prompt$(bp_segment pretty_dir 004)"
 
-  # search for each repo type
-  repo_dir=$(_lp_upwards_find .hg)
+  repo_dir=$(_lp_upwards_find .git)
   if [[ -n "$repo_dir" ]]; then
-    repo="$(_hg_info "$repo_dir")"
-    dirty="$?"
-    vcs_type="hg"
-    [[ -f "$repo_dir/.hg/svn/uuid" ]] && vcs_type="hg-svn"
-    [[ -f "$repo_dir/.hg/git-mapfile" ]] && vcs_type="hg-git"
-    if [[ -f "$repo_dir/.hg/histedit-state" ]]; then
-      vcs_extra="histedit"
-    elif [[ -f "$repo_dir/.hg/graftstate" ]]; then
-      vcs_extra="graft"
-    elif [[ -f "$repo_dir/.hg/rebasestate" ]]; then
-      vcs_extra="rebase"
-    elif [[ -f "$repo_dir/.hg/bisect.state" ]]; then
-      vcs_extra="bisect"
-    elif [[ -f "$repo_dir/.hg/merge/state" ]]; then
-      vcs_extra="merge"
-    fi
+    repo="$(_git_info)"
+    dirty=$?
+    vcs_type="git"
   else
-    repo_dir=$(_lp_upwards_find .git)
-    if [[ -n "$repo_dir" ]]; then
-      repo="$(_git_info)"
-      dirty=$?
-      vcs_type="git"
-    else
-      dirty=0
-      vcs_type=""
-    fi # nothing
-  fi # git
+    dirty=0
+    vcs_type=""
+  fi
 
   # if repo found, plug it into the powerline chain
   if [[ -n "$vcs_type" ]]; then
@@ -416,13 +332,6 @@ function update_ps1 () {
 
     [[ $dirty -eq 1 ]] && fg=001
     prompt="$prompt \[$BOLD$(tput setaf $fg) $repo$RESET\]"
-
-    # if [[ -n "$vcs_extra" ]]; then
-    #   oldbg=$bg
-    #   bg=8
-    #   fg=$DIRTY_FG
-    #   prompt="$prompt$(_chain "$vcs_extra" $oldbg $bg $fg)"
-    # fi
   fi
 
   if [[ -n "$VIRTUAL_ENV" ]]; then
@@ -431,15 +340,6 @@ function update_ps1 () {
 
   local character=""
   [[ $err -ne 0 ]] && character="✖"
-
-  # change the prompt mark depending on the repo type
-  local mark="\$"
-  case "$vcs_type" in
-    git) mark="±";;
-    hg) mark="☿";;
-    hg-svn) mark="☿⟆";;
-    hg-git) mark="☿±";;
-  esac
 
   PS1="\n$(colorize 243 "$BOLD")┌─\[$RESET\]$prompt\[$RESET\]\n$(colorize 243 "$BOLD")└─$character\[$RESET\] "
   export PS1
