@@ -84,7 +84,7 @@ function bp_user () {
   printf '%s' " $USER"
 }
 
-function os_type () {
+function bp_os_type () {
   local os_icon=""
   local pver=""
   local NAME=""
@@ -352,7 +352,7 @@ function update_ps1 () {
 
   prompt="$(bp_segment bp_user 001)"
 
-  prompt="$prompt$(colorize 172 "$BOLD")$(os_type) \[$RESET\]"
+  prompt="$prompt $(bp_segment bp_os_type 172)"
 
   # TODO fix hostname coloring
   # only generate a hash color for non-local machines
