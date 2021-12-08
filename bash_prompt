@@ -442,11 +442,7 @@ function update_ps1 () {
     hg-git) mark="☿±";;
   esac
 
-  prompt="$prompt$(_chain "$mark" $oldbg $bg $fg)"
-
-  # the end cap which clears the background color and puts an arrow in the fg color of
-  # the previous bg color
-  PS1="$prompt\[$RESET\]\[$(tput setaf $bg)\]\[$RESET\]"
+  PS1="\n$(colorize 243 "$BOLD")┌─\[$RESET\]$prompt\[$RESET\]\n$(colorize 243 "$BOLD")└─$character\[$RESET\] "
   export PS1
 }
 
