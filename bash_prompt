@@ -375,18 +375,7 @@ function update_ps1 () {
   # creates a string with a shortened path
   local dir
   dir="$(pretty_dir)"
-
-  # if the first character is '/' remove that
-  [[ "${dir:0:1}" == "/" ]] && dir="${dir:1:${#dir}-1}"
-  # replace all the '/' with a fancy unicode separator
-
-  oldbg=$bg
-  bg=$PATHBG
-  fg=$PATHFG
-  [[ -w "$PWD" ]] || fg=$FAILBG
-  dir="$(echo "$dir" | perl -pe 's,/,  ,g')"
-  dir="${dir//  /\\[$(tput setaf $SEP_FG)\\]  \\[$(tput setaf $fg)\\]}"
-  prompt="$prompt$(_chain "$dir" $oldbg $bg $fg)"
+  prompt="$prompt\[$BOLD$(tput setaf 004)\] $dir\[$RESET\]"
 
   # search for each repo type
   repo_dir=$(_lp_upwards_find .hg)
