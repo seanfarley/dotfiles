@@ -413,19 +413,17 @@ function update_ps1 () {
     # color repo depending on dirty working directory; must check here because we
     # need to set vcs type, status, etc. and it's annoying to deal with global
     # variables and subprocesses
-    oldbg=$bg
-    bg=$CLEAN_BG
-    fg=$CLEAN_FG
+    fg=002
 
-    [[ $dirty -eq 1 ]] && bg=$DIRTY_BG && fg=$DIRTY_FG
-    prompt="$prompt$(_chain "$repo" $oldbg $bg $fg)"
+    [[ $dirty -eq 1 ]] && fg=001
+    prompt="$prompt \[$BOLD$(tput setaf $fg) $repo$RESET\]"
 
-    if [[ -n "$vcs_extra" ]]; then
-      oldbg=$bg
-      bg=8
-      fg=$DIRTY_FG
-      prompt="$prompt$(_chain "$vcs_extra" $oldbg $bg $fg)"
-    fi
+    # if [[ -n "$vcs_extra" ]]; then
+    #   oldbg=$bg
+    #   bg=8
+    #   fg=$DIRTY_FG
+    #   prompt="$prompt$(_chain "$vcs_extra" $oldbg $bg $fg)"
+    # fi
   fi
 
   if [[ -n "$VIRTUAL_ENV" ]]; then
