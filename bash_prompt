@@ -369,10 +369,7 @@ function update_ps1 () {
   jobs="$(_lp_jobcount_color)"
 
   if [[ -n "$jobs" ]]; then
-    oldbg=$bg
-    bg=$MAGENTA
-    fg=$DARKBLUE
-    prompt="$prompt$(_chain "\[$BOLD\]$jobs" "$oldbg" "$bg" "$fg")"
+    prompt="$prompt$(colorize e500e5 "$BOLD")$jobs\[$RESET\]"
   fi
 
   # creates a string with a shortened path
