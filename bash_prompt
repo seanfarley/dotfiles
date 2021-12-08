@@ -330,8 +330,6 @@ function update_ps1 () {
   local err=$?
 
   # keeping track of the current powerline color
-  local oldbg=0
-  local bg
   local fg
 
   # repo variables
@@ -340,7 +338,6 @@ function update_ps1 () {
   local dirty
   local vcs_type
   local vcs_extra
-  local host
 
   # prompt variable to build
   local prompt
