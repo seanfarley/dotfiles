@@ -55,6 +55,8 @@ HG="$(which hg 2>/dev/null)"
 MD5="md5"
 [[ -n "$(which md5sum 2>/dev/null)" ]] && MD5="md5sum"
 
+PROMPT_SHOW_OS_VERSION=1
+
 COLORS=(
   "$MAGENTA"
   "$YELLOW"
@@ -72,6 +74,59 @@ COLORS=(
 function colorize () {
   # optional arg 2 could be bold or reset or both or whatevs
   printf '%s' "\[$2\]\[$(tput setaf "$1")\]"
+}
+
+function os_type () {
+  local os_icon=""
+  local pver=""
+  local NAME=""
+  local VERSION_ID=""
+
+  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    os_icon=""
+    if [ -f /etc/os-release ]; then
+      # disabling since the warning is a false positive
+      # shellcheck disable=SC1091
+      source /etc/os-release
+      OS="$NAME"
+      VER="$VERSION_ID"
+    else
+      # Fall back to uname, e.g. "Linux <version>", also works for BSD, etc.
+      OS=$(uname -s)
+      VER=$(uname -r)
+    fi
+
+    if [[ "$OS" == *"Ubuntu"* ]]; then
+      os_icon=""
+    elif [[ "$OS" == *"Debian"* ]]; then
+     os_icon=""
+    elif [[ "$OS" == "SLES" ]]; then
+      os_icon=""
+    elif [[ "$OS" == *"CentOS"* ]]; then
+      os_icon=""
+    elif [[ "$OS" == *"BSD"* ]]; then
+      os_icon=""
+    fi
+
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    os_icon=""
+    VER=$(echo "$OSTYPE" | cut -d n -f 2 | cut -d . -f 1)
+    if [[ $VER == 21 ]]; then
+      VER="Monterey"
+    elif [[ $VER == 20 ]]; then
+      VER="Big Sur"
+    elif [[ $VER == 19 ]]; then
+      VER="Catalina"
+    elif [[ $VER == 18 ]]; then
+      VER="Mojave"
+    fi
+  elif [[ "$OSTYPE" == "freebsd"* ]]; then
+    os_icon=""
+  fi
+
+  [[ $PROMPT_SHOW_OS_VERSION != 0 ]] && pver=" ($VER)"
+
+  printf '%s' "$os_icon $(hostname)$pver"
 }
 
 function pretty_dir () {
