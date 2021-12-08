@@ -430,10 +430,8 @@ function update_ps1 () {
     prompt="$prompt $(colorize 003 "$BOLD") ${VIRTUAL_ENV##*/}"
   fi
 
-  oldbg=$bg
-  bg=$PASSBG
-  fg=$PASSFG
-  [[ $err -ne 0 ]] && bg=$FAILBG && fg=$FAILFG
+  local character=""
+  [[ $err -ne 0 ]] && character="✖"
 
   # change the prompt mark depending on the repo type
   local mark="\$"
