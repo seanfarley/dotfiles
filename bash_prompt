@@ -35,20 +35,6 @@ YELLOW=214
 PINK=216
 DARKBLUE=18
 
-PATHBG=237                      # dark grey
-PATHFG=250                      # light grey
-SEP_FG=244                      # nearly-white grey
-
-CLEAN_BG=148                    # a light green color
-CLEAN_FG=0                      # black
-DIRTY_BG=161                    # pink/red
-DIRTY_FG=15                     # white
-
-PASSBG=236                      # dary grey
-PASSFG=15                       # white-ish
-FAILBG=161                      # pink/red
-FAILFG=15                       # white-ish
-
 PROMPT_SHOW_OS_VERSION=1
 
 function colorize () {
@@ -262,14 +248,6 @@ function bp_jobs () {
     [[ -n "$ret" ]] && ret=" $ret"
 
     printf '%s' "$ret"
-}
-
-# adds a new powerline chain link
-# note: last argument is optional and represents the beginning separator
-# call as _chain("FOO" oldbg bg fg '>')
-function _chain() {
-  [[ -z "$1" ]] && return 255
-  printf '%s' "\[$(tput setaf "$2")$(tput setab "$3")\]${5:-} \[$(tput setaf "$4")\]$1 \[$RESET\]"
 }
 
 # note: unless the last portion of PS1 is a newline, then calling functions will have a
