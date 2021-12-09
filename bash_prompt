@@ -22,7 +22,7 @@ if [[ "$TERM" != "dumb" ]] && [[ -x "$(which dircolors 2>/dev/null)" ]]; then
   eval "$(dircolors -b ~/.dir_colors)"
 fi
 
-RESET=$(tput sgr0)
+RESET="\[$(tput sgr0)\]"
 BOLD=$(tput bold)
 
 BLACK=0
@@ -43,7 +43,7 @@ function colorize () {
 }
 
 function bp_segment () {
-  printf '%s' "$(colorize "$2" "$BOLD")$($1)\[$RESET\]"
+  printf '%s' "$(colorize "$2" "$BOLD")$($1)$RESET"
 }
 
 function bp_user () {
@@ -194,22 +194,22 @@ function bp_git() {
   [[ -z "$repo_dir" ]] && return
 
   # space is padded here since this is a specialized function
-  prompt="$(colorize 243 "$BOLD") \[$RESET\]"
+  prompt="$(colorize 243 "$BOLD") $RESET"
 
   git_st="$(git status 2> /dev/null)"
 
-  [[ "$git_st" == *"Changes not staged for commit:"* ]] && status="$(colorize 001 "$BOLD")●\[$RESET\]"
-  [[ "$git_st" == *"Untracked files:"* ]] && status="$status$(colorize 003 "$BOLD")●\[$RESET\]"
-  [[ "$git_st" == *"Changes to be committed:"* ]] && status="$status$(colorize 002 "$BOLD")●\[$RESET\]"
+  [[ "$git_st" == *"Changes not staged for commit:"* ]] && status="$(colorize 001 "$BOLD")●$RESET"
+  [[ "$git_st" == *"Untracked files:"* ]] && status="$status$(colorize 003 "$BOLD")●$RESET"
+  [[ "$git_st" == *"Changes to be committed:"* ]] && status="$status$(colorize 002 "$BOLD")●$RESET"
   [[ -n "$status" ]] && prompt="$prompt $status"
 
-  [[ "$git_st" == *"You have unmerged paths."* ]] && merge_info="$(colorize 003 "$BOLD")⚡\[$RESET\]"
-  [[ -f "$repo_dir/.git/MERGE_HEAD" ]] && merge_info="$merge_info$(colorize 110 "$BOLD")\[$RESET\]"
+  [[ "$git_st" == *"You have unmerged paths."* ]] && merge_info="$(colorize 003 "$BOLD")⚡$RESET"
+  [[ -f "$repo_dir/.git/MERGE_HEAD" ]] && merge_info="$merge_info$(colorize 110 "$BOLD")$RESET"
   [[ -n "$merge_info" ]] && prompt="$prompt $merge_info"
 
-  [[ -n "$(\git stash list 2>/dev/null)" ]] && prompt="$prompt $(colorize 139 "$BOLD")ﰧ\[$RESET\]"
+  [[ -n "$(\git stash list 2>/dev/null)" ]] && prompt="$prompt $(colorize 139 "$BOLD")ﰧ$RESET"
 
-  prompt="$prompt $(colorize 243 "$BOLD")$(_lp_git_branch)\[$RESET\]"
+  prompt="$prompt $(colorize 243 "$BOLD")$(_lp_git_branch)$RESET"
 
   if [[ "$git_st" == *"Your branch is"* ]]; then
     remote="$(echo "$git_st" | perl -lne 'print " $2$1" if /Your branch is (ahead|behind).*?(\d+) comm/' | perl -pe 's,behind,⇣,' | perl -pe 's,ahead,⇡,')"
@@ -217,7 +217,7 @@ function bp_git() {
     remote="$(echo "$git_st" | perl -lne 'print " $1⇡$2⇣" if /and have (\d+) and (\d+) diff/')"
   fi
 
-  prompt="$prompt$(colorize 248 "$BOLD")$remote\[$RESET\]"
+  prompt="$prompt$(colorize 248 "$BOLD")$remote$RESET"
 
   printf '%s' "$prompt"
 }
@@ -279,7 +279,7 @@ function update_ps1 () {
   local character=""
   [[ $err -ne 0 ]] && character="✖"
 
-  PS1="\n$(colorize 243 "$BOLD")┌─\[$RESET\]$prompt\[$RESET\]\n$(colorize 243 "$BOLD")└─$character\[$RESET\] "
+  PS1="\n$(colorize 243 "$BOLD")┌─$RESET$prompt$RESET\n$(colorize 243 "$BOLD")└─$character$RESET "
   export PS1
 }
 
