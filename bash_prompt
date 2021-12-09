@@ -129,7 +129,10 @@ function bp_os_type () {
     os_icon=""
   fi
 
-  [[ $PROMPT_SHOW_OS_VERSION != 0 ]] && pver=" ($VER)"
+  # remove spaces
+  VER=${VER//[[:blank:]]/}
+  # the double comma lowercases everything
+  [[ $PROMPT_SHOW_OS_VERSION != 0 ]] && pver=" (${VER,,})"
 
   printf ' %s' "$os_icon $(hostname)$pver"
 }
