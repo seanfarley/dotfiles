@@ -49,24 +49,7 @@ PASSFG=15                       # white-ish
 FAILBG=161                      # pink/red
 FAILFG=15                       # white-ish
 
-MD5="md5"
-[[ -n "$(which md5sum 2>/dev/null)" ]] && MD5="md5sum"
-
 PROMPT_SHOW_OS_VERSION=1
-
-COLORS=(
-  "$MAGENTA"
-  "$YELLOW"
-  "$MAGENTA"
-  "$WHITE"
-  "$PINK"
-  "$PURPLE"
-  "$PURPLE"
-  "$PINK"
-  "$WHITE"
-  "$YELLOW"
-  "$GREEN"
-)
 
 function colorize () {
   # optional arg 2 could be bold or reset or both or whatevs
@@ -304,22 +287,6 @@ function update_ps1 () {
   prompt="$(bp_segment bp_user 001)"
 
   prompt="$prompt$(bp_segment bp_os_type 172)"
-
-  # TODO fix hostname coloring
-  # only generate a hash color for non-local machines
-  # fg=$BLACK
-  # if [[ "$(hostname)" != laptop* ]]; then
-  #   # generate a hash from the hostname
-  #   local host_hash
-
-  #   host_hash="$(hostname | $MD5)"
-
-  #   # convert into a positive integer
-  #   local host_number=$(( 0x${host_hash:4:6} % ${#COLORS[@]} ))
-  #   [[ $host_number -lt 0 ]] && host_number=$(( -host_number ))
-
-  #   bg=${COLORS[$host_number]}
-  # fi
 
   prompt="$prompt$(bp_segment bp_jobs 105)"
 
