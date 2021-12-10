@@ -29,15 +29,22 @@ BOLD=$(tput bold)
 # of colors with their codes; this works with any theme so there doesn't need to
 # be any guessing
 
-BLACK=0
-WHITE=240
-MAGENTA=9
-GREEN=190
-PURPLE=5
-ORANGE=172
-YELLOW=214
-PINK=216
-DARKBLUE=18
+USER_COLOR=001
+HOST_COLOR=172
+JOBS_COLOR=105
+CWD_COLOR=004
+VE_COLOR=003
+PROMPT_COLOR=243
+
+# VCS COLORS
+BRANCH_COLOR=243
+MOD_COLOR=001
+UNTRACKED_COLOR=003
+STAGED_COLOR=002
+CONFLICT_COLOR=003
+MERGE_COLOR=110
+STASH_COLOR=139
+REMOTE_COLOR=248
 
 PROMPT_SHOW_OS_VERSION=1
 
@@ -214,22 +221,22 @@ function bp_git() {
   [[ -z "$repo_dir" ]] && return
 
   # space is padded here since this is a specialized function
-  prompt="$(bp_segment " " 243)"
+  prompt="$(bp_segment " " $BRANCH_COLOR)"
 
   git_st="$(git status 2> /dev/null)"
 
-  [[ "$git_st" == *"Changes not staged for commit:"* ]] && status="$(bp_segment ● 001)"
-  [[ "$git_st" == *"Untracked files:"* ]] && status="$status$(bp_segment ● 003)"
-  [[ "$git_st" == *"Changes to be committed:"* ]] && status="$status$(bp_segment ● 002)"
+  [[ "$git_st" == *"Changes not staged for commit:"* ]] && status="$(bp_segment ● $MOD_COLOR)"
+  [[ "$git_st" == *"Untracked files:"* ]] && status="$status$(bp_segment ● $UNTRACKED_COLOR)"
+  [[ "$git_st" == *"Changes to be committed:"* ]] && status="$status$(bp_segment ● $STAGED_COLOR)"
   [[ -n "$status" ]] && prompt="$prompt $status"
 
-  [[ "$git_st" == *"You have unmerged paths."* ]] && merge_info="$(bp_segment ⚡ 003)"
-  [[ -f "$repo_dir/.git/MERGE_HEAD" ]] && merge_info="$merge_info$(bp_segment  110)"
+  [[ "$git_st" == *"You have unmerged paths."* ]] && merge_info="$(bp_segment ⚡ $CONFLICT_COLOR)"
+  [[ -f "$repo_dir/.git/MERGE_HEAD" ]] && merge_info="$merge_info$(bp_segment  $MERGE_COLOR)"
   [[ -n "$merge_info" ]] && prompt="$prompt $merge_info"
 
-  [[ -n "$(\git stash list 2>/dev/null)" ]] && prompt="$prompt $(bp_segment  139)"
+  [[ -n "$(\git stash list 2>/dev/null)" ]] && prompt="$prompt $(bp_segment  $STASH_COLOR)"
 
-  prompt="$prompt $(bp_segment "$(_lp_git_branch)" 243)"
+  prompt="$prompt $(bp_segment "$(_lp_git_branch)" $BRANCH_COLOR)"
 
   if [[ "$git_st" == *"Your branch is"* ]]; then
     remote="$(echo "$git_st" | perl -lne 'print " $2$1" if /Your branch is (ahead|behind).*?(\d+) comm/' | perl -pe 's,behind,⇣,' | perl -pe 's,ahead,⇡,')"
@@ -237,7 +244,7 @@ function bp_git() {
     remote="$(echo "$git_st" | perl -lne 'print " $1⇡$2⇣" if /and have (\d+) and (\d+) diff/')"
   fi
 
-  prompt="$prompt$(bp_segment "$remote" 248)"
+  prompt="$prompt$(bp_segment "$remote" $REMOTE_COLOR)"
 
   printf '%s' "$prompt"
 }
@@ -286,18 +293,18 @@ function update_ps1 () {
   # prompt variable to build
   local prompt
 
-  prompt="$(bp_segment "$(bp_user)" 001)"
+  prompt="$(bp_segment "$(bp_user)" $USER_COLOR)"
 
-  prompt="$prompt$(bp_segment "$(bp_os_type)" 172)"
+  prompt="$prompt$(bp_segment "$(bp_os_type)" $HOST_COLOR)"
 
-  prompt="$prompt$(bp_segment "$(bp_jobs)" 105)"
+  prompt="$prompt$(bp_segment "$(bp_jobs)" $JOBS_COLOR)"
 
   # creates a string with a shortened path
-  prompt="$prompt$(bp_segment "$(pretty_dir)" 004)"
+  prompt="$prompt$(bp_segment "$(pretty_dir)" $CWD_COLOR)"
 
   prompt="$prompt$(bp_git)"
 
-  prompt="$prompt$(bp_segment "$(bp_virtualenv)" 003)"
+  prompt="$prompt$(bp_segment "$(bp_virtualenv)" $VE_COLOR)"
 
   local character=""
   [[ $err -ne 0 ]] && character="✖"
@@ -306,8 +313,8 @@ function update_ps1 () {
   PROMPT_COMMAND="${PROMPT_COMMAND//update_terminal_cwd; /}"
 
   PS1="
-$(bp_segment "┌─" 243)$prompt$RESET
-$(bp_segment "└─$character" 243)$RESET "
+$(bp_segment "┌─" $PROMPT_COLOR)$prompt$RESET
+$(bp_segment "└─$character" $PROMPT_COLOR)$RESET "
 
   export PS1
 }
