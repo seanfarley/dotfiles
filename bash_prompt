@@ -305,7 +305,10 @@ function update_ps1 () {
   # remove "update_terminal_cwd; "
   PROMPT_COMMAND="${PROMPT_COMMAND//update_terminal_cwd; /}"
 
-  PS1="\n$(colorize 243 "$BOLD")┌─$RESET$prompt$RESET\n$(colorize 243 "$BOLD")└─$character$RESET "
+  PS1="
+$(colorize 243 "$BOLD")┌─$RESET$prompt$RESET
+$(colorize 243 "$BOLD")└─$character$RESET "
+
   export PS1
 }
 
