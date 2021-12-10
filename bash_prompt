@@ -25,6 +25,10 @@ fi
 RESET="\[$(tput sgr0)\]"
 BOLD=$(tput bold)
 
+# NOTE how to find these codes? use the print_all_colors function to get a table
+# of colors with their codes; this works with any theme so there doesn't need to
+# be any guessing
+
 BLACK=0
 WHITE=240
 MAGENTA=9
@@ -36,6 +40,22 @@ PINK=216
 DARKBLUE=18
 
 PROMPT_SHOW_OS_VERSION=1
+
+function print_color() {
+  for c; do
+    printf '\e[48;5;%dm%03d' "$c" "$c"
+  done
+  printf '\e[0m \n'
+}
+
+function print_all_colors() {
+  IFS=$' \t\n'
+  print_color {0..15}
+  for ((i=0;i<6;i++)); do
+    print_color $(seq $((i*36+16)) $((i*36+51)))
+  done
+  print_color {232..255}
+}
 
 function colorize () {
   # optional arg 2 could be bold or reset or both or whatevs
