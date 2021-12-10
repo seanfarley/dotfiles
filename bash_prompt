@@ -314,7 +314,7 @@ function update_ps1 () {
 
   PS1="
 $(bp_segment "┌─" $PROMPT_COLOR)$prompt$RESET
-$(bp_segment "└─$character" $PROMPT_COLOR)$RESET "
+$(bp_segment "└─$character" $PROMPT_COLOR) "
 
   export PS1
 }
