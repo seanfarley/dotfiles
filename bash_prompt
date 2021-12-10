@@ -250,6 +250,10 @@ function bp_jobs () {
     printf '%s' "$ret"
 }
 
+function bp_virtualenv() {
+  [[ -n "$VIRTUAL_ENV" ]] && printf ' %s' " ${VIRTUAL_ENV##*/}"
+}
+
 # note: unless the last portion of PS1 is a newline, then calling functions will have a
 # problem as described here:
 # http://stackoverflow.com/questions/6592077/bash-prompt-and-echoing-colors-inside-a-function
@@ -272,9 +276,8 @@ function update_ps1 () {
   prompt="$prompt$(bp_segment pretty_dir 004)"
 
   prompt="$prompt$(bp_git)"
-  if [[ -n "$VIRTUAL_ENV" ]]; then
-    prompt="$prompt $(colorize 003 "$BOLD") ${VIRTUAL_ENV##*/}"
-  fi
+
+  prompt="$prompt$(bp_segment bp_virtualenv 003)"
 
   local character=""
   [[ $err -ne 0 ]] && character="✖"
