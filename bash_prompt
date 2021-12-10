@@ -63,7 +63,7 @@ function colorize () {
 }
 
 function bp_segment () {
-  printf '%s' "$(colorize "$2" "$BOLD")$($1)$RESET"
+  printf '%s' "$(colorize "$2" "$BOLD")$1$RESET"
 }
 
 function bp_user () {
@@ -286,18 +286,18 @@ function update_ps1 () {
   # prompt variable to build
   local prompt
 
-  prompt="$(bp_segment bp_user 001)"
+  prompt="$(bp_segment "$(bp_user)" 001)"
 
-  prompt="$prompt$(bp_segment bp_os_type 172)"
+  prompt="$prompt$(bp_segment "$(bp_os_type)" 172)"
 
-  prompt="$prompt$(bp_segment bp_jobs 105)"
+  prompt="$prompt$(bp_segment "$(bp_jobs)" 105)"
 
   # creates a string with a shortened path
-  prompt="$prompt$(bp_segment pretty_dir 004)"
+  prompt="$prompt$(bp_segment "$(pretty_dir)" 004)"
 
   prompt="$prompt$(bp_git)"
 
-  prompt="$prompt$(bp_segment bp_virtualenv 003)"
+  prompt="$prompt$(bp_segment "$(bp_virtualenv)" 003)"
 
   local character=""
   [[ $err -ne 0 ]] && character="✖"
