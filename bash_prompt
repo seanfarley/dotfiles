@@ -282,6 +282,9 @@ function update_ps1 () {
   local character=""
   [[ $err -ne 0 ]] && character="✖"
 
+  # remove "update_terminal_cwd; "
+  PROMPT_COMMAND="${PROMPT_COMMAND//update_terminal_cwd; /}"
+
   PS1="\n$(colorize 243 "$BOLD")┌─$RESET$prompt$RESET\n$(colorize 243 "$BOLD")└─$character$RESET "
   export PS1
 }
