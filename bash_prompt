@@ -31,6 +31,7 @@ BOLD=$(tput bold)
 
 USER_COLOR=001
 HOST_COLOR=172
+SHLVL_COLOR=214
 JOBS_COLOR=105
 CWD_COLOR=004
 VE_COLOR=003
@@ -281,6 +282,10 @@ function bp_virtualenv() {
   [[ -n "$VIRTUAL_ENV" ]] && printf ' %s' " ${VIRTUAL_ENV##*/}"
 }
 
+function bp_shlvl() {
+  [[ $SHLVL -gt 0 ]] && printf ' %s' "⟱️$SHLVL"
+}
+
 # note: unless the last portion of PS1 is a newline, then calling functions will have a
 # problem as described here:
 # http://stackoverflow.com/questions/6592077/bash-prompt-and-echoing-colors-inside-a-function
@@ -296,6 +301,8 @@ function update_ps1 () {
   prompt="$(bp_segment "$(bp_user)" $USER_COLOR)"
 
   prompt="$prompt$(bp_segment "$(bp_os_type)" $HOST_COLOR)"
+
+  prompt="$prompt$(bp_segment "$(bp_shlvl)" $SHLVL_COLOR)"
 
   prompt="$prompt$(bp_segment "$(bp_jobs)" $JOBS_COLOR)"
 
