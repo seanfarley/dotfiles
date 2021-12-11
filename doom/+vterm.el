@@ -1,4 +1,4 @@
-(setq vterm-shell (executable-find "xonsh"))
+(setq vterm-shell (executable-find "bash"))
 
 (after! vterm
   (add-hook! vterm-mode #'goto-address-mode)
