@@ -84,7 +84,7 @@ function bp_os_type () {
   local NAME=""
   local VERSION_ID=""
 
-  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  if [[ "$OSTYPE" == "linux"* ]]; then
     os_icon=""
     if [ -f /etc/os-release ]; then
       # disabling since the warning is a false positive
