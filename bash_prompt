@@ -255,7 +255,26 @@ function bp_jobs () {
 }
 
 function bp_virtualenv() {
-  [[ -n "$VIRTUAL_ENV" ]] && printf ' %s' " ${VIRTUAL_ENV##*/}"
+  # https://starship.rs/config/#python
+  local repo_dir
+
+  # assume a git directory is a project
+  repo_dir="$(bp_upwards_find .git)"
+
+  [[ -z "$repo_dir" ]] && repo_dir=/dev/null
+
+  if [[ -n "$(ls ./*.py 2>/dev/null)" ||
+          -n "$VIRTUAL_ENV" ||
+          ( -n "$repo_dir" &&
+              (-f "$repo_dir/.python-version" ||
+                 -f "$repo_dir/pyproject.toml" ||
+                 -f "$repo_dir/requirement.txt" ||
+                 -f "$repo_dir/tox.ini" ||
+                 -f "$repo_dir/setup.py" ) ) ]]; then
+    printf ' %s' " $(python3 --version | sed 's,Python ,,')"
+
+    [[ -n "$VIRTUAL_ENV" ]] && printf ' %s' "(${VIRTUAL_ENV##*/})"
+  fi
 }
 
 function bp_shlvl() {
