@@ -281,13 +281,7 @@ function bp_shlvl() {
   [[ $SHLVL -gt 1 ]] && printf ' %s' "⟱️$SHLVL"
 }
 
-# note: unless the last portion of PS1 is a newline, then calling functions will have a
-# problem as described here:
-# http://stackoverflow.com/questions/6592077/bash-prompt-and-echoing-colors-inside-a-function
 function update_ps1 () {
-  # this function will build the PS1 string in-place as opposed to embedding bash
-  # functions in the string due craziness with escape sequences as mentioned in the
-  # stackoverflow link above
   local err=$?
 
   # prompt variable to build
