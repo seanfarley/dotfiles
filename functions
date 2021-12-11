@@ -73,3 +73,12 @@ imsg() {
 
   sqlite3 $dbpath/Library/Messages/chat.db "select filename from attachment" | cut -c 2- | awk -v home=$dbpath '{print home $0}' | tr '\n' '\0' | xargs -0 -t -I fname cp fname .
 }
+
+x11docker() {
+  xhost +
+
+  # shellcheck disable=SC2068
+  docker run -e DISPLAY=host.docker.internal:0 $@
+
+  xhost -
+}
