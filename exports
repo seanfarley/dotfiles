@@ -24,7 +24,8 @@ export EMACS_SERVER_FILE=$HOME/.emacs.d/server/server
 
 # if we're not on our home machine, then set tramp
 if [[ $HOME != /Users/$USER ]]; then
-  export EMACSCLIENT_TRAMP="/ssh:$(hostname -f):"
+  EMACSCLIENT_TRAMP="/ssh:$(hostname -f):"
+  export EMACSCLIENT_TRAMP
 fi
 
 ##
