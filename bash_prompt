@@ -318,6 +318,7 @@ function update_ps1 () {
 
   # remove "update_terminal_cwd; "
   PROMPT_COMMAND="${PROMPT_COMMAND//update_terminal_cwd; /}"
+  PROMPT_COMMAND="${PROMPT_COMMAND//update_terminal_cwd ; /}"
 
   PS1="
 $(bp_segment "┌─" $PROMPT_COLOR)$prompt$RESET
@@ -325,5 +326,9 @@ $(bp_segment "└─$character" $PROMPT_COLOR) "
 
   export PS1
 }
+
+# remove "update_terminal_cwd; "
+PROMPT_COMMAND="${PROMPT_COMMAND//update_terminal_cwd; /}"
+PROMPT_COMMAND="${PROMPT_COMMAND//update_terminal_cwd ; /}"
 
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} update_ps1"
