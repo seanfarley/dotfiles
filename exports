@@ -35,18 +35,6 @@ fi
 # make clean tarballs
 export COPYFILE_DISABLE=true
 
-if [ -d /opt/local ]; then
-  export PATH=/opt/local/bin:/opt/local/sbin:/opt/local/libexec/gnubin:$PATH
-  export MP=$PROJECTS/macports/dports
-  if [ -d /opt/local/lib/petsc ]; then
-    export PETSC_DIR=/opt/local/lib/petsc
-    export PETSC_ARCH=
-  fi
-  if [ -f /opt/local/bin/virtualenvwrapper.sh-2.7 ]; then
-    source /opt/local/bin/virtualenvwrapper.sh-2.7
-  fi
-fi
-
 export PATH=$HOME/.local/bin:$PATH
 
 export PATH=/usr/local/bin:$PATH
