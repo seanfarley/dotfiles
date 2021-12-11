@@ -135,45 +135,21 @@ function bp_os_type () {
 }
 
 function pretty_dir () {
-  # decent default values
-  local max_len=27
-  local mask=" … "
-  local keep=2
-  local ret=""
-  local p=${PWD/#$HOME/"~"}
+  local DIRS
+  local str_len
 
-  if (( ${#p} <= max_len )); then
-    ret="$p"
-  else
-    local tmp=${p//\//}
-    local -i delims=$(( ${#p} - ${#tmp} ))
+  IFS='/' read -ra DIRS <<< "${PWD//$HOME/'~'}"
 
-    for (( dir=0; dir < keep; dir++ )); do
-      (( "${dir}" == "${delims}" )) && break
+  # don't shorten the CWD
+  for (( i=0; i<${#DIRS[@]}-1; i++ )); do
+    # just take the first letter of the directory (exactly what xonsh does);
+    # could do more fancy things here
+    str_len=1
+    [[ ${DIRS[i]:0:1} == "." ]] && str_len=2
+    DIRS[i]=${DIRS[i]:0:$str_len}
+  done
 
-      local left="${p#*/}"
-      local name="${p:0:${#p} - ${#left}}"
-      p="${left}"
-      ret="${ret}${name%/}/"
-    done
-
-    if (( delims <= keep )); then
-      # no dirs between LP_PATH_KEEP leading dirs and current dir
-      ret="${ret}${p##*/}"
-    else
-      local base="${p##*/}"
-
-      p="${p:0:${#p} - ${#base}}"
-
-      [[ ${ret} != "/" ]] && ret="${ret%/}" # strip trailing slash
-
-      local -i len_left=$(( max_len - ${#ret} - ${#base} - ${#mask} ))
-
-      ret="${ret}${mask}${p:${#p} - ${len_left}}${base}"
-    fi
-  fi
-
-  printf ' %s' "${ret//\\/\\\\}"
+  printf ' %s' " $(IFS=/; printf '%s' "${DIRS[*]}")"
 }
 
 # Search upwards through a directory structure looking for a file/folder with
