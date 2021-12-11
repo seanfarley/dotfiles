@@ -189,7 +189,7 @@ _bp_upwards_find()
     return 1
 }
 
-function _lp_git_branch() {
+function bp_git_branch() {
   local gitdir
   gitdir="$([[ $(\git ls-files . 2>/dev/null | wc -l) -gt 0 ]] && \git rev-parse --git-dir 2>/dev/null)"
   [[ $? -ne 0 || ! $gitdir =~ (.*\/)?\.git.* ]] && return
@@ -237,7 +237,7 @@ function bp_git() {
 
   [[ -n "$(\git stash list 2>/dev/null)" ]] && prompt="$prompt $(bp_segment  $STASH_COLOR)"
 
-  prompt="$prompt $(bp_segment "$(_lp_git_branch)" $BRANCH_COLOR)"
+  prompt="$prompt $(bp_segment "$(bp_git_branch)" $BRANCH_COLOR)"
 
   if [[ "$git_st" == *"Your branch is"* ]]; then
     remote="$(echo "$git_st" | perl -lne 'print " $2$1" if /Your branch is (ahead|behind).*?(\d+) comm/' | perl -pe 's,behind,⇣,' | perl -pe 's,ahead,⇡,')"
