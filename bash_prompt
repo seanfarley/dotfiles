@@ -259,7 +259,7 @@ function bp_virtualenv() {
 }
 
 function bp_shlvl() {
-  [[ $SHLVL -gt 0 ]] && printf ' %s' "⟱️$SHLVL"
+  [[ $SHLVL -gt 1 ]] && printf ' %s' "⟱️$SHLVL"
 }
 
 # note: unless the last portion of PS1 is a newline, then calling functions will have a
