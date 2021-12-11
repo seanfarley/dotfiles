@@ -154,7 +154,7 @@ function pretty_dir () {
 
 # Search upwards through a directory structure looking for a file/folder with
 # the given name.  Used to avoid invoking 'git', hg', 'bzr', etc.
-_bp_upwards_find()
+bp_upwards_find()
 {
     local dir
     dir="$PWD"
@@ -193,7 +193,7 @@ function bp_git() {
   local status
   local merge_info
 
-  repo_dir=$(_bp_upwards_find .git)
+  repo_dir=$(bp_upwards_find .git)
 
   [[ -z "$repo_dir" ]] && return
 
