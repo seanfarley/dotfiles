@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# TODO switch to emacs service
-/usr/bin/security find-internet-password -w -a sean@farley.io -s bitwarden.farley.io
