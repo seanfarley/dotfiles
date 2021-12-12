@@ -1,10 +1,12 @@
 for file in exports bash_prompt aliases extra docker-bash; do
   file="$HOME/.$file"
+  # shellcheck disable=SC1090
   [ -e "$file" ] && source "$file"
 done
 
 # hard-code check for rsync
 for file in {/usr/,$HOME/.}local/share/bash-completion/bash_completion $HOME/.functions; do
+  # shellcheck disable=SC1090
   [ -e "$file" ] && source "$file"
 done
 
@@ -16,7 +18,7 @@ if [ -n "$PS1" ]; then
     ssh-add -K &> /dev/null
   fi
 
-  [[ BASH_VERSINFO -ge 4 ]] && shopt -s globstar
+  [[ "${BASH_VERSINFO[0]}" -ge 4 ]] && shopt -s globstar
 
   # Case-insensitive globbing (used in pathname expansion)
   shopt -s nocaseglob
@@ -37,11 +39,12 @@ if [ -n "$PS1" ]; then
   # Get ctrl-s to work in bash searching
   stty -ixon
 
-  [[ -f $HOME/.npmrc ]] && export NPMRC="$(cat ~/.npmrc)"
+  [[ -f $HOME/.npmrc ]] && NPMRC="$(cat ~/.npmrc)" && export NPMRC
 
   # apparently this is needed for gpg agent stuff to not get this error:
   # "error sending to agent: Inappropriate ioctl for device"
-  export GPG_TTY=$(tty)
+  GPG_TTY=$(tty)
+  export GPG_TTY
 fi
 
 export PATH="$HOME/.cargo/bin:$PATH"
