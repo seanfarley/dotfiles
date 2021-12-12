@@ -5,8 +5,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # make sure we are in the directory of the script so relative paths work
 cd "$DIR" || exit
 
-mkdir -p ~/.fonts
-
 # don't need since we're only booting one thing (and zfs errors out)
 # See: https://github.com/openzfs/zfs/discussions/9801
 sudo apt remove -y os-prober
@@ -72,15 +70,6 @@ npm install -g @bitwarden/cli
 
 # common installs (pip, etc)
 ./common
-
-# nerd fonts
-if [[ ! -f "$HOME/.fonts/Fura Code Bold Nerd Font Complete Mono.otf" ]]; then
-    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip -O - | busybox unzip -d ~/.fonts -
-fi
-
-# all-the-icons and friends
-cp fonts/*.ttf ~/.fonts
-fc-cache -fv
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys screensaver []
 gsettings set org.gnome.settings-daemon.plugins.media-keys terminal []
