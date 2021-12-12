@@ -29,13 +29,6 @@
       (all-the-icons-faicon "mercury" :v-adjust .05))
      ((string-match "#bitbucket" buffer)
       (all-the-icons-faicon "bitbucket" :v-adjust .05))
-     ((string-match "#octobus-hg" buffer)
-      ;; this inserts a custom fonticon, in this case, octobus
-      (propertize "\xe900"
-                  'face '(:family "smf-custom-icons")
-                  'rear-nonsticky t
-                  'display '(raise -0.1)
-                  'font-lock-ignore t))
      (t buffer)))
 
   ;================ customize segments to put in main  modeline ================
