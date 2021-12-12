@@ -43,8 +43,9 @@ complete -o nospace -F _.... ....
 ##################
 
 pg() {
-  [ -z "$@" ] && ps aux && return
-  ps aux | grep -v grep | grep "$@"
+  [[ -z "$*" ]] && ps aux && return
+  # shellcheck disable=SC2046
+  ps wup $(pgrep -a -f -i "$@")
 }
 
 x11docker() {
