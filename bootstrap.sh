@@ -61,7 +61,6 @@ if [[ ! -d "$HOME/projects/doom-emacs" ]]; then
 fi
 
 ensure_link "../doom-emacs" ".emacs.d"
-ensure_link "doom" ".doom.d"
 
 [[ ! -f "$HOME/.ssh/id_rsa" ]] && echo "No ssh id_rsa!" && exit 3
 
