@@ -12,7 +12,8 @@ pip3 install --user -U \
     nose \
     pipenv \
     pytest \
-    sphinx
+    sphinx \
+    python-lsp-server
 
 # beets and mpd stuff
 pip3 install --user -U beets python-mpd2 discogs-client pyacoustid
