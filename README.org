@@ -6,12 +6,12 @@ in this repo as much as possible by upstreaming my settings.
 OS targets are =MacOS= and =Linux=. Ideally, I'd just be running Emacs as my OS
 :-)
 
-Basic usuage:
+** Bootstrap Chezmoi
 
-#+BEGIN_SRC sh
-./bootstrap
-./osx
-#+END_SRC
+#+begin_src
+sh -c "$(curl -fsLS git.io/chezmoi) -b ~/.local/bin"
+#+end_src
 
-Since this repo is cobbled together from many other users' ideas, feel free to
-do the same for mine.
+This might fail on a fresh install of MacOS since the command-line tools need to
+be installed. That's fine. You should be prompted to install them and then can
+re-run this command.
