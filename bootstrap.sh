@@ -44,15 +44,6 @@ test -d $HOME/.hg && echo "$HOME is still a repo, please check and remove" && ex
 
 mkdir -p ~/projects
 mkdir -p ~/sandbox
-mkdir -p ~/.ipython
-mkdir -p ~/.ssh
-mkdir -p ~/.gnupg
-mkdir -p ~/.config/karabiner
-mkdir -p ~/.config/beets
-mkdir -p ~/Music/beets
-mkdir -p ~/Music/playlists
-mkdir -p ~/.mpd
-mkdir -p ~/.hammerspoon
 
 if [[ ! -d "$HOME/projects/doom-emacs" ]]; then
   echo "doom not cloned yet!"
