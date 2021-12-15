@@ -60,11 +60,6 @@ if [[ ! -d "$HOME/projects/doom-emacs" ]]; then
   git clone git@github.com:hlissner/doom-emacs.git ~/projects/doom-emacs
 fi
 
-ensure_link "bash_aliases"
-ensure_link "bash_prompt"
-ensure_link "bash_functions"
-ensure_link "bash_exports"
-ensure_link "bashrc"
 ensure_link "dir_colors"
 ensure_link "../doom-emacs" ".emacs.d"
 ensure_link "doom" ".doom.d"
