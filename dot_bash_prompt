@@ -315,4 +315,4 @@ $(bp_segment "└─$character" $PROMPT_COLOR) "
 PROMPT_COMMAND="${PROMPT_COMMAND//update_terminal_cwd; /}"
 PROMPT_COMMAND="${PROMPT_COMMAND//update_terminal_cwd ; /}"
 
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} update_ps1"
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} _z --add \"$(command pwd -P 2>/dev/null)\" 2>/dev/null; update_ps1"

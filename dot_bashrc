@@ -1,4 +1,5 @@
-for file in bash_exports bash_prompt bash_aliases; do
+export _Z_NO_PROMPT_COMMAND=1
+for file in bash_exports bash_prompt bash_aliases z.sh; do
   file="$HOME/.$file"
   # shellcheck disable=SC1090
   [ -e "$file" ] && source "$file"
