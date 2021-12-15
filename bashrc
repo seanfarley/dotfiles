@@ -1,11 +1,11 @@
-for file in exports bash_prompt aliases extra docker-bash; do
+for file in bash_exports bash_prompt bash_aliases; do
   file="$HOME/.$file"
   # shellcheck disable=SC1090
   [ -e "$file" ] && source "$file"
 done
 
 # hard-code check for rsync
-for file in {/usr/,$HOME/.}local/share/bash-completion/bash_completion $HOME/.functions; do
+for file in {/usr/,$HOME/.}local/share/bash-completion/bash_completion $HOME/.bash_functions; do
   # shellcheck disable=SC1090
   [ -e "$file" ] && source "$file"
 done
