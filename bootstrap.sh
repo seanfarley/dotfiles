@@ -60,26 +60,10 @@ if [[ ! -d "$HOME/projects/doom-emacs" ]]; then
   git clone git@github.com:hlissner/doom-emacs.git ~/projects/doom-emacs
 fi
 
-ensure_link "dir_colors"
 ensure_link "../doom-emacs" ".emacs.d"
 ensure_link "doom" ".doom.d"
-ensure_link "gitconfig"
 ensure_link "hammerspoon" ".hammerspoon"
-ensure_link "inputrc"
 ensure_link "ipython/profile_default"
-ensure_link "latexmkrc"
-ensure_link "mbsyncrc"
-ensure_link "ssh/authorized_keys"
-ensure_link "ssh/config"
-ensure_link "flake8" ".config/flake8"
-ensure_link "karabiner.json" ".config/karabiner/karabiner.json"
-ensure_link "gpg-agent.conf" ".gnupg/gpg-agent.conf"
-ensure_link "gpg.conf" ".gnupg/gpg.conf"
-ensure_link "ripgreprc"
-ensure_link "epass.sh"
-ensure_link "beets.yaml" ".config/beets/config.yaml"
-ensure_link "mpd.conf" ".mpd/mpd.conf"
-ensure_link "npmrc"
 
 [[ ! -f "$HOME/.ssh/id_rsa" ]] && echo "No ssh id_rsa!" && exit 3
 
