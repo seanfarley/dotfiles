@@ -63,7 +63,6 @@ fi
 ensure_link "../doom-emacs" ".emacs.d"
 ensure_link "doom" ".doom.d"
 ensure_link "hammerspoon" ".hammerspoon"
-ensure_link "ipython/profile_default"
 
 [[ ! -f "$HOME/.ssh/id_rsa" ]] && echo "No ssh id_rsa!" && exit 3
 
