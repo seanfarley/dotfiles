@@ -311,8 +311,5 @@ $(bp_segment "└─$character" $PROMPT_COLOR) "
   export PS1
 }
 
-# remove "update_terminal_cwd; "
-PROMPT_COMMAND="${PROMPT_COMMAND//update_terminal_cwd; /}"
-PROMPT_COMMAND="${PROMPT_COMMAND//update_terminal_cwd ; /}"
-
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} _z --add \"$(command pwd -P 2>/dev/null)\" 2>/dev/null; update_ps1"
+PROMPT_COMMAND="_z --add $(command pwd -P 2>/dev/null) 2>/dev/null; update_ps1; history -a"
+export PROMPT_COMMAND
