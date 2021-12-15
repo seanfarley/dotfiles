@@ -40,8 +40,6 @@ EOF
   fi
 }
 
-test -d $HOME/.hg && echo "$HOME is still a repo, please check and remove" && exit 1
-
 if [[ ! -d "$HOME/projects/doom-emacs" ]]; then
   echo "doom not cloned yet!"
   echo "git clone git@github.com:hlissner/doom-emacs.git ~/projects/doom-emacs"
