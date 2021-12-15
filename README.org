@@ -3,8 +3,8 @@
 An always evolving repo of my settings. My ultimate goal is to minimize the code
 in this repo as much as possible by upstreaming my settings.
 
-OS targets are =MacOS= and =Linux=. In the future, I might choose =NixOS= or
-=guix=. Ideally, I'd just be running Emacs as my OS :-)
+OS targets are =MacOS= and =Linux=. Ideally, I'd just be running Emacs as my OS
+:-)
 
 Basic usuage:
 
