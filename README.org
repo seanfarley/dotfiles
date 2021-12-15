@@ -15,3 +15,9 @@ sh -c "$(curl -fsLS git.io/chezmoi) -b ~/.local/bin"
 This might fail on a fresh install of MacOS since the command-line tools need to
 be installed. That's fine. You should be prompted to install them and then can
 re-run this command.
+
+** Initialize Chezmoi
+
+#+begin_src
+chezmoi -S ~/projects/dotfiles init seanfarley/dotfiles --apply
+#+end_src
