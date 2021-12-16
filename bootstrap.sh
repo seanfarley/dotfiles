@@ -40,14 +40,6 @@ EOF
   fi
 }
 
-if [[ ! -d "$HOME/projects/doom-emacs" ]]; then
-  echo "doom not cloned yet!"
-  echo "git clone git@github.com:hlissner/doom-emacs.git ~/projects/doom-emacs"
-  git clone git@github.com:hlissner/doom-emacs.git ~/projects/doom-emacs
-fi
-
-ensure_link "../doom-emacs" ".emacs.d"
-
 [[ ! -f "$HOME/.ssh/id_rsa" ]] && echo "No ssh id_rsa!" && exit 3
 
 exit 0
