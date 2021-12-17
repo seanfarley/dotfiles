@@ -7,8 +7,8 @@ export LESS="--ignore-case --quit-if-one-screen --quit-on-intr FRXQ"
 # Have bash ignore the .DS_Store
 export FIGNORE=DS_Store
 
-# Larger bash history (allow 32³ entries; default is 500)
-export HISTSIZE=32768
+# Larger bash history (allow 32⁴ entries; default is 500)
+export HISTSIZE=1048576
 export HISTFILESIZE=$HISTSIZE
 
 export PROJECTS=$HOME/projects
