@@ -1,0 +1,4 @@
+# full list of faces and options here:
+# https://github.com/akinomyoga/ble.sh/blob/master/blerc
+
+ble-face -s filename_directory        bold,fg=004
