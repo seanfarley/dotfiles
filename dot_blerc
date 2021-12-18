@@ -7,3 +7,7 @@ ble-bind -f down 'history-search-backward'
 ble-bind -f 'M-C-?' kill-backward-cword
 
 ble-face -s filename_directory        bold,fg=004
+ble-face -s region                    fg=white,bg=004
+ble-face -s region_insert             fg=blue,bg=004
+ble-face -s region_match              fg=white,bg=109
+ble-face -s region_target             fg=black,bg=153
