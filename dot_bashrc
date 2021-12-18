@@ -1,3 +1,5 @@
+[[ $- == *i* ]] && source ~/.local/share/blesh/ble.sh --noattach
+
 export _Z_NO_PROMPT_COMMAND=1
 for file in bash_exports bash_prompt bash_aliases z.sh; do
   file="$HOME/.$file"
@@ -46,3 +48,5 @@ if [ -n "$PS1" ]; then
 fi
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+[[ ${BLE_VERSION-} ]] && ble-attach
