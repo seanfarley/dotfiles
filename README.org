@@ -19,5 +19,5 @@ re-run this command.
 ** Initialize Chezmoi
 
 #+begin_src
-chezmoi -S ~/projects/dotfiles init seanfarley/dotfiles --apply
+~/.local/bin/chezmoi -S ~/projects/dotfiles init seanfarley/dotfiles --apply
 #+end_src
