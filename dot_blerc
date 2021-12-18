@@ -4,4 +4,6 @@
 ble-bind -f up 'history-search-forward'
 ble-bind -f down 'history-search-backward'
 
+ble-bind -f 'M-C-?' kill-backward-cword
+
 ble-face -s filename_directory        bold,fg=004
