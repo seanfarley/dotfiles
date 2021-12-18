@@ -1,4 +1,7 @@
 # full list of faces and options here:
 # https://github.com/akinomyoga/ble.sh/blob/master/blerc
 
+ble-bind -f up 'history-search-forward'
+ble-bind -f down 'history-search-backward'
+
 ble-face -s filename_directory        bold,fg=004
