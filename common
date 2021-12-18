@@ -5,7 +5,6 @@
 # python
 pip3 install --user -U \
     cython \
-    gnureadline \
     flake8 \
     isort \
     jedi \
