@@ -1,0 +1,77 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+echo "=============================================================================="
+echo "Installing packages ..."
+echo "=============================================================================="
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+tap "d12frosted/emacs-plus"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
+tap "homebrew/core"
+tap "homebrew/services"
+brew "python"
+brew "ansible"
+brew "autojump"
+brew "aspell"
+brew "bash"
+brew "bash-completion@2"
+brew "bitwarden-cli"
+brew "cairo"
+brew "chromaprint"
+brew "cmake"
+brew "coreutils"
+brew "dep"
+brew "docker-completion"
+brew "editorconfig"
+brew "git"
+brew "glslang"
+brew "gnuplot"
+brew "findutils"
+brew "imagemagick"
+brew "inetutils"
+brew "isync"
+brew "jq"
+brew "lz4"
+brew "mu"
+brew "mp3gain"
+brew "npm"
+brew "pinentry-mac"
+brew "pngpaste"
+brew "shellcheck"
+brew "tectonic"
+brew "terminal-notifier"
+brew "ncurses"
+brew "wordnet"
+# ==================================== fonts ===================================
+cask "font-fontawesome"
+cask "font-jsmath-cmbx10"
+cask "font-fira-code-nerd-font"
+cask "font-iosevka-nerd-font"
+cask "font-monoid-nerd-font"
+# ==================================== emacs ===================================
+brew "libvterm"
+brew "d12frosted/emacs-plus/emacs-plus@28", args: ["with-dbus", "with-elrumo1-icon", "with-native-comp", "with-xwidgets"]
+# ==================================== casks ===================================
+cask "firefox"
+cask "firefox-developer-edition"
+cask "hammerspoon"
+cask "nextcloud"
+cask "docker"
+cask "mysides"
+cask "menumeters"
+cask "appcleaner"
+EOF
+
+# start hammerspoon at login
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Hammerspoon.app", hidden:false}' &> /dev/null
+
+{{ else if (eq .chezmoi.osRelease.id "ubuntu") -}}
+{{-  $gotroot = output "sh" "-c" "sudo -vn 2>&1 || true" | regexMatch "password" }}
+{{-  if $gotroot }}
+sudo apt install ripgrep
+{{   end -}}
+{{ end -}}
