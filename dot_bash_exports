@@ -41,8 +41,6 @@ export PATH=/usr/local/cuda/bin:$PATH
 
 export PATH=$HOME/.cargo/bin:$PATH
 
-export PATH=$GOPATH/bin:$PATH
-
 export PATH=$HOME/Library/Python/3.9/bin:$PATH
 
 export PATH=$HOME/.npm-packages/bin:$PATH
