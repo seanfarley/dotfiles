@@ -35,8 +35,6 @@ fi
 # make clean tarballs
 export COPYFILE_DISABLE=true
 
-export PATH=$HOME/.local/bin:$PATH
-
 export PATH=/usr/local/bin:$PATH
 
 export PATH=/usr/local/cuda/bin:$PATH
@@ -52,6 +50,8 @@ export PATH=$HOME/Library/Python/3.9/bin:$PATH
 export PATH=$HOME/.npm-packages/bin:$PATH
 
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+
+export PATH=$HOME/.local/bin:$PATH
 
 # for virtualenv
 export VIRTUALENV_HOME="$HOME/.virtualenvs"
