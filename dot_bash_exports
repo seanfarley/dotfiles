@@ -49,8 +49,6 @@ export PATH=$HOME/Library/Python/3.9/bin:$PATH
 
 export PATH=$HOME/.npm-packages/bin:$PATH
 
-export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-
 export PATH=$HOME/.local/bin:$PATH
 
 # for virtualenv
