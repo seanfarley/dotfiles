@@ -72,6 +72,16 @@ osascript -e 'tell application "System Events" to make login item at end with pr
 {{ else if (eq .chezmoi.osRelease.id "ubuntu") -}}
 {{-  $gotroot = output "sh" "-c" "sudo -vn 2>&1 || true" | regexMatch "password" }}
 {{-  if $gotroot }}
-sudo apt install ripgrep
+#!/usr/bin/env bash
+
+sudo apt install \
+    openssh-server \
+    ripgrep \
+    gcc \
+    git \
+    python3-dev \
+    python3-pip \
+    python3-venv
+
 {{   end -}}
 {{ end -}}
