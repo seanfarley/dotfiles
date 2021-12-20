@@ -840,16 +840,9 @@ mysides add projects "file://$HOME/projects"
 ###############################################################################
 
 for app in "Activity Monitor" \
-             "Address Book" \
-             "Calendar" \
-             "Contacts" \
              "cfprefsd" \
              "Dock" \
              "Finder" \
-             "Mail" \
-             "Messages" \
-             "Photos" \
-             "Safari" \
              "SystemUIServer"; do
   killall "${app}" &> /dev/null
 done
