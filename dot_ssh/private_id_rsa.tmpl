@@ -1,6 +1,5 @@
 {{ if eq .chezmoi.os "darwin" -}}
-{{- $sess := "" }}
-{{- $sess = output "sh" "-c" "bw unlock $(/usr/bin/security find-internet-password -w -a sean@farley.io -s bitwarden.farley.io) --raw" }}
+{{- $sess := output "sh" "-c" "bw unlock $(/usr/bin/security find-internet-password -w -a sean@farley.io -s bitwarden.farley.io) --raw" }}
 {{- if $sess }}
 {{- output "bw" "--session" $sess "get" "notes" "id_rsa" }}
 {{ end -}}
