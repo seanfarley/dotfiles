@@ -65,6 +65,10 @@ cask "menumeters"
 cask "appcleaner"
 EOF
 
+# add brew's bash to system shells
+[[ "$(grep -c local/bin/bash /etc/shells)" == 0 ]] && sudo sh -c "echo /usr/local/bin/bash >> /etc/shells"
+chsh -s /usr/local/bin/bash
+
 # start hammerspoon at login
 osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Hammerspoon.app", hidden:false}' &> /dev/null
 
