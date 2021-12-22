@@ -25,6 +25,9 @@ Host pybay
 Host *.fsffrance.org
   User smf
 
+Host gcc304.fsffrance.org
+  Port 2409
+
 Host *.osuosl.org
   User smf
 
