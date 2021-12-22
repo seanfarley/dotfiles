@@ -274,7 +274,7 @@ sudo pmset -a lidwake 1
 sudo pmset -a autorestart 1
 
 # Restart automatically if the computer freezes
-sudo systemsetup -setrestartfreeze on
+sudo systemsetup -setrestartfreeze On 2> /dev/null
 
 # Sleep the display after 15 minutes
 #sudo pmset -a displaysleep 15
@@ -289,7 +289,7 @@ sudo systemsetup -setrestartfreeze on
 #sudo pmset -a standbydelay 86400
 
 # Never go into computer sleep mode
-sudo systemsetup -setcomputersleep Off > /dev/null
+sudo systemsetup -setcomputersleep Never 2> /dev/null
 
 # Hibernation mode
 # 0: Disable hibernation (speeds up entering sleep mode)
