@@ -129,6 +129,9 @@ function bp_os_type () {
       source /etc/os-release
       OS="$NAME"
       VER="$VERSION_ID"
+
+      # some versions of debian don't have VERSION_ID
+      [[ -z "$VER" ]] && VER="$(uname -r)"
     else
       # Fall back to uname, e.g. "Linux <version>", also works for BSD, etc.
       OS=$(uname -s)
