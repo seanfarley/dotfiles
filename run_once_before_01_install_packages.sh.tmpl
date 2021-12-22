@@ -89,7 +89,7 @@ osascript -e 'tell application "System Events" to make login item at end with pr
 
 {{ else if (eq .chezmoi.osRelease.id "ubuntu") -}}
 {{-  $gotroot := output "sh" "-c" "sudo -vn 2>&1 && echo password || true" | regexMatch "password" }}
-{{-  if $gotroot }}
+{{-  if $gotroot -}}
 #!/usr/bin/env bash
 
 sudo apt install \
