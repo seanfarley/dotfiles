@@ -1,4 +1,6 @@
 {{ if eq .chezmoi.os "darwin" -}}
+{{-  $gotroot := output "sh" "-c" "sudo -vn 2>&1 && echo password || true" | regexMatch "password" }}
+{{-  if $gotroot -}}
 #!/usr/bin/env bash
 
 echo "=============================================================================="
@@ -848,5 +850,5 @@ for app in "Activity Monitor" \
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
 
-
+{{   end -}}
 {{ end -}}

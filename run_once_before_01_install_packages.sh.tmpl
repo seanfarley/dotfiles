@@ -1,4 +1,6 @@
 {{ if eq .chezmoi.os "darwin" -}}
+{{-  $gotroot := output "sh" "-c" "sudo -vn 2>&1 && echo password || true" | regexMatch "password" }}
+{{-  if $gotroot -}}
 #!/usr/bin/env bash
 
 echo "=============================================================================="
@@ -87,6 +89,7 @@ osascript -e 'tell application "System Events" to make login item at end with pr
 # start menumeters at login
 osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/MenuMeters.app", hidden:false}' &> /dev/null
 
+{{   end -}}
 {{ else if (eq .chezmoi.osRelease.id "ubuntu") -}}
 {{-  $gotroot := output "sh" "-c" "sudo -vn 2>&1 && echo password || true" | regexMatch "password" }}
 {{-  if $gotroot -}}

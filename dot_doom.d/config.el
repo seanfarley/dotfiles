@@ -48,6 +48,7 @@ Add it to a hook like so:
 (add-hook! artist-mode (display-line-numbers-mode -1))
 
 (add-to-list 'auto-mode-alist '("ssh/config\\'" . ssh-config-mode))
+(add-to-list 'auto-mode-alist '("private_readonly_config\\'" . ssh-config-mode))
 (add-hook! ssh-config-mode #'display-line-numbers-mode)
 
 (add-to-list 'auto-mode-alist '("bash_.*\\'" . sh-mode))

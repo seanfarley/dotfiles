@@ -1,5 +1,8 @@
 {{- if eq .chezmoi.os "darwin" -}}
+{{-  $gotroot := output "sh" "-c" "sudo -vn 2>&1 && echo password || true" | regexMatch "password" }}
+{{-  if $gotroot -}}
 #!/bin/sh
 command -v brew >/dev/null 2>&1 || \
   (echo '🍺  Installing Homebrew' && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)")
+{{   end -}}
 {{ end -}}
