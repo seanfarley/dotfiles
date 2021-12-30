@@ -47,6 +47,8 @@ export PATH=$HOME/.npm-packages/bin:$PATH
 
 export PATH=$HOME/.local/bin:$PATH
 
+export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass.txt
+
 # for virtualenv
 export VIRTUALENV_HOME="$HOME/.virtualenvs"
 mkdir -p "$VIRTUALENV_HOME"
