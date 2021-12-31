@@ -248,6 +248,7 @@
     stack.yaml
   )
   typeset -g POWERLEVEL9K_SHORTEN_FOLDER_MARKER="(${(j:|:)anchor_files})"
+  #" fix highlighting
   # If set to "first" ("last"), remove everything before the first (last) subdirectory that contains
   # files matching $POWERLEVEL9K_SHORTEN_FOLDER_MARKER. For example, when the current directory is
   # /foo/bar/git_repo/nested_git_repo/baz, prompt will display git_repo/nested_git_repo/baz (first)
@@ -392,6 +393,7 @@
       # Tip: To always show local branch name in full without truncation, delete the next line.
       (( $#branch > 32 )) && branch[13,-13]="…"  # <-- this line
       res+="${clean}${(g::)POWERLEVEL9K_VCS_BRANCH_ICON}${branch//\%/%%}"
+      #" fix highlighting
     fi
 
     if [[ -n $VCS_STATUS_TAG
@@ -415,6 +417,7 @@
     # Show tracking branch name if it differs from local branch.
     if [[ -n ${VCS_STATUS_REMOTE_BRANCH:#$VCS_STATUS_LOCAL_BRANCH} ]]; then
       res+="${meta}:${clean}${(V)VCS_STATUS_REMOTE_BRANCH//\%/%%}"
+      # " fix highlighting
     fi
 
     # Display "wip" if the latest commit's summary contains "wip" or "WIP".
@@ -446,6 +449,7 @@
     # See POWERLEVEL9K_VCS_UNTRACKED_ICON above if you want to use a different icon.
     # Remove the next line if you don't want to see untracked files at all.
     (( VCS_STATUS_NUM_UNTRACKED  )) && res+=" ${untracked}${(g::)POWERLEVEL9K_VCS_UNTRACKED_ICON}${VCS_STATUS_NUM_UNTRACKED}"
+    # " fix highlighting
     # "─" if the number of unstaged files is unknown. This can happen due to
     # POWERLEVEL9K_VCS_MAX_INDEX_SIZE_DIRTY (see below) being set to a non-negative number lower
     # than the number of files in the Git index, or due to bash.showDirtyState being set to false
