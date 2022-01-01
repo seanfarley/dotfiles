@@ -1,0 +1,57 @@
+zmodload -F zsh/stat b:zstat
+
+function print_all_colors() {
+  for i in {0..255}
+  do
+    print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}
+  done
+}
+
+function prompt_smf_user() {
+  p10k segment -i '' -f red -t ${USER}
+}
+
+function prompt_smf_hostname() {
+  if [[ "$OSTYPE" == "linux"* ]]
+  then
+    if [[ -f /etc/os-release ]]
+    then
+      # disabling since the warning is a false positive
+      # shellcheck disable=SC1091
+      source /etc/os-release
+      OS="$NAME"
+      VER="$VERSION_ID"
+
+      # some versions of debian don't have VERSION_ID
+      [[ -z "$VER" ]] && VER="$(uname -r)"
+    else
+      # Fall back to uname, e.g. "Linux <version>", also works for BSD, etc.
+      OS=$(uname -s)
+      VER=$(uname -r)
+    fi
+  elif [[ "$OSTYPE" == "darwin"* ]]
+  then
+    VER=$(echo "$OSTYPE" | cut -d n -f 2 | cut -d . -f 1)
+    if [[ $VER == 21 ]]; then
+      VER="Monterey"
+    elif [[ $VER == 20 ]]; then
+      VER="Big Sur"
+    elif [[ $VER == 19 ]]; then
+      VER="Catalina"
+    elif [[ $VER == 18 ]]; then
+      VER="Mojave"
+    fi
+  fi
+
+  # remove spaces
+  VER=${VER//[[:blank:]]/}
+  # the double comma lowercases everything
+  # [[ $PROMPT_SHOW_OS_VERSION != 0 ]] && pver=" (${VER,,})"
+
+  p10k segment -f 172 -t "$(hostname) (${(L)VER})"
+}
+
+
+function prompt_smf_shlvl() {
+  [[ $SHLVL -gt 1 ]] && p10k segment -f 214 -i "⟱️" -t "$SHLVL"
+}

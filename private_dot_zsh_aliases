@@ -1,0 +1,19 @@
+# Define aliases.
+alias tree='tree -a -I .git'
+alias -- -="cd -"
+alias sudo="sudo "
+
+# IP addresses
+alias wanip="curl -s -4 ifconfig.co"
+alias wanip6="curl -s -6 ifconfig.co"
+alias localips="ifconfig -a | grep -E '([0-9]{1,3}[\.]){3}[0-9]{1,3}'"
+alias localip="localips | grep -v 127.0.0.1"
+
+# Shortcuts
+alias e="emacsclient -n"
+alias s="perl -pi -e"
+alias l="less"
+alias g='grep -i'
+
+# Add flags to existing aliases.
+# alias ls="${aliases[ls]:-ls} -A"
