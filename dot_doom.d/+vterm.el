@@ -1,4 +1,4 @@
-(setq vterm-shell (executable-find "bash"))
+(setq vterm-shell (executable-find "zsh"))
 
 (after! vterm
   (add-hook! vterm-mode #'goto-address-mode)
