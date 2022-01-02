@@ -67,15 +67,6 @@ z4h source ~/.env.zsh
 z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
 z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
 
-# Define key bindings.
-z4h bindkey undo Ctrl+/   Shift+Tab # undo the last command line change
-z4h bindkey redo Option+/           # redo the last undone command line change
-
-z4h bindkey z4h-cd-back    Shift+Left   # cd into the previous directory
-z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
-z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
-z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
-
 # Autoload functions.
 autoload -Uz zmv
 
@@ -93,3 +84,4 @@ source ~/.zsh_exports
 source ~/.zsh_functions
 source ~/.zsh_aliases
 source ~/.zsh_prompt
+source ~/.zsh_bindkeys
