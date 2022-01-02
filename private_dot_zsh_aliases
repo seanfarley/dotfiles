@@ -17,3 +17,7 @@ alias g='grep -i'
 
 # Add flags to existing aliases.
 # alias ls="${aliases[ls]:-ls} -A"
+
+if command -v fd-find >/dev/null 2>&1; then
+    alias fd="fd-find"
+fi
