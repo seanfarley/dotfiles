@@ -7,6 +7,10 @@ elif [[ ! -d "$HOME/sandbox" ]]; then
     mkdir -p "$HOME/sandbox"
 fi
 
+if command -v fd-find >/dev/null 2>&1; then
+    # ensure the ssh key agent is open
+    ssh-add -K
+fi
 
 [ -f "$HOME/.local/share/blesh/ble.sh" ] && exit
 
