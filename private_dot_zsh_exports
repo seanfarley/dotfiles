@@ -57,3 +57,7 @@ export VIRTUALENV_USE_DISTRIBUTE=1
 if type brew &>/dev/null; then
     fpath+=$(brew --prefix)/share/zsh-completions
 fi
+
+# z.sh / auto jump
+ZSHZ_TILDE=1
+ZSHZ_KEEP_DIRS=1
