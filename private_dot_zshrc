@@ -55,6 +55,13 @@ z4h install ohmyzsh/ohmyzsh || return
 # perform network I/O must be done above. Everything else is best done below.
 z4h init || return
 
+() {
+  local hist
+  for hist in ~/.zsh_history*~$HISTFILE(N); do
+    fc -RI $hist
+  done
+}
+
 # Source additional local files if they exist.
 z4h source ~/.env.zsh
 
