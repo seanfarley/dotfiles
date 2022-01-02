@@ -25,10 +25,14 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-sudo scutil --set ComputerName "laptop"
-sudo scutil --set HostName "laptop"
-sudo scutil --set LocalHostName "laptop"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "laptop"
+lname="laptop"
+if [[ $(sysctl -n machdep.cpu.model) -eq 70 ]]; then
+   lname="laptop2014"
+fi
+sudo scutil --set ComputerName "$lname"
+sudo scutil --set HostName "$lname"
+sudo scutil --set LocalHostName "$lname"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$lname"
 
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
