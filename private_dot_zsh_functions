@@ -1,3 +1,9 @@
 # Define functions and completions.
 function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
+
+zle -N backward-kill-space-word
+backward-kill-space-word() {
+  zle -f kill
+  WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>' zle .backward-kill-word
+}
