@@ -28,10 +28,11 @@ if [[ ! -d "$git_dir" ]]; then
     git --git-dir="$git_dir" reset origin/main
     git --git-dir="$git_dir" branch -u origin/main
     git --git-dir="$git_dir" checkout -- .
+fi
 
-    z_len="$( ( wc -l ~/.z 2>/dev/null || echo 0 foo ) | awk '{print $1}')"
-    if [[ $z_len -lt 50 ]]; then
-        cat ~/.z_initial ~/.z 2>/dev/null | sed "s,\$HOME,$HOME," > ~/z-new
-        mv ~/z-new ~/.z
-    fi
+# in case we run this script multiple times, we've already cloned the repo above
+z_len="$( ( wc -l ~/.z 2>/dev/null || echo 0 foo ) | awk '{print $1}')"
+if [[ $z_len -lt 50 ]]; then
+    cat ~/.z_initial ~/.z 2>/dev/null | sed "s,\$HOME,$HOME," > ~/z-new
+    mv ~/z-new ~/.z
 fi
