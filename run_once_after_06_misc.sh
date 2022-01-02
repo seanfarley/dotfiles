@@ -12,14 +12,26 @@ if command -v fd-find >/dev/null 2>&1; then
     ssh-add -K
 fi
 
-[ -f "$HOME/.local/share/blesh/ble.sh" ] && exit
+git_dir=~/.dotfiles-private
+if [[ ! -d "$git_dir" ]]; then
+    echo "=============================================================================="
+    echo "Cloning private dotfiles"
+    echo "=============================================================================="
 
-echo "=============================================================================="
-echo "Installing ble.sh"
-echo "=============================================================================="
+    cd ~ || return
 
-git clone https://github.com/akinomyoga/ble.sh "$HOME/sandbox/blesh"
+    git --git-dir="$git_dir" init
+    git --git-dir="$git_dir" config core.bare false
+    git --git-dir="$git_dir" config status.showuntrackedfiles no
+    git --git-dir="$git_dir" remote add origin git@github.com:seanfarley/dotfiles-private.git
+    git --git-dir="$git_dir" fetch
+    git --git-dir="$git_dir" reset origin/main
+    git --git-dir="$git_dir" branch -u origin/main
+    git --git-dir="$git_dir" checkout -- .
 
-make -C "$HOME/sandbox/blesh" install
-
-rm -rf "$HOME/sandbox/blesh"
+    z_len="$( ( wc -l ~/.z 2>/dev/null || echo 0 foo ) | awk '{print $1}')"
+    if [[ $z_len -lt 50 ]]; then
+        cat ~/.z_initial ~/.z 2>/dev/null | sed "s,\$HOME,$HOME," > ~/z-new
+        mv ~/z-new ~/.z
+    fi
+fi
