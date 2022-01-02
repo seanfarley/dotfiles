@@ -55,8 +55,5 @@ export VIRTUALENV_USE_DISTRIBUTE=1
 [[ -f /opt/homebrew/env ]] && source /opt/homebrew/env
 
 if type brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
-    autoload -Uz compinit
-    compinit -u
+    fpath+=$(brew --prefix)/share/zsh-completions
 fi
