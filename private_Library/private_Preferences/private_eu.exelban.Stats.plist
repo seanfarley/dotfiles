@@ -6,6 +6,8 @@
 	<false/>
 	<key>Disk_state</key>
 	<false/>
+	<key>RAM_widget</key>
+	<string>pie_chart</string>
 	<key>dockIcon</key>
 	<false/>
 	<key>id</key>
