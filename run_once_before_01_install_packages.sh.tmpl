@@ -62,7 +62,7 @@ cask "hammerspoon"
 cask "nextcloud"
 cask "docker"
 cask "mysides"
-cask "menumeters"
+cask "stats"
 cask "appcleaner"
 # ================================ mac app store ===============================
 mas "AdGuard for Safari", id: 1440147259
@@ -79,9 +79,6 @@ osascript -e 'tell application "System Events" to make login item at end with pr
 
 # start nextcloud at login
 osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Nextcloud.app", hidden:false}' &> /dev/null
-
-# start menumeters at login
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/MenuMeters.app", hidden:false}' &> /dev/null
 
 {{   end -}}
 {{ else if (eq .chezmoi.osRelease.id "ubuntu") -}}
