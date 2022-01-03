@@ -70,10 +70,10 @@ setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
 
 # activate z
-source ~/.cache/zsh-z/zsh-z.plugin.zsh
+z4h source ~/.cache/zsh-z/zsh-z.plugin.zsh
 
-source ~/.zsh_exports
-source ~/.zsh_functions
-source ~/.zsh_aliases
-source ~/.zsh_prompt
-source ~/.zsh_bindkeys
+z4h source ~/.zsh_exports
+z4h source ~/.zsh_functions
+z4h source ~/.zsh_aliases
+z4h source ~/.zsh_prompt
+z4h source ~/.zsh_bindkeys
