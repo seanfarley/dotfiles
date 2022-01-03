@@ -7,3 +7,86 @@ backward-kill-space-word() {
   zle -f kill
   WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>' zle .backward-kill-word
 }
+
+function sync-history () {
+  # This is a function because it needs to access HISTFILE.
+  # https://github.com/romkatv/dotfiles-public/blob/2d81e586677f49a07a4992fb3199ce1890de6e42/dotfiles/functions/sync-dotfiles
+
+  emulate -L zsh -o no_unset -o no_prompt_subst -o prompt_percent -o pushd_silent
+
+  local GIT_DIR GIT_WORK_TREE
+  unset GIT_DIR GIT_WORK_TREE
+
+  local merge=1 OPTIND OPTARG
+  while getopts ":hm" opt; do
+    case $opt in
+      *h)
+        print -r -- $'Usage: sync-dotfiles [{+|-}m]\nSynchronize local dotfiles with GitHub.'
+        return 0
+        ;;
+      \?) print -r -- "sync-dotfiles: invalid option: $OPTARG" >&2;            return 1;;
+      :)  print -r -- "sync-dotfiles: missing required argument: $OPTARG" >&2; return 1;;
+      m)  merge=0;;
+      +m) merge=1;;
+    esac
+  done
+
+  if (( OPTIND <= ARGC )); then
+  print -r -- "sync-dotfiles: unexpected positional argument: ${*[OPTIND]}" >&2
+  return 1
+  fi
+
+  function -sync-dotfiles-repo() {
+    local repo=${${GIT_DIR:t}#.} dirty=0 s
+    s="$(git status --porcelain --untracked-files=no)" || return
+    if [[ -n $s ]]; then
+      dirty=1
+      git stash || return
+    fi
+
+    print -Pr -- "%F{yellow}sync-dotfiles%f: pulling %B$repo%b" >&2
+    if ! git pull --rebase && ! git pull --no-edit; then
+      print -Pr -- "%F{red}sync-dotfiles%f: failed to pull %B$repo%b" >&2
+      git status || return
+      return 1
+    fi
+
+    if (( merge )) && git remote get-url origin &>/dev/null; then
+      print -Pr -- "%F{yellow}sync-dotfiles%f: merging origin %B$repo%b" >&2
+      git fetch origin || return
+      if ! git merge --no-edit origin/main; then
+        print -Pr -- "%F{red}sync-dotfiles%f: failed to merge origin %B$repo%b" >&2
+        git status || return
+        return 1
+      fi
+    fi
+
+    print -Pr -- "%F{yellow}sync-dotfiles%f: pushing %B$repo%b" >&2
+    git push || return
+    if (( dirty )); then
+      git stash pop || return
+    fi
+  }
+
+  {
+    pushd -q ~ || return
+
+    local -x GIT_DIR=~/.dotfiles-private
+    local hist=${ZDOTDIR:-~}/.zsh_history.${(%):-%m}
+    local -U hist=($hist{,:*}(N))
+    [[ -f ${HISTFILE:-} ]] && hist+=($HISTFILE)
+    if (( $#hist )); then
+      echo $GIT_DIR
+      git add -- $hist || return
+      local s
+      s="$(git status --porcelain -- $hist)" || return
+      if [[ -n $s ]]; then
+        git commit -m "bump ${(%):-%m} history" -- $hist || return
+      fi
+    fi
+    -sync-dotfiles-repo dotfiles-private || return
+  } always {
+    unset -f -- -sync-dotfiles-repo
+    popd -q
+  }
+}
