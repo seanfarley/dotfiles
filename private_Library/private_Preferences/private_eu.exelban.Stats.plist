@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Disk_state</key>
+	<false/>
+	<key>dockIcon</key>
+	<false/>
+	<key>id</key>
+	<string>60389B6A-7D27-402B-AC67-66CE48989D9D</string>
+	<key>runAtLoginInitialized</key>
+	<true/>
+	<key>version</key>
+	<string>2.6.26</string>
+</dict>
+</plist>
