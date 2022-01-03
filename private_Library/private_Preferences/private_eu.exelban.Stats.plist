@@ -4,6 +4,8 @@
 <dict>
 	<key>Battery_state</key>
 	<false/>
+	<key>CPU_widget</key>
+	<string>line_chart</string>
 	<key>Disk_state</key>
 	<false/>
 	<key>RAM_widget</key>
