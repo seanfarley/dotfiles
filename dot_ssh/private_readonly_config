@@ -24,6 +24,8 @@ Host pybay
 
 Host *.fsffrance.org
   User smf
+  RemoteCommand zsh -l
+  RequestTTY force
 
 Host gcc304.fsffrance.org
   Port 2409
