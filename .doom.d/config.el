@@ -137,6 +137,7 @@ Add it to a hook like so:
 (load! "+vterm")
 (load! "+ansible")
 (load! "+mpd")
+(load! "+yadm")
 
 ;; TODO don't know where to put this? ui?
 (setq compilation-scroll-output t)
