@@ -32,7 +32,7 @@ zstyle ':z4h:direnv'         enable 'no'
 zstyle ':z4h:direnv:success' notify 'yes'
 
 if [[ -e ~/.ssh/id_rsa ]]; then
-  ssh-add -K
+  ssh-add -K &> /dev/null
 fi
 
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
