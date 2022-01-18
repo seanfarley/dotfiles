@@ -276,13 +276,13 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     ###############################################################################
 
     # Enable lid wakeup
-    sudo pmset -a lidwake 1
+    # sudo pmset -a lidwake 1
 
     # Restart automatically on power loss
-    sudo pmset -a autorestart 1
+    # sudo pmset -a autorestart 1
 
     # Restart automatically if the computer freezes
-    sudo systemsetup -setrestartfreeze On 2> /dev/null
+    # sudo systemsetup -setrestartfreeze On 2> /dev/null
 
     # Sleep the display after 15 minutes
     #sudo pmset -a displaysleep 15
@@ -297,13 +297,13 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     #sudo pmset -a standbydelay 86400
 
     # Never go into computer sleep mode
-    sudo systemsetup -setcomputersleep Never 2> /dev/null
+    # sudo systemsetup -setcomputersleep Never 2> /dev/null
 
     # Hibernation mode
     # 0: Disable hibernation (speeds up entering sleep mode)
     # 3: Copy RAM to disk so the system state can still be restored in case of a
     #    power failure.
-    sudo pmset -a hibernatemode 0
+    # sudo pmset -a hibernatemode 0
 
     # Remove the sleep image file to save disk space
     #sudo rm /private/var/vm/sleepimage
