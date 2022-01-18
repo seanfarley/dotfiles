@@ -456,9 +456,9 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # Expand the following File Info panes:
     # “General”, “Open with”, and “Sharing & Permissions”
     defaults write com.apple.finder FXInfoPanesExpanded -dict \
-	    General -bool true \
-	    OpenWith -bool true \
-	    Privileges -bool true
+        General -bool true \
+        OpenWith -bool true \
+        Privileges -bool true
 
     ###############################################################################
     # Dock, Dashboard, and hot corners                                            #
