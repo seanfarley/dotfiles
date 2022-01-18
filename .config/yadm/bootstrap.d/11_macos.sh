@@ -523,9 +523,6 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # Disable the Launchpad gesture (pinch with thumb and three fingers)
     defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
 
-    # Change desktop to custom image
-    osascript -e 'tell application "Finder" to set desktop picture to (POSIX path of (path to home folder)) & "projects/dotfiles/desktop.png" as POSIX file'
-
     # Reset Launchpad, but keep the desktop wallpaper intact
     find "${HOME}/Library/Application Support/Dock" -name "*-*.db" -maxdepth 1 -delete
 
