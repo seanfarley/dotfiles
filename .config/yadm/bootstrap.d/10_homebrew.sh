@@ -78,4 +78,11 @@ mas "Vectornator", id: 1219074514
 mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835
 EOF
+
+# start hammerspoon at login
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Hammerspoon.app", hidden:false}' &> /dev/null
+
+# start nextcloud at login
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Nextcloud.app", hidden:false}' &> /dev/null
+
 fi
