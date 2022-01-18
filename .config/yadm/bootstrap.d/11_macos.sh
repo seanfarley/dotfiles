@@ -162,9 +162,6 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     #sudo rm -rf /System/Library/CoreServices/DefaultDesktop.jpg
     #sudo ln -s /path/to/your/image /System/Library/CoreServices/DefaultDesktop.jpg
 
-    # Change desktop to custom image
-    osascript -e 'tell application "Finder" to set desktop picture to (POSIX path of (path to home folder)) & "projects/dotfiles/desktop.png" as POSIX file'
-
     ###############################################################################
     # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
     ###############################################################################
