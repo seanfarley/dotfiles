@@ -509,9 +509,6 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # Don’t automatically rearrange Spaces based on most recent use
     defaults write com.apple.dock mru-spaces -bool false
 
-    # Group windows by application in Mission Control
-    defaults write com.apple.dock expose-group-by-app -bool true
-
     # Remove the auto-hiding Dock delay
     defaults write com.apple.dock autohide-delay -float 0
     # Remove the animation when hiding/showing the Dock
