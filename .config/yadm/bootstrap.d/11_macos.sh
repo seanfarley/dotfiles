@@ -351,8 +351,8 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
 
     # Set Desktop as the default location for new Finder windows
     # For other paths, use `PfLo` and `file:///full/path/here/`
-    defaults write com.apple.finder NewWindowTarget -string "PfDe"
-    defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Desktop/"
+    defaults write com.apple.finder NewWindowTarget -string "PfHm"
+    defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
 
     # Show icons for hard drives, servers, and removable media on the desktop
     defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
@@ -383,9 +383,6 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
 
     # When performing a search, search the current folder by default
     defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
-
-    # Set Finder default location to $HOME
-    defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}"
 
     # Disable the warning when changing a file extension
     defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
