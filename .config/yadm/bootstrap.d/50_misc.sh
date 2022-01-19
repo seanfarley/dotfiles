@@ -1,9 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # setup ~/sandbox first
-if [[ -d /hadron/euclid/home/sean && ! -L "$HOME/sandbox" ]]; then
+if [ -d /hadron/euclid/home/sean ] && [ ! -L "$HOME/sandbox" ]; then
     ln -s /hadron/euclid/home/sean/sandbox "$HOME/sandbox"
-elif [[ ! -d "$HOME/sandbox" ]]; then
+elif [ ! -d "$HOME/sandbox" ]; then
     mkdir -p "$HOME/sandbox"
 fi
 
@@ -13,7 +13,7 @@ if command -v security >/dev/null 2>&1; then
 fi
 
 git_dir=~/.dotfiles-private
-if [[ ! -d "$git_dir" ]]; then
+if [ ! -d "$git_dir" ]; then
     echo "=============================================================================="
     echo "Cloning private dotfiles"
     echo "=============================================================================="
@@ -32,7 +32,7 @@ fi
 
 # in case we run this script multiple times, we've already cloned the repo above
 z_len="$( ( wc -l ~/.z 2>/dev/null || echo 0 foo ) | awk '{print $1}')"
-if [[ $z_len -lt 50 ]]; then
+if [ $z_len -lt 50 ]; then
     cat ~/.z_initial ~/.z 2>/dev/null | sed "s,\$HOME,$HOME," > ~/z-new
     mv ~/z-new ~/.z
 fi
