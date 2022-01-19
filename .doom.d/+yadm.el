@@ -55,6 +55,12 @@ remove '-o' from the arguments."
                    command)))
     (tramp-handle-shell-command command output-buffer error-buffer)))
 
+(defun tramp-yadm-magit-list-files (orig-fn &rest args)
+  "Only exists to prevent untracked files (recursively lists home
+directory) from being listed."
+  (unless (and (string-prefix-p "/yadm:" default-directory)
+               (member "--other" args))
+    (apply orig-fn args)))
 
 (add-to-list 'tramp-methods
              `(,tramp-yadm-method
@@ -66,3 +72,8 @@ remove '-o' from the arguments."
 (after! projectile
   (add-to-list 'projectile-known-projects "/yadm::~")
   (add-to-list 'projectile-known-projects "/ssh:euclid:~/projects/phd-euclid"))
+
+(after! magit
+  (advice-add #'magit-list-files
+              :around
+              #'tramp-yadm-magit-list-files))
