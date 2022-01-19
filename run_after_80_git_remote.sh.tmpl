@@ -1,6 +1,0 @@
-{{-  $gitorigin := output "sh" "-c" "cd ~/projects/dotfiles && git remote -v | tee /dev/null | grep origin | grep -c git@github.com:seanfarley/dotfiles.git || true" -}}
-{{-  if eq $gitorigin "0\n" -}}
-#!/usr/bin/env bash
-cd ~/projects/dotfiles
-git remote set-url origin "git@github.com:seanfarley/dotfiles.git"
-{{ end }}
