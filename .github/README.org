@@ -8,6 +8,9 @@ OS targets are =MacOS= and =Linux=. Ideally, I'd just be running Emacs as my OS
 
 ** Ensure secrets are setup
 
+This is only needed for our main machine. All other hosts should not have access
+to our bitwarden vault.
+
 #+begin_src
 /usr/bin/security find-internet-password -w -a sean@farley.io -s bitwarden.farley.io
 #+end_src
