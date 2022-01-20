@@ -12,24 +12,20 @@ OS targets are =MacOS= and =Linux=. Ideally, I'd just be running Emacs as my OS
 /usr/bin/security find-internet-password -w -a sean@farley.io -s bitwarden.farley.io
 #+end_src
 
-** Bootstrap Chezmoi
+** Bootstrap yadm
 
 #+begin_src
-sh -c "$(curl -fsLS git.io/chezmoi) -b ~/.local/bin"
-#+end_src
-
-or, if curl is not installed,
-
-#+begin_src
-sh -c "$(wget -qO- git.io/chezmoi) -b ~/.local/bin"
+git clone https://github.com/TheLocehiliosan/yadm.git ~/.local/share/yadm-project
+mkdir -p ~/.local/bin
+ln -s ~/.local/share/yadm-project/yadm ~/.local/bin/yadm
 #+end_src
 
 This might fail on a fresh install of MacOS since the command-line tools need to
 be installed. That's fine. You should be prompted to install them and then can
 re-run this command.
 
-** Initialize Chezmoi
+** Initialize yadm
 
 #+begin_src
-~/.local/bin/chezmoi -S ~/projects/dotfiles init seanfarley/dotfiles --apply
+~/.local/bin/yadm clone --bootstrap https://github.com/seanfarley/dotfiles
 #+end_src
