@@ -1,5 +1,4 @@
-# Define key bindings.
-z4h bindkey undo Ctrl+/   Shift+Tab # undo the last command line change
-z4h bindkey redo Option+/           # redo the last undone command line change
+bindkey undo Ctrl+/
+bindkey redo Option+/
 
-z4h bindkey backward-kill-space-word Ctrl+W
+bindkey backward-kill-space-word Ctrl+W
