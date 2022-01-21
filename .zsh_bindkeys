@@ -4,3 +4,4 @@ bindkey undo Ctrl+/
 bindkey redo Option+/
 
 bindkey backward-kill-space-word Ctrl+W
+bindkey "^u" backward-kill-line
