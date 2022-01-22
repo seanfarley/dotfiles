@@ -42,6 +42,7 @@ source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zaw/zaw.zsh
 
+source ~/.zsh/init
 source ~/.zsh/exports
 source ~/.zsh/functions
 source ~/.zsh/aliases
