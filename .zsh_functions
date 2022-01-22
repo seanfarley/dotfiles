@@ -90,3 +90,14 @@ function sync-history () {
     popd -q
   }
 }
+
+zle -N clear-to-bottom
+clear-to-bottom () {
+    [[ -w $TTY ]] || return
+
+    builtin echoti civis >&$TTY
+    builtin print -rn -- "${(pl:$((2 * LINES - 1))::\n:)}" > $TTY
+    builtin zle -I
+    builtin zle -R
+    builtin echoti cnorm >&$TTY
+}

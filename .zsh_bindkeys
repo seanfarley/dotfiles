@@ -6,5 +6,4 @@ bindkey redo Option+/
 bindkey backward-kill-space-word Ctrl+W
 bindkey "^u" backward-kill-line
 
-# hack to get the prompt back at the bottom
-bindkey -s "^L" '^uclear; printf "\n%.0s" {1..100}^M'
+bindkey "^L" clear-to-bottom
