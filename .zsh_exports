@@ -42,6 +42,11 @@ path=(
     ~/.local/bin
     ~/.npm-packages/bin
     ~/Library/Python/3.9/bin
+    /usr/local/bin
+    /usr/local/sbin
+    /usr/sbin
+    /sbin
+    /Library/TeX/texbin
     $path
 )
 
