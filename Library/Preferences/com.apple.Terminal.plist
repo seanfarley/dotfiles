@@ -21,7 +21,7 @@
 	<key>NSNavPanelExpandedSizeForSaveMode</key>
 	<string>{800, 450}</string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>746 332 673 190 0 0 1440 900 </string>
+	<string>473 215 908 334 0 0 1440 900 </string>
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
 	<string>320 339 800 448 0 0 1440 900 </string>
 	<key>NSWindow Frame TTAppPreferences</key>
@@ -30,6 +30,8 @@
 	<string>350 425 650 442 0 0 1440 900 </string>
 	<key>NSWindow Frame TTWindow Basic</key>
 	<string>109 212 570 418 0 0 1440 900 </string>
+	<key>NSWindow Frame TTWindow Nord</key>
+	<string>350 378 650 489 0 0 1440 900 </string>
 	<key>NSWindow Frame TTWindow Pro</key>
 	<string>350 425 650 442 0 0 1440 900 </string>
 	<key>NSWindow Frame TTWindow Pro - zsh</key>
@@ -500,10 +502,11 @@
 			YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0
 			b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRy
 			b290gAGkCwwVFlUkbnVsbNQNDg8QERITFFZOU1NpemVYTlNmRmxh
-			Z3NWTlNOYW1lViRjbGFzcyNAJgAAAAAAABAQgAKAA11NZW5sby1S
-			ZWd1bGFy0hcYGRpaJGNsYXNzbmFtZVgkY2xhc3Nlc1ZOU0ZvbnSi
-			GRtYTlNPYmplY3QIERokKTI3SUxRU1heZ253foWOkJKUoqeyu8LF
-			AAAAAAAAAQEAAAAAAAAAHAAAAAAAAAAAAAAAAAAAAM4=
+			Z3NWTlNOYW1lViRjbGFzcyNAKgAAAAAAABAQgAKAA18QIEZpcmFD
+			b2RlTmVyZEZvbnRDb21wbGV0ZS1SZWd1bGFy0hcYGRpaJGNsYXNz
+			bmFtZVgkY2xhc3Nlc1ZOU0ZvbnSiGRtYTlNPYmplY3QIERokKTI3
+			SUxRU1heZ253foWOkJKUt7zH0NfaAAAAAAAAAQEAAAAAAAAAHAAA
+			AAAAAAAAAAAAAAAAAOM=
 			</data>
 			<key>ProfileCurrentVersion</key>
 			<real>2.0699999999999998</real>
