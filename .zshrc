@@ -15,7 +15,7 @@ fi
 
 () {
   local hist
-  for hist in ~/.zsh_history*~$HISTFILE(N); do
+  for hist in ~/.zsh_history.*; do
     fc -RI $hist
   done
 }
