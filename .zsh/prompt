@@ -48,7 +48,7 @@ function prompt_smf_hostname() {
   # the double comma lowercases everything
   # [[ $PROMPT_SHOW_OS_VERSION != 0 ]] && pver=" (${VER,,})"
 
-  p10k segment -f 172 -t "$(hostname) (${(L)VER})"
+  p10k segment -f 172 -t "$(hostname -s) (${(L)VER})"
 }
 
 
