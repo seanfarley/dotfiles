@@ -51,6 +51,30 @@ function prompt_smf_hostname() {
   p10k segment -f 172 -t "$(hostname -s) (${(L)VER})"
 }
 
+function prompt_smf_os_icon() {
+  local color_host=163
+
+  # color icons based on their logos
+  case $_p9k_os_icon in
+    **) color_host=247;;
+    **) color_host=172;;
+    **) color_host=126;;
+    **) color_host=198;;
+    **) color_host=196;;
+    **) color_host=075;;
+    **) color_host=162;;
+    **) color_host=040;;
+    **)
+      color_host=007
+      # check is SUSE
+      if [[ $(grep -c SUSE /etc/os-release) != 0 ]]; then
+        _p9k_os_icon=""
+        color_host=040
+      fi
+      ;;
+  esac
+  p10k segment -f "$color_host" -t "$_p9k_os_icon"
+}
 
 function prompt_smf_shlvl() {
   [[ $SHLVL -gt 1 ]] && p10k segment -f 214 -i "⟱️" -t "$SHLVL"
