@@ -7,3 +7,6 @@ bindkey backward-kill-space-word Ctrl+W
 bindkey "^u" backward-kill-line
 
 bindkey "^L" clear-to-bottom
+
+bindkey "^R" zaw-history
+bindkey -M filterselect "^[" send-break
