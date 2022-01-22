@@ -1,45 +1,17 @@
-# Personal Zsh configuration file. It is strongly recommended to keep all
-# shell customization and configuration (including exported environment
-# variables such as PATH) in this file or in files sourced from it.
-#
-# Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
+zstyle ':filter-select:highlight' matched fg=yellow,standout
+zstyle ':filter-select' max-lines 10 # use 10 lines for filter-select
+zstyle ':filter-select' max-lines -10 # use $LINES - 10 for filter-select
+zstyle ':filter-select' rotate-list yes # enable rotation for filter-select
+zstyle ':filter-select' case-insensitive yes # enable case-insensitive search
+zstyle ':filter-select' extended-search yes # see below
+zstyle ':filter-select' hist-find-no-dups yes # ignore duplicates in history source
+zstyle ':filter-select' escape-descriptions no # display literal newlines, not \n, etc
 
-# Periodic auto-update on Zsh startup: 'ask' or 'no'.
-# You can manually run `z4h update` to update everything.
-zstyle ':z4h:' auto-update      'no'
-# Ask whether to auto-update this often; has no effect if auto-update is 'no'.
-zstyle ':z4h:' auto-update-days '28'
-
-# Move prompt to the bottom when zsh starts and on Ctrl+L.
-zstyle ':z4h:' prompt-at-bottom 'yes'
-
-# Keyboard type: 'mac' or 'pc'.
-zstyle ':z4h:bindkey' keyboard  'mac'
-
-# Mark up shell's output with semantic information.
-zstyle ':z4h:' term-shell-integration 'yes'
-
-# Right-arrow key accepts one character ('partial-accept') from
-# command autosuggestions or the whole thing ('accept')?
-zstyle ':z4h:autosuggestions' forward-char 'accept'
-
-# Recursively traverse directories when TAB-completing files.
-zstyle ':z4h:fzf-complete' recurse-dirs 'no'
-
-# Enable direnv to automatically source .envrc files.
-zstyle ':z4h:direnv'         enable 'no'
-# Show "loading" and "unloading" notifications from direnv.
-zstyle ':z4h:direnv:success' notify 'yes'
+zstyle ':zaw:history' default zaw-callback-append-to-buffer
 
 if [[ -e ~/.ssh/id_rsa ]]; then
   ssh-add -K &> /dev/null
 fi
-
-# Install or update core components (fzf, zsh-autosuggestions, etc.) and
-# initialize Zsh. After this point console I/O is unavailable until Zsh
-# is fully initialized. Everything that requires user interaction or can
-# perform network I/O must be done above. Everything else is best done below.
-z4h init || return
 
 () {
   local hist
@@ -51,18 +23,27 @@ z4h init || return
 # Autoload functions.
 autoload -Uz zmv
 
-# Define named directories: ~w <=> Windows home directory on WSL.
-[[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
-
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
+setopt inc_append_history
 
 # activate z
-z4h source ~/.cache/zsh-z/zsh-z.plugin.zsh
+source ~/.cache/zsh-z/zsh-z.plugin.zsh
 
-z4h source ~/.zsh_exports
-z4h source ~/.zsh_functions
-z4h source ~/.zsh_aliases
-z4h source ~/.zsh_prompt
-z4h source ~/.zsh_bindkeys
+autoload -Uz compinit
+compinit
+zstyle ':completion:*' menu select
+
+printf '\n%.0s' {1..100}
+
+source ~/.p10k.zsh
+source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zaw/zaw.zsh
+
+source ~/.zsh_exports
+source ~/.zsh_functions
+source ~/.zsh_aliases
+source ~/.zsh_prompt
+source ~/.zsh_bindkeys
