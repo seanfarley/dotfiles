@@ -57,7 +57,9 @@ Add it to a hook like so:
 (after! magit
   ;; magit-todo ignore json files due to huge performance hit
   (setq magit-todos-exclude-globs '("*.json")
-        magit-clone-default-directory "~/projects/")
+        magit-clone-default-directory "~/projects/"
+        ;; already taken care of by git settings
+        magit-commit-show-diff nil)
 
   (when (equal (plist-get (nth 2 (transient-get-suffix 'magit-commit "x"))
                           :command)
