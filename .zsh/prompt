@@ -12,7 +12,7 @@ function prompt_smf_user() {
 }
 
 function prompt_smf_hostname() {
-  local hn="$(hostname -s)"
+  local hn="$(hostname -s 2>/dev/null || hostname 2>/dev/null)"
   local hn_color=076
 
   if [[ "$OSTYPE" == "linux"* ]]
