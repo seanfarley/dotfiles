@@ -44,6 +44,8 @@ function prompt_smf_hostname() {
     elif [[ $VER == 18 ]]; then
       VER="Mojave"
     fi
+  else
+    VER="$OSTYPE"
   fi
 
   # color based on hostname
