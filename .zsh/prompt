@@ -80,6 +80,7 @@ function prompt_smf_os_icon() {
     **) color_host=075;;
     **) color_host=162;;
     **) color_host=040;;
+    **) color_host=228;;
     **)
       color_host=007
       # check is SUSE
