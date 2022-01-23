@@ -12,6 +12,9 @@ function prompt_smf_user() {
 }
 
 function prompt_smf_hostname() {
+  local hn="$(hostname -s)"
+  local hn_color=076
+
   if [[ "$OSTYPE" == "linux"* ]]
   then
     if [[ -f /etc/os-release ]]
@@ -43,12 +46,25 @@ function prompt_smf_hostname() {
     fi
   fi
 
+  # color based on hostname
+  case $hn in
+    laptop)
+      case $VER in
+        Monterey) hn_color=135;;
+        Big*) hn_color=003;;
+      esac
+      ;;
+    theta*) hn_color=002;;
+    minimac*|gcc*) hn_color=013;;
+    euclid*) hn_color=172;;
+  esac
+
   # remove spaces
   VER=${VER//[[:blank:]]/}
   # the double comma lowercases everything
   # [[ $PROMPT_SHOW_OS_VERSION != 0 ]] && pver=" (${VER,,})"
 
-  p10k segment -f 172 -t "$(hostname -s) (${(L)VER})"
+  p10k segment -f "$hn_color" -t "$hn (${(L)VER})"
 }
 
 function prompt_smf_os_icon() {
