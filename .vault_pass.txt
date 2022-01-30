@@ -1,3 +1,3 @@
 #!/bin/sh
 
-"$HOME/.epass.sh" bitwarden.farley.io
+/usr/bin/security find-internet-password -w -a sean@farley.io -s bitwarden.farley.io
