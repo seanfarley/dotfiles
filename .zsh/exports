@@ -25,6 +25,8 @@ export GOPATH=$PROJECTS/go
 # sweet, sweet emacs
 export EMACS_SERVER_FILE=$HOME/.emacs.d/server/server
 
+export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/.vault_pass.txt
+
 # if we're not on our home machine, then set tramp
 if [[ $HOME != /Users/$USER ]]; then
     EMACSCLIENT_TRAMP="/ssh:$(hostname -f 2>/dev/null || hostname):"
