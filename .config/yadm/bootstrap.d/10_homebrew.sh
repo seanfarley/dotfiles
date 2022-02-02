@@ -59,7 +59,7 @@ cask "font-iosevka-nerd-font"
 cask "font-monoid-nerd-font"
 # ==================================== emacs ===================================
 brew "libvterm"
-brew "d12frosted/emacs-plus/emacs-plus@28", args: ["with-dbus", "with-elrumo1-icon", "with-native-comp", "with-xwidgets"]
+brew "d12frosted/emacs-plus/emacs-plus@28", args: ["with-dbus", "with-elrumo1-icon", "with-xwidgets"]
 # ==================================== casks ===================================
 cask "firefox"
 cask "firefox-developer-edition"
