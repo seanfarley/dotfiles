@@ -127,6 +127,23 @@ Add it to a hook like so:
       :stop-signal 'sigkill
       :kill-process-buffer-on-stop t)))
 
+(use-package! highlight-sexp
+  :hook ((lisp-mode . highlight-sexp-mode)
+         (emacs-lisp-mode . highlight-sexp-mode)
+         (ielm-mode . highlight-sexp-mode)
+         (scheme-mode . highlight-sexp-mode)
+         (racket-mode . highlight-sexp-mode)
+         (hy-mode . highlight-sexp-mode)
+         (lfe-mode . highlight-sexp-mode)
+         (dune-mode . highlight-sexp-mode)
+         (clojure-mode . highlight-sexp-mode)
+         (fennel-mode . highlight-sexp-mode))
+  :commands (highlight-sexp-mode)
+  :config
+  (setq hl-sexp-background-color (face-attribute
+                                  'magit-blame-highlight
+                                  :background)))
+
 ;; load personal modules
 (load! "+utils")
 (load! "+bindings")

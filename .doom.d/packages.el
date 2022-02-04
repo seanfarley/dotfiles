@@ -16,6 +16,8 @@
 (package! focus)
 (package! goto-chg)
 (package! grip-mode)
+(package! highlight-sexp :recipe (:host github
+                                  :repo "daimrod/highlight-sexp"))
 (package! ialign)
 (package! lice)
 (package! lsp-focus :recipe '(:host github :repo "emacs-lsp/lsp-focus"))
