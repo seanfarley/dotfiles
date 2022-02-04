@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Looking for more settings? See here,
+# https://macos-defaults.com
+
 system_type=$(uname -s)
 is_sudo=$(sh -c "sudo -vn 2>&1 && echo password" | grep -c password)
 
