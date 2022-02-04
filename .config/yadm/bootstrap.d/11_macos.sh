@@ -286,6 +286,20 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # Stop iTunes from responding to the keyboard media keys
     #launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
 
+    # defaults write NSGlobalDomain AppleLanguages -array "en-US" "zh-Hans-US"
+    # defaults write NSGlobalDomain NSLinguisticDataAssetsRequested -array en zh "zh_Hans"
+    # defaults write com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID -string "com.apple.keylayout.USExtended"
+    # defaults write com.apple.HIToolbox AppleEnabledInputSources -array \
+    #     '{"Bundle ID"="com.apple.CharacterPaletteIM";InputSourceKind="Non Keyboard Input Method";}' \
+    #     '{"Bundle ID"="com.apple.inputmethod.EmojiFunctionRowItem";InputSourceKind = "Non Keyboard Input Method";}' \
+    #     '{InputSourceKind="Keyboard Layout";"KeyboardLayout ID"="-2";"KeyboardLayout Name"="US Extended";}'
+    # defaults write com.apple.HIToolbox AppleInputSourceHistory -array \
+    #     '{"InputSourceKind=Keyboard Layout";"KeyboardLayout ID"="-2";"KeyboardLayout Name"="US Extended";}'
+    # defaults write com.apple.HIToolbox AppleSelectedInputSources -array \
+    #     '{"Bundle ID"="com.apple.inputmethod.EmojiFunctionRowItem";InputSourceKind="Non Keyboard Input Method";}' \
+    #     '{InputSourceKind="Keyboard Layout";"KeyboardLayout ID"="-2";"KeyboardLayout Name"="US Extended";}'
+    # defaults write com.apple.TextInputMenu visible -bool true
+
     ###############################################################################
     # Energy saving                                                               #
     ###############################################################################
