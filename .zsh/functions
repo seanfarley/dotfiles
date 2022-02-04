@@ -119,3 +119,26 @@ backup-home () {
     $HOME/ $1
   cd -
 }
+
+defaults-read-filter () {
+  defaults read | \
+    grep -v _DKThrottledActivityLast_ | \
+    grep -v NSPreferencesContentSize | \
+    grep -v NSPreferencesSelectedIndex | \
+    grep -v "NSWindow Frame Preferences" | \
+    grep -v SPMessageTracingWindow | \
+    grep -v "Last Metrics Upload Date" | \
+    grep -v currencyCacheRefreshDate | \
+    grep -v CKStartupTime | \
+    grep -v HashManager-Last | \
+    grep -v "Age = " | \
+    grep -v com.apple.geo.analytics | \
+    grep -v engagementCount-com.apple.Spotlight | \
+    grep -v "startTime = " | \
+    grep -v "NSStatusItem .* Item" | \
+    grep -v "Last .* Date" | \
+    grep -v currencyCacheRefreshDate | \
+    grep -v CKStartupTime | \
+    grep -v com.apple.geo.analytics | \
+    grep -v "NSWindow Frame Main Window Frame SystemPreferencesApp"
+}
