@@ -6,15 +6,51 @@ in this repo as much as possible by upstreaming my settings.
 OS targets are =MacOS= and =Linux=. Ideally, I'd just be running Emacs as my OS
 :-)
 
-** Ensure secrets are setup
+** Main laptop setup
+A majority of my workflow assumes one main laptop with everything else being
+remote. For instance, this means that only one machine has my password manager,
+ssh-keys, emacs (since we're using =TRAMP=), etc.
 
-This is only needed for our main machine. All other hosts should not have access
-to our bitwarden vault.
+For this reason, there are some bootstrapping steps that are only needed for
+this main laptop setup: graphical desktop, UI settings, and cloud syncing.
 
+*** Initialize MacOS
+
+- Sign into App Store
+- Install any OS updates
+
+Optionally, remove Terminal's preference file so yadm can do a clean checkout
+
+#+begin_src
+rm ~/Library/Preferences/com.apple.Terminal.plist
+#+end_src
+
+*** Bootstrap password manager
+
+Ensure permissions are granted to terminal,
 #+begin_src
 /usr/bin/security find-internet-password -w -a sean@farley.io -s bitwarden.farley.io
 #+end_src
 
+Due to a catch-22 with using bitwarden and two-factor authentication, we need to
+login first, which means installing the bitwarden cli (and homebrew),
+
+#+begin_src
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install bitwarden-cli
+bw config server "https://bitwarden.farley.io"
+bw login sean@farley.io "$(/usr/bin/security find-internet-password -w -a sean@farley.io -s bitwarden.farley.io)"
+#+end_src
+
+*** Post-install
+Now, we can build doom,
+
+#+begin_src
+z doom
+bin/doom sync
+#+end_src
+
+After installing doom, you'll need to install =all-the-icons=.
 ** Bootstrap yadm
 
 #+begin_src
@@ -22,10 +58,6 @@ git clone https://github.com/TheLocehiliosan/yadm.git ~/.local/share/yadm-projec
 mkdir -p ~/.local/bin
 ln -s ~/.local/share/yadm-project/yadm ~/.local/bin/yadm
 #+end_src
-
-This might fail on a fresh install of MacOS since the command-line tools need to
-be installed. That's fine. You should be prompted to install them and then can
-re-run this command.
 
 ** Initialize yadm
 
