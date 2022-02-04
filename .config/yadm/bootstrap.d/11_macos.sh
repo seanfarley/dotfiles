@@ -63,6 +63,8 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # Set highlight color to green
     #defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600"
 
+    defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool true
+
     # only show airport, battery, and clock
     defaults write com.apple.systemuiserver menuExtras -array \
         "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
