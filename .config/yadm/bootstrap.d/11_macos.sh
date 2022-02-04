@@ -685,6 +685,9 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # Enable “Do Not Track”
     defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
 
+    # Disable "safe" web ads
+    defaults write com.apple.Safari WebKitPreferences.privateClickMeasurementEnabled -bool false
+
     # Update extensions automatically
     defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
 
