@@ -101,3 +101,21 @@ clear-to-bottom () {
     builtin zle -R
     builtin echoti cnorm >&$TTY
 }
+
+backup-home () {
+  # need to change to home so that the exclude paths match
+  cd "$HOME"
+  echo "Don't forget to grant full-disk access to emacs, terminal, rsync, etc"
+  echo "https://apple.stackexchange.com/questions/375383/rsync-in-cron-on-catalina-no-longer-working"
+  echo "Backing up to $1"
+  rsync -avlPogAX --delete \
+    --exclude Library/Caches/ \
+    --exclude Library/Containers \
+    --exclude Library/Developer \
+    --exclude Library/Python \
+    --exclude Library/VirtualBox \
+    --exclude Library/VoiceTrigger \
+    --exclude "Library/Saved Application State" \
+    $HOME/ $1
+  cd -
+}
