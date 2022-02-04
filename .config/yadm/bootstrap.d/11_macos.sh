@@ -691,6 +691,11 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # Update extensions automatically
     defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
 
+    # switch to duckduckgo search enginge
+    defaults write NSGlobalDomain NSPreferredWebServices -dict \
+        NSPreferredWebServices '{NSDefaultDisplayName=DuckDuckGo;NSProviderIdentifier="com.duckduckgo";}'
+    defaults write com.apple.Safari SearchProviderShortName DuckDuckGo
+
     ###############################################################################
     # Mail                                                                        #
     ###############################################################################
