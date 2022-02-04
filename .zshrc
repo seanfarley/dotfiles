@@ -28,6 +28,9 @@ setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
 setopt inc_append_history
 
+# allows comments in the command line
+setopt interactivecomments
+
 # activate z
 source ~/.cache/zsh-z/zsh-z.plugin.zsh
 
