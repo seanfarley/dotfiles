@@ -20,6 +20,7 @@ this main laptop setup: graphical desktop, UI settings, and cloud syncing.
   + Remove Apple's default contact card
   + Uncheck syncing with contacts, calendars, and mail
   + Re-enable our self-hosted syncing
+  + Select personal card to make user default
 - Install any OS updates
 
 Optionally, remove Terminal's preference file so yadm can do a clean checkout
