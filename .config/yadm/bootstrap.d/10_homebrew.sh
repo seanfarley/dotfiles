@@ -90,4 +90,9 @@ osascript -e 'tell application "System Events" to make login item at end with pr
 # start nextcloud at login
 osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Nextcloud.app", hidden:false}' &> /dev/null
 
+# open so that we can grant permissions
+open -a Karabiner-Elements
+open -a Stats
+open -a Hammerspoon
+
 fi
