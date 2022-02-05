@@ -60,6 +60,9 @@ ln -s ~/.local/share/yadm-project/yadm ~/.local/bin/yadm
 #+end_src
 
 ** Emacs
+For our main laptop, we need to make sure *Emacs has full-disk access* so that
+it can access homebrew libraries, download folder, etc.
+
 Now, we can build [[http://github.com/hlissner/doom-emacs][doom]],
 
 #+begin_src
