@@ -347,6 +347,8 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # Screen                                                                      #
     ###############################################################################
 
+    open /System/Library/PreferencePanes/Profiles.prefPane "$HOME/.config/yadm/bootstrap.d/askforpassword.mobileconfig"
+
     # disable screensaver
     defaults -currentHost write com.apple.screensaver idleTime 0
 
