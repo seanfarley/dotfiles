@@ -10,15 +10,15 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
 
     # a poor attempt to skip setting this if we're reasonable sure they've been
     # applied already
-    if [ $(defaults read com.apple.menuextra.battery ShowPercent) -eq 1 ] && \
-        [ $(defaults read NSGlobalDomain NSAutomaticSpellingCorrectionEnabled) -eq 0 ] && \
-        [ $(defaults read NSGlobalDomain InitialKeyRepeat) -eq 20 ] && \
-        [ $(defaults -currentHost read com.apple.screensaver idleTime) -eq 0 ] && \
-        [ $(defaults read com.apple.finder ShowPathbar) -eq 1 ] && \
-        [ $(defaults read com.apple.finder FXPreferredViewStyle) == "clmv" ] && \
-        [ $(defaults read com.apple.finder EmptyTrashSecurely) -eq 0 ] && \
-        [ $(defaults read com.apple.dock autohide-delay) -eq 0 ] && \
-        [ $(defaults -currentHost read com.apple.ImageCapture disableHotPlug) -eq 1 ]; then
+    if [ "$(defaults read com.apple.menuextra.battery ShowPercent)" -eq 1 ] && \
+        [ "$(defaults read NSGlobalDomain NSAutomaticSpellingCorrectionEnabled)" -eq 0 ] && \
+        [ "$(defaults read NSGlobalDomain InitialKeyRepeat)" -eq 20 ] && \
+        [ "$(defaults -currentHost read com.apple.screensaver idleTime)" -eq 0 ] && \
+        [ "$(defaults read com.apple.finder ShowPathbar)" -eq 1 ] && \
+        [ "$(defaults read com.apple.finder FXPreferredViewStyle)" == "clmv" ] && \
+        [ "$(defaults read com.apple.finder EmptyTrashSecurely)" -eq 0 ] && \
+        [ "$(defaults read com.apple.dock autohide-delay)" -eq 0 ] && \
+        [ "$(defaults -currentHost read com.apple.ImageCapture disableHotPlug)" -eq 1 ]; then
         echo "Not applying macos settings since they seem to be applied already"
         exit 0
     fi
