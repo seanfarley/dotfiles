@@ -44,6 +44,7 @@ path=(
     ~/.local/bin
     ~/.npm-packages/bin
     ~/Library/Python/3.9/bin
+    ~/.gem/ruby/2.6.0/bin
     /usr/local/bin
     /usr/local/sbin
     /usr/sbin
