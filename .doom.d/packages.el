@@ -23,7 +23,6 @@
 (package! lsp-focus :recipe '(:host github :repo "emacs-lsp/lsp-focus"))
 (package! lsp-origami)
 (package! lsp-treemacs)
-(package! mu4e-alert)
 (package! message-view-patch)
 (package! nerd-font :recipe '(:host github :repo "twlz0ne/nerd-fonts.el"))
 (package! org-bars :recipe '(:host github
