@@ -128,7 +128,7 @@
        ;;agda              ; types of types of types of types...
        ;;beancount         ; mind the GAAP
        (cc +lsp)           ; C/C++/Obj-C madness
-       (clojure +lsp)      ; java with a lisp
+       ;;(clojure +lsp)      ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
@@ -185,9 +185,9 @@
         +cython
         +lsp)
        ;;qt                ; the 'cutest' gui framework ever
-       (racket           ; a DSL for DSLs
-        +lsp
-        +xp)
+       ;;(racket           ; a DSL for DSLs
+       ;; +lsp
+       ;; +xp)
        ;;raku              ; the artist formerly known as perl6
        rest              ; Emacs as a REST client
        rst               ; ReST in peace
