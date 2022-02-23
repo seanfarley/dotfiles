@@ -21,8 +21,6 @@
 (package! lsp-treemacs)
 (package! message-view-patch)
 (package! nerd-font :recipe '(:host github :repo "twlz0ne/nerd-fonts.el"))
-(package! org-bars :recipe '(:host github
-                             :repo "tonyaldon/org-bars"))
 (package! org-link-minor-mode :recipe '(:host github
                                         :repo "seanohalpin/org-link-minor-mode"))
 (package! org-noter-pdftools)
