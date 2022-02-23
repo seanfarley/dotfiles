@@ -3,6 +3,25 @@
 ;; needs to be set before org loads
 (setq org-directory "~/Nextcloud/org/")
 
+;; NOTE this adds a latex-macros block to org-mode and is useful to copy to a
+;; project's .dir-locals.el
+;; ((nil . ((eval . (progn
+;;                    (add-to-list 'org-src-lang-modes '("latex-macros" . latex))
+;;                    (defvar org-babel-default-header-args:latex-macros
+;;                      '((:results . "raw")
+;;                        (:exports . "results")))
+;;                    (defun prefix-all-lines (pre body)
+;;                      (with-temp-buffer
+;;                        (insert body)
+;;                        (string-insert-rectangle (point-min) (point-max) pre)
+;;                        (buffer-string)))
+;;                    (defun org-babel-execute:latex-macros (body _params)
+;;                      (concat
+;;                       (prefix-all-lines "#+LATEX_HEADER: " body)
+;;                       "\n#+HTML_HEAD_EXTRA: <div style=\"display: none\"> \\(\n"
+;;                       (prefix-all-lines "#+HTML_HEAD_EXTRA: " body)
+;;                       "\n#+HTML_HEAD_EXTRA: \\)</div>\n")))))))
+
 (after! org
   ;; icons used to be here but they caused line height problems
 
