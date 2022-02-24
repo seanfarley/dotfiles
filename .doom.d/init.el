@@ -25,10 +25,9 @@
         +childframe)
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy              ; a search engine for love and life
+       (vertico          ; a search engine for love and life
         +childframe      ; modern popup ui
-        +icons           ; pretty icons in buffer lists
-        +prescient)      ; frequency filtering and sorting
+        +icons)          ; pretty icons in buffer lists
 
        :ui
        deft              ; notational velocity for Emacs
