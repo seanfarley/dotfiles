@@ -29,6 +29,7 @@
 
 ;; keep persp names in order of most recently used
 (after! persp-mode
+  (set-fontset-font t 'unicode "Apple Color Emoji" nil 'append)
   (add-hook 'persp-before-switch-functions
             #'(lambda (new-persp-name w-or-f)
                 (let ((cur-persp-name (safe-persp-name (get-current-persp))))
