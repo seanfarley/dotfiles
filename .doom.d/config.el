@@ -155,7 +155,6 @@ Add it to a hook like so:
 (load! "+ui")
 (load! "+vterm")
 (load! "+ansible")
-(load! "+mpd")
 (load! "+yadm")
 
 ;; TODO don't know where to put this? ui?
