@@ -25,8 +25,6 @@
                                         :repo "seanohalpin/org-link-minor-mode"))
 (package! org-noter-pdftools)
 (package! org-recent-headings)
-(package! org-ref)
-(package! org-ref-prettify)
 (package! org-roam-bibtex)
 (package! org-sidebar)
 (package! org-web-tools)

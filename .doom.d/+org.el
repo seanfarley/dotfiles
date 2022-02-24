@@ -176,7 +176,6 @@
 
   ;; also, let's turn on auto-fill-mode
   (add-hook! org-mode
-             #'org-ref-prettify-mode
              #'auto-fill-mode))
 
 (defun smf/org-capture-finalize ()
@@ -198,13 +197,15 @@
   (unless (get-buffer "*Org Agenda(t)*")
     (org-todo-list)))
 
-;=================================== org-ref ===================================
+;==================================== bibtex ===================================
 
 (setq bibtex-completion-bibliography '("~/Nextcloud/refs/master.bib")
       bibtex-completion-library-path '("~/Nextcloud/refs/pdfs")
       bibtex-completion-additional-search-fields '(keywords tags)
       bibtex-completion-notes-path "~/Nextcloud/refs/notes/"
       bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n")
+
+(setq citar-bibliography bibtex-completion-bibliography)
 
 ;============================== org-noter-pdftools =============================
 
