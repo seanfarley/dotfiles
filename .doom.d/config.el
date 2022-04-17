@@ -144,6 +144,9 @@ Add it to a hook like so:
                                   'magit-blame-highlight
                                   :background)))
 
+(after! vundo
+    (setq vundo-glyph-alist vundo-unicode-symbols))
+
 ;; load personal modules
 (load! "+utils")
 (load! "+bindings")
