@@ -3,7 +3,7 @@
 bindkey undo Ctrl+/
 bindkey redo Option+/
 
-bindkey backward-kill-space-word Ctrl+W
+bindkey '^W' backward-kill-space-word
 bindkey "^u" backward-kill-line
 
 bindkey "^L" clear-to-bottom
