@@ -1,3 +1,5 @@
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
 zstyle ':filter-select:highlight' matched fg=yellow,standout
 zstyle ':filter-select' max-lines 10 # use 10 lines for filter-select
 zstyle ':filter-select' max-lines -10 # use $LINES - 10 for filter-select
