@@ -178,7 +178,7 @@
         ;; if it does not then call the default tab completion
         (message-tab)
       ;; otherwise move the point forward to the message body
-      (forward-line 2)))
+      (forward-line 3)))
 
   (add-hook 'mu4e-compose-mode-hook
             (lambda () (local-set-key (kbd "TAB") #'smf/mu4e-tab-subject)))
