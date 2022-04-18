@@ -1,3 +1,9 @@
+# special treatment for exported variables so that paths and whatnot can be
+# found
+autoload -Uz compinit
+compinit
+source ~/.zsh/exports
+
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
 zstyle ':filter-select:highlight' matched fg=yellow,standout
@@ -36,8 +42,6 @@ setopt interactivecomments
 # activate z
 source ~/.cache/zsh-z/zsh-z.plugin.zsh
 
-autoload -Uz compinit
-compinit
 zstyle ':completion:*' menu select
 
 printf '\n%.0s' {1..100}
@@ -48,7 +52,6 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zaw/zaw.zsh
 
 source ~/.zsh/init
-source ~/.zsh/exports
 source ~/.zsh/functions
 source ~/.zsh/aliases
 source ~/.zsh/prompt
