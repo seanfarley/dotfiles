@@ -28,11 +28,6 @@
 
   ;; python stuff
 
-  ;; lsp-python-ms (or rather the ms-python server) doesn't use other backends,
-  ;; so manually set `flycheck-checker' in `python-mode'
-  (add-hook! lsp-mode (when (derived-mode-p 'python-mode)
-                        (setq-local flycheck-checker 'python-flake8)))
-
   (add-hook! lsp-mode #'lsp-headerline-breadcrumb-mode)
 
   (let* ((ans-dir "/usr/local/Cellar/ansible/")
