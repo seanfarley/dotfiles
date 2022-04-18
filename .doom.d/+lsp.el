@@ -9,7 +9,7 @@
   ;; never seems to work for me; always hangs with a reentrant error (and recent
   ;; lsp-mode commits don't fix it); so just set to a bogus executable
   (lsp-register-client
-    (make-lsp-client :new-connection (lsp-tramp-connection "foo-bar-exist")
+    (make-lsp-client :new-connection (lsp-tramp-connection "pylsp")
                      :major-modes '(python-mode)
                      :remote? t
                      :server-id 'pyls-remote))
