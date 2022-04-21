@@ -47,6 +47,7 @@ path=(
     ~/.gem/ruby/2.6.0/bin
     /usr/local/bin
     /usr/local/sbin
+    /usr/local/cuda/bin
     /usr/sbin
     /sbin
     /Library/TeX/texbin
