@@ -301,11 +301,11 @@
 
   ;============================ monkey-patch `=mu4e' ===========================
 
-  (defun smf/mu4e (orig-func &rest args)
-    "Switch to *mu4e* workspace or start it."
+  (defun smf/mu4e (orig-fn)
+    "Switch to *mu4e* workspace or start it.
     (if (+workspace-exists-p +mu4e-workspace-name)
         (+workspace-switch +mu4e-workspace-name)
-      (apply orig-func args)))
+      (funcall orig-fn)))
 
   (advice-add #'=mu4e :around #'smf/mu4e)
 
