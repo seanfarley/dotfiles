@@ -82,12 +82,12 @@
  ;; custom methods
  "C-M-d"                             #'smf/delete-to-end-of-buffer
  (:map whole-line-or-region-local-mode-map
-   ;; behave more like the terminal
-   "C-w"                             (lambda ()
-                                       (interactive)
-                                       (if (not (eq major-mode 'vterm-mode))
-                                           (smf/backward-kill-word)
-                                         (vterm--self-insert))))
+  ;; behave more like the terminal
+  "C-w"                             (lambda ()
+                                      (interactive)
+                                      (if (not (eq major-mode 'vterm-mode))
+                                          (smf/backward-kill-word)
+                                        (vterm--self-insert))))
 
  ;; common typo for me
  "C-x C-b"                           #'persp-switch-to-buffer
@@ -131,9 +131,9 @@
 
  ;; company
  (:after company
-        (:map company-active-map
-        [C-tab]      nil
-        [tab]        nil))
+  (:map company-active-map
+   [C-tab]      nil
+   [tab]        nil))
 
  ;; flyspell
  (:after flyspell
