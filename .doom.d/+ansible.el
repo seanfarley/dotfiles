@@ -62,13 +62,12 @@ the 'main' one.")
   (let ((default-directory (projectile-project-root))
         (cmd (list "ansible-playbook" "--tags" role
                    (if ansible-vault-password-file
-                       (concat "--vault-password-file=" ansible-vault-password-file)
-                     "")
-                   (concat (projectile-project-root) "/" ansible-playbook-file))))
+                       (concat "--vault-password-file=" ansible-vault-password-file))
+                   (concat (projectile-project-root) ansible-playbook-file))))
     (make-process :name "ansible-playbook"
                   :buffer ansible-process-buffer
                   :connection-type 'pipe
-                  :command cmd
+                  :command (cl-remove-if #'null cmd)
                   :filter #'smf/ansible-proc-filter)))
 
 (defun smf/role-from-dir-name (buffer)
