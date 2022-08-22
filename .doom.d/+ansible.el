@@ -58,10 +58,6 @@ the 'main' one.")
                (match-string 6 str)
                (match-string 7 str)))))
 
-
-(after! ansible
-  (setq ansible-vault-password-file nil))
-
 (defun smf/spawn-ansible (role)
   (let ((default-directory (projectile-project-root))
         (cmd (list "ansible-playbook" "--tags" role
@@ -105,13 +101,15 @@ the 'main' one.")
         (message "Ansible: couldn't determine role")
       (smf/spawn-ansible role))))
 
-
-(map!
-  (:map ansible-key-map
-    "C-c C-c"  #'smf/run-ansible))
-
 (defun ansible-docsets ()
   (interactive)
   (setq-local dash-docs-docsets '("Ansible")))
 
 (add-hook! +ansible-yaml-mode 'ansible-docsets)
+
+(after! ansible
+  (map!
+   (:map ansible-key-map
+    "C-c C-c"  #'smf/run-ansible))
+
+  (setq ansible-vault-password-file nil))
