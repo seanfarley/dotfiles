@@ -22,17 +22,6 @@
 
   ;;=============================== basic settings =============================
 
-  ;; (set-email-account! "farley.io"
-  ;; '((user-mail-address      . "sean@farley.io")
-  ;;   (smtpmail-smtp-user     . "sean@farley.io")
-  ;;   (smtpmail-smtp-server   . "mail.farley.io"))
-  ;; t)
-
-  ;; (set-email-account! "iit.edu"
-  ;; '((user-mail-address      . "sfarley@hawk.iit.edu")
-  ;;   (smtpmail-smtp-user     . "sfarley@hawk.iit.edu")
-  ;;   (smtpmail-smtp-server   . "smtp.gmail.com")))
-
   (defun smf/iit-context-p (msg)
     "Determin is MSG is from/to my IIT address."
     (when msg
