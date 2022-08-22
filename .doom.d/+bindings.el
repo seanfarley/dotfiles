@@ -129,6 +129,12 @@
    "M-<left>"                      nil
    "C-M-d"                         nil))
 
+ ;; lispy
+ (:after lispy
+  (:map lispy-mode-map-lispy
+   "M-<right>"                     nil
+   "M-<left>"                      nil))
+
  ;; company
  (:after company
   (:map company-active-map
