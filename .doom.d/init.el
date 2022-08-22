@@ -120,6 +120,7 @@
        taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
+       tree-sitter       ; syntax and parsing, sitting in a tree...
        upload            ; map local to remote projects via ssh/ftp
 
        :os
@@ -129,7 +130,9 @@
        :lang
        ;;agda              ; types of types of types of types...
        ;;beancount         ; mind the GAAP
-       (cc +lsp)           ; C/C++/Obj-C madness
+       (cc               ; C/C++/Obj-C madness
+        +lsp
+        +tree-sitter)
        ;;(clojure +lsp)      ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
@@ -153,7 +156,9 @@
        ;;idris             ; a language you can depend on
        json              ; At least it ain't XML
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
-       (javascript +lsp) ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript       ; all(hope(abandon(ye(who(enter(here))))))
+        +lsp
+        +tree-sitter)
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
        (latex            ; writing papers in Emacs has never been so fun
@@ -186,7 +191,8 @@
        ;;purescript        ; javascript, but functional
        (python           ; beautiful is better than ugly
         +cython
-        +lsp)
+        +lsp
+        +tree-sitter)
        ;;qt                ; the 'cutest' gui framework ever
        ;;(racket           ; a DSL for DSLs
        ;; +lsp
@@ -201,7 +207,9 @@
        sh                ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
        ;;solidity          ; do you need a blockchain? No.
-       (swift +lsp)      ; who asked for emoji variables?
+       (swift            ; who asked for emoji variables?
+        +lsp
+        +tree-sitter)
        ;;terra             ; Earth and Moon in alignment for performance.
        web               ; the tubes
        yaml              ; JSON, but readable

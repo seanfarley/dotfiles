@@ -41,8 +41,6 @@
 (package! srefactor)
 (package! ssh-config-mode)
 (package! sx)
-(package! tree-sitter)
-(package! tree-sitter-langs)
 (package! twauctex :recipe '(:host github :repo "jeeger/twauctex"))
 (package! unfill)
 (package! valign :recipe (:host github :repo "casouri/valign"))
