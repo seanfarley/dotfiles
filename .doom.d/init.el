@@ -159,7 +159,8 @@
        (latex            ; writing papers in Emacs has never been so fun
         +latexmk
         +cdlatex
-        +fold)
+        +fold
+        +lsp)
        ;;lean
        ;;ledger            ; an accounting system in Emacs
        lua               ; one-based indices? one-based indices
