@@ -14,6 +14,12 @@
                      :remote? t
                      :server-id 'pyls-remote))
 
+  (lsp-register-client
+    (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
+                     :major-modes '(cc-mode c++-mode)
+                     :remote? t
+                     :server-id 'cc-remote))
+
   (add-hook 'lsp-after-open-hook #'lsp-enable-imenu))
 
 (after! lsp-mode
