@@ -229,9 +229,9 @@
                  :prompt     "dtrash"
                  :show-target (lambda (target) mu4e-trash-folder)
                  :action      (lambda (docid msg target)
-                                (mu4e~proc-move docid
-                                                mu4e-trash-folder
-                                                "+S-u-N"))))
+                                (mu4e--server-move docid
+                                                   mu4e-trash-folder
+                                                   "+S-u-N"))))
 
   (add-to-list 'mu4e-marks
                '(archive
@@ -239,9 +239,9 @@
                  :prompt     "Archive"
                  :show-target (lambda (target) mu4e-refile-folder)
                  :action      (lambda (docid msg target)
-                                (mu4e~proc-move docid
-                                                mu4e-refile-folder
-                                                "+S-u-N"))))
+                                (mu4e--server-move docid
+                                                   mu4e-refile-folder
+                                                   "+S-u-N"))))
 
   (add-to-list 'mu4e-marks
                '(spam
@@ -249,7 +249,7 @@
                  :prompt     "Spam"
                  :show-target (lambda (target) "/Junk")
                  :action      (lambda (docid msg target)
-                                (mu4e~proc-move docid "/Junk" "+S-u-N"))))
+                                (mu4e--server-move docid "/Junk" "+S-u-N"))))
 
   (add-to-list 'mu4e-marks
                '(patch
