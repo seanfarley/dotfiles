@@ -41,6 +41,7 @@ fi
 export COPYFILE_DISABLE=true
 
 path=(
+    ~/.emacs.d/bin
     ~/.local/bin
     ~/.npm-packages/bin
     ~/Library/Python/3.9/bin
