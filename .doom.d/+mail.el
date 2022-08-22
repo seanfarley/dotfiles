@@ -303,6 +303,13 @@
 
   (defun smf/mu4e (orig-fn)
     "Switch to *mu4e* workspace or start it.
+
+Note: a version of this was implemented to try to circumvent the
+error of when a buffer from another perspective accidentally ends
+up in mu4e's workspace. This means that switching to the mu4e
+workspace would bring up that random buffer instead of mu4e-main.
+It was non-trivial to get the first buffer in a workspace before
+switching to it. More thought is required."
     (if (+workspace-exists-p +mu4e-workspace-name)
         (+workspace-switch +mu4e-workspace-name)
       (funcall orig-fn)))
