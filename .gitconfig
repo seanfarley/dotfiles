@@ -84,3 +84,7 @@
 	user = seanfarley
 [init]
 	defaultBranch = main
+[gitlab]
+	user = seanfarley
+[gitlab "gitlab.com/api"]
+	user = seanfarley
