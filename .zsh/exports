@@ -67,6 +67,8 @@ if type brew &>/dev/null; then
     fpath+=$(brew --prefix)/share/zsh-completions
 fi
 
+# homebrew
+export HOMEBREW_NO_AUTO_UPDATE=1
 # z.sh / auto jump
 ZSHZ_TILDE=1
 ZSHZ_KEEP_DIRS=1
