@@ -65,16 +65,6 @@
    smtpmail-smtp-service        587
    send-mail-function           #'smtpmail-send-it
 
-   ;; mu4e-personal-addresses '("sean@farley.io"
-   ;;                           ;; "sean.michael.farley@gmail.com"
-   ;;                           ;; "sean@seanfarley.org"
-   ;;                           ;; "sean@mcs.anl.gov"
-   ;;                           ;; "sean@macports.org"
-   ;;                           ;; "sean@lsmsa.net"
-   ;;                           ;; "sfarley@atlassian.com"
-   ;;                           "sfarley@iit.edu"
-   ;;                           "sfarley@hawk.iit.edu")
-
    mu4e-attachment-dir "~/Downloads"
    mu4e-drafts-folder  "/Drafts"
    mu4e-refile-folder  "/Archive"
