@@ -34,10 +34,9 @@ the 'main' one.")
   (let ((str (s-trim str)))
     (when (string-match "^ERROR" str)
       (let* ((name (if (buffer-live-p (process-buffer proc))
-                       (buffer-name (process-buffer))))
-             (msg (if name
-                      (format "Error (see the %s buffer): " name)))))
-      (message (concat msg str)))
+                       (buffer-name (process-buffer proc))))
+             (msg (format "Error (see the %s buffer): " name)))
+        (message (concat msg str))))
     (when (string-match "^TASK \\[\\(.+\\)\\]" str)
       (message (match-string 1 str)))
     (when (string-match (concat "^.+: ok=\\([0-9]+\\)\\s-+"
