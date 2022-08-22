@@ -138,7 +138,7 @@
          (list :name "PhD"
                :query (concat "((maildir:/phd AND flag:unread "
                               "  AND NOT flag:trashed) "
-                              " OR from:xiaofan) AND date:2y..")
+                              " OR from:xiaofan) AND date:2m..")
                :key ?p)
          (list :name "Sent in the last week"
                :query "maildir:/sent AND date:1w..now"
