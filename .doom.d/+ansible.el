@@ -75,7 +75,6 @@ the 'main' one.")
                   :command cmd
                   :filter #'smf/ansible-proc-filter)))
 
-
 (defun smf/role-from-dir-name (buffer)
   (when buffer-file-name
     (with-current-buffer buffer
@@ -87,7 +86,6 @@ the 'main' one.")
                      (file-name-directory dir))))
         (match-string 1 dir)))))
 
-
 (defun smf/role-from-buffer ()
   (save-excursion
     (end-of-visual-line)
@@ -95,7 +93,6 @@ the 'main' one.")
     ;; server.yml file
     (re-search-forward "^.*- role: \\(.+\\)" nil t -1)
     (match-string-no-properties 1)))
-
 
 (defun smf/run-ansible ()
   (interactive)
