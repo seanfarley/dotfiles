@@ -26,6 +26,7 @@
   (setq lsp-pylsp-configuration-sources ["flake8"]
         lsp-pylsp-plugins-pylint-enabled nil
         lsp-pylsp-plugins-flake8-enabled t
+        lsp-pylsp-plugins-mccabe-enabled nil
         lsp-pylsp-plugins-pydocstyle-enabled nil
         lsp-pylsp-plugins-pycodestyle-enabled nil
         lsp-signature-auto-activate nil
