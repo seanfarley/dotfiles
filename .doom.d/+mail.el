@@ -25,8 +25,8 @@
   (defun smf/iit-context-p (msg)
     "Determin is MSG is from/to my IIT address."
     (when msg
-       (mu4e-message-contact-field-matches
-        msg '(:to :from) "@.*iit.edu")))
+      (mu4e-message-contact-field-matches
+       msg '(:to :from) "@.*iit.edu")))
 
   ;; `set-email-account!' doesn't accept a custom match-func so we have to duplicate what it does
   (setq
@@ -314,8 +314,8 @@ switching to it. More thought is required."
    ;; TODO add global menu item C-c M U for updating
    "C-c M U" #'smf/mu4e-update-and-index
    (:map mu4e-main-mode-map
-     "U"                          #'smf/mu4e-update-and-index)
+    "U"                          #'smf/mu4e-update-and-index)
    (:map (mu4e-view-mode-map mu4e-headers-mode-map)
-     ;; too common for me
-     "M-<right>"                  nil
-     "M-<left>"                   nil)))
+    ;; too common for me
+    "M-<right>"                  nil
+    "M-<left>"                   nil)))
