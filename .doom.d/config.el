@@ -14,8 +14,11 @@
 
 (setq projectile-project-search-path (list "~/projects/"))
 
-(defmacro smf/bitwarden-init ()
-  "Needs to be a macro due to async.
+(use-package! bitwarden
+  :defer 1.5
+  :init
+  (defmacro smf/bitwarden-init ()
+    "Needs to be a macro due to async.
 
 Async doesn't load your entire config (for performance reasons)
 so this needs to be a macro and added to async hooks.
@@ -23,22 +26,22 @@ so this needs to be a macro and added to async hooks.
 Add it to a hook like so:
   (add-hook 'doom-modeline-before-github-fetch-notification-hook
             (lambda () (smf/bitwarden-init)))"
-  `(progn
-     (require 'bitwarden nil t)
-     (setq bitwarden-user "sean@farley.io"
+    `(progn
+       (require 'bitwarden nil t)
+       (setq bitwarden-user "sean@farley.io"
 
-           bitwarden-automatic-unlock (let* ((auth-sources
-                                              '(macos-keychain-internet))
-                                             (matches (auth-source-search
-                                                       :user "sean@farley.io"
-                                                       :host "bitwarden.farley.io"
-                                                       :require '(:secret)
-                                                       :max 1))
-                                             (entry (nth 0 matches)))
-                                        (plist-get entry :secret)))
-     (bitwarden-auth-source-enable)))
+             bitwarden-automatic-unlock (let* ((auth-sources
+                                                '(macos-keychain-internet))
+                                               (matches (auth-source-search
+                                                         :user "sean@farley.io"
+                                                         :host "bitwarden.farley.io"
+                                                         :require '(:secret)
+                                                         :max 1))
+                                               (entry (nth 0 matches)))
+                                          (plist-get entry :secret)))
+       (bitwarden-auth-source-enable)))
 
-(smf/bitwarden-init)
+  (smf/bitwarden-init))
 
 ;; magit should use auth-source
 (add-hook 'magit-process-find-password-functions
