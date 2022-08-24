@@ -9,6 +9,7 @@
 (package! embrace)
 (package! emr)
 (package! fancy-narrow)
+(package! flycheck-eldev)
 (package! flycheck-package)
 (package! focus)
 (package! goto-chg)
