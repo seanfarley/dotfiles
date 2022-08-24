@@ -44,8 +44,6 @@ Add it to a hook like so:
 (add-hook 'magit-process-find-password-functions
           'magit-process-password-auth-source)
 
-(add-hook! artist-mode (display-line-numbers-mode -1))
-
 (add-to-list 'auto-mode-alist '("ssh/config\\'" . ssh-config-mode))
 (add-to-list 'auto-mode-alist '("private_readonly_config\\'" . ssh-config-mode))
 (add-hook! ssh-config-mode #'display-line-numbers-mode)
