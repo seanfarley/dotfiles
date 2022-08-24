@@ -101,7 +101,7 @@ Add it to a hook like so:
 (after! which-key-mode
   (which-key-posframe-mode))
 
-(add-hook! after-init
+(add-hook! doom-first-input
            #'fancy-narrow-mode
            #'global-dot-mode
            #'whole-line-or-region-global-mode
