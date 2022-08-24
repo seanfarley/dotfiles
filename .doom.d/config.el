@@ -144,7 +144,6 @@ Add it to a hook like so:
 (load! "+utils")
 (load! "+bindings")
 (load! "+org")
-(load! "+twitter")
 (load! "+mail")
 (load! "+modeline")
 (load! "+lsp")
