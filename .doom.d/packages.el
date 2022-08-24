@@ -32,8 +32,6 @@
 ;; (package! ox-report) ;; if I get back into contracting
 (package! package-lint)
 (package! page-break-lines)
-;; ugh, get rid of this pipenv shit
-(package! pipenv :disable t)
 (package! prog-fill)
 (package! resize-window)
 (package! simple-httpd)
