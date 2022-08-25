@@ -155,6 +155,11 @@
    ;; common typo for me with projectile
    "C-c C-p"                       nil))
 
+ ;; magit
+ (:after magit
+  (:map magit-status-mode-map
+   "C-6"                           #'magit-section-up))
+
  ;; unfill
  "M-Q"                               #'unfill-paragraph
 
