@@ -199,10 +199,10 @@
 
 ;==================================== bibtex ===================================
 
-(setq bibtex-completion-bibliography '("~/Nextcloud/refs/master.bib")
-      bibtex-completion-library-path '("~/Nextcloud/refs/pdfs")
+(setq bibtex-completion-bibliography `(,(expand-file-name "~/Nextcloud/refs/main.bib"))
+      bibtex-completion-library-path `(,(expand-file-name "~/Nextcloud/refs/pdfs"))
       bibtex-completion-additional-search-fields '(keywords tags)
-      bibtex-completion-notes-path "~/Nextcloud/refs/notes/"
+      bibtex-completion-notes-path (expand-file-name "~/Nextcloud/refs/notes/")
       bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n")
 
 (setq citar-bibliography bibtex-completion-bibliography)
