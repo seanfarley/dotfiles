@@ -41,7 +41,6 @@
 (package! twauctex :recipe '(:host github :repo "jeeger/twauctex"))
 (package! unfill)
 (package! valign :recipe (:host github :repo "casouri/valign"))
-(package! vundo :recipe (:host github :repo "casouri/vundo"))
 (package! webpaste)
 (package! whole-line-or-region)
 (package! which-key-posframe)
