@@ -122,6 +122,8 @@ Add it to a hook like so:
       :tags '(matrix)
       :stop-signal 'sigkill
       :kill-process-buffer-on-stop t)))
+;; ement.el
+(set-popup-rule! "^\\*[Ee]ment" :ignore t)
 
 (use-package! highlight-sexp
   :hook ((lisp-mode . highlight-sexp-mode)
