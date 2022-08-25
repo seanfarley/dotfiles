@@ -120,9 +120,10 @@ Add it to a hook like so:
          (lfe-mode . highlight-sexp-mode)
          (dune-mode . highlight-sexp-mode)
          (clojure-mode . highlight-sexp-mode)
-         (fennel-mode . highlight-sexp-mode))
-  :commands (highlight-sexp-mode)
-  :config
+         (fennel-mode . highlight-sexp-mode)))
+
+(after! highlight-sexp
+  (require 'magit)
   (setq hl-sexp-background-color (face-attribute
                                   'magit-blame-highlight
                                   :background)))
