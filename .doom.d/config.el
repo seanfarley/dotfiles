@@ -95,7 +95,6 @@ Add it to a hook like so:
 ;; TODO investigate django packages and incorporate them
 (add-hook! +web-django-mode (prettify-symbols-mode -1))
 
-(load-theme 'doom-nord t)
 (after! shr
   (setq shr-color-visible-luminance-min 80))
 

@@ -1,5 +1,7 @@
 ;;; ~/projects/dotfiles/doom/+ui.el -*- lexical-binding: t; -*-
 
+(setq doom-theme 'doom-nord)
+
 ;; optionally specifiy :weight 'light
 (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14)
       doom-unicode-font (font-spec :family "FiraCode Nerd Font" :size 14))
