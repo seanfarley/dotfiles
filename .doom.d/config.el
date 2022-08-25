@@ -101,9 +101,6 @@ Add it to a hook like so:
 
 (setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn)
 
-(after! which-key-mode
-  (which-key-posframe-mode))
-
 (add-hook! doom-first-input
            #'fancy-narrow-mode
            #'global-dot-mode
