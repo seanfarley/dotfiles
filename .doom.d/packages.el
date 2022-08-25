@@ -38,6 +38,8 @@
 (package! srefactor)
 (package! ssh-config-mode)
 (package! sx)
+(package! tramp-yadm :recipe (:local-repo "~/projects/tramp-yadm"
+                              :build (:not compile)))
 (package! twauctex :recipe '(:host github :repo "jeeger/twauctex"))
 (package! unfill)
 (package! valign :recipe (:host github :repo "casouri/valign"))
