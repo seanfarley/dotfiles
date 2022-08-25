@@ -110,21 +110,6 @@ Add it to a hook like so:
            #'whole-line-or-region-global-mode
            #'global-page-break-lines-mode)
 
-(after! prodigy
-  (let ((launchd-dbus (string-trim
-                       (shell-command-to-string
-                        "launchctl getenv DBUS_LAUNCHD_SESSION_BUS_SOCKET"))))
-    (prodigy-define-service
-      :name "Pantalaimon"
-      :command "pantalaimon"
-      :args `("-c" ,(expand-file-name "~/.config/pantalaimon/pantalaimon.conf"))
-      :env `(("DBUS_SESSION_BUS_ADDRESS" ,(concat "unix:path=" launchd-dbus)))
-      :tags '(matrix)
-      :stop-signal 'sigkill
-      :kill-process-buffer-on-stop t)))
-;; ement.el
-(set-popup-rule! "^\\*[Ee]ment" :ignore t)
-
 (use-package! highlight-sexp
   :hook ((lisp-mode . highlight-sexp-mode)
          (emacs-lisp-mode . highlight-sexp-mode)
