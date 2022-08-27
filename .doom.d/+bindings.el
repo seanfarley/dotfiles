@@ -19,10 +19,6 @@
                   (x x)))))
     (apply orig-fn args)))
 
-(after! projectile
-  ;; super common typo
-  (define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map))
-
 ;; on linux, I still want mac keybindings ^_^
 (when IS-LINUX
   (map! "s-`" #'other-frame  ; fix frame-switching
@@ -90,6 +86,9 @@
 
  ;; common typo for me
  "C-x C-b"                           #'persp-switch-to-buffer
+ (:after projectile
+  (:map projectile-mode-map
+   "C-c C-p"                       #'projectile-command-map))
 
  "C-s-<up>"                          #'windmove-up
  "C-s-<down>"                        #'windmove-down
