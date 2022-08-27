@@ -58,7 +58,6 @@
         :gi  [M-left]      #'backward-word
         :gi  [M-right]     #'forward-word))
 
-
 (map! :leader :desc "Undo tree" "U"  #'vundo)
 
 (map!
