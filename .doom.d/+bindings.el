@@ -93,7 +93,7 @@
                                          (smf/backward-kill-word)
                                        (vterm--self-insert))))
 
- ;; common typo for me
+ ;; common typos for me
  "C-x C-b"                         #'persp-switch-to-buffer
  (:after projectile
   (:map projectile-mode-map
