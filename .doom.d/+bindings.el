@@ -174,4 +174,29 @@
  "C-c c h"                         #'banner-comment
 
  ;; embrace
- "C-,"                             #'embrace-commander)
+ "C-,"                             #'embrace-commander
+
+ (:after org
+   (:map org-mode-map
+    ;; I use meta-arrow keys for navigation so let's stop org from
+    ;; using them to indent
+    "<M-S-left>"                   nil
+    "<M-left>"                     nil
+    "<M-right>"                    nil
+    ;; since I commonly mistype =C-c C-'= instead of =C-c '=, let's
+    ;; add that keybinding,
+    "C-c C-'"                      #'org-edit-special
+
+    ;; same as python
+    "C-c <"                        #'org-shiftmetaleft
+    "C-c >"                        #'org-shiftmetaright
+
+    ;; insert org-roam key (usually a link)
+    "C-c n r k"                    #'smf/org-roam-insert-key)
+
+   (:map org-src-mode-map
+    "C-c C-'"                      #'org-edit-src-exit
+    ;; I find it infuriating that my muscle memory =⌘+s= in
+    ;; =org-src-mode= will save the buffer as a new file. Instead,
+    ;; let's make it do the same thing as =C-c '=
+    "s-s"                          #'org-edit-src-exit)))
