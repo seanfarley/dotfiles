@@ -280,20 +280,28 @@
 
   ;============================ monkey-patch `=mu4e' ===========================
 
-  (defun smf/mu4e (orig-fn)
-    "Switch to *mu4e* workspace or start it.
-
-Note: a version of this was implemented to try to circumvent the
-error of when a buffer from another perspective accidentally ends
-up in mu4e's workspace. This means that switching to the mu4e
-workspace would bring up that random buffer instead of mu4e-main.
-It was non-trivial to get the first buffer in a workspace before
-switching to it. More thought is required."
+  ;; credit to yeet and lemonbreezes on doom discord
+  (defadvice! smf/mu4e (fun)
+    "Go back to the mu4e workspace if it exists, otherwise launch mu4e normally."
+    :around #'=mu4e
+    ;; if the workspace exists, switch to it
     (if (+workspace-exists-p +mu4e-workspace-name)
-        (+workspace-switch +mu4e-workspace-name)
-      (funcall orig-fn)))
-
-  (advice-add #'=mu4e :around #'smf/mu4e)
+        (progn (+workspace-switch +mu4e-workspace-name t)
+               ;; There is an edge case (thanks Sean)
+               ;; We check if the current major mode is one of the ones
+               ;; we relate to mu4e, if so we move on, if not we call `=mu4e'
+               (unless (seq-some (fn! (eq (buffer-local-value 'major-mode
+                                                              (window-buffer
+                                                               (selected-window)))
+                                          %1))
+                                 '(mu4e-main-mode
+                                   mu4e-headers-mode
+                                   mu4e-view-mode
+                                   mu4e-compose-mode
+                                   org-msg-edit-mode))
+                 (funcall fun)))
+      ;; otherwise funcall it normally
+      (funcall fun)))
 
   (defun smf/mu4e-update-and-index (&rest _)
     (interactive "P")
