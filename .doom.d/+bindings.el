@@ -121,7 +121,7 @@
    "C-M-d"                         #'sp-splice-sexp
    "C-M-k"                         #'sp-kill-sexp
    "C-M-t"                         #'sp-transpose-sexp
-   ;; TODO rethink these bindings
+   ;; prefer navigation over smartparens' defaults
    "C-<right>"                     nil
    "M-<right>"                     nil
    "C-<left>"                      nil
