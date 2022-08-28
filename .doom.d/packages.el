@@ -28,7 +28,6 @@
 (package! page-break-lines)
 (package! prog-fill)
 (package! resize-window)
-(package! simple-httpd)
 (package! sphinx-doc)
 (package! srefactor)
 (package! ssh-config-mode)
