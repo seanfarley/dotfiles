@@ -131,6 +131,12 @@
                  (file+headline +org-capture-todo-file "Inbox")
                  "* TODO %?\n%i\n%a" :prepend t))
 
+  (add-to-list 'org-latex-packages-alist '("" "tikz" t))
+
+  (eval-after-load "preview"
+    '(add-to-list 'preview-default-preamble
+                  "\\PreviewEnvironment{tikzpicture}" t))
+
   ;; auto save all org files after doing a common action
   (advice-add 'org-agenda-quit      :before #'org-save-all-org-buffers)
   ;; (advice-add 'org-agenda-schedule  :after #'org-save-all-org-buffers)
