@@ -170,9 +170,6 @@
  ;; unfill
  "M-Q"                             #'unfill-paragraph
 
- ;; banner-comment
- "C-c c h"                         #'banner-comment
-
  (:after org
    (:map org-mode-map
     ;; I use meta-arrow keys for navigation so let's stop org from
