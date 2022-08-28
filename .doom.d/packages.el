@@ -29,7 +29,6 @@
 (package! prog-fill)
 (package! resize-window)
 (package! sphinx-doc)
-(package! srefactor)
 (package! ssh-config-mode)
 (package! sx)
 (package! tramp-yadm :recipe (:local-repo "~/projects/tramp-yadm"
