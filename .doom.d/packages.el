@@ -13,7 +13,6 @@
 (package! grip-mode)
 (package! highlight-sexp :recipe (:host github
                                   :repo "daimrod/highlight-sexp"))
-(package! lice)
 (package! lsp-focus :recipe '(:host github :repo "emacs-lsp/lsp-focus"))
 (package! lsp-origami)
 (package! lsp-treemacs)
