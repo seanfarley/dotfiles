@@ -28,7 +28,6 @@
 (package! page-break-lines)
 (package! prog-fill)
 (package! resize-window)
-(package! sphinx-doc)
 (package! ssh-config-mode)
 (package! sx)
 (package! tramp-yadm :recipe (:local-repo "~/projects/tramp-yadm"
