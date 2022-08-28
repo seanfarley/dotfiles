@@ -173,9 +173,6 @@
  ;; banner-comment
  "C-c c h"                         #'banner-comment
 
- ;; embrace
- "C-,"                             #'embrace-commander
-
  (:after org
    (:map org-mode-map
     ;; I use meta-arrow keys for navigation so let's stop org from

@@ -83,12 +83,6 @@ Add it to a hook like so:
 (after! page-break-lines-mode
   (add-to-list 'page-break-lines-modes 'prog-mode))
 
-(defun smf/fort-to-c ()
-  "Convert fortran-style array indices to C-style."
-  (interactive)
-  (let ((overlay (embrace--delete (string-to-char "(") t)))
-    (embrace--insert (string-to-char "[") overlay)))
-
 (add-hook! python-mode #'sphinx-doc-mode)
 
 ;; TODO make +python module
