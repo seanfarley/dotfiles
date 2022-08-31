@@ -139,6 +139,7 @@
  ;; lispy
  (:after lispy
   (:map lispy-mode-map-lispy
+   "M-r"                           #'raise-sexp
    "M-<right>"                     nil
    "M-<left>"                      nil))
 
