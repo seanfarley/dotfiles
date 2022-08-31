@@ -165,7 +165,7 @@
  ;; magit
  (:after magit
   (:map magit-status-mode-map
-   "C-6"                           #'magit-section-up))
+   "M-r"                           #'magit-section-up))
 
  ;; unfill
  "M-Q"                             #'unfill-paragraph
