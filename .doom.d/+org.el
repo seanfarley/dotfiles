@@ -55,7 +55,7 @@
    ;; automatically apply syntax highlighting:
    org-src-fontify-natively t
    org-src-tab-acts-natively t
-   org-ellipsis " ⤵"
+   org-ellipsis " ⮯"
 
    ;; and don't prompt
    org-confirm-babel-evaluate nil
