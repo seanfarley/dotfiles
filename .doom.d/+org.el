@@ -195,7 +195,7 @@
   (unless (get-buffer "*Org Agenda(t)*")
     (org-todo-list)))
 
-;==================================== bibtex ===================================
+;;; bibtex
 
 (setq bibtex-completion-bibliography `(,(expand-file-name "~/Nextcloud/refs/main.bib"))
       bibtex-completion-library-path `(,(expand-file-name "~/Nextcloud/refs/pdfs"))
@@ -205,6 +205,6 @@
 
 (setq citar-bibliography bibtex-completion-bibliography)
 
-;============================== org-noter-pdftools =============================
+;;; org-noter-pdftools
 
 (add-hook! 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)
