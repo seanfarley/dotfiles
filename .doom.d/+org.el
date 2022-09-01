@@ -22,6 +22,10 @@
 ;;                       (prefix-all-lines "#+HTML_HEAD_EXTRA: " body)
 ;;                       "\n#+HTML_HEAD_EXTRA: \\)</div>\n")))))))
 
+(use-package! org-capture
+  ;; TODO try to remove defer in favor of a :command, if possible
+  :defer t)
+
 (after! org
   ;; icons used to be here but they caused line height problems
 
