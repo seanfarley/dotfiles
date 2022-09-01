@@ -18,6 +18,7 @@
 (package! lsp-treemacs)
 (package! message-view-patch)
 (package! nerd-font :recipe '(:host github :repo "twlz0ne/nerd-fonts.el"))
+(package! outline-minor-faces)
 (package! org-noter-pdftools)
 (package! org-recent-headings)
 (package! org-roam-bibtex)

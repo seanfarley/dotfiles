@@ -129,6 +129,13 @@ Add it to a hook like so:
   (add-to-list 'projectile-known-projects "/ssh:euclid:~/projects/phd-euclid")
   (add-to-list 'projectile-known-projects "/ssh:euclid:~/projects/beta-hypergraphs-euclid"))
 
+(use-package! outline-minor-faces
+  :after outline
+  :config
+  (setq lispy-font-lock-keywords nil)
+  (add-hook 'outline-minor-mode-hook
+            #'outline-minor-faces-mode))
+
 ;; load personal modules
 (load! "+utils")
 (load! "+bindings")
