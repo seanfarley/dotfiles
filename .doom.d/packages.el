@@ -35,7 +35,6 @@
                               :build (:not compile)))
 (package! twauctex :recipe '(:host github :repo "jeeger/twauctex"))
 (package! unfill)
-(package! valign :recipe (:host github :repo "casouri/valign"))
 (package! webpaste)
 (package! whole-line-or-region)
 (package! which-key-posframe)
@@ -46,3 +45,12 @@
 ;; I always forget this
 ;; (package! mypackage :recipe (:local-repo "packages/mypackage"
 ;;                              :build (:not compile)))
+
+;; TODO port to doom org +pretty
+(package! org-fragtog)
+(package! engrave-faces)
+(package! org-modern)
+;; still not implemented in org-modern, see: https://github.com/minad/org-modern/issues/5
+(package! valign :recipe (:host github :repo "casouri/valign"))
+(package! laas :recipe (:host github
+                        :repo "tecosaur/LaTeX-auto-activating-snippets"))
