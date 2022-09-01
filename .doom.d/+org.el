@@ -27,6 +27,19 @@
   :defer t)
 
 (after! org
+  ;; use svg instead of png latex previews; much crisper on a retina screen
+  ;; (presumably dvipng doesn't know about HiDPI)
+  (setq org-preview-latex-default-process 'dvisvgm)
+
+  (setq org-highlight-latex-and-related '(native script entities))
+
+  (setq org-startup-with-latex-preview t)
+
+  (setq org-latex-default-figure-position "H")
+
+  (setq org-format-latex-options
+        (plist-put org-format-latex-options :background "Transparent"))
+
   ;; icons used to be here but they caused line height problems
 
   (defun smf/org-capture ()
