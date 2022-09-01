@@ -125,9 +125,9 @@ Add it to a hook like so:
     (tramp-yadm-register)))
 
 (after! projectile
-    (add-to-list 'projectile-known-projects "/yadm::~")
-    (add-to-list 'projectile-known-projects "/ssh:euclid:~/projects/phd-euclid")
-    (add-to-list 'projectile-known-projects "/ssh:euclid:~/projects/beta-hypergraphs-euclid"))
+  (add-to-list 'projectile-known-projects "/yadm::~")
+  (add-to-list 'projectile-known-projects "/ssh:euclid:~/projects/phd-euclid")
+  (add-to-list 'projectile-known-projects "/ssh:euclid:~/projects/beta-hypergraphs-euclid"))
 
 ;; load personal modules
 (load! "+utils")
