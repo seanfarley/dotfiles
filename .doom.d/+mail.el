@@ -12,7 +12,7 @@
   (remove-hook 'mu4e-compose-mode-hook #'org-msg-post-setup)
   (remove-hook 'mu4e-compose-pre-hook #'org-msg-mode)
 
-  ;============================= org settings first ============================
+;;; org settings
 
   ;;store org-mode links to messages
   (require 'org-mu4e)
@@ -20,7 +20,7 @@
   ;;store link to message if in header view, not to header query
   (setq mu4e-org-link-query-in-headers-mode nil)
 
-  ;;=============================== basic settings =============================
+;;; basic settings
 
   (defun smf/iit-context-p (msg)
     "Determin is MSG is from/to my IIT address."
@@ -143,7 +143,7 @@
    ;; just apply the actions without asking
    mu4e-headers-leave-behavior 'apply)
 
-  ;;=============================== compose hooks ==============================
+;;; compose hooks
 
   ;; helper function to jump to message composing when pressing tab in the
   ;; subject line
@@ -159,7 +159,7 @@
   (add-hook 'mu4e-compose-mode-hook
             (lambda () (local-set-key (kbd "TAB") #'smf/mu4e-tab-subject)))
 
-  ;;=================================== actions ================================
+;;; actions
 
   ;; never in my life have I used this
   (when (member '("view as pdf" . mu4e-action-view-as-pdf) mu4e-view-actions)
@@ -263,7 +263,7 @@
   (add-to-list 'mu4e-headers-actions
                '("patch" . smf/mu4e-action-hg-import-patch) t)
 
-  ;;================================= mu4e-alert ===============================
+;;; mu4e-alert
 
   (setq
    ;; only list mails in inbox
@@ -273,12 +273,12 @@
   ;; adds unread mail count to mode line
   (mu4e-alert-enable-mode-line-display)
 
-  ;============================== colorize patches =============================
+;;; colorize patches
 
   ;; colorize patch-based emails
   (add-hook 'gnus-part-display-hook 'message-view-patch-highlight)
 
-  ;============================ monkey-patch `=mu4e' ===========================
+;;; monkey patchs
 
   ;; credit to yeet and lemonbreezes on doom discord
   (defadvice! smf/mu4e (fun)
