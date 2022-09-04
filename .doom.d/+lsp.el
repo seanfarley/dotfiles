@@ -48,8 +48,7 @@
 
   (add-hook! python-mode (setq-local flycheck-disabled-checkers '(python-pylint)))
 
-;====== helpful snippet to not start a process and just connect to a port ======
-
+;; helpful snippet to not start a process and just connect to a port
 ;; (defun lsp-tcp-connect-to-port ()
 ;;   (list
 ;;    :connect (lambda (filter sentinel name environment-fn)
