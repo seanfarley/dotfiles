@@ -124,11 +124,6 @@ Add it to a hook like so:
   (after! magit
     (tramp-yadm-register)))
 
-(after! projectile
-  (add-to-list 'projectile-known-projects "/yadm::~")
-  (add-to-list 'projectile-known-projects "/ssh:euclid:~/projects/phd-euclid")
-  (add-to-list 'projectile-known-projects "/ssh:euclid:~/projects/beta-hypergraphs-euclid"))
-
 (use-package! outline-minor-faces
   :after outline
   :config
