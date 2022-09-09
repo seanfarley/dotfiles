@@ -116,10 +116,9 @@ Add it to a hook like so:
                                   :background)))
 
 (use-package! tramp-yadm
-  :after (projectile)
-  :config
-  (after! magit
-    (tramp-yadm-register)))
+  :after (tramp projectile)
+  :init
+  (tramp-yadm-register))
 
 (use-package! outline-minor-faces
   :after outline
