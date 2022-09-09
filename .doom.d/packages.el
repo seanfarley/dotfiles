@@ -4,7 +4,6 @@
 (package! bitwarden :recipe '(:host github :repo "seanfarley/emacs-bitwarden"))
 (package! col-highlight :recipe '(:host github :repo "emacsmirror/col-highlight"))
 (package! dot-mode)
-(package! elisp-slime-nav)
 (package! fancy-narrow)
 (package! flycheck-eldev)
 (package! flycheck-package)

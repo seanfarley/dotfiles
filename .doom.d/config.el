@@ -72,7 +72,6 @@ Add it to a hook like so:
   (setq git-commit-summary-max-length 80))
 
 (add-hook! (emacs-lisp-mode ielm-mode)
-           #'elisp-slime-nav-mode
            #'flycheck-package-setup)
 
 (after! flycheck
