@@ -21,17 +21,6 @@
 ;; BUG below line doesn't check `ns-use-native-fullscreen'
 ;; (progn (setq ns-use-native-fullscreen nil) (add-to-list 'initial-frame-alist '(fullscreen . fullboth)))
 
-(defun smf/auto-activate-venv (&rest _)
-  "Automatically activate virtualenv of same name, if one exists."
-  (pyvenv-deactivate)
-  (when-let ((workon-home (pyvenv-workon-home))
-             (window-name (safe-persp-name (get-current-persp))))
-    (if (not (file-directory-p workon-home))
-        (error "Can't find a workon home directory, set $WORKON_HOME"))
-    (dolist (name (f-directories workon-home))
-      (when (string= (file-name-nondirectory name) window-name)
-        (pyvenv-activate name)))))
-
 ;; keep persp names in order of most recently used
 (after! persp-mode
   (set-fontset-font t 'unicode "Apple Color Emoji" nil 'append)
@@ -85,7 +74,6 @@ simplicity, just test if the workspace begins with an asterik."
     (when (string-prefix-p "*" (+workspace-current-name))
       (smf/switch-to-last-workspace)))
 
-  (advice-add #'persp-frame-switch :after #'smf/auto-activate-venv)
 
   (defun smf/workspace-other ()
     (interactive)
