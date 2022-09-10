@@ -76,8 +76,6 @@
 	autosquash = true
 [help]
 	autocorrect = 1
-[commit]
-	verbose = true
 [magit]
 	hideCampaign = true
 [github]
