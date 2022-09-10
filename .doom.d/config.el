@@ -41,35 +41,12 @@ Add it to a hook like so:
   :init
   (smf/bitwarden-init))
 
-;; magit should use auth-source
-(add-hook 'magit-process-find-password-functions
-          'magit-process-password-auth-source)
-
 (add-to-list 'auto-mode-alist '("ssh/config\\'" . ssh-config-mode))
 (add-to-list 'auto-mode-alist '("private_readonly_config\\'" . ssh-config-mode))
 (add-hook! ssh-config-mode #'display-line-numbers-mode)
 
 (add-to-list 'auto-mode-alist '("bash_.*\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("zsh.*\\'" . sh-mode))
-
-(after! magit
-  ;; magit-todo ignore json files due to huge performance hit
-  (setq magit-todos-exclude-globs '("*.json")
-        magit-clone-default-directory "~/projects/"
-        ;; already taken care of by git settings
-        magit-commit-show-diff nil)
-
-  (when (equal (plist-get (nth 2 (transient-get-suffix 'magit-commit "x"))
-                          :command)
-               #'magit-commit-autofixup)
-
-    ;; see https://github.com/magit/magit/issues/3723 for explanation of
-    ;; behavior for prompting the user
-    (transient-replace-suffix #'magit-commit #'magit-commit-autofixup
-      '("x" "Absorb changes" magit-commit-absorb))))
-
-(after! git-commit
-  (setq git-commit-summary-max-length 80))
 
 (add-hook! (emacs-lisp-mode ielm-mode)
            #'flycheck-package-setup)
@@ -137,6 +114,7 @@ Add it to a hook like so:
 (load! "+ui")
 (load! "+vterm")
 (load! "+ansible")
+(load! "+magit")
 
 ;; TODO don't know where to put this? ui?
 (setq compilation-scroll-output t)
