@@ -12,12 +12,6 @@
 ;; auto scroll the compilation buffer
 (setq compilation-scroll-output t)
 
-(after! hl-line
-  ;; doom set this for a tiny speed boost but it breaks highlighting in mu4e
-  ;; header-view
-  (setq hl-line-sticky-flag t
-        global-hl-line-sticky-flag t))
-
 ;; automatically start in fullscreen
 (add-to-list 'initial-frame-alist '(fullscreen . fullboth))
 
