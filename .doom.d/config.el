@@ -74,13 +74,12 @@ Add it to a hook like so:
          (lfe-mode . highlight-sexp-mode)
          (dune-mode . highlight-sexp-mode)
          (clojure-mode . highlight-sexp-mode)
-         (fennel-mode . highlight-sexp-mode)))
-
-(after! highlight-sexp
-  (require 'magit)
-  (setq hl-sexp-background-color (face-attribute
-                                  'magit-blame-highlight
-                                  :background)))
+         (fennel-mode . highlight-sexp-mode))
+  :init
+  (after! highlight-indent-guides
+    (setq hl-sexp-background-color (face-attribute
+                                    'highlight-indent-guides-odd-face
+                                    :background))))
 
 (use-package! tramp-yadm
   :after (tramp projectile)
