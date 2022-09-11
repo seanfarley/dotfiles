@@ -6,13 +6,9 @@
 
 ;; borrow teco's ideas for big, variable, and serif fonts
 (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14)
-      doom-unicode-font (font-spec :family "FiraCode Nerd Font" :size 14)
       doom-big-font (font-spec :family "FiraCode Nerd Font" :size 26)
       doom-variable-pitch-font (font-spec :family "Overpass" :size 14)
       doom-serif-font (font-spec :family "IBM Plex Mono" :weight 'light))
-
-(after! persp-mode
-  (set-fontset-font t 'unicode "Apple Color Emoji" nil 'append))
 
 ;; BUG below line doesn't check `ns-use-native-fullscreen'
 ;; (progn (setq ns-use-native-fullscreen nil) (add-to-list 'initial-frame-alist '(fullscreen . fullboth)))
