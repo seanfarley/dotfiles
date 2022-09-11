@@ -114,5 +114,3 @@ Add it to a hook like so:
 (load! "+ansible")
 (load! "+magit")
 
-;; TODO don't know where to put this? ui?
-(setq compilation-scroll-output t)

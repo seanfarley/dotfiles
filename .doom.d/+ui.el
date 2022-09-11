@@ -9,6 +9,9 @@
       doom-variable-pitch-font (font-spec :family "Overpass" :size 14)
       doom-serif-font (font-spec :family "IBM Plex Mono" :weight 'light))
 
+;; auto scroll the compilation buffer
+(setq compilation-scroll-output t)
+
 (after! hl-line
   ;; doom set this for a tiny speed boost but it breaks highlighting in mu4e
   ;; header-view
