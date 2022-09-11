@@ -1,5 +1,7 @@
 ;;; ~/projects/dotfiles/doom/+ui.el -*- lexical-binding: t; -*-
 
+;;; theme styling
+
 (setq doom-theme 'doom-nord)
 
 ;; borrow teco's ideas for big, variable, and serif fonts
@@ -9,18 +11,22 @@
       doom-variable-pitch-font (font-spec :family "Overpass" :size 14)
       doom-serif-font (font-spec :family "IBM Plex Mono" :weight 'light))
 
-;; auto scroll the compilation buffer
-(setq compilation-scroll-output t)
-
-;; automatically start in fullscreen
-(add-to-list 'initial-frame-alist '(fullscreen . fullboth))
+(after! persp-mode
+  (set-fontset-font t 'unicode "Apple Color Emoji" nil 'append))
 
 ;; BUG below line doesn't check `ns-use-native-fullscreen'
 ;; (progn (setq ns-use-native-fullscreen nil) (add-to-list 'initial-frame-alist '(fullscreen . fullboth)))
 
+;; automatically start in fullscreen
+(add-to-list 'initial-frame-alist '(fullscreen . fullboth))
+
+;; auto scroll the compilation buffer
+(setq compilation-scroll-output t)
+
+;;; mru logic
+
 ;; keep persp names in order of most recently used
 (after! persp-mode
-  (set-fontset-font t 'unicode "Apple Color Emoji" nil 'append)
   (add-hook 'persp-before-switch-functions
             #'(lambda (new-persp-name w-or-f)
                 (let ((cur-persp-name (safe-persp-name (get-current-persp))))
@@ -70,7 +76,6 @@ simplicity, just test if the workspace begins with an asterik."
     "When activating emacs, only switch to last workspace when in an app."
     (when (string-prefix-p "*" (+workspace-current-name))
       (smf/switch-to-last-workspace)))
-
 
   (defun smf/workspace-other ()
     (interactive)
