@@ -57,8 +57,6 @@ Add it to a hook like so:
 (after! page-break-lines-mode
   (add-to-list 'page-break-lines-modes 'prog-mode))
 
-(add-hook! python-mode #'sphinx-doc-mode)
-
 ;; TODO make +python module
 ;; TODO investigate django packages and incorporate them
 (add-hook! +web-django-mode (prettify-symbols-mode -1))
