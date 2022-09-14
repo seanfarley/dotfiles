@@ -56,3 +56,7 @@ source ~/.zsh/functions
 source ~/.zsh/aliases
 source ~/.zsh/prompt
 source ~/.zsh/bindkeys
+
+# more compatible icons
+POWERLEVEL9K_HOME_ICON=""
+POWERLEVEL9K_HOME_SUB_ICON="ﱮ"
