@@ -9,13 +9,7 @@
 (after! mu4e
   (require 'smtpmail)
 
-  (remove-hook 'mu4e-compose-mode-hook #'org-msg-post-setup)
-  (remove-hook 'mu4e-compose-pre-hook #'org-msg-mode)
-
 ;;; org settings
-
-  ;;store org-mode links to messages
-  (require 'org-mu4e)
 
   ;;store link to message if in header view, not to header query
   (setq mu4e-org-link-query-in-headers-mode nil)
