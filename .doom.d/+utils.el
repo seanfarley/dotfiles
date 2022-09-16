@@ -1,4 +1,4 @@
-;;; ~/projects/dotfiles/doom/+utils.el -*- lexical-binding: t; -*-
+;;; +utils.el -*- lexical-binding: t; -*-
 
 
 ;; deletes backward until a space is hit

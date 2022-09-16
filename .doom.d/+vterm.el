@@ -1,3 +1,5 @@
+;;; +vterm.el -*- lexical-binding: t; -*-
+
 (setq vterm-shell (executable-find "zsh"))
 
 (after! vterm

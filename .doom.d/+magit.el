@@ -1,3 +1,5 @@
+;;; +magit.el -*- lexical-binding: t; -*-
+
 (after! git-commit
   (setq git-commit-summary-max-length 80))
 

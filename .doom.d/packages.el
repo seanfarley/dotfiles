@@ -1,3 +1,5 @@
+;;; packages.el -*- lexical-binding: t; -*-
+
 (package! benchmark-init)
 (package! biblio)
 (package! bitwarden :recipe '(:host github :repo "seanfarley/emacs-bitwarden"))

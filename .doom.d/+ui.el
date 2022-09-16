@@ -1,4 +1,4 @@
-;;; ~/projects/dotfiles/doom/+ui.el -*- lexical-binding: t; -*-
+;;; +ui.el -*- lexical-binding: t; -*-
 
 ;;; theme styling
 

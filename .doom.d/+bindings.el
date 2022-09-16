@@ -1,4 +1,4 @@
-;;; doom/+bindings.el -*- lexical-binding: t; -*-
+;;; +bindings.el -*- lexical-binding: t; -*-
 
 ;; the most important binding: since using hammerspoon, I map C-g to ESC ... but
 ;; in emacs I want C-g to just be itself; since hammerspoon is buggy about its

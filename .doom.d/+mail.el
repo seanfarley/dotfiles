@@ -1,4 +1,4 @@
-;;; ~/projects/dotfiles/doom/+mail.el -*- lexical-binding: t; -*-
+;;; +mail.el -*- lexical-binding: t; -*-
 
 ;; when running an emacs that isn't from brew, /usr/local/share isn't
 ;; automatically added to the load-path

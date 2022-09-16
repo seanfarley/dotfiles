@@ -1,3 +1,5 @@
+;;; +ansible.el -*- lexical-binding: t; -*-
+
 ;; known limitations:
 ;;   - must have labels with the same name as the role
 ;;   - not sure about the UX for running the whole playbook

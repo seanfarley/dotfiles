@@ -1,4 +1,4 @@
-;;; ~/.doom.d/+org.el -*- lexical-binding: t; -*-
+;;; +org.el -*- lexical-binding: t; -*-
 
 ;; needs to be set before org loads
 (setq org-directory "~/Nextcloud/org/")

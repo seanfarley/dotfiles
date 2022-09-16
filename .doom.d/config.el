@@ -1,3 +1,5 @@
+;;; config.el -*- lexical-binding: t; -*-
+
 (setq server-use-tcp t
       server-port    9999)
 

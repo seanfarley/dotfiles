@@ -1,4 +1,4 @@
-;;; ~/projects/dotfiles/doom/+lsp.el -*- lexical-binding: t; -*-
+;;; +lsp.el -*- lexical-binding: t; -*-
 
 ;; mark lsp-format-buffer as safe for before-save-hook
 (add-to-list 'safe-local-eval-forms '(add-hook 'before-save-hook

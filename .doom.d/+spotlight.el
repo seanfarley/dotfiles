@@ -1,3 +1,4 @@
+;;; +spotlight.el -*- lexical-binding: t; -*-
 
 (setq locate-command "mdfind")
 (setq counsel-locate-cmd 'counsel-locate-cmd-mdfind)

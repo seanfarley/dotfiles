@@ -1,4 +1,4 @@
-;;; ~/projects/dotfiles/doom/+modeline.el -*- lexical-binding: t; -*-
+;;; +modeline.el -*- lexical-binding: t; -*-
 
 (after! doom-modeline
 
