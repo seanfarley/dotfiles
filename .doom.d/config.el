@@ -64,7 +64,8 @@ Add it to a hook like so:
            #'fancy-narrow-mode
            #'global-dot-mode
            #'whole-line-or-region-global-mode
-           #'global-page-break-lines-mode)
+           #'global-page-break-lines-mode
+           #'global-display-fill-column-indicator-mode)
 
 (use-package! highlight-sexp
   :hook ((lisp-mode . highlight-sexp-mode)
