@@ -35,7 +35,7 @@
         :match-func (lambda (msg) (when msg (not (smf/iit-context-p msg))))
         :vars '((user-mail-address      . "sean@farley.io")
                 (smtpmail-smtp-user     . "sean@farley.io")
-                (smtpmail-smtp-server   . "mail.farley.io"))
+                (smtpmail-smtp-server   . "box.farley.io"))
         )
 
       ,(make-mu4e-context
@@ -96,7 +96,7 @@
                                       :key ?t)
                                 (list :maildir "/barryisms"
                                       :key ?b)
-                                (list :maildir "/Junk"
+                                (list :maildir "/Spam"
                                       :key ?s))
 
    mu4e-bookmarks
@@ -114,7 +114,7 @@
                               " OR from:xiaofan) AND date:2m..")
                :key ?p)
          (list :name "Sent in the last week"
-               :query "maildir:/sent AND date:1w..now"
+               :query "maildir:/Sent AND date:1w..now"
                :key ?s)
 
          ;; tweaks on the default bookmarks
@@ -217,9 +217,9 @@
                '(spam
                  :char       "S"
                  :prompt     "Spam"
-                 :show-target (lambda (target) "/Junk")
+                 :show-target (lambda (target) "/Spam")
                  :action      (lambda (docid msg target)
-                                (mu4e--server-move docid "/Junk" "+S-u-N"))))
+                                (mu4e--server-move docid "/Spam" "+S-u-N"))))
 
   (add-to-list 'mu4e-marks
                '(patch
