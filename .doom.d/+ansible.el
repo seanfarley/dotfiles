@@ -113,4 +113,4 @@ the 'main' one.")
    (:map ansible-key-map
     "C-c C-c"  #'smf/run-ansible))
 
-  (setq ansible-vault-password-file nil))
+  (setq ansible-vault-password-file "~/.vault_pass.txt"))
