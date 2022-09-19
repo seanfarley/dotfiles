@@ -9,7 +9,7 @@
 
 [sendemail]
   smtpencryption = tls
-  smtpserver = mail.farley.io
+  smtpserver = box.farley.io
   smtpserverport = 587
   smtpuser = sean@farley.io
   confirm = auto
