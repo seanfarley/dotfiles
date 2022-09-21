@@ -60,12 +60,13 @@ Add it to a hook like so:
 
 (setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn)
 
+(add-hook! prog-mode (display-fill-column-indicator-mode t))
+
 (add-hook! doom-first-input
            #'fancy-narrow-mode
            #'global-dot-mode
            #'whole-line-or-region-global-mode
-           #'global-page-break-lines-mode
-           #'global-display-fill-column-indicator-mode)
+           #'global-page-break-lines-mode)
 
 (use-package! highlight-sexp
   :hook ((lisp-mode . highlight-sexp-mode)
