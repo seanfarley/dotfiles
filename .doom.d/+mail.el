@@ -274,29 +274,6 @@
 
 ;;; monkey patchs
 
-  ;; credit to yeet and lemonbreezes on doom discord
-  (defadvice! smf/mu4e (fun)
-    "Go back to the mu4e workspace if it exists, otherwise launch mu4e normally."
-    :around #'=mu4e
-    ;; if the workspace exists, switch to it
-    (if (+workspace-exists-p +mu4e-workspace-name)
-        (progn (+workspace-switch +mu4e-workspace-name t)
-               ;; There is an edge case (thanks Sean)
-               ;; We check if the current major mode is one of the ones
-               ;; we relate to mu4e, if so we move on, if not we call `=mu4e'
-               (unless (seq-some (fn! (eq (buffer-local-value 'major-mode
-                                                              (window-buffer
-                                                               (selected-window)))
-                                          %1))
-                                 '(mu4e-main-mode
-                                   mu4e-headers-mode
-                                   mu4e-view-mode
-                                   mu4e-compose-mode
-                                   org-msg-edit-mode))
-                 (funcall fun)))
-      ;; otherwise funcall it normally
-      (funcall fun)))
-
   (defun smf/mu4e-update-and-index (&rest _)
     (interactive "P")
     (mu4e-update-mail-and-index t))
