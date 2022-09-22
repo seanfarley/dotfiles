@@ -86,8 +86,8 @@
  ;; custom methods
  "C-M-d"                           #'smf/delete-to-end-of-buffer
  (:map whole-line-or-region-local-mode-map
-  ;; behave more like the terminal
-  "C-w"                            (lambda ()
+       ;; behave more like the terminal
+       "C-w"                       (lambda ()
                                      (interactive)
                                      (if (not (eq major-mode 'vterm-mode))
                                          (smf/backward-kill-word)
@@ -96,8 +96,8 @@
  ;; common typos for me
  "C-x C-b"                         #'persp-switch-to-buffer
  (:after projectile
-  (:map projectile-mode-map
-   "C-c C-p"                       #'projectile-command-map))
+         (:map projectile-mode-map
+               "C-c C-p"           #'projectile-command-map))
 
  "C-s-<up>"                        #'windmove-up
  "C-s-<down>"                      #'windmove-down
@@ -121,77 +121,77 @@
 
  ;; smartparens
  (:after smartparens
-  (:map smartparens-mode-map
-   "C-M-a"                         #'sp-beginning-of-sexp
-   "C-M-e"                         #'sp-end-of-sexp
-   "C-M-f"                         #'sp-forward-sexp
-   "C-M-b"                         #'sp-backward-sexp
-   "C-M-d"                         #'sp-splice-sexp
-   "C-M-k"                         #'sp-kill-sexp
-   "C-M-t"                         #'sp-transpose-sexp
-   ;; prefer navigation over smartparens' defaults
-   "C-<right>"                     nil
-   "M-<right>"                     nil
-   "C-<left>"                      nil
-   "M-<left>"                      nil
-   "C-M-d"                         nil))
+         (:map smartparens-mode-map
+               "C-M-a"             #'sp-beginning-of-sexp
+               "C-M-e"             #'sp-end-of-sexp
+               "C-M-f"             #'sp-forward-sexp
+               "C-M-b"             #'sp-backward-sexp
+               "C-M-d"             #'sp-splice-sexp
+               "C-M-k"             #'sp-kill-sexp
+               "C-M-t"             #'sp-transpose-sexp
+               ;; prefer navigation over smartparens' defaults
+               "C-<right>"         nil
+               "M-<right>"         nil
+               "C-<left>"          nil
+               "M-<left>"          nil
+               "C-M-d"             nil))
 
  ;; lispy
  (:after lispy
-  (:map lispy-mode-map-lispy
-   "M-r"                           #'raise-sexp
-   "M-<right>"                     nil
-   "M-<left>"                      nil))
+         (:map lispy-mode-map-lispy
+               "M-r"               #'raise-sexp
+               "M-<right>"         nil
+               "M-<left>"          nil))
 
  ;; company
  (:after company
-  (:map company-active-map
-   [C-tab]                         nil
-   [tab]                           nil))
+         (:map company-active-map
+               [C-tab]             nil
+               [tab]               nil))
 
  ;; flyspell
  (:after flyspell
-  (:map flyspell-mode-map
-   "C-;"                           nil  ; Do not override
-   "C-."                           nil  ; prefer dot-mode binding over auto
+         (:map flyspell-mode-map
+               "C-;"               nil  ; Do not override
+               "C-."               nil  ; prefer dot-mode binding over auto
                                         ; correct
-   "C-M-i"                         #'flyspell-auto-correct-previous-word))
+               "C-M-i"             #'flyspell-auto-correct-previous-word))
 
  ;; python
  (:after python
-  (:map python-mode-map
-   ;; common typo for me with projectile
-   "C-c C-p"                       nil))
+         (:map python-mode-map
+               ;; common typo for me with projectile
+               "C-c C-p"           nil))
 
  ;; magit
  (:after magit
-  (:map magit-status-mode-map
-   "M-r"                           #'magit-section-up))
+         (:map magit-status-mode-map
+               "M-r"               #'magit-section-up))
 
  ;; unfill
  "M-Q"                             #'unfill-paragraph
 
  (:after org
-  (:map org-mode-map
-   ;; I use meta-arrow keys for navigation so let's stop org from
-   ;; using them to indent
-   "<M-S-left>"                    nil
-   "<M-left>"                      nil
-   "<M-right>"                     nil
-   ;; since I commonly mistype =C-c C-'= instead of =C-c '=, let's
-   ;; add that keybinding,
-   "C-c C-'"                       #'org-edit-special
+         (:map org-mode-map
+               ;; I use meta-arrow keys for navigation so let's stop org from
+               ;; using them to indent
+               "<M-S-left>"        nil
+               "<M-left>"          nil
+               "<M-right>"         nil
+               ;; since I commonly mistype =C-c C-'= instead of =C-c '=, let's
+               ;; add that keybinding,
+               "C-c C-'"           #'org-edit-special
 
-   ;; same as python
-   "C-c <"                         #'org-shiftmetaleft
-   "C-c >"                         #'org-shiftmetaright
+               ;; same as python
+               "C-c <"             #'org-shiftmetaleft
+               "C-c >"             #'org-shiftmetaright
 
-   ;; insert org-roam key (usually a link)
-   "C-c n r k"                     #'smf/org-roam-insert-key)
+               ;; insert org-roam key (usually a link)
+               "C-c n r k"         #'smf/org-roam-insert-key)
 
-  (:map org-src-mode-map
-   "C-c C-'"                       #'org-edit-src-exit
-   ;; I find it infuriating that my muscle memory =⌘+s= in
-   ;; =org-src-mode= will save the buffer as a new file. Instead,
-   ;; let's make it do the same thing as =C-c '=
-   "s-s"                           #'org-edit-src-exit)))
+         (:map org-src-mode-map
+               "C-c C-'"           #'org-edit-src-exit
+               ;; I find it infuriating that my muscle memory =⌘+s= in
+               ;; =org-src-mode= will save the buffer as a new file. Instead,
+               ;; let's make it do the same thing as =C-c '=
+               "s-s"               #'org-edit-src-exit)))
