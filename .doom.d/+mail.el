@@ -286,21 +286,6 @@
 
   (add-hook 'mu4e-index-updated-hook #'smf/mu4e-refresh-main)
 
-  ;; REVIEW fixed in 1.8.10; remove when that is available
-  (defadvice! smf/mu4e-view-toggle-html ()
-    :override #'mu4e-view-toggle-html
-    "Toggle html-display of the first html-part found."
-    (interactive)
-    ;; This function assumes `gnus-article-mime-handle-alist' is sorted by
-    ;; pertinence, i.e. the first HTML part found in it is the most important one.
-    (save-excursion
-      (if-let ((html-part
-                (seq-find (lambda (handle)
-                            (equal (mm-handle-media-type (cdr handle)) "text/html"))
-                          gnus-article-mime-handle-alist)))
-          (gnus-article-inline-part (car html-part))
-        (mu4e-warn "No html part in this message"))))
-
   ;; mu4e key bindings
   (map!
    ;; TODO add global menu item C-c M U for updating
