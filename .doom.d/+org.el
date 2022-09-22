@@ -3,6 +3,8 @@
 ;; needs to be set before org loads
 (setq org-directory "~/Nextcloud/org/")
 
+(defvar +smf/org-roam-workspace-name "*org-roam*")
+
 ;; NOTE this adds a latex-macros block to org-mode and is useful to copy to a
 ;; project's .dir-locals.el
 ;; ((nil . ((eval . (progn
@@ -191,7 +193,7 @@
 (defun smf/org-roam ()
   "Switch to *org-roam* workspace or create it."
   (interactive)
-  (+workspace-switch "*org-roam*" t)
+  (+workspace-switch +smf/org-roam-workspace-name t)
   (unless (get-buffer "*Org Agenda(t)*")
     (org-todo-list)))
 
