@@ -205,7 +205,7 @@
   "Switch to *org-roam* workspace or create it."
   (interactive)
   (+workspace-switch +smf/org-roam-workspace-name t)
-  (unless (get-buffer "*Org Agenda(t)*")
+  (unless (get-buffer org-agenda-buffer-name)
     (org-todo-list)))
 
 ;;; bibtex
