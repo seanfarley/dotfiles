@@ -24,6 +24,17 @@
 ;;                       (prefix-all-lines "#+HTML_HEAD_EXTRA: " body)
 ;;                       "\n#+HTML_HEAD_EXTRA: \\)</div>\n")))))))
 
+(defadvice! smf/org-roam-in-own-workspace-a (&rest _)
+  "Open all roam buffers in their own workspace."
+  :before #'org-roam-node-find
+  :before #'org-roam-node-random
+  :before #'org-roam-buffer-display-dedicated
+  :before #'org-roam-buffer-toggle
+  ;; we also cram regular orgmode buffers into roam
+  :before #'org-agenda
+  (when (modulep! :ui workspaces)
+    (+workspace-switch +smf/org-roam-workspace-name t)))
+
 (use-package! org-capture
   ;; TODO try to remove defer in favor of a :command, if possible
   :defer t)
