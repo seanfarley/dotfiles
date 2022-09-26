@@ -61,6 +61,7 @@ function prompt_smf_hostname() {
     euclid*) hn_color=172;;
     cloud*) hn_color=247;;
     box*) hn_color=220;;
+    matrix*) hn_color=075;;
   esac
 
   # remove spaces
