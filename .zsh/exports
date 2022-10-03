@@ -41,16 +41,24 @@ fi
 export COPYFILE_DISABLE=true
 
 path=(
-    ~/.emacs.d/bin
-    ~/.local/bin
-    ~/.npm-packages/bin
-    ~/Library/Python/3.9/bin
     /usr/local/bin
     /usr/local/sbin
     /usr/local/cuda/bin
     /usr/sbin
     /sbin
     /Library/TeX/texbin
+    $path
+)
+
+# update path to ensure we grab our preferred executables
+hash -r
+
+user_python_path=$(python3 -c 'import site; print(site.USER_SITE.replace("lib/python/site-packages", "bin"))')
+path=(
+    ~/.emacs.d/bin
+    ~/.local/bin
+    ~/.npm-packages/bin
+    $user_python_path
     $path
 )
 
