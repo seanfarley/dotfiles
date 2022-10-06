@@ -73,6 +73,9 @@ Add it to a hook like so:
            #'whole-line-or-region-global-mode
            #'global-page-break-lines-mode)
 
+(setq split-height-threshold nil
+      split-width-threshold 0)
+
 (use-package! highlight-sexp
   :hook ((lisp-mode . highlight-sexp-mode)
          (emacs-lisp-mode . highlight-sexp-mode)
