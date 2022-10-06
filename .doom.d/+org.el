@@ -32,6 +32,7 @@
   :before #'org-roam-buffer-toggle
   ;; we also cram regular orgmode buffers into roam
   :before #'org-agenda
+  :before #'org-todo-list
   (when (modulep! :ui workspaces)
     (+workspace-switch +smf/org-roam-workspace-name t)))
 
