@@ -13,6 +13,13 @@
 
 ;;; customize segments to put in main modeline
 
+  (doom-modeline-def-segment misc-info
+    "Mode line construct for miscellaneous information.
+By default, this shows the information specified by `global-mode-string'."
+    (when (or doom-modeline-display-misc-in-all-mode-lines
+              (doom-modeline--active))
+      '("" mode-line-misc-info)))
+
   ;; remove buffer-position, input-method, major-mode, and buffer-encoding
   (doom-modeline-def-modeline 'main
     '(bar window-number matches buffer-info remote-host selection-info)
