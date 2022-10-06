@@ -35,16 +35,7 @@
 
   ;; python stuff
 
-  (add-hook! lsp-mode #'lsp-headerline-breadcrumb-mode)
-
-  (let* ((ans-dir "/usr/local/Cellar/ansible/")
-         (ans-vers-dir (car
-                        (mapcar #'car
-                                (sort (directory-files-and-attributes ans-dir)
-                                      #'(lambda (x y) (time-less-p (nth 6 x) (nth 6 y))))))))
-
-    (setq lsp-python-ms-extra-paths `["~/Library/Python/3.9/lib/python/site-packages"
-                                      ,(concat ans-dir ans-vers-dir "/libexec/lib/python3.9/site-packages")])))
+  (add-hook! lsp-mode #'lsp-headerline-breadcrumb-mode))
 
   (add-hook! python-mode (setq-local flycheck-disabled-checkers '(python-pylint)))
 
