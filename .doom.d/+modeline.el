@@ -4,14 +4,12 @@
 
 ;;; segment tweaks
 
-  (defun smf/mu4e-tweak (prop &rest _)
+  (defadvice! smf/mu4e-tweak (prop &rest _)
+    :filter-return (alist-get 'mu4e doom-modeline-fn-alist)
     "Trim all space and add a tiny space to the right side."
     (when prop
       (concat (s-trim prop)
               (propertize " " 'display '(space-width 0.5)))))
-
-  (advice-add (alist-get 'mu4e doom-modeline-fn-alist)
-              :filter-return #'smf/mu4e-tweak)
 
 ;;; customize segments to put in main modeline
 
