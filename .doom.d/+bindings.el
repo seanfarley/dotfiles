@@ -194,4 +194,39 @@
                ;; I find it infuriating that my muscle memory =⌘+s= in
                ;; =org-src-mode= will save the buffer as a new file. Instead,
                ;; let's make it do the same thing as =C-c '=
-               "s-s"               #'org-edit-src-exit)))
+               "s-s"               #'org-edit-src-exit)
+
+         (:map org-read-date-minibuffer-local-map
+               "M-h"               (lambda ()
+                                     (interactive)
+                                     (org-eval-in-calendar
+                                      '(calendar-backward-day 1)))
+               "M-l"               (lambda ()
+                                     (interactive)
+                                     (org-eval-in-calendar
+                                      '(calendar-forward-day 1)))
+               "M-k"               (lambda ()
+                                     (interactive)
+                                     (org-eval-in-calendar
+                                      '(calendar-backward-week 1)))
+               "M-j"               (lambda ()
+                                     (interactive)
+                                     (org-eval-in-calendar
+                                      '(calendar-forward-week 1)))
+               "C-M-h"             (lambda ()
+                                     (interactive)
+                                     (org-eval-in-calendar
+                                      '(calendar-backward-month 1)))
+               "C-M-l"             (lambda ()
+                                     (interactive)
+                                     (org-eval-in-calendar
+                                      '(calendar-forward-month 1)))
+               "C-M-j"             (lambda ()
+                                     (interactive)
+                                     (org-eval-in-calendar
+                                      '(calendar-forward-year 1)))
+               "C-M-k"             (lambda ()
+                                     (interactive)
+                                     (org-eval-in-calendar
+                                      '(calendar-backward-year 1)))
+               )))
