@@ -529,3 +529,57 @@ JUSTIFICATION is a symbol for 'left, 'center or 'right."
 
 (when EMACS28+
   (add-hook! 'latex-mode #'TeX-latex-mode))
+
+;;; org clock prettify
+
+;; compactify the org-clock modeline into an emoji and move the org task name
+;; into a tooltip; stolen from
+;; https://github.com/dsedivec/dot-emacs-d/blob/master/recipes/org-compact-clock-in-mode-line.el
+
+(defadvice! smf/org-clock-compact-clock-string (orig-fun)
+  :around #'org-clock-get-clock-string
+  (if org-clock-effort
+      (funcall orig-fun)
+    ;; should move the `save-window-excursion' into `+mu4e--get-string-width'
+    (save-window-excursion
+      (let* ((clocked-time (org-clock-get-clocked-time))
+             (icon (all-the-icons-material
+                    "access_time"
+                    :face 'org-done
+                    :height 0.8
+                    :v-adjust -0.15))
+             (icon-width (+mu4e--get-string-width icon))
+             (space-width (+mu4e--get-string-width " "))
+             (space-factor (- 2 (/ (float icon-width) space-width)))
+             (space (propertize
+                     " " 'display `(space . (:width ,space-factor)))))
+        (concat
+         space
+         icon
+         space
+         (propertize
+          (org-duration-from-minutes clocked-time)
+          'face '(org-done :height 0.85)
+          ;; 'display '(raise 0.2)
+          ))))))
+
+(defadvice! smf/org-clock-mode-line-task-name-in-tooltip (&rest _args)
+  :after #'org-clock-update-mode-line
+  (let* ((start-idx (if (and org-clock-task-overrun-text
+                             (string-prefix-p org-clock-task-overrun-text
+                                              org-mode-line-string))
+                        (length org-clock-task-overrun-text)
+                      0))
+         (old-help-echo (get-text-property start-idx 'help-echo
+                                           org-mode-line-string))
+         (old-help-echo (string-replace "Org mode clock is running.\n"
+                                        "" old-help-echo))
+         (todo-state (save-excursion
+                       (with-current-buffer (org-clocking-buffer)
+                         (goto-char (marker-position org-clock-hd-marker))
+                         (org-get-todo-state)))))
+    (put-text-property start-idx (- (length org-mode-line-string) start-idx)
+                       'help-echo (concat (propertize (concat todo-state org-clock-heading "\n")
+                                                      'face (org-get-todo-face todo-state))
+                                          old-help-echo)
+                       org-mode-line-string)))
