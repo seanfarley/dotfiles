@@ -13,7 +13,7 @@
 	<key>NSFontPanelAttributes</key>
 	<string>1, 0</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/Downloads/nord-terminal-app-develop/src/xml</string>
+	<string>~/Downloads</string>
 	<key>NSNavLastUserSetHideExtensionButtonState</key>
 	<false/>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -27,11 +27,11 @@
 	<key>NSWindow Frame TTAppPreferences</key>
 	<string>387 346 667 554 0 0 1440 900 </string>
 	<key>NSWindow Frame TTWindow</key>
-	<string>228 216 970 489 0 0 1440 900 </string>
+	<string>249 229 970 489 0 0 1440 900 </string>
 	<key>NSWindow Frame TTWindow Basic</key>
 	<string>109 212 570 418 0 0 1440 900 </string>
 	<key>NSWindow Frame TTWindow Nord</key>
-	<string>312 282 970 489 0 0 1440 900 </string>
+	<string>249 229 970 489 0 0 1440 900 </string>
 	<key>NSWindow Frame TTWindow Pro</key>
 	<string>350 425 650 442 0 0 1440 900 </string>
 	<key>NSWindow Frame TTWindow Pro - zsh</key>
@@ -520,6 +520,8 @@
 			cqIWGFhOU09iamVjdAgRGiQpMjdJTFFTV11kand+n6GjqLO8xMcA
 			AAAAAAABAQAAAAAAAAAZAAAAAAAAAAAAAAAAAAAA0A==
 			</data>
+			<key>ShouldRestoreContent</key>
+			<false/>
 			<key>TextBoldColor</key>
 			<data>
 			YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0
