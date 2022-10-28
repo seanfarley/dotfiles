@@ -83,6 +83,4 @@ simplicity, just test if the workspace begins with an asterik."
 
       (if (string-prefix-p (nth 0 mru-list) cur-workspace)
           (+workspace/switch-to (nth 1 mru-list))
-        (+workspace/switch-to (nth 0 mru-list)))))
-
-  (advice-add #'+workspace/other :override #'smf/workspace-other))
+        (+workspace/switch-to (nth 0 mru-list))))))

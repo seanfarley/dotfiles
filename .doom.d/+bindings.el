@@ -106,6 +106,12 @@
  "C-s-<right>"                     #'windmove-right
  "C-s-<left>"                      #'windmove-left
 
+ (:leader
+  (:prefix-map ("w" . "workspaces/windows")
+               :desc "Switch to other non-app workspace"
+               "o"                 #'smf/workspace-other
+               :desc "Switch to other workspace"
+               "O"                 #'+workspace/other))
 
  ;; jumping / goto
  "M-g g"                           nil
