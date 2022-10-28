@@ -73,6 +73,8 @@
 
  "s-}"                             #'forward-paragraph
  "s-{"                             #'backward-paragraph
+ "C-<tab>"                         #'next-buffer
+ "C-S-<tab>"                       #'previous-buffer
 
  "s-0"                             #'doom/reset-font-size
 
@@ -104,8 +106,6 @@
  "C-s-<right>"                     #'windmove-right
  "C-s-<left>"                      #'windmove-left
 
- "C-<tab>"                         #'+workspace/switch-right
- "C-S-<tab>"                       #'+workspace/switch-left
 
  ;; jumping / goto
  "M-g g"                           nil
