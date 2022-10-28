@@ -17,7 +17,7 @@
 ;;; basic settings
 
   (defun smf/iit-context-p (msg)
-    "Determin is MSG is from/to my IIT address."
+    "Determine if MSG is from/to my IIT address."
     (when msg
       (mu4e-message-contact-field-matches
        msg '(:to :from) "@.*iit.edu")))
