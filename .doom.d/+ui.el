@@ -5,7 +5,7 @@
 (setq doom-theme 'doom-nord)
 
 ;; borrow teco's ideas for big, variable, and serif fonts
-(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14)
+(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 13)
       doom-big-font (font-spec :family "FiraCode Nerd Font" :size 26)
       doom-variable-pitch-font (font-spec :family "Overpass" :size 14)
       doom-serif-font (font-spec :family "IBM Plex Mono" :weight 'light))
