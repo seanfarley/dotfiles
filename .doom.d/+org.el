@@ -187,8 +187,9 @@
   (advice-add 'org-store-log-note   :after #'org-save-all-org-buffers)
 
   ;; also, let's turn on auto-fill-mode
-  (add-hook! org-mode
-             #'auto-fill-mode))
+  (add-hook! (org-mode org-roam-mode)
+             #'auto-fill-mode
+             (display-line-numbers-mode -1)))
 
 (defun smf/org-capture-finalize ()
   "Call Hammerspoon to switch back to previous app."
