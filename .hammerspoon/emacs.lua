@@ -113,6 +113,10 @@ function mod.sendKey(k)
   mod.eval('(setq unread-command-events (listify-key-sequence "' .. k .. '"))')
 end
 
+function mod.todolist()
+  mod.eval('(org-todo-list)')
+end
+
 function mod.agenda()
   mod.eval('(smf/org-agenda)')
 end

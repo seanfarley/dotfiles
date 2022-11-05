@@ -79,6 +79,7 @@ local hyperModeBindings = {
 local orgModeBindings = {
   { key = 'r', fn = function () emacs.capture('roam-ref', 'r') end, desc = 'Roam Capture' },
   { key = 'n', fn = emacs.capture, desc = 'Capture' },
+  { key = 't', fn = emacs.todolist, desc = 'Todo List' },
   -- this didn't work when emacs is in focus, so switch to global hotkey
   -- { key = 'a', fn = emacs.agenda, desc = 'Agenda' },
 
