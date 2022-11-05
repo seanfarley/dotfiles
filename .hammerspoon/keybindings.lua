@@ -35,6 +35,7 @@ local bindings = {
       { modifiers = cmdCtrl, key = 'i', name = 'Music' },
       { modifiers = cmdCtrl, key = 'm', fn = emacs.mu4e, desc = 'mu4e' },
       { modifiers = cmdCtrl, key = 'r', fn = emacs.orgroam, desc = 'org-roam' },
+      { modifiers = cmdCtrl, key = 'a', fn = emacs.agenda, desc = 'Org Agenda' },
 
       -- { modifiers = cmd, key = 'space', fn = emacs.mu4e, desc = 'mu4e' },
 
@@ -78,7 +79,8 @@ local hyperModeBindings = {
 local orgModeBindings = {
   { key = 'r', fn = function () emacs.capture('roam-ref', 'r') end, desc = 'Roam Capture' },
   { key = 'n', fn = emacs.capture, desc = 'Capture' },
-  { key = 'a', fn = emacs.agenda, desc = 'Agenda' },
+  -- this didn't work when emacs is in focus, so switch to global hotkey
+  -- { key = 'a', fn = emacs.agenda, desc = 'Agenda' },
 
   -- { modifiers = { 'ctrl' }, key = 'c', fn = function () hs.alert.show("Testing C-c") end, desc = 'Testin C-c', filter = { 'Emacs' } },
 
