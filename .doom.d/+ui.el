@@ -84,3 +84,16 @@ simplicity, just test if the workspace begins with an asterik."
       (if (string-prefix-p (nth 0 mru-list) cur-workspace)
           (+workspace/switch-to (nth 1 mru-list))
         (+workspace/switch-to (nth 0 mru-list))))))
+
+;; https://www.n16f.net/blog/eye-level-window-centering-in-emacs/
+(defcustom g-recenter-window-eye-level 0.2
+  "The relative position of the line considered as eye level in the
+current window, as a ratio between 0 and 1.")
+
+(defun g-recenter-window ()
+  "Scroll the window so that the current line is at eye level."
+  (interactive)
+  (let ((line (round (* (window-height) g-recenter-window-eye-level))))
+    (recenter line)))
+
+(global-set-key (kbd "C-l") 'g-recenter-window)
