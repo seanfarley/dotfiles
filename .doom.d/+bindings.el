@@ -149,12 +149,6 @@
                "M-<right>"         nil
                "M-<left>"          nil))
 
- ;; company
- (:after company
-         (:map company-active-map
-               [C-tab]             nil
-               [tab]               nil))
-
  ;; flyspell
  (:after flyspell
          (:map flyspell-mode-map

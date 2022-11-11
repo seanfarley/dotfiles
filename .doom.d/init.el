@@ -20,9 +20,12 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       (company          ; the ultimate code completion backend
-        +auto            ; as-you-type code completion
-        +childframe)
+       ;; (company          ; the ultimate code completion backend
+       ;;  +auto            ; as-you-type code completion
+       ;;  +childframe)
+       (corfu
+        +icons
+        +orderless)
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        (vertico          ; a search engine for love and life
