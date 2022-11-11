@@ -39,6 +39,7 @@
 
   (map! :map corfu-map
         "C-SPC"    #'corfu-insert-separator
+        "SPC"      #'corfu-insert-separator
         "C-n"      #'corfu-next
         "C-p"      #'corfu-previous
         (:prefix "C-x"
