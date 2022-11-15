@@ -36,10 +36,6 @@
   (when (modulep! :ui workspaces)
     (+workspace-switch +smf/org-roam-workspace-name t)))
 
-(use-package! org-capture
-  ;; TODO try to remove defer in favor of a :command, if possible
-  :defer t)
-
 (after! org
   ;; use svg instead of png latex previews; much crisper on a retina screen
   ;; (presumably dvipng doesn't know about HiDPI)
