@@ -118,7 +118,7 @@ function mod.todolist()
 end
 
 function mod.agenda()
-  mod.eval('(smf/org-agenda)')
+  mod.eval('(org-agenda-list)')
 end
 
 function mod.mu4e()
@@ -146,7 +146,7 @@ function mod.matrix()
 end
 
 function mod.orgroam()
-  mod.eval('(smf/org-roam)')
+  mod.eval('(org-roam-node-find)')
 end
 
 function mod.switchWorkspace()
