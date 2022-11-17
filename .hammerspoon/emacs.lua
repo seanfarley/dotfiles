@@ -191,8 +191,6 @@ function mod.capture(protocol, captureTemplate, time)
     body = time
   end
 
-  mod.orgroam()
-
   local protocolUrl = 'org-protocol://' .. protocol .. '?' ..
     'title=' .. http.encodeForQuery(title) ..
     '&' .. urlkey .. '=' .. http.encodeForQuery(url) ..
