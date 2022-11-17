@@ -29,8 +29,9 @@
 ;; too annoying for technical writing which uses a lot of passive voice
 (package! writegood-mode :disable t)
 
-;; I always forget this
+;; ;; I always forget this
 ;; (package! mypackage :recipe (:local-repo "packages/mypackage"
+;;                              ;; :files (:defaults "extra")
 ;;                              :build (:not compile)))
 
 ;; TODO port to doom org +pretty
