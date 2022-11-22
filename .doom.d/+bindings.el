@@ -171,7 +171,7 @@
  ;; unfill
  "M-Q"                             #'unfill-paragraph
 
- (:after org
+ (:after (org org-agenda org-roam)
          (:map org-mode-map
                ;; I use meta-arrow keys for navigation so let's stop org from
                ;; using them to indent
