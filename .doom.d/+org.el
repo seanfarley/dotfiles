@@ -544,6 +544,7 @@ JUSTIFICATION is a symbol for 'left, 'center or 'right."
 
 (defadvice! smf/org-clock-compact-clock-string (orig-fun)
   :around #'org-clock-get-clock-string
+  (require 'mu4e)
   (if org-clock-effort
       (funcall orig-fun)
     ;; should move the `save-window-excursion' into `+mu4e--get-string-width'
