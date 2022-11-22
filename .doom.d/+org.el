@@ -134,6 +134,9 @@
                             ("DONE" . (:foreground "LimeGreen" :weight bold))
                             ("CANCELED" . (:foreground "gray" :weight bold)))
 
+   ;; for some reason 'auto clips the right-most two or three characters
+   org-agenda-tags-column 150
+
    ;; misc todo settings
    org-enforce-todo-dependencies t
    org-use-fast-todo-selection t
