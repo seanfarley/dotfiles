@@ -359,7 +359,9 @@
 (plist-put +ligatures-extra-symbols :name "⁍")
 
 (use-package! org-modern
-  :hook (org-mode . org-modern-mode)
+  :after (org org-agenda org-roam)
+  :init
+  (global-org-modern-mode)
   :config
   (setq org-modern-star ["◉" "○" "✸" "✿" "✤" "✜" "◆" "▶"]
         org-modern-table-vertical 1
