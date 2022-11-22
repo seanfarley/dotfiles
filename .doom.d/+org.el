@@ -93,14 +93,13 @@
       key))
 
   (setq-default
-   org-agenda-files (mapcar (lambda (f) (concat org-directory f))
-                            (list "inbox.org"
-                                  "personal.org"
-                                  "phd.org"))
-
    ;; set the file for capturing todos
    +org-capture-todo-file "personal.org"
    org-default-notes-file (concat org-directory "/" +org-capture-todo-file)
+
+   org-agenda-files (mapcar (lambda (f) (concat org-directory f))
+                            (list +org-capture-todo-file
+                                  "phd.org"))
 
    ;; don't auto-fold my documents
    org-startup-folded nil
