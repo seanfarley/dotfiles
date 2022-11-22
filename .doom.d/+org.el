@@ -249,7 +249,14 @@
         bibtex-completion-notes-path (expand-file-name "~/Nextcloud/refs/notes/")
         bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n"))
 
-(setq citar-bibliography bibtex-completion-bibliography)
+(after! (citar bibtex)
+  (setq citar-bibliography bibtex-completion-bibliography
+        citar-library-paths bibtex-completion-library-path
+        citar-symbols
+        `((file ,(all-the-icons-faicon "file-pdf-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
+          (note ,(all-the-icons-faicon "sticky-note" :face 'all-the-icons-blue :v-adjust -0.1) . " ")
+          (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " "))
+        citar-symbol-separator " "))
 
 ;;; org-noter-pdftools
 
