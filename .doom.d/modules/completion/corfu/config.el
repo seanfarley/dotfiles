@@ -14,7 +14,9 @@
   (corfu-min-width 80)
   (corfu-max-width corfu-min-width)
   :hook
-  (doom-first-buffer . global-corfu-mode)
+  (doom-first-buffer . (lambda ()
+                         (global-corfu-mode)
+                         (corfu-popupinfo-mode)))
   :config
   (when (modulep! +minibuffer)
     (add-hook 'minibuffer-setup-hook #'+corfu--enable-in-minibuffer))
@@ -60,16 +62,6 @@
   (unless (display-graphic-p)
     (corfu-doc-terminal-mode)
     (corfu-terminal-mode)))
-
-
-(use-package! corfu-doc
-  :hook (corfu-mode . corfu-doc-mode)
-  :custom
-  (corfu-doc-delay 0)
-  :bind (:map corfu-map
-              ("M-n" . corfu-doc-scroll-down)
-              ("M-p" . corfu-doc-scroll-up)
-              ("M-d" . corfu-doc-toggle)))
 
 
 (use-package! orderless
