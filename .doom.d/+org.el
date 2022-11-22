@@ -39,6 +39,13 @@
   (when (modulep! :ui workspaces)
     (+workspace-switch +smf/org-roam-workspace-name t)))
 
+;; oddly, the side org roam buffer displays a non-working state at first but
+;; refreshing it fixes the backlinks
+(defadvice! smf/org-roam-refresh (&rest _)
+  :after #'org-roam-buffer-toggle
+  (with-current-buffer org-roam-buffer
+    (org-roam-buffer-refresh)))
+
 (after! org
   ;; use svg instead of png latex previews; much crisper on a retina screen
   ;; (presumably dvipng doesn't know about HiDPI)
