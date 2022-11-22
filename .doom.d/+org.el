@@ -214,19 +214,6 @@
 
 ;; (add-hook 'org-capture-prepare-finalize-hook #'smf/org-capture-finalize)
 
-(defun smf/org-agenda ()
-  "Convenience function to switch workspace and display the org agenda."
-  (interactive)
-  (smf/org-roam)
-  (org-agenda-list))
-
-(defun smf/org-roam ()
-  "Switch to *org-roam* workspace or create it."
-  (interactive)
-  (+workspace-switch +smf/org-roam-workspace-name t)
-  (unless (get-buffer org-agenda-buffer-name)
-    (org-todo-list)))
-
 ;;; bibtex
 
 (setq bibtex-completion-bibliography `(,(expand-file-name "~/Nextcloud/refs/main.bib"))
