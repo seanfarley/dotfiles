@@ -46,6 +46,22 @@
   (with-current-buffer org-roam-buffer
     (org-roam-buffer-refresh)))
 
+(after! org-roam
+  (cl-defmethod org-roam-node-backlinkscount ((node org-roam-node))
+    (let* ((count (caar (org-roam-db-query
+                         [:select (funcall count source)
+                          :from links
+                          :where (= dest $s1)
+                          :and (= type "id")]
+                         (org-roam-node-id node)))))
+      (format "[%d]" count)))
+
+  (setq org-roam-node-display-template
+        (format "${doom-hierarchy:*} %s %s %s"
+                (propertize "${backlinkscount:6}" 'face 'org-footnote)
+                (propertize "${doom-type:12}" 'face 'font-lock-keyword-face)
+                (propertize "${doom-tags:42}" 'face 'org-tag))))
+
 (after! org
   ;; use svg instead of png latex previews; much crisper on a retina screen
   ;; (presumably dvipng doesn't know about HiDPI)
