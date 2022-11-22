@@ -183,7 +183,7 @@
 
   (eval-after-load "preview"
     '(add-to-list 'preview-default-preamble
-                  "\\PreviewEnvironment{tikzpicture}" t))
+      "\\PreviewEnvironment{tikzpicture}" t))
 
   ;; auto save all org files after doing a common action
   (advice-add 'org-agenda-quit      :before #'org-save-all-org-buffers)
