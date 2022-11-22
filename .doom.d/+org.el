@@ -126,10 +126,6 @@
    org-agenda-window-setup 'current-window
    org-agenda-restore-windows-after-quit 't
 
-   ;; more agenda settings
-   org-agenda-persistent-filter t
-   org-agenda-sticky t
-
    org-todo-keywords '((sequence "TODO(t)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELED(c)"))
 
    ;; use a bit better looking colors for todo faces
