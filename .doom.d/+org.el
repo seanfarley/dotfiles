@@ -126,13 +126,30 @@
    org-agenda-window-setup 'current-window
    org-agenda-restore-windows-after-quit 't
 
-   org-todo-keywords '((sequence "TODO(t)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELED(c)"))
+   ;; inspired from doom's defaults
+   org-todo-keywords
+   '((sequence
+      "TODO(t)"                  ; A task that needs doing & is ready to do
+      "SOMEDAY(s)"               ; A task to revisit in the future
+      "PROJ(p)"                  ; A project, which usually contains other tasks
+      "WAIT(w)"                  ; Something external is holding up this task
+      "HOLD(h)"                  ; This task is paused/on hold because of me
+      "|"
+      "DONE(d)"         ; Task successfully completed
+      "CANCELED(c)"))   ; Task was cancelled, aborted or is no longer applicable
 
-   ;; use a bit better looking colors for todo faces
-   org-todo-keyword-faces '(("TODO" . (:foreground "OrangeRed" :weight bold))
-                            ("SOMEDAY" . (:foreground "GoldenRod" :weight bold))
-                            ("DONE" . (:foreground "LimeGreen" :weight bold))
-                            ("CANCELED" . (:foreground "gray" :weight bold)))
+   org-todo-keyword-faces
+   '(("SOMEDAY"  . +org-todo-onhold)
+     ("HOLD"     . +org-todo-onhold)
+     ("WAIT"     . +org-todo-onhold)
+     ("PROJ"     . +org-todo-project)
+     ("CANCELED" . +org-todo-cancel))
+
+   org-agenda-deadline-faces
+   '((1.001 . error)
+     (1.0 . org-warning)
+     (0.5 . org-upcoming-deadline)
+     (0.0 . org-upcoming-distant-deadline))
 
    ;; for some reason 'auto clips the right-most two or three characters
    org-agenda-tags-column 150
@@ -251,12 +268,6 @@
 (custom-set-faces!
   '(org-document-title :height 1.2))
 
-(setq org-agenda-deadline-faces
-      '((1.001 . error)
-        (1.0 . org-warning)
-        (0.5 . org-upcoming-deadline)
-        (0.0 . org-upcoming-distant-deadline)))
-
 ;; Org files can be rather nice to look at, particularly with some of the
 ;; customisations here. This comes at a cost however, expensive font-lock.
 ;; Feeling like you’re typing through molasses in large files is no fun, but
@@ -373,15 +384,12 @@
                           (45 . "–")
                           (42 . "•"))
         org-modern-todo-faces
-        '(("TODO" :inverse-video t :inherit org-todo)
-          ("PROJ" :inverse-video t :inherit +org-todo-project)
-          ("STRT" :inverse-video t :inherit +org-todo-active)
-          ("[-]"  :inverse-video t :inherit +org-todo-active)
-          ("HOLD" :inverse-video t :inherit +org-todo-onhold)
-          ("WAIT" :inverse-video t :inherit +org-todo-onhold)
-          ("[?]"  :inverse-video t :inherit +org-todo-onhold)
-          ("KILL" :inverse-video t :inherit +org-todo-cancel)
-          ("NO"   :inverse-video t :inherit +org-todo-cancel))
+        '(("TODO"     :inverse-video t :inherit org-todo)
+          ("SOMEDAY"  :inverse-video t :inherit +org-todo-onhold)
+          ("PROJ"     :inverse-video t :inherit +org-todo-project)
+          ("HOLD"     :inverse-video t :inherit +org-todo-onhold)
+          ("WAIT"     :inverse-video t :inherit +org-todo-onhold)
+          ("CANCELED" :inverse-video t :inherit +org-todo-cancel))
         org-modern-block nil
         org-modern-progress nil
         org-modern-keyword nil
