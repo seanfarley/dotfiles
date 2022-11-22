@@ -236,11 +236,18 @@
 
 ;;; bibtex
 
-(setq bibtex-completion-bibliography `(,(expand-file-name "~/Nextcloud/refs/main.bib"))
-      bibtex-completion-library-path `(,(expand-file-name "~/Nextcloud/refs/pdfs"))
-      bibtex-completion-additional-search-fields '(keywords tags)
-      bibtex-completion-notes-path (expand-file-name "~/Nextcloud/refs/notes/")
-      bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n")
+(after! bibtex
+  (setq bibtex-field-delimiters 'double-quotes
+        ;; betterbib doesn't align the equal signs, so we disable that in emacs,
+        ;; as well
+        bibtex-align-at-equal-sign nil ; betterbib
+        bibtex-text-indentation 5      ; betterbib
+        bibtex-field-indentation 1     ; betterbib
+        bibtex-completion-bibliography `(,(expand-file-name "~/Nextcloud/refs/main.bib"))
+        bibtex-completion-library-path `(,(expand-file-name "~/Nextcloud/refs/pdfs"))
+        bibtex-completion-additional-search-fields '(keywords tags)
+        bibtex-completion-notes-path (expand-file-name "~/Nextcloud/refs/notes/")
+        bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n"))
 
 (setq citar-bibliography bibtex-completion-bibliography)
 
