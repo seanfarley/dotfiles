@@ -95,6 +95,8 @@ Add it to a hook like so:
 
 (use-package! tramp-yadm
   :after (tramp projectile)
+  :config
+  (setq +vc-gutter-in-remote-files t)
   :init
   (tramp-yadm-register))
 
