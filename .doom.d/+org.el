@@ -99,7 +99,7 @@
                                   "phd.org"))
 
    ;; set the file for capturing todos
-   +org-capture-todo-file "inbox.org"
+   +org-capture-todo-file "personal.org"
    org-default-notes-file (concat org-directory "/" +org-capture-todo-file)
 
    ;; don't auto-fold my documents
@@ -176,12 +176,12 @@
 
    org-capture-templates
    (remove '("t" "Personal todo" entry
-             (file+headline +org-capture-todo-file "Inbox")
+             (file+headline +org-capture-todo-file "Tasks")
              "* [ ] %?\n%i\n%a" :prepend t) org-capture-templates))
 
   (add-to-list 'org-capture-templates
                '("t" "Personal todo" entry
-                 (file+headline +org-capture-todo-file "Inbox")
+                 (file+headline +org-capture-todo-file "Tasks")
                  "* TODO %?\n%i\n%a" :prepend t))
 
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
