@@ -118,4 +118,5 @@ Add it to a hook like so:
 (load! "+vterm")
 (load! "+ansible")
 (load! "+magit")
+(load! "+biblio")
 

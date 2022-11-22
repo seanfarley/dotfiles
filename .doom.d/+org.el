@@ -234,30 +234,6 @@
 
 ;; (add-hook 'org-capture-prepare-finalize-hook #'smf/org-capture-finalize)
 
-;;; bibtex
-
-(after! bibtex
-  (setq bibtex-field-delimiters 'double-quotes
-        ;; betterbib doesn't align the equal signs, so we disable that in emacs,
-        ;; as well
-        bibtex-align-at-equal-sign nil ; betterbib
-        bibtex-text-indentation 5      ; betterbib
-        bibtex-field-indentation 1     ; betterbib
-        bibtex-completion-bibliography `(,(expand-file-name "~/Nextcloud/refs/main.bib"))
-        bibtex-completion-library-path `(,(expand-file-name "~/Nextcloud/refs/pdfs"))
-        bibtex-completion-additional-search-fields '(keywords tags)
-        bibtex-completion-notes-path (expand-file-name "~/Nextcloud/refs/notes/")
-        bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n"))
-
-(after! (citar bibtex)
-  (setq citar-bibliography bibtex-completion-bibliography
-        citar-library-paths bibtex-completion-library-path
-        citar-symbols
-        `((file ,(all-the-icons-faicon "file-pdf-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
-          (note ,(all-the-icons-faicon "sticky-note" :face 'all-the-icons-blue :v-adjust -0.1) . " ")
-          (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " "))
-        citar-symbol-separator " "))
-
 ;;; org-noter-pdftools
 
 (add-hook! 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)
