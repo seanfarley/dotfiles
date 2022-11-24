@@ -215,3 +215,14 @@ modified to not pop up the file."
                 (osx-trash-move-file-to-trash file))))
     (funcall orig-fn citekey)
     (smf/citar-insert-file-key citekey)))
+
+(defun smf/citar-scihub-browse (citekey)
+  "Open Sci-Hub in browser for CITEKEY-OR-CITEKEYS.
+
+If the bibtex entry does not have a DOI or PubMedID, then use
+betterbib to update your bibtex database."
+  (interactive (list (citar-select-ref)))
+  (when-let* ((id (smf/citar-find-article-id citekey))
+              (url (format "https://sci-hub.se/%s" id)))
+    (browse-url url)))
+
