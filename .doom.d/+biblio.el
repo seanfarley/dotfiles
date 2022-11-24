@@ -104,9 +104,12 @@ betterbib to update your bibtex database."
   (interactive (list (citar-select-ref)))
   (let* ((entry (citar-get-entry citekey))
          (doi (citar-get-value 'doi entry))
-         (pmid (citar-get-value 'pmid entry)))
-    (message "LEEROY: %s" (or doi pmid))
-    ))
+         (pmid (citar-get-value 'pmid entry))
+         (id (or doi pmid)))
+    (unless id
+      (message "No DOI or PMID found! Run 'betterbib' to find missing ids."))
+    (when id
+      id)))
 
 (defun smf/xwidget-webkit-ddos-download (url script save-file &optional wait-for)
   "Use webkit's javascript to redirect from sites protected by DDOS services.
