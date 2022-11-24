@@ -193,7 +193,7 @@ modified to not pop up the file."
         (with-current-buffer buf
           (bibtex-end-of-entry)
           (beginning-of-line)
-          (previous-line)
+          (forward-line -1)
           (beginning-of-line)
           (bibtex-make-field "file" t)
           (backward-char)
