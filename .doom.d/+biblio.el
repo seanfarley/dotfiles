@@ -38,6 +38,7 @@
       (define-key map (kbd "h") 'biblio-hal-lookup)
       (define-key map (kbd "s") 'biblio-dissemin-lookup)
       (define-key map (kbd "b") 'biblio-dblp-lookup)
+      (define-key map (kbd "g") 'biblio-gscholar-lookup)
       map)
     "Citar Embark become keymap for biblio lookup.")
 
