@@ -241,3 +241,7 @@ betterbib to update your bibtex database."
                                       "document.querySelector('#pdf').src"
                                       save-file)))
 
+(after! citar
+  (map! :map citar-map
+        "h" #'smf/citar-scihub-import
+        "H" #'smf/citar-scihub-browse))
