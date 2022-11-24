@@ -226,3 +226,18 @@ betterbib to update your bibtex database."
               (url (format "https://sci-hub.se/%s" id)))
     (browse-url url)))
 
+(defun smf/citar-scihub-import (citekey)
+  "Search Sci-Hub for CITEKEY-OR-CITEKEYS.
+
+If the bibtex entry does not have a DOI or PubMedID, then use
+betterbib to update your bibtex database."
+  (interactive (list (citar-select-ref)))
+  (when-let* ((id (smf/citar-find-article-id citekey))
+              (url (format "https://sci-hub.se/%s" id))
+              (save-file (format "%s/%s.pdf"
+                                 (car bibtex-completion-library-path)
+                                 citekey)))
+    (smf/xwidget-webkit-ddos-download url li2011boundary
+                                      "document.querySelector('#pdf').src"
+                                      save-file)))
+
