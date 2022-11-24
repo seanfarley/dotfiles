@@ -22,7 +22,10 @@
         `((file ,(all-the-icons-faicon "file-pdf-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
           (note ,(all-the-icons-faicon "sticky-note" :face 'all-the-icons-blue :v-adjust -0.1) . " ")
           (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " "))
-        citar-symbol-separator " "))
+        citar-symbol-separator " ")
+
+  (map! :map citar-map
+        "a" #'citar-add-file-to-library))
 
 (after! embark
   ;; define the keymap
