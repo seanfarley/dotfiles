@@ -51,13 +51,20 @@
 
 (defun smf/biblio--selection-insert-at-end-of-bibfile-callback (bibtex entry)
   "Add BIBTEX (from ENTRY) to end of a user-specified bibtex file."
-  (with-current-buffer (find-file-noselect
-                        (car bibtex-completion-bibliography))
-    (goto-char (point-max))
-    (insert "\n")
-    (insert bibtex))
-  (message "Inserted bibtex entry for %S."
-           (biblio--prepare-title (biblio-alist-get 'title entry))))
+  (let* ((bib-file (car bibtex-completion-bibliography))
+         (buf (or (get-file-buffer bib-file)
+                  (find-buffer-visiting bib-file)))
+         (need-close (not buf))
+         (buf (find-file-noselect bib-file)))
+
+    (with-current-buffer buf
+      (goto-char (point-max))
+      (insert "\n")
+      (insert bibtex)
+      (save-buffer))
+    (when need-close (kill-buffer buf))
+    (message "Inserted bibtex entry for %S."
+             (biblio--prepare-title (biblio-alist-get 'title entry)))))
 
 (defun smf/biblio-selection-insert-end-of-bibfile ()
   "Insert BibTeX of current entry at the end of user-specified bibtex file."
