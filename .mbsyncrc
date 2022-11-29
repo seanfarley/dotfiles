@@ -1,7 +1,7 @@
 IMAPAccount mail
 Host box.farley.io
 User sean@farley.io
-PassCmd "~/.epass.sh https://box.farley.io sean@farley.io"
+PassCmd "epass https://box.farley.io sean@farley.io"
 SSLType IMAPS
 SSLVersions TLSv1.2
 
