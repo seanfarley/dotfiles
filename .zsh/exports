@@ -26,6 +26,7 @@ export GOPATH=$PROJECTS/go
 export EMACS_SERVER_FILE=$HOME/.emacs.d/server/server
 
 export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/.config/ansible-vault-pass
+export ANSIBLE_LOCAL_TMP=$TMP
 
 # if we're not on our home machine, then set tramp
 if [[ $HOME != /Users/$USER ]]; then
