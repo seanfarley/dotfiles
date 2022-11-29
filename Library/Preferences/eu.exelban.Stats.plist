@@ -8,6 +8,12 @@
 	<string>line_chart</string>
 	<key>Disk_state</key>
 	<false/>
+	<key>NSStatusItem Preferred Position CPU_line_chart</key>
+	<real>489</real>
+	<key>NSStatusItem Preferred Position Network_speed</key>
+	<real>537</real>
+	<key>NSStatusItem Preferred Position RAM_pie_chart</key>
+	<real>455</real>
 	<key>RAM_widget</key>
 	<string>pie_chart</string>
 	<key>dockIcon</key>
@@ -17,8 +23,8 @@
 	<key>runAtLoginInitialized</key>
 	<true/>
 	<key>updater_check_ts</key>
-	<integer>1668805313</integer>
+	<integer>1669651532</integer>
 	<key>version</key>
-	<string>2.7.44</string>
+	<string>2.7.46</string>
 </dict>
 </plist>
