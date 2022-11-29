@@ -41,17 +41,13 @@ function prompt_smf_hostname() {
   elif [[ "$OSTYPE" == "darwin"* ]]
   then
     VER=$(echo "$OSTYPE" | cut -d n -f 2 | cut -d . -f 1)
-    if [[ $VER == 22 ]]; then
-      VER="Ventura"
-    elif [[ $VER == 21 ]]; then
-      VER="Monterey"
-    elif [[ $VER == 20 ]]; then
-      VER="Big Sur"
-    elif [[ $VER == 19 ]]; then
-      VER="Catalina"
-    elif [[ $VER == 18 ]]; then
-      VER="Mojave"
-    fi
+    case $VER in
+      22) VER="Ventura";;
+      21) VER="Monterey";;
+      20) VER="Big Sur";;
+      19) VER="Catalina";;
+      18) VER="Mojave";;
+    esac
   else
     VER="$OSTYPE"
   fi
