@@ -12,6 +12,7 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
   fi
 
   echo "Installing homebrew packages"
+  # gawk is left out because it conflicts with emacs-plus
   brew bundle -v --no-lock --file=/dev/stdin <<EOF
 tap "d12frosted/emacs-plus"
 tap "homebrew/bundle"
@@ -49,7 +50,6 @@ brew "fd"
 brew "fdupes"
 brew "fftw"
 brew "findutils"
-brew "gawk"
 brew "git"
 brew "git-absorb"
 brew "git-lfs"
