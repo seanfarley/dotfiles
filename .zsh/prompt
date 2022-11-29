@@ -56,12 +56,7 @@ function prompt_smf_hostname() {
 
   # color based on hostname
   case $hn in
-    laptop)
-      case $VER in
-        Monterey) hn_color=135;;
-        Big*) hn_color=003;;
-      esac
-      ;;
+    laptop) hn_color=135;;
     theta*) hn_color=002;;
     minimac*|gcc*) hn_color=013;;
     euclid*) hn_color=172;;
