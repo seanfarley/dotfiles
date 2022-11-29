@@ -57,7 +57,6 @@ user_python_path=$(python3 -c 'import site; print(site.USER_SITE.replace("lib/py
 path=(
     ~/.emacs.d/bin
     ~/.local/bin
-    ~/.npm-packages/bin
     $user_python_path
     $path
 )
@@ -80,3 +79,6 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # z.sh / auto jump
 ZSHZ_TILDE=1
 ZSHZ_KEEP_DIRS=1
+
+# npm
+export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc"
