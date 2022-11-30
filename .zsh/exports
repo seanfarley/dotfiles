@@ -83,9 +83,10 @@ fi
 
 # homebrew
 export HOMEBREW_NO_AUTO_UPDATE=1
-# z.sh / auto jump
-ZSHZ_TILDE=1
-ZSHZ_KEEP_DIRS=1
+
+# zshz / auto jump
+export ZSHZ_TILDE=1
+export ZSHZ_KEEP_DIRS=1
 
 # npm
 export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc"
