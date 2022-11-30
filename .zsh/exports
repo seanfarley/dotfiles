@@ -65,6 +65,9 @@ path=(
     $path
 )
 
+# python
+export PYTHONSTARTUP="$HOME/.config/python/pythonrc"
+
 # for virtualenv
 export VIRTUALENV_HOME="$HOME/.virtualenvs"
 mkdir -p "$VIRTUALENV_HOME"
