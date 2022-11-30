@@ -33,8 +33,7 @@ export ANSIBLE_SSH_CONTROL_PATH_DIR=$HOME/.cache/ansible/cp
 
 # if we're not on our home machine, then set tramp
 if [[ $HOME != /Users/$USER ]]; then
-    EMACSCLIENT_TRAMP="/ssh:$(hostname -f 2>/dev/null || hostname):"
-    export EMACSCLIENT_TRAMP
+    export EMACSCLIENT_TRAMP="/ssh:$(hostname -f 2>/dev/null || hostname):"
 fi
 
 ##
