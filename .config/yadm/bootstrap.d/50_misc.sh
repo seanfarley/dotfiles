@@ -49,8 +49,9 @@ if [ ! -d "$HOME/.zsh/zsh-autosuggestions" ]; then
     git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/zsh-autosuggestions"
 fi
 
-if [ ! -d "$HOME/.zsh/powerlevel10k" ]; then
-    git clone https://github.com/romkatv/powerlevel10k "$HOME/.zsh/powerlevel10k"
+p10k_dir="$XDG_DATA_HOME/powerlevel10k"
+if [ ! -d "$p10k_dir" ]; then
+    git clone https://github.com/romkatv/powerlevel10k "$p10k_dir"
 fi
 
 zaw_dir="$XDG_DATA_HOME/zaw"

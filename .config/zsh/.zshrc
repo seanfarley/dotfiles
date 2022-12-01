@@ -47,8 +47,8 @@ zstyle ':completion:*' menu select
 printf '\n%.0s' {1..100}
 
 source ~/.p10k.zsh
-source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $XDG_DATA_HOME/powerlevel10k/powerlevel10k.zsh-theme
 source $XDG_DATA_HOME/zaw/zaw.zsh
 
 source ~/.zsh/init
