@@ -31,6 +31,10 @@ if [ ! -d "$git_dir" ]; then
     git --git-dir="$git_dir" checkout -- .
 fi
 
+# NOTE we could simplify and cleanup these dotfiles a bunch if we used a zsh
+# plugin manager but that would increase our dependencies and require another
+# installation if we're not root; so far we just need {zsh, git, yadm}
+
 # in case we run this script multiple times, we've already cloned the repo above
 z_len="$( ( wc -l ~/.z 2>/dev/null || echo 0 foo ) | awk '{print $1}')"
 if [ $z_len -lt 50 ]; then
