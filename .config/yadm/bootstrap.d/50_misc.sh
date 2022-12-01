@@ -53,6 +53,7 @@ if [ ! -d "$HOME/.zsh/powerlevel10k" ]; then
     git clone https://github.com/romkatv/powerlevel10k "$HOME/.zsh/powerlevel10k"
 fi
 
-if [ ! -d "$HOME/.zsh/zaw" ]; then
-    git clone https://github.com/zsh-users/zaw "$HOME/.zsh/zaw"
+zaw_dir="$XDG_DATA_HOME/zaw"
+if [ ! -d "$zaw_dir" ]; then
+    git clone https://github.com/zsh-users/zaw "$zaw_dir"
 fi
