@@ -2,7 +2,7 @@
 # found
 autoload -Uz compinit
 compinit
-source ~/.zsh/exports
+source $ZDOTDIR/exports.zsh
 
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
@@ -46,16 +46,16 @@ zstyle ':completion:*' menu select
 
 printf '\n%.0s' {1..100}
 
-source $ZDOTDIR/p10k.zsh
 source $XDG_DATA_HOME/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $XDG_DATA_HOME/powerlevel10k/powerlevel10k.zsh-theme
 source $XDG_DATA_HOME/zaw/zaw.zsh
 
-source ~/.zsh/init
-source ~/.zsh/functions
-source ~/.zsh/aliases
-source ~/.zsh/prompt
-source ~/.zsh/bindkeys
+source $ZDOTDIR/p10k.zsh
+source $ZDOTDIR/init.zsh
+source $ZDOTDIR/functions.zsh
+source $ZDOTDIR/aliases.zsh
+source $ZDOTDIR/prompt.zsh
+source $ZDOTDIR/bindkeys.zsh
 
 # more compatible icons
 POWERLEVEL9K_HOME_ICON=""
