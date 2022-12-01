@@ -13,7 +13,7 @@ fi
 if command -v security >/dev/null 2>&1; then
     # ensure the ssh key agent is open
     # (first time only: will prompt for password to store in keychain)
-    ssh-add -K
+    ssh-add --apple-use-keychain
 fi
 
 git_dir=~/.dotfiles-private
