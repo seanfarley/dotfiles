@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# just in case this script is run without sourcing custom ~/.zshenv first
+ export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+
 # setup ~/sandbox first
 if [ -d /hadron/euclid/home/sean ] && [ ! -L "$HOME/sandbox" ]; then
     ln -s /hadron/euclid/home/sean/sandbox "$HOME/sandbox"
