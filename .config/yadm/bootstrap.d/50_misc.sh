@@ -45,8 +45,9 @@ if [ $z_len -lt 50 ]; then
     mv ~/z-new ~/.z
 fi
 
-if [ ! -d "$HOME/.zsh/zsh-autosuggestions" ]; then
-    git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/zsh-autosuggestions"
+as_dir="$XDG_DATA_HOME/zsh-autosuggestions"
+if [ ! -d "$as_dir" ]; then
+    git clone https://github.com/zsh-users/zsh-autosuggestions "$as_dir"
 fi
 
 p10k_dir="$XDG_DATA_HOME/powerlevel10k"
