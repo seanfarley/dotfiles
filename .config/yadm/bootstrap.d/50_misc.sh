@@ -48,14 +48,20 @@ fi
 as_dir="$XDG_DATA_HOME/zsh-autosuggestions"
 if [ ! -d "$as_dir" ]; then
     git clone https://github.com/zsh-users/zsh-autosuggestions "$as_dir"
+else
+    cd "$as_dir" && git pull --rebase --autostash
 fi
 
 p10k_dir="$XDG_DATA_HOME/powerlevel10k"
 if [ ! -d "$p10k_dir" ]; then
     git clone https://github.com/romkatv/powerlevel10k "$p10k_dir"
+else
+    cd "$p10k_dir" && git pull --rebase --autostash
 fi
 
 zaw_dir="$XDG_DATA_HOME/zaw"
 if [ ! -d "$zaw_dir" ]; then
     git clone https://github.com/zsh-users/zaw "$zaw_dir"
+else
+    cd "$zaw_dir" && git pull --rebase --autostash
 fi
