@@ -1,6 +1,4 @@
 if [ -n "${ZSH_VERSION-}" ]; then
-  : ${ZDOTDIR:=~}
-
   # first thing to do is set xdg values if they don't exist
   export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
   export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
@@ -17,6 +15,8 @@ if [ -n "${ZSH_VERSION-}" ]; then
     export XDG_VIDEOS_DIR=${XDG_VIDEOS_DIR:-$HOME/Videos}
     export XDG_PROJECTS_DIR=${XDG_PROJECTS_DIR:-$HOME/Projects}
   fi
+
+  : ${ZDOTDIR:="$XDG_CONFIG_HOME/zsh"}
 
   setopt no_global_rcs
   [[ -o no_interactive ]] && return
