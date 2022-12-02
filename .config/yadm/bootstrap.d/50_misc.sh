@@ -36,23 +36,28 @@ if [ $z_len -lt 50 ]; then
     mv ~/z-new $_Z_DATA
 fi
 
-as_dir="$XDG_DATA_HOME/zsh-autosuggestions"
-if [ ! -d "$as_dir" ]; then
-    git clone https://github.com/zsh-users/zsh-autosuggestions "$as_dir"
-else
-    cd "$as_dir" && git pull --rebase --autostash
-fi
+function -clone-data() {
+    local GIT_DIR GIT_WORK_TREE
+    unset GIT_DIR GIT_WORK_TREE
 
-p10k_dir="$XDG_DATA_HOME/powerlevel10k"
-if [ ! -d "$p10k_dir" ]; then
-    git clone https://github.com/romkatv/powerlevel10k "$p10k_dir"
-else
-    cd "$p10k_dir" && git pull --rebase --autostash
-fi
+    local dir="$1"
+    local repo=$(basename $dir)
+    local gh="zsh-users"
+    [[ "$repo" == "powerlevel10k" ]] && gh="romkatv"
 
-zaw_dir="$XDG_DATA_HOME/zaw"
-if [ ! -d "$zaw_dir" ]; then
-    git clone https://github.com/zsh-users/zaw "$zaw_dir"
-else
-    cd "$zaw_dir" && git pull --rebase --autostash
-fi
+    if [[ ! -d "$dir" ]]; then
+        print -Pr "%F{yellow}Cloning $repo%f"
+        git clone https://github.com/$gh/$repo $dir
+    else
+        print -Pr "%F{yellow}Updating $repo%f"
+        cd "$dir" && git pull --rebase --autostash --quiet
+    fi
+}
+
+{
+    -clone-data $XDG_DATA_HOME/zsh-autosuggestions
+    -clone-data $XDG_DATA_HOME/powerlevel10k
+    -clone-data $XDG_DATA_HOME/zaw
+} always {
+    unset -f -- -clone-data
+}
