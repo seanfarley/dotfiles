@@ -27,11 +27,11 @@
 	<key>NSWindow Frame TTAppPreferences</key>
 	<string>387 346 667 554 0 0 1440 900 </string>
 	<key>NSWindow Frame TTWindow</key>
-	<string>249 229 954 489 0 0 1440 900 </string>
+	<string>235 206 970 489 0 0 1440 900 </string>
 	<key>NSWindow Frame TTWindow Basic</key>
 	<string>109 212 570 418 0 0 1440 900 </string>
 	<key>NSWindow Frame TTWindow Nord</key>
-	<string>278 200 970 489 0 0 1440 900 </string>
+	<string>235 206 970 489 0 0 1440 900 </string>
 	<key>NSWindow Frame TTWindow Pro</key>
 	<string>350 425 650 442 0 0 1440 900 </string>
 	<key>NSWindow Frame TTWindow Pro - zsh</key>
