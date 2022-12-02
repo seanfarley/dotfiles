@@ -9,8 +9,8 @@ IMAPStore mail-remote
 Account mail
 
 MaildirStore mail-local
-Path ~/.mail/
-Inbox ~/.mail/inbox
+Path ~/.local/share/mail/
+Inbox ~/.local/share/mail/inbox
 SubFolders Verbatim
 
 Channel mail
