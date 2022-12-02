@@ -25,7 +25,7 @@ export CDPATH=.:$PROJECTS:$HOME
 export GOPATH=$PROJECTS/go
 
 # sweet, sweet emacs
-export EMACS_SERVER_FILE=$HOME/.emacs.d/server/server
+export EMACS_SERVER_FILE=$XDG_CONFIG_HOME/emacs/server/server
 
 export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/.config/ansible-vault-pass
 export ANSIBLE_HOME=$HOME/.cache/ansible
@@ -60,7 +60,7 @@ hash -r
 
 user_python_path=$(python3 -c 'import site; print(site.USER_SITE.replace("lib/python/site-packages", "bin"))')
 path=(
-    ~/.emacs.d/bin
+    $XDG_CONFIG_HOME/emacs/bin
     ~/.local/bin
     $user_python_path
     $path
