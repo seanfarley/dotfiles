@@ -97,3 +97,6 @@ export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 
 # vim
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
+
+# autosuggest
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
