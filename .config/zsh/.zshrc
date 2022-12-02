@@ -1,8 +1,9 @@
 # special treatment for exported variables so that paths and whatnot can be
 # found
+source $ZDOTDIR/exports.zsh
+
 autoload -Uz compinit
 compinit
-source $ZDOTDIR/exports.zsh
 
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
