@@ -13,7 +13,7 @@ if [ -n "${ZSH_VERSION-}" ]; then
     export XDG_MUSIC_DIR=${XDG_MUSIC_DIR:-$HOME/Music}
     export XDG_PICTURES_DIR=${XDG_PICTURES_DIR:-$HOME/Pictures}
     export XDG_VIDEOS_DIR=${XDG_VIDEOS_DIR:-$HOME/Videos}
-    export XDG_PROJECTS_DIR=${XDG_PROJECTS_DIR:-$HOME/Projects}
+    export XDG_PROJECTS_DIR=${XDG_PROJECTS_DIR:-$HOME/projects}
   fi
 
   : ${ZDOTDIR:="$XDG_CONFIG_HOME/zsh"}
