@@ -1,5 +1,6 @@
 # Export environment variables.
 export GPG_TTY=$TTY
+export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 
 # Make emacs the default editor
 export EDITOR="emacsclient"
