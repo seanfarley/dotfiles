@@ -55,6 +55,7 @@ local bindings = {
       { key = 'k', pos = { { 0.0, 0.0, 1.0, 0.5}, { 0.0, 0.0, 1.0, 0.5} }, desc = 'Window - Bottom 50%' },
       { key = 'l', pos = { { 0.5, 0.0, 0.5, 1.0}, { 0.5, 0.0, 0.5, 1.0} }, desc = 'Window - Right 50%' },
       { key = ';', pos = { { 0.0, 0.0, 1.0, 1.0}, { 0.0, 0.0, 1.0, 1.0} }, desc = 'Window - Fullscreen' },
+      { key = 'c', fn = function () hs.window.focusedWindow():centerOnScreen() end, desc = 'Window - Center' },
 
     }
   },
