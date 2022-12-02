@@ -6,6 +6,7 @@ export EDITOR="emacsclient"
 # Don't clear the screen after quitting a manual page
 export MANPAGER="less -X"
 export LESS="--ignore-case --quit-if-one-screen --quit-on-intr FRXQ"
+export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 
 # Have bash ignore the .DS_Store
 export FIGNORE=DS_Store
