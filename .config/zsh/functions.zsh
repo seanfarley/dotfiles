@@ -14,9 +14,6 @@ function sync-history () {
 
   emulate -L zsh -o no_unset -o no_prompt_subst -o prompt_percent -o pushd_silent
 
-  local GIT_DIR GIT_WORK_TREE
-  unset GIT_DIR GIT_WORK_TREE
-
   local merge=1 OPTIND OPTARG
   while getopts ":hm" opt; do
     case $opt in
@@ -37,7 +34,7 @@ function sync-history () {
   fi
 
   function -sync-dotfiles-repo() {
-    local repo=${${GIT_DIR:t}#.} dirty=0 s
+    local repo=$(basename $ZDOTDIR_PRIVATE) dirty=0 s
     s="$(git status --porcelain --untracked-files=no)" || return
     if [[ -n $s ]]; then
       dirty=1
@@ -69,14 +66,13 @@ function sync-history () {
   }
 
   {
-    pushd -q ~ || return
+    pushd -q "$ZDOTDIR_PRIVATE" || return
 
-    local -x GIT_DIR=~/.dotfiles-private
-    local hist=${ZDOTDIR:-~}/.zsh_history.${(%):-%m}
+    local hist="$HISTFILE"
     local -U hist=($hist{,:*}(N))
     [[ -f ${HISTFILE:-} ]] && hist+=($HISTFILE)
     if (( $#hist )); then
-      echo $GIT_DIR
+      pwd
       git add -- $hist || return
       local s
       s="$(git status --porcelain -- $hist)" || return
@@ -84,7 +80,7 @@ function sync-history () {
         git commit -m "bump ${(%):-%m} history" -- $hist || return
       fi
     fi
-    -sync-dotfiles-repo dotfiles-private || return
+    -sync-dotfiles-repo || return
   } always {
     unset -f -- -sync-dotfiles-repo
     popd -q

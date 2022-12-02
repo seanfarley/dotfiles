@@ -23,7 +23,7 @@ fi
 
 () {
   local hist
-  for hist in ~/.zsh_history.*; do
+  for hist in $ZDOTDIR_PRIVATE/.zsh_history.*; do
     fc -RI $hist
   done
 }

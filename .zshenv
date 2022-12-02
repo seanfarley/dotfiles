@@ -17,13 +17,14 @@ if [ -n "${ZSH_VERSION-}" ]; then
   fi
 
   : ${ZDOTDIR:="$XDG_CONFIG_HOME/zsh"}
+  export ZDOTDIR_PRIVATE="$XDG_DATA_HOME/dotfiles-private"
 
   setopt no_global_rcs
   [[ -o no_interactive ]] && return
   setopt no_rcs
   HISTSIZE=1000000000
   SAVEHIST=1000000000
-  HISTFILE=$ZDOTDIR/.zsh_history.${(%):-%m}
+  HISTFILE=$ZDOTDIR_PRIVATE/.zsh_history.${(%):-%m}
 fi
 
 setopt rcs

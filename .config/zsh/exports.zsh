@@ -84,6 +84,7 @@ fi
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 # zshz / auto jump
+export _Z_DATA="$XDG_DATA_HOME/z"
 export ZSHZ_TILDE=1
 export ZSHZ_KEEP_DIRS=1
 
