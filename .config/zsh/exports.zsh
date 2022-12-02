@@ -75,9 +75,8 @@ export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
 # M1 homebrew
 [[ -f /opt/homebrew/env ]] && source /opt/homebrew/env
 
-if type brew &>/dev/null; then
-    fpath+=$(brew --prefix)/share/zsh-completions
-fi
+# completions
+fpath+=$XDG_DATA_HOME/zsh-completions/src
 
 # homebrew
 export HOMEBREW_NO_AUTO_UPDATE=1
