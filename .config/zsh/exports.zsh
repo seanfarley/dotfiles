@@ -93,3 +93,6 @@ export RIPGREP_CONFIG_PATH=$XDG_CONFIG_HOME/ripgrep
 
 # wget
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
+
+# vim
+export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
