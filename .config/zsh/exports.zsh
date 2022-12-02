@@ -68,10 +68,7 @@ path=(
 export PYTHONSTARTUP="$HOME/.config/python/pythonrc"
 
 # for virtualenv
-export VIRTUALENV_HOME="$HOME/.virtualenvs"
-mkdir -p "$VIRTUALENV_HOME"
-export WORKON_HOME="$VIRTUALENV_HOME"
-export VIRTUALENV_USE_DISTRIBUTE=1
+export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
 
 # M1 homebrew
 [[ -f /opt/homebrew/env ]] && source /opt/homebrew/env
