@@ -1,7 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 
-# just in case this script is run without sourcing custom ~/.zshenv first
- export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+# this should exist by the time this script runs
+. ~/.zshenv
+. $ZDOTDIR/exports.zsh
 
 # setup ~/sandbox first
 if [ -d /hadron/euclid/home/sean ] && [ ! -L "$HOME/sandbox" ]; then
