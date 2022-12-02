@@ -93,3 +93,6 @@ export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc"
 
 # ripgrep
 export RIPGREP_CONFIG_PATH=$XDG_CONFIG_HOME/ripgrep
+
+# wget
+export WGETRC="$XDG_CONFIG_HOME/wgetrc"
