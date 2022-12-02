@@ -14,6 +14,9 @@ function sync-history () {
 
   emulate -L zsh -o no_unset -o no_prompt_subst -o prompt_percent -o pushd_silent
 
+  local GIT_DIR GIT_WORK_TREE
+  unset GIT_DIR GIT_WORK_TREE
+
   local merge=1 OPTIND OPTARG
   while getopts ":hm" opt; do
     case $opt in
