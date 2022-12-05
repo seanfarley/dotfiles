@@ -851,8 +851,6 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     defaults write org.hammerspoon.Hammerspoon MJShowDockIconKey -bool False
     defaults write org.hammerspoon.Hammerspoon MJConfigFile "~/.config/hammerspoon/init.lua"
 
-   [ -L /Applications/Emacs.app ] || ln -s /usr/local/opt/emacs-plus@28/Emacs.app /Applications
-
     ###############################################################################
     # Customize Finder Sidebar                                                    #
     ###############################################################################

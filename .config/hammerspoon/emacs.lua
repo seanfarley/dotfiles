@@ -38,8 +38,10 @@ function backFromEmacs()
 end
 
 function mod.focus()
-  -- hardcode this since it's a symlink
-  hs.application.launchOrFocus("/Applications/Emacs.app")
+  local c = "/bin/sh -c 'dirname `realpath /usr/local/bin/emacs`'"
+  local emacs = process.capture(c) .. "/../Emacs.app"
+  -- hs.alert(emacs)
+  hs.application.launchOrFocus(emacs)
 end
 
 function mod.client()
@@ -51,13 +53,6 @@ function mod.client()
   end
 
   local ec = "/Applications/Emacs.app/../bin/"
-  if process.file_exists(ec .. "emacsclient") then
-    -- hs.alert("found it at: " .. ec)
-    return ec .. "emacsclient"
-  end
-
-  -- otherwise might be a local install
-  ec = "/Applications/Emacs.app/Contents/MacOS/bin/"
   if process.file_exists(ec .. "emacsclient") then
     -- hs.alert("found it at: " .. ec)
     return ec .. "emacsclient"
