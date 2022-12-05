@@ -44,6 +44,12 @@ end
 
 function mod.client()
   -- find homebrew emacsclient
+  ec = "/usr/local/bin/"
+  if process.file_exists(ec .. "emacsclient") then
+    -- hs.alert("found it at: " .. ec)
+    return ec .. "emacsclient"
+  end
+
   local ec = "/Applications/Emacs.app/../bin/"
   if process.file_exists(ec .. "emacsclient") then
     -- hs.alert("found it at: " .. ec)
