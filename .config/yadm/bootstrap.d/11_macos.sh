@@ -829,18 +829,24 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # python stuff
     pip3 install --user -U \
         cython \
-        flake8 \
-        isort \
         jedi \
         nose \
         pipenv \
         pytest \
-        sphinx \
-        python-lsp-server
+        sphinx
 
     # beets and mpd stuff
     pip3 install --user -U beets python-mpd2 discogs-client pyacoustid
 
+    # python lsp stuff
+     pip3 install --user -U \
+         "python-lsp-server[all]" \
+         pyls-flake8 \
+         pylsp-mypy \
+         pyls-isort \
+         python-lsp-black \
+         pyls-memestra \
+         pylsp-rope
 
     # also, also make sure hammerspoon is open
     if ! pgrep -q Hammerspoon; then
