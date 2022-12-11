@@ -41,9 +41,6 @@ Add it to a hook like so:
 
 (add-hook! ssh-config-mode #'display-line-numbers-mode)
 
-(add-to-list 'auto-mode-alist '("bash_.*\\'" . sh-mode))
-(add-to-list 'auto-mode-alist '("zsh.*\\'" . sh-mode))
-
 (add-hook! (emacs-lisp-mode ielm-mode)
            #'flycheck-package-setup)
 
