@@ -61,6 +61,7 @@ function prompt_smf_hostname() {
     cloud*) hn_color=247;;
     box*) hn_color=220;;
     matrix*) hn_color=075;;
+    retropi*) hn_color=226;;
   esac
 
   # remove spaces
@@ -72,12 +73,16 @@ function prompt_smf_hostname() {
 }
 
 function prompt_smf_os_icon() {
+  local hn="$(hostname -s 2>/dev/null || hostname 2>/dev/null)"
   local color_host=163
 
   # color icons based on their logos
   case $_p9k_os_icon in
     **) color_host=247;;
-    **) color_host=172;;
+    **)
+      color_host=172
+      [[ "$hn" == *"retropie"* ]] && _p9k_os_icon=""
+      ;;
     **) color_host=126;;
     **) color_host=198;;
     **) color_host=196;;
