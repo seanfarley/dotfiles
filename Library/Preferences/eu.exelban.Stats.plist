@@ -14,6 +14,17 @@
 	<real>537</real>
 	<key>NSStatusItem Preferred Position RAM_pie_chart</key>
 	<real>455</real>
+	<key>NSToolbar Configuration eu.exelban.Stats.Settings.Toolbar</key>
+	<dict>
+		<key>TB Display Mode</key>
+		<integer>1</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<true/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
 	<key>RAM_widget</key>
 	<string>pie_chart</string>
 	<key>dockIcon</key>
