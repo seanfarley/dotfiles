@@ -63,6 +63,7 @@ Add it to a hook like so:
 (add-hook! prog-mode (display-fill-column-indicator-mode t))
 
 (add-hook! doom-first-input
+           #'+default/restart-server
            #'fancy-narrow-mode
            #'global-dot-mode
            #'whole-line-or-region-global-mode
