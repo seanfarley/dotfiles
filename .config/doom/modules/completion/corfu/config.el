@@ -124,7 +124,20 @@
     (add-to-list 'completion-at-point-functions #'cape-ispell))
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-keyword t)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev t))
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev t)
+
+  (when (modulep! :tools debugger +lsp)
+    (add-hook
+     'dap-ui-repl-mode-hook
+     (lambda ()
+       (require 'company)
+       (company-mode -1)
+       (setq-local completion-at-point-functions
+                   (mapcar
+                    #'cape-company-to-capf (list #'dap-ui-repl-company)))
+
+       (add-to-list 'completion-at-point-functions #'comint-completion-at-point)
+       (add-to-list 'completion-at-point-functions #'cape-history)))))
 
 
 (use-package! corfu-history

@@ -14,3 +14,7 @@
   :recipe (:type git :repo "https://codeberg.org/akib/emacs-corfu-terminal.git"))
 (package! corfu-doc-terminal
   :recipe (:type git :repo "https://codeberg.org/akib/emacs-corfu-doc-terminal.git"))
+(when (modulep! :tools debugger +lsp)
+  ;; dap-ui-reply-company hardcodes company functions so we need to load company
+  ;; and then pass dap-ui-reply-company through cape
+  (package! company))
