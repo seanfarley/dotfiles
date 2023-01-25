@@ -56,7 +56,8 @@ Add it to a hook like so:
   (add-to-list 'page-break-lines-modes 'prog-mode))
 
 (after! shr
-  (setq shr-color-visible-luminance-min 80))
+  (setq shr-color-visible-luminance-min 80
+        shr-max-width 80))
 
 (setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn)
 
