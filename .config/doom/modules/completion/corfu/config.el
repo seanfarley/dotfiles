@@ -13,6 +13,7 @@
   (tab-always-indent 'complete)
   (corfu-min-width 80)
   (corfu-max-width corfu-min-width)
+  (lsp-completion-provider :none)
   :hook
   (doom-first-buffer . (lambda ()
                          (global-corfu-mode)
@@ -27,12 +28,6 @@
              (equal tab-always-indent 'complete))
     (map! :map c-mode-base-map
           :i [remap c-indent-line-or-region] #'completion-at-point))
-
-  ;; Reset lsp-completion provider
-  (add-hook 'doom-init-modules-hook
-            (lambda ()
-              (after! lsp-mode
-                (setq lsp-completion-provider :none))))
 
   ;; Set orderless filtering for LSP-mode completions
   (add-hook 'lsp-completion-mode-hook
