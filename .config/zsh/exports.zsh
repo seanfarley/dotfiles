@@ -38,6 +38,12 @@ if [[ $HOME != /Users/$USER ]]; then
     export EMACSCLIENT_TRAMP="/ssh:$(hostname -f 2>/dev/null || hostname):"
 fi
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Wonky(?) nano vm implementation on darwin, more info:
+    # https://stackoverflow.com/questions/64126942/malloc-nano-zone-abandoned-due-to-inability-to-preallocate-reserved-vm-space
+    export MallocNanoZone=0
+fi
+
 ##
 # Paths, environment variables
 ##
