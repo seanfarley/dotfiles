@@ -10,6 +10,9 @@
       doom-variable-pitch-font (font-spec :family "Overpass" :size 14)
       doom-serif-font (font-spec :family "IBM Plex Mono" :weight 'light))
 
+(plist-put +ligatures-extra-symbols :false "ⓕ")
+(plist-put +ligatures-extra-symbols :true "ⓣ")
+
 ;; BUG below line doesn't check `ns-use-native-fullscreen'
 ;; (progn (setq ns-use-native-fullscreen nil) (add-to-list 'initial-frame-alist '(fullscreen . fullboth)))
 
