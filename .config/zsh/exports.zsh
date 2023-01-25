@@ -58,7 +58,7 @@ path=(
 # update path to ensure we grab our preferred executables
 hash -r
 
-user_python_path=$(python3 -c 'import site; print(site.USER_SITE.replace("lib/python/site-packages", "bin"))')
+user_python_path=$(python3 -c 'import site; print(site.USER_SITE.replace("lib/python/site-packages", "bin"))' 2>/dev/null)
 path=(
     $XDG_CONFIG_HOME/emacs/bin
     ~/.local/bin
