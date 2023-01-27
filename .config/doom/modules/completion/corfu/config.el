@@ -1,5 +1,21 @@
 ;;; completion/corfu/config.el -*- lexical-binding: t; -*-
 
+(defvar +corfu-global-capes
+  '(cape-yasnippet
+    :completion
+    cape-dict)
+  "A list of global capes to be available at all times.
+The key :completion is used to specify where completion candidates should be
+placed, otherwise they come first.")
+
+(defvar +corfu-capf-hosts
+  '(lsp-completion-at-point
+    eglot-completion-at-point
+    elisp-completion-at-point
+    tags-completion-at-point-function)
+  "A prioritised list of host capfs to create a super cape onto from
+  `+corfu-global-capes'.")
+
 (use-package! corfu
   :custom
   (corfu-separator ?\s)
@@ -13,6 +29,7 @@
   (tab-always-indent 'complete)
   (corfu-min-width 80)
   (corfu-max-width corfu-min-width)
+  (corfu-preselect-first nil)
   (lsp-completion-provider :none)
   :hook
   (doom-first-buffer . (lambda ()
@@ -34,14 +51,38 @@
             (lambda ()
               (setf (alist-get 'lsp-capf completion-category-defaults) '((styles . (orderless flex))))))
 
+  (defun +corfu--load-capes ()
+    "Load all capes specified in `+corfu-global-capes'."
+    (interactive)
+    (when-let ((host (cl-intersection +corfu-capf-hosts completion-at-point-functions)))
+      (setq-local
+       completion-at-point-functions
+       (cl-substitute
+        (apply #'cape-super-capf (cl-substitute (car host) :completion (cl-pushnew :completion +corfu-global-capes)))
+        (car host)
+        completion-at-point-functions))))
+
+  (add-hook 'lsp-mode-hook #'+corfu--load-capes)
+  (add-hook 'eglot-mode-hook #'+corfu--load-capes)
+  (add-hook 'after-change-major-mode-hook #'+corfu--load-capes)
+
+  (defun corfu-move-to-minibuffer ()
+    "Move current completions to the minibuffer"
+    (interactive)
+    (let ((completion-extra-properties corfu--extra)
+          completion-cycle-threshold completion-cycling)
+      (apply #'consult-completion-in-region completion-in-region--data)))
+
   (map! :map corfu-map
         "C-SPC"    #'corfu-insert-separator
         "SPC"      #'corfu-insert-separator
         "C-n"      #'corfu-next
         "C-p"      #'corfu-previous
+        "M-m"      #'corfu-move-to-minibuffer
         (:prefix "C-x"
                  "C-k"     #'cape-dict
                  "C-f"     #'cape-file))
+
   (after! evil
     (advice-add 'corfu--setup :after 'evil-normalize-keymaps)
     (advice-add 'corfu--teardown :after 'evil-normalize-keymaps)
@@ -118,13 +159,13 @@
   (map!
    [remap dabbrev-expand] 'cape-dabbrev)
   (add-hook! 'latex-mode-hook (defun +corfu--latex-set-capfs ()
-                                (add-to-list 'completion-at-point-functions #'cape-tex)))
+                                (add-to-list '+corfu-global-capes #'cape-tex)))
   (when (modulep! :checkers spell)
-    (add-to-list 'completion-at-point-functions #'cape-dict)
-    (add-to-list 'completion-at-point-functions #'cape-ispell))
-  (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-keyword t)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev t)
+    (add-to-list '+corfu-global-capes #'cape-dict)
+    (add-to-list '+corfu-global-capes #'cape-ispell))
+  (add-to-list '+corfu-global-capes #'cape-file)
+  (add-to-list '+corfu-global-capes #'cape-keyword t)
+  (add-to-list '+corfu-global-capes #'cape-dabbrev t)
 
   (when (modulep! :tools debugger +lsp)
     (add-hook
@@ -151,6 +192,20 @@
   :after corfu
   :bind (:map corfu-map
               ("C-q" . corfu-quick-insert)))
+
+
+(use-package! corfu-echo
+  :after corfu
+  :hook (corfu-mode . corfu-echo-mode))
+
+
+(use-package! corfu-info
+  :after corfu)
+
+
+(use-package! corfu-popupinfo
+  :after corfu
+  :hook (corfu-mode . corfu-popupinfo-mode))
 
 
 (use-package! evil-collection-corfu

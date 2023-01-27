@@ -7,7 +7,11 @@
   (package! kind-icon))
 (when (modulep! +orderless)
   (package! orderless))
+(package! corfu-doc
+  :recipe (:host github :repo "galeo/corfu-doc"))
 (package! cape)
+(package! cape-yasnippet
+  :recipe (:host github :repo "elken/cape-yasnippet"))
 (package! popon
   :recipe (:type git :repo "https://codeberg.org/akib/emacs-popon"))
 (package! corfu-terminal
