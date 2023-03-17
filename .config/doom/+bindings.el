@@ -86,7 +86,7 @@
  "C-|"                             #'column-highlight-mode
 
  ;; custom methods
- "C-M-d"                           #'smf/delete-to-end-of-buffer
+ "C-M-S-D"                         #'smf/delete-to-end-of-buffer
  (:map whole-line-or-region-local-mode-map
        ;; behave more like the terminal
        "C-w"                       (lambda ()
