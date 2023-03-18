@@ -8,6 +8,8 @@
 	<string>line_chart</string>
 	<key>Disk_state</key>
 	<false/>
+	<key>LaunchAtLoginNext</key>
+	<true/>
 	<key>NSStatusItem Preferred Position CPU_line_chart</key>
 	<real>489</real>
 	<key>NSStatusItem Preferred Position Network_speed</key>
