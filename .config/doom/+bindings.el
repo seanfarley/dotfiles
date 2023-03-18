@@ -128,26 +128,12 @@
  ;; smartparens
  (:after smartparens
          (:map smartparens-mode-map
-               "C-M-a"             #'sp-beginning-of-sexp
-               "C-M-e"             #'sp-end-of-sexp
-               "C-M-f"             #'sp-forward-sexp
-               "C-M-b"             #'sp-backward-sexp
-               "C-M-d"             #'sp-splice-sexp
-               "C-M-k"             #'sp-kill-sexp
-               "C-M-t"             #'sp-transpose-sexp
-               ;; prefer navigation over smartparens' defaults
-               "C-<right>"         nil
-               "M-<right>"         nil
-               "C-<left>"          nil
-               "M-<left>"          nil
-               "C-M-d"             nil))
-
- ;; lispy
- (:after lispy
-         (:map lispy-mode-map-lispy
-               "M-r"               #'raise-sexp
-               "M-<right>"         nil
-               "M-<left>"          nil))
+               "C-M-u"             #'sp-backward-up-sexp
+               "C-M-r"             #'sp-raise-sexp
+               "C-M-<right>"       #'sp-forward-slurp-sexp
+               "C-M-<left>"        #'sp-forward-barf-sexp
+               "C-M-<up>"          #'sp-backward-slurp-sexp
+               "C-M-<down>"        #'sp-backward-barf-sexp))
 
  ;; flyspell
  (:after flyspell
