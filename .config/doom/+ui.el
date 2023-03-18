@@ -4,6 +4,9 @@
 
 (setq doom-theme 'doom-nord)
 
+(when (version< "29.0.50" emacs-version)
+  (pixel-scroll-precision-mode))
+
 ;; borrow teco's ideas for big, variable, and serif fonts
 (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 13)
       doom-big-font (font-spec :family "FiraCode Nerd Font" :size 26)
