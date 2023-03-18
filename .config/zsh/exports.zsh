@@ -109,3 +109,6 @@ export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 # leiningen
 export LEIN_HOME="$XDG_DATA_HOME/lein"
+
+# vcpkg
+export VCPKG_ROOT="$XDG_CACHE_HOME/vcpkg"
