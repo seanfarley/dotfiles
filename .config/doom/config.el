@@ -44,11 +44,6 @@ Add it to a hook like so:
 (add-hook! (emacs-lisp-mode ielm-mode)
            #'flycheck-package-setup)
 
-(add-hook! (list python-mode clojure-mode hy-mode js2-mode
-                 julia-mode racket-mode scheme-mode)
-           (setq-local lispy-no-space t)
-           (lispy-mode t))
-
 (after! flycheck
   (add-to-list 'flycheck-gfortran-include-path "."))
 
@@ -100,7 +95,6 @@ Add it to a hook like so:
 (use-package! outline-minor-faces
   :after outline
   :config
-  (setq lispy-font-lock-keywords nil)
   (add-hook 'outline-minor-mode-hook
             #'outline-minor-faces-mode))
 
