@@ -130,6 +130,7 @@ mas "AdGuard for Safari", id: 1440147259
 mas "Bitwarden", id: 1352778147
 mas "GoodNotes", id: 1444383602
 mas "Numbers", id: 409203825
+mas "Pixelmator Pro", id: 1289583905
 mas "Vectornator", id: 1219074514
 mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835
