@@ -57,6 +57,7 @@ function -clone-data() {
 {
     -clone-data $XDG_DATA_HOME/zsh-autosuggestions
     -clone-data $XDG_DATA_HOME/zsh-completions
+    -clone-data $XDG_DATA_HOME/zsh-syntax-highlighting
     -clone-data $XDG_DATA_HOME/zaw
     -clone-data $XDG_DATA_HOME/powerlevel10k
 } always {
