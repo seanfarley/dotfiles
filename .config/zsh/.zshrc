@@ -51,6 +51,7 @@ source $XDG_DATA_HOME/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $XDG_DATA_HOME/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $XDG_DATA_HOME/zaw/zaw.zsh
 source $XDG_DATA_HOME/powerlevel10k/powerlevel10k.zsh-theme
+source $XDG_DATA_HOME/zsh-command-not-found/command-not-found.plugin.zsh
 
 source $ZDOTDIR/p10k.zsh
 source $ZDOTDIR/init.zsh

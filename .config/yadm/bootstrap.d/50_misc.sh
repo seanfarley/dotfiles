@@ -44,6 +44,7 @@ function -clone-data() {
     local repo=$(basename $dir)
     local gh="zsh-users"
     [[ "$repo" == "powerlevel10k" ]] && gh="romkatv"
+    [[ "$repo" == "zsh-command-not-found" ]] && gh="Freed-Wu"
 
     if [[ ! -d "$dir" ]]; then
         print -Pr "%F{yellow}Cloning $repo%f"
@@ -58,6 +59,7 @@ function -clone-data() {
     -clone-data $XDG_DATA_HOME/zsh-autosuggestions
     -clone-data $XDG_DATA_HOME/zsh-completions
     -clone-data $XDG_DATA_HOME/zsh-syntax-highlighting
+    -clone-data $XDG_DATA_HOME/zsh-command-not-found
     -clone-data $XDG_DATA_HOME/zaw
     -clone-data $XDG_DATA_HOME/powerlevel10k
 } always {
