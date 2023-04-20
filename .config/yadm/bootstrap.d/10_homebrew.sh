@@ -124,6 +124,7 @@ cask "stats"
 cask "temurin"
 cask "tex-live-utility"
 cask "transmission"
+cask "utm"
 cask "vlc"
 cask "xquartz"
 mas "AdGuard for Safari", id: 1440147259
