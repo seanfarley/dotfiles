@@ -94,6 +94,7 @@ brew "virt-manager"
 brew "vulkan-headers"
 brew "wget"
 brew "wordnet"
+brew "yadm"
 brew "youtube-dl"
 brew "d12frosted/emacs-plus/emacs-plus@28", args: ["with-dbus", "with-elrumo1-icon", "with-native-comp", "with-no-frame-refocus", "with-xwidgets"]
 cask "appcleaner"
