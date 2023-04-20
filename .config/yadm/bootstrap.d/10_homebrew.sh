@@ -132,7 +132,6 @@ mas "GoodNotes", id: 1444383602
 mas "Numbers", id: 409203825
 mas "Vectornator", id: 1219074514
 mas "WireGuard", id: 1451685025
-mas "World Clock", id: 956377119
 mas "Xcode", id: 497799835
 EOF
 
