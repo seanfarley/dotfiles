@@ -29,7 +29,7 @@ fi
   done
 }
 
-# Autoload functions.
+# autoload functions
 autoload -Uz zmv
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
