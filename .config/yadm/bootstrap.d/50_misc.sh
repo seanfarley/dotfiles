@@ -40,28 +40,25 @@ function -clone-data() {
     local GIT_DIR GIT_WORK_TREE
     unset GIT_DIR GIT_WORK_TREE
 
-    local dir="$1"
-    local repo=$(basename $dir)
-    local gh="zsh-users"
-    [[ "$repo" == "powerlevel10k" ]] && gh="romkatv"
-    [[ "$repo" == "zsh-command-not-found" ]] && gh="Freed-Wu"
+    local local_dir="$(basename $1)"
+    local dir="$XDG_DATA_HOME/$local_dir"
 
     if [[ ! -d "$dir" ]]; then
-        print -Pr "%F{yellow}Cloning $repo%f"
-        git clone https://github.com/$gh/$repo $dir
+        print -Pr "%F{yellow}Cloning $1%f"
+        git clone https://github.com/$1 $dir
     else
-        print -Pr "%F{yellow}Updating $repo%f"
+        print -Pr "%F{yellow}Pulling from $1%f"
         cd "$dir" && git pull --rebase --autostash --quiet
     fi
 }
 
 {
-    -clone-data $XDG_DATA_HOME/zsh-autosuggestions
-    -clone-data $XDG_DATA_HOME/zsh-completions
-    -clone-data $XDG_DATA_HOME/zsh-syntax-highlighting
-    -clone-data $XDG_DATA_HOME/zsh-command-not-found
-    -clone-data $XDG_DATA_HOME/zaw
-    -clone-data $XDG_DATA_HOME/powerlevel10k
+    -clone-data zsh-users/zsh-autosuggestions
+    -clone-data zsh-users/zsh-completions
+    -clone-data zsh-users/zsh-syntax-highlighting
+    -clone-data Freed-Wu/zsh-command-not-found
+    -clone-data zsh-users/zaw
+    -clone-data romkatv/powerlevel10k
 } always {
     unset -f -- -clone-data
 }
