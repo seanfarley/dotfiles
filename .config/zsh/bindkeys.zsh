@@ -1,8 +1,5 @@
 # https://unix.stackexchange.com/questions/373795/bindkey-to-execute-command-zsh
 
-bindkey undo Ctrl+/
-bindkey redo Option+/
-
 bindkey '^W' backward-kill-space-word
 bindkey "^u" backward-kill-line
 
