@@ -16,11 +16,9 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
   brew bundle -v --no-lock --file=/dev/stdin <<EOF
 tap "d12frosted/emacs-plus"
 tap "homebrew/bundle"
-tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "homebrew/command-not-found"
-tap "homebrew/core"
 tap "homebrew/services"
 brew "act"
 brew "freetype"
