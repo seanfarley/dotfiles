@@ -61,6 +61,6 @@ source $ZDOTDIR/prompt.zsh
 source $ZDOTDIR/bindkeys.zsh
 
 # more compatible icons
-POWERLEVEL9K_HOME_ICON=""
+POWERLEVEL9K_HOME_ICON=""
 POWERLEVEL9K_HOME_SUB_ICON=""
 POWERLEVEL9K_LOCK_ICON=""
