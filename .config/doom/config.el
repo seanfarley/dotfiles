@@ -98,6 +98,8 @@ Add it to a hook like so:
   (add-hook 'outline-minor-mode-hook
             #'outline-minor-faces-mode))
 
+(add-hook 'after-init-hook 'global-color-identifiers-mode)
+
 ;; load personal modules
 (load! "+utils")
 (load! "+bindings")

@@ -6,6 +6,7 @@
                                    :repo "seanfarley/biblio-gscholar.el"))
 (package! bitwarden :recipe '(:host github :repo "seanfarley/emacs-bitwarden"))
 (package! col-highlight :recipe '(:host github :repo "emacsmirror/col-highlight"))
+(package! color-identifiers-mode)
 (package! dot-mode)
 (package! fancy-narrow)
 (package! flycheck-eldev)
