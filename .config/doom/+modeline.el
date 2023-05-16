@@ -11,17 +11,10 @@
       (concat (s-trim prop)
               (propertize " " 'display '(space-width 0.5)))))
 
-;;; customize segments to put in main modeline
-
-  ;; remove buffer-position, input-method, major-mode, and buffer-encoding
-  (doom-modeline-def-modeline 'main
-    '(bar window-number matches buffer-info remote-host selection-info)
-    '(objed-state misc-info persp-name mu4e github debug lsp process vcs checker))
-
-;;; misc settings
-
   (setq
    doom-modeline-buffer-file-name-style  'truncate-upto-root
+   doom-modeline-buffer-encoding         nil
+   doom-modeline-percent-position        nil
    doom-modeline-mu4e                    t
    doom-modeline-github                  t
    doom-modeline-major-mode-icon         t
