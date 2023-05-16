@@ -20,11 +20,6 @@ By default, this shows the information specified by `global-mode-string'."
               (doom-modeline--active))
       '("" mode-line-misc-info)))
 
-  (doom-modeline-def-segment persp-name
-  "The current perspective name."
-  (when (doom-modeline--active)
-    doom-modeline--persp-name))
-
   ;; remove buffer-position, input-method, major-mode, and buffer-encoding
   (doom-modeline-def-modeline 'main
     '(bar window-number matches buffer-info remote-host selection-info)
