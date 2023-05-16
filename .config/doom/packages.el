@@ -15,6 +15,7 @@
 (package! lsp-origami)
 (package! lsp-treemacs)
 (package! message-view-patch)
+(package! mu4e-alert :disable t) ;; no longer needed after mu 1.10
 (package! nerd-font :recipe '(:host github :repo "twlz0ne/nerd-fonts.el"))
 (package! outline-minor-faces)
 (package! org-sidebar)

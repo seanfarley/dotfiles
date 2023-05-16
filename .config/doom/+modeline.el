@@ -2,15 +2,6 @@
 
 (after! doom-modeline
 
-;;; segment tweaks
-
-  (defadvice! smf/mu4e-tweak (prop &rest _)
-    :filter-return (alist-get 'mu4e doom-modeline-fn-alist)
-    "Trim all space and add a tiny space to the right side."
-    (when prop
-      (concat (s-trim prop)
-              (propertize " " 'display '(space-width 0.5)))))
-
   (setq
    doom-modeline-buffer-file-name-style  'truncate-upto-root
    doom-modeline-buffer-encoding         nil
