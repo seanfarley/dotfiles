@@ -113,3 +113,6 @@ export LEIN_HOME="$XDG_DATA_HOME/lein"
 # vcpkg
 export VCPKG_ROOT="$XDG_CACHE_HOME/vcpkg"
 export VCPKG_DISABLE_METRICS=1
+
+# X11
+export XAUTHORITY="$XDG_STATE_HOME"/Xauthority
