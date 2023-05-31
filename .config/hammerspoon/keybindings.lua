@@ -84,8 +84,6 @@ local orgModeBindings = {
   -- this didn't work when emacs is in focus, so switch to global hotkey
   -- { key = 'a', fn = emacs.agenda, desc = 'Agenda' },
 
-  -- { modifiers = { 'ctrl' }, key = 'c', fn = function () hs.alert.show("Testing C-c") end, desc = 'Testin C-c', filter = { 'Emacs' } },
-
 }
 
 local ctrlCBindings = {
