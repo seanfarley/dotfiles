@@ -31,7 +31,7 @@
 	<key>NSWindow Frame TTWindow Basic</key>
 	<string>109 212 570 418 0 0 1440 900 </string>
 	<key>NSWindow Frame TTWindow Nord</key>
-	<string>264 200 970 466 0 0 1440 900 </string>
+	<string>196 260 970 466 0 0 1440 900 </string>
 	<key>NSWindow Frame TTWindow Pro</key>
 	<string>350 425 650 442 0 0 1440 900 </string>
 	<key>NSWindow Frame TTWindow Pro - zsh</key>
