@@ -62,18 +62,6 @@ local bindings = {
 }
 
 ----------------
--- hyper mode --
-----------------
-
-local hyperModeBindings = {
-  -- { key = 'b', fn = screen.setBrightness(0.8), desc = 'Set brightness to 80%.' },
-  { key = 'u', fn = mounts.unmountAll, desc = 'Unmount all volumes' },
-  { key = 'r', fn = reload.reload, desc = 'Reload hammerspoon' },
-  { key = 'c', fn = hs.toggleConsole, desc = 'Console' },
-  { key = 'e', fn = emacs.everywhere, desc = 'Emacs Everywhere'},
-}
-
-----------------
 -- org mode --
 ----------------
 
@@ -84,20 +72,25 @@ local orgModeBindings = {
   { key = 'a', fn = emacs.agenda, desc = 'Agenda' },
 }
 
-local ctrlCBindings = {
-  { key = 'n',
-    fn = function ()
+----------------
+-- hyper mode --
+----------------
+
+local hyperModeBindings = {
+  -- { key = 'b', fn = screen.setBrightness(0.8), desc = 'Set brightness to 80%.' },
+  { key = 'u', fn = mounts.unmountAll, desc = 'Unmount all volumes' },
+  { key = 'r', fn = reload.reload, desc = 'Reload hammerspoon' },
+  { key = 'c', fn = hs.toggleConsole, desc = 'Console' },
+  { key = 'e', fn = emacs.everywhere, desc = 'Emacs Everywhere'},
+  { key = 'n', fn = function ()
       local notes = mode.create({}, 'n', '+notes', orgModeBindings, nil, true)
       notes:enter()
-    end,
-    desc = '+notes' },
-
+    end, desc = '+notes'},
 }
 
 function mod.init()
   keybinder.init(bindings)
   mode.create(hyper, 'space', 'Hyper', hyperModeBindings)
-  mode.create({ 'ctrl' }, 'c', 'C-c', ctrlCBindings)
 end
 
 return mod
