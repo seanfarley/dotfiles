@@ -37,6 +37,7 @@ match:
 
 plugins: [
   bareasc,
+  convert,
   edit,
   embedart,
   fetchart,
