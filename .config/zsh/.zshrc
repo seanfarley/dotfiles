@@ -36,6 +36,7 @@ autoload -Uz zmv
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
 setopt inc_append_history
+setopt no_bang_hist
 
 # allows comments in the command line
 setopt interactivecomments
