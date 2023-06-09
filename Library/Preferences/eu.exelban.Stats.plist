@@ -36,8 +36,8 @@
 	<key>runAtLoginInitialized</key>
 	<true/>
 	<key>updater_check_ts</key>
-	<integer>1684910762</integer>
+	<integer>1685815081</integer>
 	<key>version</key>
-	<string>2.8.22</string>
+	<string>2.8.23</string>
 </dict>
 </plist>
