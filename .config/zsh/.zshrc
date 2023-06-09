@@ -45,6 +45,7 @@ setopt interactivecomments
 source ~/.cache/zsh-z/zsh-z.plugin.zsh
 
 zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 printf '\n%.0s' {1..100}
 
