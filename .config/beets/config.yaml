@@ -15,10 +15,8 @@ plugins: [
   lyrics,
   mbsync,
   missing,
-  mpdstats,
   replaygain,
   smartplaylist,
-  mpdupdate,                    # order is important for mpdupdate
 ]
 
 chroma:
@@ -70,9 +68,6 @@ embedart:
 
 ftintitle:
   auto: yes
-
-mpdstats:
-  music_directory: ~/Music
 
 replaygain:
   auto: yes
