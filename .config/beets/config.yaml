@@ -2,9 +2,6 @@ directory: ~/Music/beets
 library:   ~/Music/beets/library.db
 
 plugins: [
-  # chroma,
-  # discogs,
-  # acousticbrainz,
   edit,
   embedart,
   fetchart,
@@ -18,9 +15,6 @@ plugins: [
   replaygain,
   smartplaylist,
 ]
-
-chroma:
-  auto: yes
 
 pluginpath: ~/Music/beets/BeetsPlugins
 
