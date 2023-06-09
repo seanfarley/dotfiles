@@ -1,24 +1,8 @@
 directory: ~/Music/beets
 library:   ~/Music/beets/library.db
-
-plugins: [
-  edit,
-  embedart,
-  fetchart,
-  fromfilename,
-  ftintitle,
-  hook,
-  info,
-  lyrics,
-  mbsync,
-  missing,
-  replaygain,
-  smartplaylist,
-]
-
 pluginpath: ~/Music/beets/BeetsPlugins
-
 threaded: yes
+
 ui:
   color: yes
 
@@ -49,6 +33,23 @@ match:
     countries: ['US', 'GB|UK']
     original_year: yes
 
+# plugins
+
+plugins: [
+  edit,
+  embedart,
+  fetchart,
+  fromfilename,
+  ftintitle,
+  hook,
+  info,
+  lyrics,
+  mbsync,
+  missing,
+  replaygain,
+  smartplaylist,
+]
+
 embedart:
   auto: yes
   compare_threshold: 80
@@ -68,6 +69,8 @@ smartplaylist:
   playlists:
     - name: all.m3u
       query: ''
+
+# hooks
 
 hook:
   hooks:
