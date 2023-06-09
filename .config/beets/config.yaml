@@ -36,11 +36,13 @@ match:
 # plugins
 
 plugins: [
+  bareasc,
   edit,
   embedart,
   fetchart,
   fromfilename,
   ftintitle,
+  fuzzy,
   hook,
   info,
   lyrics,
