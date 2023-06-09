@@ -59,7 +59,7 @@ import:
 match:
   strong_rec_thresh: 0.04
   preferred:
-    countries: ['US', 'GB|UK', 'CN']
+    countries: ['US', 'GB|UK']
     original_year: yes
 
 embedart:
