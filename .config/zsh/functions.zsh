@@ -5,7 +5,7 @@ compdef _directories md
 zle -N backward-kill-space-word
 backward-kill-space-word() {
   zle -f kill
-  WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>' zle .backward-kill-word
+  WORDCHARS='@:*?_-.[]~=/&;!#$%^(){}<>' zle .backward-kill-word
 }
 
 function sync-history () {
