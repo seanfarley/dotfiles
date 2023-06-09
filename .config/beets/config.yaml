@@ -48,6 +48,7 @@ plugins: [
   missing,
   replaygain,
   smartplaylist,
+  unimported,
 ]
 
 embedart:
@@ -69,6 +70,10 @@ smartplaylist:
   playlists:
     - name: all.m3u
       query: ''
+
+unimported:
+    ignore_extensions: jpg png db DS_Store log
+    ignore_subdirectories: NonMusic data temp
 
 # hooks
 
