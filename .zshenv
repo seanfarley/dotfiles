@@ -15,6 +15,10 @@ if [ -n "${ZSH_VERSION-}" ]; then
     export XDG_PROJECTS_DIR=${XDG_PROJECTS_DIR:-$HOME/projects}
   fi
 
+  if command -v xdg-open 2>&1 >/dev/null; then
+    alias open=xdg-open
+  fi
+
   : ${ZDOTDIR:="$XDG_CONFIG_HOME/zsh"}
   export ZDOTDIR_PRIVATE="$XDG_DATA_HOME/dotfiles-private"
 
