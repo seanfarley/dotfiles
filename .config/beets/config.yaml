@@ -56,7 +56,7 @@ plugins: [
 
 embedart:
   auto: yes
-  compare_threshold: 80
+  compare_threshold: 0
   remove_art_file: yes
   maxwidth: 500
 
