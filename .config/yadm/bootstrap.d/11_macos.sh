@@ -833,8 +833,7 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
         pytest \
         "python-lsp-server[all]" \
         python-lsp-black \
-        pyls-isort \
-        pylsp-rope \
+        python-lsp-ruff \
         sphinx
 
     # beets stuff
