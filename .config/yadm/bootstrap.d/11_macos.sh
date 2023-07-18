@@ -102,12 +102,12 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # Remove duplicates in the “Open With” menu (also see `lscleanup` alias)
     /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 
-    # Display ASCII control characters using caret notation in standard text views
-    # Try e.g. `cd /tmp; unidecode "\x{0000}" > cc.txt; open -e cc.txt`
-    defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
+    # # Display ASCII control characters using caret notation in standard text views
+    # # Try e.g. `cd /tmp; unidecode "\x{0000}" > cc.txt; open -e cc.txt`
+    # defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
 
-    # Disable Resume system-wide
-    defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
+    # # Disable Resume system-wide
+    # defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 
     # Disable automatic termination of inactive apps
     defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
@@ -123,9 +123,9 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # See https://github.com/mathiasbynens/dotfiles/issues/237
     #echo "0x08000100:0" > ~/.CFUserTextEncoding
 
-    # Reveal IP address, hostname, OS version, etc. when clicking the clock
-    # in the login window
-    sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
+    # # Reveal IP address, hostname, OS version, etc. when clicking the clock
+    # # in the login window
+    # sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
     # Check for software updates daily, not just once per week
     defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
@@ -760,8 +760,8 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # Address Book, Dashboard, iCal, TextEdit, and Disk Utility                   #
     ###############################################################################
 
-    # Enable the debug menu in Address Book
-    defaults write com.apple.addressbook ABShowDebugMenu -bool true
+    # # Enable the debug menu in Address Book
+    # defaults write com.apple.addressbook ABShowDebugMenu -bool true
 
     # Enable Dashboard dev mode (allows keeping widgets on the desktop)
     # defaults write com.apple.dashboard devmode -bool true
