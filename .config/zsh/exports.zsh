@@ -78,8 +78,8 @@ export PYTHONSTARTUP="$HOME/.config/python/pythonrc"
 # virtualenv
 export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
 
-# M1 homebrew
-[[ -f /opt/homebrew/env ]] && source /opt/homebrew/env
+# homebrew
+[[ -f /opt/homebrew/bin/brew ]] &&  eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # completions
 fpath+=$XDG_DATA_HOME/zsh-completions/src
