@@ -50,11 +50,11 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
 
     defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool true
 
-    # only show airport, battery, and clock
-    defaults write com.apple.systemuiserver menuExtras -array \
-        "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-        "/System/Library/CoreServices/Menu Extras/Battery.menu" \
-        "/System/Library/CoreServices/Menu Extras/Clock.menu"
+    # # only show airport, battery, and clock
+    # defaults write com.apple.systemuiserver menuExtras -array \
+    #     "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+    #     "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+    #     "/System/Library/CoreServices/Menu Extras/Clock.menu"
 
     # show battery percentage
     defaults write com.apple.menuextra.battery ShowPercent -bool true
