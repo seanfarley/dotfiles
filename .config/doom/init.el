@@ -25,7 +25,6 @@
        ;;  +childframe)
        (corfu
         +icons
-        +orderless
         +minibuffer)
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
