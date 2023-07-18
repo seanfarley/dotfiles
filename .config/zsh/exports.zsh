@@ -75,7 +75,7 @@ path=(
 # python
 export PYTHONSTARTUP="$HOME/.config/python/pythonrc"
 
-# for virtualenv
+# virtualenv
 export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
 
 # M1 homebrew
