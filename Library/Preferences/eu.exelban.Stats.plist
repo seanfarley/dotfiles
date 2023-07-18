@@ -27,6 +27,8 @@
 		<key>TB Size Mode</key>
 		<integer>1</integer>
 	</dict>
+	<key>RAM_pie_chart_monochrome</key>
+	<false/>
 	<key>RAM_widget</key>
 	<string>pie_chart</string>
 	<key>dockIcon</key>
