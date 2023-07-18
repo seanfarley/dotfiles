@@ -35,6 +35,10 @@
 	<string>60389B6A-7D27-402B-AC67-66CE48989D9D</string>
 	<key>runAtLoginInitialized</key>
 	<true/>
+	<key>telemetry</key>
+	<false/>
+	<key>telemetry_id</key>
+	<string>DC1C0E58-8667-4AFD-8DC5-5FEB0AC72B20</string>
 	<key>updater_check_ts</key>
 	<integer>1685815081</integer>
 	<key>version</key>
