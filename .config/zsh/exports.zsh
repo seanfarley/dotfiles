@@ -48,6 +48,9 @@ fi
 # Paths, environment variables
 ##
 
+# set path to be an array as well as unique
+typeset -aU path
+
 # make clean tarballs
 export COPYFILE_DISABLE=true
 
