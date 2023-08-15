@@ -1,6 +1,4 @@
 autoload -Uz add-zsh-hook || return
-autoload -U select-word-style
-select-word-style bash
 
 # This affects every invocation of `less`.
 #

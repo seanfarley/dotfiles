@@ -1,3 +1,7 @@
+# NOTE needs to be first due to weird loading issues
+autoload -U select-word-style
+select-word-style bash
+
 if [ -n "${ZSH_VERSION-}" ]; then
   # first thing to do is set xdg values if they don't exist
   export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
