@@ -118,4 +118,7 @@ export VCPKG_ROOT="$XDG_CACHE_HOME/vcpkg"
 export VCPKG_DISABLE_METRICS=1
 
 # X11
-export XAUTHORITY="$XDG_STATE_HOME"/Xauthority
+# NOTE Unless the server supports PermitUserEnviornments then ssh will alway
+# dump .Xauthority into the home directory
+# NOTE XQuartz also blindly dumps into the home directory
+# XAUTHORITY="$XDG_STATE_HOME"/Xauthority
