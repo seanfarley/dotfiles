@@ -8,7 +8,7 @@
   (pixel-scroll-precision-mode))
 
 ;; borrow teco's ideas for big, variable, and serif fonts
-(setq doom-font (font-spec :family "JetBrains Mono" :size 13)
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 12)
       doom-variable-pitch-font (font-spec :family "Overpass" :size 14)
       doom-serif-font (font-spec :family "IBM Plex Mono" :weight 'light))
 
