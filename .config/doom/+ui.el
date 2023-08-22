@@ -9,7 +9,6 @@
 
 ;; borrow teco's ideas for big, variable, and serif fonts
 (setq doom-font (font-spec :family "JetBrains Mono" :size 13)
-      doom-big-font (font-spec :family "JetBrains Mono" :size 26)
       doom-variable-pitch-font (font-spec :family "Overpass" :size 14)
       doom-serif-font (font-spec :family "IBM Plex Mono" :weight 'light))
 
