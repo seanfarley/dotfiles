@@ -130,6 +130,7 @@
          (:map smartparens-mode-map
                "C-M-u"             #'sp-backward-up-sexp
                "C-M-r"             #'sp-raise-sexp
+               "C-M-w"             #'sp-copy-sexp
                "C-M-<right>"       #'sp-forward-slurp-sexp
                "C-M-<left>"        #'sp-forward-barf-sexp
                "C-M-<up>"          #'sp-backward-slurp-sexp
