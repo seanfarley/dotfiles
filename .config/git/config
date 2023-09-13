@@ -86,3 +86,5 @@
 	user = seanfarley
 [gitlab "gitlab.com/api"]
 	user = seanfarley
+[gitlab "gitlab.freedesktop.org/api/v4"]
+	user = seanfarley
