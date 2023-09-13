@@ -113,4 +113,15 @@ the 'main' one.")
    (:map ansible-key-map
     "C-c C-c"  #'smf/run-ansible))
 
-  (setq ansible-vault-password-file "~/.vault_pass.txt"))
+  ;; NOTE if this is specified along with ANSIBLE_VAULT_PASSWORD then it results
+  ;; in the most moronic bug I think I've ever seen in such a popular open
+  ;; source project: https://github.com/ansible/ansible/issues/46310
+  ;;
+  ;; N.B. this bug *still* exists in 2023, ansible version 2.14 due to it being
+  ;; wrongly classified as a duplicate; fun!
+  (setq ansible-vault-password-file nil)
+
+  ;; TODO fix cursor moving to end of buffer when saving a vault ... this is
+  ;; more difficult than using `save-mark-and-excursion' due to the entire
+  ;; buffer being replaced
+  )
