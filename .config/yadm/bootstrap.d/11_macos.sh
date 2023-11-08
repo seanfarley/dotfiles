@@ -33,6 +33,8 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     lname="laptop"
     if [ "$(sysctl -n machdep.cpu.model)" -eq 70 ]; then
         lname="laptop2014"
+    elif [ "$USER" == "sean.farley" ]; then
+        lname="glados"
     fi
     sudo scutil --set ComputerName "$lname"
     sudo scutil --set HostName "$lname"
