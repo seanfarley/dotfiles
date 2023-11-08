@@ -31,7 +31,7 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
 
     # Set computer name (as done via System Preferences → Sharing)
     lname="laptop"
-    if [ $(sysctl -n machdep.cpu.model) -eq 70 ]; then
+    if [ "$(sysctl -n machdep.cpu.model)" -eq 70 ]; then
         lname="laptop2014"
     fi
     sudo scutil --set ComputerName "$lname"
