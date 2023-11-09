@@ -71,6 +71,7 @@ user_python_path=$(python3 -c 'import site; print(site.USER_SITE.replace("lib/py
 path=(
     $XDG_CONFIG_HOME/emacs/bin
     ~/.local/bin
+    $XDG_DATA_HOME/cargo/bin
     $user_python_path
     $path
 )
@@ -116,6 +117,9 @@ export LEIN_HOME="$XDG_DATA_HOME/lein"
 # vcpkg
 export VCPKG_ROOT="$XDG_CACHE_HOME/vcpkg"
 export VCPKG_DISABLE_METRICS=1
+
+# cargo
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
 
 # X11
 # NOTE Unless the server supports PermitUserEnviornments then ssh will alway
