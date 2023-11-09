@@ -63,6 +63,7 @@ function prompt_smf_hostname() {
     box*) hn_color=220;;
     matrix*) hn_color=075;;
     retropi*) hn_color=226;;
+    glados*) hn_color=124;;
   esac
 
   # remove spaces
