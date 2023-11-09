@@ -147,7 +147,7 @@ function mod.matrix()
 end
 
 function mod.orgroam()
-  mod.eval('(org-roam-node-find)')
+  mod.eval('(=org-roam)')
 end
 
 function mod.switchWorkspace()
