@@ -95,7 +95,7 @@
        (spell            ; tasing you for misspelling mispelling
         +flyspell
         +enchant)
-       grammar           ; tasing grammar mistake every you make
+       ;;grammar           ; tasing grammar mistake every you make
 
        :tools
        ansible
