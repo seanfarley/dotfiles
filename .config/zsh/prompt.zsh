@@ -11,9 +11,9 @@ function prompt_smf_user() {
   local name="${USER}"
   if [[ "$name" == "root" ]]
   then
-    p10k segment -i '' -f 196 -t "%B${name}%b"
+    p10k segment -i '󱅞' -f 196 -t "%B${name}%b"
   else
-    p10k segment -i '' -f red -t ${name}
+    p10k segment -i '' -f red -t "${name}"
   fi
 }
 
