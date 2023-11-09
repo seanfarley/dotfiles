@@ -42,6 +42,7 @@ function prompt_smf_hostname() {
   then
     VER=$(echo "$OSTYPE" | cut -d n -f 2 | cut -d . -f 1)
     case $VER in
+      23) VER="Sonoma";;
       22) VER="Ventura";;
       21) VER="Monterey";;
       20) VER="Big Sur";;
