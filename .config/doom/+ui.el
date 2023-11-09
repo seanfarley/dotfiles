@@ -83,7 +83,7 @@ simplicity, just test if the workspace begins with an asterik."
       ;; if we're coming from a previous *foo* workspace, the first entry in
       ;; `mru-list' is the current workspace; so use the second item
 
-      (if (string-prefix-p (nth 0 mru-list) cur-workspace)
+      (if (string= (nth 0 mru-list) cur-workspace)
           (+workspace/switch-to (nth 1 mru-list))
         (+workspace/switch-to (nth 0 mru-list))))))
 
