@@ -1,37 +1,37 @@
 # Export environment variables.
-export GPG_TTY=$TTY
-export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+export GPG_TTY="$TTY"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 
 # Make emacs the default editor
 export EDITOR="emacsclient"
 # Don't clear the screen after quitting a manual page
 export MANPAGER="less -X"
 export LESS="--ignore-case --quit-if-one-screen --quit-on-intr FRXQ"
-export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
+export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
 
 # Have bash ignore the .DS_Store
 export FIGNORE=DS_Store
 
 # Larger bash history (allow 32⁴ entries; default is 500)
 export HISTSIZE=1048576
-export HISTFILESIZE=$HISTSIZE
+export HISTFILESIZE="$HISTSIZE"
 
-export PROJECTS=$HOME/projects
-export SANDBOX=$HOME/sandbox
-export PHD=$PROJECTS/phd
+export PROJECTS="$HOME/projects"
+export SANDBOX="$HOME/sandbox"
+export PHD="$PROJECTS/phd"
 
-export CDPATH=.:$PROJECTS:$HOME
+export CDPATH=".:$PROJECTS:$HOME"
 
-export GOPATH=$PROJECTS/go
+export GOPATH="$PROJECTS/go"
 
 # sweet, sweet emacs
-export EMACS_SERVER_FILE=$XDG_CONFIG_HOME/emacs/server/server
+export EMACS_SERVER_FILE="$XDG_CONFIG_HOME/emacs/server/server"
 
-export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/.config/ansible-vault-pass
-export ANSIBLE_HOME=$HOME/.cache/ansible
-export ANSIBLE_LOCAL_TMP=$HOME/.cache/ansible/tmp
-export ANSIBLE_REMOTE_TMP="~/.cache/ansible/"
-export ANSIBLE_SSH_CONTROL_PATH_DIR=$HOME/.cache/ansible/cp
+export ANSIBLE_VAULT_PASSWORD_FILE="$HOME/.config/ansible-vault-pass"
+export ANSIBLE_HOME="$HOME/.cache/ansible"
+export ANSIBLE_LOCAL_TMP="$HOME/.cache/ansible/tmp"
+export ANSIBLE_REMOTE_TMP="$HOME/.cache/ansible/"
+export ANSIBLE_SSH_CONTROL_PATH_DIR="$HOME/.cache/ansible/cp"
 
 # if we're not on our home machine, then set tramp
 if [[ $HOME != /Users/$USER ]]; then
@@ -69,10 +69,10 @@ hash -r
 
 user_python_path=$(python3 -c 'import site; print(site.USER_SITE.replace("lib/python/site-packages", "bin"))' 2>/dev/null)
 path=(
-    $XDG_CONFIG_HOME/emacs/bin
-    ~/.local/bin
-    $XDG_DATA_HOME/cargo/bin
-    $user_python_path
+    "$XDG_CONFIG_HOME/emacs/bin"
+    "$HOME/.local/bin"
+    "$XDG_DATA_HOME/cargo/bin"
+    "$user_python_path"
     $path
 )
 
@@ -87,12 +87,12 @@ export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
 [[ -f /opt/homebrew/bin/brew ]] &&  eval "$(/opt/homebrew/bin/brew shellenv)"
 
 path=(
-    $HOMEBREW_PREFIX/opt/man-db/libexec/bin
+    "$HOMEBREW_PREFIX/opt/man-db/libexec/bin"
     $path
 )
 
 # completions
-fpath+=$XDG_DATA_HOME/zsh-completions/src
+fpath+="$XDG_DATA_HOME/zsh-completions/src"
 
 # homebrew
 export HOMEBREW_NO_AUTO_UPDATE=1
@@ -106,7 +106,7 @@ export ZSHZ_KEEP_DIRS=1
 export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc"
 
 # ripgrep
-export RIPGREP_CONFIG_PATH=$XDG_CONFIG_HOME/ripgrep
+export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep"
 
 # wget
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
@@ -125,7 +125,7 @@ export VCPKG_ROOT="$XDG_CACHE_HOME/vcpkg"
 export VCPKG_DISABLE_METRICS=1
 
 # cargo
-export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
 
 # ruff
 export RUFF_CACHE_DIR="$XDG_CACHE_HOME/ruff"
