@@ -11,11 +11,11 @@
 	<key>LaunchAtLoginNext</key>
 	<true/>
 	<key>NSStatusItem Preferred Position CPU_line_chart</key>
-	<real>489</real>
+	<real>452</real>
 	<key>NSStatusItem Preferred Position Network_speed</key>
-	<real>537</real>
+	<real>500</real>
 	<key>NSStatusItem Preferred Position RAM_pie_chart</key>
-	<real>455</real>
+	<real>418</real>
 	<key>NSToolbar Configuration eu.exelban.Stats.Settings.Toolbar</key>
 	<dict>
 		<key>TB Display Mode</key>
@@ -42,8 +42,8 @@
 	<key>telemetry_id</key>
 	<string>DC1C0E58-8667-4AFD-8DC5-5FEB0AC72B20</string>
 	<key>updater_check_ts</key>
-	<integer>1690763571</integer>
+	<integer>1698688993</integer>
 	<key>version</key>
-	<string>2.9.3</string>
+	<string>2.9.10</string>
 </dict>
 </plist>
