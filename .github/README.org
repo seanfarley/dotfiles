@@ -71,4 +71,4 @@ z doom
 bin/doom sync
 #+end_src
 
-After installing doom, you'll need to install =all-the-icons=.
+After installing doom, you'll need to run =nerd-icons-install-fonts=.
