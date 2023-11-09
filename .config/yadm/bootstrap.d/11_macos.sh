@@ -78,22 +78,22 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # (Uncomment if you’re on an older Mac that messes up the animation)
     #defaults write NSGlobalDomain NSScrollAnimationEnabled -bool false
 
-    # Increase window resize speed for Cocoa applications
-    defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+    # # Increase window resize speed for Cocoa applications
+    # defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 
-    # Expand save panel by default
-    defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
-    defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+    # # Expand save panel by default
+    # defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+    # defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 
     # Disable ext change warning
     defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-    # Expand print panel by default
-    defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
-    defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
+    # # Expand print panel by default
+    # defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+    # defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
-    # Save to disk (not to iCloud) by default
-    defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+    # # Save to disk (not to iCloud) by default
+    # defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
     # Automatically quit printer app once the print jobs complete
     defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
@@ -101,8 +101,8 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # Disable the “Are you sure you want to open this application?” dialog
     defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-    # Remove duplicates in the “Open With” menu (also see `lscleanup` alias)
-    /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
+    # # Remove duplicates in the “Open With” menu (also see `lscleanup` alias)
+    # /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 
     # # Display ASCII control characters using caret notation in standard text views
     # # Try e.g. `cd /tmp; unidecode "\x{0000}" > cc.txt; open -e cc.txt`
@@ -111,14 +111,14 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # # Disable Resume system-wide
     # defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 
-    # Disable automatic termination of inactive apps
-    defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
+    # # Disable automatic termination of inactive apps
+    # defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 
     # Disable the crash reporter
     #defaults write com.apple.CrashReporter DialogType -string "none"
 
-    # Set Help Viewer windows to non-floating mode
-    defaults write com.apple.helpviewer DevMode -bool true
+    # # Set Help Viewer windows to non-floating mode
+    # defaults write com.apple.helpviewer DevMode -bool true
 
     # Fix for the ancient UTF-8 bug in QuickLook (https://mths.be/bbo)
     # Commented out, as this is known to cause problems in various Adobe apps :(
@@ -132,12 +132,12 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # Check for software updates daily, not just once per week
     defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
-    # Disable guest account
-    sudo defaults write /Library/Preferences/com.apple.loginwindow SHOWOTHERUSERS_MANAGED -bool FALSE
-    sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool NO
-    sudo defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool NO
-    sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool NO
-    sudo defaults write /Library/Preferences/com.apple.FindMyMac FMMEnabled -bool NO
+    # # Disable guest account
+    # sudo defaults write /Library/Preferences/com.apple.loginwindow SHOWOTHERUSERS_MANAGED -bool FALSE
+    # sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool NO
+    # sudo defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool NO
+    # sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool NO
+    # sudo defaults write /Library/Preferences/com.apple.FindMyMac FMMEnabled -bool NO
 
     # Auto hide the menu bar
     defaults write NSGlobalDomain _HIHideMenuBar -bool true
@@ -186,11 +186,11 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
     defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
 
-    # Disable corner click
-    defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 0
+    # # Disable corner click
+    # defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 0
 
-    # Disable corner secondary-click
-    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 0
+    # # Disable corner secondary-click
+    # defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 0
 
     # Enable secondary click globally
     defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
@@ -342,13 +342,13 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     defaults write com.apple.screensaver askForPasswordDelay -int 0
 
     # Save screenshots to the desktop
-    defaults write com.apple.screencapture location -string "${HOME}/Desktop"
+    # defaults write com.apple.screencapture location -string "${HOME}/Desktop"
 
     # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
-    defaults write com.apple.screencapture type -string "png"
+    # defaults write com.apple.screencapture type -string "png"
 
     # Disable shadow in screenshots
-    defaults write com.apple.screencapture disable-shadow -bool true
+    # defaults write com.apple.screencapture disable-shadow -bool true
 
     # Enable subpixel font rendering on non-Apple LCDs
     # Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
@@ -394,7 +394,7 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     defaults write com.apple.finder QLEnableTextSelection -bool true
 
     # Display full POSIX path as Finder window title
-    defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+    # defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 
     # Keep folders on top when sorting by name
     #defaults write com.apple.finder _FXSortFoldersFirst -bool true
@@ -459,7 +459,7 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     defaults write com.apple.finder EmptyTrashSecurely -bool false
 
     # Enable AirDrop over Ethernet and on unsupported Macs running Lion
-    defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+    # defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
     # Show the ~/Library folder
     # chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
@@ -473,17 +473,17 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
 
     # Expand the following File Info panes:
     # “General”, “Open with”, and “Sharing & Permissions”
-    defaults write com.apple.finder FXInfoPanesExpanded -dict \
-        General -bool true \
-        OpenWith -bool true \
-        Privileges -bool true
+    # defaults write com.apple.finder FXInfoPanesExpanded -dict \
+    #     General -bool true \
+    #     OpenWith -bool true \
+    #     Privileges -bool true
 
     ###############################################################################
     # Dock, Dashboard, and hot corners                                            #
     ###############################################################################
 
     # Enable highlight hover effect for the grid view of a stack (Dock)
-    defaults write com.apple.dock mouse-over-hilite-stack -bool false
+    # defaults write com.apple.dock mouse-over-hilite-stack -bool false
 
     # Set the icon size of Dock items to 36 pixels
     # defaults write com.apple.dock tilesize -int 36
@@ -545,7 +545,7 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
 
     # Reset Launchpad, but keep the desktop wallpaper intact
-    find "${HOME}/Library/Application Support/Dock" -name "*-*.db" -maxdepth 1 -delete
+    # find "${HOME}/Library/Application Support/Dock" -name "*-*.db" -maxdepth 1 -delete
 
     # Add iOS & Watch Simulator to Launchpad
     # sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app" "/Applications/Simulator.app"
@@ -606,62 +606,62 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # Safari & WebKit                                                             #
     ###############################################################################
 
-    # Privacy: don’t send search queries to Apple
-    defaults write com.apple.Safari UniversalSearchEnabled -bool false
-    defaults write com.apple.Safari SuppressSearchSuggestions -bool true
+    # # Privacy: don’t send search queries to Apple
+    # defaults write com.apple.Safari UniversalSearchEnabled -bool false
+    # defaults write com.apple.Safari SuppressSearchSuggestions -bool true
 
-    # Press Tab to highlight each item on a web page
-    defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
-    defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks -bool true
+    # # Press Tab to highlight each item on a web page
+    # defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
+    # defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks -bool true
 
-    # Show the full URL in the address bar (note: this still hides the scheme)
-    defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
+    # # Show the full URL in the address bar (note: this still hides the scheme)
+    # defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
 
-    # Set Safari’s home page to `about:blank` for faster loading
-    defaults write com.apple.Safari HomePage -string "about:blank"
+    # # Set Safari’s home page to `about:blank` for faster loading
+    # defaults write com.apple.Safari HomePage -string "about:blank"
 
-    # Prevent Safari from opening ‘safe’ files automatically after downloading
-    defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
+    # # Prevent Safari from opening ‘safe’ files automatically after downloading
+    # defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 
-    # Allow hitting the Backspace key to go to the previous page in history
-    defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true
+    # # Allow hitting the Backspace key to go to the previous page in history
+    # defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true
 
-    # Hide Safari’s bookmarks bar by default
-    defaults write com.apple.Safari ShowFavoritesBar -bool false
+    # # Hide Safari’s bookmarks bar by default
+    # defaults write com.apple.Safari ShowFavoritesBar -bool false
 
-    # Hide Safari’s sidebar in Top Sites
-    defaults write com.apple.Safari ShowSidebarInTopSites -bool false
+    # # Hide Safari’s sidebar in Top Sites
+    # defaults write com.apple.Safari ShowSidebarInTopSites -bool false
 
-    # Disable Safari’s thumbnail cache for History and Top Sites
-    defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
+    # # Disable Safari’s thumbnail cache for History and Top Sites
+    # defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
 
-    # Enable Safari’s debug menu
-    defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+    # # Enable Safari’s debug menu
+    # defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
 
-    # Make Safari’s search banners default to Contains instead of Starts With
-    defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
+    # # Make Safari’s search banners default to Contains instead of Starts With
+    # defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
 
-    # Remove useless icons from Safari’s bookmarks bar
-    defaults write com.apple.Safari ProxiesInBookmarksBar "()"
+    # # Remove useless icons from Safari’s bookmarks bar
+    # defaults write com.apple.Safari ProxiesInBookmarksBar "()"
 
     # Enable the Develop menu and the Web Inspector in Safari
     defaults write com.apple.Safari IncludeDevelopMenu -bool true
     defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-    defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+    # defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
 
     # Add a context menu item for showing the Web Inspector in web views
     defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
-    # Enable continuous spellchecking
-    defaults write com.apple.Safari WebContinuousSpellCheckingEnabled -bool true
-    # Disable auto-correct
-    defaults write com.apple.Safari WebAutomaticSpellingCorrectionEnabled -bool false
+    # # Enable continuous spellchecking
+    # defaults write com.apple.Safari WebContinuousSpellCheckingEnabled -bool true
+    # # Disable auto-correct
+    # defaults write com.apple.Safari WebAutomaticSpellingCorrectionEnabled -bool false
 
-    # Disable AutoFill
-    defaults write com.apple.Safari AutoFillFromAddressBook -bool false
-    defaults write com.apple.Safari AutoFillPasswords -bool false
-    defaults write com.apple.Safari AutoFillCreditCardData -bool false
-    defaults write com.apple.Safari AutoFillMiscellaneousForms -bool false
+    # # Disable AutoFill
+    # defaults write com.apple.Safari AutoFillFromAddressBook -bool false
+    # defaults write com.apple.Safari AutoFillPasswords -bool false
+    # defaults write com.apple.Safari AutoFillCreditCardData -bool false
+    # defaults write com.apple.Safari AutoFillMiscellaneousForms -bool false
 
     # Warn about fraudulent websites
     # defaults write com.apple.Safari WarnAboutFraudulentWebsites -bool true
@@ -670,14 +670,14 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # defaults write com.apple.Safari WebKitPluginsEnabled -bool false
     # defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2PluginsEnabled -bool false
 
-    # Disable Java
-    defaults write com.apple.Safari WebKitJavaEnabled -bool false
-    defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled -bool false
-    defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabledForLocalFiles -bool false
+    # # Disable Java
+    # defaults write com.apple.Safari WebKitJavaEnabled -bool false
+    # defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled -bool false
+    # defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabledForLocalFiles -bool false
 
-    # Block pop-up windows
-    defaults write com.apple.Safari WebKitJavaScriptCanOpenWindowsAutomatically -bool false
-    defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically -bool false
+    # # Block pop-up windows
+    # defaults write com.apple.Safari WebKitJavaScriptCanOpenWindowsAutomatically -bool false
+    # defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically -bool false
 
     # Disable auto-playing video
     #defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
@@ -685,14 +685,14 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     #defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
     #defaults write com.apple.SafariTechnologyPreview com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
 
-    # Enable “Do Not Track”
-    defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
+    # # Enable “Do Not Track”
+    # defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
 
     # Disable "safe" web ads
     defaults write com.apple.Safari WebKitPreferences.privateClickMeasurementEnabled -bool false
 
     # Update extensions automatically
-    defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
+    # defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
 
     # switch to duckduckgo search enginge
     defaults write NSGlobalDomain NSPreferredWebServices -dict \
@@ -729,7 +729,7 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     ###############################################################################
 
     # Only use UTF-8 in Terminal.app
-    defaults write com.apple.terminal StringEncodings -array 4
+    # defaults write com.apple.terminal StringEncodings -array 4
 
     ###############################################################################
     # Time Machine                                                                #
@@ -745,18 +745,18 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # Activity Monitor                                                            #
     ###############################################################################
 
-    # Show the main window when launching Activity Monitor
-    defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
+    # # Show the main window when launching Activity Monitor
+    # defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
 
-    # Visualize CPU usage in the Activity Monitor Dock icon
-    defaults write com.apple.ActivityMonitor IconType -int 5
+    # # Visualize CPU usage in the Activity Monitor Dock icon
+    # defaults write com.apple.ActivityMonitor IconType -int 5
 
-    # Show all processes in Activity Monitor
-    defaults write com.apple.ActivityMonitor ShowCategory -int 0
+    # # Show all processes in Activity Monitor
+    # defaults write com.apple.ActivityMonitor ShowCategory -int 0
 
-    # Sort Activity Monitor results by CPU usage
-    defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
-    defaults write com.apple.ActivityMonitor SortDirection -int 0
+    # # Sort Activity Monitor results by CPU usage
+    # defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
+    # defaults write com.apple.ActivityMonitor SortDirection -int 0
 
     ###############################################################################
     # Address Book, Dashboard, iCal, TextEdit, and Disk Utility                   #
@@ -771,56 +771,56 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # Enable the debug menu in iCal (pre-10.8)
     # defaults write com.apple.iCal IncludeDebugMenu -bool true
 
-    # Use plain text mode for new TextEdit documents
-    defaults write com.apple.TextEdit RichText -int 0
-    # Open and save files as UTF-8 in TextEdit
-    defaults write com.apple.TextEdit PlainTextEncoding -int 4
-    defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
+    # # Use plain text mode for new TextEdit documents
+    # defaults write com.apple.TextEdit RichText -int 0
+    # # Open and save files as UTF-8 in TextEdit
+    # defaults write com.apple.TextEdit PlainTextEncoding -int 4
+    # defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
-    # Enable the debug menu in Disk Utility
-    defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
-    defaults write com.apple.DiskUtility advanced-image-options -bool true
+    # # Enable the debug menu in Disk Utility
+    # defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
+    # defaults write com.apple.DiskUtility advanced-image-options -bool true
 
-    # Auto-play videos when opened with QuickTime Player
-    defaults write com.apple.QuickTimePlayerX MGPlayMovieOnOpen -bool true
+    # # Auto-play videos when opened with QuickTime Player
+    # defaults write com.apple.QuickTimePlayerX MGPlayMovieOnOpen -bool true
 
     ###############################################################################
     # Mac App Store                                                               #
     ###############################################################################
 
-    # Enable the WebKit Developer Tools in the Mac App Store
-    defaults write com.apple.appstore WebKitDeveloperExtras -bool true
+    # # Enable the WebKit Developer Tools in the Mac App Store
+    # defaults write com.apple.appstore WebKitDeveloperExtras -bool true
 
-    # Enable Debug Menu in the Mac App Store
-    defaults write com.apple.appstore ShowDebugMenu -bool true
+    # # Enable Debug Menu in the Mac App Store
+    # defaults write com.apple.appstore ShowDebugMenu -bool true
 
-    # Enable the automatic update check
-    defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
+    # # Enable the automatic update check
+    # defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
 
-    # Check for software updates daily, not just once per week
-    defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+    # # Check for software updates daily, not just once per week
+    # defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
-    # Download newly available updates in background
-    defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
+    # # Download newly available updates in background
+    # defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
 
-    # Install System data files & security updates
-    defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
+    # # Install System data files & security updates
+    # defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
 
-    # Automatically download apps purchased on other Macs
-    defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 1
+    # # Automatically download apps purchased on other Macs
+    # defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 1
 
-    # Turn on app auto-update
-    defaults write com.apple.commerce AutoUpdate -bool true
+    # # Turn on app auto-update
+    # defaults write com.apple.commerce AutoUpdate -bool true
 
-    # Allow the App Store to reboot machine on macOS updates
-    defaults write com.apple.commerce AutoUpdateRestartRequired -bool true
+    # # Allow the App Store to reboot machine on macOS updates
+    # defaults write com.apple.commerce AutoUpdateRestartRequired -bool true
 
     ###############################################################################
     # Photos                                                                      #
     ###############################################################################
 
     # Prevent Photos from opening automatically when devices are plugged in
-    defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
+    # defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
     ###############################################################################
     # Homebrew                                                                    #
