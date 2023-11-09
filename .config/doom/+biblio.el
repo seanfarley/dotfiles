@@ -19,9 +19,9 @@
   (setq citar-bibliography bibtex-completion-bibliography
         citar-library-paths bibtex-completion-library-path
         citar-symbols
-        `((file ,(all-the-icons-faicon "file-pdf-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
-          (note ,(all-the-icons-faicon "sticky-note" :face 'all-the-icons-blue :v-adjust -0.1) . " ")
-          (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " "))
+        `((file ,(nerd-icons-faicon  "nf-fa-file_pdf_o" :face 'nerd-icons-green :v-adjust -0.1) . " ")
+          (note ,(nerd-icons-faicon  "nf-fa-sticky_note" :face 'nerd-icons-blue :v-adjust -0.1) . " ")
+          (link ,(nerd-icons-octicon "nf-oct-link" :face 'nerd-icons-orange :v-adjust 0.01) . " "))
         citar-symbol-separator " ")
 
   (map! :map citar-map

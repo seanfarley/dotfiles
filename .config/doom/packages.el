@@ -18,7 +18,8 @@
 (package! meson-mode)
 (package! message-view-patch)
 (package! mu4e-alert :disable t) ;; no longer needed after mu 1.10
-(package! nerd-font :recipe '(:host github :repo "twlz0ne/nerd-fonts.el"))
+(package! nerd-icons-completion)
+(package! nerd-icons-ibuffer)
 (package! outline-minor-faces)
 (package! org-sidebar)
 ;; (package! ox-report) ;; if I get back into contracting

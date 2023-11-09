@@ -310,11 +310,11 @@
             :end_export    "⏪"
             :properties    "🟍"
             :end           "∎"
-            :priority_a   ,(propertize "⚑" 'face 'all-the-icons-red)
-            :priority_b   ,(propertize "⬆" 'face 'all-the-icons-orange)
-            :priority_c   ,(propertize "■" 'face 'all-the-icons-yellow)
-            :priority_d   ,(propertize "⬇" 'face 'all-the-icons-green)
-            :priority_e   ,(propertize "❓" 'face 'all-the-icons-blue)))
+            :priority_a   ,(propertize "⚑" 'face 'nerd-icons-red)
+            :priority_b   ,(propertize "⬆" 'face 'nerd-icons-orange)
+            :priority_c   ,(propertize "■" 'face 'nerd-icons-yellow)
+            :priority_d   ,(propertize "⬇" 'face 'nerd-icons-green)
+            :priority_e   ,(propertize "" 'face 'nerd-icons-blue)))
 
 (set-ligatures! 'org-mode
   :merge t
@@ -551,8 +551,8 @@ JUSTIFICATION is a symbol for 'left, 'center or 'right."
     ;; should move the `save-window-excursion' into `+mu4e--get-string-width'
     (save-window-excursion
       (let* ((clocked-time (org-clock-get-clocked-time))
-             (icon (all-the-icons-material
-                    "access_time"
+             (icon (nerd-icons-mdicon
+                    "nf-md-camera_timer" ;; or nf-weather-time_4
                     :face 'org-done
                     :height 0.8
                     :v-adjust -0.15))
