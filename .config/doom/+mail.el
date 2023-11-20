@@ -276,6 +276,23 @@
     (interactive "P")
     (mu4e-update-mail-and-index t))
 
+  ;; REVIEW fixed in 1.10.5 (or 1.11); remove when that is available
+  (defadvice! smf/mu4e--read-choice-builtin (prompt choices)
+    :override #'mu4e--read-choice-builtin
+    "Fixes ESC not working"
+    (let ((chosen) (inhibit-quit nil)
+        (prompt (format "%s%s"
+                        (mu4e-format prompt)
+                        (mapconcat #'car choices ", "))))
+    (while (not chosen)
+      (message nil) ;; this seems needed...
+      (when-let ((kar (read-char-exclusive prompt)))
+        (when (eq kar ?\e) (keyboard-quit)) ;; `read-char-exclusive' is a C
+                                            ;; function and doesn't check for
+                                            ;; `keyboard-quit', there we need to
+                                            ;; check if ESC is pressed
+        (setq chosen (mu4e--matching-choice choices kar))))
+    chosen))
 
   ;; mu4e key bindings
   (map!
