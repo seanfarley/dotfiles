@@ -276,13 +276,6 @@
     (interactive "P")
     (mu4e-update-mail-and-index t))
 
-  ;; REVIEW https://github.com/djcb/mu/pull/2330
-  ;; merge into development version; remove when 1.10 is released
-  (defun smf/mu4e-refresh-main ()
-    (with-current-buffer mu4e-main-buffer-name
-      (revert-buffer)))
-
-  (add-hook 'mu4e-index-updated-hook #'smf/mu4e-refresh-main)
 
   ;; mu4e key bindings
   (map!
