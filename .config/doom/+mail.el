@@ -255,16 +255,6 @@
   (add-to-list 'mu4e-headers-actions
                '("patch" . smf/mu4e-action-hg-import-patch) t)
 
-;;; mu4e-alert
-
-  (setq
-   ;; only list mails in inbox
-   mu4e-alert-interesting-mail-query
-   "maildir:/inbox AND flag:unread AND NOT flag:trashed")
-
-  ;; adds unread mail count to mode line
-  (mu4e-alert-enable-mode-line-display)
-
 ;;; colorize patches
 
   ;; colorize patch-based emails
