@@ -93,9 +93,8 @@
        :checkers
        (syntax           ; tasing you for every semicolon you forget
         +childframe)
-       (spell            ; tasing you for misspelling mispelling
-        +flyspell
-        +enchant)
+       ;;spell            ; tasing you for misspelling mispelling
+       jinx              ; alternative to the spell module (speeeeeed)
        ;;grammar           ; tasing grammar mistake every you make
 
        :tools
