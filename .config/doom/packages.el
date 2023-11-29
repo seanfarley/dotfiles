@@ -11,7 +11,6 @@
 (package! fancy-narrow)
 (package! flycheck-eldev)
 (package! flycheck-package)
-(package! lsp-origami)
 (package! meson-mode)
 (package! message-view-patch)
 (package! mu4e-alert :disable t) ;; no longer needed after mu 1.10
