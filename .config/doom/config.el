@@ -75,12 +75,6 @@ Add it to a hook like so:
   :init
   (tramp-yadm-register))
 
-(use-package! outline-minor-faces
-  :after outline
-  :config
-  (add-hook 'outline-minor-mode-hook
-            #'outline-minor-faces-mode))
-
 (add-hook 'after-init-hook 'global-color-identifiers-mode)
 
 ;; load personal modules

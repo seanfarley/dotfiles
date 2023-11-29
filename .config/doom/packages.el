@@ -18,7 +18,6 @@
 (package! mu4e-alert :disable t) ;; no longer needed after mu 1.10
 (package! nerd-icons-completion)
 (package! nerd-icons-ibuffer)
-(package! outline-minor-faces)
 (package! org-sidebar)
 ;; (package! ox-report) ;; if I get back into contracting
 (package! package-lint)
