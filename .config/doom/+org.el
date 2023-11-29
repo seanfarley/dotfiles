@@ -240,11 +240,6 @@
 
 ;;* org modern
 
-(use-package! valign
-  :hook (org-mode . valign-mode)
-  :config
-  (setq valign-fancy-bar t))
-
 (custom-set-faces!
   '(outline-1 :weight extra-bold :height 1.25)
   '(outline-2 :weight bold :height 1.15)
