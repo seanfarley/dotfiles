@@ -11,8 +11,6 @@
 (package! fancy-narrow)
 (package! flycheck-eldev)
 (package! flycheck-package)
-(package! highlight-sexp :recipe (:host github
-                                  :repo "daimrod/highlight-sexp"))
 (package! lsp-origami)
 (package! lsp-treemacs)
 (package! meson-mode)
