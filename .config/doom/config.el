@@ -47,8 +47,11 @@ Add it to a hook like so:
 (after! flycheck
   (add-to-list 'flycheck-gfortran-include-path "."))
 
-(after! page-break-lines-mode
-  (add-to-list 'page-break-lines-modes 'prog-mode))
+(use-package! page-break-lines
+  :config
+  (cl-pushnew 'prog-mode page-break-lines-modes)
+  (cl-pushnew 'fundamental-mode page-break-lines-modes)
+  (cl-pushnew 'text-mode page-break-lines-modes))
 
 (after! shr
   (setq shr-color-visible-luminance-min 80
