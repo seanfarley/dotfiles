@@ -13,7 +13,6 @@
 (package! message-view-patch)
 (package! mu4e-alert :disable t) ;; no longer needed after mu 1.10
 (package! org-sidebar)
-(package! package-lint)
 (package! page-break-lines)
 (package! prog-fill)
 (package! ssh-config-mode)
