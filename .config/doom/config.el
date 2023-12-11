@@ -63,7 +63,6 @@ Add it to a hook like so:
 
 (add-hook! doom-first-input
            #'+default/restart-server
-           #'fancy-narrow-mode
            #'global-dot-mode
            #'whole-line-or-region-global-mode
            #'global-page-break-lines-mode)

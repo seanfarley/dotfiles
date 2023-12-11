@@ -8,7 +8,6 @@
 (package! col-highlight :recipe '(:host github :repo "emacsmirror/col-highlight"))
 (package! color-identifiers-mode)
 (package! dot-mode)
-(package! fancy-narrow)
 (package! meson-mode)
 (package! message-view-patch)
 (package! mu4e-alert :disable t) ;; no longer needed after mu 1.10
