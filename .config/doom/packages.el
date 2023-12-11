@@ -18,7 +18,6 @@
 (package! tramp-yadm :recipe (:local-repo "~/projects/tramp-yadm"
                               :build (:not compile)))
 (package! unfill)
-(package! webpaste)
 (package! whole-line-or-region)
 
 ;; ;; I always forget this
