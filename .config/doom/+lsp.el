@@ -8,6 +8,10 @@
   (setq dap-python-executable "python3"
         dap-python-debugger 'debugpy)
 
+  (map! :map dap-ui-repl-mode-map
+        "C-p" #'comint-previous-input
+        "C-n" #'comint-next-input))
+
 (after! lsp-mode
 
   ;; never seems to work for me; always hangs with a reentrant error (and recent
