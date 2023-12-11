@@ -21,8 +21,6 @@
 (package! unfill)
 (package! webpaste)
 (package! whole-line-or-region)
-;; too annoying for technical writing which uses a lot of passive voice
-(package! writegood-mode :disable t)
 
 ;; ;; I always forget this
 ;; (package! mypackage :recipe (:local-repo "packages/mypackage"
