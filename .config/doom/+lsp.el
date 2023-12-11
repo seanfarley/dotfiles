@@ -4,6 +4,10 @@
 (add-to-list 'safe-local-eval-forms '(add-hook 'before-save-hook
                                                #'lsp-format-buffer nil t))
 
+(after! dap-mode
+  (setq dap-python-executable "python3"
+        dap-python-debugger 'debugpy)
+
 (after! lsp-mode
 
   ;; never seems to work for me; always hangs with a reentrant error (and recent
