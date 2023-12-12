@@ -100,7 +100,8 @@
    mu4e-bookmarks
    (list (list :name "All unread inbox"
                :query "maildir:/inbox AND flag:unread AND NOT flag:trashed"
-               :key ?u)
+               :key ?u
+               :favorite t)
          (list :name "Notes"
                :query (concat "to:sean.michael.farley+self "
                               "AND NOT maildir:/phd "
