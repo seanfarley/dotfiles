@@ -25,8 +25,7 @@
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;;ivy               ; a search engine for love and life
-       (vertico          ; a search engine for love and life
-        +icons)          ; pretty icons in buffer lists
+       (vertico +icons)    ; a search engine for love and life
        (corfu
         +icons
         +minibuffer
