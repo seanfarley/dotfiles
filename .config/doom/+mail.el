@@ -105,7 +105,9 @@
          (list :name "Notes"
                :query (concat "to:sean.michael.farley+self "
                               "AND NOT maildir:/phd "
-                              "AND NOT maildir:/posterity")
+                              "AND NOT maildir:/posterity "
+                              "AND NOT flag:trashed "
+                              "AND NOT maildir:/Trash")
                :key ?n)
          (list :name "PhD"
                :query (concat "((maildir:/phd AND flag:unread "
