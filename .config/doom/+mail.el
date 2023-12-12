@@ -30,9 +30,6 @@
           :name "farley.io"
           :enter-func (lambda ()
                         (mu4e-message "Switched to farley.io"))
-          :leave-func (lambda ()
-                        (progn (setq +mu4e-personal-addresses nil)
-                               (mu4e-clear-caches)))
           :match-func (lambda (msg) (when msg (not (smf/iit-context-p msg))))
           :vars '((user-mail-address      . "sean@farley.io")
                   (smtpmail-smtp-user     . "sean@farley.io")
@@ -42,9 +39,6 @@
           :name "iit.edu"
           :enter-func (lambda ()
                         (mu4e-message "Switched to iit.edu"))
-          :leave-func (lambda ()
-                        (progn (setq +mu4e-personal-addresses nil)
-                               (mu4e-clear-caches)))
           :match-func #'smf/iit-context-p
           :vars '((user-mail-address      . "sfarley@hawk.iit.edu")
                   (smtpmail-smtp-user     . "sfarley@hawk.iit.edu")
