@@ -98,7 +98,7 @@
 
   (setq-default
    ;; set the file for capturing todos
-   +org-capture-todo-file "personal.org"
+   +org-capture-todo-file "inbox.org"
    org-default-notes-file (concat org-directory "/" +org-capture-todo-file)
 
    org-agenda-files (mapcar (lambda (f) (concat org-directory f))
