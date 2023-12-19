@@ -6,7 +6,6 @@
    doom-modeline-buffer-file-name-style  'truncate-upto-root
    doom-modeline-buffer-encoding         nil
    doom-modeline-percent-position        nil
-   doom-modeline-mu4e                    t
    doom-modeline-github                  t
    doom-modeline-major-mode-icon         t
    doom-modeline-major-mode-color-icon   nil
