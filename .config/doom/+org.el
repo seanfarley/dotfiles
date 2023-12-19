@@ -103,6 +103,7 @@
 
    org-agenda-files (mapcar (lambda (f) (concat org-directory f))
                             (list +org-capture-todo-file
+                                  "personal.org"
                                   "phd.org"))
 
    ;; don't auto-fold my documents
