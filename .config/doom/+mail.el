@@ -216,47 +216,6 @@
                  :action      (lambda (docid msg target)
                                 (mu4e--server-move docid "/Spam" "+S-u-N"))))
 
-  (add-to-list 'mu4e-marks
-               '(patch
-                 :char       "p"
-                 :prompt     "Patch"
-                 :ask-target (lambda ()
-                               (ivy-read "Target directory: "
-                                         'read-file-name-internal
-                                         :matcher #'smf/find-dir-matcher
-                                         :history 'smf/recent-patch-dirs))
-                 :action      (lambda (docid msg target)
-                                (shell-command
-                                 (format
-                                  "hg --cwd %s import --obsolete --partial %s"
-                                  target
-                                  (mu4e-message-field msg :path))))))
-
-  ;; import a patch from the message view
-  (defun smf/mu4e-action-hg-import-patch (msg)
-    "Import the hg [patch] message."
-    (interactive)
-    (ivy-read "Target directory: "
-              'read-file-name-internal
-              :matcher #'smf/find-dir-matcher
-              :history 'smf/recent-patch-dirs
-              :action (lambda (d)
-                        (shell-command
-                         (format
-                          "hg --cwd %s import --obsolete --partial %s"
-                          d
-                          (mu4e-message-field msg :path))))))
-
-  (add-to-list 'mu4e-view-actions
-               '("patch" . smf/mu4e-action-hg-import-patch) t)
-  (add-to-list 'mu4e-headers-actions
-               '("patch" . smf/mu4e-action-hg-import-patch) t)
-
-;;; colorize patches
-
-  ;; colorize patch-based emails
-  (add-hook 'gnus-part-display-hook 'message-view-patch-highlight)
-
 ;;; monkey patchs
 
   (defun smf/mu4e-update-and-index (&rest _)

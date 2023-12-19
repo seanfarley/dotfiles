@@ -9,7 +9,6 @@
 (package! color-identifiers-mode)
 (package! dot-mode)
 (package! meson-mode)
-(package! message-view-patch)
 (package! mu4e-alert :disable t) ;; no longer needed after mu 1.10
 (package! page-break-lines)
 (package! ssh-config-mode)
