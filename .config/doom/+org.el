@@ -529,7 +529,7 @@ JUSTIFICATION is a symbol for 'left, 'center or 'right."
 (advice-add 'org-create-formula-image :around #'scimax-org-renumber-environment)
 (put 'scimax-org-renumber-environment 'enabled t)
 
-(when EMACS28+
+(when (>= emacs-major-version 28)
   (add-hook! 'latex-mode #'TeX-latex-mode))
 
 ;;; org clock prettify
