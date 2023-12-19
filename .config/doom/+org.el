@@ -201,8 +201,8 @@
 
   (add-to-list 'org-capture-templates
                '("t" "Personal todo" entry
-                 (file+headline +org-capture-todo-file "Tasks")
-                 "* TODO %?\n%i\n%a" :prepend t))
+                 (file+headline +org-capture-todo-file "Inbox")
+                 "* HOLD %?\n%i\n%a" :prepend t)) ;; on hold until filed
 
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
 
