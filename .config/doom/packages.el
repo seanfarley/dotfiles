@@ -16,11 +16,6 @@
 (package! unfill)
 (package! whole-line-or-region)
 
-;; ;; I always forget this
-;; (package! mypackage :recipe (:local-repo "packages/mypackage"
-;;                              ;; :files (:defaults "extra")
-;;                              :build (:not compile)))
-
 ;; TODO port to doom org +pretty
 (package! org-fragtog)
 (package! engrave-faces)
