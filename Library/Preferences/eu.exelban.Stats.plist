@@ -11,11 +11,11 @@
 	<key>LaunchAtLoginNext</key>
 	<true/>
 	<key>NSStatusItem Preferred Position CPU_line_chart</key>
-	<real>452</real>
+	<real>411</real>
 	<key>NSStatusItem Preferred Position Network_speed</key>
-	<real>500</real>
+	<real>459</real>
 	<key>NSStatusItem Preferred Position RAM_pie_chart</key>
-	<real>418</real>
+	<real>377</real>
 	<key>NSToolbar Configuration eu.exelban.Stats.Settings.Toolbar</key>
 	<dict>
 		<key>TB Display Mode</key>
