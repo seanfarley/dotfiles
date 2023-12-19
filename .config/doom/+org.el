@@ -7,6 +7,8 @@
 
 (setq-hook! 'TeX-mode-hook TeX-engine 'luatex)
 
+(setq +latex-viewers '(pdf-tools))
+
 ;; NOTE this adds a latex-macros block to org-mode and is useful to copy to a
 ;; project's .dir-locals.el
 ;; ((nil . ((eval . (progn
