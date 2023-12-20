@@ -195,9 +195,7 @@
       :unnarrowed t))
 
    org-capture-templates
-   (remove '("t" "Personal todo" entry
-             (file+headline +org-capture-todo-file "Tasks")
-             "* [ ] %?\n%i\n%a" :prepend t) org-capture-templates))
+   (cl-remove-if (lambda (elt) (string= "t" (car elt))) org-capture-templates))
 
   (add-to-list 'org-capture-templates
                '("t" "Personal todo" entry
