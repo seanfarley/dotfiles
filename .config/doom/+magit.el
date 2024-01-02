@@ -20,3 +20,8 @@
     ;; behavior for prompting the user
     (transient-replace-suffix #'magit-commit #'magit-commit-autofixup
       '("x" "Absorb changes" magit-commit-absorb))))
+
+(after! forge
+  (add-to-list 'forge-alist
+               '("gitlab.freedesktop.org" "gitlab.freedesktop.org/api/v4"
+                 "gitlab.freedesktop.org" forge-gitlab-repository) t))
