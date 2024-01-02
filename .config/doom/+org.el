@@ -43,6 +43,27 @@
   (when (modulep! :ui workspaces)
     (+workspace-switch +smf/org-roam-workspace-name t)))
 
+(defun =org-roam ()
+  (interactive)
+  (when (modulep! :ui workspaces)
+    (+workspace-switch +smf/org-roam-workspace-name t)
+    ;; try the first buffer to see if it's org-roam
+    (unless (string=
+             (buffer-local-value 'default-directory
+                                 (window-buffer (selected-window)))
+             org-roam-directory)
+      ;; if the first buffer isn't org-roam, then iterate over the buffer list
+      (if-let ((roam-bufs (cl-remove-if-not
+                       (lambda (buf)
+                         (string=
+                          (buffer-local-value 'default-directory buf)
+                          org-roam-directory))
+                       (buffer-list))))
+        ;; if we have any org-roam buffers, then switch to the first one;
+        ;; otherwise call `org-roam-node-find'
+          (switch-to-buffer (car roam-bufs))
+        (org-roam-node-find)))))
+
 ;; oddly, the side org roam buffer displays a non-working state at first but
 ;; refreshing it fixes the backlinks
 (defadvice! smf/org-roam-refresh (&rest _)
