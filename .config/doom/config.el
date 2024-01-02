@@ -79,6 +79,9 @@ Add it to a hook like so:
 
 (add-hook 'after-init-hook 'global-color-identifiers-mode)
 
+(after! smartparens
+  (setq sp-navigate-reindent-after-up-in-string nil))
+
 ;; load personal modules
 (load! "+utils")
 (load! "+bindings")
