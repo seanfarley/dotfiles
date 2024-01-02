@@ -82,6 +82,11 @@ Add it to a hook like so:
 (after! smartparens
   (setq sp-navigate-reindent-after-up-in-string nil))
 
+;; NOTE https://github.com/joaotavora/sly/issues/535
+(after! orderless
+  (setq-hook! 'sly-mode-hook completion-styles '(basic
+                                                 partial-completion emacs22)))
+
 ;; load personal modules
 (load! "+utils")
 (load! "+bindings")
