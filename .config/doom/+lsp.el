@@ -39,6 +39,7 @@
         lsp-pylsp-plugins-mccabe-enabled nil
         lsp-pylsp-plugins-pydocstyle-enabled nil
         lsp-pylsp-plugins-pycodestyle-enabled nil
+
         lsp-signature-auto-activate nil
         lsp-ui-doc-enable t)
 
