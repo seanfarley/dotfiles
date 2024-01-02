@@ -66,9 +66,6 @@
    ;; prefer the usual behavior since we're not using org-mode for compose
    mu4e-compose-format-flowed nil
 
-   ;; prefer text over html
-   mu4e-view-html-plaintext-ratio-heuristic most-positive-fixnum
-
    mm-discouraged-alternatives '("text/html" "text/richtext" "image/.*")
 
    mu4e-maildir-shortcuts (list (list :maildir "/inbox"
@@ -118,13 +115,10 @@
                :key ?w))
 
    ;; an absolute must to sort the inbox with the date ascending.
-   mu4e-headers-sort-direction 'ascending
+   mu4e-search-sort-direction 'ascending
 
    ;; another must: include related emails while searching
-   mu4e-headers-include-related t
-
-   ;; show images inline by default
-   mu4e-view-show-images nil
+   mu4e-search-include-related t
 
    ;; just apply the actions without asking
    mu4e-headers-leave-behavior 'apply)
