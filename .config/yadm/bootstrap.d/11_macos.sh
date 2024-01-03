@@ -66,8 +66,10 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
     # sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool NO
     # sudo defaults write /Library/Preferences/com.apple.FindMyMac FMMEnabled -bool NO
 
-    # Auto hide the menu bar
-    defaults write NSGlobalDomain _HIHideMenuBar -bool true
+    # Auto hide the menu bar for non-notched macs
+    if [ "$(uname -p)" != "arm" ]; then
+        defaults write NSGlobalDomain _HIHideMenuBar -bool true
+    fi
 
     # Set the datetime to "Tue Dec 20 2:52 PM"
     defaults write com.apple.menuextra.clock DateFormat "EEE MMM d  h:mm a"
