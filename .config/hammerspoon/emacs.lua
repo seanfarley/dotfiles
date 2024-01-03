@@ -38,21 +38,28 @@ function backFromEmacs()
 end
 
 function mod.focus()
-  local c = "/bin/sh -c 'dirname `realpath /usr/local/bin/emacs`'"
-  local emacs = process.capture(c) .. "/../Emacs.app"
+  local epath = "/opt/homebrew/bin/emacs"
+  if process.file_exists("/usr/local/bin/emacs") then
+    epath = "/usr/local/bin/emacs"
+  end
+  local c = "/bin/sh -c 'dirname \"$(dirname $(realpath " .. epath .. "))\"'"
+  local emacs = process.capture(c) .. "/Emacs.app"
   -- hs.alert(emacs)
   hs.application.launchOrFocus(emacs)
 end
 
 function mod.client()
   -- find homebrew emacsclient
-  ec = "/usr/local/bin/"
-  if process.file_exists(ec .. "emacsclient") then
-    -- hs.alert("found it at: " .. ec)
-    return ec .. "emacsclient"
+  local ec = "/opt/homebrew/bin/emacsclient"
+  if process.file_exists(ec) then
+    return ec
+  end
+  ec = "/usr/local/bin/emacsclient"
+  if process.file_exists(ec) then
+    return ec
   end
 
-  local ec = "/Applications/Emacs.app/../bin/"
+  ec = "/Applications/Emacs.app/../bin/"
   if process.file_exists(ec .. "emacsclient") then
     -- hs.alert("found it at: " .. ec)
     return ec .. "emacsclient"
