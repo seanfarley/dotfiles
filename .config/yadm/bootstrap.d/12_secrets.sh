@@ -2,8 +2,14 @@
 
 system_type=$(uname -s)
 is_sudo=$(sh -c "sudo -vn 2>&1 && echo password" | grep -c password)
+local_hostname=$(scutil --get LocalHostName 2>/dev/null)
 
-if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
+is_personal=0
+case "$local_hostname" in laptop*)
+    is_personal=1
+esac
+
+if [ "$system_type" = "Darwin" ] && [ $is_sudo -eq 1 ] && [ $is_personal -eq 1 ]; then
 
     echo "Configuring bitwarden server"
 
