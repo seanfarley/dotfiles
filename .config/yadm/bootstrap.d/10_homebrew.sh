@@ -2,8 +2,20 @@
 
 system_type=$(uname -s)
 is_sudo=$(sh -c "sudo -vn 2>&1 && echo password" | grep -c password)
+local_hostname=$(scutil --get LocalHostName 2>/dev/null)
 
 if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
+
+  extra_apps=""
+
+  case "$local_hostname" in laptop*)
+    read -d '' extra_apps << EOF
+mas "AdGuard for Safari", id: 1440147259
+mas "Jiffy", id: 1502527999
+mas "Jiffy reader", id: 6444754311
+mas "Xcode", id: 497799835
+EOF
+  esac
 
   # install homebrew if it's missing
   if ! command -v brew >/dev/null 2>&1; then
@@ -204,10 +216,7 @@ cask "transmission"
 cask "utm"
 cask "vlc"
 cask "xquartz"
-mas "AdGuard for Safari", id: 1440147259
-mas "Jiffy", id: 1502527999
-mas "Jiffy reader", id: 6444754311
-mas "Xcode", id: 497799835
+"$extra_apps"
 EOF
 
 # start hammerspoon at login
