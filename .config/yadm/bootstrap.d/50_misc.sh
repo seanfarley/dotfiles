@@ -11,6 +11,11 @@ elif [ ! -d "$HOME/sandbox" ]; then
     mkdir -p "$HOME/sandbox"
 fi
 
+# install doom
+if [ ! -d "$HOME/.config/emacs" ]; then
+    git clone git@github.com:doomemacs/doomemacs.git ~/.config/emacs
+fi
+
 if command -v security >/dev/null 2>&1; then
     # ensure the ssh key agent is open
     # (first time only: will prompt for password to store in keychain)
