@@ -46,7 +46,9 @@ bw config server "https://bitwarden.farley.io"
 bw login sean@farley.io "$(/usr/bin/security find-internet-password -w -a sean@farley.io -s bitwarden.farley.io)"
 #+end_src
 
-** Bootstrap yadm
+** Bootstrap yadm, if needed
+Sometimes, we're not root or on a distro that has an old version of yadm. If
+that's the case, then we'll need to install yadm ourselves.
 
 #+begin_src
 git clone https://github.com/TheLocehiliosan/yadm.git ~/.local/share/yadm-project
@@ -57,7 +59,7 @@ ln -s ~/.local/share/yadm-project/yadm ~/.local/bin/yadm
 ** Initialize yadm
 
 #+begin_src
-~/.local/bin/yadm clone --bootstrap https://github.com/seanfarley/dotfiles
+yadm clone --bootstrap https://github.com/seanfarley/dotfiles
 #+end_src
 
 ** Emacs
