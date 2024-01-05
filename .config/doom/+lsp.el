@@ -43,7 +43,8 @@
         lsp-signature-auto-activate nil
         lsp-ui-doc-enable t)
 
-  (add-hook! lsp-mode #'lsp-headerline-breadcrumb-mode))
+  (add-hook 'lsp-after-open-hook #'lsp-enable-imenu)
+  (add-hook 'lsp-mode-hook #'lsp-headerline-breadcrumb-mode))
 
   (add-hook! python-mode (setq-local flycheck-disabled-checkers '(python-pylint)))
 
