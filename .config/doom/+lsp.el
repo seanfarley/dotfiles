@@ -13,24 +13,6 @@
         "C-n" #'comint-next-input))
 
 (after! lsp-mode
-
-  ;; never seems to work for me; always hangs with a reentrant error (and recent
-  ;; lsp-mode commits don't fix it); so just set to a bogus executable
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-tramp-connection "pylsp")
-                    :major-modes '(python-mode)
-                    :remote? t
-                    :server-id 'pyls-remote))
-
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
-                    :major-modes '(cc-mode c++-mode)
-                    :remote? t
-                    :server-id 'cc-remote))
-
-  (add-hook 'lsp-after-open-hook #'lsp-enable-imenu))
-
-(after! lsp-mode
   (setq lsp-pylsp-configuration-sources ["ruff"]
         lsp-pylsp-plugins-black-enabled t
         ;; pythong-lsp-ruff needs to disable the other linters
