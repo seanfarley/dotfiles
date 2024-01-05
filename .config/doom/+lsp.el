@@ -43,8 +43,6 @@
         lsp-signature-auto-activate nil
         lsp-ui-doc-enable t)
 
-  ;; python stuff
-
   (add-hook! lsp-mode #'lsp-headerline-breadcrumb-mode))
 
   (add-hook! python-mode (setq-local flycheck-disabled-checkers '(python-pylint)))
