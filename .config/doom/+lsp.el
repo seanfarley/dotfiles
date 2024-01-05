@@ -28,9 +28,6 @@
   (add-hook 'lsp-after-open-hook #'lsp-enable-imenu)
   (add-hook 'lsp-mode-hook #'lsp-headerline-breadcrumb-mode))
 
-(after! lsp-python-ms
-  (set-lsp-priority! 'mspyls -100))
-
 (after! lsp-ui
   ;; for some reason doom sets these too small
   (setq lsp-ui-doc-max-height 15
