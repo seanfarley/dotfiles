@@ -371,9 +371,7 @@ if [ "$system_type" = "Darwin" ] && [ $is_sudo = 1 ]; then
         jedi \
         nose \
         pytest \
-        "python-lsp-server[all]" \
-        python-lsp-black \
-        python-lsp-ruff \
+        "pyright[all]" \
         sphinx
 
     # beets stuff

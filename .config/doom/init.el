@@ -188,6 +188,7 @@
        (python           ; beautiful is better than ugly
         +cython
         +lsp
+        +pyright
         +tree-sitter)
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
