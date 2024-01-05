@@ -64,6 +64,15 @@ path=(
     $path
 )
 
+# homebrew
+[[ -f /usr/local/bin/brew ]] &&  eval "$(/usr/local/bin/brew shellenv)"
+[[ -f /opt/homebrew/bin/brew ]] &&  eval "$(/opt/homebrew/bin/brew shellenv)"
+
+path=(
+    "$HOMEBREW_PREFIX/opt/man-db/libexec/bin"
+    $path
+)
+
 # update path to ensure we grab our preferred executables
 hash -r
 
@@ -81,15 +90,6 @@ export PYTHONSTARTUP="$HOME/.config/python/pythonrc"
 
 # virtualenv
 export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
-
-# homebrew
-[[ -f /usr/local/bin/brew ]] &&  eval "$(/usr/local/bin/brew shellenv)"
-[[ -f /opt/homebrew/bin/brew ]] &&  eval "$(/opt/homebrew/bin/brew shellenv)"
-
-path=(
-    "$HOMEBREW_PREFIX/opt/man-db/libexec/bin"
-    $path
-)
 
 # completions
 fpath+="$XDG_DATA_HOME/zsh-completions/src"
