@@ -141,3 +141,38 @@ defaults-read-filter () {
     grep -v com.apple.geo.analytics | \
     grep -v "NSWindow Frame Main Window Frame SystemPreferencesApp"
 }
+
+function dtex-stop-analytics () {
+    echo "Stopping analytic services..."
+    dt services -s dtex-analytics dtex-load-alerts -a stop --wait
+    dt services -s dtex-sync-alerts -a mask
+}
+
+function dtex-delete-analytics () {
+    echo "Deleting alerts and intermediate artifacts from Elasticsearch..."
+    dt escurl -XDELETE "//analytics-*,alerts-*,anomalyd-*,userbaseline-*,rule-based-*,comments-alerts-*"
+    echo "Deleting alerts and comments from Postgres..."
+    dt django shell -c "from dtex_appconfig.alertmgr.models import Alert; Alert.objects.all().delete()"
+    dt psql -c "TRUNCATE commentmgr_commentesmapping"
+    echo "Recreating stubs..."
+    dt es-doc-loader --verbose --all
+    echo "Clearing global analytic markers..."
+    dt manage-analytics-marker --markertype=globalanalytics --action=clearmarker
+    echo "Clearing load-alerts markers..."
+    dt manage-analytics-marker --markertype=alerts --action=clearmarker
+    echo "Clearing rule-based rule markers..."
+    dt manage-analytics-marker --markertype=rulebased --action=clearmarker --rulename=all
+    echo "Analytics have been reset!"
+}
+
+function dtex-start-analytics () {
+    echo "Restarting analytic services:"
+    dt services -s dtex-load-alerts dtex-analytics -a start
+    dt services -s dtex-sync-alerts -a unmask
+}
+
+function dtex-reset-all-analytics () {
+    dtex-stop-analytics
+    dtex-delete-analytics
+    dtex-start-analytics
+}
