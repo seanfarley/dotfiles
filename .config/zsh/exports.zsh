@@ -124,6 +124,9 @@ export CARGO_HOME="$XDG_DATA_HOME/cargo"
 # ruff
 export RUFF_CACHE_DIR="$XDG_CACHE_HOME/ruff"
 
+# lsp
+export LSP_USE_PLISTS=true
+
 # X11
 # NOTE Unless the server supports PermitUserEnviornments then ssh will alway
 # dump .Xauthority into the home directory
