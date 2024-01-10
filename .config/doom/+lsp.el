@@ -2,7 +2,7 @@
 
 ;; mark lsp-format-buffer as safe for before-save-hook
 (add-to-list 'safe-local-eval-forms '(add-hook 'before-save-hook
-                                               #'lsp-format-buffer nil t))
+                                      #'lsp-format-buffer nil t))
 
 (after! dap-mode
   (setq dap-python-executable "python3"
