@@ -18,8 +18,8 @@ zstyle ':filter-select' escape-descriptions no # display literal newlines, not \
 
 zstyle ':zaw:history' default zaw-callback-append-to-buffer
 
-if [[ -e ~/.ssh/id_rsa ]]; then
-  ssh-add -K &> /dev/null
+if [[ -e ~/.ssh/id_rsa && ! -v SSH_CLIENT ]]; then
+  ssh-add --apple-use-keychain &> /dev/null
 fi
 
 () {
