@@ -88,6 +88,11 @@ export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
 # completions
 fpath+="$XDG_DATA_HOME/zsh-completions/src"
 
+if type brew &>/dev/null; then
+  fpath+="$(brew --prefix)/share/zsh-completions"
+  fpath+="$(brew --prefix)/share/zsh/site-functions"
+fi
+
 # homebrew
 export HOMEBREW_NO_AUTO_UPDATE=1
 
