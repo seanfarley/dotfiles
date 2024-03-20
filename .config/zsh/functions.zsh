@@ -8,6 +8,30 @@ backward-kill-space-word() {
   WORDCHARS='@:*?_-.[]~=/&;!#$%^(){}<>' zle .backward-kill-word
 }
 
+function ssh() {
+  local SDIR=".config/emacs/server"
+  local SFILE="$SDIR/server"
+
+  [ -z "$DEBUG" ] || echo "[DEBUG] SSH: $SSH"
+  [ -z "$DEBUG" ] || echo "[DEBUG] DIR: $SFILE"
+
+  # read from emacs server file what port it is currently listening on
+  local PORT=$(egrep -o '127.0.0.1:([0-9]*)' "$HOME/$SFILE" | sed 's/127.0.0.1://')
+  [ -z "$DEBUG" ] || echo "[DEBUG] PORT: $PORT"
+
+  # -t : allocate a tty so we are there.
+  # -R : the remote port forward that lets emacsclient talk back
+  # $@ : any other args this script was invoked with should be passed along.
+
+  local RSYNC="rsync -r $HOME/$SDIR $@:$SDIR"
+  [ -z "$DEBUG" ] || echo "[DEBUG] RSYNC: copying $SDIR to $@:$SFILE"
+  [ -z "$DEBUG" ] || echo $RSYNC
+  $RSYNC &>/dev/null
+
+  [ -z "$DEBUG" ] || echo $SSH -t -R "${PORT}:localhost:${PORT}" $@
+  $SSH -t -R ${PORT}:localhost:${PORT} $@
+}
+
 function sync-history () {
   # This is a function because it needs to access HISTFILE.
   # https://github.com/romkatv/dotfiles-public/blob/2d81e586677f49a07a4992fb3199ce1890de6e42/dotfiles/functions/sync-dotfiles
