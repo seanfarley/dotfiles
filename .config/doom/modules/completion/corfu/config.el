@@ -193,6 +193,7 @@ placed, otherwise they come first.")
 
 
 (use-package! yasnippet-capf
+  :when (modulep! :editor snippets)
   :after corfu
   :init
   (add-to-list '+corfu-global-capes #'yasnippet-capf))
