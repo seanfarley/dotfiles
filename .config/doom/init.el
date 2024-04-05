@@ -22,14 +22,11 @@
 
        :completion
        ;;company           ; the ultimate code completion backend
+       (corfu +icons)      ; complete with cap(f), cape and a flying feather!
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;;ivy               ; a search engine for love and life
-       (vertico +icons)    ; a search engine for love and life
-       (corfu
-        +icons
-        +minibuffer
-        +orderless)
+       (vertico +icons)    ; the search engine of the future
 
        :ui
        ;;deft              ; notational velocity for Emacs
