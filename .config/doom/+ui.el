@@ -7,10 +7,7 @@
 (when (version< "29.0.50" emacs-version)
   (pixel-scroll-precision-mode))
 
-;; borrow teco's ideas for big, variable, and serif fonts
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 12)
-      doom-variable-pitch-font (font-spec :family "Overpass" :size 14)
-      doom-serif-font (font-spec :family "IBM Plex Mono" :weight 'light))
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 12))
 
 ;; BUG below line doesn't check `ns-use-native-fullscreen'
 ;; (progn (setq ns-use-native-fullscreen nil) (add-to-list 'initial-frame-alist '(fullscreen . fullboth)))
