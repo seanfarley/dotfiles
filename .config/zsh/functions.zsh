@@ -23,10 +23,10 @@ function ssh() {
   # -R : the remote port forward that lets emacsclient talk back
   # $@ : any other args this script was invoked with should be passed along.
 
-  local RSYNC="rsync -r $HOME/$SDIR $@:$SDIR"
-  [ -z "$DEBUG" ] || echo "[DEBUG] RSYNC: copying $SDIR to $@:$SFILE"
+  local RSYNC="rsync --rsync-path='mkdir -p $SDIR && rsync' $HOME/$SFILE $@:$SDIR"
+  [ -z "$DEBUG" ] || echo "[DEBUG] RSYNC: copying $HOME/$SFILE to $@:$SFILE"
   [ -z "$DEBUG" ] || echo $RSYNC
-  $RSYNC &>/dev/null
+  eval $RSYNC &>/dev/null
 
   [ -z "$DEBUG" ] || echo $SSH -t -R "${PORT}:localhost:${PORT}" $@
   $SSH -t -R ${PORT}:localhost:${PORT} $@
