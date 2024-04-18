@@ -88,7 +88,7 @@
 
        :tools
        ansible
-       biblio
+       biblio            ; Writes a PhD for you (citation needed)
        ;;collab            ; buffers with friends
        (debugger +lsp)   ; stepping through code, to help you add bugs
        ;;direnv
@@ -96,12 +96,11 @@
        editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
-       ;;gist              ; interacting with github gists
        (lookup           ; navigate your code and its documentation
         +docsets         ; ...or in Dash docsets locally
         +dictionary
         +offline)
-       (lsp +peek)
+       (lsp +peek)       ; M-x vscode
        (magit +forge)    ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -115,13 +114,13 @@
        upload            ; map local to remote projects via ssh/ftp
 
        :os
-       (:if IS-MAC macos)  ; improve compatibility with macOS
+       (:if (featurep :system 'macos) macos)  ; improve compatibility with macOS
        ;;tty               ; improve the terminal Emacs experience
 
        :lang
        ;;agda              ; types of types of types of types...
        ;;beancount         ; mind the GAAP
-       (cc               ; C/C++/Obj-C madness
+       (cc               ; C > C++ == 1
         +lsp
         +tree-sitter)
        ;;clojure         ; java with a lisp
@@ -159,8 +158,8 @@
         +latexmk
         +fold
         +lsp)
-       ;;lean
-       ;;ledger            ; an accounting system in Emacs
+       ;;lean              ; for folks with too much to prove
+       ;;ledger            ; be audit you can be
        lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
