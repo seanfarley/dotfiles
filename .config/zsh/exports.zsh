@@ -27,11 +27,10 @@ export GOPATH="$PROJECTS/go"
 # sweet, sweet emacs
 export EMACS_SERVER_FILE="$XDG_CONFIG_HOME/emacs/server/server"
 
-export ANSIBLE_VAULT_PASSWORD_FILE="$HOME/.config/ansible-vault-pass"
-export ANSIBLE_HOME="$HOME/.cache/ansible"
-export ANSIBLE_LOCAL_TMP="$HOME/.cache/ansible/tmp"
-export ANSIBLE_REMOTE_TMP="$HOME/.cache/ansible/"
-export ANSIBLE_SSH_CONTROL_PATH_DIR="$HOME/.cache/ansible/cp"
+export ANSIBLE_VAULT_PASSWORD_FILE="$XDG_CONFIG_HOME/ansible-vault-pass"
+export ANSIBLE_HOME="$XDG_CACHE_HOME/ansible"
+export ANSIBLE_LOCAL_TMP="$XDG_CACHE_HOME/ansible/tmp"
+export ANSIBLE_SSH_CONTROL_PATH_DIR="$XDG_CACHE_HOME/ansible/cp"
 
 # if we're not on our home machine, then set tramp
 if [[ $HOME != /Users/$USER ]]; then
@@ -80,7 +79,7 @@ path=(
 )
 
 # python
-export PYTHONSTARTUP="$HOME/.config/python/pythonrc"
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 
 # virtualenv
 export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
@@ -102,7 +101,7 @@ export ZSHZ_TILDE=1
 export ZSHZ_KEEP_DIRS=1
 
 # npm
-export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 
 # ripgrep
 export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep"
