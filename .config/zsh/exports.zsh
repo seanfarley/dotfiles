@@ -37,6 +37,9 @@ if [[ $HOME != /Users/$USER ]]; then
     export EMACSCLIENT_TRAMP="/ssh:$(hostname -f 2>/dev/null || hostname):"
 fi
 
+# system ssh command to use with our custom ssh function
+export SSH="$(sh -c 'command -v ssh')"
+
 ##
 # Paths, environment variables
 ##
