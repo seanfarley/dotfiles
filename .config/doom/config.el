@@ -70,12 +70,13 @@ Add it to a hook like so:
 (setq split-height-threshold nil
       split-width-threshold 0)
 
-(use-package! tramp-yadm
-  :after (tramp projectile)
-  :config
-  (setq +vc-gutter-in-remote-files t)
+(use-package! yadm
+  :after (projectile magit)
   :init
-  (tramp-yadm-register))
+  (advice-remove #'projectile-get-ext-command
+                 #'doom--only-use-generic-command-a)
+  (advice-add #'+vertico-file-search
+              :around #'yadm-doom-vertico-file-search))
 
 (add-hook 'after-init-hook 'global-color-identifiers-mode)
 

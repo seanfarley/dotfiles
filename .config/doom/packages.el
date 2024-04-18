@@ -11,8 +11,8 @@
 (package! meson-mode)
 (package! page-break-lines)
 (package! ssh-config-mode)
-(package! tramp-yadm :recipe (:local-repo "~/projects/tramp-yadm"
-                              :build (:not compile)))
+(package! yadm :recipe (:local-repo "~/projects/yadm.el"))
+
 (package! unfill)
 (package! whole-line-or-region)
 
