@@ -200,8 +200,7 @@ modified to not pop up the file."
              ((symbol-function 'copy-file)
               (lambda (file destfile confirm &rest _)
                 (funcall old-copy-file file destfile confirm)
-                ;; `move-file-to-trash' doesn't work for some reason
-                (osx-trash-move-file-to-trash file))))
+                (move-file-to-trash file))))
     (funcall orig-fn citekey)
     (smf/citar-insert-file-key citekey)))
 
