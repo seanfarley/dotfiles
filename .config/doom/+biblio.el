@@ -6,23 +6,13 @@
   (setq bibtex-field-delimiters 'double-quotes
         ;; betterbib doesn't align the equal signs, so we disable that in emacs,
         ;; as well
-        bibtex-align-at-equal-sign nil ; betterbib
-        bibtex-text-indentation 5      ; betterbib
-        bibtex-field-indentation 1     ; betterbib
-        bibtex-completion-bibliography `(,(expand-file-name "~/Nextcloud/refs/main.bib"))
-        bibtex-completion-library-path `(,(expand-file-name "~/Nextcloud/refs/pdfs"))
-        bibtex-completion-additional-search-fields '(keywords tags)
-        bibtex-completion-notes-path (expand-file-name "~/Nextcloud/refs/notes/")
-        bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n"))
+        bibtex-align-at-equal-sign nil
+        bibtex-text-indentation 5
+        bibtex-field-indentation 1))
 
-(after! (citar bibtex)
-  (setq citar-bibliography bibtex-completion-bibliography
-        citar-library-paths bibtex-completion-library-path
-        citar-symbols
-        `((file ,(nerd-icons-faicon  "nf-fa-file_pdf_o" :face 'nerd-icons-green :v-adjust -0.1) . " ")
-          (note ,(nerd-icons-faicon  "nf-fa-sticky_note" :face 'nerd-icons-blue :v-adjust -0.1) . " ")
-          (link ,(nerd-icons-octicon "nf-oct-link" :face 'nerd-icons-orange :v-adjust 0.01) . " "))
-        citar-symbol-separator " ")
+(after! citar
+  (setq citar-bibliography (list "~/Nextcloud/refs/main.bib")
+        citar-library-paths (list "~/Nextcloud/refs/pdfs"))
 
   (map! :map citar-map
         "a" #'citar-add-file-to-library))
@@ -31,7 +21,6 @@
   ;; define the keymap
   (defvar smf/citar-embark-become-map
     (let ((map (make-sparse-keymap)))
-      (define-key map (kbd "C-c n b") 'citar-open-notes)
       (define-key map (kbd "x") 'biblio-arxiv-lookup)
       (define-key map (kbd "c") 'biblio-crossref-lookup)
       (define-key map (kbd "i") 'biblio-ieee-lookup)
@@ -51,7 +40,7 @@
 
 (defun smf/biblio--selection-insert-at-end-of-bibfile-callback (bibtex entry)
   "Add BIBTEX (from ENTRY) to end of a user-specified bibtex file."
-  (let* ((bib-file (car bibtex-completion-bibliography))
+  (let* ((bib-file (car citar-bibliography))
          (buf (or (get-file-buffer bib-file)
                   (find-buffer-visiting bib-file)))
          (need-close (not buf))
@@ -93,7 +82,7 @@
          "\\[biblio--selection-extended-action]: Extended action"
          "\\[biblio--selection-browse]: Open in browser"
          (format "\\[smf/biblio-selection-insert-end-of-bibfile]: Append to %s"
-                 (abbreviate-file-name (car bibtex-completion-bibliography)))))))))
+                 (abbreviate-file-name (car citar-bibliography)))))))))
 
 
 (defun smf/citar-find-article-id (citekey)
@@ -235,7 +224,7 @@ betterbib to update your bibtex database."
   (when-let* ((id (smf/citar-find-article-id citekey))
               (url (format "https://sci-hub.se/%s" id))
               (save-file (format "%s/%s.pdf"
-                                 (car bibtex-completion-library-path)
+                                 (car citar-library-path)
                                  citekey)))
     (smf/xwidget-webkit-ddos-download url li2011boundary
                                       "document.querySelector('#pdf').src"
