@@ -16,6 +16,10 @@
 (package! unfill)
 (package! whole-line-or-region)
 
+;; REVIEW https://github.com/doomemacs/doomemacs/pull/7727 this is temporary
+;; until doom refactors and moves to a new window manager
+(package! buffer-name-relative :pin "b1e878e97df0cd02348e1aed95738c0c3a32f148")
+
 ;; TODO port to doom org +pretty
 (package! org-fragtog)
 (package! engrave-faces)

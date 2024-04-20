@@ -85,8 +85,11 @@ Add it to a hook like so:
 
 ;; NOTE https://github.com/joaotavora/sly/issues/535
 (after! orderless
-  (setq-hook! 'sly-mode-hook completion-styles '(basic
-                                                 partial-completion emacs22)))
+  (setq-hook! 'sly-mode-hook completion-styles
+              '(basic partial-completion emacs22)))
+
+(use-package! buffer-name-relative
+  :hook (doom-first-buffer . buffer-name-relative-mode))
 
 ;; load personal modules
 (load! "+utils")
