@@ -12,10 +12,7 @@
 
 (after! citar
   (setq citar-bibliography (list "~/Nextcloud/refs/main.bib")
-        citar-library-paths (list "~/Nextcloud/refs/pdfs"))
-
-  (map! :map citar-map
-        "a" #'citar-add-file-to-library))
+        citar-library-paths (list "~/Nextcloud/refs/pdfs")))
 
 (after! embark
   ;; define the keymap
