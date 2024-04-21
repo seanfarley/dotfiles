@@ -41,9 +41,6 @@ Add it to a hook like so:
 
 (add-hook! ssh-config-mode #'display-line-numbers-mode)
 
-(add-hook! (emacs-lisp-mode ielm-mode)
-           #'flycheck-package-setup)
-
 (after! flycheck
   (add-to-list 'flycheck-gfortran-include-path "."))
 
