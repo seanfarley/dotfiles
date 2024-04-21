@@ -54,7 +54,6 @@ Add it to a hook like so:
 
 (add-hook! doom-first-input
            #'+default/restart-server
-           #'global-dot-mode
            #'whole-line-or-region-global-mode)
 
 (setq split-height-threshold nil
