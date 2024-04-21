@@ -54,6 +54,7 @@ Add it to a hook like so:
 
 (add-hook! doom-first-input
            #'+default/restart-server
+           #'global-color-identifiers-mode
            #'whole-line-or-region-global-mode)
 
 (setq split-height-threshold nil
@@ -66,8 +67,6 @@ Add it to a hook like so:
                  #'doom--only-use-generic-command-a)
   (advice-add #'+vertico-file-search
               :around #'yadm-doom-vertico-file-search))
-
-(add-hook 'after-init-hook 'global-color-identifiers-mode)
 
 (after! smartparens
   (setq sp-navigate-reindent-after-up-in-string nil))
