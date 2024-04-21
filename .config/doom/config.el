@@ -44,12 +44,6 @@ Add it to a hook like so:
 (after! flycheck
   (add-to-list 'flycheck-gfortran-include-path "."))
 
-(use-package! page-break-lines
-  :config
-  (cl-pushnew 'prog-mode page-break-lines-modes)
-  (cl-pushnew 'fundamental-mode page-break-lines-modes)
-  (cl-pushnew 'text-mode page-break-lines-modes))
-
 (after! shr
   (setq shr-color-visible-luminance-min 80
         shr-max-width 80))
@@ -61,8 +55,7 @@ Add it to a hook like so:
 (add-hook! doom-first-input
            #'+default/restart-server
            #'global-dot-mode
-           #'whole-line-or-region-global-mode
-           #'global-page-break-lines-mode)
+           #'whole-line-or-region-global-mode)
 
 (setq split-height-threshold nil
       split-width-threshold 0)

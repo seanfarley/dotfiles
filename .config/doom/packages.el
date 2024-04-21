@@ -9,7 +9,6 @@
 (package! color-identifiers-mode)
 (package! dot-mode)
 (package! meson-mode)
-(package! page-break-lines)
 (package! ssh-config-mode)
 (package! yadm :recipe (:local-repo "~/projects/yadm.el"))
 
