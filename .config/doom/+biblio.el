@@ -14,27 +14,6 @@
   (setq citar-bibliography (list "~/Nextcloud/refs/main.bib")
         citar-library-paths (list "~/Nextcloud/refs/pdfs")))
 
-(after! embark
-  ;; define the keymap
-  (defvar smf/citar-embark-become-map
-    (let ((map (make-sparse-keymap)))
-      (define-key map (kbd "x") 'biblio-arxiv-lookup)
-      (define-key map (kbd "c") 'biblio-crossref-lookup)
-      (define-key map (kbd "i") 'biblio-ieee-lookup)
-      (define-key map (kbd "h") 'biblio-hal-lookup)
-      (define-key map (kbd "s") 'biblio-dissemin-lookup)
-      (define-key map (kbd "b") 'biblio-dblp-lookup)
-      (define-key map (kbd "g") 'biblio-gscholar-lookup)
-      map)
-    "Citar Embark become keymap for biblio lookup.")
-
-  ;; tell embark about the keymap
-  (add-to-list 'embark-become-keymaps #'smf/citar-embark-become-map))
-
-(defadvice! smf/biblio-vertico ()
-  :override #'biblio--completing-read-function
-  #'completing-read-default)
-
 (defun smf/biblio--selection-insert-at-end-of-bibfile-callback (bibtex entry)
   "Add BIBTEX (from ENTRY) to end of a user-specified bibtex file."
   (let* ((bib-file (car citar-bibliography))
